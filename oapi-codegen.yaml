@@ -1,0 +1,22 @@
+# Code generated from oapi-codegen.yaml.tmpl by surface-gen; DO NOT EDIT.
+# Generated base for the Go SDK (ADR-0044). Never hand-edit internal/oapi/.
+#
+# The low-level client is filtered to the curated operations the SDK exposes;
+# models are kept whole (skip-prune) because the webhook event union is not
+# reachable from any operation and would otherwise be pruned. Input is the
+# 3.0-compatible spec produced by backend/scripts/openapi-compat.go.
+#
+# The include-operation-ids list below is generated from the surface catalog
+# (backend/openapi/surfaces.yaml). Edit the catalog, not this list — to change
+# what the Go SDK exposes, change the catalog and regenerate.
+package: oapi
+generate:
+  client: true
+  models: true
+output: internal/oapi/oapi.gen.go
+output-options:
+  skip-prune: true
+  include-operation-ids:
+    - createEmailMessage
+    - getEmailMessage
+    - listEmailMessages

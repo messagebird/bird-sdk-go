@@ -1,0 +1,27 @@
+# CI for the bird-sdk-go release mirror. This file is the proof that the
+# exported tree builds and tests with NO Bird monorepo context — it runs on a
+# GitHub-hosted runner against the checked-in mirror content only.
+#
+# Source of truth: clients/sdk-go/.mirror/ in the Bird monorepo. Do not edit on
+# the mirror; changes are synced from the monorepo.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go build ./...
+      - run: go test ./...
