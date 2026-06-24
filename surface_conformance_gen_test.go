@@ -18,6 +18,7 @@ func TestSurfaceConformance(t *testing.T) {
 		t.Fatalf("construct client: %v", err)
 	}
 	_ = c.Email.Send
+	_ = c.Email.SendBatch
 	_ = c.Email.Get
 	_ = c.Email.List
 	_ = c.Webhooks.Unwrap

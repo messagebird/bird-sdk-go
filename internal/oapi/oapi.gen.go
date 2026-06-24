@@ -359,13 +359,13 @@ func (e ErrorBodyType) Valid() bool {
 
 // Defines values for EventDomainFailedType.
 const (
-	EventDomainFailedTypeDomainFailed EventDomainFailedType = "domain.failed"
+	DomainFailed EventDomainFailedType = "domain.failed"
 )
 
 // Valid indicates whether the value is a known member of the EventDomainFailedType enum.
 func (e EventDomainFailedType) Valid() bool {
 	switch e {
-	case EventDomainFailedTypeDomainFailed:
+	case DomainFailed:
 		return true
 	default:
 		return false
@@ -597,6 +597,111 @@ func (e EventEmailUnsubscribedType) Valid() bool {
 	}
 }
 
+// Defines values for EventSMSAcceptedType.
+const (
+	SmsAccepted EventSMSAcceptedType = "sms.accepted"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSAcceptedType enum.
+func (e EventSMSAcceptedType) Valid() bool {
+	switch e {
+	case SmsAccepted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSDeliveredType.
+const (
+	SmsDelivered EventSMSDeliveredType = "sms.delivered"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSDeliveredType enum.
+func (e EventSMSDeliveredType) Valid() bool {
+	switch e {
+	case SmsDelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSExpiredType.
+const (
+	SmsExpired EventSMSExpiredType = "sms.expired"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSExpiredType enum.
+func (e EventSMSExpiredType) Valid() bool {
+	switch e {
+	case SmsExpired:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSFailedType.
+const (
+	SmsFailed EventSMSFailedType = "sms.failed"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSFailedType enum.
+func (e EventSMSFailedType) Valid() bool {
+	switch e {
+	case SmsFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSRejectedType.
+const (
+	SmsRejected EventSMSRejectedType = "sms.rejected"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSRejectedType enum.
+func (e EventSMSRejectedType) Valid() bool {
+	switch e {
+	case SmsRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSSentType.
+const (
+	SmsSent EventSMSSentType = "sms.sent"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSSentType enum.
+func (e EventSMSSentType) Valid() bool {
+	switch e {
+	case SmsSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSUndeliveredType.
+const (
+	SmsUndelivered EventSMSUndeliveredType = "sms.undelivered"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSUndeliveredType enum.
+func (e EventSMSUndeliveredType) Valid() bool {
+	switch e {
+	case SmsUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RecipientRole.
 const (
 	Bcc RecipientRole = "bcc"
@@ -612,6 +717,48 @@ func (e RecipientRole) Valid() bool {
 	case Cc:
 		return true
 	case To:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSErrorCode.
+const (
+	BlockedByCarrier    SMSErrorCode = "blocked_by_carrier"
+	BlockedByRecipient  SMSErrorCode = "blocked_by_recipient"
+	ContentRejected     SMSErrorCode = "content_rejected"
+	InvalidDestination  SMSErrorCode = "invalid_destination"
+	LandlineUnreachable SMSErrorCode = "landline_unreachable"
+	ProviderUnavailable SMSErrorCode = "provider_unavailable"
+	RecipientOptedOut   SMSErrorCode = "recipient_opted_out"
+	SenderUnregistered  SMSErrorCode = "sender_unregistered"
+	Unknown             SMSErrorCode = "unknown"
+	Unreachable         SMSErrorCode = "unreachable"
+)
+
+// Valid indicates whether the value is a known member of the SMSErrorCode enum.
+func (e SMSErrorCode) Valid() bool {
+	switch e {
+	case BlockedByCarrier:
+		return true
+	case BlockedByRecipient:
+		return true
+	case ContentRejected:
+		return true
+	case InvalidDestination:
+		return true
+	case LandlineUnreachable:
+		return true
+	case ProviderUnavailable:
+		return true
+	case RecipientOptedOut:
+		return true
+	case SenderUnregistered:
+		return true
+	case Unknown:
+		return true
+	case Unreachable:
 		return true
 	default:
 		return false
@@ -801,66 +948,6 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 	}
 }
 
-// Defines values for WebhookEventType.
-const (
-	WebhookEventTypeDomainFailed            WebhookEventType = "domain.failed"
-	WebhookEventTypeDomainVerified          WebhookEventType = "domain.verified"
-	WebhookEventTypeEmailAccepted           WebhookEventType = "email.accepted"
-	WebhookEventTypeEmailBounced            WebhookEventType = "email.bounced"
-	WebhookEventTypeEmailClicked            WebhookEventType = "email.clicked"
-	WebhookEventTypeEmailComplained         WebhookEventType = "email.complained"
-	WebhookEventTypeEmailDeferred           WebhookEventType = "email.deferred"
-	WebhookEventTypeEmailDelivered          WebhookEventType = "email.delivered"
-	WebhookEventTypeEmailListUnsubscribed   WebhookEventType = "email.list_unsubscribed"
-	WebhookEventTypeEmailOpened             WebhookEventType = "email.opened"
-	WebhookEventTypeEmailOutOfBandBounce    WebhookEventType = "email.out_of_band_bounce"
-	WebhookEventTypeEmailProcessed          WebhookEventType = "email.processed"
-	WebhookEventTypeEmailReceived           WebhookEventType = "email.received"
-	WebhookEventTypeEmailRejected           WebhookEventType = "email.rejected"
-	WebhookEventTypeEmailSuppressionCreated WebhookEventType = "email_suppression.created"
-	WebhookEventTypeEmailUnsubscribed       WebhookEventType = "email.unsubscribed"
-)
-
-// Valid indicates whether the value is a known member of the WebhookEventType enum.
-func (e WebhookEventType) Valid() bool {
-	switch e {
-	case WebhookEventTypeDomainFailed:
-		return true
-	case WebhookEventTypeDomainVerified:
-		return true
-	case WebhookEventTypeEmailAccepted:
-		return true
-	case WebhookEventTypeEmailBounced:
-		return true
-	case WebhookEventTypeEmailClicked:
-		return true
-	case WebhookEventTypeEmailComplained:
-		return true
-	case WebhookEventTypeEmailDeferred:
-		return true
-	case WebhookEventTypeEmailDelivered:
-		return true
-	case WebhookEventTypeEmailListUnsubscribed:
-		return true
-	case WebhookEventTypeEmailOpened:
-		return true
-	case WebhookEventTypeEmailOutOfBandBounce:
-		return true
-	case WebhookEventTypeEmailProcessed:
-		return true
-	case WebhookEventTypeEmailReceived:
-		return true
-	case WebhookEventTypeEmailRejected:
-		return true
-	case WebhookEventTypeEmailSuppressionCreated:
-		return true
-	case WebhookEventTypeEmailUnsubscribed:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for WebhookTestResponseStatus.
 const (
 	WebhookTestResponseStatusDelivered WebhookTestResponseStatus = "delivered"
@@ -970,11 +1057,11 @@ type EmailAddressInput0 = string
 
 // EmailAttachment File attached to an email send. The attachment bytes are passed as base64-encoded `content` directly in the request body (required). The `path` field (provide a URL and Bird fetches the attachment for you) is a preview feature and currently unavailable. Requests are rejected with 422 if `content` is missing — `path` alone does not satisfy the schema. When `path` becomes generally available, the schema will be relaxed so that exactly one of `content` or `path` is required.
 // Inline images for `<img src="cid:..."/>` references in the HTML body use the `content_id` field together with `content`.
-// Total message size (body + inline images + all attachments) is capped at **20 MB on the wire (post-base64)**. Sends above this limit are rejected. As a rule of thumb, raw file content should stay under ~15 MB to leave headroom after base64 encoding.
-// Recipient-side delivery reality: most consumer inboxes cap at 20–25 MB (Gmail 25 MB, Outlook desktop 20 MB, Exchange corporate often 10 MB). Sends close to Bird's 20 MB cap may be accepted by Bird but bounce at the recipient's mail server.
-// Sends with attachments cannot use `POST /v1/emails/batch`; use the single-send endpoint instead. Certain executable / script content types are rejected at validation time.
+// Bird enforces a **20 MB estimated generated message size** cap. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. This is not a raw file-size cap. As a rule of thumb, keep total raw attachment content at or below **15 MB** so the generated message has enough room after encoding and MIME wrapping.
+// Recipient-side delivery reality: downstream limits vary by product and tenant/server policy. Gmail personal and Outlook.com document 25 MB attachment limits. Exchange Online defaults to 35 MB send / 36 MB receive, but admins can configure limits; on-prem Exchange Server organizational defaults are 10 MB. Sends close to Bird's 20 MB generated-message cap may be accepted by Bird but bounce at the recipient's mail server.
+// Batch sends can include attachments on individual message objects. Each message still has the 20 MB estimated generated-size cap, and the serialized JSON request body for the whole batch has a hard 20 MB cap. Certain executable / script content types are rejected at validation time.
 type EmailAttachment struct {
-	// Content Base64-encoded attachment bytes. Required. Counts against the 20 MB per-send wire cap.
+	// Content Base64-encoded attachment bytes. Required. Counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
 	Content []byte `json:"content"`
 
 	// ContentId RFC 2392 Content-ID. When set, the attachment is rendered inline and can be referenced from the HTML body as `<img src="cid:{content_id}"/>`. When omitted, the attachment is rendered as a regular file attachment.
@@ -986,11 +1073,14 @@ type EmailAttachment struct {
 	// Filename Filename shown to the recipient. Required.
 	Filename string `json:"filename"`
 
-	// Path Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `unsupported_feature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts against the 20 MB per-send wire cap.
+	// Path Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `unsupported_feature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
 	Path *string `json:"path,omitempty"`
 }
 
-// EmailAttachmentRef Attachment metadata returned on API reads. The original content is not echoed back — only the metadata needed for display and audit. To fetch the raw attachment content (when storage is enabled), use `GET /v1/email/messages/{email_id}/attachments/{attachment_id}` — endpoint reserved for a future content-retention product.
+// EmailAttachmentID defines model for EmailAttachmentID.
+type EmailAttachmentID = string
+
+// EmailAttachmentRef Attachment metadata returned on API reads. The original content is not echoed back inline — only the metadata needed for display and audit. To download the raw attachment bytes (while content storage is enabled and within the retention window), use `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`, which returns the file with its own content type and a Content-Disposition filename.
 type EmailAttachmentRef struct {
 	// ContentId The Content-ID set at send time, when the attachment was inline.
 	ContentId *string `json:"content_id,omitempty"`
@@ -999,10 +1089,8 @@ type EmailAttachmentRef struct {
 	ContentType *string `json:"content_type,omitempty"`
 
 	// Filename Filename as shown to the recipient.
-	Filename string `json:"filename"`
-
-	// Id Attachment ID, stable per email send.
-	Id *string `json:"id,omitempty"`
+	Filename string             `json:"filename"`
+	Id       *EmailAttachmentID `json:"id,omitempty"`
 
 	// Inline True when the attachment was sent inline via a `content_id` reference in the HTML body, false for regular file attachments.
 	Inline *bool `json:"inline,omitempty"`
@@ -1050,9 +1138,8 @@ type EmailEvent struct {
 	// SendingIp The IP address Bird used to send this message. Useful when investigating deliverability issues that correlate with specific IPs. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
 	SendingIp *string `json:"sending_ip,omitempty"`
 
-	// Type Event type. One of: `email.accepted`, `email.processed`, `email.deferred`, `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, `email.complained`, `email.rejected`, `email.opened`, `email.clicked`, `email.unsubscribed`, `email.list_unsubscribed`.
-	// `email.processed` means Bird has processed the message and queued it for delivery.
-	Type string `json:"type"`
+	// Type Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	Type EmailEventType `json:"type"`
 
 	// Url The clicked URL. Present on `email.clicked` events.
 	Url *string `json:"url,omitempty"`
@@ -1081,6 +1168,9 @@ type EmailEventList struct {
 	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// EmailEventType Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+type EmailEventType = string
 
 // EmailID defines model for EmailID.
 type EmailID = string
@@ -1131,7 +1221,7 @@ type EmailMessage struct {
 	Id   EmailID      `json:"id"`
 
 	// InReplyToMessageId The message this one is a reply to, if any.
-	InReplyToMessageId *string `json:"in_reply_to_message_id,omitempty"`
+	InReplyToMessageId *EmailID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message object and echoed in webhook payloads. See EmailMessageSendRequest for the tags vs metadata distinction.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -1145,7 +1235,7 @@ type EmailMessage struct {
 	// ProcessingLatencyMs Time between Bird accepting the send and the message being processed for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
 	ProcessingLatencyMs *int `json:"processing_latency_ms,omitempty"`
 
-	// RejectedCount Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/emails/{id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
+	// RejectedCount Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
 	RejectedCount *int `json:"rejected_count,omitempty"`
 
 	// ReplyTo Reply-To addresses, if set on the send. Empty/null when no Reply-To was provided.
@@ -1198,7 +1288,7 @@ type EmailMessageBatchItemCategory string
 // EmailMessageBatchItemStatus Initial status of this message in the batch.
 type EmailMessageBatchItemStatus string
 
-// EmailMessageBatchRequest Batch of email message send requests. All items are validated before any are queued.
+// EmailMessageBatchRequest Batch of email message send requests. All items are validated before any are queued. Attachments are allowed on individual messages. Each message must stay within the 20 MB estimated generated message-size cap. The serialized JSON request body for the batch has a hard 20 MB cap.
 type EmailMessageBatchRequest = []EmailMessageSendRequest
 
 // EmailMessageBatchResponse defines model for EmailMessageBatchResponse.
@@ -1233,7 +1323,7 @@ type EmailMessageList struct {
 
 // EmailMessageSendRequest defines model for EmailMessageSendRequest.
 type EmailMessageSendRequest struct {
-	// Attachments File attachments. Total message size (body + inline images + all attachments) capped at 20 MB post-base64. Raw file content should stay under ~15 MB to leave room after encoding. Sends with attachments cannot use `POST /v1/emails/batch`; use the single-send endpoint. See the EmailAttachment schema for the full field contract.
+	// Attachments File attachments. Bird rejects sends whose estimated generated message size exceeds 20 MB. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. Keep total raw attachment content at or below 15 MB for reliable headroom. In batch sends, this per-message cap still applies and the serialized JSON request body for the whole batch has a hard 20 MB cap. See the EmailAttachment schema for the full field contract.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
@@ -1258,8 +1348,8 @@ type EmailMessageSendRequest struct {
 	Html               *string  `json:"html,omitempty"`
 	InReplyToMessageId *EmailID `json:"in_reply_to_message_id,omitempty"`
 
-	// IpPool ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
-	IpPool *string `json:"ip_pool,omitempty"`
+	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+	IpPoolId *string `json:"ip_pool_id,omitempty"`
 
 	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -1812,7 +1902,7 @@ type EventEmailProcessedType string
 // EventEmailProcessedData Identity fields shared by every email lifecycle event payload.
 type EventEmailProcessedData = EventEmailBase
 
-// EventEmailReceived Bird received and parsed an inbound email. The payload includes message metadata, extracted text, and threading headers (not the raw body). Additional fields — cc/bcc recipients, attachment metadata, and authentication results — will be added in a future release.
+// EventEmailReceived Bird received and parsed an inbound email. The payload carries the message's identifiers, sender and recipients, subject, threading reference, and authentication results — enough to route and triage without a fetch. Fetch the body, full headers, and attachments with GET /v1/email/inbound-messages/{id}.
 type EventEmailReceived struct {
 	// Data Payload of the email.received event.
 	Data EventEmailReceivedData `json:"data"`
@@ -1829,18 +1919,34 @@ type EventEmailReceivedType string
 
 // EventEmailReceivedData Payload of the email.received event.
 type EventEmailReceivedData struct {
+	// DkimPass Whether DKIM passed for the sender, or null when the result did not carry a DKIM verdict.
+	DkimPass *bool `json:"dkim_pass,omitempty"`
+
+	// DmarcPass Whether DMARC passed for the sender, or null when the result did not carry a DMARC verdict.
+	DmarcPass *bool `json:"dmarc_pass,omitempty"`
+
 	// From Envelope-from address.
 	From openapi_types.Email `json:"from"`
 
-	// InboundMessageId ID of the received email (rem_ prefix). Use it with GET /v1/email/inbound-messages/{id} to fetch the body.
-	InboundMessageId string `json:"inbound_message_id"`
+	// InReplyTo In-Reply-To header — the Message-ID this message replies to, or null when it is not a reply.
+	InReplyTo        *string               `json:"in_reply_to,omitempty"`
+	InboundMessageId InboundEmailMessageID `json:"inbound_message_id"`
 
 	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
-	// Subject Subject line as received.
-	Subject     string      `json:"subject"`
-	WorkspaceId WorkspaceID `json:"workspace_id"`
+	// SpamScore Spam score for the message. Always null at present; reserved for a future content-scoring capability.
+	SpamScore *float32 `json:"spam_score,omitempty"`
+
+	// SpfPass Whether SPF passed for the sender, or null when the result did not carry an SPF verdict.
+	SpfPass *bool `json:"spf_pass,omitempty"`
+
+	// Subject Subject line as received, or null when the message had no subject.
+	Subject *string `json:"subject"`
+
+	// To Recipient addresses the message was sent to.
+	To          []openapi_types.Email `json:"to"`
+	WorkspaceId WorkspaceID           `json:"workspace_id"`
 }
 
 // EventEmailRejected Bird rejected the email before sending it (suppression list hit, transmission failure, or a content/policy guard). Fires once per recipient.
@@ -1914,11 +2020,279 @@ type EventEmailUnsubscribedType string
 // EventEmailUnsubscribedData Identity fields shared by every email lifecycle event payload.
 type EventEmailUnsubscribedData = EventEmailBase
 
+// EventSMSAccepted Bird accepted the SMS send request and queued it for processing.
+type EventSMSAccepted struct {
+	// Data Payload of the sms.accepted event.
+	Data EventSMSAcceptedData `json:"data"`
+
+	// Timestamp Time Bird accepted the request.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSAcceptedType `json:"type"`
+}
+
+// EventSMSAcceptedType Event type.
+type EventSMSAcceptedType string
+
+// EventSMSAcceptedData Identity fields shared by every SMS lifecycle event payload.
+type EventSMSAcceptedData = EventSMSBase
+
+// EventSMSBase Identity fields shared by every SMS lifecycle event payload.
+type EventSMSBase struct {
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventSMSDelivered The carrier confirmed delivery of the message to the recipient handset.
+type EventSMSDelivered struct {
+	// Data Payload of the sms.delivered event.
+	Data EventSMSDeliveredData `json:"data"`
+
+	// Timestamp Time the carrier confirmed delivery.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSDeliveredType `json:"type"`
+}
+
+// EventSMSDeliveredType Event type.
+type EventSMSDeliveredType string
+
+// EventSMSDeliveredData defines model for EventSMSDeliveredData.
+type EventSMSDeliveredData struct {
+	// Carrier Carrier that delivered the message, or null when not known.
+	Carrier *string `json:"carrier"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
+	MccMnc *string `json:"mcc_mnc"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventSMSExpired The message's validity period elapsed before it could be delivered.
+type EventSMSExpired struct {
+	// Data Payload of the sms.expired event.
+	Data EventSMSExpiredData `json:"data"`
+
+	// Timestamp Time the message expired.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSExpiredType `json:"type"`
+}
+
+// EventSMSExpiredType Event type.
+type EventSMSExpiredType string
+
+// EventSMSExpiredData Identity fields shared by every SMS lifecycle event payload.
+type EventSMSExpiredData = EventSMSBase
+
+// EventSMSFailed The message terminally failed and will not be delivered.
+type EventSMSFailed struct {
+	// Data Payload of the sms.failed event.
+	Data EventSMSFailedData `json:"data"`
+
+	// Timestamp Time the failure was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSFailedType `json:"type"`
+}
+
+// EventSMSFailedType Event type.
+type EventSMSFailedType string
+
+// EventSMSFailedData defines model for EventSMSFailedData.
+type EventSMSFailedData struct {
+	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	Error *SMSError `json:"error,omitempty"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventSMSRejected Bird rejected the message before sending it to the carrier (invalid destination, suppression, or a content/policy guard).
+type EventSMSRejected struct {
+	// Data Payload of the sms.rejected event.
+	Data EventSMSRejectedData `json:"data"`
+
+	// Timestamp Time the rejection was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSRejectedType `json:"type"`
+}
+
+// EventSMSRejectedType Event type.
+type EventSMSRejectedType string
+
+// EventSMSRejectedData defines model for EventSMSRejectedData.
+type EventSMSRejectedData struct {
+	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	Error *SMSError `json:"error,omitempty"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventSMSSent Bird handed the message to the carrier for delivery.
+type EventSMSSent struct {
+	// Data Payload of the sms.sent event.
+	Data EventSMSSentData `json:"data"`
+
+	// Timestamp Time the message was handed to the carrier.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSSentType `json:"type"`
+}
+
+// EventSMSSentType Event type.
+type EventSMSSentType string
+
+// EventSMSSentData defines model for EventSMSSentData.
+type EventSMSSentData struct {
+	// Carrier Carrier that handled the message, or null when not known.
+	Carrier *string `json:"carrier"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
+	MccMnc *string `json:"mcc_mnc"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message.
+type EventSMSUndelivered struct {
+	// Data Payload of the sms.undelivered event.
+	Data EventSMSUndeliveredData `json:"data"`
+
+	// Timestamp Time the non-delivery was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSUndeliveredType `json:"type"`
+}
+
+// EventSMSUndeliveredType Event type.
+type EventSMSUndeliveredType string
+
+// EventSMSUndeliveredData defines model for EventSMSUndeliveredData.
+type EventSMSUndeliveredData struct {
+	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	Error *SMSError `json:"error,omitempty"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]SMSTag `json:"tags"`
+
+	// To Recipient phone number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// InboundEmailMessageID defines model for InboundEmailMessageID.
+type InboundEmailMessageID = string
+
 // RecipientID defines model for RecipientID.
 type RecipientID = string
 
 // RecipientRole Envelope position of a recipient on an outbound email event.
 type RecipientRole string
+
+// SMSError Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+type SMSError struct {
+	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
+	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
+
+	// Code Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `unknown` — an unmapped failure.
+	Code SMSErrorCode `json:"code"`
+
+	// Description Human-readable explanation of the failure.
+	Description string `json:"description"`
+
+	// OccurredAt When the failure occurred.
+	OccurredAt time.Time `json:"occurred_at"`
+}
+
+// SMSErrorCode Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `unknown` — an unmapped failure.
+type SMSErrorCode string
+
+// SMSMessageID defines model for SMSMessageID.
+type SMSMessageID = string
+
+// SMSTag Structured key/value tag attached to an SMS message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
+// Tag count and per-tag size are capped to keep per-send tag payloads small — see SMSMessageSendRequest for the array maximum.
+type SMSTag struct {
+	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
+	Name string `json:"name"`
+
+	// Value Tag value. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 64 characters.
+	Value string `json:"value"`
+}
 
 // Suppression defines model for Suppression.
 type Suppression struct {
@@ -1932,10 +2306,10 @@ type Suppression struct {
 	Scope     SuppressionScope     `json:"scope"`
 
 	// SourceEmailId ID of the email that triggered suppression. Null for manual additions.
-	SourceEmailId *string `json:"source_email_id,omitempty"`
+	SourceEmailId *EmailID `json:"source_email_id,omitempty"`
 
 	// SourceRecipientId ID of the recipient event that triggered suppression. Null for manual additions.
-	SourceRecipientId *string `json:"source_recipient_id,omitempty"`
+	SourceRecipientId *RecipientID `json:"source_recipient_id,omitempty"`
 }
 
 // SuppressionAppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences.
@@ -1994,9 +2368,9 @@ type WebhookAttempt struct {
 	AttemptedAt *time.Time `json:"attempted_at,omitempty"`
 
 	// EventId Bird's source event ID, stable across retries of the same event. Null only for older attempts recorded before event IDs were available.
-	EventId *string `json:"event_id,omitempty"`
+	EventId *WebhookEventID `json:"event_id,omitempty"`
 
-	// EventType Known webhook event type.
+	// EventType Webhook event type. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
 	EventType WebhookEventType `json:"event_type"`
 
 	// Id Unique identifier for this delivery attempt.
@@ -2118,8 +2492,11 @@ type WebhookEvent struct {
 	union json.RawMessage
 }
 
-// WebhookEventType Known webhook event type.
-type WebhookEventType string
+// WebhookEventID defines model for WebhookEventID.
+type WebhookEventID = string
+
+// WebhookEventType Webhook event type. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+type WebhookEventType = string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
 type WebhookReplayRequest struct {
@@ -2259,6 +2636,9 @@ type InternalError = Error
 // NotFound defines model for NotFound.
 type NotFound = Error
 
+// PayloadTooLarge defines model for PayloadTooLarge.
+type PayloadTooLarge = Error
+
 // PaymentRequired defines model for PaymentRequired.
 type PaymentRequired = Error
 
@@ -2285,6 +2665,20 @@ type bearerAuthContextKey string
 
 // cookieAuthContextKey is the context key for CookieAuth security scheme
 type cookieAuthContextKey string
+
+// CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
+type CreateEmailMessageBatchParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
 
 // ListEmailMessagesParams defines parameters for ListEmailMessages.
 type ListEmailMessagesParams struct {
@@ -2338,6 +2732,9 @@ type CreateEmailMessageParams struct {
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
+
+// CreateEmailMessageBatchJSONRequestBody defines body for CreateEmailMessageBatch for application/json ContentType.
+type CreateEmailMessageBatchJSONRequestBody = EmailMessageBatchRequest
 
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
@@ -2852,6 +3249,202 @@ func (t *WebhookEvent) MergeEventEmailSuppressionCreated(v EventEmailSuppression
 	return err
 }
 
+// AsEventSMSAccepted returns the union data inside the WebhookEvent as a EventSMSAccepted
+func (t WebhookEvent) AsEventSMSAccepted() (EventSMSAccepted, error) {
+	var body EventSMSAccepted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSAccepted overwrites any union data inside the WebhookEvent as the provided EventSMSAccepted
+func (t *WebhookEvent) FromEventSMSAccepted(v EventSMSAccepted) error {
+	v.Type = "sms.accepted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSAccepted performs a merge with any union data inside the WebhookEvent, using the provided EventSMSAccepted
+func (t *WebhookEvent) MergeEventSMSAccepted(v EventSMSAccepted) error {
+	v.Type = "sms.accepted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSDelivered returns the union data inside the WebhookEvent as a EventSMSDelivered
+func (t WebhookEvent) AsEventSMSDelivered() (EventSMSDelivered, error) {
+	var body EventSMSDelivered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSDelivered overwrites any union data inside the WebhookEvent as the provided EventSMSDelivered
+func (t *WebhookEvent) FromEventSMSDelivered(v EventSMSDelivered) error {
+	v.Type = "sms.delivered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSDelivered performs a merge with any union data inside the WebhookEvent, using the provided EventSMSDelivered
+func (t *WebhookEvent) MergeEventSMSDelivered(v EventSMSDelivered) error {
+	v.Type = "sms.delivered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSExpired returns the union data inside the WebhookEvent as a EventSMSExpired
+func (t WebhookEvent) AsEventSMSExpired() (EventSMSExpired, error) {
+	var body EventSMSExpired
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSExpired overwrites any union data inside the WebhookEvent as the provided EventSMSExpired
+func (t *WebhookEvent) FromEventSMSExpired(v EventSMSExpired) error {
+	v.Type = "sms.expired"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSExpired performs a merge with any union data inside the WebhookEvent, using the provided EventSMSExpired
+func (t *WebhookEvent) MergeEventSMSExpired(v EventSMSExpired) error {
+	v.Type = "sms.expired"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSFailed returns the union data inside the WebhookEvent as a EventSMSFailed
+func (t WebhookEvent) AsEventSMSFailed() (EventSMSFailed, error) {
+	var body EventSMSFailed
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSFailed overwrites any union data inside the WebhookEvent as the provided EventSMSFailed
+func (t *WebhookEvent) FromEventSMSFailed(v EventSMSFailed) error {
+	v.Type = "sms.failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSFailed performs a merge with any union data inside the WebhookEvent, using the provided EventSMSFailed
+func (t *WebhookEvent) MergeEventSMSFailed(v EventSMSFailed) error {
+	v.Type = "sms.failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSRejected returns the union data inside the WebhookEvent as a EventSMSRejected
+func (t WebhookEvent) AsEventSMSRejected() (EventSMSRejected, error) {
+	var body EventSMSRejected
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSRejected overwrites any union data inside the WebhookEvent as the provided EventSMSRejected
+func (t *WebhookEvent) FromEventSMSRejected(v EventSMSRejected) error {
+	v.Type = "sms.rejected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSRejected performs a merge with any union data inside the WebhookEvent, using the provided EventSMSRejected
+func (t *WebhookEvent) MergeEventSMSRejected(v EventSMSRejected) error {
+	v.Type = "sms.rejected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSSent returns the union data inside the WebhookEvent as a EventSMSSent
+func (t WebhookEvent) AsEventSMSSent() (EventSMSSent, error) {
+	var body EventSMSSent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSSent overwrites any union data inside the WebhookEvent as the provided EventSMSSent
+func (t *WebhookEvent) FromEventSMSSent(v EventSMSSent) error {
+	v.Type = "sms.sent"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSSent performs a merge with any union data inside the WebhookEvent, using the provided EventSMSSent
+func (t *WebhookEvent) MergeEventSMSSent(v EventSMSSent) error {
+	v.Type = "sms.sent"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSUndelivered returns the union data inside the WebhookEvent as a EventSMSUndelivered
+func (t WebhookEvent) AsEventSMSUndelivered() (EventSMSUndelivered, error) {
+	var body EventSMSUndelivered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSUndelivered overwrites any union data inside the WebhookEvent as the provided EventSMSUndelivered
+func (t *WebhookEvent) FromEventSMSUndelivered(v EventSMSUndelivered) error {
+	v.Type = "sms.undelivered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSUndelivered performs a merge with any union data inside the WebhookEvent, using the provided EventSMSUndelivered
+func (t *WebhookEvent) MergeEventSMSUndelivered(v EventSMSUndelivered) error {
+	v.Type = "sms.undelivered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t WebhookEvent) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -2898,6 +3491,20 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventEmailUnsubscribed()
 	case "email_suppression.created":
 		return t.AsEventEmailSuppressionCreated()
+	case "sms.accepted":
+		return t.AsEventSMSAccepted()
+	case "sms.delivered":
+		return t.AsEventSMSDelivered()
+	case "sms.expired":
+		return t.AsEventSMSExpired()
+	case "sms.failed":
+		return t.AsEventSMSFailed()
+	case "sms.rejected":
+		return t.AsEventSMSRejected()
+	case "sms.sent":
+		return t.AsEventSMSSent()
+	case "sms.undelivered":
+		return t.AsEventSMSUndelivered()
 	default:
 		return nil, errors.New("unknown discriminator value: " + discriminator)
 	}
@@ -2986,6 +3593,11 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// CreateEmailMessageBatchWithBody request with any body
+	CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailMessageBatch(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailMessages request
 	ListEmailMessages(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -2996,6 +3608,30 @@ type ClientInterface interface {
 
 	// GetEmailMessage request
 	GetEmailMessage(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailMessageBatchRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailMessageBatch(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailMessageBatchRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) ListEmailMessages(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3044,6 +3680,61 @@ func (c *Client) GetEmailMessage(ctx context.Context, messageId EmailID, reqEdit
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewCreateEmailMessageBatchRequest calls the generic CreateEmailMessageBatch builder with application/json body
+func NewCreateEmailMessageBatchRequest(server string, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailMessageBatchRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailMessageBatchRequestWithBody generates requests for CreateEmailMessageBatch with any type of body
+func NewCreateEmailMessageBatchRequestWithBody(server string, params *CreateEmailMessageBatchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/batches")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
 }
 
 // NewListEmailMessagesRequest generates requests for ListEmailMessages
@@ -3340,6 +4031,11 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// CreateEmailMessageBatchWithBodyWithResponse request with any body
+	CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
+
+	CreateEmailMessageBatchWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
+
 	// ListEmailMessagesWithResponse request
 	ListEmailMessagesWithResponse(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailMessagesResponse, error)
 
@@ -3350,6 +4046,44 @@ type ClientWithResponsesInterface interface {
 
 	// GetEmailMessageWithResponse request
 	GetEmailMessageWithResponse(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*GetEmailMessageResponse, error)
+}
+
+type CreateEmailMessageBatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailMessageBatchResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailMessageBatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailMessageBatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailMessageBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
 }
 
 type ListEmailMessagesResponse struct {
@@ -3394,6 +4128,7 @@ type CreateEmailMessageResponse struct {
 	JSON401      *Unauthorized
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
+	JSON413      *PayloadTooLarge
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -3458,6 +4193,23 @@ func (r GetEmailMessageResponse) ContentType() string {
 	return ""
 }
 
+// CreateEmailMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateEmailMessageBatchResponse
+func (c *ClientWithResponses) CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error) {
+	rsp, err := c.CreateEmailMessageBatchWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailMessageBatchResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailMessageBatchWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error) {
+	rsp, err := c.CreateEmailMessageBatch(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailMessageBatchResponse(rsp)
+}
+
 // ListEmailMessagesWithResponse request returning *ListEmailMessagesResponse
 func (c *ClientWithResponses) ListEmailMessagesWithResponse(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailMessagesResponse, error) {
 	rsp, err := c.ListEmailMessages(ctx, params, reqEditors...)
@@ -3491,6 +4243,88 @@ func (c *ClientWithResponses) GetEmailMessageWithResponse(ctx context.Context, m
 		return nil, err
 	}
 	return ParseGetEmailMessageResponse(rsp)
+}
+
+// ParseCreateEmailMessageBatchResponse parses an HTTP response from a CreateEmailMessageBatchWithResponse call
+func ParseCreateEmailMessageBatchResponse(rsp *http.Response) (*CreateEmailMessageBatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailMessageBatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailMessageBatchResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseListEmailMessagesResponse parses an HTTP response from a ListEmailMessagesWithResponse call
@@ -3595,6 +4429,13 @@ func ParseCreateEmailMessageResponse(rsp *http.Response) (*CreateEmailMessageRes
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

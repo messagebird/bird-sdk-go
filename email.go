@@ -37,7 +37,7 @@ type EmailSendParams struct {
 	Headers     map[string]string // custom email headers
 	Attachments []EmailAttachment // file attachments
 	Category    Category          // transactional (default) or marketing
-	IpPool      string            // IP pool ID (ipp_…); workspace default when empty
+	IpPoolId    string            // IP pool ID (ipp_…); workspace default when empty
 	// TrackOpens and TrackClicks are pointers because the server default is
 	// true — a nil leaves the default, false explicitly disables tracking.
 	TrackOpens  *bool
@@ -111,9 +111,9 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		category := oapi.EmailMessageSendRequestCategory(p.Category)
 		body.Category = &category
 	}
-	if p.IpPool != "" {
-		ipPool := p.IpPool
-		body.IpPool = &ipPool
+	if p.IpPoolId != "" {
+		ipPool := p.IpPoolId
+		body.IpPoolId = &ipPool
 	}
 	body.TrackOpens = p.TrackOpens
 	body.TrackClicks = p.TrackClicks
@@ -144,6 +144,59 @@ func (s *EmailService) Send(ctx context.Context, params EmailSendParams, opts ..
 		return nil, err
 	}
 	var out EmailMessage
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// EmailSendBatchParams is a batch of email sends submitted in one request. Each
+// Message is an individual send; the whole batch is validated before any item is
+// queued. The result preserves submission order.
+type EmailSendBatchParams struct {
+	Messages []EmailSendParams
+}
+
+func (p EmailSendBatchParams) toWire() (oapi.EmailMessageBatchRequest, error) {
+	wire := make(oapi.EmailMessageBatchRequest, len(p.Messages))
+	for i, m := range p.Messages {
+		item, err := m.toWire()
+		if err != nil {
+			return nil, fmt.Errorf("bird: batch message %d: %w", i, err)
+		}
+		wire[i] = item
+	}
+	return wire, nil
+}
+
+// SendBatch queues multiple emails in one request and returns one result item
+// per submitted message, in submission order. The whole batch is validated
+// before any item is queued. Like Send, the batch is retried safely: a single
+// idempotency key is reused across attempts, so a retry never double-delivers.
+// Provide your own key with option.WithIdempotencyKey.
+func (s *EmailService) SendBatch(ctx context.Context, params EmailSendBatchParams, opts ...option.RequestOption) (*EmailBatch, error) {
+	cfg, err := s.client.resolve(opts)
+	if err != nil {
+		return nil, err
+	}
+	wire, err := params.toWire()
+	if err != nil {
+		return nil, err
+	}
+	for i := range wire {
+		applyEmailDefaults(&wire[i], cfg.EmailDefaults)
+	}
+	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
+		params := &oapi.CreateEmailMessageBatchParams{}
+		if idempotencyKey != "" {
+			params.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateEmailMessageBatch(ctx, params, wire, s.client.callEditors(cfg)...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailBatch
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

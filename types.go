@@ -27,6 +27,13 @@ type EmailMessage = oapi.EmailMessage
 // EmailMessageList is one page of messages plus its pagination cursors.
 type EmailMessageList = oapi.EmailMessageList
 
+// EmailBatch is the result of a batch send: one item per submitted message, in
+// submission order.
+type EmailBatch = oapi.EmailMessageBatchResponse
+
+// EmailBatchItem is a single message's entry in a batch send result.
+type EmailBatchItem = oapi.EmailMessageBatchItem
+
 // EmailTag is a structured {Name, Value} label.
 type EmailTag = oapi.EmailTag
 
@@ -55,27 +62,10 @@ const (
 	CategoryMarketing     Category = "marketing"
 )
 
-// WebhookEventType is a webhook event's discriminant.
+// WebhookEventType is a webhook event's discriminant. It is an open string:
+// the known values are the EventType* constants in eventtypes.gen.go, and an
+// event type added by a newer server flows through Unwrap as a plain string.
 type WebhookEventType = oapi.WebhookEventType
-
-const (
-	EventTypeDomainFailed            WebhookEventType = "domain.failed"
-	EventTypeDomainVerified          WebhookEventType = "domain.verified"
-	EventTypeEmailAccepted           WebhookEventType = "email.accepted"
-	EventTypeEmailBounced            WebhookEventType = "email.bounced"
-	EventTypeEmailClicked            WebhookEventType = "email.clicked"
-	EventTypeEmailComplained         WebhookEventType = "email.complained"
-	EventTypeEmailDeferred           WebhookEventType = "email.deferred"
-	EventTypeEmailDelivered          WebhookEventType = "email.delivered"
-	EventTypeEmailListUnsubscribed   WebhookEventType = "email.list_unsubscribed"
-	EventTypeEmailOpened             WebhookEventType = "email.opened"
-	EventTypeEmailOutOfBandBounce    WebhookEventType = "email.out_of_band_bounce"
-	EventTypeEmailProcessed          WebhookEventType = "email.processed"
-	EventTypeEmailReceived           WebhookEventType = "email.received"
-	EventTypeEmailRejected           WebhookEventType = "email.rejected"
-	EventTypeEmailSuppressionCreated WebhookEventType = "email_suppression.created"
-	EventTypeEmailUnsubscribed       WebhookEventType = "email.unsubscribed"
-)
 
 // Webhook event payloads, returned by Event.AsAny. Type-switch on these.
 type (

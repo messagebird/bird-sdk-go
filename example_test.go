@@ -89,6 +89,37 @@ func ExampleEmailService_Send_displayNames() {
 	}
 }
 
+// SendBatch queues several emails in one request and returns one result item
+// per message, in submission order.
+func ExampleEmailService_SendBatch() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	batch, err := client.Email.SendBatch(context.Background(), bird.EmailSendBatchParams{
+		Messages: []bird.EmailSendParams{
+			{
+				From:    "onboarding@messagebird.dev",
+				To:      []string{"alice@example.com"},
+				Subject: "Hello, Alice",
+				HTML:    "<p>Welcome!</p>",
+			},
+			{
+				From:    "onboarding@messagebird.dev",
+				To:      []string{"bob@example.com"},
+				Subject: "Hello, Bob",
+				HTML:    "<p>Welcome!</p>",
+			},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, item := range batch.Data {
+		fmt.Println(item.Id)
+	}
+}
+
 // Branch on the typed error hierarchy. The SDK already retries transient
 // failures (timeouts, 429, 5xx), so a returned error is terminal — most callers
 // just propagate it; branch only to act on a category.

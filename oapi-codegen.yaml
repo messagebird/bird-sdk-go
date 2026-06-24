@@ -18,5 +18,6 @@ output-options:
   skip-prune: true
   include-operation-ids:
     - createEmailMessage
+    - createEmailMessageBatch
     - getEmailMessage
     - listEmailMessages

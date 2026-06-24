@@ -92,7 +92,7 @@ func TestSendSuccess(t *testing.T) {
 	if gotAuth != "Bearer bk_eu1_test" {
 		t.Errorf("Authorization = %q", gotAuth)
 	}
-	if gotUA != "bird-sdk-go/0.1.0" {
+	if gotUA != "bird-sdk-go/0.2.0" {
 		t.Errorf("User-Agent = %q", gotUA)
 	}
 	if gotIdem == "" {
@@ -450,7 +450,7 @@ func TestSDKHeadersWinOverCallerHeaders(t *testing.T) {
 	if gotIdem == "caller-key" || gotIdem == "" {
 		t.Errorf("caller overrode Idempotency-Key: %q", gotIdem)
 	}
-	if gotUA != "bird-sdk-go/0.1.0" {
+	if gotUA != "bird-sdk-go/0.2.0" {
 		t.Errorf("caller overrode User-Agent: %q", gotUA)
 	}
 	if gotCustom != "trace-123" {
