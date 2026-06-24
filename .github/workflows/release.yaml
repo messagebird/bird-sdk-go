@@ -1,0 +1,51 @@
+# Cuts a GitHub Release and warms the Go module proxy when a vX.Y.Z tag is pushed
+# to this mirror. Go has no package registry: the tag itself is the published
+# artifact (the module proxy serves it), so there is nothing to upload — this
+# workflow just makes the release visible and proves the tag is installable.
+#
+# Source of truth: clients/sdk-go/.mirror/ in the Bird monorepo — do NOT edit on
+# the mirror; changes are synced from the monorepo by scripts/dev/sdk-release.sh.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # create the GitHub Release
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Warm the module proxy and smoke test
+        if: github.event_name == 'push'
+        run: |
+          ver="${GITHUB_REF_NAME#v}"
+          # Asking the proxy for the tag triggers it to fetch and index the
+          # version; the smoke test then resolves it from a throwaway module.
+          GOPROXY=https://proxy.golang.org go list -m "github.com/messagebird/bird-sdk-go@v${ver}" || true
+          ./scripts/smoke.sh "$ver"
+
+      - name: GitHub Release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Skip if the release already exists, so a re-run doesn't 422.
+        # --notes-from-tag reuses the annotated tag's message (this version's
+        # CHANGELOG section, set by scripts/dev/sdk-release.sh).
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --notes-from-tag --verify-tag
