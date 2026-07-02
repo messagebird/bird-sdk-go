@@ -213,6 +213,36 @@ func (e EmailMessageSendRequestCategory) Valid() bool {
 	}
 }
 
+// Defines values for EmailRecipientBounceType.
+const (
+	EmailRecipientBounceTypeAdmin        EmailRecipientBounceType = "admin"
+	EmailRecipientBounceTypeBlock        EmailRecipientBounceType = "block"
+	EmailRecipientBounceTypeHard         EmailRecipientBounceType = "hard"
+	EmailRecipientBounceTypeLessThannil  EmailRecipientBounceType = "<nil>"
+	EmailRecipientBounceTypeSoft         EmailRecipientBounceType = "soft"
+	EmailRecipientBounceTypeUndetermined EmailRecipientBounceType = "undetermined"
+)
+
+// Valid indicates whether the value is a known member of the EmailRecipientBounceType enum.
+func (e EmailRecipientBounceType) Valid() bool {
+	switch e {
+	case EmailRecipientBounceTypeAdmin:
+		return true
+	case EmailRecipientBounceTypeBlock:
+		return true
+	case EmailRecipientBounceTypeHard:
+		return true
+	case EmailRecipientBounceTypeLessThannil:
+		return true
+	case EmailRecipientBounceTypeSoft:
+		return true
+	case EmailRecipientBounceTypeUndetermined:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailRecipientRejectionReason.
 const (
 	EmailRecipientRejectionReasonGenerationFailure   EmailRecipientRejectionReason = "generation_failure"
@@ -275,22 +305,22 @@ func (e EmailRecipientStatus) Valid() bool {
 
 // Defines values for EmailRejectionReason.
 const (
-	GenerationFailure   EmailRejectionReason = "generation_failure"
-	PolicyRejection     EmailRejectionReason = "policy_rejection"
-	RecipientSuppressed EmailRejectionReason = "recipient_suppressed"
-	TransmissionFailed  EmailRejectionReason = "transmission_failed"
+	EmailRejectionReasonGenerationFailure   EmailRejectionReason = "generation_failure"
+	EmailRejectionReasonPolicyRejection     EmailRejectionReason = "policy_rejection"
+	EmailRejectionReasonRecipientSuppressed EmailRejectionReason = "recipient_suppressed"
+	EmailRejectionReasonTransmissionFailed  EmailRejectionReason = "transmission_failed"
 )
 
 // Valid indicates whether the value is a known member of the EmailRejectionReason enum.
 func (e EmailRejectionReason) Valid() bool {
 	switch e {
-	case GenerationFailure:
+	case EmailRejectionReasonGenerationFailure:
 		return true
-	case PolicyRejection:
+	case EmailRejectionReasonPolicyRejection:
 		return true
-	case RecipientSuppressed:
+	case EmailRejectionReasonRecipientSuppressed:
 		return true
-	case TransmissionFailed:
+	case EmailRejectionReasonTransmissionFailed:
 		return true
 	default:
 		return false
@@ -986,34 +1016,34 @@ func (e OrderDesc) Valid() bool {
 
 // Defines values for ListEmailMessagesParamsStatus.
 const (
-	ListEmailMessagesParamsStatusAccepted       ListEmailMessagesParamsStatus = "accepted"
-	ListEmailMessagesParamsStatusBounced        ListEmailMessagesParamsStatus = "bounced"
-	ListEmailMessagesParamsStatusComplained     ListEmailMessagesParamsStatus = "complained"
-	ListEmailMessagesParamsStatusDeferred       ListEmailMessagesParamsStatus = "deferred"
-	ListEmailMessagesParamsStatusDelivered      ListEmailMessagesParamsStatus = "delivered"
-	ListEmailMessagesParamsStatusPartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	ListEmailMessagesParamsStatusProcessed      ListEmailMessagesParamsStatus = "processed"
-	ListEmailMessagesParamsStatusRejected       ListEmailMessagesParamsStatus = "rejected"
+	Accepted       ListEmailMessagesParamsStatus = "accepted"
+	Bounced        ListEmailMessagesParamsStatus = "bounced"
+	Complained     ListEmailMessagesParamsStatus = "complained"
+	Deferred       ListEmailMessagesParamsStatus = "deferred"
+	Delivered      ListEmailMessagesParamsStatus = "delivered"
+	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
+	Processed      ListEmailMessagesParamsStatus = "processed"
+	Rejected       ListEmailMessagesParamsStatus = "rejected"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
 func (e ListEmailMessagesParamsStatus) Valid() bool {
 	switch e {
-	case ListEmailMessagesParamsStatusAccepted:
+	case Accepted:
 		return true
-	case ListEmailMessagesParamsStatusBounced:
+	case Bounced:
 		return true
-	case ListEmailMessagesParamsStatusComplained:
+	case Complained:
 		return true
-	case ListEmailMessagesParamsStatusDeferred:
+	case Deferred:
 		return true
-	case ListEmailMessagesParamsStatusDelivered:
+	case Delivered:
 		return true
-	case ListEmailMessagesParamsStatusPartialFailure:
+	case PartialFailure:
 		return true
-	case ListEmailMessagesParamsStatusProcessed:
+	case Processed:
 		return true
-	case ListEmailMessagesParamsStatusRejected:
+	case Rejected:
 		return true
 	default:
 		return false
@@ -1036,6 +1066,48 @@ func (e ListEmailMessagesParamsCategory) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// DocsSearchResponse defines model for DocsSearchResponse.
+type DocsSearchResponse struct {
+	// Locale The documentation locale the results were drawn from.
+	Locale *string `json:"locale,omitempty"`
+
+	// Query The search query that produced these results.
+	Query *string `json:"query,omitempty"`
+
+	// Results Matching documentation sections, ordered by descending relevance.
+	Results *[]DocsSearchResult `json:"results,omitempty"`
+}
+
+// DocsSearchResult defines model for DocsSearchResult.
+type DocsSearchResult struct {
+	// DocUrl Relative path to the page, without the section anchor. Results from the same page share it, so it can be used to group them.
+	DocUrl *string `json:"doc_url,omitempty"`
+
+	// Highlights The passages of the section that match the query, longer than the snippet. Returned only when contents is highlights.
+	Highlights *[]string `json:"highlights,omitempty"`
+
+	// MarkdownUrl Absolute URL that returns the page's full content as Markdown. Fetch it to read the whole page.
+	MarkdownUrl *string `json:"markdown_url,omitempty"`
+
+	// Score Relevance score. Higher is more relevant; results are ordered by descending score.
+	Score *float32 `json:"score,omitempty"`
+
+	// Section Heading of the matching section within the page.
+	Section *string `json:"section,omitempty"`
+
+	// Snippet Short excerpt of the matching content, with the query terms in context. Always returned.
+	Snippet *string `json:"snippet,omitempty"`
+
+	// Title Title of the documentation page this result belongs to.
+	Title *string `json:"title,omitempty"`
+
+	// TokenEstimate Approximate token count of the full page returned by markdown_url, to budget reading it. Results from the same page share it.
+	TokenEstimate *int `json:"token_estimate,omitempty"`
+
+	// Url Relative path to the matching section, including the heading anchor.
+	Url *string `json:"url,omitempty"`
 }
 
 // EmailAddress An email address with an optional display name.
@@ -1387,6 +1459,15 @@ type EmailMessageSendRequestCategory string
 
 // EmailRecipient defines model for EmailRecipient.
 type EmailRecipient struct {
+	// BounceCode SMTP reply code returned by the receiving mail server for `bounced` and `deferred` rows, or null when none was provided.
+	BounceCode *string `json:"bounce_code,omitempty"`
+
+	// BounceDescription Human-readable reason the receiving mail server gave for the bounce or deferral, or null when none was provided.
+	BounceDescription *string `json:"bounce_description,omitempty"`
+
+	// BounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	BounceType *EmailRecipientBounceType `json:"bounce_type,omitempty"`
+
 	// ClickCount Number of click events for this recipient.
 	ClickCount *int `json:"click_count,omitempty"`
 
@@ -1432,6 +1513,9 @@ type EmailRecipient struct {
 	// TotalLatencyMs End-to-end accept → delivered time for this recipient, in milliseconds. Null until delivered.
 	TotalLatencyMs *int `json:"total_latency_ms,omitempty"`
 }
+
+// EmailRecipientBounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+type EmailRecipientBounceType string
 
 // EmailRecipientRejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
 //   - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
@@ -2545,30 +2629,8 @@ type WebhookTestResponse struct {
 // WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a 2xx status; `failed` means it returned a non-2xx status or could not be reached.
 type WebhookTestResponseStatus string
 
-// WorkspaceEmailSettings defines model for WorkspaceEmailSettings.
-type WorkspaceEmailSettings struct {
-	// StorageEnabled Whether the content of outgoing email — the HTML and text body and any attachments — is retained so it can be retrieved later through the message content endpoint. When disabled, only message metadata is kept.
-	StorageEnabled bool `json:"storage_enabled"`
-}
-
-// WorkspaceEmailSettingsUpdate defines model for WorkspaceEmailSettingsUpdate.
-type WorkspaceEmailSettingsUpdate struct {
-	// StorageEnabled Whether the content of outgoing email — the HTML and text body and any attachments — is retained so it can be retrieved later through the message content endpoint. When disabled, only message metadata is kept.
-	StorageEnabled *bool `json:"storage_enabled,omitempty"`
-}
-
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
-
-// WorkspaceSettings defines model for WorkspaceSettings.
-type WorkspaceSettings struct {
-	Email WorkspaceEmailSettings `json:"email"`
-}
-
-// WorkspaceSettingsUpdate defines model for WorkspaceSettingsUpdate.
-type WorkspaceSettingsUpdate struct {
-	Email *WorkspaceEmailSettingsUpdate `json:"email,omitempty"`
-}
 
 // UnderscoreListEnvelope defines model for _ListEnvelope.
 type UnderscoreListEnvelope struct {

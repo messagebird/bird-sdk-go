@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"runtime"
 	"strings"
 	"time"
 
@@ -35,7 +36,9 @@ import (
 )
 
 const (
-	version   = "0.2.0"
+	version = "0.2.1"
+	// userAgent is human-readable only; the API attributes the SDK from the
+	// X-Bird-* headers set in callEditors (ADR-0067), not the UA.
 	userAgent = "bird-sdk-go/" + version
 )
 
@@ -169,6 +172,13 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 		}
 		req.Header.Set("Authorization", "Bearer "+cfg.APIKey)
 		req.Header.Set("User-Agent", userAgent)
+		// X-Bird-* client-identity headers (ADR-0067) — telemetry labels only.
+		// Header keys are the canonical wire form http.Header.Set normalizes to.
+		req.Header.Set("X-Bird-Surface", "sdk-go")
+		req.Header.Set("X-Bird-Version", version)
+		req.Header.Set("X-Bird-Lang", "go")
+		req.Header.Set("X-Bird-Os", runtime.GOOS)
+		req.Header.Set("X-Bird-Arch", runtime.GOARCH)
 		if cfg.APIVersion != "" {
 			req.Header.Set("X-Bird-API-Version", cfg.APIVersion)
 		}
@@ -180,7 +190,8 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 // be set from a caller's option.WithHeader.
 func isReservedHeader(key string) bool {
 	switch http.CanonicalHeaderKey(key) {
-	case "Authorization", "User-Agent", "X-Bird-Api-Version", "Idempotency-Key":
+	case "Authorization", "User-Agent", "X-Bird-Api-Version", "Idempotency-Key",
+		"X-Bird-Surface", "X-Bird-Version", "X-Bird-Lang", "X-Bird-Os", "X-Bird-Arch":
 		return true
 	default:
 		return false
