@@ -83,9 +83,12 @@ func (e EmailEventBounceType) Valid() bool {
 
 // Defines values for EmailEventRejectionReason.
 const (
+	EmailEventRejectionReasonDomainUnverified    EmailEventRejectionReason = "domain_unverified"
 	EmailEventRejectionReasonGenerationFailure   EmailEventRejectionReason = "generation_failure"
 	EmailEventRejectionReasonLessThannil         EmailEventRejectionReason = "<nil>"
 	EmailEventRejectionReasonPolicyRejection     EmailEventRejectionReason = "policy_rejection"
+	EmailEventRejectionReasonQuotaExceeded       EmailEventRejectionReason = "quota_exceeded"
+	EmailEventRejectionReasonRecipientNotAllowed EmailEventRejectionReason = "recipient_not_allowed"
 	EmailEventRejectionReasonRecipientSuppressed EmailEventRejectionReason = "recipient_suppressed"
 	EmailEventRejectionReasonTransmissionFailed  EmailEventRejectionReason = "transmission_failed"
 )
@@ -93,11 +96,17 @@ const (
 // Valid indicates whether the value is a known member of the EmailEventRejectionReason enum.
 func (e EmailEventRejectionReason) Valid() bool {
 	switch e {
+	case EmailEventRejectionReasonDomainUnverified:
+		return true
 	case EmailEventRejectionReasonGenerationFailure:
 		return true
 	case EmailEventRejectionReasonLessThannil:
 		return true
 	case EmailEventRejectionReasonPolicyRejection:
+		return true
+	case EmailEventRejectionReasonQuotaExceeded:
+		return true
+	case EmailEventRejectionReasonRecipientNotAllowed:
 		return true
 	case EmailEventRejectionReasonRecipientSuppressed:
 		return true
@@ -130,12 +139,14 @@ func (e EmailMessageCategory) Valid() bool {
 const (
 	EmailMessageStatusAccepted       EmailMessageStatus = "accepted"
 	EmailMessageStatusBounced        EmailMessageStatus = "bounced"
+	EmailMessageStatusCanceled       EmailMessageStatus = "canceled"
 	EmailMessageStatusComplained     EmailMessageStatus = "complained"
 	EmailMessageStatusDeferred       EmailMessageStatus = "deferred"
 	EmailMessageStatusDelivered      EmailMessageStatus = "delivered"
 	EmailMessageStatusPartialFailure EmailMessageStatus = "partial_failure"
 	EmailMessageStatusProcessed      EmailMessageStatus = "processed"
 	EmailMessageStatusRejected       EmailMessageStatus = "rejected"
+	EmailMessageStatusScheduled      EmailMessageStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the EmailMessageStatus enum.
@@ -144,6 +155,8 @@ func (e EmailMessageStatus) Valid() bool {
 	case EmailMessageStatusAccepted:
 		return true
 	case EmailMessageStatusBounced:
+		return true
+	case EmailMessageStatusCanceled:
 		return true
 	case EmailMessageStatusComplained:
 		return true
@@ -156,6 +169,8 @@ func (e EmailMessageStatus) Valid() bool {
 	case EmailMessageStatusProcessed:
 		return true
 	case EmailMessageStatusRejected:
+		return true
+	case EmailMessageStatusScheduled:
 		return true
 	default:
 		return false
@@ -245,9 +260,12 @@ func (e EmailRecipientBounceType) Valid() bool {
 
 // Defines values for EmailRecipientRejectionReason.
 const (
+	EmailRecipientRejectionReasonDomainUnverified    EmailRecipientRejectionReason = "domain_unverified"
 	EmailRecipientRejectionReasonGenerationFailure   EmailRecipientRejectionReason = "generation_failure"
 	EmailRecipientRejectionReasonLessThannil         EmailRecipientRejectionReason = "<nil>"
 	EmailRecipientRejectionReasonPolicyRejection     EmailRecipientRejectionReason = "policy_rejection"
+	EmailRecipientRejectionReasonQuotaExceeded       EmailRecipientRejectionReason = "quota_exceeded"
+	EmailRecipientRejectionReasonRecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
 	EmailRecipientRejectionReasonRecipientSuppressed EmailRecipientRejectionReason = "recipient_suppressed"
 	EmailRecipientRejectionReasonTransmissionFailed  EmailRecipientRejectionReason = "transmission_failed"
 )
@@ -255,11 +273,17 @@ const (
 // Valid indicates whether the value is a known member of the EmailRecipientRejectionReason enum.
 func (e EmailRecipientRejectionReason) Valid() bool {
 	switch e {
+	case EmailRecipientRejectionReasonDomainUnverified:
+		return true
 	case EmailRecipientRejectionReasonGenerationFailure:
 		return true
 	case EmailRecipientRejectionReasonLessThannil:
 		return true
 	case EmailRecipientRejectionReasonPolicyRejection:
+		return true
+	case EmailRecipientRejectionReasonQuotaExceeded:
+		return true
+	case EmailRecipientRejectionReasonRecipientNotAllowed:
 		return true
 	case EmailRecipientRejectionReasonRecipientSuppressed:
 		return true
@@ -305,8 +329,11 @@ func (e EmailRecipientStatus) Valid() bool {
 
 // Defines values for EmailRejectionReason.
 const (
+	EmailRejectionReasonDomainUnverified    EmailRejectionReason = "domain_unverified"
 	EmailRejectionReasonGenerationFailure   EmailRejectionReason = "generation_failure"
 	EmailRejectionReasonPolicyRejection     EmailRejectionReason = "policy_rejection"
+	EmailRejectionReasonQuotaExceeded       EmailRejectionReason = "quota_exceeded"
+	EmailRejectionReasonRecipientNotAllowed EmailRejectionReason = "recipient_not_allowed"
 	EmailRejectionReasonRecipientSuppressed EmailRejectionReason = "recipient_suppressed"
 	EmailRejectionReasonTransmissionFailed  EmailRejectionReason = "transmission_failed"
 )
@@ -314,9 +341,15 @@ const (
 // Valid indicates whether the value is a known member of the EmailRejectionReason enum.
 func (e EmailRejectionReason) Valid() bool {
 	switch e {
+	case EmailRejectionReasonDomainUnverified:
+		return true
 	case EmailRejectionReasonGenerationFailure:
 		return true
 	case EmailRejectionReasonPolicyRejection:
+		return true
+	case EmailRejectionReasonQuotaExceeded:
+		return true
+	case EmailRejectionReasonRecipientNotAllowed:
 		return true
 	case EmailRejectionReasonRecipientSuppressed:
 		return true
@@ -441,6 +474,21 @@ const (
 func (e EventEmailBouncedType) Valid() bool {
 	switch e {
 	case EmailBounced:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventEmailCanceledType.
+const (
+	EmailCanceled EventEmailCanceledType = "email.canceled"
+)
+
+// Valid indicates whether the value is a known member of the EventEmailCanceledType enum.
+func (e EventEmailCanceledType) Valid() bool {
+	switch e {
+	case EmailCanceled:
 		return true
 	default:
 		return false
@@ -591,6 +639,21 @@ const (
 func (e EventEmailRejectedType) Valid() bool {
 	switch e {
 	case EmailRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventEmailScheduledType.
+const (
+	EmailScheduled EventEmailScheduledType = "email.scheduled"
+)
+
+// Valid indicates whether the value is a known member of the EventEmailScheduledType enum.
+func (e EventEmailScheduledType) Valid() bool {
+	switch e {
+	case EmailScheduled:
 		return true
 	default:
 		return false
@@ -1018,12 +1081,14 @@ func (e OrderDesc) Valid() bool {
 const (
 	Accepted       ListEmailMessagesParamsStatus = "accepted"
 	Bounced        ListEmailMessagesParamsStatus = "bounced"
+	Canceled       ListEmailMessagesParamsStatus = "canceled"
 	Complained     ListEmailMessagesParamsStatus = "complained"
 	Deferred       ListEmailMessagesParamsStatus = "deferred"
 	Delivered      ListEmailMessagesParamsStatus = "delivered"
 	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
 	Processed      ListEmailMessagesParamsStatus = "processed"
 	Rejected       ListEmailMessagesParamsStatus = "rejected"
+	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
@@ -1032,6 +1097,8 @@ func (e ListEmailMessagesParamsStatus) Valid() bool {
 	case Accepted:
 		return true
 	case Bounced:
+		return true
+	case Canceled:
 		return true
 	case Complained:
 		return true
@@ -1044,6 +1111,8 @@ func (e ListEmailMessagesParamsStatus) Valid() bool {
 	case Processed:
 		return true
 	case Rejected:
+		return true
+	case Scheduled:
 		return true
 	default:
 		return false
@@ -1313,7 +1382,10 @@ type EmailMessage struct {
 	// ReplyTo Reply-To addresses, if set on the send. Empty/null when no Reply-To was provided.
 	ReplyTo *[]EmailAddress `json:"reply_to,omitempty"`
 
-	// Status Aggregate delivery status derived from recipient states. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server.
+	// ScheduledAt When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
+	// Status Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
 	Status *EmailMessageStatus `json:"status,omitempty"`
 
 	// Subject Message subject line.
@@ -1341,7 +1413,7 @@ type EmailMessage struct {
 // EmailMessageCategory Content classification. Controls suppression policy — `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
 type EmailMessageCategory string
 
-// EmailMessageStatus Aggregate delivery status derived from recipient states. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server.
+// EmailMessageStatus Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
 type EmailMessageStatus string
 
 // EmailMessageBatchItem defines model for EmailMessageBatchItem.
@@ -1501,7 +1573,8 @@ type EmailRecipient struct {
 	//   did not attempt delivery.
 	// - `transmission_failed`: the message could not be transmitted for delivery. - `generation_failure`: the message could not be built for delivery (template or
 	//   content issue).
-	// - `policy_rejection`: the message was refused by sending policy.
+	// - `policy_rejection`: the message was refused by sending policy. - `domain_unverified`: the sending domain was not verified. - `quota_exceeded`: the organization's send quota was reached. - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+	//   onboarding-domain sends, recipients must be verified workspace members).
 	RejectionReason *EmailRecipientRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Role Envelope position of a recipient on an outbound email event.
@@ -1522,7 +1595,8 @@ type EmailRecipientBounceType string
 //     did not attempt delivery.
 //   - `transmission_failed`: the message could not be transmitted for delivery. - `generation_failure`: the message could not be built for delivery (template or
 //     content issue).
-//   - `policy_rejection`: the message was refused by sending policy.
+//   - `policy_rejection`: the message was refused by sending policy. - `domain_unverified`: the sending domain was not verified. - `quota_exceeded`: the organization's send quota was reached. - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+//     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRecipientRejectionReason string
 
 // EmailRecipientStatus Delivery status for this recipient. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server.
@@ -1544,7 +1618,7 @@ type EmailRecipientList struct {
 }
 
 // EmailRejectionReason Why an email was rejected before delivery.
-// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy.
+// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
 // EmailTag Structured key/value tag attached to an email send. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
@@ -1579,8 +1653,14 @@ type ErrorBody struct {
 	// Name Human-readable slug for log readability. Paired with code, never replaces it.
 	Name string `json:"name"`
 
+	// Next Operations that resolve this error, in the order to try them. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+	Next *[]ErrorNextAction `json:"next,omitempty"`
+
 	// Param Identifies the offending field. Omitted when not applicable.
 	Param *string `json:"param,omitempty"`
+
+	// Remediation A human-readable next step to resolve this error. Present when a recovery is known.
+	Remediation *string `json:"remediation,omitempty"`
 
 	// RequestId Request correlation ID. Also returned as the X-Request-Id response header.
 	RequestId string `json:"request_id"`
@@ -1602,6 +1682,18 @@ type ErrorDetail struct {
 
 	// Param Dotted field path (e.g. "to[0].email", "subject", ".").
 	Param string `json:"param"`
+}
+
+// ErrorNextAction defines model for ErrorNextAction.
+type ErrorNextAction struct {
+	// Description Short human-readable label for the recovery step.
+	Description *string `json:"description,omitempty"`
+
+	// Operation The operationId of a follow-up operation that resolves this error. Call it, then retry the original request.
+	Operation string `json:"operation"`
+
+	// Scope The permission scope the recovery operation requires, when it is scoped. Omitted for operations that need no scope.
+	Scope *string `json:"scope,omitempty"`
 }
 
 // EventDomainFailed A sending domain failed DNS verification. Payload schema not yet finalized.
@@ -1718,6 +1810,24 @@ type EventEmailBouncedData struct {
 	Tags        *[]EmailTag `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
+
+// EventEmailCanceled A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+type EventEmailCanceled struct {
+	// Data Payload of the email.canceled event.
+	Data EventEmailCanceledData `json:"data"`
+
+	// Timestamp Time the scheduled send was canceled.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventEmailCanceledType `json:"type"`
+}
+
+// EventEmailCanceledType Event type.
+type EventEmailCanceledType string
+
+// EventEmailCanceledData Identity fields shared by the message-level email lifecycle events (scheduled, canceled), which are not tied to a single recipient.
+type EventEmailCanceledData = EventEmailMessageBase
 
 // EventEmailClicked The recipient clicked a tracked link in the email. May fire more than once per recipient.
 type EventEmailClicked struct {
@@ -1879,6 +1989,18 @@ type EventEmailListUnsubscribedType string
 
 // EventEmailListUnsubscribedData Identity fields shared by every email lifecycle event payload.
 type EventEmailListUnsubscribedData = EventEmailBase
+
+// EventEmailMessageBase Identity fields shared by the message-level email lifecycle events (scheduled, canceled), which are not tied to a single recipient.
+type EventEmailMessageBase struct {
+	EmailId EmailID `json:"email_id"`
+
+	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Tags Tags provided on the send request, echoed on the event so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	Tags        *[]EmailTag `json:"tags"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
 
 // EventEmailOpened The recipient opened the email (the tracking pixel was loaded). May fire more than once per recipient.
 type EventEmailOpened struct {
@@ -2063,10 +2185,40 @@ type EventEmailRejectedData struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// RejectionReason Why an email was rejected before delivery.
-	// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy.
+	// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
 	RejectionReason EmailRejectionReason `json:"rejection_reason"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
+	Tags        *[]EmailTag `json:"tags"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventEmailScheduled Bird accepted a send scheduled for a future time. Fires once per message when the schedule is created, not per recipient.
+type EventEmailScheduled struct {
+	// Data Payload of the email.scheduled event.
+	Data EventEmailScheduledData `json:"data"`
+
+	// Timestamp Time the send was scheduled.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventEmailScheduledType `json:"type"`
+}
+
+// EventEmailScheduledType Event type.
+type EventEmailScheduledType string
+
+// EventEmailScheduledData defines model for EventEmailScheduledData.
+type EventEmailScheduledData struct {
+	EmailId EmailID `json:"email_id"`
+
+	// Metadata The metadata object provided on the send request, echoed on the event so you can correlate events with your own records. Null when the send carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// ScheduledAt When the message is scheduled to send.
+	ScheduledAt time.Time `json:"scheduled_at"`
+
+	// Tags Tags provided on the send request, echoed on the event so you can route and correlate without an extra lookup. Null when the send carried no tags.
 	Tags        *[]EmailTag `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -2975,6 +3127,34 @@ func (t *WebhookEvent) MergeEventEmailBounced(v EventEmailBounced) error {
 	return err
 }
 
+// AsEventEmailCanceled returns the union data inside the WebhookEvent as a EventEmailCanceled
+func (t WebhookEvent) AsEventEmailCanceled() (EventEmailCanceled, error) {
+	var body EventEmailCanceled
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventEmailCanceled overwrites any union data inside the WebhookEvent as the provided EventEmailCanceled
+func (t *WebhookEvent) FromEventEmailCanceled(v EventEmailCanceled) error {
+	v.Type = "email.canceled"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventEmailCanceled performs a merge with any union data inside the WebhookEvent, using the provided EventEmailCanceled
+func (t *WebhookEvent) MergeEventEmailCanceled(v EventEmailCanceled) error {
+	v.Type = "email.canceled"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventEmailClicked returns the union data inside the WebhookEvent as a EventEmailClicked
 func (t WebhookEvent) AsEventEmailClicked() (EventEmailClicked, error) {
 	var body EventEmailClicked
@@ -3245,6 +3425,34 @@ func (t *WebhookEvent) FromEventEmailRejected(v EventEmailRejected) error {
 // MergeEventEmailRejected performs a merge with any union data inside the WebhookEvent, using the provided EventEmailRejected
 func (t *WebhookEvent) MergeEventEmailRejected(v EventEmailRejected) error {
 	v.Type = "email.rejected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventEmailScheduled returns the union data inside the WebhookEvent as a EventEmailScheduled
+func (t WebhookEvent) AsEventEmailScheduled() (EventEmailScheduled, error) {
+	var body EventEmailScheduled
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventEmailScheduled overwrites any union data inside the WebhookEvent as the provided EventEmailScheduled
+func (t *WebhookEvent) FromEventEmailScheduled(v EventEmailScheduled) error {
+	v.Type = "email.scheduled"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventEmailScheduled performs a merge with any union data inside the WebhookEvent, using the provided EventEmailScheduled
+func (t *WebhookEvent) MergeEventEmailScheduled(v EventEmailScheduled) error {
+	v.Type = "email.scheduled"
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -3529,6 +3737,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventEmailAccepted()
 	case "email.bounced":
 		return t.AsEventEmailBounced()
+	case "email.canceled":
+		return t.AsEventEmailCanceled()
 	case "email.clicked":
 		return t.AsEventEmailClicked()
 	case "email.complained":
@@ -3549,6 +3759,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventEmailReceived()
 	case "email.rejected":
 		return t.AsEventEmailRejected()
+	case "email.scheduled":
+		return t.AsEventEmailScheduled()
 	case "email.unsubscribed":
 		return t.AsEventEmailUnsubscribed()
 	case "email_suppression.created":

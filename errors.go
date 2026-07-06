@@ -15,6 +15,7 @@ type (
 	TimeoutError             = apierror.TimeoutError
 	WebhookVerificationError = apierror.WebhookVerificationError
 	ErrorDetail              = apierror.ErrorDetail
+	ErrorNextAction          = apierror.ErrorNextAction
 	ErrorType                = apierror.ErrorType
 )
 

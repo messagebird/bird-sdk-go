@@ -53,6 +53,11 @@ type APIError struct {
 	Param string
 	// VendorCode is a verbatim code from a downstream system (SMTP reply, decline).
 	VendorCode string
+	// Remediation is a human-readable next step to resolve this error, when a
+	// recovery is known (ADR-0073).
+	Remediation string
+	// Next lists the operations that resolve this error, in the order to try them.
+	Next []ErrorNextAction
 }
 
 func (e *APIError) Error() string {
@@ -74,6 +79,17 @@ type ErrorDetail struct {
 	Param string `json:"param"`
 	// Message is what is wrong with this field.
 	Message string `json:"message"`
+}
+
+// ErrorNextAction is one recovery operation the server suggests (ADR-0073): call
+// it to resolve the error, then retry the original request.
+type ErrorNextAction struct {
+	// Operation is the operationId of the follow-up operation that resolves this error.
+	Operation string `json:"operation"`
+	// Description is a short human-readable label for the recovery step.
+	Description string `json:"description,omitempty"`
+	// Scope is the permission scope the recovery operation requires, when it is scoped.
+	Scope string `json:"scope,omitempty"`
 }
 
 // ValidationError is a 422; Details carries the per-field failures.
@@ -108,15 +124,17 @@ func (e *WebhookVerificationError) Error() string {
 
 // wireError is the on-the-wire error body (snake_case as sent).
 type wireError struct {
-	Type       string        `json:"type"`
-	Code       string        `json:"code"`
-	Name       string        `json:"name"`
-	Message    string        `json:"message"`
-	DocURL     string        `json:"doc_url"`
-	RequestID  string        `json:"request_id"`
-	Param      string        `json:"param"`
-	VendorCode string        `json:"vendor_code"`
-	Details    []ErrorDetail `json:"details"`
+	Type        string            `json:"type"`
+	Code        string            `json:"code"`
+	Name        string            `json:"name"`
+	Message     string            `json:"message"`
+	DocURL      string            `json:"doc_url"`
+	RequestID   string            `json:"request_id"`
+	Param       string            `json:"param"`
+	VendorCode  string            `json:"vendor_code"`
+	Details     []ErrorDetail     `json:"details"`
+	Remediation string            `json:"remediation"`
+	Next        []ErrorNextAction `json:"next"`
 }
 
 // errorEnvelope is the wire wrapper: the API sends every error as
@@ -151,15 +169,17 @@ func FromResponse(status int, body []byte, header http.Header) error {
 	}
 
 	base := &APIError{
-		StatusCode: status,
-		Type:       typ,
-		Code:       w.Code,
-		Name:       w.Name,
-		Message:    message,
-		DocURL:     w.DocURL,
-		RequestID:  requestID,
-		Param:      w.Param,
-		VendorCode: w.VendorCode,
+		StatusCode:  status,
+		Type:        typ,
+		Code:        w.Code,
+		Name:        w.Name,
+		Message:     message,
+		DocURL:      w.DocURL,
+		RequestID:   requestID,
+		Param:       w.Param,
+		VendorCode:  w.VendorCode,
+		Remediation: w.Remediation,
+		Next:        w.Next,
 	}
 
 	switch typ {
