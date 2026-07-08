@@ -248,3 +248,123 @@ func ExampleClient_Get() {
 	}
 	fmt.Println(len(out.Data))
 }
+
+func ExampleEmailTemplatesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	tpl, err := client.EmailTemplates.Create(context.Background(), bird.EmailTemplateCreateParams{
+		Name:     "Welcome",
+		Category: bird.CategoryTransactional,
+		Source:   bird.EmailTemplateSourceHandlebars,
+		Subject:  "Welcome, {{ first_name }}!",
+		HTML:     "<h1>Hi {{ first_name }}</h1>",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(tpl.Id, tpl.Revision)
+}
+
+// Publish the current draft, then send by the template with per-recipient
+// substitution data.
+func ExampleEmailTemplatesService_Publish() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	version, err := client.EmailTemplates.Publish(context.Background(), "emt_abc123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*version.VersionNumber)
+
+	_, err = client.Email.Send(context.Background(), bird.EmailSendParams{
+		From:       "hello@acme.com",
+		To:         []string{"alice@example.com"},
+		Template:   "welcome-email",
+		Parameters: map[string]any{"first_name": "Alice"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleEmailTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for tpl, err := range client.EmailTemplates.List(context.Background(), bird.EmailTemplateListParams{Category: bird.CategoryTransactional}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(tpl.Id, tpl.Name)
+	}
+}
+
+// Send a free-text SMS.
+func ExampleSMSService_Send() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
+		To:       "+15551234567",
+		Text:     "Your verification code is 123456.",
+		Category: bird.SMSCategoryAuthentication,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
+// Send an SMS from a stored template, supplying its variables.
+func ExampleSMSService_Send_template() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
+		To:         "+15551234567",
+		Template:   "bird_otp_verification",
+		Parameters: map[string]any{"code": "123456"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id)
+}
+
+// List the SMS templates available to the workspace. The catalogue is small and
+// returned in full — this list is not paginated.
+func ExampleSMSTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	list, err := client.SmsTemplates.List(context.Background(), bird.SMSTemplateListParams{
+		Scope: bird.SMSTemplateScopeSystem,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, tpl := range list.Data {
+		fmt.Println(tpl.Id, *tpl.Name)
+	}
+}
+
+// Read one SMS template by its alias (or id).
+func ExampleSMSTemplatesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	tpl, err := client.SmsTemplates.Get(context.Background(), "bird_otp_verification")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(tpl.Id, *tpl.Body)
+}

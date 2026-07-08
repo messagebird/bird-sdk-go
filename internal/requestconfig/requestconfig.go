@@ -43,7 +43,7 @@ type EmailDefaults struct {
 	TrackOpens  *bool
 	TrackClicks *bool
 	Headers     map[string]string
-	Tags        []oapi.EmailTag
+	Tags        []oapi.Tag
 	Metadata    map[string]interface{}
 }
 

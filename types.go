@@ -35,13 +35,47 @@ type EmailBatch = oapi.EmailMessageBatchResponse
 type EmailBatchItem = oapi.EmailMessageBatchItem
 
 // EmailTag is a structured {Name, Value} label.
-type EmailTag = oapi.EmailTag
+type EmailTag = oapi.Tag
 
 // EmailAttachment is a file attachment on a send.
 type EmailAttachment = oapi.EmailAttachment
 
 // EmailStatus is a message's aggregate delivery status.
 type EmailStatus = oapi.EmailMessageStatus
+
+// EmailTemplate is a template with its current draft content and version
+// pointers; EmailTemplateSummary is the list-item form; EmailTemplateVersion is
+// a single version; EmailTemplateList is a page of summaries;
+// EmailTemplateVersionList is the (unpaginated) set of a template's versions.
+type (
+	EmailTemplate            = oapi.EmailTemplate
+	EmailTemplateSummary     = oapi.EmailTemplateSummary
+	EmailTemplateVersion     = oapi.EmailTemplateVersion
+	EmailTemplateList        = oapi.EmailTemplateList
+	EmailTemplateVersionList = oapi.EmailTemplateVersionList
+)
+
+// SMSTemplate is an SMS template with its body, variables, and available
+// languages; SMSTemplateList is the (unpaginated) set of templates available to
+// the workspace.
+type (
+	SMSTemplate     = oapi.SMSTemplate
+	SMSTemplateList = oapi.SMSTemplateList
+)
+
+// SMSMessage is a sent or received SMS with its status, segment breakdown, and
+// cost; SMSMessageList is a page of messages; SMSBatch is a batch-send result.
+type (
+	SMSMessage     = oapi.SMSMessage
+	SMSMessageList = oapi.SMSMessageList
+	SMSBatch       = oapi.SMSMessageBatchResponse
+)
+
+// SMSTag is a structured {name, value} label on an SMS send.
+type SMSTag = oapi.Tag
+
+// SMSStatus is a message's delivery status.
+type SMSStatus = oapi.SMSMessageStatus
 
 const (
 	EmailStatusAccepted       EmailStatus = "accepted"

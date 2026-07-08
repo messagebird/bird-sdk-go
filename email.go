@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"iter"
 	"net/http"
+	"strings"
 	"time"
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
@@ -42,6 +43,13 @@ type EmailSendParams struct {
 	// true — a nil leaves the default, false explicitly disables tracking.
 	TrackOpens  *bool
 	TrackClicks *bool
+	// Template, when set, sends a published template in place of inline content:
+	// leave Subject/HTML/Text empty (the template supplies them) and personalize
+	// with Parameters. The value is the template's ID (`emt_…`) or its name handle.
+	Template string
+	// Parameters holds template variables rendered into the subject and
+	// body at send time; works with both inline content and a Template.
+	Parameters map[string]any
 }
 
 func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
@@ -58,9 +66,14 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		return oapi.EmailMessageSendRequest{}, fmt.Errorf("bird: invalid to address: %w", err)
 	}
 	body := oapi.EmailMessageSendRequest{
-		From:    from,
-		To:      to,
-		Subject: p.Subject,
+		From: from,
+		To:   to,
+	}
+	// Subject is optional on the wire (a template supplies it); omit it when
+	// empty so a send-by-template doesn't trip subject/template exclusivity.
+	if p.Subject != "" {
+		subject := p.Subject
+		body.Subject = &subject
 	}
 	if len(p.Cc) > 0 {
 		cc, err := parseAddressInputs(p.Cc)
@@ -114,6 +127,28 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 	if p.IpPoolId != "" {
 		ipPool := p.IpPoolId
 		body.IpPoolId = &ipPool
+	}
+	// A template send nests its reference (id or alias) and variables under the
+	// template object; an inline send uses the top-level parameters. The two
+	// content modes are exclusive. The `emt_` prefix marks an id; anything else
+	// is an alias handle.
+	if p.Template != "" {
+		var tmpl oapi.EmailTemplateSend
+		if strings.HasPrefix(p.Template, "emt_") {
+			id := oapi.EmailTemplateID(p.Template)
+			tmpl.Id = &id
+		} else {
+			alias := p.Template
+			tmpl.Alias = &alias
+		}
+		if len(p.Parameters) > 0 {
+			parameters := p.Parameters
+			tmpl.Parameters = &parameters
+		}
+		body.Template = &tmpl
+	} else if len(p.Parameters) > 0 {
+		parameters := p.Parameters
+		body.Parameters = &parameters
 	}
 	body.TrackOpens = p.TrackOpens
 	body.TrackClicks = p.TrackClicks
@@ -254,8 +289,8 @@ func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesPar
 		w.Category = &category
 	}
 	if p.Tag != "" {
-		tag := p.Tag
-		w.Tag = &tag
+		tags := []string{p.Tag}
+		w.Tag = &tags
 	}
 	if p.To != "" {
 		to := openapi_types.Email(p.To)

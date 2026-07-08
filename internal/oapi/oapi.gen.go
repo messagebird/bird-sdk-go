@@ -360,6 +360,63 @@ func (e EmailRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for EmailTemplateCategory.
+const (
+	EmailTemplateCategoryMarketing     EmailTemplateCategory = "marketing"
+	EmailTemplateCategoryTransactional EmailTemplateCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateCategory enum.
+func (e EmailTemplateCategory) Valid() bool {
+	switch e {
+	case EmailTemplateCategoryMarketing:
+		return true
+	case EmailTemplateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateSource.
+const (
+	Handlebars EmailTemplateSource = "handlebars"
+	Html       EmailTemplateSource = "html"
+	Liquid     EmailTemplateSource = "liquid"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateSource enum.
+func (e EmailTemplateSource) Valid() bool {
+	switch e {
+	case Handlebars:
+		return true
+	case Html:
+		return true
+	case Liquid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateVersionStatus.
+const (
+	EmailTemplateVersionStatusDraft     EmailTemplateVersionStatus = "draft"
+	EmailTemplateVersionStatusPublished EmailTemplateVersionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateVersionStatus enum.
+func (e EmailTemplateVersionStatus) Valid() bool {
+	switch e {
+	case EmailTemplateVersionStatusDraft:
+		return true
+	case EmailTemplateVersionStatusPublished:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ErrorBodyType.
 const (
 	ErrorBodyTypeAuthError               ErrorBodyType = "auth_error"
@@ -858,6 +915,135 @@ func (e SMSErrorCode) Valid() bool {
 	}
 }
 
+// Defines values for SMSMessageDirection.
+const (
+	SMSMessageDirectionInbound  SMSMessageDirection = "inbound"
+	SMSMessageDirectionOutbound SMSMessageDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessageDirection enum.
+func (e SMSMessageDirection) Valid() bool {
+	switch e {
+	case SMSMessageDirectionInbound:
+		return true
+	case SMSMessageDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSMessageCategory.
+const (
+	SMSMessageCategoryAuthentication SMSMessageCategory = "authentication"
+	SMSMessageCategoryMarketing      SMSMessageCategory = "marketing"
+	SMSMessageCategoryService        SMSMessageCategory = "service"
+	SMSMessageCategoryTransactional  SMSMessageCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessageCategory enum.
+func (e SMSMessageCategory) Valid() bool {
+	switch e {
+	case SMSMessageCategoryAuthentication:
+		return true
+	case SMSMessageCategoryMarketing:
+		return true
+	case SMSMessageCategoryService:
+		return true
+	case SMSMessageCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSMessageStatus.
+const (
+	SMSMessageStatusAccepted    SMSMessageStatus = "accepted"
+	SMSMessageStatusCanceled    SMSMessageStatus = "canceled"
+	SMSMessageStatusDelivered   SMSMessageStatus = "delivered"
+	SMSMessageStatusExpired     SMSMessageStatus = "expired"
+	SMSMessageStatusFailed      SMSMessageStatus = "failed"
+	SMSMessageStatusReceived    SMSMessageStatus = "received"
+	SMSMessageStatusRejected    SMSMessageStatus = "rejected"
+	SMSMessageStatusScheduled   SMSMessageStatus = "scheduled"
+	SMSMessageStatusSent        SMSMessageStatus = "sent"
+	SMSMessageStatusUndelivered SMSMessageStatus = "undelivered"
+)
+
+// Valid indicates whether the value is a known member of the SMSMessageStatus enum.
+func (e SMSMessageStatus) Valid() bool {
+	switch e {
+	case SMSMessageStatusAccepted:
+		return true
+	case SMSMessageStatusCanceled:
+		return true
+	case SMSMessageStatusDelivered:
+		return true
+	case SMSMessageStatusExpired:
+		return true
+	case SMSMessageStatusFailed:
+		return true
+	case SMSMessageStatusReceived:
+		return true
+	case SMSMessageStatusRejected:
+		return true
+	case SMSMessageStatusScheduled:
+		return true
+	case SMSMessageStatusSent:
+		return true
+	case SMSMessageStatusUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSegmentsEncoding.
+const (
+	GSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
+	UCS2    SMSSegmentsEncoding = "UCS2"
+)
+
+// Valid indicates whether the value is a known member of the SMSSegmentsEncoding enum.
+func (e SMSSegmentsEncoding) Valid() bool {
+	switch e {
+	case GSM7BIT:
+		return true
+	case UCS2:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSTemplateStatus.
+const (
+	SMSTemplateStatusActive   SMSTemplateStatus = "active"
+	SMSTemplateStatusApproved SMSTemplateStatus = "approved"
+	SMSTemplateStatusDraft    SMSTemplateStatus = "draft"
+	SMSTemplateStatusPending  SMSTemplateStatus = "pending"
+	SMSTemplateStatusRejected SMSTemplateStatus = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the SMSTemplateStatus enum.
+func (e SMSTemplateStatus) Valid() bool {
+	switch e {
+	case SMSTemplateStatusActive:
+		return true
+	case SMSTemplateStatusApproved:
+		return true
+	case SMSTemplateStatusDraft:
+		return true
+	case SMSTemplateStatusPending:
+		return true
+	case SMSTemplateStatusRejected:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SuppressionAppliesTo.
 const (
 	SuppressionAppliesToAll              SuppressionAppliesTo = "all"
@@ -954,6 +1140,54 @@ func (e SuppressionScopeType) Valid() bool {
 	case SuppressionScopeTypeTopic:
 		return true
 	case SuppressionScopeTypeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TemplateScope.
+const (
+	TemplateScopeSystem    TemplateScope = "system"
+	TemplateScopeWorkspace TemplateScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the TemplateScope enum.
+func (e TemplateScope) Valid() bool {
+	switch e {
+	case TemplateScopeSystem:
+		return true
+	case TemplateScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VerificationStatus.
+const (
+	VerificationStatusBlocked  VerificationStatus = "blocked"
+	VerificationStatusCanceled VerificationStatus = "canceled"
+	VerificationStatusExpired  VerificationStatus = "expired"
+	VerificationStatusFailed   VerificationStatus = "failed"
+	VerificationStatusPending  VerificationStatus = "pending"
+	VerificationStatusVerified VerificationStatus = "verified"
+)
+
+// Valid indicates whether the value is a known member of the VerificationStatus enum.
+func (e VerificationStatus) Valid() bool {
+	switch e {
+	case VerificationStatusBlocked:
+		return true
+	case VerificationStatusCanceled:
+		return true
+	case VerificationStatusExpired:
+		return true
+	case VerificationStatusFailed:
+		return true
+	case VerificationStatusPending:
+		return true
+	case VerificationStatusVerified:
 		return true
 	default:
 		return false
@@ -1136,6 +1370,96 @@ func (e ListEmailMessagesParamsCategory) Valid() bool {
 		return false
 	}
 }
+
+// Defines values for ListSMSMessagesParamsDirection.
+const (
+	ListSMSMessagesParamsDirectionInbound  ListSMSMessagesParamsDirection = "inbound"
+	ListSMSMessagesParamsDirectionOutbound ListSMSMessagesParamsDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
+func (e ListSMSMessagesParamsDirection) Valid() bool {
+	switch e {
+	case ListSMSMessagesParamsDirectionInbound:
+		return true
+	case ListSMSMessagesParamsDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListSMSMessagesParamsCategory.
+const (
+	ListSMSMessagesParamsCategoryAuthentication ListSMSMessagesParamsCategory = "authentication"
+	ListSMSMessagesParamsCategoryMarketing      ListSMSMessagesParamsCategory = "marketing"
+	ListSMSMessagesParamsCategoryService        ListSMSMessagesParamsCategory = "service"
+	ListSMSMessagesParamsCategoryTransactional  ListSMSMessagesParamsCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the ListSMSMessagesParamsCategory enum.
+func (e ListSMSMessagesParamsCategory) Valid() bool {
+	switch e {
+	case ListSMSMessagesParamsCategoryAuthentication:
+		return true
+	case ListSMSMessagesParamsCategoryMarketing:
+		return true
+	case ListSMSMessagesParamsCategoryService:
+		return true
+	case ListSMSMessagesParamsCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListSMSTemplatesParamsScope.
+const (
+	ListSMSTemplatesParamsScopeSystem    ListSMSTemplatesParamsScope = "system"
+	ListSMSTemplatesParamsScopeWorkspace ListSMSTemplatesParamsScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the ListSMSTemplatesParamsScope enum.
+func (e ListSMSTemplatesParamsScope) Valid() bool {
+	switch e {
+	case ListSMSTemplatesParamsScopeSystem:
+		return true
+	case ListSMSTemplatesParamsScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListSMSTemplatesParamsCategory.
+const (
+	ListSMSTemplatesParamsCategoryAuthentication ListSMSTemplatesParamsCategory = "authentication"
+	ListSMSTemplatesParamsCategoryMarketing      ListSMSTemplatesParamsCategory = "marketing"
+	ListSMSTemplatesParamsCategoryService        ListSMSTemplatesParamsCategory = "service"
+	ListSMSTemplatesParamsCategoryTransactional  ListSMSTemplatesParamsCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the ListSMSTemplatesParamsCategory enum.
+func (e ListSMSTemplatesParamsCategory) Valid() bool {
+	switch e {
+	case ListSMSTemplatesParamsCategoryAuthentication:
+		return true
+	case ListSMSTemplatesParamsCategoryMarketing:
+		return true
+	case ListSMSTemplatesParamsCategoryService:
+		return true
+	case ListSMSTemplatesParamsCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// BrandKitID defines model for BrandKitID.
+type BrandKitID = string
+
+// CurrencyCode ISO 4217 three-letter currency code.
+type CurrencyCode = string
 
 // DocsSearchResponse defines model for DocsSearchResponse.
 type DocsSearchResponse struct {
@@ -1392,7 +1716,7 @@ type EmailMessage struct {
 	Subject string `json:"subject"`
 
 	// Tags Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
-	Tags *[]EmailTag `json:"tags,omitempty"`
+	Tags *[]Tag `json:"tags,omitempty"`
 
 	// ThreadId Thread this message belongs to. Null until threading is enabled.
 	ThreadId *string `json:"thread_id,omitempty"`
@@ -1498,17 +1822,23 @@ type EmailMessageSendRequest struct {
 	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
+	// Parameters Template variables used to personalize inline content. Tokens in the subject and body (e.g. `{{ first_name }}`) are replaced with these values at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
 
 	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
-	// Subject Message subject line.
-	Subject string `json:"subject"`
+	// Subject Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
+	Subject *string `json:"subject,omitempty"`
 
 	// Tags Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics rollups by tag, and surface in webhook payloads. Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
-	Tags *[]EmailTag `json:"tags,omitempty"`
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template Send a stored template instead of inline content. When set, omit `subject`/`html`/`text` — the template supplies them; personalize with `template.parameters`.
+	Template *EmailTemplateSend `json:"template,omitempty"`
 
 	// Text Plain-text body. At least one of html or text must be provided.
 	Text *string `json:"text,omitempty"`
@@ -1621,14 +1951,217 @@ type EmailRecipientList struct {
 // `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
-// EmailTag Structured key/value tag attached to an email send. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
-// Tag count and per-tag size are capped to keep per-send tag payloads small — see EmailMessageSendRequest for the array maximum.
-type EmailTag struct {
-	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
+// EmailTemplate defines model for EmailTemplate.
+type EmailTemplate struct {
+	// Alias The template's workspace-unique slug handle for send-by-template, or null if unset.
+	Alias *string `json:"alias,omitempty"`
+
+	// BrandKitId The brand kit applied to the draft, or null if none.
+	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
+
+	// Category Whether the template is transactional or marketing email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description Optional description of the template's purpose. Null when unset.
+	Description    *string                `json:"description,omitempty"`
+	DraftVersionId EmailTemplateVersionID `json:"draft_version_id"`
+
+	// Html The draft's HTML body. Null when unset.
+	Html *string         `json:"html,omitempty"`
+	Id   EmailTemplateID `json:"id"`
+
+	// Name Human-readable template name, unique within the workspace.
 	Name string `json:"name"`
 
-	// Value Tag value. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 64 characters.
-	Value string `json:"value"`
+	// PublishedVersionId The currently published version, or null if the template has never been published.
+	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Revision The draft's revision counter. Send it back on the next update to detect concurrent edits.
+	Revision *int `json:"revision,omitempty"`
+
+	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Source The authoring format the template is written in. Fixed at creation.
+	Source EmailTemplateSource `json:"source"`
+
+	// Subject The draft's email subject line. Null when unset.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text The draft's plain-text body. Null when unset.
+	Text *string `json:"text,omitempty"`
+
+	// UpdatedAt When the template was last modified.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Variables The variable slots this template's current draft fills in from the values you supply when sending.
+	Variables   *[]TemplateVariable `json:"variables,omitempty"`
+	WorkspaceId WorkspaceID         `json:"workspace_id"`
+}
+
+// EmailTemplateCategory Whether the template is transactional or marketing email.
+type EmailTemplateCategory string
+
+// EmailTemplateCreate Parameters for creating an email template and its initial draft.
+type EmailTemplateCreate struct {
+	// Alias Optional workspace-unique slug handle for the template — a stable alternative to the template ID when sending by template. Lowercase letters, numbers, and hyphens.
+	Alias      *string     `json:"alias,omitempty"`
+	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
+
+	// Category Whether the template is transactional or marketing email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// Description Optional description of the template's purpose.
+	Description *string `json:"description,omitempty"`
+
+	// Html The HTML body — the source markup for the chosen format.
+	Html *string `json:"html,omitempty"`
+
+	// Name Human-readable template name, unique within the workspace.
+	Name string `json:"name"`
+
+	// Source The authoring format the template is written in, fixed at creation. `liquid` currently supports variable substitution only (e.g. `{{ first_name }}`); filters, tags, and control flow are not yet supported — fuller Liquid support is coming soon.
+	Source EmailTemplateSource `json:"source"`
+
+	// Subject The email subject line for the initial draft.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text The optional plain-text body.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailTemplateID defines model for EmailTemplateID.
+type EmailTemplateID = string
+
+// EmailTemplateList defines model for EmailTemplateList.
+type EmailTemplateList struct {
+	// Data Page of email templates.
+	Data []EmailTemplateSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `alias` (supply exactly one), and pass its variable values in `parameters`.
+type EmailTemplateSend struct {
+	// Alias The template to send, by its alias handle (for example `welcome-email`).
+	Alias *string          `json:"alias,omitempty"`
+	Id    *EmailTemplateID `json:"id,omitempty"`
+
+	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Cap: 16 KB serialized.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+	union      json.RawMessage
+}
+
+// EmailTemplateSend0 defines model for .
+type EmailTemplateSend0 = interface{}
+
+// EmailTemplateSend1 defines model for .
+type EmailTemplateSend1 = interface{}
+
+// EmailTemplateSource The authoring format the template is written in. Fixed at creation.
+type EmailTemplateSource string
+
+// EmailTemplateSummary defines model for EmailTemplateSummary.
+type EmailTemplateSummary struct {
+	// Alias The template's workspace-unique slug handle for send-by-template, or null if unset.
+	Alias *string `json:"alias,omitempty"`
+
+	// Category Whether the template is transactional or marketing email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description Optional description of the template's purpose. Null when unset.
+	Description    *string                `json:"description,omitempty"`
+	DraftVersionId EmailTemplateVersionID `json:"draft_version_id"`
+	Id             EmailTemplateID        `json:"id"`
+
+	// Name Human-readable template name, unique within the workspace.
+	Name string `json:"name"`
+
+	// PublishedVersionId The currently published version, or null if never published.
+	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Source The authoring format the template is written in. Fixed at creation.
+	Source EmailTemplateSource `json:"source"`
+
+	// UpdatedAt When the template was last modified.
+	UpdatedAt   *time.Time  `json:"updated_at,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EmailTemplateUpdate Partial update of a template's metadata and its draft content. Only the fields you send are changed; the rest are left as-is. Include the draft `revision` you last read so concurrent edits are detected.
+type EmailTemplateUpdate struct {
+	// Alias New workspace-unique slug handle for send-by-template. Send null to clear it. Lowercase letters, numbers, and hyphens.
+	Alias      *string     `json:"alias,omitempty"`
+	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
+
+	// Description New description of the template's purpose. Send null to clear it.
+	Description *string `json:"description,omitempty"`
+
+	// Html New HTML body — the source markup for the template's format.
+	Html *string `json:"html,omitempty"`
+
+	// Name New template name. Must stay unique within the workspace.
+	Name *string `json:"name,omitempty"`
+
+	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+	Revision int `json:"revision"`
+
+	// Subject New email subject line for the draft. Send null to clear it.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text New plain-text body for the draft. Send null to clear it.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailTemplateVersion defines model for EmailTemplateVersion.
+type EmailTemplateVersion struct {
+	// CreatedAt When this version was created.
+	CreatedAt *time.Time             `json:"created_at,omitempty"`
+	Id        EmailTemplateVersionID `json:"id"`
+
+	// PublishedAt When this version was published, or null if it has not been published.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Lifecycle status of this version.
+	Status     *EmailTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId EmailTemplateID             `json:"template_id"`
+
+	// Variables The variable slots this version's content fills in from the values you supply when sending.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
+
+// EmailTemplateVersionStatus Lifecycle status of this version.
+type EmailTemplateVersionStatus string
+
+// EmailTemplateVersionID defines model for EmailTemplateVersionID.
+type EmailTemplateVersionID = string
+
+// EmailTemplateVersionList defines model for EmailTemplateVersionList.
+type EmailTemplateVersionList struct {
+	// Data All versions of the template, newest first.
+	Data []EmailTemplateVersion `json:"data"`
 }
 
 // Error defines model for Error.
@@ -1686,14 +2219,11 @@ type ErrorDetail struct {
 
 // ErrorNextAction defines model for ErrorNextAction.
 type ErrorNextAction struct {
-	// Description Short human-readable label for the recovery step.
+	// Description A short, human-readable label for the recovery step, suitable for display.
 	Description *string `json:"description,omitempty"`
 
 	// Operation The operationId of a follow-up operation that resolves this error. Call it, then retry the original request.
 	Operation string `json:"operation"`
-
-	// Scope The permission scope the recovery operation requires, when it is scoped. Omitted for operations that need no scope.
-	Scope *string `json:"scope,omitempty"`
 }
 
 // EventDomainFailed A sending domain failed DNS verification. Payload schema not yet finalized.
@@ -1759,7 +2289,7 @@ type EventEmailBase struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -1807,7 +2337,7 @@ type EventEmailBouncedData struct {
 	SendingIp *string `json:"sending_ip"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -1862,7 +2392,7 @@ type EventEmailClickedData struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags *[]EmailTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// Url The URL the recipient clicked.
 	Url string `json:"url"`
@@ -1905,7 +2435,7 @@ type EventEmailComplainedData struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -1950,7 +2480,7 @@ type EventEmailDeferredData struct {
 	SendingIp *string `json:"sending_ip"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -1998,7 +2528,7 @@ type EventEmailMessageBase struct {
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Tags Tags provided on the send request, echoed on the event so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -2035,7 +2565,7 @@ type EventEmailOpenedData struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags *[]EmailTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// UserAgent User-agent string of the client that opened the email, or null when it is not known.
 	UserAgent   *string     `json:"user_agent"`
@@ -2086,7 +2616,7 @@ type EventEmailOutOfBandBounceData struct {
 	SendingIp *string `json:"sending_ip"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -2189,7 +2719,7 @@ type EventEmailRejectedData struct {
 	RejectionReason EmailRejectionReason `json:"rejection_reason"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -2219,7 +2749,7 @@ type EventEmailScheduledData struct {
 	ScheduledAt time.Time `json:"scheduled_at"`
 
 	// Tags Tags provided on the send request, echoed on the event so you can route and correlate without an extra lookup. Null when the send carried no tags.
-	Tags        *[]EmailTag `json:"tags"`
+	Tags        *[]Tag      `json:"tags"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -2284,7 +2814,7 @@ type EventSMSBase struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
@@ -2322,7 +2852,7 @@ type EventSMSDeliveredData struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
@@ -2375,7 +2905,7 @@ type EventSMSFailedData struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
@@ -2410,7 +2940,7 @@ type EventSMSRejectedData struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
@@ -2448,7 +2978,7 @@ type EventSMSSentData struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
@@ -2483,21 +3013,190 @@ type EventSMSUndeliveredData struct {
 	SmsId    SMSMessageID            `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
-	Tags *[]SMSTag `json:"tags"`
+	Tags *[]Tag `json:"tags"`
 
 	// To Recipient phone number in E.164 format.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// InboundAddress A Bird-minted email address that receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address and Bird parses every message it receives into a received email.
+type InboundAddress struct {
+	// Address The address to forward your mailbox to. Minted by Bird when the inbound address is created.
+	Address *openapi_types.Email `json:"address,omitempty"`
+
+	// CreatedAt When the inbound address was created.
+	CreatedAt *time.Time       `json:"created_at,omitempty"`
+	Id        InboundAddressID `json:"id"`
+
+	// Label Your own label for this address, typically the source mailbox it maps to. Null when unset.
+	Label *string `json:"label"`
+
+	// UpdatedAt When the inbound address was last updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// InboundAddressCreate Parameters for minting a new inbound address.
+type InboundAddressCreate struct {
+	// Label Your own label for this address, typically the source mailbox it maps to.
+	Label *string `json:"label,omitempty"`
+}
+
+// InboundAddressID defines model for InboundAddressID.
+type InboundAddressID = string
+
+// InboundAddressList defines model for InboundAddressList.
+type InboundAddressList struct {
+	Data []InboundAddress `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// InboundAddressUpdate Fields to update on an inbound address.
+type InboundAddressUpdate struct {
+	// Label Your own label for this address. Pass null to clear it.
+	Label *string `json:"label,omitempty"`
+}
+
+// InboundAttachment Metadata for a file attached to a received email. The raw bytes are fetched separately with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
+type InboundAttachment struct {
+	// ContentType MIME type parsed from the attachment part, or null when absent.
+	ContentType *string `json:"content_type"`
+
+	// Filename Filename from the attachment's Content-Disposition, or null when the sender did not name the part.
+	Filename *string             `json:"filename"`
+	Id       InboundAttachmentID `json:"id"`
+
+	// Size Size of the attachment in bytes.
+	Size int `json:"size"`
+}
+
+// InboundAttachmentID defines model for InboundAttachmentID.
+type InboundAttachmentID = string
+
+// InboundAttachmentList The attachments on a received email. Not paginated — a message carries a small, bounded set of attachments, all returned at once.
+type InboundAttachmentList struct {
+	// Data Metadata for every attachment on the message. Empty when the message had no attachments.
+	Data []InboundAttachment `json:"data"`
+}
+
+// InboundEmailMessage An email Bird received on your behalf, parsed from the original message. Fetch the body with `/body`, the original MIME with `/raw`, and attachment bytes with `/attachments/{attachment_id}`.
+type InboundEmailMessage struct {
+	// Attachments Metadata for each attachment found on the message. Empty when the message had no attachments.
+	Attachments []InboundAttachment `json:"attachments"`
+
+	// Cc Recipients on the message's Cc header.
+	Cc []EmailAddress `json:"cc"`
+
+	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. Null when the result did not carry a DKIM verdict.
+	DkimPass *bool `json:"dkim_pass"`
+
+	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. Null when the result did not carry a DMARC verdict.
+	DmarcPass *bool `json:"dmarc_pass"`
+
+	// From An email address with an optional display name.
+	From EmailAddress          `json:"from"`
+	Id   InboundEmailMessageID `json:"id"`
+
+	// InReplyTo In-Reply-To header — the Message-ID this message replies to, or null when it is not a reply.
+	InReplyTo *string `json:"in_reply_to"`
+
+	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
+	MessageId *string `json:"message_id"`
+
+	// ReceivedAt When Bird received the message.
+	ReceivedAt *time.Time `json:"received_at,omitempty"`
+
+	// References References header — the chain of Message-IDs in this conversation, oldest first. Absent when the message had no References header.
+	References *[]string `json:"references,omitempty"`
+
+	// SpamScore Spam score for the message. Always null at present; reserved for a future content-scoring capability.
+	SpamScore *float32 `json:"spam_score"`
+
+	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. Null when the result did not carry an SPF verdict.
+	SpfPass *bool `json:"spf_pass"`
+
+	// Subject Subject line as received, or null when the message had no subject.
+	Subject *string `json:"subject"`
+
+	// ThreadId Conversation this message belongs to. Always null until threading is available.
+	ThreadId *string `json:"thread_id"`
+
+	// To Recipients on the message's To header.
+	To []EmailAddress `json:"to"`
+}
+
+// InboundEmailMessageBody The parsed body of a received email.
+type InboundEmailMessageBody struct {
+	// Html The HTML body of the message, or null when the message had no HTML part.
+	Html *string `json:"html"`
+
+	// Text The plain-text body of the message, or null when the message had no text part.
+	Text *string `json:"text"`
+}
+
 // InboundEmailMessageID defines model for InboundEmailMessageID.
 type InboundEmailMessageID = string
+
+// InboundEmailMessageList defines model for InboundEmailMessageList.
+type InboundEmailMessageList struct {
+	Data []InboundEmailMessage `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
 
 // RecipientID defines model for RecipientID.
 type RecipientID = string
 
 // RecipientRole Envelope position of a recipient on an outbound email event.
 type RecipientRole string
+
+// SMSBatchSummary Aggregate result for an SMS batch.
+type SMSBatchSummary struct {
+	// AcceptedCount Number of messages accepted in the batch.
+	AcceptedCount int `json:"accepted_count"`
+}
+
+// SMSCost Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
+type SMSCost struct {
+	// Amount Total cost as a decimal string — the per-segment rate multiplied by the segment count, plus any surcharges.
+	Amount *string `json:"amount,omitempty"`
+
+	// Breakdown Per-component cost breakdown. Returned on single-message reads; omitted from list rows.
+	Breakdown *SMSCostBreakdown `json:"breakdown,omitempty"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
+}
+
+// SMSCostBreakdown Per-component cost breakdown. Returned on single-message reads; omitted from list rows.
+type SMSCostBreakdown struct {
+	// CarrierSurcharge Carrier surcharge component as a decimal string (for example US 10DLC fees). `0.0000` when none applies.
+	CarrierSurcharge string `json:"carrier_surcharge"`
+
+	// CountryCode ISO 3166-1 alpha-2 destination country the price was resolved for.
+	CountryCode string `json:"country_code"`
+
+	// PerSegment Per-segment price as a decimal string.
+	PerSegment string `json:"per_segment"`
+
+	// Segments Number of billable segments.
+	Segments int `json:"segments"`
+}
 
 // SMSError Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
 type SMSError struct {
@@ -2517,18 +3216,257 @@ type SMSError struct {
 // SMSErrorCode Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `unknown` — an unmapped failure.
 type SMSErrorCode string
 
+// SMSMessage defines model for SMSMessage.
+type SMSMessage struct {
+	// Carrier Carrier that handled the message, when known. Populated once a delivery receipt identifies it.
+	Carrier *string `json:"carrier,omitempty"`
+
+	// Category Content classification supplied on the send. Null for inbound messages.
+	Category *SMSMessageCategory `json:"category,omitempty"`
+
+	// Cost Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
+	Cost *SMSCost `json:"cost,omitempty"`
+
+	// CreatedAt When the message was accepted (outbound) or received (inbound).
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DeliveredAt When delivery was confirmed. Null until then.
+	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
+
+	// Direction Whether the message was sent from a Bird sender (`outbound`) or received from a subscriber (`inbound`).
+	Direction *SMSMessageDirection `json:"direction,omitempty"`
+
+	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	From string       `json:"from"`
+	Id   SMSMessageID `json:"id"`
+
+	// LastError Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	LastError *SMSError `json:"last_error,omitempty"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier, when known.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments `json:"segments"`
+
+	// SentAt When the message was handed to the carrier. Null until then.
+	SentAt *time.Time        `json:"sent_at,omitempty"`
+	Status *SMSMessageStatus `json:"status,omitempty"`
+
+	// Tags Structured `{name, value}` filter labels applied to this message.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Text Message body.
+	Text string `json:"text"`
+
+	// To Recipient phone number in E.164 format.
+	To string `json:"to"`
+
+	// ValidityPeriod How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
+	ValidityPeriod *int `json:"validity_period,omitempty"`
+}
+
+// SMSMessageDirection Whether the message was sent from a Bird sender (`outbound`) or received from a subscriber (`inbound`).
+type SMSMessageDirection string
+
+// SMSMessageBatchRequest Batch of SMS message send requests. All items are validated before any are queued.
+type SMSMessageBatchRequest = []SMSMessageSendRequest
+
+// SMSMessageBatchResponse defines model for SMSMessageBatchResponse.
+type SMSMessageBatchResponse struct {
+	// Data One entry per message in the batch, in submission order.
+	Data []SMSMessage `json:"data"`
+
+	// Summary Aggregate result for an SMS batch.
+	Summary *SMSBatchSummary `json:"summary,omitempty"`
+}
+
+// SMSMessageCategory Content classification. Drives opt-out (STOP) policy, quiet-hours, and per-country compliance.
+type SMSMessageCategory string
+
 // SMSMessageID defines model for SMSMessageID.
 type SMSMessageID = string
 
-// SMSTag Structured key/value tag attached to an SMS message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
-// Tag count and per-tag size are capped to keep per-send tag payloads small — see SMSMessageSendRequest for the array maximum.
-type SMSTag struct {
-	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
-	Name string `json:"name"`
+// SMSMessageList defines model for SMSMessageList.
+type SMSMessageList struct {
+	// Data Page of message objects.
+	Data []SMSMessage `json:"data"`
 
-	// Value Tag value. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 64 characters.
-	Value string `json:"value"`
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category`) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
+type SMSMessageSendRequest struct {
+	// AudienceId Preview feature — audience-targeted sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	AudienceId *string `json:"audience_id,omitempty"`
+
+	// BroadcastId Preview feature — broadcast correlation. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	BroadcastId *string `json:"broadcast_id,omitempty"`
+
+	// CampaignId Preview feature — campaign correlation for analytics. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	CampaignId *string `json:"campaign_id,omitempty"`
+
+	// Category Content classification. Drives opt-out (STOP) policy, quiet-hours, and per-country compliance. Required on a free-text send; omit it on a template send, where the category is derived from the template.
+	Category *SMSMessageCategory `json:"category,omitempty"`
+
+	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	ContactId *string `json:"contact_id,omitempty"`
+
+	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (up to 11 characters, for example `MyBrand`), or a short code (5–6 digits). When omitted, Bird selects an eligible sender for you.
+	From *string `json:"from,omitempty"`
+
+	// MaxPricePerSegment Preview feature — per-segment price ceiling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
+
+	// MediaUrls Preview feature — multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	MediaUrls *[]string `json:"media_urls,omitempty"`
+
+	// MessagingProfileId Preview feature — sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	MessagingProfileId *string `json:"messaging_profile_id,omitempty"`
+
+	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Personalization Preview feature — per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	Personalization *map[string]interface{} `json:"personalization,omitempty"`
+
+	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
+	// Tags Structured `{name, value}` labels for filtering and analytics. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics by tag, and surface in webhook payloads. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
+	Template *SMSTemplateSend `json:"template,omitempty"`
+
+	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
+	Text *string `json:"text,omitempty"`
+
+	// To Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
+	To string `json:"to"`
+
+	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	TopicId *string `json:"topic_id,omitempty"`
+
+	// TrackClicks Preview feature — link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 unsupported_feature`.
+	TrackClicks *bool `json:"track_clicks,omitempty"`
+
+	// ValidityPeriod Preview feature — how long, in seconds (60–172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	ValidityPeriod *int `json:"validity_period,omitempty"`
+	union          json.RawMessage
+}
+
+// SMSMessageSendRequest0 defines model for .
+type SMSMessageSendRequest0 = interface{}
+
+// SMSMessageSendRequest1 defines model for .
+type SMSMessageSendRequest1 = interface{}
+
+// SMSMessageStatus Delivery status. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird accepted the request and it is awaiting handoff to the carrier network. `sent` means it was handed to the carrier and is awaiting a delivery receipt. `delivered` is confirmed delivery. `undelivered` is a non-permanent non-delivery (handset off, content blocked). `failed` is a terminal permanent failure. `rejected` means Bird refused it before reaching the carrier. `canceled` means a scheduled message was canceled before it was sent. `expired` means the validity period elapsed without a terminal receipt. `received` applies to inbound messages.
+type SMSMessageStatus string
+
+// SMSSegments Segment breakdown for the message body. Segment count drives billing.
+type SMSSegments struct {
+	// Characters Character count of the body under the selected encoding.
+	Characters *int `json:"characters,omitempty"`
+
+	// Count Number of segments the body is split into. Each segment is a billable unit.
+	Count *int `json:"count,omitempty"`
+
+	// Encoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
+}
+
+// SMSSegmentsEncoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+type SMSSegmentsEncoding string
+
+// SMSTemplate defines model for SMSTemplate.
+type SMSTemplate struct {
+	// Alias The template's stable handle. Pass it (or the id) as the template reference when sending.
+	Alias *string `json:"alias,omitempty"`
+
+	// AvailableLocales The languages this template is available in, as BCP-47 tags.
+	AvailableLocales *[]string `json:"available_locales,omitempty"`
+
+	// Body The template body in its default language, shown for preview.
+	Body *string `json:"body,omitempty"`
+
+	// Category Content classification applied to messages sent from this template.
+	Category *SMSMessageCategory `json:"category,omitempty"`
+
+	// CreatedAt When the template was created. Null for built-in templates.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DraftVersionId The current editable draft version. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             SMSTemplateID         `json:"id"`
+
+	// Name Human-readable description of what the template is for.
+	Name *string `json:"name,omitempty"`
+
+	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Revision The draft's revision counter. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	Revision *int `json:"revision,omitempty"`
+
+	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Status The template's lifecycle state. Built-in templates are always `active`.
+	Status *SMSTemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last updated. Null for built-in templates.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Variables The typed slots this template fills in from the values you supply when sending.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+}
+
+// SMSTemplateStatus The template's lifecycle state. Built-in templates are always `active`.
+type SMSTemplateStatus string
+
+// SMSTemplateID defines model for SMSTemplateID.
+type SMSTemplateID = string
+
+// SMSTemplateList defines model for SMSTemplateList.
+type SMSTemplateList struct {
+	// Data The templates available to your workspace. The catalogue is small and returned in full — this list is not paginated.
+	Data []SMSTemplate `json:"data"`
+}
+
+// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `alias` (supply exactly one), optionally pick a locale, and pass its variable values in `parameters`.
+type SMSTemplateSend struct {
+	// Alias The template to send, by its alias handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+	Alias *string        `json:"alias,omitempty"`
+	Id    *SMSTemplateID `json:"id,omitempty"`
+
+	// Locale Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+	Locale *string `json:"locale,omitempty"`
+
+	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template — see the template's `variables` on the templates endpoint. Every required variable must be supplied, and no undeclared key may be present. Cap: 16 KB serialized.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+	union      json.RawMessage
+}
+
+// SMSTemplateSend0 defines model for .
+type SMSTemplateSend0 = interface{}
+
+// SMSTemplateSend1 defines model for .
+type SMSTemplateSend1 = interface{}
+
+// SMSTemplateVersionID defines model for SMSTemplateVersionID.
+type SMSTemplateVersionID = string
 
 // Suppression defines model for Suppression.
 type Suppression struct {
@@ -2592,10 +3530,135 @@ type SuppressionScope struct {
 // SuppressionScopeType The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
 type SuppressionScopeType string
 
+// Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
+// Tag count and per-tag size are capped to keep per-send tag payloads small — see the send request for the array maximum. Tag names are unique within a send; supplying the same name twice is rejected.
+type Tag struct {
+	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
+	Name string `json:"name"`
+
+	// Value Tag value. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 64 characters.
+	Value string `json:"value"`
+}
+
+// TemplateScope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+type TemplateScope string
+
+// TemplateVariable A single variable slot a template fills in from the values supplied when sending. Shared across channels (SMS, email) so template introspection reads the same everywhere.
+type TemplateVariable struct {
+	// Constraint A human-readable description of the accepted values.
+	Constraint *string `json:"constraint,omitempty"`
+
+	// Key The parameters key this slot is filled with.
+	Key *string `json:"key,omitempty"`
+
+	// Required Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
+	Required *bool `json:"required,omitempty"`
+
+	// Type The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
+	Type *string `json:"type,omitempty"`
+}
+
 // Timestamps defines model for Timestamps.
 type Timestamps struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// Verification defines model for Verification.
+type Verification struct {
+	// Channels The ordered channels this verification uses to deliver the passcode. An email recipient is verified over email; a phone recipient is verified over SMS.
+	Channels  *[]VerificationChannelEntry `json:"channels,omitempty"`
+	CreatedAt *time.Time                  `json:"created_at,omitempty"`
+
+	// ExpiresAt When the verification expires if no correct passcode is submitted.
+	ExpiresAt *time.Time     `json:"expires_at,omitempty"`
+	Id        VerificationID `json:"id"`
+
+	// LastChannel The channel the most recent passcode was sent on, or null before the first send. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	LastChannel *string `json:"last_channel,omitempty"`
+
+	// Metadata The key/value pairs attached when the verification was created.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Reason Why the verification reached its final state, or null while pending or once verified. Open enum — treat any unrecognized value as a future reason.
+	Reason *string `json:"reason,omitempty"`
+
+	// Status The verification's current state: pending (awaiting a valid passcode), verified, failed (too many incorrect attempts), or expired (the time window elapsed before a correct passcode).
+	Status *VerificationStatus `json:"status,omitempty"`
+
+	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	To        VerificationTo `json:"to"`
+	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
+
+	// VerifiedAt When the verification was completed, or null if it is not yet verified.
+	VerifiedAt *time.Time `json:"verified_at,omitempty"`
+}
+
+// VerificationStatus The verification's current state: pending (awaiting a valid passcode), verified, failed (too many incorrect attempts), or expired (the time window elapsed before a correct passcode).
+type VerificationStatus string
+
+// VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+type VerificationChannel = string
+
+// VerificationChannelEntry defines model for VerificationChannelEntry.
+type VerificationChannelEntry struct {
+	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	Channel VerificationChannel `json:"channel"`
+}
+
+// VerificationCheckRequest defines model for VerificationCheckRequest.
+type VerificationCheckRequest struct {
+	// Code The passcode the recipient received.
+	Code string `json:"code"`
+
+	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	To VerificationTo `json:"to"`
+}
+
+// VerificationCheckResult defines model for VerificationCheckResult.
+type VerificationCheckResult struct {
+	// AttemptsRemaining The number of check attempts left, or null once the verification is complete.
+	AttemptsRemaining *int `json:"attempts_remaining,omitempty"`
+
+	// Reason Why the check did not succeed, or null when success is true. incorrect_code means the passcode was wrong and attempts remain; expired means the time window elapsed; attempts_exhausted means too many incorrect attempts. Open enum — treat any unrecognized value as a future reason.
+	Reason *string `json:"reason,omitempty"`
+
+	// Success Whether the submitted passcode verified this verification. true means the passcode was correct and the verification is now complete; false means it was not verified — see reason. A verification that has already reached a final state is no longer checkable and returns 404.
+	Success      *bool        `json:"success,omitempty"`
+	Verification Verification `json:"verification"`
+}
+
+// VerificationCreateRequest defines model for VerificationCreateRequest.
+type VerificationCreateRequest struct {
+	// Metadata Optional key/value pairs to attach to the verification, for example a correlation id. Returned on the verification.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Options Per-request overrides applied to this verification only.
+	Options *VerificationOptions `json:"options,omitempty"`
+
+	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	To VerificationTo `json:"to"`
+}
+
+// VerificationID defines model for VerificationID.
+type VerificationID = string
+
+// VerificationOptions Per-request overrides applied to this verification only.
+type VerificationOptions struct {
+	// Channels Reorder or narrow the delivery channels for this request. List channel names in the order to try them; a channel you omit is not used for this request, and a channel not already enabled for the recipient is ignored. Omit the field to use the configured order.
+	Channels *[]VerificationChannel `json:"channels,omitempty"`
+
+	// CodeLength Passcode length for this verification, overriding the configured length.
+	CodeLength *int `json:"code_length,omitempty"`
+}
+
+// VerificationTo The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+type VerificationTo struct {
+	// EmailAddress The recipient's email address.
+	EmailAddress *openapi_types.Email `json:"email_address,omitempty"`
+
+	// PhoneNumber The recipient's phone number in E.164 format.
+	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
 // WebhookAttempt defines model for WebhookAttempt.
@@ -2835,8 +3898,14 @@ type PaginationLimit = int
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
 
+// XWorkspaceId defines model for XWorkspaceId.
+type XWorkspaceId = string
+
 // BadRequest defines model for BadRequest.
 type BadRequest = Error
+
+// Conflict defines model for Conflict.
+type Conflict = Error
 
 // Forbidden defines model for Forbidden.
 type Forbidden = Error
@@ -2914,8 +3983,8 @@ type ListEmailMessagesParams struct {
 	// Status Filter by aggregate delivery status.
 	Status *ListEmailMessagesParamsStatus `form:"status,omitempty" json:"status,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any send carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). For filtering on arbitrary `metadata` fields, use the metadata path-filter parameters instead.
-	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any send carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	Tag *[]string `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Category Filter by category.
 	Category *ListEmailMessagesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
@@ -2947,11 +4016,191 @@ type CreateEmailMessageParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListEmailTemplatesParams defines parameters for ListEmailTemplates.
+type ListEmailTemplatesParams struct {
+	// Category Filter by template category.
+	Category *EmailTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// Source Filter by authoring format.
+	Source *EmailTemplateSource `form:"source,omitempty" json:"source,omitempty"`
+
+	// Name Filter by name prefix (case-insensitive).
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateEmailTemplateParams defines parameters for CreateEmailTemplate.
+type CreateEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteEmailTemplateParams defines parameters for DeleteEmailTemplate.
+type DeleteEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateEmailTemplateParams defines parameters for UpdateEmailTemplate.
+type UpdateEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// PublishEmailTemplateParams defines parameters for PublishEmailTemplate.
+type PublishEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
+type CreateSMSMessageBatchParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListSMSMessagesParams defines parameters for ListSMSMessages.
+type ListSMSMessagesParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// CreatedAfter Return only resources created strictly after this timestamp. RFC 3339 / ISO 8601 with timezone.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Return only resources created strictly before this timestamp. RFC 3339 / ISO 8601 with timezone.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// Direction Filter by direction. Omit for both.
+	Direction *ListSMSMessagesParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// Status Filter by status; repeat the parameter to match any of several. One of scheduled, accepted, sent, delivered, undelivered, failed, rejected, canceled, expired, or received.
+	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
+
+	// ErrorCode Filter to messages whose failure reason matches one of the supplied values; repeat the parameter to match any of several. One of invalid_destination, unreachable, blocked_by_carrier, blocked_by_recipient, landline_unreachable, content_rejected, sender_unregistered, recipient_opted_out, provider_unavailable, or unknown.
+	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
+
+	// Category Filter by category.
+	Category *ListSMSMessagesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// To Filter by recipient phone number (E.164 exact match).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// From Filter by sender (E.164, alphanumeric, or short code — exact match).
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair. Repeat the parameter to AND-combine several tag filters.
+	Tag *[]string `form:"tag,omitempty" json:"tag,omitempty"`
+}
+
+// ListSMSMessagesParamsDirection defines parameters for ListSMSMessages.
+type ListSMSMessagesParamsDirection string
+
+// ListSMSMessagesParamsCategory defines parameters for ListSMSMessages.
+type ListSMSMessagesParamsCategory string
+
+// CreateSMSMessageParams defines parameters for CreateSMSMessage.
+type CreateSMSMessageParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListSMSTemplatesParams defines parameters for ListSMSTemplates.
+type ListSMSTemplatesParams struct {
+	// Scope Filter by scope. Omit for all.
+	Scope *ListSMSTemplatesParamsScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// Category Filter by category.
+	Category *ListSMSTemplatesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// Locale Keep only templates available in this language, as a BCP-47 tag.
+	Locale *string `form:"locale,omitempty" json:"locale,omitempty"`
+}
+
+// ListSMSTemplatesParamsScope defines parameters for ListSMSTemplates.
+type ListSMSTemplatesParamsScope string
+
+// ListSMSTemplatesParamsCategory defines parameters for ListSMSTemplates.
+type ListSMSTemplatesParamsCategory string
+
 // CreateEmailMessageBatchJSONRequestBody defines body for CreateEmailMessageBatch for application/json ContentType.
 type CreateEmailMessageBatchJSONRequestBody = EmailMessageBatchRequest
 
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
+
+// CreateEmailTemplateJSONRequestBody defines body for CreateEmailTemplate for application/json ContentType.
+type CreateEmailTemplateJSONRequestBody = EmailTemplateCreate
+
+// UpdateEmailTemplateJSONRequestBody defines body for UpdateEmailTemplate for application/json ContentType.
+type UpdateEmailTemplateJSONRequestBody = EmailTemplateUpdate
+
+// CreateSMSMessageBatchJSONRequestBody defines body for CreateSMSMessageBatch for application/json ContentType.
+type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
+
+// CreateSMSMessageJSONRequestBody defines body for CreateSMSMessage for application/json ContentType.
+type CreateSMSMessageJSONRequestBody = SMSMessageSendRequest
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
@@ -3012,6 +4261,614 @@ func (t EmailAddressInput) MarshalJSON() ([]byte, error) {
 
 func (t *EmailAddressInput) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEmailTemplateSend0 returns the union data inside the EmailTemplateSend as a EmailTemplateSend0
+func (t EmailTemplateSend) AsEmailTemplateSend0() (EmailTemplateSend0, error) {
+	var body EmailTemplateSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEmailTemplateSend0 overwrites any union data inside the EmailTemplateSend as the provided EmailTemplateSend0
+func (t *EmailTemplateSend) FromEmailTemplateSend0(v EmailTemplateSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEmailTemplateSend0 performs a merge with any union data inside the EmailTemplateSend, using the provided EmailTemplateSend0
+func (t *EmailTemplateSend) MergeEmailTemplateSend0(v EmailTemplateSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEmailTemplateSend1 returns the union data inside the EmailTemplateSend as a EmailTemplateSend1
+func (t EmailTemplateSend) AsEmailTemplateSend1() (EmailTemplateSend1, error) {
+	var body EmailTemplateSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEmailTemplateSend1 overwrites any union data inside the EmailTemplateSend as the provided EmailTemplateSend1
+func (t *EmailTemplateSend) FromEmailTemplateSend1(v EmailTemplateSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEmailTemplateSend1 performs a merge with any union data inside the EmailTemplateSend, using the provided EmailTemplateSend1
+func (t *EmailTemplateSend) MergeEmailTemplateSend1(v EmailTemplateSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EmailTemplateSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Alias != nil {
+		object["alias"], err = json.Marshal(t.Alias)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'alias': %w", err)
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Parameters != nil {
+		object["parameters"], err = json.Marshal(t.Parameters)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EmailTemplateSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["alias"]; found {
+		err = json.Unmarshal(raw, &t.Alias)
+		if err != nil {
+			return fmt.Errorf("error reading 'alias': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["parameters"]; found {
+		err = json.Unmarshal(raw, &t.Parameters)
+		if err != nil {
+			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsSMSMessageSendRequest0 returns the union data inside the SMSMessageSendRequest as a SMSMessageSendRequest0
+func (t SMSMessageSendRequest) AsSMSMessageSendRequest0() (SMSMessageSendRequest0, error) {
+	var body SMSMessageSendRequest0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSMessageSendRequest0 overwrites any union data inside the SMSMessageSendRequest as the provided SMSMessageSendRequest0
+func (t *SMSMessageSendRequest) FromSMSMessageSendRequest0(v SMSMessageSendRequest0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSMessageSendRequest0 performs a merge with any union data inside the SMSMessageSendRequest, using the provided SMSMessageSendRequest0
+func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest0(v SMSMessageSendRequest0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsSMSMessageSendRequest1 returns the union data inside the SMSMessageSendRequest as a SMSMessageSendRequest1
+func (t SMSMessageSendRequest) AsSMSMessageSendRequest1() (SMSMessageSendRequest1, error) {
+	var body SMSMessageSendRequest1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSMessageSendRequest1 overwrites any union data inside the SMSMessageSendRequest as the provided SMSMessageSendRequest1
+func (t *SMSMessageSendRequest) FromSMSMessageSendRequest1(v SMSMessageSendRequest1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSMessageSendRequest1 performs a merge with any union data inside the SMSMessageSendRequest, using the provided SMSMessageSendRequest1
+func (t *SMSMessageSendRequest) MergeSMSMessageSendRequest1(v SMSMessageSendRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.AudienceId != nil {
+		object["audience_id"], err = json.Marshal(t.AudienceId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'audience_id': %w", err)
+		}
+	}
+
+	if t.BroadcastId != nil {
+		object["broadcast_id"], err = json.Marshal(t.BroadcastId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'broadcast_id': %w", err)
+		}
+	}
+
+	if t.CampaignId != nil {
+		object["campaign_id"], err = json.Marshal(t.CampaignId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'campaign_id': %w", err)
+		}
+	}
+
+	if t.Category != nil {
+		object["category"], err = json.Marshal(t.Category)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'category': %w", err)
+		}
+	}
+
+	if t.ContactId != nil {
+		object["contact_id"], err = json.Marshal(t.ContactId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'contact_id': %w", err)
+		}
+	}
+
+	if t.From != nil {
+		object["from"], err = json.Marshal(t.From)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'from': %w", err)
+		}
+	}
+
+	if t.MaxPricePerSegment != nil {
+		object["max_price_per_segment"], err = json.Marshal(t.MaxPricePerSegment)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'max_price_per_segment': %w", err)
+		}
+	}
+
+	if t.MediaUrls != nil {
+		object["media_urls"], err = json.Marshal(t.MediaUrls)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'media_urls': %w", err)
+		}
+	}
+
+	if t.MessagingProfileId != nil {
+		object["messaging_profile_id"], err = json.Marshal(t.MessagingProfileId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'messaging_profile_id': %w", err)
+		}
+	}
+
+	if t.Metadata != nil {
+		object["metadata"], err = json.Marshal(t.Metadata)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'metadata': %w", err)
+		}
+	}
+
+	if t.Personalization != nil {
+		object["personalization"], err = json.Marshal(t.Personalization)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'personalization': %w", err)
+		}
+	}
+
+	if t.ScheduledAt != nil {
+		object["scheduled_at"], err = json.Marshal(t.ScheduledAt)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'scheduled_at': %w", err)
+		}
+	}
+
+	if t.Tags != nil {
+		object["tags"], err = json.Marshal(t.Tags)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'tags': %w", err)
+		}
+	}
+
+	if t.Template != nil {
+		object["template"], err = json.Marshal(t.Template)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'template': %w", err)
+		}
+	}
+
+	if t.Text != nil {
+		object["text"], err = json.Marshal(t.Text)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'text': %w", err)
+		}
+	}
+
+	object["to"], err = json.Marshal(t.To)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'to': %w", err)
+	}
+
+	if t.TopicId != nil {
+		object["topic_id"], err = json.Marshal(t.TopicId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'topic_id': %w", err)
+		}
+	}
+
+	if t.TrackClicks != nil {
+		object["track_clicks"], err = json.Marshal(t.TrackClicks)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'track_clicks': %w", err)
+		}
+	}
+
+	if t.ValidityPeriod != nil {
+		object["validity_period"], err = json.Marshal(t.ValidityPeriod)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'validity_period': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["audience_id"]; found {
+		err = json.Unmarshal(raw, &t.AudienceId)
+		if err != nil {
+			return fmt.Errorf("error reading 'audience_id': %w", err)
+		}
+	}
+
+	if raw, found := object["broadcast_id"]; found {
+		err = json.Unmarshal(raw, &t.BroadcastId)
+		if err != nil {
+			return fmt.Errorf("error reading 'broadcast_id': %w", err)
+		}
+	}
+
+	if raw, found := object["campaign_id"]; found {
+		err = json.Unmarshal(raw, &t.CampaignId)
+		if err != nil {
+			return fmt.Errorf("error reading 'campaign_id': %w", err)
+		}
+	}
+
+	if raw, found := object["category"]; found {
+		err = json.Unmarshal(raw, &t.Category)
+		if err != nil {
+			return fmt.Errorf("error reading 'category': %w", err)
+		}
+	}
+
+	if raw, found := object["contact_id"]; found {
+		err = json.Unmarshal(raw, &t.ContactId)
+		if err != nil {
+			return fmt.Errorf("error reading 'contact_id': %w", err)
+		}
+	}
+
+	if raw, found := object["from"]; found {
+		err = json.Unmarshal(raw, &t.From)
+		if err != nil {
+			return fmt.Errorf("error reading 'from': %w", err)
+		}
+	}
+
+	if raw, found := object["max_price_per_segment"]; found {
+		err = json.Unmarshal(raw, &t.MaxPricePerSegment)
+		if err != nil {
+			return fmt.Errorf("error reading 'max_price_per_segment': %w", err)
+		}
+	}
+
+	if raw, found := object["media_urls"]; found {
+		err = json.Unmarshal(raw, &t.MediaUrls)
+		if err != nil {
+			return fmt.Errorf("error reading 'media_urls': %w", err)
+		}
+	}
+
+	if raw, found := object["messaging_profile_id"]; found {
+		err = json.Unmarshal(raw, &t.MessagingProfileId)
+		if err != nil {
+			return fmt.Errorf("error reading 'messaging_profile_id': %w", err)
+		}
+	}
+
+	if raw, found := object["metadata"]; found {
+		err = json.Unmarshal(raw, &t.Metadata)
+		if err != nil {
+			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["personalization"]; found {
+		err = json.Unmarshal(raw, &t.Personalization)
+		if err != nil {
+			return fmt.Errorf("error reading 'personalization': %w", err)
+		}
+	}
+
+	if raw, found := object["scheduled_at"]; found {
+		err = json.Unmarshal(raw, &t.ScheduledAt)
+		if err != nil {
+			return fmt.Errorf("error reading 'scheduled_at': %w", err)
+		}
+	}
+
+	if raw, found := object["tags"]; found {
+		err = json.Unmarshal(raw, &t.Tags)
+		if err != nil {
+			return fmt.Errorf("error reading 'tags': %w", err)
+		}
+	}
+
+	if raw, found := object["template"]; found {
+		err = json.Unmarshal(raw, &t.Template)
+		if err != nil {
+			return fmt.Errorf("error reading 'template': %w", err)
+		}
+	}
+
+	if raw, found := object["text"]; found {
+		err = json.Unmarshal(raw, &t.Text)
+		if err != nil {
+			return fmt.Errorf("error reading 'text': %w", err)
+		}
+	}
+
+	if raw, found := object["to"]; found {
+		err = json.Unmarshal(raw, &t.To)
+		if err != nil {
+			return fmt.Errorf("error reading 'to': %w", err)
+		}
+	}
+
+	if raw, found := object["topic_id"]; found {
+		err = json.Unmarshal(raw, &t.TopicId)
+		if err != nil {
+			return fmt.Errorf("error reading 'topic_id': %w", err)
+		}
+	}
+
+	if raw, found := object["track_clicks"]; found {
+		err = json.Unmarshal(raw, &t.TrackClicks)
+		if err != nil {
+			return fmt.Errorf("error reading 'track_clicks': %w", err)
+		}
+	}
+
+	if raw, found := object["validity_period"]; found {
+		err = json.Unmarshal(raw, &t.ValidityPeriod)
+		if err != nil {
+			return fmt.Errorf("error reading 'validity_period': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsSMSTemplateSend0 returns the union data inside the SMSTemplateSend as a SMSTemplateSend0
+func (t SMSTemplateSend) AsSMSTemplateSend0() (SMSTemplateSend0, error) {
+	var body SMSTemplateSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSTemplateSend0 overwrites any union data inside the SMSTemplateSend as the provided SMSTemplateSend0
+func (t *SMSTemplateSend) FromSMSTemplateSend0(v SMSTemplateSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSTemplateSend0 performs a merge with any union data inside the SMSTemplateSend, using the provided SMSTemplateSend0
+func (t *SMSTemplateSend) MergeSMSTemplateSend0(v SMSTemplateSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsSMSTemplateSend1 returns the union data inside the SMSTemplateSend as a SMSTemplateSend1
+func (t SMSTemplateSend) AsSMSTemplateSend1() (SMSTemplateSend1, error) {
+	var body SMSTemplateSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSTemplateSend1 overwrites any union data inside the SMSTemplateSend as the provided SMSTemplateSend1
+func (t *SMSTemplateSend) FromSMSTemplateSend1(v SMSTemplateSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSTemplateSend1 performs a merge with any union data inside the SMSTemplateSend, using the provided SMSTemplateSend1
+func (t *SMSTemplateSend) MergeSMSTemplateSend1(v SMSTemplateSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t SMSTemplateSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Alias != nil {
+		object["alias"], err = json.Marshal(t.Alias)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'alias': %w", err)
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Locale != nil {
+		object["locale"], err = json.Marshal(t.Locale)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'locale': %w", err)
+		}
+	}
+
+	if t.Parameters != nil {
+		object["parameters"], err = json.Marshal(t.Parameters)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["alias"]; found {
+		err = json.Unmarshal(raw, &t.Alias)
+		if err != nil {
+			return fmt.Errorf("error reading 'alias': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["locale"]; found {
+		err = json.Unmarshal(raw, &t.Locale)
+		if err != nil {
+			return fmt.Errorf("error reading 'locale': %w", err)
+		}
+	}
+
+	if raw, found := object["parameters"]; found {
+		err = json.Unmarshal(raw, &t.Parameters)
+		if err != nil {
+			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
 	return err
 }
 
@@ -3882,6 +5739,56 @@ type ClientInterface interface {
 
 	// GetEmailMessage request
 	GetEmailMessage(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailTemplates request
+	ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailTemplateWithBody request with any body
+	CreateEmailTemplateWithBody(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailTemplate(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailTemplate request
+	DeleteEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplate request
+	GetEmailTemplate(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailTemplateWithBody request with any body
+	UpdateEmailTemplateWithBody(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PublishEmailTemplate request
+	PublishEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *PublishEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailTemplateVersions request
+	ListEmailTemplateVersions(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplateVersion request
+	GetEmailTemplateVersion(ctx context.Context, templateId EmailTemplateID, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateSMSMessageBatchWithBody request with any body
+	CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateSMSMessageBatch(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSMessages request
+	ListSMSMessages(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateSMSMessageWithBody request with any body
+	CreateSMSMessageWithBody(ctx context.Context, params *CreateSMSMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateSMSMessage(ctx context.Context, params *CreateSMSMessageParams, body CreateSMSMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSMessage request
+	GetSMSMessage(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSTemplates request
+	ListSMSTemplates(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSTemplate request
+	GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3946,6 +5853,222 @@ func (c *Client) CreateEmailMessage(ctx context.Context, params *CreateEmailMess
 
 func (c *Client) GetEmailMessage(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailMessageRequest(c.Server, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplatesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailTemplateWithBody(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailTemplateRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailTemplate(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailTemplateRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailTemplateRequest(c.Server, templateId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplate(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateRequest(c.Server, templateId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplateWithBody(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateRequestWithBody(c.Server, templateId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateRequest(c.Server, templateId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishEmailTemplate(ctx context.Context, templateId EmailTemplateID, params *PublishEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishEmailTemplateRequest(c.Server, templateId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplateVersions(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplateVersionsRequest(c.Server, templateId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplateVersion(ctx context.Context, templateId EmailTemplateID, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateVersionRequest(c.Server, templateId, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSMessageBatchRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSMessageBatch(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSMessageBatchRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSMessages(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSMessagesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSMessageWithBody(ctx context.Context, params *CreateSMSMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSMessageRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSMessage(ctx context.Context, params *CreateSMSMessageParams, body CreateSMSMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSMessageRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSMessage(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSMessageRequest(c.Server, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSTemplates(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSTemplatesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSTemplateRequest(c.Server, templateRef)
 	if err != nil {
 		return nil, err
 	}
@@ -4113,7 +6236,7 @@ func NewListEmailMessagesRequest(server string, params *ListEmailMessagesParams)
 
 		if params.Tag != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -4262,6 +6385,886 @@ func NewGetEmailMessageRequest(server string, messageId EmailID) (*http.Request,
 	return req, nil
 }
 
+// NewListEmailTemplatesRequest generates requests for ListEmailTemplates
+func NewListEmailTemplatesRequest(server string, params *ListEmailTemplatesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Source != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source", *params.Source, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailTemplateRequest calls the generic CreateEmailTemplate builder with application/json body
+func NewCreateEmailTemplateRequest(server string, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailTemplateRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailTemplateRequestWithBody generates requests for CreateEmailTemplate with any type of body
+func NewCreateEmailTemplateRequestWithBody(server string, params *CreateEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailTemplateRequest generates requests for DeleteEmailTemplate
+func NewDeleteEmailTemplateRequest(server string, templateId EmailTemplateID, params *DeleteEmailTemplateParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateRequest generates requests for GetEmailTemplate
+func NewGetEmailTemplateRequest(server string, templateId EmailTemplateID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailTemplateRequest calls the generic UpdateEmailTemplate builder with application/json body
+func NewUpdateEmailTemplateRequest(server string, templateId EmailTemplateID, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailTemplateRequestWithBody(server, templateId, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailTemplateRequestWithBody generates requests for UpdateEmailTemplate with any type of body
+func NewUpdateEmailTemplateRequestWithBody(server string, templateId EmailTemplateID, params *UpdateEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewPublishEmailTemplateRequest generates requests for PublishEmailTemplate
+func NewPublishEmailTemplateRequest(server string, templateId EmailTemplateID, params *PublishEmailTemplateParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/publish", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailTemplateVersionsRequest generates requests for ListEmailTemplateVersions
+func NewListEmailTemplateVersionsRequest(server string, templateId EmailTemplateID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateVersionRequest generates requests for GetEmailTemplateVersion
+func NewGetEmailTemplateVersionRequest(server string, templateId EmailTemplateID, versionId EmailTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_id", templateId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateSMSMessageBatchRequest calls the generic CreateSMSMessageBatch builder with application/json body
+func NewCreateSMSMessageBatchRequest(server string, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateSMSMessageBatchRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateSMSMessageBatchRequestWithBody generates requests for CreateSMSMessageBatch with any type of body
+func NewCreateSMSMessageBatchRequestWithBody(server string, params *CreateSMSMessageBatchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/batches")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListSMSMessagesRequest generates requests for ListSMSMessages
+func NewListSMSMessagesRequest(server string, params *ListSMSMessagesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/messages")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ErrorCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "error_code", *params.ErrorCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateSMSMessageRequest calls the generic CreateSMSMessage builder with application/json body
+func NewCreateSMSMessageRequest(server string, params *CreateSMSMessageParams, body CreateSMSMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateSMSMessageRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateSMSMessageRequestWithBody generates requests for CreateSMSMessage with any type of body
+func NewCreateSMSMessageRequestWithBody(server string, params *CreateSMSMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/messages")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSMessageRequest generates requests for GetSMSMessage
+func NewGetSMSMessageRequest(server string, messageId SMSMessageID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/messages/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSMSTemplatesRequest generates requests for ListSMSTemplates
+func NewListSMSTemplatesRequest(server string, params *ListSMSTemplatesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Locale != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "locale", *params.Locale, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSTemplateRequest generates requests for GetSMSTemplate
+func NewGetSMSTemplateRequest(server string, templateRef string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -4320,6 +7323,56 @@ type ClientWithResponsesInterface interface {
 
 	// GetEmailMessageWithResponse request
 	GetEmailMessageWithResponse(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*GetEmailMessageResponse, error)
+
+	// ListEmailTemplatesWithResponse request
+	ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error)
+
+	// CreateEmailTemplateWithBodyWithResponse request with any body
+	CreateEmailTemplateWithBodyWithResponse(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error)
+
+	CreateEmailTemplateWithResponse(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error)
+
+	// DeleteEmailTemplateWithResponse request
+	DeleteEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateResponse, error)
+
+	// GetEmailTemplateWithResponse request
+	GetEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*GetEmailTemplateResponse, error)
+
+	// UpdateEmailTemplateWithBodyWithResponse request with any body
+	UpdateEmailTemplateWithBodyWithResponse(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error)
+
+	UpdateEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error)
+
+	// PublishEmailTemplateWithResponse request
+	PublishEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *PublishEmailTemplateParams, reqEditors ...RequestEditorFn) (*PublishEmailTemplateResponse, error)
+
+	// ListEmailTemplateVersionsWithResponse request
+	ListEmailTemplateVersionsWithResponse(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionsResponse, error)
+
+	// GetEmailTemplateVersionWithResponse request
+	GetEmailTemplateVersionWithResponse(ctx context.Context, templateId EmailTemplateID, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*GetEmailTemplateVersionResponse, error)
+
+	// CreateSMSMessageBatchWithBodyWithResponse request with any body
+	CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
+
+	CreateSMSMessageBatchWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
+
+	// ListSMSMessagesWithResponse request
+	ListSMSMessagesWithResponse(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*ListSMSMessagesResponse, error)
+
+	// CreateSMSMessageWithBodyWithResponse request with any body
+	CreateSMSMessageWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageResponse, error)
+
+	CreateSMSMessageWithResponse(ctx context.Context, params *CreateSMSMessageParams, body CreateSMSMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSMessageResponse, error)
+
+	// GetSMSMessageWithResponse request
+	GetSMSMessageWithResponse(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*GetSMSMessageResponse, error)
+
+	// ListSMSTemplatesWithResponse request
+	ListSMSTemplatesWithResponse(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*ListSMSTemplatesResponse, error)
+
+	// GetSMSTemplateWithResponse request
+	GetSMSTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetSMSTemplateResponse, error)
 }
 
 type CreateEmailMessageBatchResponse struct {
@@ -4467,6 +7520,507 @@ func (r GetEmailMessageResponse) ContentType() string {
 	return ""
 }
 
+type ListEmailTemplatesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplatesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplatesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplatesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplate
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PublishEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateVersion
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PublishEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailTemplateVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateVersionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplateVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplateVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplateVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateVersion
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateSMSMessageBatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *SMSMessageBatchResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateSMSMessageBatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateSMSMessageBatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateSMSMessageBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSMSMessagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSMessageList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSMessagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSMessagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSMessagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateSMSMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *SMSMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateSMSMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateSMSMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateSMSMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSMessage
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSMSTemplatesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplateList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSTemplatesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSTemplatesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSTemplatesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplate
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // CreateEmailMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateEmailMessageBatchResponse
 func (c *ClientWithResponses) CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error) {
 	rsp, err := c.CreateEmailMessageBatchWithBody(ctx, params, contentType, body, reqEditors...)
@@ -4517,6 +8071,164 @@ func (c *ClientWithResponses) GetEmailMessageWithResponse(ctx context.Context, m
 		return nil, err
 	}
 	return ParseGetEmailMessageResponse(rsp)
+}
+
+// ListEmailTemplatesWithResponse request returning *ListEmailTemplatesResponse
+func (c *ClientWithResponses) ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error) {
+	rsp, err := c.ListEmailTemplates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplatesResponse(rsp)
+}
+
+// CreateEmailTemplateWithBodyWithResponse request with arbitrary body returning *CreateEmailTemplateResponse
+func (c *ClientWithResponses) CreateEmailTemplateWithBodyWithResponse(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error) {
+	rsp, err := c.CreateEmailTemplateWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailTemplateWithResponse(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error) {
+	rsp, err := c.CreateEmailTemplate(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailTemplateResponse(rsp)
+}
+
+// DeleteEmailTemplateWithResponse request returning *DeleteEmailTemplateResponse
+func (c *ClientWithResponses) DeleteEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateResponse, error) {
+	rsp, err := c.DeleteEmailTemplate(ctx, templateId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailTemplateResponse(rsp)
+}
+
+// GetEmailTemplateWithResponse request returning *GetEmailTemplateResponse
+func (c *ClientWithResponses) GetEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*GetEmailTemplateResponse, error) {
+	rsp, err := c.GetEmailTemplate(ctx, templateId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateResponse(rsp)
+}
+
+// UpdateEmailTemplateWithBodyWithResponse request with arbitrary body returning *UpdateEmailTemplateResponse
+func (c *ClientWithResponses) UpdateEmailTemplateWithBodyWithResponse(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error) {
+	rsp, err := c.UpdateEmailTemplateWithBody(ctx, templateId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error) {
+	rsp, err := c.UpdateEmailTemplate(ctx, templateId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateResponse(rsp)
+}
+
+// PublishEmailTemplateWithResponse request returning *PublishEmailTemplateResponse
+func (c *ClientWithResponses) PublishEmailTemplateWithResponse(ctx context.Context, templateId EmailTemplateID, params *PublishEmailTemplateParams, reqEditors ...RequestEditorFn) (*PublishEmailTemplateResponse, error) {
+	rsp, err := c.PublishEmailTemplate(ctx, templateId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishEmailTemplateResponse(rsp)
+}
+
+// ListEmailTemplateVersionsWithResponse request returning *ListEmailTemplateVersionsResponse
+func (c *ClientWithResponses) ListEmailTemplateVersionsWithResponse(ctx context.Context, templateId EmailTemplateID, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionsResponse, error) {
+	rsp, err := c.ListEmailTemplateVersions(ctx, templateId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplateVersionsResponse(rsp)
+}
+
+// GetEmailTemplateVersionWithResponse request returning *GetEmailTemplateVersionResponse
+func (c *ClientWithResponses) GetEmailTemplateVersionWithResponse(ctx context.Context, templateId EmailTemplateID, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*GetEmailTemplateVersionResponse, error) {
+	rsp, err := c.GetEmailTemplateVersion(ctx, templateId, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateVersionResponse(rsp)
+}
+
+// CreateSMSMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageBatchResponse
+func (c *ClientWithResponses) CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error) {
+	rsp, err := c.CreateSMSMessageBatchWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSMessageBatchResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateSMSMessageBatchWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error) {
+	rsp, err := c.CreateSMSMessageBatch(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSMessageBatchResponse(rsp)
+}
+
+// ListSMSMessagesWithResponse request returning *ListSMSMessagesResponse
+func (c *ClientWithResponses) ListSMSMessagesWithResponse(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*ListSMSMessagesResponse, error) {
+	rsp, err := c.ListSMSMessages(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSMessagesResponse(rsp)
+}
+
+// CreateSMSMessageWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageResponse
+func (c *ClientWithResponses) CreateSMSMessageWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageResponse, error) {
+	rsp, err := c.CreateSMSMessageWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSMessageResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateSMSMessageWithResponse(ctx context.Context, params *CreateSMSMessageParams, body CreateSMSMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSMessageResponse, error) {
+	rsp, err := c.CreateSMSMessage(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSMessageResponse(rsp)
+}
+
+// GetSMSMessageWithResponse request returning *GetSMSMessageResponse
+func (c *ClientWithResponses) GetSMSMessageWithResponse(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*GetSMSMessageResponse, error) {
+	rsp, err := c.GetSMSMessage(ctx, messageId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSMessageResponse(rsp)
+}
+
+// ListSMSTemplatesWithResponse request returning *ListSMSTemplatesResponse
+func (c *ClientWithResponses) ListSMSTemplatesWithResponse(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*ListSMSTemplatesResponse, error) {
+	rsp, err := c.ListSMSTemplates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSTemplatesResponse(rsp)
+}
+
+// GetSMSTemplateWithResponse request returning *GetSMSTemplateResponse
+func (c *ClientWithResponses) GetSMSTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetSMSTemplateResponse, error) {
+	rsp, err := c.GetSMSTemplate(ctx, templateRef, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSTemplateResponse(rsp)
 }
 
 // ParseCreateEmailMessageBatchResponse parses an HTTP response from a CreateEmailMessageBatchWithResponse call
@@ -4753,6 +8465,937 @@ func ParseGetEmailMessageResponse(rsp *http.Response) (*GetEmailMessageResponse,
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest EmailMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplatesResponse parses an HTTP response from a ListEmailTemplatesWithResponse call
+func ParseListEmailTemplatesResponse(rsp *http.Response) (*ListEmailTemplatesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplatesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailTemplateResponse parses an HTTP response from a CreateEmailTemplateWithResponse call
+func ParseCreateEmailTemplateResponse(rsp *http.Response) (*CreateEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailTemplateResponse parses an HTTP response from a DeleteEmailTemplateWithResponse call
+func ParseDeleteEmailTemplateResponse(rsp *http.Response) (*DeleteEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateResponse parses an HTTP response from a GetEmailTemplateWithResponse call
+func ParseGetEmailTemplateResponse(rsp *http.Response) (*GetEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailTemplateResponse parses an HTTP response from a UpdateEmailTemplateWithResponse call
+func ParseUpdateEmailTemplateResponse(rsp *http.Response) (*UpdateEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishEmailTemplateResponse parses an HTTP response from a PublishEmailTemplateWithResponse call
+func ParsePublishEmailTemplateResponse(rsp *http.Response) (*PublishEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplateVersionsResponse parses an HTTP response from a ListEmailTemplateVersionsWithResponse call
+func ParseListEmailTemplateVersionsResponse(rsp *http.Response) (*ListEmailTemplateVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplateVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateVersionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateVersionResponse parses an HTTP response from a GetEmailTemplateVersionWithResponse call
+func ParseGetEmailTemplateVersionResponse(rsp *http.Response) (*GetEmailTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateSMSMessageBatchResponse parses an HTTP response from a CreateSMSMessageBatchWithResponse call
+func ParseCreateSMSMessageBatchResponse(rsp *http.Response) (*CreateSMSMessageBatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateSMSMessageBatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest SMSMessageBatchResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSMessagesResponse parses an HTTP response from a ListSMSMessagesWithResponse call
+func ParseListSMSMessagesResponse(rsp *http.Response) (*ListSMSMessagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSMessagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSMessageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateSMSMessageResponse parses an HTTP response from a CreateSMSMessageWithResponse call
+func ParseCreateSMSMessageResponse(rsp *http.Response) (*CreateSMSMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateSMSMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest SMSMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSMessageResponse parses an HTTP response from a GetSMSMessageWithResponse call
+func ParseGetSMSMessageResponse(rsp *http.Response) (*GetSMSMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSTemplatesResponse parses an HTTP response from a ListSMSTemplatesWithResponse call
+func ParseListSMSTemplatesResponse(rsp *http.Response) (*ListSMSTemplatesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSTemplatesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplateList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSTemplateResponse parses an HTTP response from a GetSMSTemplateWithResponse call
+func ParseGetSMSTemplateResponse(rsp *http.Response) (*GetSMSTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplate
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

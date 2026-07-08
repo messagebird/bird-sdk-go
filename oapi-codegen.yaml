@@ -21,3 +21,17 @@ output-options:
     - createEmailMessageBatch
     - getEmailMessage
     - listEmailMessages
+    - createEmailTemplate
+    - listEmailTemplates
+    - getEmailTemplate
+    - updateEmailTemplate
+    - deleteEmailTemplate
+    - publishEmailTemplate
+    - listEmailTemplateVersions
+    - getEmailTemplateVersion
+    - createSMSMessage
+    - createSMSMessageBatch
+    - getSMSMessage
+    - listSMSMessages
+    - listSMSTemplates
+    - getSMSTemplate

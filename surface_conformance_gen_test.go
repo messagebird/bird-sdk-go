@@ -21,5 +21,19 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.SendBatch
 	_ = c.Email.Get
 	_ = c.Email.List
+	_ = c.EmailTemplates.Create
+	_ = c.EmailTemplates.List
+	_ = c.EmailTemplates.Get
+	_ = c.EmailTemplates.Update
+	_ = c.EmailTemplates.Delete
+	_ = c.EmailTemplates.Publish
+	_ = c.EmailTemplates.ListVersions
+	_ = c.EmailTemplates.GetVersion
+	_ = c.Sms.Send
+	_ = c.Sms.SendBatch
+	_ = c.Sms.Get
+	_ = c.Sms.List
+	_ = c.SmsTemplates.List
+	_ = c.SmsTemplates.Get
 	_ = c.Webhooks.Unwrap
 }
