@@ -255,11 +255,12 @@ func ExampleEmailTemplatesService_Create() {
 		log.Fatal(err)
 	}
 	tpl, err := client.EmailTemplates.Create(context.Background(), bird.EmailTemplateCreateParams{
-		Name:     "Welcome",
-		Category: bird.CategoryTransactional,
-		Source:   bird.EmailTemplateSourceHandlebars,
-		Subject:  "Welcome, {{ first_name }}!",
-		HTML:     "<h1>Hi {{ first_name }}</h1>",
+		Name:        "welcome-email",
+		Description: "Welcome",
+		Category:    bird.CategoryTransactional,
+		Source:      bird.EmailTemplateSourceHandlebars,
+		Subject:     "Welcome, {{ first_name }}!",
+		HTML:        "<h1>Hi {{ first_name }}</h1>",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -356,7 +357,7 @@ func ExampleSMSTemplatesService_List() {
 	}
 }
 
-// Read one SMS template by its alias (or id).
+// Read one SMS template by its name (or id).
 func ExampleSMSTemplatesService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -367,4 +368,305 @@ func ExampleSMSTemplatesService_Get() {
 		log.Fatal(err)
 	}
 	fmt.Println(tpl.Id, *tpl.Body)
+}
+
+// Create a contact. Unset optional fields are omitted from the request.
+func ExampleContactsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	contact, err := client.Contacts.Create(context.Background(), bird.ContactCreateParams{
+		Email:     "jane@acme.com",
+		FirstName: "Jane",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(contact.Id)
+}
+
+// Get returns a single contact by id.
+func ExampleContactsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	contact, err := client.Contacts.Get(context.Background(), "con_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(contact.Email)
+}
+
+// List auto-paginates: it lazily fetches each page and yields every matching
+// contact across all of them.
+func ExampleContactsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for contact, err := range client.Contacts.List(context.Background(), bird.ContactListParams{Limit: 50}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(contact.Id, contact.Email)
+	}
+}
+
+// Update changes only the fields set in params; every other field is left
+// unchanged.
+func ExampleContactsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	contact, err := client.Contacts.Update(context.Background(), "con_123", bird.ContactUpdateParams{
+		FirstName: bird.String("Jane"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(contact.Id)
+}
+
+// Delete removes a contact.
+func ExampleContactsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Contacts.Delete(context.Background(), "con_123"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Batch creates or updates several contacts, matched by email address, in one
+// request.
+func ExampleContactsService_Batch() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Contacts.Batch(context.Background(), bird.ContactBatchParams{
+		Contacts: []bird.ContactCreateParams{
+			{Email: "a@x.com"},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, item := range result.Data {
+		fmt.Println(item.Email, item.Status)
+	}
+}
+
+func ExampleAudiencesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	audience, err := client.Audiences.Create(context.Background(), bird.AudienceCreateParams{
+		Name: "Newsletter subscribers",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(audience.Id)
+}
+
+// Get returns a single audience by id.
+func ExampleAudiencesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	audience, err := client.Audiences.Get(context.Background(), "adn_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(audience.Name)
+}
+
+// List auto-paginates: it lazily fetches each page and yields every matching
+// audience across all of them.
+func ExampleAudiencesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for audience, err := range client.Audiences.List(context.Background(), bird.AudienceListParams{Limit: 50}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(audience.Id, audience.Name)
+	}
+}
+
+// Update changes only the fields set in params; every other field is left
+// unchanged.
+func ExampleAudiencesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	audience, err := client.Audiences.Update(context.Background(), "adn_123", bird.AudienceUpdateParams{
+		Name: bird.String("Renamed"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(audience.Id)
+}
+
+// Delete removes an audience. The contacts themselves are not deleted.
+func ExampleAudiencesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Audiences.Delete(context.Background(), "adn_123"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// ListContacts auto-paginates: it lazily fetches each page and yields every
+// member of the audience across all of them.
+func ExampleAudiencesService_ListContacts() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for member, err := range client.Audiences.ListContacts(context.Background(), "adn_123", bird.AudienceListContactsParams{Limit: 50}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(member.Contact.Id, member.Contact.Email)
+	}
+}
+
+// AddContacts adds up to 1,000 existing contacts to a static audience.
+func ExampleAudiencesService_AddContacts() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Audiences.AddContacts(context.Background(), "adn_123", bird.AudienceAddContactsParams{
+		ContactIDs: []string{"con_1", "con_2"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// RemoveContacts removes up to 1,000 contacts from a static audience. The
+// contacts themselves are not deleted.
+func ExampleAudiencesService_RemoveContacts() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Audiences.RemoveContacts(context.Background(), "adn_123", bird.AudienceRemoveContactsParams{
+		ContactIDs: []string{"con_1", "con_2"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// RemoveContact removes one contact's membership in an audience. The contact
+// itself is not deleted and remains a member of any other audiences.
+func ExampleAudiencesService_RemoveContact() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Audiences.RemoveContact(context.Background(), "adn_123", "con_1"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleContactPropertiesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	property, err := client.ContactProperties.Create(context.Background(), bird.ContactPropertyCreateParams{
+		Key:  "plan",
+		Type: "string",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(property.Id)
+}
+
+// Get returns a single contact property by id.
+func ExampleContactPropertiesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	property, err := client.ContactProperties.Get(context.Background(), "prp_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(property.Key)
+}
+
+// List auto-paginates: it lazily fetches each page and yields every matching
+// contact property across all of them.
+func ExampleContactPropertiesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for property, err := range client.ContactProperties.List(context.Background(), bird.ContactPropertyListParams{Limit: 50}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(property.Id, property.Key)
+	}
+}
+
+// Update changes a contact property's fallback value.
+func ExampleContactPropertiesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	property, err := client.ContactProperties.Update(context.Background(), "prp_123", bird.ContactPropertyUpdateParams{
+		FallbackValue: "free",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(property.Id)
+}
+
+// Archive archives a contact property: the key stops being accepted in new
+// contact writes, but every value already stored on contacts is preserved.
+func ExampleContactPropertiesService_Archive() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	property, err := client.ContactProperties.Archive(context.Background(), "prp_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(property.Archived)
+}
+
+// Unarchive reactivates an archived contact property.
+func ExampleContactPropertiesService_Unarchive() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	property, err := client.ContactProperties.Unarchive(context.Background(), "prp_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(property.Archived)
 }

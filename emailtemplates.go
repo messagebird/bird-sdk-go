@@ -27,8 +27,7 @@ const (
 // EmailTemplateCreateParams creates a template and its initial draft. Optional
 // fields are omitted from the request when left at their zero value.
 type EmailTemplateCreateParams struct {
-	Name        string              // required; unique within the workspace
-	Alias       string              // optional workspace-unique slug handle for send-by-template
+	Name        string              // required; workspace-unique slug handle for send-by-template
 	Category    Category            // transactional or marketing
 	Source      EmailTemplateSource // authoring format, fixed at creation
 	Description string              // optional description of the template's purpose
@@ -43,10 +42,6 @@ func (p EmailTemplateCreateParams) toWire() oapi.EmailTemplateCreate {
 		Name:     p.Name,
 		Category: oapi.EmailTemplateCategory(p.Category),
 		Source:   oapi.EmailTemplateSource(p.Source),
-	}
-	if p.Alias != "" {
-		alias := p.Alias
-		body.Alias = &alias
 	}
 	if p.Description != "" {
 		description := p.Description
@@ -78,7 +73,6 @@ func (p EmailTemplateCreateParams) toWire() oapi.EmailTemplateCreate {
 type EmailTemplateUpdateParams struct {
 	Revision    int     // required: the draft revision you last read
 	Name        *string // nil leaves the name unchanged
-	Alias       *string // nil leaves the alias unchanged; point at "" to clear it
 	Description *string
 	Subject     *string
 	HTML        *string
@@ -90,7 +84,6 @@ func (p EmailTemplateUpdateParams) toWire() oapi.EmailTemplateUpdate {
 	return oapi.EmailTemplateUpdate{
 		Revision:    p.Revision,
 		Name:        p.Name,
-		Alias:       p.Alias,
 		Description: p.Description,
 		Subject:     p.Subject,
 		Html:        p.HTML,

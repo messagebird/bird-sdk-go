@@ -36,7 +36,7 @@ const (
 type SMSTemplateListParams struct {
 	Scope    SMSTemplateScope    // filter by origin (system or workspace)
 	Category SMSTemplateCategory // filter by content classification
-	Locale   string              // keep only templates available in this BCP-47 language tag
+	Language string              // keep only templates available in this BCP-47 language tag
 }
 
 func (p SMSTemplateListParams) toWire() *oapi.ListSMSTemplatesParams {
@@ -49,9 +49,9 @@ func (p SMSTemplateListParams) toWire() *oapi.ListSMSTemplatesParams {
 		category := oapi.ListSMSTemplatesParamsCategory(p.Category)
 		w.Category = &category
 	}
-	if p.Locale != "" {
-		locale := p.Locale
-		w.Locale = &locale
+	if p.Language != "" {
+		language := p.Language
+		w.Language = &language
 	}
 	return w
 }
@@ -76,7 +76,7 @@ func (s *SMSTemplatesService) List(ctx context.Context, params SMSTemplateListPa
 	return &out, nil
 }
 
-// Get returns a single SMS template by its alias or id, including its body and
+// Get returns a single SMS template by its name or id, including its body and
 // the variables it expects.
 func (s *SMSTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*SMSTemplate, error) {
 	cfg, err := s.client.resolve(opts)

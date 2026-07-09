@@ -77,6 +77,33 @@ type SMSTag = oapi.Tag
 // SMSStatus is a message's delivery status.
 type SMSStatus = oapi.SMSMessageStatus
 
+// Contact is a workspace contact; ContactList is a page of contacts;
+// ContactUpsertResult is the result of a bulk upsert, with one
+// ContactUpsertResultItem per submitted contact in submission order.
+type (
+	Contact                 = oapi.Contact
+	ContactList             = oapi.ContactList
+	ContactUpsertResult     = oapi.ContactUpsertResult
+	ContactUpsertResultItem = oapi.ContactUpsertResultItem
+)
+
+// Audience is a static audience of contacts; AudienceList is a page of
+// audiences. AudienceMember pairs a contact with the time it joined;
+// AudienceMemberList is a page of members.
+type (
+	Audience           = oapi.Audience
+	AudienceList       = oapi.AudienceList
+	AudienceMember     = oapi.AudienceMember
+	AudienceMemberList = oapi.AudienceMemberList
+)
+
+// ContactProperty is a custom contact property definition; ContactPropertyList
+// is a page of properties.
+type (
+	ContactProperty     = oapi.ContactProperty
+	ContactPropertyList = oapi.ContactPropertyList
+)
+
 const (
 	EmailStatusAccepted       EmailStatus = "accepted"
 	EmailStatusProcessed      EmailStatus = "processed"

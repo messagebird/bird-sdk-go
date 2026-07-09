@@ -24,6 +24,129 @@ const (
 	CookieAuthScopes cookieAuthContextKey = "CookieAuth.Scopes"
 )
 
+// Defines values for AudienceType.
+const (
+	AudienceTypeAudienceTypeDynamic  AudienceType = "dynamic"
+	AudienceTypeAudienceTypeExternal AudienceType = "external"
+	AudienceTypeAudienceTypeStatic   AudienceType = "static"
+)
+
+// Valid indicates whether the value is a known member of the AudienceType enum.
+func (e AudienceType) Valid() bool {
+	switch e {
+	case AudienceTypeAudienceTypeDynamic:
+		return true
+	case AudienceTypeAudienceTypeExternal:
+		return true
+	case AudienceTypeAudienceTypeStatic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AudienceCreateRequestType.
+const (
+	AudienceCreateRequestTypeAudienceTypeDynamic  AudienceCreateRequestType = "dynamic"
+	AudienceCreateRequestTypeAudienceTypeExternal AudienceCreateRequestType = "external"
+	AudienceCreateRequestTypeAudienceTypeStatic   AudienceCreateRequestType = "static"
+)
+
+// Valid indicates whether the value is a known member of the AudienceCreateRequestType enum.
+func (e AudienceCreateRequestType) Valid() bool {
+	switch e {
+	case AudienceCreateRequestTypeAudienceTypeDynamic:
+		return true
+	case AudienceCreateRequestTypeAudienceTypeExternal:
+		return true
+	case AudienceCreateRequestTypeAudienceTypeStatic:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ContactPropertyType.
+const (
+	ContactPropertyTypeContactPropertyTypeBoolean ContactPropertyType = "boolean"
+	ContactPropertyTypeContactPropertyTypeNumber  ContactPropertyType = "number"
+	ContactPropertyTypeContactPropertyTypeString  ContactPropertyType = "string"
+)
+
+// Valid indicates whether the value is a known member of the ContactPropertyType enum.
+func (e ContactPropertyType) Valid() bool {
+	switch e {
+	case ContactPropertyTypeContactPropertyTypeBoolean:
+		return true
+	case ContactPropertyTypeContactPropertyTypeNumber:
+		return true
+	case ContactPropertyTypeContactPropertyTypeString:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ContactPropertyCreateRequestType.
+const (
+	ContactPropertyCreateRequestTypeContactPropertyTypeBoolean ContactPropertyCreateRequestType = "boolean"
+	ContactPropertyCreateRequestTypeContactPropertyTypeNumber  ContactPropertyCreateRequestType = "number"
+	ContactPropertyCreateRequestTypeContactPropertyTypeString  ContactPropertyCreateRequestType = "string"
+)
+
+// Valid indicates whether the value is a known member of the ContactPropertyCreateRequestType enum.
+func (e ContactPropertyCreateRequestType) Valid() bool {
+	switch e {
+	case ContactPropertyCreateRequestTypeContactPropertyTypeBoolean:
+		return true
+	case ContactPropertyCreateRequestTypeContactPropertyTypeNumber:
+		return true
+	case ContactPropertyCreateRequestTypeContactPropertyTypeString:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ContactUpsertRequestDataMode.
+const (
+	Merge   ContactUpsertRequestDataMode = "merge"
+	Replace ContactUpsertRequestDataMode = "replace"
+)
+
+// Valid indicates whether the value is a known member of the ContactUpsertRequestDataMode enum.
+func (e ContactUpsertRequestDataMode) Valid() bool {
+	switch e {
+	case Merge:
+		return true
+	case Replace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ContactUpsertResultItemStatus.
+const (
+	ContactUpsertResultItemStatusCreated ContactUpsertResultItemStatus = "created"
+	ContactUpsertResultItemStatusFailed  ContactUpsertResultItemStatus = "failed"
+	ContactUpsertResultItemStatusUpdated ContactUpsertResultItemStatus = "updated"
+)
+
+// Valid indicates whether the value is a known member of the ContactUpsertResultItemStatus enum.
+func (e ContactUpsertResultItemStatus) Valid() bool {
+	switch e {
+	case ContactUpsertResultItemStatusCreated:
+		return true
+	case ContactUpsertResultItemStatusFailed:
+		return true
+	case ContactUpsertResultItemStatusUpdated:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailBounceType.
 const (
 	EmailBounceTypeAdmin        EmailBounceType = "admin"
@@ -135,48 +258,6 @@ func (e EmailMessageCategory) Valid() bool {
 	}
 }
 
-// Defines values for EmailMessageStatus.
-const (
-	EmailMessageStatusAccepted       EmailMessageStatus = "accepted"
-	EmailMessageStatusBounced        EmailMessageStatus = "bounced"
-	EmailMessageStatusCanceled       EmailMessageStatus = "canceled"
-	EmailMessageStatusComplained     EmailMessageStatus = "complained"
-	EmailMessageStatusDeferred       EmailMessageStatus = "deferred"
-	EmailMessageStatusDelivered      EmailMessageStatus = "delivered"
-	EmailMessageStatusPartialFailure EmailMessageStatus = "partial_failure"
-	EmailMessageStatusProcessed      EmailMessageStatus = "processed"
-	EmailMessageStatusRejected       EmailMessageStatus = "rejected"
-	EmailMessageStatusScheduled      EmailMessageStatus = "scheduled"
-)
-
-// Valid indicates whether the value is a known member of the EmailMessageStatus enum.
-func (e EmailMessageStatus) Valid() bool {
-	switch e {
-	case EmailMessageStatusAccepted:
-		return true
-	case EmailMessageStatusBounced:
-		return true
-	case EmailMessageStatusCanceled:
-		return true
-	case EmailMessageStatusComplained:
-		return true
-	case EmailMessageStatusDeferred:
-		return true
-	case EmailMessageStatusDelivered:
-		return true
-	case EmailMessageStatusPartialFailure:
-		return true
-	case EmailMessageStatusProcessed:
-		return true
-	case EmailMessageStatusRejected:
-		return true
-	case EmailMessageStatusScheduled:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EmailMessageBatchItemCategory.
 const (
 	EmailMessageBatchItemCategoryMarketing     EmailMessageBatchItemCategory = "marketing"
@@ -222,6 +303,48 @@ func (e EmailMessageSendRequestCategory) Valid() bool {
 	case EmailMessageSendRequestCategoryMarketing:
 		return true
 	case EmailMessageSendRequestCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailMessageStatus.
+const (
+	EmailMessageStatusAccepted       EmailMessageStatus = "accepted"
+	EmailMessageStatusBounced        EmailMessageStatus = "bounced"
+	EmailMessageStatusCanceled       EmailMessageStatus = "canceled"
+	EmailMessageStatusComplained     EmailMessageStatus = "complained"
+	EmailMessageStatusDeferred       EmailMessageStatus = "deferred"
+	EmailMessageStatusDelivered      EmailMessageStatus = "delivered"
+	EmailMessageStatusPartialFailure EmailMessageStatus = "partial_failure"
+	EmailMessageStatusProcessed      EmailMessageStatus = "processed"
+	EmailMessageStatusRejected       EmailMessageStatus = "rejected"
+	EmailMessageStatusScheduled      EmailMessageStatus = "scheduled"
+)
+
+// Valid indicates whether the value is a known member of the EmailMessageStatus enum.
+func (e EmailMessageStatus) Valid() bool {
+	switch e {
+	case EmailMessageStatusAccepted:
+		return true
+	case EmailMessageStatusBounced:
+		return true
+	case EmailMessageStatusCanceled:
+		return true
+	case EmailMessageStatusComplained:
+		return true
+	case EmailMessageStatusDeferred:
+		return true
+	case EmailMessageStatusDelivered:
+		return true
+	case EmailMessageStatusPartialFailure:
+		return true
+	case EmailMessageStatusProcessed:
+		return true
+	case EmailMessageStatusRejected:
+		return true
+	case EmailMessageStatusScheduled:
 		return true
 	default:
 		return false
@@ -354,6 +477,42 @@ func (e EmailRejectionReason) Valid() bool {
 	case EmailRejectionReasonRecipientSuppressed:
 		return true
 	case EmailRejectionReasonTransmissionFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailSmtpConfigCategory.
+const (
+	EmailSmtpConfigCategoryMarketing     EmailSmtpConfigCategory = "marketing"
+	EmailSmtpConfigCategoryTransactional EmailSmtpConfigCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailSmtpConfigCategory enum.
+func (e EmailSmtpConfigCategory) Valid() bool {
+	switch e {
+	case EmailSmtpConfigCategoryMarketing:
+		return true
+	case EmailSmtpConfigCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailSmtpConfigUpdateCategory.
+const (
+	EmailSmtpConfigUpdateCategoryMarketing     EmailSmtpConfigUpdateCategory = "marketing"
+	EmailSmtpConfigUpdateCategoryTransactional EmailSmtpConfigUpdateCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailSmtpConfigUpdateCategory enum.
+func (e EmailSmtpConfigUpdateCategory) Valid() bool {
+	switch e {
+	case EmailSmtpConfigUpdateCategoryMarketing:
+		return true
+	case EmailSmtpConfigUpdateCategoryTransactional:
 		return true
 	default:
 		return false
@@ -1293,6 +1452,57 @@ func (e WebhookTestResponseStatus) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppMessageDirection.
+const (
+	WhatsAppMessageDirectionInbound  WhatsAppMessageDirection = "inbound"
+	WhatsAppMessageDirectionOutbound WhatsAppMessageDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppMessageDirection enum.
+func (e WhatsAppMessageDirection) Valid() bool {
+	switch e {
+	case WhatsAppMessageDirectionInbound:
+		return true
+	case WhatsAppMessageDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppMessageStatus.
+const (
+	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
+	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
+	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
+	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
+	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
+	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
+	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
+func (e WhatsAppMessageStatus) Valid() bool {
+	switch e {
+	case WhatsAppMessageStatusAccepted:
+		return true
+	case WhatsAppMessageStatusCanceled:
+		return true
+	case WhatsAppMessageStatusDelivered:
+		return true
+	case WhatsAppMessageStatusFailed:
+		return true
+	case WhatsAppMessageStatusReceived:
+		return true
+	case WhatsAppMessageStatusScheduled:
+		return true
+	case WhatsAppMessageStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for OrderDesc.
 const (
 	Asc  OrderDesc = "asc"
@@ -1373,16 +1583,16 @@ func (e ListEmailMessagesParamsCategory) Valid() bool {
 
 // Defines values for ListSMSMessagesParamsDirection.
 const (
-	ListSMSMessagesParamsDirectionInbound  ListSMSMessagesParamsDirection = "inbound"
-	ListSMSMessagesParamsDirectionOutbound ListSMSMessagesParamsDirection = "outbound"
+	Inbound  ListSMSMessagesParamsDirection = "inbound"
+	Outbound ListSMSMessagesParamsDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
 func (e ListSMSMessagesParamsDirection) Valid() bool {
 	switch e {
-	case ListSMSMessagesParamsDirectionInbound:
+	case Inbound:
 		return true
-	case ListSMSMessagesParamsDirectionOutbound:
+	case Outbound:
 		return true
 	default:
 		return false
@@ -1455,8 +1665,288 @@ func (e ListSMSTemplatesParamsCategory) Valid() bool {
 	}
 }
 
+// APIKeyID defines model for APIKeyID.
+type APIKeyID = string
+
+// Audience defines model for Audience.
+type Audience struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description Longer description of who this audience is.
+	Description *string    `json:"description,omitempty"`
+	Id          AudienceID `json:"id"`
+
+	// Name Display name for the audience.
+	Name string `json:"name"`
+
+	// Type How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+	Type      AudienceType `json:"type"`
+	UpdatedAt *time.Time   `json:"updated_at,omitempty"`
+}
+
+// AudienceType How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+type AudienceType string
+
+// AudienceContactsAddRequest defines model for AudienceContactsAddRequest.
+type AudienceContactsAddRequest struct {
+	// ContactIds Contacts to add to the audience. Adding a contact that is already a member has no effect. If any ID does not exist, the whole request fails and no contacts are added.
+	ContactIds []ContactID `json:"contact_ids"`
+}
+
+// AudienceContactsRemoveRequest defines model for AudienceContactsRemoveRequest.
+type AudienceContactsRemoveRequest struct {
+	// ContactIds Contacts to remove from the audience. Removing a contact that is not a member has no effect. If any ID does not exist, the whole request fails and no contacts are removed.
+	ContactIds []ContactID `json:"contact_ids"`
+}
+
+// AudienceCreateRequest defines model for AudienceCreateRequest.
+type AudienceCreateRequest struct {
+	// Description Longer description of who this audience is.
+	Description *string `json:"description,omitempty"`
+
+	// Name Display name for the audience.
+	Name string `json:"name"`
+
+	// Type How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+	Type *AudienceCreateRequestType `json:"type,omitempty"`
+}
+
+// AudienceCreateRequestType How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+type AudienceCreateRequestType string
+
+// AudienceID defines model for AudienceID.
+type AudienceID = string
+
+// AudienceList defines model for AudienceList.
+type AudienceList struct {
+	// Data Page of audience objects.
+	Data []Audience `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AudienceMember defines model for AudienceMember.
+type AudienceMember struct {
+	Contact Contact `json:"contact"`
+
+	// JoinedAt When this contact joined the audience. Members are listed in join order, most recent first.
+	JoinedAt *time.Time `json:"joined_at,omitempty"`
+}
+
+// AudienceMemberList defines model for AudienceMemberList.
+type AudienceMemberList struct {
+	// Data Page of audience members, each a contact paired with the time it joined the audience.
+	Data []AudienceMember `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AudienceUpdateRequest defines model for AudienceUpdateRequest.
+type AudienceUpdateRequest struct {
+	// Description Longer description of who this audience is. Set to null to clear.
+	Description *string `json:"description,omitempty"`
+
+	// Name Display name for the audience.
+	Name *string `json:"name,omitempty"`
+}
+
 // BrandKitID defines model for BrandKitID.
 type BrandKitID = string
+
+// Contact defines model for Contact.
+type Contact struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, or boolean matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized.
+	Data *map[string]interface{} `json:"data,omitempty"`
+
+	// Email The contact's email address, stored trimmed and lowercased. Unique within the workspace.
+	Email openapi_types.Email `json:"email"`
+
+	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// FirstName The contact's first name.
+	FirstName *string   `json:"first_name,omitempty"`
+	Id        ContactID `json:"id"`
+
+	// LastName The contact's last name.
+	LastName  *string    `json:"last_name,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// ContactCreateRequest defines model for ContactCreateRequest.
+type ContactCreateRequest struct {
+	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); a null value is ignored. Total size is capped at 2 KB serialized.
+	Data *map[string]interface{} `json:"data,omitempty"`
+
+	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
+	Email openapi_types.Email `json:"email"`
+
+	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// FirstName The contact's first name.
+	FirstName *string `json:"first_name,omitempty"`
+
+	// LastName The contact's last name.
+	LastName *string `json:"last_name,omitempty"`
+}
+
+// ContactID defines model for ContactID.
+type ContactID = string
+
+// ContactList defines model for ContactList.
+type ContactList struct {
+	// Data Page of contact objects.
+	Data []Contact `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// ContactProperty defines model for ContactProperty.
+type ContactProperty struct {
+	// Archived Whether the property is archived. An archived property is rejected in new contact writes and stops rendering in templates, but every value already stored on contacts is preserved. Reactivate it with unarchive.
+	Archived  *bool      `json:"archived,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null when no fallback is set.
+	FallbackValue interface{}       `json:"fallback_value,omitempty"`
+	Id            ContactPropertyID `json:"id"`
+
+	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	Key string `json:"key"`
+
+	// Type The value type every contact must use for this property. Cannot be changed after creation.
+	Type      ContactPropertyType `json:"type"`
+	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
+}
+
+// ContactPropertyType The value type every contact must use for this property. Cannot be changed after creation.
+type ContactPropertyType string
+
+// ContactPropertyCreateRequest defines model for ContactPropertyCreateRequest.
+type ContactPropertyCreateRequest struct {
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null for no fallback.
+	FallbackValue interface{} `json:"fallback_value,omitempty"`
+
+	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	Key string `json:"key"`
+
+	// Type The value type every contact must use for this property. Cannot be changed after creation.
+	Type ContactPropertyCreateRequestType `json:"type"`
+}
+
+// ContactPropertyCreateRequestType The value type every contact must use for this property. Cannot be changed after creation.
+type ContactPropertyCreateRequestType string
+
+// ContactPropertyID defines model for ContactPropertyID.
+type ContactPropertyID = string
+
+// ContactPropertyList defines model for ContactPropertyList.
+type ContactPropertyList struct {
+	// Data Page of contact property objects.
+	Data []ContactProperty `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// ContactPropertyUpdateRequest defines model for ContactPropertyUpdateRequest.
+type ContactPropertyUpdateRequest struct {
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters). Set to null to remove the fallback.
+	FallbackValue interface{} `json:"fallback_value,omitempty"`
+}
+
+// ContactUpdateRequest defines model for ContactUpdateRequest.
+type ContactUpdateRequest struct {
+	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters). The merged result is capped at 2 KB serialized.
+	Data *map[string]interface{} `json:"data,omitempty"`
+
+	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace.
+	Email *openapi_types.Email `json:"email,omitempty"`
+
+	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// FirstName The contact's first name. Set to null to clear.
+	FirstName *string `json:"first_name,omitempty"`
+
+	// LastName The contact's last name. Set to null to clear.
+	LastName *string `json:"last_name,omitempty"`
+}
+
+// ContactUpsertError defines model for ContactUpsertError.
+type ContactUpsertError struct {
+	// Message Human-readable explanation of why this entry failed.
+	Message string `json:"message"`
+
+	// Type Machine-readable error category for this entry, such as `validation_error` or `conflict_error`, in the same vocabulary as the top-level error `type`. New categories may be added over time, so treat unrecognized values as a generic failure.
+	Type string `json:"type"`
+}
+
+// ContactUpsertRequest defines model for ContactUpsertRequest.
+type ContactUpsertRequest struct {
+	// AudienceIds Audiences every contact in this request is added to. Contacts that are already members are left in place.
+	AudienceIds *[]AudienceID `json:"audience_ids,omitempty"`
+
+	// Contacts Contacts to create or update, matched by email address. Existing contacts are updated with the supplied fields; new ones are created.
+	Contacts []ContactCreateRequest `json:"contacts"`
+
+	// DataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+	DataMode *ContactUpsertRequestDataMode `json:"data_mode,omitempty"`
+}
+
+// ContactUpsertRequestDataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+type ContactUpsertRequestDataMode string
+
+// ContactUpsertResult defines model for ContactUpsertResult.
+type ContactUpsertResult struct {
+	// Data One entry per contact in the request, in submission order.
+	Data []ContactUpsertResultItem `json:"data"`
+}
+
+// ContactUpsertResultItem defines model for ContactUpsertResultItem.
+type ContactUpsertResultItem struct {
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// Email Email address of the contact this entry refers to.
+	Email openapi_types.Email `json:"email"`
+	Error *ContactUpsertError `json:"error,omitempty"`
+
+	// Status What happened to this contact. A failed entry does not affect the other entries in the request.
+	Status ContactUpsertResultItemStatus `json:"status"`
+}
+
+// ContactUpsertResultItemStatus What happened to this contact. A failed entry does not affect the other entries in the request.
+type ContactUpsertResultItemStatus string
 
 // CurrencyCode ISO 4217 three-letter currency code.
 type CurrencyCode = string
@@ -1737,9 +2227,6 @@ type EmailMessage struct {
 // EmailMessageCategory Content classification. Controls suppression policy — `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
 type EmailMessageCategory string
 
-// EmailMessageStatus Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
-type EmailMessageStatus string
-
 // EmailMessageBatchItem defines model for EmailMessageBatchItem.
 type EmailMessageBatchItem struct {
 	// Category Resolved category for this batch item.
@@ -1797,7 +2284,7 @@ type EmailMessageSendRequest struct {
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// Category Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: transactional.
+	// Category Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: marketing.
 	Category *EmailMessageSendRequestCategory `json:"category,omitempty"`
 
 	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
@@ -1809,7 +2296,7 @@ type EmailMessageSendRequest struct {
 	// From A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
 	From EmailAddressInput `json:"from"`
 
-	// Headers Custom email headers as key-value pairs.
+	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`: set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and headers the platform generates for you — `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path` — cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends; on `marketing` sends the platform sets a compliant unsubscribe header for you, so supplying them there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters.
 	Headers *map[string]string `json:"headers,omitempty"`
 
 	// Html HTML body. At least one of html or text must be provided.
@@ -1856,8 +2343,11 @@ type EmailMessageSendRequest struct {
 	TrackOpens *bool `json:"track_opens,omitempty"`
 }
 
-// EmailMessageSendRequestCategory Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: transactional.
+// EmailMessageSendRequestCategory Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: marketing.
 type EmailMessageSendRequestCategory string
+
+// EmailMessageStatus Aggregate delivery status of an email, derived from its recipients' states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet; `canceled` means a scheduled message was canceled before it was sent.
+type EmailMessageStatus string
 
 // EmailRecipient defines model for EmailRecipient.
 type EmailRecipient struct {
@@ -1951,11 +2441,71 @@ type EmailRecipientList struct {
 // `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
+// EmailSmtpConfig defines model for EmailSmtpConfig.
+type EmailSmtpConfig struct {
+	ApiKeyId APIKeyID `json:"api_key_id"`
+
+	// Category Content classification applied to messages submitted over SMTP with this key. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
+	Category  EmailSmtpConfigCategory `json:"category"`
+	CreatedAt *time.Time              `json:"created_at,omitempty"`
+
+	// IpPoolId ID of the IP pool that SMTP sends with this key use, or `ipp_shared` for the shared pool. `null` when this key uses your organization's default pool.
+	IpPoolId *string `json:"ip_pool_id,omitempty"`
+
+	// Tags Structured `{name, value}` labels applied to every message submitted over SMTP with this key — the same tags used by the email sending API. See EmailMessageSendRequest for how tags are used for filtering and analytics.
+	Tags []Tag `json:"tags"`
+
+	// TrackClicks Whether click events are tracked for messages submitted over SMTP with this key.
+	TrackClicks bool `json:"track_clicks"`
+
+	// TrackOpens Whether open events are tracked for messages submitted over SMTP with this key.
+	TrackOpens bool       `json:"track_opens"`
+	UpdatedAt  *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailSmtpConfigCategory Content classification applied to messages submitted over SMTP with this key. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
+type EmailSmtpConfigCategory string
+
+// EmailSmtpConfigList defines model for EmailSmtpConfigList.
+type EmailSmtpConfigList struct {
+	Data []EmailSmtpConfig `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EmailSmtpConfigUpdate Desired changes to the SMTP config for the key. A field you omit is left unchanged; if no config exists yet for this key, omitted fields take their documented defaults instead.
+type EmailSmtpConfigUpdate struct {
+	// Category Content classification — independent of which endpoint messages are submitted through. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Omit to leave unchanged.
+	Category *EmailSmtpConfigUpdateCategory `json:"category,omitempty"`
+
+	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Send `null` to reset to your organization's default pool, or omit to leave unchanged. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
+	IpPoolId *string `json:"ip_pool_id,omitempty"`
+
+	// Tags Structured `{name, value}` labels applied to every message submitted over SMTP with this key. Send an empty array to clear all tags, or omit to leave unchanged.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// TrackClicks Whether to track click events for messages submitted over SMTP with this key. Omit to leave unchanged.
+	TrackClicks *bool `json:"track_clicks,omitempty"`
+
+	// TrackOpens Whether to track open events for messages submitted over SMTP with this key. Omit to leave unchanged.
+	TrackOpens *bool `json:"track_opens,omitempty"`
+}
+
+// EmailSmtpConfigUpdateCategory Content classification — independent of which endpoint messages are submitted through. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Omit to leave unchanged.
+type EmailSmtpConfigUpdateCategory string
+
 // EmailTemplate defines model for EmailTemplate.
 type EmailTemplate struct {
-	// Alias The template's workspace-unique slug handle for send-by-template, or null if unset.
-	Alias *string `json:"alias,omitempty"`
-
 	// BrandKitId The brand kit applied to the draft, or null if none.
 	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
 
@@ -1973,7 +2523,7 @@ type EmailTemplate struct {
 	Html *string         `json:"html,omitempty"`
 	Id   EmailTemplateID `json:"id"`
 
-	// Name Human-readable template name, unique within the workspace.
+	// Name The template's workspace-unique slug handle. Pass it (or the id) as the template reference when sending.
 	Name string `json:"name"`
 
 	// PublishedVersionId The currently published version, or null if the template has never been published.
@@ -2007,8 +2557,6 @@ type EmailTemplateCategory string
 
 // EmailTemplateCreate Parameters for creating an email template and its initial draft.
 type EmailTemplateCreate struct {
-	// Alias Optional workspace-unique slug handle for the template — a stable alternative to the template ID when sending by template. Lowercase letters, numbers, and hyphens.
-	Alias      *string     `json:"alias,omitempty"`
 	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
 
 	// Category Whether the template is transactional or marketing email.
@@ -2020,7 +2568,7 @@ type EmailTemplateCreate struct {
 	// Html The HTML body — the source markup for the chosen format.
 	Html *string `json:"html,omitempty"`
 
-	// Name Human-readable template name, unique within the workspace.
+	// Name The template's workspace-unique slug handle — a stable alternative to the template ID when sending by template. Lowercase letters, numbers, and hyphens.
 	Name string `json:"name"`
 
 	// Source The authoring format the template is written in, fixed at creation. `liquid` currently supports variable substitution only (e.g. `{{ first_name }}`); filters, tags, and control flow are not yet supported — fuller Liquid support is coming soon.
@@ -2051,11 +2599,12 @@ type EmailTemplateList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `alias` (supply exactly one), and pass its variable values in `parameters`.
+// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `name` (supply exactly one), and pass its variable values in `parameters`.
 type EmailTemplateSend struct {
-	// Alias The template to send, by its alias handle (for example `welcome-email`).
-	Alias *string          `json:"alias,omitempty"`
-	Id    *EmailTemplateID `json:"id,omitempty"`
+	Id *EmailTemplateID `json:"id,omitempty"`
+
+	// Name The template to send, by its name handle (for example `welcome-email`).
+	Name *string `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
@@ -2073,9 +2622,6 @@ type EmailTemplateSource string
 
 // EmailTemplateSummary defines model for EmailTemplateSummary.
 type EmailTemplateSummary struct {
-	// Alias The template's workspace-unique slug handle for send-by-template, or null if unset.
-	Alias *string `json:"alias,omitempty"`
-
 	// Category Whether the template is transactional or marketing email.
 	Category EmailTemplateCategory `json:"category"`
 
@@ -2087,7 +2633,7 @@ type EmailTemplateSummary struct {
 	DraftVersionId EmailTemplateVersionID `json:"draft_version_id"`
 	Id             EmailTemplateID        `json:"id"`
 
-	// Name Human-readable template name, unique within the workspace.
+	// Name The template's workspace-unique slug handle. Pass it (or the id) as the template reference when sending.
 	Name string `json:"name"`
 
 	// PublishedVersionId The currently published version, or null if never published.
@@ -2106,8 +2652,6 @@ type EmailTemplateSummary struct {
 
 // EmailTemplateUpdate Partial update of a template's metadata and its draft content. Only the fields you send are changed; the rest are left as-is. Include the draft `revision` you last read so concurrent edits are detected.
 type EmailTemplateUpdate struct {
-	// Alias New workspace-unique slug handle for send-by-template. Send null to clear it. Lowercase letters, numbers, and hyphens.
-	Alias      *string     `json:"alias,omitempty"`
 	BrandKitId *BrandKitID `json:"brand_kit_id,omitempty"`
 
 	// Description New description of the template's purpose. Send null to clear it.
@@ -2116,7 +2660,7 @@ type EmailTemplateUpdate struct {
 	// Html New HTML body — the source markup for the template's format.
 	Html *string `json:"html,omitempty"`
 
-	// Name New template name. Must stay unique within the workspace.
+	// Name New workspace-unique slug handle. Must stay unique within the workspace. Lowercase letters, numbers, and hyphens.
 	Name *string `json:"name,omitempty"`
 
 	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
@@ -3392,11 +3936,8 @@ type SMSSegmentsEncoding string
 
 // SMSTemplate defines model for SMSTemplate.
 type SMSTemplate struct {
-	// Alias The template's stable handle. Pass it (or the id) as the template reference when sending.
-	Alias *string `json:"alias,omitempty"`
-
-	// AvailableLocales The languages this template is available in, as BCP-47 tags.
-	AvailableLocales *[]string `json:"available_locales,omitempty"`
+	// AvailableLanguages The languages this template is available in, as BCP-47 tags.
+	AvailableLanguages *[]string `json:"available_languages,omitempty"`
 
 	// Body The template body in its default language, shown for preview.
 	Body *string `json:"body,omitempty"`
@@ -3407,11 +3948,14 @@ type SMSTemplate struct {
 	// CreatedAt When the template was created. Null for built-in templates.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
+	// Description Human-readable description of what the template is for.
+	Description *string `json:"description,omitempty"`
+
 	// DraftVersionId The current editable draft version. Always null today — SMS templates are not yet versioned; present for parity with email templates.
 	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
 	Id             SMSTemplateID         `json:"id"`
 
-	// Name Human-readable description of what the template is for.
+	// Name The template's stable handle. Pass it (or the id) as the template reference when sending.
 	Name *string `json:"name,omitempty"`
 
 	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today — SMS templates are not yet versioned; present for parity with email templates.
@@ -3445,14 +3989,15 @@ type SMSTemplateList struct {
 	Data []SMSTemplate `json:"data"`
 }
 
-// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `alias` (supply exactly one), optionally pick a locale, and pass its variable values in `parameters`.
+// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `name` (supply exactly one), optionally pick a language, and pass its variable values in `parameters`.
 type SMSTemplateSend struct {
-	// Alias The template to send, by its alias handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
-	Alias *string        `json:"alias,omitempty"`
-	Id    *SMSTemplateID `json:"id,omitempty"`
+	Id *SMSTemplateID `json:"id,omitempty"`
 
-	// Locale Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
-	Locale *string `json:"locale,omitempty"`
+	// Language Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+	Language *string `json:"language,omitempty"`
+
+	// Name The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+	Name *string `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template — see the template's `variables` on the templates endpoint. Every required variable must be supplied, and no undeclared key may be present. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
@@ -3467,6 +4012,27 @@ type SMSTemplateSend1 = interface{}
 
 // SMSTemplateVersionID defines model for SMSTemplateVersionID.
 type SMSTemplateVersionID = string
+
+// SendWhatsAppMessageRequest defines model for SendWhatsAppMessageRequest.
+type SendWhatsAppMessageRequest struct {
+	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are currently the only supported content type, so every send must include one; free-text content will be added in a future release.
+	Template *SendWhatsAppMessageTemplate `json:"template,omitempty"`
+
+	// To The message recipient's phone number in E.164 format (for example `+31612345678`).
+	To string `json:"to"`
+}
+
+// SendWhatsAppMessageTemplate defines model for SendWhatsAppMessageTemplate.
+type SendWhatsAppMessageTemplate struct {
+	// Components The values that fill the template's placeholders.
+	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
+
+	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language.
+	Language *string `json:"language,omitempty"`
+
+	// Name The template to send, by its name (for example `bird_otp`).
+	Name string `json:"name"`
+}
 
 // Suppression defines model for Suppression.
 type Suppression struct {
@@ -3844,6 +4410,222 @@ type WebhookTestResponse struct {
 // WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a 2xx status; `failed` means it returned a non-2xx status or could not be reached.
 type WebhookTestResponseStatus string
 
+// WhatsAppError Failure detail for a message that could not be delivered. Null when there is no failure.
+type WhatsAppError struct {
+	// Code Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance` — the workspace could not afford the send. `price_not_found` — no price was configured for this destination/template combination. `internal_error` — an unexpected Bird-side failure. `undeliverable` — the recipient could not be reached (e.g. not on WhatsApp, number invalid). `service_window_expired` — the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited` — the send was throttled.
+	Code WhatsAppErrorCode `json:"code"`
+
+	// Description Human-readable explanation of the failure.
+	Description *string `json:"description,omitempty"`
+
+	// OccurredAt When the failure occurred.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+}
+
+// WhatsAppErrorCode Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance` — the workspace could not afford the send. `price_not_found` — no price was configured for this destination/template combination. `internal_error` — an unexpected Bird-side failure. `undeliverable` — the recipient could not be reached (e.g. not on WhatsApp, number invalid). `service_window_expired` — the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited` — the send was throttled.
+type WhatsAppErrorCode = string
+
+// WhatsAppEvent defines model for WhatsAppEvent.
+type WhatsAppEvent struct {
+	// Error Failure detail for a message that could not be delivered. Null when there is no failure.
+	Error *WhatsAppError  `json:"error,omitempty"`
+	Id    WhatsAppEventID `json:"id"`
+
+	// OccurredAt When this event occurred.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+
+	// Type Lifecycle event type. `whatsapp.accepted` — Bird accepted the request. `whatsapp.sent` — handed to the WhatsApp network. `whatsapp.delivered` — delivery confirmed to the recipient's device. `whatsapp.read` — the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed` — terminal permanent failure. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppEventID defines model for WhatsAppEventID.
+type WhatsAppEventID = string
+
+// WhatsAppEventList defines model for WhatsAppEventList.
+type WhatsAppEventList struct {
+	// Data Timeline events for this WhatsApp message, in chronological order. The timeline is bounded and returned in full — this list is not paginated.
+	Data []WhatsAppEvent `json:"data"`
+}
+
+// WhatsAppMessage defines model for WhatsAppMessage.
+type WhatsAppMessage struct {
+	Business *WhatsAppMessageBusiness `json:"business,omitempty"`
+	Contact  *WhatsAppMessageContact  `json:"contact,omitempty"`
+
+	// CreatedAt When the message was accepted for delivery.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DeliveredAt When delivery was confirmed. Null until then.
+	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
+
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction *WhatsAppMessageDirection `json:"direction,omitempty"`
+	Id        WhatsAppMessageID         `json:"id"`
+
+	// LastError Failure detail for a message that could not be delivered. Null when there is no failure.
+	LastError *WhatsAppError `json:"last_error,omitempty"`
+
+	// ReadAt When the message was read by the recipient. Null until then.
+	ReadAt *time.Time `json:"read_at,omitempty"`
+
+	// SentAt When the message was handed to the WhatsApp network. Null until then.
+	SentAt *time.Time             `json:"sent_at,omitempty"`
+	Status *WhatsAppMessageStatus `json:"status,omitempty"`
+
+	// Template The template the message was sent from. For authentication templates the filled-in values are not returned.
+	Template *WhatsAppMessageTemplate `json:"template,omitempty"`
+}
+
+// WhatsAppMessageDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type WhatsAppMessageDirection string
+
+// WhatsAppMessageBusiness The business identity that sent the message. `phone_number` is always present; `phone_number_id` is included only for account-owned numbers.
+type WhatsAppMessageBusiness struct {
+	// PhoneNumber E.164 phone number of the WhatsApp business account that sent the message.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// PhoneNumberId The WhatsApp phone number identifier. Present only for account-owned numbers.
+	PhoneNumberId *string `json:"phone_number_id,omitempty"`
+}
+
+// WhatsAppMessageContact Contact on the other end of the message. Fields are omitted when not available; at least one is always present.
+type WhatsAppMessageContact struct {
+	// Bsuid Business-scoped user ID (Meta's WhatsApp identifier for this contact within the business account), when available.
+	Bsuid *string `json:"bsuid,omitempty"`
+
+	// PhoneNumber Contact's phone number in E.164 format, when known.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+}
+
+// WhatsAppMessageID defines model for WhatsAppMessageID.
+type WhatsAppMessageID = string
+
+// WhatsAppMessageList defines model for WhatsAppMessageList.
+type WhatsAppMessageList struct {
+	// Data Page of WhatsApp message objects.
+	Data []WhatsAppMessage `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppMessageStatus Delivery status. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `canceled` means a scheduled message was canceled before it was sent. `received` is the status of an inbound message (`direction: inbound`) sent to you by a contact. There is no `read` status — a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value.
+type WhatsAppMessageStatus string
+
+// WhatsAppMessageTemplate The template a message was sent from. On reads `name`, `language`, `category`, and `components` are always present — `components` is an empty array for an authentication template (the filled-in values, e.g. a verification code, are never returned).
+type WhatsAppMessageTemplate struct {
+	// Category Content classification applied to messages sent from this template.
+	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
+
+	// Components The values that filled the template's placeholders. Empty for an authentication template, whose content is never returned.
+	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
+
+	// Language The language code of the template variant that was sent (for example `en`).
+	Language *string `json:"language,omitempty"`
+
+	// Name The template's stable handle (for example `bird_otp`).
+	Name *string `json:"name,omitempty"`
+}
+
+// WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
+type WhatsAppMessageTemplateComponent struct {
+	// Parameters The values that fill this part's placeholders, in order.
+	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
+
+	// Type Which part of the template this fills in.
+	Type string `json:"type"`
+}
+
+// WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
+type WhatsAppMessageTemplateComponentParameter struct {
+	// Text Parameter value.
+	Text string `json:"text"`
+
+	// Type Parameter type.
+	Type WhatsAppTemplateParameterType `json:"type"`
+}
+
+// WhatsAppTemplate defines model for WhatsAppTemplate.
+type WhatsAppTemplate struct {
+	// Category Content classification applied to messages sent from this template.
+	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
+
+	// Components The content blocks that make up the template, in display order.
+	Components *[]WhatsAppTemplateComponent `json:"components,omitempty"`
+
+	// Language The language code of this template variant (for example `en` or `pt_BR`).
+	Language *string `json:"language,omitempty"`
+
+	// Name The template's stable handle. Pass it as the template reference when sending.
+	Name *string `json:"name,omitempty"`
+
+	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Status The template's review and health status.
+	Status *WhatsAppTemplateStatus `json:"status,omitempty"`
+}
+
+// WhatsAppTemplateButton defines model for WhatsAppTemplateButton.
+type WhatsAppTemplateButton struct {
+	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button URL has variables.
+	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
+
+	// Text The button's label text.
+	Text *string `json:"text,omitempty"`
+
+	// Type The button's behavior type.
+	Type *string `json:"type,omitempty"`
+
+	// Url The URL the button opens, with any variable placeholder shown inline. Present on link buttons.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppTemplateCategory WhatsApp template category — Meta's content classification for a template. Open enum — Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error. The values below are the categories known at this version.
+type WhatsAppTemplateCategory = string
+
+// WhatsAppTemplateComponent defines model for WhatsAppTemplateComponent.
+type WhatsAppTemplateComponent struct {
+	// Buttons The buttons attached to this block. Present when the block carries buttons.
+	Buttons *[]WhatsAppTemplateButton `json:"buttons,omitempty"`
+
+	// ExampleParameters Example values for this block's variables, in placeholder order — one per `{{n}}`. Use them to see what a filled message looks like. Present when the block has variables.
+	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
+
+	// Text The block's text content, with any variable placeholders shown inline. Present when the block carries text.
+	Text *string `json:"text,omitempty"`
+
+	// Type The content block's type within the template.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppTemplateExampleParameter defines model for WhatsAppTemplateExampleParameter.
+type WhatsAppTemplateExampleParameter struct {
+	// Text An example value for a text parameter. Present when `type` is `text`.
+	Text *string `json:"text,omitempty"`
+
+	// Type The kind of value this parameter accepts.
+	Type *WhatsAppTemplateParameterType `json:"type,omitempty"`
+}
+
+// WhatsAppTemplateList defines model for WhatsAppTemplateList.
+type WhatsAppTemplateList struct {
+	// Data The templates available to your workspace.
+	Data []WhatsAppTemplate `json:"data"`
+}
+
+// WhatsAppTemplateParameterType The type of a template parameter.
+type WhatsAppTemplateParameterType = string
+
+// WhatsAppTemplateStatus A message template's review and health status. `approved`, `pending`, and `rejected` are review outcomes; `paused`, `disabled`, `in_appeal`, `pending_deletion`, and `limit_exceeded` reflect a template's ongoing health after approval.
+type WhatsAppTemplateStatus = string
+
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
 
@@ -3949,6 +4731,259 @@ type bearerAuthContextKey string
 // cookieAuthContextKey is the context key for CookieAuth security scheme
 type cookieAuthContextKey string
 
+// ListAudiencesParams defines parameters for ListAudiences.
+type ListAudiencesParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateAudienceParams defines parameters for CreateAudience.
+type CreateAudienceParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteAudienceParams defines parameters for DeleteAudience.
+type DeleteAudienceParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateAudienceParams defines parameters for UpdateAudience.
+type UpdateAudienceParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAudienceContactsParams defines parameters for ListAudienceContacts.
+type ListAudienceContactsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// AssignAudienceContactsParams defines parameters for AssignAudienceContacts.
+type AssignAudienceContactsParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UnassignAudienceContactsParams defines parameters for UnassignAudienceContacts.
+type UnassignAudienceContactsParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UnassignAudienceContactParams defines parameters for UnassignAudienceContact.
+type UnassignAudienceContactParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListContactPropertiesParams defines parameters for ListContactProperties.
+type ListContactPropertiesParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateContactPropertyParams defines parameters for CreateContactProperty.
+type CreateContactPropertyParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateContactPropertyParams defines parameters for UpdateContactProperty.
+type UpdateContactPropertyParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ArchiveContactPropertyParams defines parameters for ArchiveContactProperty.
+type ArchiveContactPropertyParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UnarchiveContactPropertyParams defines parameters for UnarchiveContactProperty.
+type UnarchiveContactPropertyParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListContactsParams defines parameters for ListContacts.
+type ListContactsParams struct {
+	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact.
+	Email *string `form:"email,omitempty" json:"email,omitempty"`
+
+	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
+	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
+
+	// Search Case-insensitive substring match against the contact's email address.
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateContactParams defines parameters for CreateContact.
+type CreateContactParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateContactBatchParams defines parameters for CreateContactBatch.
+type CreateContactBatchParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteContactParams defines parameters for DeleteContact.
+type DeleteContactParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateContactParams defines parameters for UpdateContact.
+type UpdateContactParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
 type CreateEmailMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
@@ -4024,7 +5059,7 @@ type ListEmailTemplatesParams struct {
 	// Source Filter by authoring format.
 	Source *EmailTemplateSource `form:"source,omitempty" json:"source,omitempty"`
 
-	// Name Filter by name prefix (case-insensitive).
+	// Name Case-insensitive search matching the template's name or description (substring).
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -4174,8 +5209,8 @@ type ListSMSTemplatesParams struct {
 	// Category Filter by category.
 	Category *ListSMSTemplatesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// Locale Keep only templates available in this language, as a BCP-47 tag.
-	Locale *string `form:"locale,omitempty" json:"locale,omitempty"`
+	// Language Keep only templates available in this language, as a BCP-47 tag.
+	Language *string `form:"language,omitempty" json:"language,omitempty"`
 }
 
 // ListSMSTemplatesParamsScope defines parameters for ListSMSTemplates.
@@ -4183,6 +5218,33 @@ type ListSMSTemplatesParamsScope string
 
 // ListSMSTemplatesParamsCategory defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParamsCategory string
+
+// CreateAudienceJSONRequestBody defines body for CreateAudience for application/json ContentType.
+type CreateAudienceJSONRequestBody = AudienceCreateRequest
+
+// UpdateAudienceJSONRequestBody defines body for UpdateAudience for application/json ContentType.
+type UpdateAudienceJSONRequestBody = AudienceUpdateRequest
+
+// AssignAudienceContactsJSONRequestBody defines body for AssignAudienceContacts for application/json ContentType.
+type AssignAudienceContactsJSONRequestBody = AudienceContactsAddRequest
+
+// UnassignAudienceContactsJSONRequestBody defines body for UnassignAudienceContacts for application/json ContentType.
+type UnassignAudienceContactsJSONRequestBody = AudienceContactsRemoveRequest
+
+// CreateContactPropertyJSONRequestBody defines body for CreateContactProperty for application/json ContentType.
+type CreateContactPropertyJSONRequestBody = ContactPropertyCreateRequest
+
+// UpdateContactPropertyJSONRequestBody defines body for UpdateContactProperty for application/json ContentType.
+type UpdateContactPropertyJSONRequestBody = ContactPropertyUpdateRequest
+
+// CreateContactJSONRequestBody defines body for CreateContact for application/json ContentType.
+type CreateContactJSONRequestBody = ContactCreateRequest
+
+// CreateContactBatchJSONRequestBody defines body for CreateContactBatch for application/json ContentType.
+type CreateContactBatchJSONRequestBody = ContactUpsertRequest
+
+// UpdateContactJSONRequestBody defines body for UpdateContact for application/json ContentType.
+type UpdateContactJSONRequestBody = ContactUpdateRequest
 
 // CreateEmailMessageBatchJSONRequestBody defines body for CreateEmailMessageBatch for application/json ContentType.
 type CreateEmailMessageBatchJSONRequestBody = EmailMessageBatchRequest
@@ -4329,17 +5391,17 @@ func (t EmailTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Alias != nil {
-		object["alias"], err = json.Marshal(t.Alias)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'alias': %w", err)
-		}
-	}
-
 	if t.Id != nil {
 		object["id"], err = json.Marshal(t.Id)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Name != nil {
+		object["name"], err = json.Marshal(t.Name)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'name': %w", err)
 		}
 	}
 
@@ -4364,17 +5426,17 @@ func (t *EmailTemplateSend) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["alias"]; found {
-		err = json.Unmarshal(raw, &t.Alias)
-		if err != nil {
-			return fmt.Errorf("error reading 'alias': %w", err)
-		}
-	}
-
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &t.Id)
 		if err != nil {
 			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["name"]; found {
+		err = json.Unmarshal(raw, &t.Name)
+		if err != nil {
+			return fmt.Errorf("error reading 'name': %w", err)
 		}
 	}
 
@@ -4799,13 +5861,6 @@ func (t SMSTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Alias != nil {
-		object["alias"], err = json.Marshal(t.Alias)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'alias': %w", err)
-		}
-	}
-
 	if t.Id != nil {
 		object["id"], err = json.Marshal(t.Id)
 		if err != nil {
@@ -4813,10 +5868,17 @@ func (t SMSTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Locale != nil {
-		object["locale"], err = json.Marshal(t.Locale)
+	if t.Language != nil {
+		object["language"], err = json.Marshal(t.Language)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'locale': %w", err)
+			return nil, fmt.Errorf("error marshaling 'language': %w", err)
+		}
+	}
+
+	if t.Name != nil {
+		object["name"], err = json.Marshal(t.Name)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'name': %w", err)
 		}
 	}
 
@@ -4841,13 +5903,6 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["alias"]; found {
-		err = json.Unmarshal(raw, &t.Alias)
-		if err != nil {
-			return fmt.Errorf("error reading 'alias': %w", err)
-		}
-	}
-
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &t.Id)
 		if err != nil {
@@ -4855,10 +5910,17 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if raw, found := object["locale"]; found {
-		err = json.Unmarshal(raw, &t.Locale)
+	if raw, found := object["language"]; found {
+		err = json.Unmarshal(raw, &t.Language)
 		if err != nil {
-			return fmt.Errorf("error reading 'locale': %w", err)
+			return fmt.Errorf("error reading 'language': %w", err)
+		}
+	}
+
+	if raw, found := object["name"]; found {
+		err = json.Unmarshal(raw, &t.Name)
+		if err != nil {
+			return fmt.Errorf("error reading 'name': %w", err)
 		}
 	}
 
@@ -5724,6 +6786,87 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// ListAudiences request
+	ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAudienceWithBody request with any body
+	CreateAudienceWithBody(ctx context.Context, params *CreateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAudience(ctx context.Context, params *CreateAudienceParams, body CreateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAudience request
+	DeleteAudience(ctx context.Context, audienceId AudienceID, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAudience request
+	GetAudience(ctx context.Context, audienceId AudienceID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAudienceWithBody request with any body
+	UpdateAudienceWithBody(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAudience(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAudienceContacts request
+	ListAudienceContacts(ctx context.Context, audienceId AudienceID, params *ListAudienceContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// AssignAudienceContactsWithBody request with any body
+	AssignAudienceContactsWithBody(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	AssignAudienceContacts(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, body AssignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UnassignAudienceContactsWithBody request with any body
+	UnassignAudienceContactsWithBody(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UnassignAudienceContacts(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, body UnassignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UnassignAudienceContact request
+	UnassignAudienceContact(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListContactProperties request
+	ListContactProperties(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateContactPropertyWithBody request with any body
+	CreateContactPropertyWithBody(ctx context.Context, params *CreateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateContactProperty(ctx context.Context, params *CreateContactPropertyParams, body CreateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetContactProperty request
+	GetContactProperty(ctx context.Context, propertyId ContactPropertyID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateContactPropertyWithBody request with any body
+	UpdateContactPropertyWithBody(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateContactProperty(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, body UpdateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ArchiveContactProperty request
+	ArchiveContactProperty(ctx context.Context, propertyId ContactPropertyID, params *ArchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UnarchiveContactProperty request
+	UnarchiveContactProperty(ctx context.Context, propertyId ContactPropertyID, params *UnarchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListContacts request
+	ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateContactWithBody request with any body
+	CreateContactWithBody(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateContact(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateContactBatchWithBody request with any body
+	CreateContactBatchWithBody(ctx context.Context, params *CreateContactBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateContactBatch(ctx context.Context, params *CreateContactBatchParams, body CreateContactBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteContact request
+	DeleteContact(ctx context.Context, contactId ContactID, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetContact request
+	GetContact(ctx context.Context, contactId ContactID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateContactWithBody request with any body
+	UpdateContactWithBody(ctx context.Context, contactId ContactID, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateContact(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateEmailMessageBatchWithBody request with any body
 	CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -5789,6 +6932,366 @@ type ClientInterface interface {
 
 	// GetSMSTemplate request
 	GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAudiencesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAudienceWithBody(ctx context.Context, params *CreateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAudienceRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAudience(ctx context.Context, params *CreateAudienceParams, body CreateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAudienceRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAudience(ctx context.Context, audienceId AudienceID, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAudienceRequest(c.Server, audienceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAudience(ctx context.Context, audienceId AudienceID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAudienceRequest(c.Server, audienceId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAudienceWithBody(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAudienceRequestWithBody(c.Server, audienceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAudience(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAudienceRequest(c.Server, audienceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAudienceContacts(ctx context.Context, audienceId AudienceID, params *ListAudienceContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAudienceContactsRequest(c.Server, audienceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) AssignAudienceContactsWithBody(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAssignAudienceContactsRequestWithBody(c.Server, audienceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) AssignAudienceContacts(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, body AssignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAssignAudienceContactsRequest(c.Server, audienceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UnassignAudienceContactsWithBody(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnassignAudienceContactsRequestWithBody(c.Server, audienceId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UnassignAudienceContacts(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, body UnassignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnassignAudienceContactsRequest(c.Server, audienceId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UnassignAudienceContact(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnassignAudienceContactRequest(c.Server, audienceId, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListContactProperties(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactPropertiesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContactPropertyWithBody(ctx context.Context, params *CreateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactPropertyRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContactProperty(ctx context.Context, params *CreateContactPropertyParams, body CreateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactPropertyRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetContactProperty(ctx context.Context, propertyId ContactPropertyID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetContactPropertyRequest(c.Server, propertyId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateContactPropertyWithBody(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactPropertyRequestWithBody(c.Server, propertyId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateContactProperty(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, body UpdateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactPropertyRequest(c.Server, propertyId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ArchiveContactProperty(ctx context.Context, propertyId ContactPropertyID, params *ArchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewArchiveContactPropertyRequest(c.Server, propertyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UnarchiveContactProperty(ctx context.Context, propertyId ContactPropertyID, params *UnarchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnarchiveContactPropertyRequest(c.Server, propertyId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListContacts(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContactWithBody(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContact(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContactBatchWithBody(ctx context.Context, params *CreateContactBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactBatchRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateContactBatch(ctx context.Context, params *CreateContactBatchParams, body CreateContactBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateContactBatchRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteContact(ctx context.Context, contactId ContactID, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteContactRequest(c.Server, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetContact(ctx context.Context, contactId ContactID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetContactRequest(c.Server, contactId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateContactWithBody(ctx context.Context, contactId ContactID, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactRequestWithBody(c.Server, contactId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateContact(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -6077,6 +7580,1245 @@ func (c *Client) GetSMSTemplate(ctx context.Context, templateRef string, reqEdit
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewListAudiencesRequest generates requests for ListAudiences
+func NewListAudiencesRequest(server string, params *ListAudiencesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateAudienceRequest calls the generic CreateAudience builder with application/json body
+func NewCreateAudienceRequest(server string, params *CreateAudienceParams, body CreateAudienceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAudienceRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAudienceRequestWithBody generates requests for CreateAudience with any type of body
+func NewCreateAudienceRequestWithBody(server string, params *CreateAudienceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAudienceRequest generates requests for DeleteAudience
+func NewDeleteAudienceRequest(server string, audienceId AudienceID, params *DeleteAudienceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAudienceRequest generates requests for GetAudience
+func NewGetAudienceRequest(server string, audienceId AudienceID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateAudienceRequest calls the generic UpdateAudience builder with application/json body
+func NewUpdateAudienceRequest(server string, audienceId AudienceID, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAudienceRequestWithBody(server, audienceId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAudienceRequestWithBody generates requests for UpdateAudience with any type of body
+func NewUpdateAudienceRequestWithBody(server string, audienceId AudienceID, params *UpdateAudienceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAudienceContactsRequest generates requests for ListAudienceContacts
+func NewListAudienceContactsRequest(server string, audienceId AudienceID, params *ListAudienceContactsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/contacts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewAssignAudienceContactsRequest calls the generic AssignAudienceContacts builder with application/json body
+func NewAssignAudienceContactsRequest(server string, audienceId AudienceID, params *AssignAudienceContactsParams, body AssignAudienceContactsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewAssignAudienceContactsRequestWithBody(server, audienceId, params, "application/json", bodyReader)
+}
+
+// NewAssignAudienceContactsRequestWithBody generates requests for AssignAudienceContacts with any type of body
+func NewAssignAudienceContactsRequestWithBody(server string, audienceId AudienceID, params *AssignAudienceContactsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/contacts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUnassignAudienceContactsRequest calls the generic UnassignAudienceContacts builder with application/json body
+func NewUnassignAudienceContactsRequest(server string, audienceId AudienceID, params *UnassignAudienceContactsParams, body UnassignAudienceContactsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUnassignAudienceContactsRequestWithBody(server, audienceId, params, "application/json", bodyReader)
+}
+
+// NewUnassignAudienceContactsRequestWithBody generates requests for UnassignAudienceContacts with any type of body
+func NewUnassignAudienceContactsRequestWithBody(server string, audienceId AudienceID, params *UnassignAudienceContactsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/contacts/remove", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUnassignAudienceContactRequest generates requests for UnassignAudienceContact
+func NewUnassignAudienceContactRequest(server string, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/contacts/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListContactPropertiesRequest generates requests for ListContactProperties
+func NewListContactPropertiesRequest(server string, params *ListContactPropertiesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateContactPropertyRequest calls the generic CreateContactProperty builder with application/json body
+func NewCreateContactPropertyRequest(server string, params *CreateContactPropertyParams, body CreateContactPropertyJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateContactPropertyRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateContactPropertyRequestWithBody generates requests for CreateContactProperty with any type of body
+func NewCreateContactPropertyRequestWithBody(server string, params *CreateContactPropertyParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetContactPropertyRequest generates requests for GetContactProperty
+func NewGetContactPropertyRequest(server string, propertyId ContactPropertyID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "property_id", propertyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateContactPropertyRequest calls the generic UpdateContactProperty builder with application/json body
+func NewUpdateContactPropertyRequest(server string, propertyId ContactPropertyID, params *UpdateContactPropertyParams, body UpdateContactPropertyJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateContactPropertyRequestWithBody(server, propertyId, params, "application/json", bodyReader)
+}
+
+// NewUpdateContactPropertyRequestWithBody generates requests for UpdateContactProperty with any type of body
+func NewUpdateContactPropertyRequestWithBody(server string, propertyId ContactPropertyID, params *UpdateContactPropertyParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "property_id", propertyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewArchiveContactPropertyRequest generates requests for ArchiveContactProperty
+func NewArchiveContactPropertyRequest(server string, propertyId ContactPropertyID, params *ArchiveContactPropertyParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "property_id", propertyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties/%s/archive", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUnarchiveContactPropertyRequest generates requests for UnarchiveContactProperty
+func NewUnarchiveContactPropertyRequest(server string, propertyId ContactPropertyID, params *UnarchiveContactPropertyParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "property_id", propertyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contact-properties/%s/unarchive", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListContactsRequest generates requests for ListContacts
+func NewListContactsRequest(server string, params *ListContactsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Email != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "email", *params.Email, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ExternalId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "external_id", *params.ExternalId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateContactRequest calls the generic CreateContact builder with application/json body
+func NewCreateContactRequest(server string, params *CreateContactParams, body CreateContactJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateContactRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateContactRequestWithBody generates requests for CreateContact with any type of body
+func NewCreateContactRequestWithBody(server string, params *CreateContactParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateContactBatchRequest calls the generic CreateContactBatch builder with application/json body
+func NewCreateContactBatchRequest(server string, params *CreateContactBatchParams, body CreateContactBatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateContactBatchRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateContactBatchRequestWithBody generates requests for CreateContactBatch with any type of body
+func NewCreateContactBatchRequestWithBody(server string, params *CreateContactBatchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts/batch")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteContactRequest generates requests for DeleteContact
+func NewDeleteContactRequest(server string, contactId ContactID, params *DeleteContactParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetContactRequest generates requests for GetContact
+func NewGetContactRequest(server string, contactId ContactID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateContactRequest calls the generic UpdateContact builder with application/json body
+func NewUpdateContactRequest(server string, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateContactRequestWithBody(server, contactId, params, "application/json", bodyReader)
+}
+
+// NewUpdateContactRequestWithBody generates requests for UpdateContact with any type of body
+func NewUpdateContactRequestWithBody(server string, contactId ContactID, params *UpdateContactParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
 }
 
 // NewCreateEmailMessageBatchRequest calls the generic CreateEmailMessageBatch builder with application/json body
@@ -7205,9 +9947,9 @@ func NewListSMSTemplatesRequest(server string, params *ListSMSTemplatesParams) (
 
 		}
 
-		if params.Locale != nil {
+		if params.Language != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "locale", *params.Locale, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "language", *params.Language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -7308,6 +10050,87 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// ListAudiencesWithResponse request
+	ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error)
+
+	// CreateAudienceWithBodyWithResponse request with any body
+	CreateAudienceWithBodyWithResponse(ctx context.Context, params *CreateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAudienceResponse, error)
+
+	CreateAudienceWithResponse(ctx context.Context, params *CreateAudienceParams, body CreateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAudienceResponse, error)
+
+	// DeleteAudienceWithResponse request
+	DeleteAudienceWithResponse(ctx context.Context, audienceId AudienceID, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*DeleteAudienceResponse, error)
+
+	// GetAudienceWithResponse request
+	GetAudienceWithResponse(ctx context.Context, audienceId AudienceID, reqEditors ...RequestEditorFn) (*GetAudienceResponse, error)
+
+	// UpdateAudienceWithBodyWithResponse request with any body
+	UpdateAudienceWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAudienceResponse, error)
+
+	UpdateAudienceWithResponse(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAudienceResponse, error)
+
+	// ListAudienceContactsWithResponse request
+	ListAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *ListAudienceContactsParams, reqEditors ...RequestEditorFn) (*ListAudienceContactsResponse, error)
+
+	// AssignAudienceContactsWithBodyWithResponse request with any body
+	AssignAudienceContactsWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignAudienceContactsResponse, error)
+
+	AssignAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, body AssignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignAudienceContactsResponse, error)
+
+	// UnassignAudienceContactsWithBodyWithResponse request with any body
+	UnassignAudienceContactsWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnassignAudienceContactsResponse, error)
+
+	UnassignAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, body UnassignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*UnassignAudienceContactsResponse, error)
+
+	// UnassignAudienceContactWithResponse request
+	UnassignAudienceContactWithResponse(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*UnassignAudienceContactResponse, error)
+
+	// ListContactPropertiesWithResponse request
+	ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error)
+
+	// CreateContactPropertyWithBodyWithResponse request with any body
+	CreateContactPropertyWithBodyWithResponse(ctx context.Context, params *CreateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactPropertyResponse, error)
+
+	CreateContactPropertyWithResponse(ctx context.Context, params *CreateContactPropertyParams, body CreateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactPropertyResponse, error)
+
+	// GetContactPropertyWithResponse request
+	GetContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, reqEditors ...RequestEditorFn) (*GetContactPropertyResponse, error)
+
+	// UpdateContactPropertyWithBodyWithResponse request with any body
+	UpdateContactPropertyWithBodyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContactPropertyResponse, error)
+
+	UpdateContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, body UpdateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContactPropertyResponse, error)
+
+	// ArchiveContactPropertyWithResponse request
+	ArchiveContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *ArchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*ArchiveContactPropertyResponse, error)
+
+	// UnarchiveContactPropertyWithResponse request
+	UnarchiveContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UnarchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*UnarchiveContactPropertyResponse, error)
+
+	// ListContactsWithResponse request
+	ListContactsWithResponse(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*ListContactsResponse, error)
+
+	// CreateContactWithBodyWithResponse request with any body
+	CreateContactWithBodyWithResponse(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactResponse, error)
+
+	CreateContactWithResponse(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactResponse, error)
+
+	// CreateContactBatchWithBodyWithResponse request with any body
+	CreateContactBatchWithBodyWithResponse(ctx context.Context, params *CreateContactBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactBatchResponse, error)
+
+	CreateContactBatchWithResponse(ctx context.Context, params *CreateContactBatchParams, body CreateContactBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactBatchResponse, error)
+
+	// DeleteContactWithResponse request
+	DeleteContactWithResponse(ctx context.Context, contactId ContactID, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*DeleteContactResponse, error)
+
+	// GetContactWithResponse request
+	GetContactWithResponse(ctx context.Context, contactId ContactID, reqEditors ...RequestEditorFn) (*GetContactResponse, error)
+
+	// UpdateContactWithBodyWithResponse request with any body
+	UpdateContactWithBodyWithResponse(ctx context.Context, contactId ContactID, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContactResponse, error)
+
+	UpdateContactWithResponse(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContactResponse, error)
+
 	// CreateEmailMessageBatchWithBodyWithResponse request with any body
 	CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
 
@@ -7373,6 +10196,754 @@ type ClientWithResponsesInterface interface {
 
 	// GetSMSTemplateWithResponse request
 	GetSMSTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetSMSTemplateResponse, error)
+}
+
+type ListAudiencesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AudienceList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAudiencesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAudiencesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAudiencesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAudienceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *Audience
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAudienceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAudienceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAudienceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAudienceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAudienceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAudienceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAudienceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAudienceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Audience
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAudienceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAudienceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAudienceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAudienceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Audience
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAudienceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAudienceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAudienceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAudienceContactsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AudienceMemberList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAudienceContactsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAudienceContactsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAudienceContactsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type AssignAudienceContactsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r AssignAudienceContactsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r AssignAudienceContactsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r AssignAudienceContactsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UnassignAudienceContactsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UnassignAudienceContactsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UnassignAudienceContactsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UnassignAudienceContactsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UnassignAudienceContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UnassignAudienceContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UnassignAudienceContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UnassignAudienceContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListContactPropertiesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactPropertyList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListContactPropertiesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListContactPropertiesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListContactPropertiesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateContactPropertyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *ContactProperty
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateContactPropertyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateContactPropertyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateContactPropertyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetContactPropertyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactProperty
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetContactPropertyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetContactPropertyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetContactPropertyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateContactPropertyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactProperty
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateContactPropertyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateContactPropertyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateContactPropertyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ArchiveContactPropertyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactProperty
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ArchiveContactPropertyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ArchiveContactPropertyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ArchiveContactPropertyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UnarchiveContactPropertyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactProperty
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UnarchiveContactPropertyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UnarchiveContactPropertyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UnarchiveContactPropertyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListContactsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListContactsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListContactsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListContactsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *Contact
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateContactBatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ContactUpsertResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateContactBatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateContactBatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateContactBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Contact
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateContactResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Contact
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateContactResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateContactResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
 }
 
 type CreateEmailMessageBatchResponse struct {
@@ -8021,6 +11592,267 @@ func (r GetSMSTemplateResponse) ContentType() string {
 	return ""
 }
 
+// ListAudiencesWithResponse request returning *ListAudiencesResponse
+func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error) {
+	rsp, err := c.ListAudiences(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAudiencesResponse(rsp)
+}
+
+// CreateAudienceWithBodyWithResponse request with arbitrary body returning *CreateAudienceResponse
+func (c *ClientWithResponses) CreateAudienceWithBodyWithResponse(ctx context.Context, params *CreateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAudienceResponse, error) {
+	rsp, err := c.CreateAudienceWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAudienceResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAudienceWithResponse(ctx context.Context, params *CreateAudienceParams, body CreateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAudienceResponse, error) {
+	rsp, err := c.CreateAudience(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAudienceResponse(rsp)
+}
+
+// DeleteAudienceWithResponse request returning *DeleteAudienceResponse
+func (c *ClientWithResponses) DeleteAudienceWithResponse(ctx context.Context, audienceId AudienceID, params *DeleteAudienceParams, reqEditors ...RequestEditorFn) (*DeleteAudienceResponse, error) {
+	rsp, err := c.DeleteAudience(ctx, audienceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAudienceResponse(rsp)
+}
+
+// GetAudienceWithResponse request returning *GetAudienceResponse
+func (c *ClientWithResponses) GetAudienceWithResponse(ctx context.Context, audienceId AudienceID, reqEditors ...RequestEditorFn) (*GetAudienceResponse, error) {
+	rsp, err := c.GetAudience(ctx, audienceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAudienceResponse(rsp)
+}
+
+// UpdateAudienceWithBodyWithResponse request with arbitrary body returning *UpdateAudienceResponse
+func (c *ClientWithResponses) UpdateAudienceWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAudienceResponse, error) {
+	rsp, err := c.UpdateAudienceWithBody(ctx, audienceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAudienceResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAudienceWithResponse(ctx context.Context, audienceId AudienceID, params *UpdateAudienceParams, body UpdateAudienceJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAudienceResponse, error) {
+	rsp, err := c.UpdateAudience(ctx, audienceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAudienceResponse(rsp)
+}
+
+// ListAudienceContactsWithResponse request returning *ListAudienceContactsResponse
+func (c *ClientWithResponses) ListAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *ListAudienceContactsParams, reqEditors ...RequestEditorFn) (*ListAudienceContactsResponse, error) {
+	rsp, err := c.ListAudienceContacts(ctx, audienceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAudienceContactsResponse(rsp)
+}
+
+// AssignAudienceContactsWithBodyWithResponse request with arbitrary body returning *AssignAudienceContactsResponse
+func (c *ClientWithResponses) AssignAudienceContactsWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignAudienceContactsResponse, error) {
+	rsp, err := c.AssignAudienceContactsWithBody(ctx, audienceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAssignAudienceContactsResponse(rsp)
+}
+
+func (c *ClientWithResponses) AssignAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *AssignAudienceContactsParams, body AssignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignAudienceContactsResponse, error) {
+	rsp, err := c.AssignAudienceContacts(ctx, audienceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseAssignAudienceContactsResponse(rsp)
+}
+
+// UnassignAudienceContactsWithBodyWithResponse request with arbitrary body returning *UnassignAudienceContactsResponse
+func (c *ClientWithResponses) UnassignAudienceContactsWithBodyWithResponse(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UnassignAudienceContactsResponse, error) {
+	rsp, err := c.UnassignAudienceContactsWithBody(ctx, audienceId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUnassignAudienceContactsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UnassignAudienceContactsWithResponse(ctx context.Context, audienceId AudienceID, params *UnassignAudienceContactsParams, body UnassignAudienceContactsJSONRequestBody, reqEditors ...RequestEditorFn) (*UnassignAudienceContactsResponse, error) {
+	rsp, err := c.UnassignAudienceContacts(ctx, audienceId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUnassignAudienceContactsResponse(rsp)
+}
+
+// UnassignAudienceContactWithResponse request returning *UnassignAudienceContactResponse
+func (c *ClientWithResponses) UnassignAudienceContactWithResponse(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*UnassignAudienceContactResponse, error) {
+	rsp, err := c.UnassignAudienceContact(ctx, audienceId, contactId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUnassignAudienceContactResponse(rsp)
+}
+
+// ListContactPropertiesWithResponse request returning *ListContactPropertiesResponse
+func (c *ClientWithResponses) ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error) {
+	rsp, err := c.ListContactProperties(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListContactPropertiesResponse(rsp)
+}
+
+// CreateContactPropertyWithBodyWithResponse request with arbitrary body returning *CreateContactPropertyResponse
+func (c *ClientWithResponses) CreateContactPropertyWithBodyWithResponse(ctx context.Context, params *CreateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactPropertyResponse, error) {
+	rsp, err := c.CreateContactPropertyWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactPropertyResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateContactPropertyWithResponse(ctx context.Context, params *CreateContactPropertyParams, body CreateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactPropertyResponse, error) {
+	rsp, err := c.CreateContactProperty(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactPropertyResponse(rsp)
+}
+
+// GetContactPropertyWithResponse request returning *GetContactPropertyResponse
+func (c *ClientWithResponses) GetContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, reqEditors ...RequestEditorFn) (*GetContactPropertyResponse, error) {
+	rsp, err := c.GetContactProperty(ctx, propertyId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetContactPropertyResponse(rsp)
+}
+
+// UpdateContactPropertyWithBodyWithResponse request with arbitrary body returning *UpdateContactPropertyResponse
+func (c *ClientWithResponses) UpdateContactPropertyWithBodyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContactPropertyResponse, error) {
+	rsp, err := c.UpdateContactPropertyWithBody(ctx, propertyId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContactPropertyResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UpdateContactPropertyParams, body UpdateContactPropertyJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContactPropertyResponse, error) {
+	rsp, err := c.UpdateContactProperty(ctx, propertyId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContactPropertyResponse(rsp)
+}
+
+// ArchiveContactPropertyWithResponse request returning *ArchiveContactPropertyResponse
+func (c *ClientWithResponses) ArchiveContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *ArchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*ArchiveContactPropertyResponse, error) {
+	rsp, err := c.ArchiveContactProperty(ctx, propertyId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseArchiveContactPropertyResponse(rsp)
+}
+
+// UnarchiveContactPropertyWithResponse request returning *UnarchiveContactPropertyResponse
+func (c *ClientWithResponses) UnarchiveContactPropertyWithResponse(ctx context.Context, propertyId ContactPropertyID, params *UnarchiveContactPropertyParams, reqEditors ...RequestEditorFn) (*UnarchiveContactPropertyResponse, error) {
+	rsp, err := c.UnarchiveContactProperty(ctx, propertyId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUnarchiveContactPropertyResponse(rsp)
+}
+
+// ListContactsWithResponse request returning *ListContactsResponse
+func (c *ClientWithResponses) ListContactsWithResponse(ctx context.Context, params *ListContactsParams, reqEditors ...RequestEditorFn) (*ListContactsResponse, error) {
+	rsp, err := c.ListContacts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListContactsResponse(rsp)
+}
+
+// CreateContactWithBodyWithResponse request with arbitrary body returning *CreateContactResponse
+func (c *ClientWithResponses) CreateContactWithBodyWithResponse(ctx context.Context, params *CreateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactResponse, error) {
+	rsp, err := c.CreateContactWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateContactWithResponse(ctx context.Context, params *CreateContactParams, body CreateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactResponse, error) {
+	rsp, err := c.CreateContact(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactResponse(rsp)
+}
+
+// CreateContactBatchWithBodyWithResponse request with arbitrary body returning *CreateContactBatchResponse
+func (c *ClientWithResponses) CreateContactBatchWithBodyWithResponse(ctx context.Context, params *CreateContactBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateContactBatchResponse, error) {
+	rsp, err := c.CreateContactBatchWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactBatchResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateContactBatchWithResponse(ctx context.Context, params *CreateContactBatchParams, body CreateContactBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateContactBatchResponse, error) {
+	rsp, err := c.CreateContactBatch(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateContactBatchResponse(rsp)
+}
+
+// DeleteContactWithResponse request returning *DeleteContactResponse
+func (c *ClientWithResponses) DeleteContactWithResponse(ctx context.Context, contactId ContactID, params *DeleteContactParams, reqEditors ...RequestEditorFn) (*DeleteContactResponse, error) {
+	rsp, err := c.DeleteContact(ctx, contactId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteContactResponse(rsp)
+}
+
+// GetContactWithResponse request returning *GetContactResponse
+func (c *ClientWithResponses) GetContactWithResponse(ctx context.Context, contactId ContactID, reqEditors ...RequestEditorFn) (*GetContactResponse, error) {
+	rsp, err := c.GetContact(ctx, contactId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetContactResponse(rsp)
+}
+
+// UpdateContactWithBodyWithResponse request with arbitrary body returning *UpdateContactResponse
+func (c *ClientWithResponses) UpdateContactWithBodyWithResponse(ctx context.Context, contactId ContactID, params *UpdateContactParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateContactResponse, error) {
+	rsp, err := c.UpdateContactWithBody(ctx, contactId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContactResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateContactWithResponse(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContactResponse, error) {
+	rsp, err := c.UpdateContact(ctx, contactId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateContactResponse(rsp)
+}
+
 // CreateEmailMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateEmailMessageBatchResponse
 func (c *ClientWithResponses) CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error) {
 	rsp, err := c.CreateEmailMessageBatchWithBody(ctx, params, contentType, body, reqEditors...)
@@ -8229,6 +12061,1378 @@ func (c *ClientWithResponses) GetSMSTemplateWithResponse(ctx context.Context, te
 		return nil, err
 	}
 	return ParseGetSMSTemplateResponse(rsp)
+}
+
+// ParseListAudiencesResponse parses an HTTP response from a ListAudiencesWithResponse call
+func ParseListAudiencesResponse(rsp *http.Response) (*ListAudiencesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAudiencesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AudienceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAudienceResponse parses an HTTP response from a CreateAudienceWithResponse call
+func ParseCreateAudienceResponse(rsp *http.Response) (*CreateAudienceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAudienceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Audience
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAudienceResponse parses an HTTP response from a DeleteAudienceWithResponse call
+func ParseDeleteAudienceResponse(rsp *http.Response) (*DeleteAudienceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAudienceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAudienceResponse parses an HTTP response from a GetAudienceWithResponse call
+func ParseGetAudienceResponse(rsp *http.Response) (*GetAudienceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAudienceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Audience
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAudienceResponse parses an HTTP response from a UpdateAudienceWithResponse call
+func ParseUpdateAudienceResponse(rsp *http.Response) (*UpdateAudienceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAudienceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Audience
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAudienceContactsResponse parses an HTTP response from a ListAudienceContactsWithResponse call
+func ParseListAudienceContactsResponse(rsp *http.Response) (*ListAudienceContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAudienceContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AudienceMemberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseAssignAudienceContactsResponse parses an HTTP response from a AssignAudienceContactsWithResponse call
+func ParseAssignAudienceContactsResponse(rsp *http.Response) (*AssignAudienceContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &AssignAudienceContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUnassignAudienceContactsResponse parses an HTTP response from a UnassignAudienceContactsWithResponse call
+func ParseUnassignAudienceContactsResponse(rsp *http.Response) (*UnassignAudienceContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UnassignAudienceContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUnassignAudienceContactResponse parses an HTTP response from a UnassignAudienceContactWithResponse call
+func ParseUnassignAudienceContactResponse(rsp *http.Response) (*UnassignAudienceContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UnassignAudienceContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListContactPropertiesResponse parses an HTTP response from a ListContactPropertiesWithResponse call
+func ParseListContactPropertiesResponse(rsp *http.Response) (*ListContactPropertiesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListContactPropertiesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactPropertyList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateContactPropertyResponse parses an HTTP response from a CreateContactPropertyWithResponse call
+func ParseCreateContactPropertyResponse(rsp *http.Response) (*CreateContactPropertyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateContactPropertyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest ContactProperty
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetContactPropertyResponse parses an HTTP response from a GetContactPropertyWithResponse call
+func ParseGetContactPropertyResponse(rsp *http.Response) (*GetContactPropertyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetContactPropertyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactProperty
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateContactPropertyResponse parses an HTTP response from a UpdateContactPropertyWithResponse call
+func ParseUpdateContactPropertyResponse(rsp *http.Response) (*UpdateContactPropertyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateContactPropertyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactProperty
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseArchiveContactPropertyResponse parses an HTTP response from a ArchiveContactPropertyWithResponse call
+func ParseArchiveContactPropertyResponse(rsp *http.Response) (*ArchiveContactPropertyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ArchiveContactPropertyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactProperty
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUnarchiveContactPropertyResponse parses an HTTP response from a UnarchiveContactPropertyWithResponse call
+func ParseUnarchiveContactPropertyResponse(rsp *http.Response) (*UnarchiveContactPropertyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UnarchiveContactPropertyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactProperty
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListContactsResponse parses an HTTP response from a ListContactsWithResponse call
+func ParseListContactsResponse(rsp *http.Response) (*ListContactsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListContactsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateContactResponse parses an HTTP response from a CreateContactWithResponse call
+func ParseCreateContactResponse(rsp *http.Response) (*CreateContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Contact
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateContactBatchResponse parses an HTTP response from a CreateContactBatchWithResponse call
+func ParseCreateContactBatchResponse(rsp *http.Response) (*CreateContactBatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateContactBatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ContactUpsertResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteContactResponse parses an HTTP response from a DeleteContactWithResponse call
+func ParseDeleteContactResponse(rsp *http.Response) (*DeleteContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetContactResponse parses an HTTP response from a GetContactWithResponse call
+func ParseGetContactResponse(rsp *http.Response) (*GetContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Contact
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateContactResponse parses an HTTP response from a UpdateContactWithResponse call
+func ParseUpdateContactResponse(rsp *http.Response) (*UpdateContactResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateContactResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Contact
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseCreateEmailMessageBatchResponse parses an HTTP response from a CreateEmailMessageBatchWithResponse call

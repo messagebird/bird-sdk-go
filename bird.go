@@ -25,6 +25,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"regexp"
 	"runtime"
 	"strings"
@@ -36,7 +37,7 @@ import (
 )
 
 const (
-	version = "0.3.0"
+	version = "0.4.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -61,11 +62,14 @@ type Client struct {
 	cfg  requestconfig.Config
 	oapi *oapi.Client
 
-	Email          *EmailService
-	EmailTemplates *EmailTemplatesService
-	Sms            *SMSService
-	SmsTemplates   *SMSTemplatesService
-	Webhooks       *WebhookService
+	Email             *EmailService
+	EmailTemplates    *EmailTemplatesService
+	Sms               *SMSService
+	SmsTemplates      *SMSTemplatesService
+	Webhooks          *WebhookService
+	Contacts          *ContactsService
+	Audiences         *AudiencesService
+	ContactProperties *ContactPropertiesService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -106,6 +110,9 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Sms = &SMSService{client: c}
 	c.SmsTemplates = &SMSTemplatesService{client: c}
 	c.Webhooks = &WebhookService{client: c}
+	c.Contacts = &ContactsService{client: c}
+	c.Audiences = &AudiencesService{client: c}
+	c.ContactProperties = &ContactPropertiesService{client: c}
 	return c, nil
 }
 
@@ -185,6 +192,9 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 		req.Header.Set("Bird-Lang", "go")
 		req.Header.Set("Bird-Os", runtime.GOOS)
 		req.Header.Set("Bird-Arch", runtime.GOARCH)
+		if c := detectCaller(os.Getenv); c != "" {
+			req.Header.Set("Bird-Caller", c)
+		}
 		if cfg.APIVersion != "" {
 			req.Header.Set("X-Bird-API-Version", cfg.APIVersion)
 		}
@@ -197,7 +207,7 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 func isReservedHeader(key string) bool {
 	switch http.CanonicalHeaderKey(key) {
 	case "Authorization", "User-Agent", "X-Bird-Api-Version", "Idempotency-Key",
-		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch":
+		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch", "Bird-Caller":
 		return true
 	default:
 		return false

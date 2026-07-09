@@ -27,15 +27,15 @@ const (
 )
 
 // SmsSendParams is a single SMS send. Provide either Text (with Category) or a
-// Template (by id or alias, with Parameters) — the two are mutually exclusive.
+// Template (by id or name, with Parameters) — the two are mutually exclusive.
 // Zero-value fields are omitted from the request.
 type SmsSendParams struct {
 	To         string         // required; recipient phone number in E.164 format
 	From       string         // optional sender; Bird selects one when empty
 	Text       string         // free-text body (mutually exclusive with Template)
 	Category   SMSCategory    // required with Text; omit on a template send
-	Template   string         // stored template id (smt_…) or alias (mutually exclusive with Text)
-	Locale     string         // template language as a BCP-47 tag; template sends only
+	Template   string         // stored template id (smt_…) or name (mutually exclusive with Text)
+	Language   string         // template language as a BCP-47 tag; template sends only
 	Parameters map[string]any // template variable values; template sends only
 	Tags       []SMSTag       // structured {name, value} labels for filtering and analytics
 	Metadata   map[string]any // arbitrary JSON stored on the message and echoed in webhooks
@@ -55,23 +55,23 @@ func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
 		category := p.Category
 		body.Category = &category
 	}
-	// A template send folds the template id/alias, locale, and parameters into the
+	// A template send folds the template id/name, language, and parameters into the
 	// nested template object.
-	if p.Template != "" || p.Locale != "" || len(p.Parameters) > 0 {
+	if p.Template != "" || p.Language != "" || len(p.Parameters) > 0 {
 		var tmpl oapi.SMSTemplateSend
 		if p.Template != "" {
-			// An smt_-prefixed value is the id; anything else is the alias handle.
+			// An smt_-prefixed value is the id; anything else is the name handle.
 			if strings.HasPrefix(p.Template, "smt_") {
 				id := oapi.SMSTemplateID(p.Template)
 				tmpl.Id = &id
 			} else {
-				alias := p.Template
-				tmpl.Alias = &alias
+				name := p.Template
+				tmpl.Name = &name
 			}
 		}
-		if p.Locale != "" {
-			locale := p.Locale
-			tmpl.Locale = &locale
+		if p.Language != "" {
+			language := p.Language
+			tmpl.Language = &language
 		}
 		if len(p.Parameters) > 0 {
 			params := p.Parameters

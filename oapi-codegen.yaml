@@ -35,3 +35,24 @@ output-options:
     - listSMSMessages
     - listSMSTemplates
     - getSMSTemplate
+    - listContacts
+    - getContact
+    - createContact
+    - updateContact
+    - deleteContact
+    - createContactBatch
+    - listContactProperties
+    - getContactProperty
+    - createContactProperty
+    - updateContactProperty
+    - archiveContactProperty
+    - unarchiveContactProperty
+    - listAudiences
+    - getAudience
+    - createAudience
+    - updateAudience
+    - deleteAudience
+    - listAudienceContacts
+    - assignAudienceContacts
+    - unassignAudienceContacts
+    - unassignAudienceContact

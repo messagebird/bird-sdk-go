@@ -36,4 +36,25 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.SmsTemplates.List
 	_ = c.SmsTemplates.Get
 	_ = c.Webhooks.Unwrap
+	_ = c.Contacts.List
+	_ = c.Contacts.Get
+	_ = c.Contacts.Create
+	_ = c.Contacts.Update
+	_ = c.Contacts.Delete
+	_ = c.Contacts.Batch
+	_ = c.ContactProperties.List
+	_ = c.ContactProperties.Get
+	_ = c.ContactProperties.Create
+	_ = c.ContactProperties.Update
+	_ = c.ContactProperties.Archive
+	_ = c.ContactProperties.Unarchive
+	_ = c.Audiences.List
+	_ = c.Audiences.Get
+	_ = c.Audiences.Create
+	_ = c.Audiences.Update
+	_ = c.Audiences.Delete
+	_ = c.Audiences.ListContacts
+	_ = c.Audiences.AddContacts
+	_ = c.Audiences.RemoveContacts
+	_ = c.Audiences.RemoveContact
 }

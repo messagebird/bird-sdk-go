@@ -128,18 +128,18 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		ipPool := p.IpPoolId
 		body.IpPoolId = &ipPool
 	}
-	// A template send nests its reference (id or alias) and variables under the
+	// A template send nests its reference (id or name) and variables under the
 	// template object; an inline send uses the top-level parameters. The two
 	// content modes are exclusive. The `emt_` prefix marks an id; anything else
-	// is an alias handle.
+	// is a name handle.
 	if p.Template != "" {
 		var tmpl oapi.EmailTemplateSend
 		if strings.HasPrefix(p.Template, "emt_") {
 			id := oapi.EmailTemplateID(p.Template)
 			tmpl.Id = &id
 		} else {
-			alias := p.Template
-			tmpl.Alias = &alias
+			name := p.Template
+			tmpl.Name = &name
 		}
 		if len(p.Parameters) > 0 {
 			parameters := p.Parameters
