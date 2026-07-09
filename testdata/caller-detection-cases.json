@@ -1,0 +1,49 @@
+{
+  "_comment": "Golden test vectors for Bird-Caller detection, shared by the CLI (api-go) + all three SDK test suites so the per-language detector shells cannot silently diverge: each `env` fixture must resolve to `want` in every language. JSON (not YAML) so every language parses it with only its stdlib. Hand-maintained alongside caller-detection.yaml; add a case when you add or reorder a rule.",
+  "cases": [
+    {"name": "empty env is shell", "env": {}, "want": "shell"},
+
+    {"name": "claude code", "env": {"CLAUDECODE": "1"}, "want": "claude-code"},
+    {"name": "codex", "env": {"CODEX_CI": "1"}, "want": "codex"},
+    {"name": "gemini", "env": {"GEMINI_CLI": "1"}, "want": "gemini"},
+    {"name": "qwen", "env": {"QWEN_CODE": "1"}, "want": "qwen"},
+    {"name": "pi", "env": {"PI_CODING_AGENT": "true"}, "want": "pi"},
+    {"name": "opencode", "env": {"OPENCODE": "1"}, "want": "opencode"},
+    {"name": "cline", "env": {"CLINE_ACTIVE": "true"}, "want": "cline"},
+    {"name": "roo", "env": {"ROO_ACTIVE": "true"}, "want": "roo"},
+    {"name": "cursor via trace id", "env": {"CURSOR_TRACE_ID": "abc"}, "want": "cursor"},
+    {"name": "cursor via agent flag", "env": {"CURSOR_AGENT": "1"}, "want": "cursor"},
+    {"name": "antigravity", "env": {"ANTIGRAVITY_AGENT": "1"}, "want": "antigravity"},
+    {"name": "augment", "env": {"AUGMENT_AGENT": "1"}, "want": "augment"},
+    {"name": "replit", "env": {"REPL_ID": "xyz"}, "want": "replit"},
+
+    {"name": "agent goose", "env": {"AGENT": "goose"}, "want": "goose"},
+    {"name": "agent crush", "env": {"AGENT": "crush"}, "want": "crush"},
+    {"name": "agent amp", "env": {"AGENT": "amp"}, "want": "amp"},
+    {"name": "ai_agent crush", "env": {"AI_AGENT": "crush"}, "want": "crush"},
+    {"name": "agent value case-folded", "env": {"AGENT": "Goose"}, "want": "goose"},
+
+    {"name": "ci", "env": {"CI": "true"}, "want": "ci"},
+    {"name": "github actions", "env": {"GITHUB_ACTIONS": "true"}, "want": "ci"},
+    {"name": "zed via term program", "env": {"TERM_PROGRAM": "zed"}, "want": "zed"},
+    {"name": "zed via zed_term", "env": {"ZED_TERM": "true"}, "want": "zed"},
+    {"name": "kiro", "env": {"TERM_PROGRAM": "kiro"}, "want": "kiro"},
+    {"name": "warp", "env": {"TERM_PROGRAM": "WarpTerminal"}, "want": "warp"},
+    {"name": "jetbrains", "env": {"TERMINAL_EMULATOR": "JetBrains-JediTerm"}, "want": "jetbrains"},
+    {"name": "vscode", "env": {"TERM_PROGRAM": "vscode"}, "want": "vscode"},
+    {"name": "windsurf via macos bundle id", "env": {"__CFBundleIdentifier": "com.exafunction.windsurf", "TERM_PROGRAM": "vscode"}, "want": "windsurf"},
+    {"name": "non-windsurf bundle id falls through to vscode", "env": {"__CFBundleIdentifier": "com.microsoft.VSCode", "TERM_PROGRAM": "vscode"}, "want": "vscode"},
+
+    {"name": "agent boolean skipped falls through", "env": {"AGENT": "1"}, "want": "shell"},
+    {"name": "agent true skipped", "env": {"AGENT": "true"}, "want": "shell"},
+    {"name": "opencode marker wins over AGENT=1", "env": {"OPENCODE": "1", "AGENT": "1"}, "want": "opencode"},
+
+    {"name": "cursor wins over vscode", "env": {"CURSOR_TRACE_ID": "abc", "TERM_PROGRAM": "vscode"}, "want": "cursor"},
+    {"name": "agent wins over ci", "env": {"AGENT": "goose", "CI": "true"}, "want": "goose"},
+    {"name": "agent wins over replit host", "env": {"AGENT": "goose", "REPL_ID": "xyz"}, "want": "goose"},
+    {"name": "claude code wins over ci and vscode", "env": {"CLAUDECODE": "1", "CI": "true", "TERM_PROGRAM": "vscode"}, "want": "claude-code"},
+
+    {"name": "agent illegal chars skipped", "env": {"AGENT": "rm -rf /"}, "want": "shell"},
+    {"name": "overlong agent skipped", "env": {"AGENT": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}, "want": "shell"}
+  ]
+}

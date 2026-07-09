@@ -10,7 +10,7 @@ import (
 // (clients/caller-detection-cases.json) so this SDK's detector stays in lockstep
 // with the CLI and the other SDKs.
 func TestDetectCaller_GoldenVectors(t *testing.T) {
-	raw, err := os.ReadFile("../caller-detection-cases.json")
+	raw, err := os.ReadFile("testdata/caller-detection-cases.json")
 	if err != nil {
 		t.Fatalf("read cases: %v", err)
 	}

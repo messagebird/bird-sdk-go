@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2
+
+- Version bump only, to keep the SDKs in lockstep with the TypeScript 0.4.2 release; no Go artifact changes this release.
+
+## 0.4.1
+
+- Version bump only, to keep the SDKs in lockstep with the TypeScript 0.4.1 release; no Go artifact changes this release.
+
 ## 0.4.0
 
 - Add the contacts collection: `Contacts.Create`, `.Get`, `.List`, `.Update`, `.Delete`, and `.Batch` (bulk upsert by email). Requires an API key with the `email_marketing` scope.
