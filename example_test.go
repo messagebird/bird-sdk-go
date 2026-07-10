@@ -249,62 +249,6 @@ func ExampleClient_Get() {
 	fmt.Println(len(out.Data))
 }
 
-func ExampleEmailTemplatesService_Create() {
-	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	tpl, err := client.EmailTemplates.Create(context.Background(), bird.EmailTemplateCreateParams{
-		Name:        "welcome-email",
-		Description: "Welcome",
-		Category:    bird.CategoryTransactional,
-		Source:      bird.EmailTemplateSourceHandlebars,
-		Subject:     "Welcome, {{ first_name }}!",
-		HTML:        "<h1>Hi {{ first_name }}</h1>",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(tpl.Id, tpl.Revision)
-}
-
-// Publish the current draft, then send by the template with per-recipient
-// substitution data.
-func ExampleEmailTemplatesService_Publish() {
-	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	version, err := client.EmailTemplates.Publish(context.Background(), "emt_abc123")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(*version.VersionNumber)
-
-	_, err = client.Email.Send(context.Background(), bird.EmailSendParams{
-		From:       "hello@acme.com",
-		To:         []string{"alice@example.com"},
-		Template:   "welcome-email",
-		Parameters: map[string]any{"first_name": "Alice"},
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func ExampleEmailTemplatesService_List() {
-	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	for tpl, err := range client.EmailTemplates.List(context.Background(), bird.EmailTemplateListParams{Category: bird.CategoryTransactional}) {
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(tpl.Id, tpl.Name)
-	}
-}
-
 // Send a free-text SMS.
 func ExampleSMSService_Send() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
