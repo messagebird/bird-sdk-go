@@ -15,6 +15,7 @@ Requires Go 1.24+.
 `bird.NewClient(option.WithAPIKey(...))` returns a client whose region is inferred from the API key's prefix (`bk_{region}_…`); pass `option.WithBaseURL` or `option.WithRegion` to override. From there:
 
 - **`client.Email`** — `Send`, `Get`, `List` (auto-paginating; `ListPage` for manual cursors).
+- **`client.Whatsapp`** — `Send` (template messages), `Get`, `List` (auto-paginating; `ListPage` for manual cursors), `ListEvents` (a message's delivery timeline). `client.WhatsappTemplates` reads the template catalogue.
 - **`client.Webhooks`** — `Unwrap` (verify a signed event into a typed value).
 - **Typed errors.** A failure is a `*bird.APIError` (or a richer `*bird.RateLimitError` / `*bird.ValidationError`) you branch on with `errors.As`. Transient failures (timeouts, 429, 5xx) are retried automatically with a reused idempotency key.
 - **Options** configure the client and override per call (`option.WithEmailDefaults`, `WithTimeout`, `WithIdempotencyKey`, …).

@@ -314,6 +314,81 @@ func ExampleSMSTemplatesService_Get() {
 	fmt.Println(tpl.Id, *tpl.Body)
 }
 
+// Send a WhatsApp template message. Templates are currently the only supported
+// content type.
+func ExampleWhatsAppService_Send() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Whatsapp.Send(context.Background(), bird.WhatsappSendParams{
+		To:       "+15551234567",
+		Template: "bird_otp",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
+// Read a single WhatsApp message by id.
+func ExampleWhatsAppService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Whatsapp.Get(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
+// List WhatsApp messages to a given contact, paginating lazily.
+func ExampleWhatsAppService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for msg, err := range client.Whatsapp.List(context.Background(), bird.WhatsappListParams{PhoneNumber: "+15551234567"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(msg.Id)
+	}
+}
+
+// List the lifecycle events for a WhatsApp message, in chronological order.
+func ExampleWhatsAppService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	events, err := client.Whatsapp.ListEvents(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappListEventsParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, e := range events.Data {
+		fmt.Println(e.Id, *e.Type)
+	}
+}
+
+// List the WhatsApp templates available to the workspace. The catalogue is
+// small and returned in full — this list is not paginated.
+func ExampleWhatsAppTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	list, err := client.WhatsappTemplates.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, tpl := range list.Data {
+		fmt.Println(*tpl.Name)
+	}
+}
+
 // Create a contact. Unset optional fields are omitted from the request.
 func ExampleContactsService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

@@ -28,6 +28,11 @@ output-options:
     - listSMSMessages
     - listSMSTemplates
     - getSMSTemplate
+    - sendWhatsAppMessage
+    - getWhatsAppMessage
+    - listWhatsAppMessages
+    - listWhatsAppMessageEvents
+    - listWhatsAppTemplates
     - listContacts
     - getContact
     - createContact

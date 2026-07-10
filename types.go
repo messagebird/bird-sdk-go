@@ -92,6 +92,38 @@ type (
 	ContactPropertyList = oapi.ContactPropertyList
 )
 
+// WhatsAppMessage is a sent or received WhatsApp message; WhatsAppMessageList
+// is a page of messages.
+type (
+	WhatsAppMessage     = oapi.WhatsAppMessage
+	WhatsAppMessageList = oapi.WhatsAppMessageList
+)
+
+// WhatsAppMessageStatus is a message's delivery status.
+type WhatsAppMessageStatus = oapi.WhatsAppMessageStatus
+
+// WhatsAppEvent is a single lifecycle event on a message's timeline;
+// WhatsAppEventList is the (unpaginated) timeline for one message.
+type (
+	WhatsAppEvent     = oapi.WhatsAppEvent
+	WhatsAppEventList = oapi.WhatsAppEventList
+)
+
+// WhatsAppMessageTemplateComponent is a filled-in template component — supplied
+// on a template send and echoed back on the sent message.
+// WhatsAppMessageTemplateComponentParameter is one of its placeholder values.
+type (
+	WhatsAppMessageTemplateComponent          = oapi.WhatsAppMessageTemplateComponent
+	WhatsAppMessageTemplateComponentParameter = oapi.WhatsAppMessageTemplateComponentParameter
+)
+
+// WhatsAppTemplate is a template available to the workspace; WhatsAppTemplateList
+// is the (unpaginated) set of templates.
+type (
+	WhatsAppTemplate     = oapi.WhatsAppTemplate
+	WhatsAppTemplateList = oapi.WhatsAppTemplateList
+)
+
 const (
 	EmailStatusAccepted       EmailStatus = "accepted"
 	EmailStatusProcessed      EmailStatus = "processed"
