@@ -1697,6 +1697,7 @@ const (
 	BlockedByCarrier    SMSErrorCode = "blocked_by_carrier"
 	BlockedByRecipient  SMSErrorCode = "blocked_by_recipient"
 	ContentRejected     SMSErrorCode = "content_rejected"
+	InsufficientBalance SMSErrorCode = "insufficient_balance"
 	InvalidDestination  SMSErrorCode = "invalid_destination"
 	LandlineUnreachable SMSErrorCode = "landline_unreachable"
 	ProviderUnavailable SMSErrorCode = "provider_unavailable"
@@ -1714,6 +1715,8 @@ func (e SMSErrorCode) Valid() bool {
 	case BlockedByRecipient:
 		return true
 	case ContentRejected:
+		return true
+	case InsufficientBalance:
 		return true
 	case InvalidDestination:
 		return true
@@ -3065,7 +3068,7 @@ type EmailMessageSendRequest struct {
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
 
-	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// ScheduledAt Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead — outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends; cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance; exceeding it is rejected with a `422`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Subject Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
@@ -3274,7 +3277,7 @@ type EmailTemplate struct {
 	Id   EmailTemplateID `json:"id"`
 
 	// Name The template's workspace-unique slug handle. Pass it (or the id) as the template reference when sending.
-	Name string `json:"name"`
+	Name TemplateName `json:"name"`
 
 	// PublishedVersionId The currently published version, or null if the template has never been published.
 	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
@@ -3318,8 +3321,8 @@ type EmailTemplateCreate struct {
 	// Html The HTML body — the source markup for the chosen format.
 	Html *string `json:"html,omitempty"`
 
-	// Name The template's workspace-unique slug handle — a stable alternative to the template ID when sending by template. Lowercase letters, numbers, and hyphens.
-	Name string `json:"name"`
+	// Name The template's workspace-unique slug handle — a stable alternative to the template ID when sending by template. Lowercase letters, numbers, hyphens, and underscores.
+	Name TemplateName `json:"name"`
 
 	// Source The authoring format the template is written in, fixed at creation. `liquid` currently supports variable substitution only (e.g. `{{ first_name }}`); filters, tags, and control flow are not yet supported — fuller Liquid support is coming soon.
 	Source EmailTemplateSource `json:"source"`
@@ -3354,7 +3357,7 @@ type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
 	// Name The template to send, by its name handle (for example `welcome-email`).
-	Name *string `json:"name,omitempty"`
+	Name *TemplateName `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
@@ -3384,7 +3387,7 @@ type EmailTemplateSummary struct {
 	Id             EmailTemplateID        `json:"id"`
 
 	// Name The template's workspace-unique slug handle. Pass it (or the id) as the template reference when sending.
-	Name string `json:"name"`
+	Name TemplateName `json:"name"`
 
 	// PublishedVersionId The currently published version, or null if never published.
 	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
@@ -3410,8 +3413,8 @@ type EmailTemplateUpdate struct {
 	// Html New HTML body — the source markup for the template's format.
 	Html *string `json:"html,omitempty"`
 
-	// Name New workspace-unique slug handle. Must stay unique within the workspace. Lowercase letters, numbers, and hyphens.
-	Name *string `json:"name,omitempty"`
+	// Name New workspace-unique slug handle. Must stay unique within the workspace. Lowercase letters, numbers, hyphens, and underscores.
+	Name *TemplateName `json:"name,omitempty"`
 
 	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
 	Revision int `json:"revision"`
@@ -3770,6 +3773,9 @@ type ErrorBody struct {
 
 	// Type Broad category for coarse client branching.
 	Type ErrorBodyType `json:"type"`
+
+	// UnmetGates The verification requirements blocking this action, each with the flow that resolves it. Present only when an action is blocked pending verification.
+	UnmetGates *[]UnmetGate `json:"unmet_gates,omitempty"`
 
 	// VendorCode Verbatim error code returned by a downstream system (for example, an SMTP response code from a recipient's mail server, or a payment-provider decline code). Present only when Bird is surfacing a code from an external system that the caller may want to act on directly.
 	VendorCode *string `json:"vendor_code,omitempty"`
@@ -5294,7 +5300,7 @@ type SMSError struct {
 	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
 	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
 
-	// Code Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `unknown` — an unmapped failure.
+	// Code Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `insufficient_balance` — the workspace wallet had insufficient balance to send the message. `unknown` — an unmapped failure.
 	Code SMSErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -5304,7 +5310,7 @@ type SMSError struct {
 	OccurredAt time.Time `json:"occurred_at"`
 }
 
-// SMSErrorCode Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `unknown` — an unmapped failure.
+// SMSErrorCode Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `insufficient_balance` — the workspace wallet had insufficient balance to send the message. `unknown` — an unmapped failure.
 type SMSErrorCode string
 
 // SMSMessage defines model for SMSMessage.
@@ -5503,7 +5509,7 @@ type SMSTemplate struct {
 	Id             SMSTemplateID         `json:"id"`
 
 	// Name The template's stable handle. Pass it (or the id) as the template reference when sending.
-	Name *string `json:"name,omitempty"`
+	Name *TemplateName `json:"name,omitempty"`
 
 	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today — SMS templates are not yet versioned; present for parity with email templates.
 	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
@@ -5544,7 +5550,7 @@ type SMSTemplateSend struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
-	Name *string `json:"name,omitempty"`
+	Name *TemplateName `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template — see the template's `variables` on the templates endpoint. Every required variable must be supplied, and no undeclared key may be present. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
@@ -5578,7 +5584,7 @@ type SendWhatsAppMessageTemplate struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template to send, by its name (for example `bird_otp`).
-	Name string `json:"name"`
+	Name TemplateName `json:"name"`
 }
 
 // Suppression defines model for Suppression.
@@ -5653,6 +5659,9 @@ type Tag struct {
 	Value string `json:"value"`
 }
 
+// TemplateName A template's send-by handle — the stable reference used in place of the template id when sending. Lowercase letters, numbers, hyphens, and underscores; starts and ends with a letter or number.
+type TemplateName = string
+
 // TemplateScope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
 type TemplateScope string
 
@@ -5678,6 +5687,21 @@ type ThreadID = string
 type Timestamps struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// UnmetGate A verification requirement that is not yet satisfied, blocking the requested action. Complete the corresponding verification flow, then retry.
+type UnmetGate struct {
+	// Name Human-readable name of the verification requirement.
+	Name *string `json:"name,omitempty"`
+
+	// RemediationKind How to resolve this requirement.
+	RemediationKind *string `json:"remediation_kind,omitempty"`
+
+	// Slug Stable identifier for the verification requirement.
+	Slug *string `json:"slug,omitempty"`
+
+	// Status The requirement's current state — for example, not yet started, in review, or previously revoked.
+	Status *string `json:"status,omitempty"`
 }
 
 // Verification defines model for Verification.
@@ -6080,7 +6104,7 @@ type WhatsAppMessageTemplate struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template's stable handle (for example `bird_otp`).
-	Name *string `json:"name,omitempty"`
+	Name *TemplateName `json:"name,omitempty"`
 }
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
@@ -6113,7 +6137,7 @@ type WhatsAppTemplate struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template's stable handle. Pass it as the template reference when sending.
-	Name *string `json:"name,omitempty"`
+	Name *TemplateName `json:"name,omitempty"`
 
 	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
@@ -6283,6 +6307,9 @@ type cookieAuthContextKey string
 
 // ListAudiencesParams defines parameters for ListAudiences.
 type ListAudiencesParams struct {
+	// Search Case-insensitive substring match against the audience's name.
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
 
@@ -6589,6 +6616,20 @@ type ListEmailMessagesParamsCategory string
 
 // CreateEmailMessageParams defines parameters for CreateEmailMessage.
 type CreateEmailMessageParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CancelEmailMessageParams defines parameters for CancelEmailMessage.
+type CancelEmailMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
 	// - `request_in_progress` (E01004) — the same key is currently being
@@ -8673,6 +8714,9 @@ type ClientInterface interface {
 	// GetEmailMessage request
 	GetEmailMessage(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CancelEmailMessage request
+	CancelEmailMessage(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailTemplates request
 	ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -9156,6 +9200,18 @@ func (c *Client) GetEmailMessage(ctx context.Context, messageId EmailID, reqEdit
 	return c.Client.Do(req)
 }
 
+func (c *Client) CancelEmailMessage(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelEmailMessageRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListEmailTemplatesRequest(c.Server, params)
 	if err != nil {
@@ -9399,6 +9455,18 @@ func NewListAudiencesRequest(server string, params *ListAudiencesParams) (*http.
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.Limit != nil {
 
@@ -10917,6 +10985,55 @@ func NewGetEmailMessageRequest(server string, messageId EmailID) (*http.Request,
 	return req, nil
 }
 
+// NewCancelEmailMessageRequest generates requests for CancelEmailMessage
+func NewCancelEmailMessageRequest(server string, messageId EmailID, params *CancelEmailMessageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/messages/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListEmailTemplatesRequest generates requests for ListEmailTemplates
 func NewListEmailTemplatesRequest(server string, params *ListEmailTemplatesParams) (*http.Request, error) {
 	var err error
@@ -11937,6 +12054,9 @@ type ClientWithResponsesInterface interface {
 	// GetEmailMessageWithResponse request
 	GetEmailMessageWithResponse(ctx context.Context, messageId EmailID, reqEditors ...RequestEditorFn) (*GetEmailMessageResponse, error)
 
+	// CancelEmailMessageWithResponse request
+	CancelEmailMessageWithResponse(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*CancelEmailMessageResponse, error)
+
 	// ListEmailTemplatesWithResponse request
 	ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error)
 
@@ -12881,6 +13001,41 @@ func (r GetEmailMessageResponse) ContentType() string {
 	return ""
 }
 
+type CancelEmailMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelEmailMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelEmailMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelEmailMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListEmailTemplatesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -13693,6 +13848,15 @@ func (c *ClientWithResponses) GetEmailMessageWithResponse(ctx context.Context, m
 		return nil, err
 	}
 	return ParseGetEmailMessageResponse(rsp)
+}
+
+// CancelEmailMessageWithResponse request returning *CancelEmailMessageResponse
+func (c *ClientWithResponses) CancelEmailMessageWithResponse(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*CancelEmailMessageResponse, error) {
+	rsp, err := c.CancelEmailMessage(ctx, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelEmailMessageResponse(rsp)
 }
 
 // ListEmailTemplatesWithResponse request returning *ListEmailTemplatesResponse
@@ -15484,6 +15648,67 @@ func ParseGetEmailMessageResponse(rsp *http.Response) (*GetEmailMessageResponse,
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelEmailMessageResponse parses an HTTP response from a CancelEmailMessageWithResponse call
+func ParseCancelEmailMessageResponse(rsp *http.Response) (*CancelEmailMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelEmailMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited

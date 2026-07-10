@@ -58,6 +58,10 @@ type APIError struct {
 	Remediation string
 	// Next lists the operations that resolve this error, in the order to try them.
 	Next []ErrorNextAction
+	// UnmetGates lists the verification requirements blocking this action, each
+	// with the flow that resolves it. Present only when an action is blocked
+	// pending verification.
+	UnmetGates []UnmetGate
 }
 
 func (e *APIError) Error() string {
@@ -90,6 +94,20 @@ type ErrorNextAction struct {
 	Description string `json:"description,omitempty"`
 	// Scope is the permission scope the recovery operation requires, when it is scoped.
 	Scope string `json:"scope,omitempty"`
+}
+
+// UnmetGate is one verification requirement blocking the action, with the flow
+// that resolves it. Present on APIError.UnmetGates when an action is blocked
+// pending verification.
+type UnmetGate struct {
+	// Slug is the stable identifier for the verification requirement.
+	Slug string `json:"slug"`
+	// Name is the human-readable name of the verification requirement.
+	Name string `json:"name"`
+	// Status is the requirement's current state.
+	Status string `json:"status"`
+	// RemediationKind is how to resolve this requirement.
+	RemediationKind string `json:"remediation_kind"`
 }
 
 // ValidationError is a 422; Details carries the per-field failures.
@@ -135,6 +153,7 @@ type wireError struct {
 	Details     []ErrorDetail     `json:"details"`
 	Remediation string            `json:"remediation"`
 	Next        []ErrorNextAction `json:"next"`
+	UnmetGates  []UnmetGate       `json:"unmet_gates"`
 }
 
 // errorEnvelope is the wire wrapper: the API sends every error as
@@ -180,6 +199,7 @@ func FromResponse(status int, body []byte, header http.Header) error {
 		VendorCode:  w.VendorCode,
 		Remediation: w.Remediation,
 		Next:        w.Next,
+		UnmetGates:  w.UnmetGates,
 	}
 
 	switch typ {

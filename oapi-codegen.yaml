@@ -21,6 +21,7 @@ output-options:
     - createEmailMessageBatch
     - getEmailMessage
     - listEmailMessages
+    - cancelEmailMessage
     - createEmailTemplate
     - listEmailTemplates
     - getEmailTemplate

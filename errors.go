@@ -16,6 +16,7 @@ type (
 	WebhookVerificationError = apierror.WebhookVerificationError
 	ErrorDetail              = apierror.ErrorDetail
 	ErrorNextAction          = apierror.ErrorNextAction
+	UnmetGate                = apierror.UnmetGate
 	ErrorType                = apierror.ErrorType
 )
 

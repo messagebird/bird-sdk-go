@@ -1,12 +1,9 @@
 # Changelog
 
-## 0.4.2
-
-- Version bump only, to keep the SDKs in lockstep with the TypeScript 0.4.2 release; no Go artifact changes this release.
-
 ## 0.4.1
 
-- Version bump only, to keep the SDKs in lockstep with the TypeScript 0.4.1 release; no Go artifact changes this release.
+- Add `Email.Cancel`: cancel a scheduled message before it sends. A message that already started sending, or was already canceled, returns a conflict error.
+- Attribute the calling tool on every request via the `Bird-Caller` header, detected from the environment (no configuration).
 
 ## 0.4.0
 

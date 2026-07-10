@@ -258,6 +258,26 @@ func (s *EmailService) Get(ctx context.Context, id string, opts ...option.Reques
 	return &out, nil
 }
 
+// Cancel cancels a message scheduled with ScheduledAt before it sends. Only a
+// message that is still scheduled can be canceled; one that already started
+// sending — or was previously canceled — returns a conflict error. It returns no
+// content on success. Retries reuse one idempotency key; provide your own with
+// option.WithIdempotencyKey.
+func (s *EmailService) Cancel(ctx context.Context, id string, opts ...option.RequestOption) error {
+	cfg, err := s.client.resolve(opts)
+	if err != nil {
+		return err
+	}
+	_, err = cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
+		params := &oapi.CancelEmailMessageParams{}
+		if idempotencyKey != "" {
+			params.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CancelEmailMessage(ctx, id, params, s.client.callEditors(cfg)...)
+	})
+	return err
+}
+
 // EmailListParams filters the message list. Zero-value fields are omitted.
 type EmailListParams struct {
 	Limit         int
