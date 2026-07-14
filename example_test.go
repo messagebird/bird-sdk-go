@@ -689,3 +689,34 @@ func ExampleContactPropertiesService_Unarchive() {
 	}
 	fmt.Println(property.Archived)
 }
+
+// Start a verification: send a one-time passcode over SMS.
+func ExampleVerificationsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	verification, err := client.Verify.Verifications.Create(context.Background(), bird.VerificationCreateParams{
+		Phone: "+15551234567",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(verification.Id, *verification.Status)
+}
+
+// Check the passcode a recipient submitted, identified by the same recipient.
+func ExampleVerificationsService_Check() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Verify.Verifications.Check(context.Background(), bird.VerificationCheckParams{
+		Phone: "+15551234567",
+		Code:  "123456",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*result.Success)
+}

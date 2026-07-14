@@ -33,6 +33,8 @@ output-options:
     - listWhatsAppMessages
     - listWhatsAppMessageEvents
     - listWhatsAppTemplates
+    - createVerification
+    - createVerificationCheck
     - listContacts
     - getContact
     - createContact

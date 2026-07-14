@@ -124,6 +124,13 @@ type (
 	WhatsAppTemplateList = oapi.WhatsAppTemplateList
 )
 
+// Verification is a verification's current state (id, status, channel plan);
+// VerificationCheckResult is a check outcome plus the verification's state.
+type (
+	Verification            = oapi.Verification
+	VerificationCheckResult = oapi.VerificationCheckResult
+)
+
 const (
 	EmailStatusAccepted       EmailStatus = "accepted"
 	EmailStatusProcessed      EmailStatus = "processed"

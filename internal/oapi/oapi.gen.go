@@ -24,30 +24,6 @@ const (
 	CookieAuthScopes cookieAuthContextKey = "CookieAuth.Scopes"
 )
 
-// Defines values for AgentDomainStatus.
-const (
-	AgentDomainStatusActive       AgentDomainStatus = "active"
-	AgentDomainStatusProvisioning AgentDomainStatus = "provisioning"
-	AgentDomainStatusReleased     AgentDomainStatus = "released"
-	AgentDomainStatusReleasing    AgentDomainStatus = "releasing"
-)
-
-// Valid indicates whether the value is a known member of the AgentDomainStatus enum.
-func (e AgentDomainStatus) Valid() bool {
-	switch e {
-	case AgentDomainStatusActive:
-		return true
-	case AgentDomainStatusProvisioning:
-		return true
-	case AgentDomainStatusReleased:
-		return true
-	case AgentDomainStatusReleasing:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for AudienceType.
 const (
 	AudienceTypeAudienceTypeDynamic  AudienceType = "dynamic"
@@ -258,24 +234,6 @@ func (e EmailEventRejectionReason) Valid() bool {
 	case EmailEventRejectionReasonRecipientSuppressed:
 		return true
 	case EmailEventRejectionReasonTransmissionFailed:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailMailboxComposeRequestCategory.
-const (
-	EmailMailboxComposeRequestCategoryMarketing     EmailMailboxComposeRequestCategory = "marketing"
-	EmailMailboxComposeRequestCategoryTransactional EmailMailboxComposeRequestCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailMailboxComposeRequestCategory enum.
-func (e EmailMailboxComposeRequestCategory) Valid() bool {
-	switch e {
-	case EmailMailboxComposeRequestCategoryMarketing:
-		return true
-	case EmailMailboxComposeRequestCategoryTransactional:
 		return true
 	default:
 		return false
@@ -561,120 +519,6 @@ func (e EmailSmtpConfigUpdateCategory) Valid() bool {
 	}
 }
 
-// Defines values for EmailThreadLastDirection.
-const (
-	EmailThreadLastDirectionInbound  EmailThreadLastDirection = "inbound"
-	EmailThreadLastDirectionOutbound EmailThreadLastDirection = "outbound"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadLastDirection enum.
-func (e EmailThreadLastDirection) Valid() bool {
-	switch e {
-	case EmailThreadLastDirectionInbound:
-		return true
-	case EmailThreadLastDirectionOutbound:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageDirection.
-const (
-	EmailThreadMessageDirectionInbound  EmailThreadMessageDirection = "inbound"
-	EmailThreadMessageDirectionOutbound EmailThreadMessageDirection = "outbound"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageDirection enum.
-func (e EmailThreadMessageDirection) Valid() bool {
-	switch e {
-	case EmailThreadMessageDirectionInbound:
-		return true
-	case EmailThreadMessageDirectionOutbound:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageDisposition.
-const (
-	EmailThreadMessageDispositionBlocked         EmailThreadMessageDisposition = "blocked"
-	EmailThreadMessageDispositionInbox           EmailThreadMessageDisposition = "inbox"
-	EmailThreadMessageDispositionLessThannil     EmailThreadMessageDisposition = "<nil>"
-	EmailThreadMessageDispositionUnauthenticated EmailThreadMessageDisposition = "unauthenticated"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageDisposition enum.
-func (e EmailThreadMessageDisposition) Valid() bool {
-	switch e {
-	case EmailThreadMessageDispositionBlocked:
-		return true
-	case EmailThreadMessageDispositionInbox:
-		return true
-	case EmailThreadMessageDispositionLessThannil:
-		return true
-	case EmailThreadMessageDispositionUnauthenticated:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageForwardRequestCategory.
-const (
-	EmailThreadMessageForwardRequestCategoryMarketing     EmailThreadMessageForwardRequestCategory = "marketing"
-	EmailThreadMessageForwardRequestCategoryTransactional EmailThreadMessageForwardRequestCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageForwardRequestCategory enum.
-func (e EmailThreadMessageForwardRequestCategory) Valid() bool {
-	switch e {
-	case EmailThreadMessageForwardRequestCategoryMarketing:
-		return true
-	case EmailThreadMessageForwardRequestCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageRecipientStatus.
-const (
-	EmailThreadMessageRecipientStatusDelivered EmailThreadMessageRecipientStatus = "delivered"
-	EmailThreadMessageRecipientStatusFailed    EmailThreadMessageRecipientStatus = "failed"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageRecipientStatus enum.
-func (e EmailThreadMessageRecipientStatus) Valid() bool {
-	switch e {
-	case EmailThreadMessageRecipientStatusDelivered:
-		return true
-	case EmailThreadMessageRecipientStatusFailed:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageReplyRequestCategory.
-const (
-	EmailThreadMessageReplyRequestCategoryMarketing     EmailThreadMessageReplyRequestCategory = "marketing"
-	EmailThreadMessageReplyRequestCategoryTransactional EmailThreadMessageReplyRequestCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageReplyRequestCategory enum.
-func (e EmailThreadMessageReplyRequestCategory) Valid() bool {
-	switch e {
-	case EmailThreadMessageReplyRequestCategoryMarketing:
-		return true
-	case EmailThreadMessageReplyRequestCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for ErrorBodyType.
 const (
 	ErrorBodyTypeAuthError               ErrorBodyType = "auth_error"
@@ -930,57 +774,6 @@ func (e EventEmailMailboxMessageReceivedType) Valid() bool {
 	}
 }
 
-// Defines values for EventEmailMailboxMessageReceivedBlockedType.
-const (
-	EmailMailboxMessageReceivedBlocked EventEmailMailboxMessageReceivedBlockedType = "email_mailbox.message_received_blocked"
-)
-
-// Valid indicates whether the value is a known member of the EventEmailMailboxMessageReceivedBlockedType enum.
-func (e EventEmailMailboxMessageReceivedBlockedType) Valid() bool {
-	switch e {
-	case EmailMailboxMessageReceivedBlocked:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventEmailMailboxMessageReceivedDataDisposition.
-const (
-	EventEmailMailboxMessageReceivedDataDispositionBlocked         EventEmailMailboxMessageReceivedDataDisposition = "blocked"
-	EventEmailMailboxMessageReceivedDataDispositionInbox           EventEmailMailboxMessageReceivedDataDisposition = "inbox"
-	EventEmailMailboxMessageReceivedDataDispositionUnauthenticated EventEmailMailboxMessageReceivedDataDisposition = "unauthenticated"
-)
-
-// Valid indicates whether the value is a known member of the EventEmailMailboxMessageReceivedDataDisposition enum.
-func (e EventEmailMailboxMessageReceivedDataDisposition) Valid() bool {
-	switch e {
-	case EventEmailMailboxMessageReceivedDataDispositionBlocked:
-		return true
-	case EventEmailMailboxMessageReceivedDataDispositionInbox:
-		return true
-	case EventEmailMailboxMessageReceivedDataDispositionUnauthenticated:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventEmailMailboxMessageReceivedUnauthenticatedType.
-const (
-	EmailMailboxMessageReceivedUnauthenticated EventEmailMailboxMessageReceivedUnauthenticatedType = "email_mailbox.message_received_unauthenticated"
-)
-
-// Valid indicates whether the value is a known member of the EventEmailMailboxMessageReceivedUnauthenticatedType enum.
-func (e EventEmailMailboxMessageReceivedUnauthenticatedType) Valid() bool {
-	switch e {
-	case EmailMailboxMessageReceivedUnauthenticated:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EventEmailMailboxMessageSentType.
 const (
 	EmailMailboxMessageSent EventEmailMailboxMessageSentType = "email_mailbox.message_sent"
@@ -1143,6 +936,30 @@ const (
 func (e EventEmailSuppressionCreatedType) Valid() bool {
 	switch e {
 	case EmailSuppressionCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventEmailSuppressionCreatedDataReason.
+const (
+	EventEmailSuppressionCreatedDataReasonComplaint   EventEmailSuppressionCreatedDataReason = "complaint"
+	EventEmailSuppressionCreatedDataReasonHardBounce  EventEmailSuppressionCreatedDataReason = "hard_bounce"
+	EventEmailSuppressionCreatedDataReasonManual      EventEmailSuppressionCreatedDataReason = "manual"
+	EventEmailSuppressionCreatedDataReasonUnsubscribe EventEmailSuppressionCreatedDataReason = "unsubscribe"
+)
+
+// Valid indicates whether the value is a known member of the EventEmailSuppressionCreatedDataReason enum.
+func (e EventEmailSuppressionCreatedDataReason) Valid() bool {
+	switch e {
+	case EventEmailSuppressionCreatedDataReasonComplaint:
+		return true
+	case EventEmailSuppressionCreatedDataReasonHardBounce:
+		return true
+	case EventEmailSuppressionCreatedDataReasonManual:
+		return true
+	case EventEmailSuppressionCreatedDataReasonUnsubscribe:
 		return true
 	default:
 		return false
@@ -1343,16 +1160,16 @@ func (e InboundRouteCreateMatchType) Valid() bool {
 
 // Defines values for InboundRouteUpdateAction.
 const (
-	InboundRouteUpdateActionDeliverToMailbox InboundRouteUpdateAction = "deliver_to_mailbox"
-	InboundRouteUpdateActionDrop             InboundRouteUpdateAction = "drop"
+	DeliverToMailbox InboundRouteUpdateAction = "deliver_to_mailbox"
+	Drop             InboundRouteUpdateAction = "drop"
 )
 
 // Valid indicates whether the value is a known member of the InboundRouteUpdateAction enum.
 func (e InboundRouteUpdateAction) Valid() bool {
 	switch e {
-	case InboundRouteUpdateActionDeliverToMailbox:
+	case DeliverToMailbox:
 		return true
-	case InboundRouteUpdateActionDrop:
+	case Drop:
 		return true
 	default:
 		return false
@@ -1361,253 +1178,16 @@ func (e InboundRouteUpdateAction) Valid() bool {
 
 // Defines values for InboundRouteUpdateMatchType.
 const (
-	InboundRouteUpdateMatchTypeAddress  InboundRouteUpdateMatchType = "address"
-	InboundRouteUpdateMatchTypeCatchAll InboundRouteUpdateMatchType = "catch_all"
+	Address  InboundRouteUpdateMatchType = "address"
+	CatchAll InboundRouteUpdateMatchType = "catch_all"
 )
 
 // Valid indicates whether the value is a known member of the InboundRouteUpdateMatchType enum.
 func (e InboundRouteUpdateMatchType) Valid() bool {
 	switch e {
-	case InboundRouteUpdateMatchTypeAddress:
+	case Address:
 		return true
-	case InboundRouteUpdateMatchTypeCatchAll:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxChannel.
-const (
-	Email MailboxChannel = "email"
-)
-
-// Valid indicates whether the value is a known member of the MailboxChannel enum.
-func (e MailboxChannel) Valid() bool {
-	switch e {
-	case Email:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxReceivePolicy.
-const (
-	MailboxReceivePolicyAllowlist   MailboxReceivePolicy = "allowlist"
-	MailboxReceivePolicyDrop        MailboxReceivePolicy = "drop"
-	MailboxReceivePolicyOpen        MailboxReceivePolicy = "open"
-	MailboxReceivePolicyRepliesOnly MailboxReceivePolicy = "replies_only"
-)
-
-// Valid indicates whether the value is a known member of the MailboxReceivePolicy enum.
-func (e MailboxReceivePolicy) Valid() bool {
-	switch e {
-	case MailboxReceivePolicyAllowlist:
-		return true
-	case MailboxReceivePolicyDrop:
-		return true
-	case MailboxReceivePolicyOpen:
-		return true
-	case MailboxReceivePolicyRepliesOnly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxRetentionTier.
-const (
-	MailboxRetentionTierN1y  MailboxRetentionTier = "1y"
-	MailboxRetentionTierN30d MailboxRetentionTier = "30d"
-	MailboxRetentionTierN90d MailboxRetentionTier = "90d"
-)
-
-// Valid indicates whether the value is a known member of the MailboxRetentionTier enum.
-func (e MailboxRetentionTier) Valid() bool {
-	switch e {
-	case MailboxRetentionTierN1y:
-		return true
-	case MailboxRetentionTierN30d:
-		return true
-	case MailboxRetentionTierN90d:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxState.
-const (
-	MailboxStateActive    MailboxState = "active"
-	MailboxStateSuspended MailboxState = "suspended"
-)
-
-// Valid indicates whether the value is a known member of the MailboxState enum.
-func (e MailboxState) Valid() bool {
-	switch e {
-	case MailboxStateActive:
-		return true
-	case MailboxStateSuspended:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxCreateReceivePolicy.
-const (
-	MailboxCreateReceivePolicyAllowlist   MailboxCreateReceivePolicy = "allowlist"
-	MailboxCreateReceivePolicyDrop        MailboxCreateReceivePolicy = "drop"
-	MailboxCreateReceivePolicyOpen        MailboxCreateReceivePolicy = "open"
-	MailboxCreateReceivePolicyRepliesOnly MailboxCreateReceivePolicy = "replies_only"
-)
-
-// Valid indicates whether the value is a known member of the MailboxCreateReceivePolicy enum.
-func (e MailboxCreateReceivePolicy) Valid() bool {
-	switch e {
-	case MailboxCreateReceivePolicyAllowlist:
-		return true
-	case MailboxCreateReceivePolicyDrop:
-		return true
-	case MailboxCreateReceivePolicyOpen:
-		return true
-	case MailboxCreateReceivePolicyRepliesOnly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxCreateRetentionTier.
-const (
-	MailboxCreateRetentionTierN1y  MailboxCreateRetentionTier = "1y"
-	MailboxCreateRetentionTierN30d MailboxCreateRetentionTier = "30d"
-	MailboxCreateRetentionTierN90d MailboxCreateRetentionTier = "90d"
-)
-
-// Valid indicates whether the value is a known member of the MailboxCreateRetentionTier enum.
-func (e MailboxCreateRetentionTier) Valid() bool {
-	switch e {
-	case MailboxCreateRetentionTierN1y:
-		return true
-	case MailboxCreateRetentionTierN30d:
-		return true
-	case MailboxCreateRetentionTierN90d:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxOwnerType.
-const (
-	MailboxOwnerTypeWorkspace MailboxOwnerType = "workspace"
-)
-
-// Valid indicates whether the value is a known member of the MailboxOwnerType enum.
-func (e MailboxOwnerType) Valid() bool {
-	switch e {
-	case MailboxOwnerTypeWorkspace:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxUpdateReceivePolicy.
-const (
-	MailboxUpdateReceivePolicyAllowlist   MailboxUpdateReceivePolicy = "allowlist"
-	MailboxUpdateReceivePolicyDrop        MailboxUpdateReceivePolicy = "drop"
-	MailboxUpdateReceivePolicyOpen        MailboxUpdateReceivePolicy = "open"
-	MailboxUpdateReceivePolicyRepliesOnly MailboxUpdateReceivePolicy = "replies_only"
-)
-
-// Valid indicates whether the value is a known member of the MailboxUpdateReceivePolicy enum.
-func (e MailboxUpdateReceivePolicy) Valid() bool {
-	switch e {
-	case MailboxUpdateReceivePolicyAllowlist:
-		return true
-	case MailboxUpdateReceivePolicyDrop:
-		return true
-	case MailboxUpdateReceivePolicyOpen:
-		return true
-	case MailboxUpdateReceivePolicyRepliesOnly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for MailboxUpdateRetentionTier.
-const (
-	N1y  MailboxUpdateRetentionTier = "1y"
-	N30d MailboxUpdateRetentionTier = "30d"
-	N90d MailboxUpdateRetentionTier = "90d"
-)
-
-// Valid indicates whether the value is a known member of the MailboxUpdateRetentionTier enum.
-func (e MailboxUpdateRetentionTier) Valid() bool {
-	switch e {
-	case N1y:
-		return true
-	case N30d:
-		return true
-	case N90d:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ReceiveRuleAction.
-const (
-	ReceiveRuleActionAllow ReceiveRuleAction = "allow"
-	ReceiveRuleActionBlock ReceiveRuleAction = "block"
-)
-
-// Valid indicates whether the value is a known member of the ReceiveRuleAction enum.
-func (e ReceiveRuleAction) Valid() bool {
-	switch e {
-	case ReceiveRuleActionAllow:
-		return true
-	case ReceiveRuleActionBlock:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ReceiveRuleEntryType.
-const (
-	ReceiveRuleEntryTypeAddress ReceiveRuleEntryType = "address"
-	ReceiveRuleEntryTypeDomain  ReceiveRuleEntryType = "domain"
-)
-
-// Valid indicates whether the value is a known member of the ReceiveRuleEntryType enum.
-func (e ReceiveRuleEntryType) Valid() bool {
-	switch e {
-	case ReceiveRuleEntryTypeAddress:
-		return true
-	case ReceiveRuleEntryTypeDomain:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ReceiveRuleCreateAction.
-const (
-	ReceiveRuleCreateActionAllow ReceiveRuleCreateAction = "allow"
-	ReceiveRuleCreateActionBlock ReceiveRuleCreateAction = "block"
-)
-
-// Valid indicates whether the value is a known member of the ReceiveRuleCreateAction enum.
-func (e ReceiveRuleCreateAction) Valid() bool {
-	switch e {
-	case ReceiveRuleCreateActionAllow:
-		return true
-	case ReceiveRuleCreateActionBlock:
+	case CatchAll:
 		return true
 	default:
 		return false
@@ -1811,19 +1391,19 @@ func (e SMSTemplateStatus) Valid() bool {
 
 // Defines values for SuppressionAppliesTo.
 const (
-	All              SuppressionAppliesTo = "all"
-	Category         SuppressionAppliesTo = "category"
-	NonTransactional SuppressionAppliesTo = "non_transactional"
+	SuppressionAppliesToAll              SuppressionAppliesTo = "all"
+	SuppressionAppliesToCategory         SuppressionAppliesTo = "category"
+	SuppressionAppliesToNonTransactional SuppressionAppliesTo = "non_transactional"
 )
 
 // Valid indicates whether the value is a known member of the SuppressionAppliesTo enum.
 func (e SuppressionAppliesTo) Valid() bool {
 	switch e {
-	case All:
+	case SuppressionAppliesToAll:
 		return true
-	case Category:
+	case SuppressionAppliesToCategory:
 		return true
-	case NonTransactional:
+	case SuppressionAppliesToNonTransactional:
 		return true
 	default:
 		return false
@@ -1859,22 +1439,22 @@ func (e SuppressionOrigin) Valid() bool {
 
 // Defines values for SuppressionReason.
 const (
-	Complaint   SuppressionReason = "complaint"
-	HardBounce  SuppressionReason = "hard_bounce"
-	Manual      SuppressionReason = "manual"
-	Unsubscribe SuppressionReason = "unsubscribe"
+	SuppressionReasonComplaint   SuppressionReason = "complaint"
+	SuppressionReasonHardBounce  SuppressionReason = "hard_bounce"
+	SuppressionReasonManual      SuppressionReason = "manual"
+	SuppressionReasonUnsubscribe SuppressionReason = "unsubscribe"
 )
 
 // Valid indicates whether the value is a known member of the SuppressionReason enum.
 func (e SuppressionReason) Valid() bool {
 	switch e {
-	case Complaint:
+	case SuppressionReasonComplaint:
 		return true
-	case HardBounce:
+	case SuppressionReasonHardBounce:
 		return true
-	case Manual:
+	case SuppressionReasonManual:
 		return true
-	case Unsubscribe:
+	case SuppressionReasonUnsubscribe:
 		return true
 	default:
 		return false
@@ -2129,40 +1709,40 @@ func (e OrderDesc) Valid() bool {
 
 // Defines values for ListEmailMessagesParamsStatus.
 const (
-	Accepted       ListEmailMessagesParamsStatus = "accepted"
-	Bounced        ListEmailMessagesParamsStatus = "bounced"
-	Canceled       ListEmailMessagesParamsStatus = "canceled"
-	Complained     ListEmailMessagesParamsStatus = "complained"
-	Deferred       ListEmailMessagesParamsStatus = "deferred"
-	Delivered      ListEmailMessagesParamsStatus = "delivered"
-	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	Processed      ListEmailMessagesParamsStatus = "processed"
-	Rejected       ListEmailMessagesParamsStatus = "rejected"
-	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
+	ListEmailMessagesParamsStatusAccepted       ListEmailMessagesParamsStatus = "accepted"
+	ListEmailMessagesParamsStatusBounced        ListEmailMessagesParamsStatus = "bounced"
+	ListEmailMessagesParamsStatusCanceled       ListEmailMessagesParamsStatus = "canceled"
+	ListEmailMessagesParamsStatusComplained     ListEmailMessagesParamsStatus = "complained"
+	ListEmailMessagesParamsStatusDeferred       ListEmailMessagesParamsStatus = "deferred"
+	ListEmailMessagesParamsStatusDelivered      ListEmailMessagesParamsStatus = "delivered"
+	ListEmailMessagesParamsStatusPartialFailure ListEmailMessagesParamsStatus = "partial_failure"
+	ListEmailMessagesParamsStatusProcessed      ListEmailMessagesParamsStatus = "processed"
+	ListEmailMessagesParamsStatusRejected       ListEmailMessagesParamsStatus = "rejected"
+	ListEmailMessagesParamsStatusScheduled      ListEmailMessagesParamsStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
 func (e ListEmailMessagesParamsStatus) Valid() bool {
 	switch e {
-	case Accepted:
+	case ListEmailMessagesParamsStatusAccepted:
 		return true
-	case Bounced:
+	case ListEmailMessagesParamsStatusBounced:
 		return true
-	case Canceled:
+	case ListEmailMessagesParamsStatusCanceled:
 		return true
-	case Complained:
+	case ListEmailMessagesParamsStatusComplained:
 		return true
-	case Deferred:
+	case ListEmailMessagesParamsStatusDeferred:
 		return true
-	case Delivered:
+	case ListEmailMessagesParamsStatusDelivered:
 		return true
-	case PartialFailure:
+	case ListEmailMessagesParamsStatusPartialFailure:
 		return true
-	case Processed:
+	case ListEmailMessagesParamsStatusProcessed:
 		return true
-	case Rejected:
+	case ListEmailMessagesParamsStatusRejected:
 		return true
-	case Scheduled:
+	case ListEmailMessagesParamsStatusScheduled:
 		return true
 	default:
 		return false
@@ -2249,22 +1829,22 @@ func (e ListSMSTemplatesParamsScope) Valid() bool {
 
 // Defines values for ListSMSTemplatesParamsCategory.
 const (
-	ListSMSTemplatesParamsCategoryAuthentication ListSMSTemplatesParamsCategory = "authentication"
-	ListSMSTemplatesParamsCategoryMarketing      ListSMSTemplatesParamsCategory = "marketing"
-	ListSMSTemplatesParamsCategoryService        ListSMSTemplatesParamsCategory = "service"
-	ListSMSTemplatesParamsCategoryTransactional  ListSMSTemplatesParamsCategory = "transactional"
+	Authentication ListSMSTemplatesParamsCategory = "authentication"
+	Marketing      ListSMSTemplatesParamsCategory = "marketing"
+	Service        ListSMSTemplatesParamsCategory = "service"
+	Transactional  ListSMSTemplatesParamsCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSTemplatesParamsCategory enum.
 func (e ListSMSTemplatesParamsCategory) Valid() bool {
 	switch e {
-	case ListSMSTemplatesParamsCategoryAuthentication:
+	case Authentication:
 		return true
-	case ListSMSTemplatesParamsCategoryMarketing:
+	case Marketing:
 		return true
-	case ListSMSTemplatesParamsCategoryService:
+	case Service:
 		return true
-	case ListSMSTemplatesParamsCategoryTransactional:
+	case Transactional:
 		return true
 	default:
 		return false
@@ -2273,45 +1853,6 @@ func (e ListSMSTemplatesParamsCategory) Valid() bool {
 
 // APIKeyID defines model for APIKeyID.
 type APIKeyID = string
-
-// AgentDomain Your workspace's agent domain — a Bird-hosted subdomain (`{handle}.{region}.mailbox.bird.com`) that mailbox addresses live under. Each workspace can hold one active agent domain; the handle is globally unique and immutable once claimed.
-type AgentDomain struct {
-	// CreatedAt When the domain was claimed.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-
-	// Domain The full agent domain that mailbox addresses live under.
-	Domain *string `json:"domain,omitempty"`
-
-	// Handle The claimed handle — the leftmost label of the agent domain. Immutable.
-	Handle *string       `json:"handle,omitempty"`
-	Id     AgentDomainID `json:"id"`
-
-	// ReleasedAt When the domain was released. Null while active.
-	ReleasedAt *time.Time `json:"released_at,omitempty"`
-
-	// Status Lifecycle status. `provisioning` domains are being set up and become `active` shortly — poll the domain until it does. `active` domains receive mail. `releasing` domains are being released; once `released` they no longer receive mail, and the handle stays reserved to this workspace.
-	Status *AgentDomainStatus `json:"status,omitempty"`
-
-	// UpdatedAt When the domain was last updated.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-}
-
-// AgentDomainStatus Lifecycle status. `provisioning` domains are being set up and become `active` shortly — poll the domain until it does. `active` domains receive mail. `releasing` domains are being released; once `released` they no longer receive mail, and the handle stays reserved to this workspace.
-type AgentDomainStatus string
-
-// AgentDomainCreate Parameters for claiming your workspace's agent domain.
-type AgentDomainCreate struct {
-	// Handle The handle to claim. Lowercase letters, digits, and hyphens; must start and end with a letter or digit. Handles are globally unique, immutable, and checked against a reserved list — brand, financial, and infrastructure terms cannot be claimed.
-	Handle string `json:"handle"`
-}
-
-// AgentDomainID defines model for AgentDomainID.
-type AgentDomainID = string
-
-// AgentDomainList The workspace's agent domains. Contains at most one active domain, plus any released domains whose handles remain reserved to this workspace.
-type AgentDomainList struct {
-	Data []AgentDomain `json:"data"`
-}
 
 // Audience defines model for Audience.
 type Audience struct {
@@ -2635,6 +2176,9 @@ type DocsSearchResult struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// DomainID defines model for DomainID.
+type DomainID = string
+
 // EmailAddress An email address with an optional display name.
 type EmailAddress struct {
 	// Email Email address.
@@ -2774,54 +2318,6 @@ type EmailID = string
 
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
-
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect.
-type EmailLabelsUpdate struct {
-	// Add Labels to apply.
-	Add *[]string `json:"add,omitempty"`
-
-	// Remove Labels to take off.
-	Remove *[]string `json:"remove,omitempty"`
-}
-
-// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request minus `from` — the mailbox is the sender identity — and minus `scheduled_at` (mailbox sends are immediate). Bird mints the RFC 5322 Message-ID so replies thread back to this conversation. At least one of `html` or `text` must be provided.
-type EmailMailboxComposeRequest struct {
-	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
-	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
-
-	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
-	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
-
-	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-	Category *EmailMailboxComposeRequestCategory `json:"category,omitempty"`
-
-	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
-	Cc *[]EmailAddressInput `json:"cc,omitempty"`
-
-	// Html HTML body. At least one of html or text must be provided.
-	Html *string `json:"html,omitempty"`
-
-	// Metadata Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// ReplyTo Reply-To addresses. When omitted, the mailbox's `default_reply_to` applies (replies then come back to the mailbox itself).
-	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
-
-	// Subject Message subject line.
-	Subject string `json:"subject"`
-
-	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// Text Plain-text body. At least one of html or text must be provided.
-	Text *string `json:"text,omitempty"`
-
-	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
-	To []EmailAddressInput `json:"to"`
-}
-
-// EmailMailboxComposeRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-type EmailMailboxComposeRequestCategory string
 
 // EmailMessage defines model for EmailMessage.
 type EmailMessage struct {
@@ -3204,7 +2700,7 @@ type EmailTemplateID = string
 type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
-	// Name The template to send, by its name handle (for example `welcome-email`).
+	// Name The template to send, by its name handle — a workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
 	Name *TemplateName `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Cap: 16 KB serialized.
@@ -3217,282 +2713,6 @@ type EmailTemplateSend0 = interface{}
 
 // EmailTemplateSend1 defines model for .
 type EmailTemplateSend1 = interface{}
-
-// EmailThread A conversation in a mailbox. Threads group related messages both directions — mail the mailbox received and replies it sent — and carry the conversation-level read state, labels, and participant list. Message counts reflect the messages currently retained under the mailbox's retention period.
-type EmailThread struct {
-	// Channel Channel this conversation lives on. Always `email`.
-	Channel *string `json:"channel,omitempty"`
-
-	// ContactId Contact linked to this conversation, or null when none is linked.
-	ContactId *ContactID `json:"contact_id"`
-
-	// CreatedAt When the thread was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	Id        ThreadID   `json:"id"`
-
-	// Labels Labels applied to this conversation. A thread carries at most 20 labels.
-	Labels []string `json:"labels"`
-
-	// LastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
-	LastDirection *EmailThreadLastDirection `json:"last_direction,omitempty"`
-
-	// LastMessageAt When the most recent retained message in this conversation was received or sent.
-	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
-	MailboxId     MailboxID  `json:"mailbox_id"`
-
-	// MessageCount Number of retained messages in this conversation, both directions.
-	MessageCount *int `json:"message_count,omitempty"`
-
-	// Participants Addresses that appear on the retained messages in this conversation, including the mailbox's own address.
-	Participants *[]openapi_types.Email `json:"participants,omitempty"`
-
-	// Subject Subject of the conversation, taken from its first message. Null when that message had no subject.
-	Subject *string `json:"subject,omitempty"`
-
-	// UnreadCount Number of retained received messages in the inbox that are still unread.
-	UnreadCount *int `json:"unread_count,omitempty"`
-
-	// UpdatedAt When the thread last changed.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-}
-
-// EmailThreadLastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
-type EmailThreadLastDirection string
-
-// EmailThreadList defines model for EmailThreadList.
-type EmailThreadList struct {
-	Data []EmailThread `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
-
-// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata and extracted text remain readable for the mailbox's retention period; the original rendered source (HTML body, raw MIME, attachment bytes) is available through the body, raw, and attachment endpoints for 30 days after the message occurred.
-type EmailThreadMessage struct {
-	// AttachmentCount Number of attachments on the message.
-	AttachmentCount *int `json:"attachment_count,omitempty"`
-
-	// AttachmentManifest Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
-	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
-
-	// Cc Recipient addresses on the Cc line. Empty when the message had none.
-	Cc *[]openapi_types.Email `json:"cc,omitempty"`
-
-	// Channel Channel this message was carried on. Always `email`.
-	Channel *string `json:"channel,omitempty"`
-
-	// ContactId Contact linked to this message, or null when none is linked.
-	ContactId *ContactID `json:"contact_id"`
-
-	// DeliveredTo Address the message was actually delivered to, when it differs from the mailbox address (for example mail routed in from another address). Null for sent messages and for mail addressed directly to the mailbox.
-	DeliveredTo *openapi_types.Email `json:"delivered_to,omitempty"`
-
-	// Direction Direction of the message — `inbound` for a received message, `outbound` for a sent one.
-	Direction *EmailThreadMessageDirection `json:"direction,omitempty"`
-
-	// Disposition Where the message landed: `inbox` for accepted mail, `blocked` (receive policy or rules), or `unauthenticated` (failed sender authentication). Null for sent messages. Trash state is carried separately in `trashed_at`.
-	Disposition *EmailThreadMessageDisposition `json:"disposition"`
-
-	// DkimPass Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict was computable. Durable for the mailbox's retention period.
-	DkimPass *bool `json:"dkim_pass,omitempty"`
-
-	// DmarcPass Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict was computable. Durable for the mailbox's retention period.
-	DmarcPass *bool `json:"dmarc_pass,omitempty"`
-
-	// ExtractedText Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
-	ExtractedText *string `json:"extracted_text,omitempty"`
-
-	// From Sender address.
-	From *openapi_types.Email `json:"from,omitempty"`
-
-	// Id Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
-	Id *string `json:"id,omitempty"`
-
-	// Labels Labels applied to this message. A message carries at most 20 labels.
-	Labels []string `json:"labels"`
-
-	// OccurredAt When the message was received or accepted for sending.
-	OccurredAt *time.Time `json:"occurred_at,omitempty"`
-
-	// Preview Short plain-text preview of the message body.
-	Preview *string `json:"preview,omitempty"`
-
-	// Rank Relevance rank of this result. Present only on search results, higher is more relevant.
-	Rank *float32 `json:"rank,omitempty"`
-
-	// Read Whether the message has been marked read. Null for sent messages.
-	Read *bool `json:"read"`
-
-	// Recipients Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
-	Recipients *[]EmailThreadMessageRecipient `json:"recipients,omitempty"`
-
-	// ReferenceIds RFC 5322 References header entries used to thread the conversation.
-	ReferenceIds *[]string `json:"reference_ids,omitempty"`
-
-	// Source Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
-	Source EmailThreadMessageSource `json:"source"`
-
-	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict was computable. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
-	SpfPass *bool `json:"spf_pass,omitempty"`
-
-	// Status Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
-	Status *string `json:"status,omitempty"`
-
-	// Subject Message subject. Null when the message had no subject.
-	Subject  *string  `json:"subject,omitempty"`
-	ThreadId ThreadID `json:"thread_id"`
-
-	// To Recipient addresses on the To line.
-	To *[]openapi_types.Email `json:"to,omitempty"`
-
-	// TrashedAt When the message was moved to the trash, or null when it is not trashed. Trashed messages are purged 30 days after trashing; restore it with `PATCH {"trashed": false}` before then.
-	TrashedAt *time.Time `json:"trashed_at,omitempty"`
-}
-
-// EmailThreadMessageDirection Direction of the message — `inbound` for a received message, `outbound` for a sent one.
-type EmailThreadMessageDirection string
-
-// EmailThreadMessageDisposition Where the message landed: `inbox` for accepted mail, `blocked` (receive policy or rules), or `unauthenticated` (failed sender authentication). Null for sent messages. Trash state is carried separately in `trashed_at`.
-type EmailThreadMessageDisposition string
-
-// EmailThreadMessageAttachment Attachment metadata on a conversation message. The metadata remains readable for the mailbox's retention period; the attachment bytes are downloadable for 30 days after the message occurred.
-type EmailThreadMessageAttachment struct {
-	// ContentType MIME content type, or null when it could not be determined.
-	ContentType *string `json:"content_type,omitempty"`
-
-	// Filename Original filename, or null when the attachment had none.
-	Filename *string `json:"filename,omitempty"`
-
-	// Id Attachment ID, used to download the attachment bytes.
-	Id *string `json:"id,omitempty"`
-
-	// Size Attachment size in bytes.
-	Size *int `json:"size,omitempty"`
-}
-
-// EmailThreadMessageAttachmentList The attachments on a conversation message.
-type EmailThreadMessageAttachmentList struct {
-	Data []EmailThreadMessageAttachment `json:"data"`
-}
-
-// EmailThreadMessageBody The original rendered body of a conversation message. Available for 30 days after the message occurred; after that the endpoint returns `410 Gone` while the message's extracted text remains readable on the message itself.
-type EmailThreadMessageBody struct {
-	// Html The HTML body of the message, or null when the message had no HTML part.
-	Html *string `json:"html"`
-
-	// Text The plain-text body of the message, or null when the message had no text part.
-	Text *string `json:"text"`
-}
-
-// EmailThreadMessageForwardRequest Forwards a conversation message to new recipients. The original body and attachments are sent as they were received or sent; the subject gains a `Fwd:` prefix. Forwarding requires the message's original rendered source, which is available for 30 days after the message occurred.
-type EmailThreadMessageForwardRequest struct {
-	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-	Category *EmailThreadMessageForwardRequestCategory `json:"category,omitempty"`
-
-	// Cc Cc recipient addresses.
-	Cc *[]openapi_types.Email `json:"cc,omitempty"`
-
-	// Metadata Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// To Recipient addresses to forward the message to.
-	To []openapi_types.Email `json:"to"`
-}
-
-// EmailThreadMessageForwardRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-type EmailThreadMessageForwardRequestCategory string
-
-// EmailThreadMessageList defines model for EmailThreadMessageList.
-type EmailThreadMessageList struct {
-	Data []EmailThreadMessage `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
-
-// EmailThreadMessageRecipient One recipient's terminal delivery outcome on a sent conversation message, folded into the message's durable memory when the outcome becomes known.
-type EmailThreadMessageRecipient struct {
-	// Address Recipient address.
-	Address *openapi_types.Email `json:"address,omitempty"`
-
-	// Status Terminal outcome: `delivered`, or `failed` (bounce or provider rejection).
-	Status *EmailThreadMessageRecipientStatus `json:"status,omitempty"`
-}
-
-// EmailThreadMessageRecipientStatus Terminal outcome: `delivered`, or `failed` (bounce or provider rejection).
-type EmailThreadMessageRecipientStatus string
-
-// EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
-type EmailThreadMessageReplyRequest struct {
-	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-	Category *EmailThreadMessageReplyRequestCategory `json:"category,omitempty"`
-
-	// Html HTML body of the reply. At least one of html or text must be provided.
-	Html *string `json:"html,omitempty"`
-
-	// Metadata Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// ReplyAll Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
-	ReplyAll *bool `json:"reply_all,omitempty"`
-
-	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// Text Plain-text body of the reply. At least one of html or text must be provided.
-	Text *string `json:"text,omitempty"`
-}
-
-// EmailThreadMessageReplyRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-type EmailThreadMessageReplyRequestCategory string
-
-// EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
-type EmailThreadMessageSource struct {
-	// AvailableUntil When the log entry (and the message's original rendered source) expires.
-	AvailableUntil *time.Time `json:"available_until,omitempty"`
-
-	// Resource API path of the log entry for this message.
-	Resource *string `json:"resource,omitempty"`
-}
-
-// EmailThreadMessageUpdateRequest Changes to apply to a conversation message. Omitted fields are left unchanged.
-type EmailThreadMessageUpdateRequest struct {
-	// ContactId Contact to link this message to, or null to unlink the current contact.
-	ContactId *ContactID `json:"contact_id,omitempty"`
-
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect.
-	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
-
-	// Read Mark the message read (`true`) or unread (`false`). Only valid on received messages.
-	Read *bool `json:"read,omitempty"`
-
-	// Trashed Set to `false` to restore a trashed message within its 30-day trash window (clears `trashed_at` and restores the original retention). To trash a message use `DELETE`; `true` is rejected.
-	Trashed *bool `json:"trashed,omitempty"`
-}
-
-// EmailThreadUpdateRequest Changes to apply to a thread. Omitted fields are left unchanged.
-type EmailThreadUpdateRequest struct {
-	// ContactId Contact to link this conversation to, or null to unlink the current contact.
-	ContactId *ContactID `json:"contact_id,omitempty"`
-
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect.
-	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
-}
 
 // Error defines model for Error.
 type Error struct {
@@ -3559,10 +2779,10 @@ type ErrorNextAction struct {
 	Operation string `json:"operation"`
 }
 
-// EventDomainFailed A sending domain failed DNS verification. Payload schema not yet finalized.
+// EventDomainFailed A sending domain failed DNS verification.
 type EventDomainFailed struct {
-	// Data Event payload. The fields for this event are not yet finalized.
-	Data map[string]interface{} `json:"data"`
+	// Data Payload of the domain.failed event.
+	Data EventDomainFailedData `json:"data"`
 
 	// Timestamp When the event occurred.
 	Timestamp time.Time `json:"timestamp"`
@@ -3574,10 +2794,21 @@ type EventDomainFailed struct {
 // EventDomainFailedType Event type.
 type EventDomainFailedType string
 
-// EventDomainVerified A sending domain completed DNS verification successfully. Payload schema not yet finalized.
+// EventDomainFailedData Payload of the domain.failed event.
+type EventDomainFailedData struct {
+	// Domain The sending domain hostname.
+	Domain   string   `json:"domain"`
+	DomainId DomainID `json:"domain_id"`
+
+	// FailureReason Why verification failed, when a specific reason is available (for example, the DKIM record was not found at the expected selector).
+	FailureReason *string     `json:"failure_reason,omitempty"`
+	WorkspaceId   WorkspaceID `json:"workspace_id"`
+}
+
+// EventDomainVerified A sending domain completed DNS verification successfully.
 type EventDomainVerified struct {
-	// Data Event payload. The fields for this event are not yet finalized.
-	Data map[string]interface{} `json:"data"`
+	// Data Payload of the domain.verified event.
+	Data EventDomainVerifiedData `json:"data"`
 
 	// Timestamp When the event occurred.
 	Timestamp time.Time `json:"timestamp"`
@@ -3588,6 +2819,14 @@ type EventDomainVerified struct {
 
 // EventDomainVerifiedType Event type.
 type EventDomainVerifiedType string
+
+// EventDomainVerifiedData Payload of the domain.verified event.
+type EventDomainVerifiedData struct {
+	// Domain The sending domain hostname.
+	Domain      string      `json:"domain"`
+	DomainId    DomainID    `json:"domain_id"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
 
 // EventEmailAccepted Bird accepted the email send and is preparing to deliver. Fires once per requested recipient at acceptance time.
 type EventEmailAccepted struct {
@@ -3900,9 +3139,9 @@ type EventEmailMailboxMessageFailedData struct {
 	ThreadId ThreadID `json:"thread_id"`
 }
 
-// EventEmailMailboxMessageReceived An email was received into a mailbox, threaded, and stored with disposition inbox. The payload carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Dual-fire rule: mailbox-owned inbound with disposition inbox ALSO fires the unchanged email.received event; the streams are unordered relative to each other, so pick one family per automation and dedupe by message_id.
+// EventEmailMailboxMessageReceived An email arrived in a mailbox and was filed to its inbox, threaded and stored. The payload carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Dual-fire rule: the same message ALSO fires the unchanged email.received event; the streams are unordered relative to each other, so pick one family per automation and dedupe by message_id.
 type EventEmailMailboxMessageReceived struct {
-	// Data Payload shared by the email_mailbox.message_received event family. Carries identifiers, threading, disposition, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
+	// Data Payload for the email_mailbox.message_received event. Carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
 	Data EventEmailMailboxMessageReceivedData `json:"data"`
 
 	// Timestamp When the event occurred.
@@ -3915,28 +3154,10 @@ type EventEmailMailboxMessageReceived struct {
 // EventEmailMailboxMessageReceivedType Event type.
 type EventEmailMailboxMessageReceivedType string
 
-// EventEmailMailboxMessageReceivedBlocked An email was received into a mailbox and stored with disposition blocked — it failed the mailbox receive policy or a block rule. Opt-in. Non-inbox dispositions fire only this mailbox variant, never email.received — existing email.received automations never start processing blocked mail because a mailbox was attached. The payload carries identifiers, threading, authentication results, and the extracted text.
-type EventEmailMailboxMessageReceivedBlocked struct {
-	// Data Payload shared by the email_mailbox.message_received event family. Carries identifiers, threading, disposition, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
-	Data EventEmailMailboxMessageReceivedData `json:"data"`
-
-	// Timestamp When the event occurred.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventEmailMailboxMessageReceivedBlockedType `json:"type"`
-}
-
-// EventEmailMailboxMessageReceivedBlockedType Event type.
-type EventEmailMailboxMessageReceivedBlockedType string
-
-// EventEmailMailboxMessageReceivedData Payload shared by the email_mailbox.message_received event family. Carries identifiers, threading, disposition, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
+// EventEmailMailboxMessageReceivedData Payload for the email_mailbox.message_received event. Carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
 type EventEmailMailboxMessageReceivedData struct {
 	// AttachmentCount Number of attachments on the message. Metadata is durable; bytes are fetchable while within the 30-day original-source window.
 	AttachmentCount int `json:"attachment_count"`
-
-	// Disposition Where the message landed after receive policy, rules, and scanning were applied.
-	Disposition EventEmailMailboxMessageReceivedDataDisposition `json:"disposition"`
 
 	// DkimPass Whether DKIM passed for the sender, or null when no verdict was computable.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
@@ -3968,24 +3189,6 @@ type EventEmailMailboxMessageReceivedData struct {
 	// TruncatedText True when extracted_text was truncated to the 64 KB cap; fetch the full text via the thread-member endpoint.
 	TruncatedText *bool `json:"truncated_text,omitempty"`
 }
-
-// EventEmailMailboxMessageReceivedDataDisposition Where the message landed after receive policy, rules, and scanning were applied.
-type EventEmailMailboxMessageReceivedDataDisposition string
-
-// EventEmailMailboxMessageReceivedUnauthenticated An email was received into a mailbox and stored with disposition unauthenticated — sender authentication could not be verified. Opt-in. Non-inbox dispositions fire only this mailbox variant, never email.received — existing email.received automations never start processing unauthenticated mail because a mailbox was attached. The payload carries identifiers, threading, authentication results, and the extracted text.
-type EventEmailMailboxMessageReceivedUnauthenticated struct {
-	// Data Payload shared by the email_mailbox.message_received event family. Carries identifiers, threading, disposition, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
-	Data EventEmailMailboxMessageReceivedData `json:"data"`
-
-	// Timestamp When the event occurred.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventEmailMailboxMessageReceivedUnauthenticatedType `json:"type"`
-}
-
-// EventEmailMailboxMessageReceivedUnauthenticatedType Event type.
-type EventEmailMailboxMessageReceivedUnauthenticatedType string
 
 // EventEmailMailboxMessageSent A mailbox send reached provider handoff — the per-message status folded to sent. Status events are per-message folds, not per-recipient telemetry; the same send also fires the shipped per-recipient email.* lifecycle events. Pick one family per automation and dedupe by message_id.
 type EventEmailMailboxMessageSent struct {
@@ -4294,10 +3497,10 @@ type EventEmailScheduledData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailSuppressionCreated An email address was added to the workspace's suppression list (manually, via complaint, or via hard bounce). Payload schema not yet finalized.
+// EventEmailSuppressionCreated An email address was added to the workspace's suppression list (manually, via complaint, or via hard bounce).
 type EventEmailSuppressionCreated struct {
-	// Data Event payload. The fields for this event are not yet finalized.
-	Data map[string]interface{} `json:"data"`
+	// Data Payload of the email_suppression.created event.
+	Data EventEmailSuppressionCreatedData `json:"data"`
 
 	// Timestamp When the event occurred.
 	Timestamp time.Time `json:"timestamp"`
@@ -4308,6 +3511,20 @@ type EventEmailSuppressionCreated struct {
 
 // EventEmailSuppressionCreatedType Event type.
 type EventEmailSuppressionCreatedType string
+
+// EventEmailSuppressionCreatedData Payload of the email_suppression.created event.
+type EventEmailSuppressionCreatedData struct {
+	// Email The recipient address that was added to the suppression list.
+	Email openapi_types.Email `json:"email"`
+
+	// Reason Why the address was suppressed.
+	Reason        EventEmailSuppressionCreatedDataReason `json:"reason"`
+	SuppressionId SuppressionID                          `json:"suppression_id"`
+	WorkspaceId   WorkspaceID                            `json:"workspace_id"`
+}
+
+// EventEmailSuppressionCreatedDataReason Why the address was suppressed.
+type EventEmailSuppressionCreatedDataReason string
 
 // EventEmailUnsubscribed Recipient unsubscribed by clicking a tracked unsubscribe link in the email. Fires once per recipient.
 type EventEmailUnsubscribed struct {
@@ -4742,7 +3959,7 @@ type InboundRouteCreate struct {
 	// Action What happens to matching mail. `deliver_to_mailbox` requires `target_mailbox_id`.
 	Action InboundRouteCreateAction `json:"action"`
 
-	// Domain The domain the route applies to — your agent domain or one of your inbound-enabled custom domains.
+	// Domain The domain the route applies to — one of your inbound-enabled custom domains.
 	Domain string `json:"domain"`
 
 	// Enabled Whether the route is evaluated.
@@ -4806,212 +4023,8 @@ type InboundRouteUpdateAction string
 // InboundRouteUpdateMatchType How the route matches recipients.
 type InboundRouteUpdateMatchType string
 
-// Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata and extracted text for its retention tier. The original rendered source of each message remains available for 30 days.
-type Mailbox struct {
-	// Address The mailbox's email address. Immutable once created.
-	Address *openapi_types.Email `json:"address,omitempty"`
-
-	// Channel The channel this mailbox receives on. Always `email`.
-	Channel *MailboxChannel `json:"channel,omitempty"`
-
-	// ContactId The contact this mailbox is associated with. Null when unset.
-	ContactId *ContactID `json:"contact_id"`
-
-	// CreatedAt When the mailbox was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
-	DefaultReplyTo *openapi_types.Email `json:"default_reply_to"`
-
-	// DisplayName Display name used as the sender name on mail from this mailbox. Null when unset.
-	DisplayName      *string          `json:"display_name"`
-	Id               MailboxID        `json:"id"`
-	InboundAddressId InboundAddressID `json:"inbound_address_id"`
-
-	// MessageCount Number of retained messages across all threads.
-	MessageCount *int64 `json:"message_count,omitempty"`
-
-	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
-	Metadata map[string]interface{} `json:"metadata"`
-
-	// Owner The principal that owns the mailbox. Always the workspace.
-	Owner MailboxOwner `json:"owner"`
-
-	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
-	ReceivePolicy MailboxReceivePolicy `json:"receive_policy"`
-
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
-	RetentionTier MailboxRetentionTier `json:"retention_tier"`
-
-	// State Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
-	State *MailboxState `json:"state,omitempty"`
-
-	// StorageBytes Logical size of the mailbox's retained memory, in bytes.
-	StorageBytes *int64 `json:"storage_bytes,omitempty"`
-
-	// ThreadCount Number of retained threads.
-	ThreadCount *int64 `json:"thread_count,omitempty"`
-
-	// UpdatedAt When the mailbox was last updated.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-}
-
-// MailboxChannel The channel this mailbox receives on. Always `email`.
-type MailboxChannel string
-
-// MailboxReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
-type MailboxReceivePolicy string
-
-// MailboxRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
-type MailboxRetentionTier string
-
-// MailboxState Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
-type MailboxState string
-
-// MailboxCreate Parameters for creating a mailbox.
-type MailboxCreate struct {
-	ContactId *ContactID `json:"contact_id,omitempty"`
-
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox.
-	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
-
-	// DisplayName Display name used as the sender name on mail from this mailbox.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// Domain The domain the address lives under. Defaults to your workspace's agent domain. May also name one of your inbound-enabled custom domains.
-	Domain *string `json:"domain,omitempty"`
-
-	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. Omit to have Bird generate a random local part.
-	LocalPart *string `json:"local_part,omitempty"`
-
-	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
-	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
-
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
-	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
-}
-
-// MailboxCreateReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
-type MailboxCreateReceivePolicy string
-
-// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
-type MailboxCreateRetentionTier string
-
 // MailboxID defines model for MailboxID.
 type MailboxID = string
-
-// MailboxList defines model for MailboxList.
-type MailboxList struct {
-	Data []Mailbox `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
-
-// MailboxOwner The principal that owns the mailbox. Always the workspace.
-type MailboxOwner struct {
-	Id WorkspaceID `json:"id"`
-
-	// Type Owner principal type.
-	Type *MailboxOwnerType `json:"type,omitempty"`
-}
-
-// MailboxOwnerType Owner principal type.
-type MailboxOwnerType string
-
-// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged; fields set to null are cleared. The address and domain are immutable.
-type MailboxUpdate struct {
-	// ContactId The contact this mailbox is associated with. Null clears it.
-	ContactId *ContactID `json:"contact_id,omitempty"`
-
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
-	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
-
-	// DisplayName Display name used as the sender name on mail from this mailbox. Null clears it.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// Metadata Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// ReceivePolicy Which inbound mail the mailbox accepts.
-	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
-
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. `3y` and `10y` are reserved future tiers.
-	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
-}
-
-// MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts.
-type MailboxUpdateReceivePolicy string
-
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. `3y` and `10y` are reserved future tiers.
-type MailboxUpdateRetentionTier string
-
-// ReceiveRule An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
-type ReceiveRule struct {
-	// Action What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
-	Action *ReceiveRuleAction `json:"action,omitempty"`
-
-	// CreatedAt When the rule was created.
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-
-	// Entry The sender address or domain the rule matches. Domains also match their subdomains.
-	Entry *string `json:"entry,omitempty"`
-
-	// EntryType Whether the entry is a full address or a domain.
-	EntryType *ReceiveRuleEntryType `json:"entry_type,omitempty"`
-	Id        ReceiveRuleID         `json:"id"`
-	MailboxId MailboxID             `json:"mailbox_id"`
-
-	// Note Your own note about why the rule exists. Null when unset.
-	Note *string `json:"note,omitempty"`
-}
-
-// ReceiveRuleAction What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
-type ReceiveRuleAction string
-
-// ReceiveRuleEntryType Whether the entry is a full address or a domain.
-type ReceiveRuleEntryType string
-
-// ReceiveRuleCreate Parameters for adding a receive rule to a mailbox.
-type ReceiveRuleCreate struct {
-	// Action What the rule does when it matches. Block rules always win. To flip an entry's action, delete the existing rule and re-create it.
-	Action ReceiveRuleCreateAction `json:"action"`
-
-	// Entry The sender address (`alice@example.com`) or domain (`example.com`) to match. Domains also match their subdomains. Stored lowercase.
-	Entry string `json:"entry"`
-
-	// Note Your own note about why the rule exists.
-	Note *string `json:"note,omitempty"`
-}
-
-// ReceiveRuleCreateAction What the rule does when it matches. Block rules always win. To flip an entry's action, delete the existing rule and re-create it.
-type ReceiveRuleCreateAction string
-
-// ReceiveRuleID defines model for ReceiveRuleID.
-type ReceiveRuleID = string
-
-// ReceiveRuleList defines model for ReceiveRuleList.
-type ReceiveRuleList struct {
-	Data []ReceiveRule `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
 
 // RecipientID defines model for RecipientID.
 type RecipientID = string
@@ -5325,6 +4338,12 @@ type SMSTemplateVersionID = string
 
 // SendWhatsAppMessageRequest defines model for SendWhatsAppMessageRequest.
 type SendWhatsAppMessageRequest struct {
+	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
+	Tags *[]Tag `json:"tags,omitempty"`
+
 	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are currently the only supported content type, so every send must include one; free-text content will be added in a future release.
 	Template *SendWhatsAppMessageTemplate `json:"template,omitempty"`
 
@@ -5796,12 +4815,18 @@ type WhatsAppMessage struct {
 	// LastError Failure detail for a message that could not be delivered. Null when there is no failure.
 	LastError *WhatsAppError `json:"last_error,omitempty"`
 
+	// Metadata Arbitrary JSON metadata stored on the message.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
 	// ReadAt When the message was read by the recipient. Null until then.
 	ReadAt *time.Time `json:"read_at,omitempty"`
 
 	// SentAt When the message was handed to the WhatsApp network. Null until then.
 	SentAt *time.Time             `json:"sent_at,omitempty"`
 	Status *WhatsAppMessageStatus `json:"status,omitempty"`
+
+	// Tags Structured `{name, value}` filter labels applied to this message.
+	Tags *[]Tag `json:"tags,omitempty"`
 
 	// Template The template the message was sent from. For authentication templates the filled-in values are not returned.
 	Template *WhatsAppMessageTemplate `json:"template,omitempty"`
@@ -6001,6 +5026,9 @@ type IdempotencyKey = string
 
 // IncludeTotal defines model for IncludeTotal.
 type IncludeTotal = bool
+
+// MessageTagFilter defines model for MessageTagFilter.
+type MessageTagFilter = []string
 
 // OrderDesc defines model for OrderDesc.
 type OrderDesc string
@@ -6352,8 +5380,8 @@ type ListEmailMessagesParams struct {
 	// Status Filter by aggregate delivery status.
 	Status *ListEmailMessagesParamsStatus `form:"status,omitempty" json:"status,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any send carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
-	Tag *[]string `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Category Filter by category.
 	Category *ListEmailMessagesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
@@ -6448,8 +5476,8 @@ type ListSMSMessagesParams struct {
 	// From Filter by sender (E.164, alphanumeric, or short code — exact match).
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair. Repeat the parameter to AND-combine several tag filters.
-	Tag *[]string `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // ListSMSMessagesParamsDirection defines parameters for ListSMSMessages.
@@ -6490,6 +5518,40 @@ type ListSMSTemplatesParamsScope string
 // ListSMSTemplatesParamsCategory defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParamsCategory string
 
+// CreateVerificationParams defines parameters for CreateVerification.
+type CreateVerificationParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateVerificationCheckParams defines parameters for CreateVerificationCheck.
+type CreateVerificationCheckParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListWhatsAppMessagesParams defines parameters for ListWhatsAppMessages.
 type ListWhatsAppMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -6515,6 +5577,9 @@ type ListWhatsAppMessagesParams struct {
 
 	// Bsuid Filter by business-scoped user ID (Meta identifier).
 	Bsuid *string `form:"bsuid,omitempty" json:"bsuid,omitempty"`
+
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // SendWhatsAppMessageParams defines parameters for SendWhatsAppMessage.
@@ -6575,6 +5640,12 @@ type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
 
 // CreateSMSMessageJSONRequestBody defines body for CreateSMSMessage for application/json ContentType.
 type CreateSMSMessageJSONRequestBody = SMSMessageSendRequest
+
+// CreateVerificationJSONRequestBody defines body for CreateVerification for application/json ContentType.
+type CreateVerificationJSONRequestBody = VerificationCreateRequest
+
+// CreateVerificationCheckJSONRequestBody defines body for CreateVerificationCheck for application/json ContentType.
+type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 
 // SendWhatsAppMessageJSONRequestBody defines body for SendWhatsAppMessage for application/json ContentType.
 type SendWhatsAppMessageJSONRequestBody = SendWhatsAppMessageRequest
@@ -7809,62 +6880,6 @@ func (t *WebhookEvent) MergeEventEmailMailboxMessageReceived(v EventEmailMailbox
 	return err
 }
 
-// AsEventEmailMailboxMessageReceivedBlocked returns the union data inside the WebhookEvent as a EventEmailMailboxMessageReceivedBlocked
-func (t WebhookEvent) AsEventEmailMailboxMessageReceivedBlocked() (EventEmailMailboxMessageReceivedBlocked, error) {
-	var body EventEmailMailboxMessageReceivedBlocked
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventEmailMailboxMessageReceivedBlocked overwrites any union data inside the WebhookEvent as the provided EventEmailMailboxMessageReceivedBlocked
-func (t *WebhookEvent) FromEventEmailMailboxMessageReceivedBlocked(v EventEmailMailboxMessageReceivedBlocked) error {
-	v.Type = "email_mailbox.message_received_blocked"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventEmailMailboxMessageReceivedBlocked performs a merge with any union data inside the WebhookEvent, using the provided EventEmailMailboxMessageReceivedBlocked
-func (t *WebhookEvent) MergeEventEmailMailboxMessageReceivedBlocked(v EventEmailMailboxMessageReceivedBlocked) error {
-	v.Type = "email_mailbox.message_received_blocked"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsEventEmailMailboxMessageReceivedUnauthenticated returns the union data inside the WebhookEvent as a EventEmailMailboxMessageReceivedUnauthenticated
-func (t WebhookEvent) AsEventEmailMailboxMessageReceivedUnauthenticated() (EventEmailMailboxMessageReceivedUnauthenticated, error) {
-	var body EventEmailMailboxMessageReceivedUnauthenticated
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventEmailMailboxMessageReceivedUnauthenticated overwrites any union data inside the WebhookEvent as the provided EventEmailMailboxMessageReceivedUnauthenticated
-func (t *WebhookEvent) FromEventEmailMailboxMessageReceivedUnauthenticated(v EventEmailMailboxMessageReceivedUnauthenticated) error {
-	v.Type = "email_mailbox.message_received_unauthenticated"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventEmailMailboxMessageReceivedUnauthenticated performs a merge with any union data inside the WebhookEvent, using the provided EventEmailMailboxMessageReceivedUnauthenticated
-func (t *WebhookEvent) MergeEventEmailMailboxMessageReceivedUnauthenticated(v EventEmailMailboxMessageReceivedUnauthenticated) error {
-	v.Type = "email_mailbox.message_received_unauthenticated"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
 // AsEventEmailMailboxMessageSent returns the union data inside the WebhookEvent as a EventEmailMailboxMessageSent
 func (t WebhookEvent) AsEventEmailMailboxMessageSent() (EventEmailMailboxMessageSent, error) {
 	var body EventEmailMailboxMessageSent
@@ -8227,10 +7242,6 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventEmailMailboxMessageFailed()
 	case "email_mailbox.message_received":
 		return t.AsEventEmailMailboxMessageReceived()
-	case "email_mailbox.message_received_blocked":
-		return t.AsEventEmailMailboxMessageReceivedBlocked()
-	case "email_mailbox.message_received_unauthenticated":
-		return t.AsEventEmailMailboxMessageReceivedUnauthenticated()
 	case "email_mailbox.message_sent":
 		return t.AsEventEmailMailboxMessageSent()
 	case "email_mailbox.suspended":
@@ -8462,6 +7473,16 @@ type ClientInterface interface {
 
 	// GetSMSTemplate request
 	GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVerificationWithBody request with any body
+	CreateVerificationWithBody(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVerification(ctx context.Context, params *CreateVerificationParams, body CreateVerificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVerificationCheckWithBody request with any body
+	CreateVerificationCheckWithBody(ctx context.Context, params *CreateVerificationCheckParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVerificationCheck(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppMessages request
 	ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -9011,6 +8032,54 @@ func (c *Client) ListSMSTemplates(ctx context.Context, params *ListSMSTemplatesP
 
 func (c *Client) GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSTemplateRequest(c.Server, templateRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVerificationWithBody(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVerification(ctx context.Context, params *CreateVerificationParams, body CreateVerificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVerificationCheckWithBody(ctx context.Context, params *CreateVerificationCheckParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationCheckRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVerificationCheck(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationCheckRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -11141,6 +10210,138 @@ func NewGetSMSTemplateRequest(server string, templateRef string) (*http.Request,
 	return req, nil
 }
 
+// NewCreateVerificationRequest calls the generic CreateVerification builder with application/json body
+func NewCreateVerificationRequest(server string, params *CreateVerificationParams, body CreateVerificationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVerificationRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVerificationRequestWithBody generates requests for CreateVerification with any type of body
+func NewCreateVerificationRequestWithBody(server string, params *CreateVerificationParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/verify/verifications")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVerificationCheckRequest calls the generic CreateVerificationCheck builder with application/json body
+func NewCreateVerificationCheckRequest(server string, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVerificationCheckRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVerificationCheckRequestWithBody generates requests for CreateVerificationCheck with any type of body
+func NewCreateVerificationCheckRequestWithBody(server string, params *CreateVerificationCheckParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/verify/verifications/check")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppMessagesRequest generates requests for ListWhatsAppMessages
 func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesParams) (*http.Request, error) {
 	var err error
@@ -11256,6 +10457,18 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 		if params.Bsuid != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "bsuid", *params.Bsuid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -11620,6 +10833,16 @@ type ClientWithResponsesInterface interface {
 
 	// GetSMSTemplateWithResponse request
 	GetSMSTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetSMSTemplateResponse, error)
+
+	// CreateVerificationWithBodyWithResponse request with any body
+	CreateVerificationWithBodyWithResponse(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationResponse, error)
+
+	CreateVerificationWithResponse(ctx context.Context, params *CreateVerificationParams, body CreateVerificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationResponse, error)
+
+	// CreateVerificationCheckWithBodyWithResponse request with any body
+	CreateVerificationCheckWithBodyWithResponse(ctx context.Context, params *CreateVerificationCheckParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error)
+
+	CreateVerificationCheckWithResponse(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error)
 
 	// ListWhatsAppMessagesWithResponse request
 	ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error)
@@ -12781,6 +12004,81 @@ func (r GetSMSTemplateResponse) ContentType() string {
 	return ""
 }
 
+type CreateVerificationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Verification
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVerificationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVerificationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVerificationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVerificationCheckResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VerificationCheckResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVerificationCheckResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVerificationCheckResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVerificationCheckResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -13348,6 +12646,40 @@ func (c *ClientWithResponses) GetSMSTemplateWithResponse(ctx context.Context, te
 		return nil, err
 	}
 	return ParseGetSMSTemplateResponse(rsp)
+}
+
+// CreateVerificationWithBodyWithResponse request with arbitrary body returning *CreateVerificationResponse
+func (c *ClientWithResponses) CreateVerificationWithBodyWithResponse(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationResponse, error) {
+	rsp, err := c.CreateVerificationWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVerificationWithResponse(ctx context.Context, params *CreateVerificationParams, body CreateVerificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationResponse, error) {
+	rsp, err := c.CreateVerification(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationResponse(rsp)
+}
+
+// CreateVerificationCheckWithBodyWithResponse request with arbitrary body returning *CreateVerificationCheckResponse
+func (c *ClientWithResponses) CreateVerificationCheckWithBodyWithResponse(ctx context.Context, params *CreateVerificationCheckParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error) {
+	rsp, err := c.CreateVerificationCheckWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationCheckResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVerificationCheckWithResponse(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error) {
+	rsp, err := c.CreateVerificationCheck(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationCheckResponse(rsp)
 }
 
 // ListWhatsAppMessagesWithResponse request returning *ListWhatsAppMessagesResponse
@@ -15503,6 +14835,163 @@ func ParseGetSMSTemplateResponse(rsp *http.Response) (*GetSMSTemplateResponse, e
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVerificationResponse parses an HTTP response from a CreateVerificationWithResponse call
+func ParseCreateVerificationResponse(rsp *http.Response) (*CreateVerificationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVerificationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Verification
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVerificationCheckResponse parses an HTTP response from a CreateVerificationCheckWithResponse call
+func ParseCreateVerificationCheckResponse(rsp *http.Response) (*CreateVerificationCheckResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVerificationCheckResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VerificationCheckResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
