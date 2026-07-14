@@ -4768,6 +4768,9 @@ type WhatsAppError struct {
 	// Description Human-readable explanation of the failure.
 	Description *string `json:"description,omitempty"`
 
+	// MetaErrorCode Raw error code from the WhatsApp Cloud API, when available, for low-level debugging.
+	MetaErrorCode *string `json:"meta_error_code,omitempty"`
+
 	// OccurredAt When the failure occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 }

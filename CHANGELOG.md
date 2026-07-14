@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.2
+
+- WhatsApp failure detail now carries `MetaErrorCode`, the raw error code from the WhatsApp Cloud API, and a fuller `Description` sourced from Meta's error details. Additive response fields; no breaking change.
+
 ## 0.7.1
 
 - Correct the error-code names shown in preview-feature field descriptions (regenerated from the API spec). Documentation only; no API or behavior change.
