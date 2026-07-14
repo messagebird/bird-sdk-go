@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+
+- Correct the error-code names shown in preview-feature field descriptions (regenerated from the API spec). Documentation only; no API or behavior change.
+
 ## 0.7.0
 
 - Add the Verify product: `Verify.Verifications.Create` sends a one-time passcode to a recipient and `Verify.Verifications.Check` validates the code they submit.

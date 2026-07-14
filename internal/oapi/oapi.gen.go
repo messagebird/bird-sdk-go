@@ -2214,7 +2214,7 @@ type EmailAttachment struct {
 	// Filename Filename shown to the recipient. Required.
 	Filename string `json:"filename"`
 
-	// Path Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `unsupported_feature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
+	// Path Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `UnsupportedEmailFeature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
 	Path *string `json:"path,omitempty"`
 }
 
@@ -2479,7 +2479,7 @@ type EmailMessageSendRequest struct {
 	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Cc *[]EmailAddressInput `json:"cc,omitempty"`
 
-	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
 	// From A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
@@ -2522,7 +2522,7 @@ type EmailMessageSendRequest struct {
 	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	To []EmailAddressInput `json:"to"`
 
-	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 unsupported_feature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
+	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
 	TopicId *string `json:"topic_id,omitempty"`
 
 	// TrackClicks Whether to track click events for this message.
@@ -4174,40 +4174,40 @@ type SMSMessageList struct {
 
 // SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category`) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
 type SMSMessageSendRequest struct {
-	// AudienceId Preview feature — audience-targeted sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// AudienceId Preview feature — audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	AudienceId *string `json:"audience_id,omitempty"`
 
-	// BroadcastId Preview feature — broadcast correlation. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// BroadcastId Preview feature — broadcast correlation. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	BroadcastId *string `json:"broadcast_id,omitempty"`
 
-	// CampaignId Preview feature — campaign correlation for analytics. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// CampaignId Preview feature — campaign correlation for analytics. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	CampaignId *string `json:"campaign_id,omitempty"`
 
 	// Category Content classification. Drives opt-out (STOP) policy, quiet-hours, and per-country compliance. Required on a free-text send; omit it on a template send, where the category is derived from the template.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
-	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
 	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (up to 11 characters, for example `MyBrand`), or a short code (5–6 digits). When omitted, Bird selects an eligible sender for you.
 	From *string `json:"from,omitempty"`
 
-	// MaxPricePerSegment Preview feature — per-segment price ceiling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// MaxPricePerSegment Preview feature — per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
 
-	// MediaUrls Preview feature — multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// MediaUrls Preview feature — multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
-	// MessagingProfileId Preview feature — sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// MessagingProfileId Preview feature — sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MessagingProfileId *string `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Personalization Preview feature — per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// Personalization Preview feature — per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	Personalization *map[string]interface{} `json:"personalization,omitempty"`
 
-	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Tags Structured `{name, value}` labels for filtering and analytics. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics by tag, and surface in webhook payloads. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
@@ -4222,13 +4222,13 @@ type SMSMessageSendRequest struct {
 	// To Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
 	To string `json:"to"`
 
-	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
 
-	// TrackClicks Preview feature — link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 unsupported_feature`.
+	// TrackClicks Preview feature — link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
 
-	// ValidityPeriod Preview feature — how long, in seconds (60–172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 unsupported_feature`.
+	// ValidityPeriod Preview feature — how long, in seconds (60–172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 	union          json.RawMessage
 }
