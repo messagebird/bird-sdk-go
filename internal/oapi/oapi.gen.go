@@ -5632,7 +5632,7 @@ type WebhookEndpointCreate struct {
 	// Description Human-readable label for this endpoint.
 	Description *string `json:"description,omitempty"`
 
-	// Events Concrete event types to subscribe to.
+	// Events Event types to subscribe to. May combine platform types with `realtime.*` types on one endpoint, all signed with the endpoint's single secret. Server-enforced (returns 422 otherwise): a `realtime.*` type requires the `realtime` object, and `realtime` requires at least one `realtime.*` type.
 	Events []WebhookEventType `json:"events"`
 
 	// Url HTTPS URL to deliver events to.
