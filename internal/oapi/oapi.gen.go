@@ -4499,7 +4499,7 @@ type Verification struct {
 	// Reason Why the verification reached its final state, or null while pending or once verified. Open enum — treat any unrecognized value as a future reason.
 	Reason *string `json:"reason,omitempty"`
 
-	// Status The verification's current state: pending (awaiting a valid passcode), verified, failed (too many incorrect attempts), or expired (the time window elapsed before a correct passcode).
+	// Status The verification's current state: pending (awaiting a valid passcode), verified (a correct passcode was submitted), failed (too many incorrect attempts), expired (the time window elapsed before a correct passcode), canceled (the verification was canceled before completing), or blocked (it was stopped by a fraud or abuse control).
 	Status *VerificationStatus `json:"status,omitempty"`
 
 	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
@@ -4510,7 +4510,7 @@ type Verification struct {
 	VerifiedAt *time.Time `json:"verified_at,omitempty"`
 }
 
-// VerificationStatus The verification's current state: pending (awaiting a valid passcode), verified, failed (too many incorrect attempts), or expired (the time window elapsed before a correct passcode).
+// VerificationStatus The verification's current state: pending (awaiting a valid passcode), verified (a correct passcode was submitted), failed (too many incorrect attempts), expired (the time window elapsed before a correct passcode), canceled (the verification was canceled before completing), or blocked (it was stopped by a fraud or abuse control).
 type VerificationStatus string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.

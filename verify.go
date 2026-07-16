@@ -107,9 +107,10 @@ func (p VerificationCheckParams) toWire() oapi.VerificationCheckRequest {
 	return body
 }
 
-// Check checks a passcode a recipient submitted. A wrong, expired, or already-used
-// code returns a result with Success false and a Reason — not an error. Retried
-// safely with a reused idempotency key.
+// Check checks a passcode a recipient submitted. A wrong or expired code returns a
+// result with Success false and a Reason — not an error; a verification already
+// resolved is no longer checkable and returns a 404 error. Retried safely with a
+// reused idempotency key.
 func (s *VerificationsService) Check(ctx context.Context, params VerificationCheckParams, opts ...option.RequestOption) (*VerificationCheckResult, error) {
 	cfg, err := s.client.resolve(opts)
 	if err != nil {
