@@ -147,6 +147,420 @@ func (e ContactUpsertResultItemStatus) Valid() bool {
 	}
 }
 
+// Defines values for DNSRecordPurpose.
+const (
+	Dkim       DNSRecordPurpose = "dkim"
+	Dmarc      DNSRecordPurpose = "dmarc"
+	InboundMx  DNSRecordPurpose = "inbound_mx"
+	ReturnPath DNSRecordPurpose = "return_path"
+	Tracking   DNSRecordPurpose = "tracking"
+)
+
+// Valid indicates whether the value is a known member of the DNSRecordPurpose enum.
+func (e DNSRecordPurpose) Valid() bool {
+	switch e {
+	case Dkim:
+		return true
+	case Dmarc:
+		return true
+	case InboundMx:
+		return true
+	case ReturnPath:
+		return true
+	case Tracking:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DNSRecordState.
+const (
+	DNSRecordStateActive     DNSRecordState = "active"
+	DNSRecordStateDeprecated DNSRecordState = "deprecated"
+	DNSRecordStatePending    DNSRecordState = "pending"
+)
+
+// Valid indicates whether the value is a known member of the DNSRecordState enum.
+func (e DNSRecordState) Valid() bool {
+	switch e {
+	case DNSRecordStateActive:
+		return true
+	case DNSRecordStateDeprecated:
+		return true
+	case DNSRecordStatePending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DNSRecordStatus.
+const (
+	DNSRecordStatusFailed   DNSRecordStatus = "failed"
+	DNSRecordStatusPending  DNSRecordStatus = "pending"
+	DNSRecordStatusVerified DNSRecordStatus = "verified"
+	DNSRecordStatusWarning  DNSRecordStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DNSRecordStatus enum.
+func (e DNSRecordStatus) Valid() bool {
+	switch e {
+	case DNSRecordStatusFailed:
+		return true
+	case DNSRecordStatusPending:
+		return true
+	case DNSRecordStatusVerified:
+		return true
+	case DNSRecordStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DNSRecordType.
+const (
+	CNAME DNSRecordType = "CNAME"
+	MX    DNSRecordType = "MX"
+	TXT   DNSRecordType = "TXT"
+)
+
+// Valid indicates whether the value is a known member of the DNSRecordType enum.
+func (e DNSRecordType) Valid() bool {
+	switch e {
+	case CNAME:
+		return true
+	case MX:
+		return true
+	case TXT:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainStatus.
+const (
+	DomainStatusFailed           DomainStatus = "failed"
+	DomainStatusPending          DomainStatus = "pending"
+	DomainStatusRejected         DomainStatus = "rejected"
+	DomainStatusTemporaryFailure DomainStatus = "temporary_failure"
+	DomainStatusVerified         DomainStatus = "verified"
+)
+
+// Valid indicates whether the value is a known member of the DomainStatus enum.
+func (e DomainStatus) Valid() bool {
+	switch e {
+	case DomainStatusFailed:
+		return true
+	case DomainStatusPending:
+		return true
+	case DomainStatusRejected:
+		return true
+	case DomainStatusTemporaryFailure:
+		return true
+	case DomainStatusVerified:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainVendor.
+const (
+	Azure        DomainVendor = "azure"
+	Cloudflare   DomainVendor = "cloudflare"
+	Digitalocean DomainVendor = "digitalocean"
+	Godaddy      DomainVendor = "godaddy"
+	Google       DomainVendor = "google"
+	Namecheap    DomainVendor = "namecheap"
+	Other        DomainVendor = "other"
+	Route53      DomainVendor = "route53"
+	Squarespace  DomainVendor = "squarespace"
+)
+
+// Valid indicates whether the value is a known member of the DomainVendor enum.
+func (e DomainVendor) Valid() bool {
+	switch e {
+	case Azure:
+		return true
+	case Cloudflare:
+		return true
+	case Digitalocean:
+		return true
+	case Godaddy:
+		return true
+	case Google:
+		return true
+	case Namecheap:
+		return true
+	case Other:
+		return true
+	case Route53:
+		return true
+	case Squarespace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilitiesDmarcStatus.
+const (
+	DomainCapabilitiesDmarcStatusFailed           DomainCapabilitiesDmarcStatus = "failed"
+	DomainCapabilitiesDmarcStatusNotConfigured    DomainCapabilitiesDmarcStatus = "not_configured"
+	DomainCapabilitiesDmarcStatusPending          DomainCapabilitiesDmarcStatus = "pending"
+	DomainCapabilitiesDmarcStatusTemporaryFailure DomainCapabilitiesDmarcStatus = "temporary_failure"
+	DomainCapabilitiesDmarcStatusVerified         DomainCapabilitiesDmarcStatus = "verified"
+	DomainCapabilitiesDmarcStatusWarning          DomainCapabilitiesDmarcStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilitiesDmarcStatus enum.
+func (e DomainCapabilitiesDmarcStatus) Valid() bool {
+	switch e {
+	case DomainCapabilitiesDmarcStatusFailed:
+		return true
+	case DomainCapabilitiesDmarcStatusNotConfigured:
+		return true
+	case DomainCapabilitiesDmarcStatusPending:
+		return true
+	case DomainCapabilitiesDmarcStatusTemporaryFailure:
+		return true
+	case DomainCapabilitiesDmarcStatusVerified:
+		return true
+	case DomainCapabilitiesDmarcStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilitiesInboundStatus.
+const (
+	DomainCapabilitiesInboundStatusFailed           DomainCapabilitiesInboundStatus = "failed"
+	DomainCapabilitiesInboundStatusNotConfigured    DomainCapabilitiesInboundStatus = "not_configured"
+	DomainCapabilitiesInboundStatusPending          DomainCapabilitiesInboundStatus = "pending"
+	DomainCapabilitiesInboundStatusTemporaryFailure DomainCapabilitiesInboundStatus = "temporary_failure"
+	DomainCapabilitiesInboundStatusVerified         DomainCapabilitiesInboundStatus = "verified"
+	DomainCapabilitiesInboundStatusWarning          DomainCapabilitiesInboundStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilitiesInboundStatus enum.
+func (e DomainCapabilitiesInboundStatus) Valid() bool {
+	switch e {
+	case DomainCapabilitiesInboundStatusFailed:
+		return true
+	case DomainCapabilitiesInboundStatusNotConfigured:
+		return true
+	case DomainCapabilitiesInboundStatusPending:
+		return true
+	case DomainCapabilitiesInboundStatusTemporaryFailure:
+		return true
+	case DomainCapabilitiesInboundStatusVerified:
+		return true
+	case DomainCapabilitiesInboundStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilitiesReturnPathStatus.
+const (
+	DomainCapabilitiesReturnPathStatusFailed           DomainCapabilitiesReturnPathStatus = "failed"
+	DomainCapabilitiesReturnPathStatusNotConfigured    DomainCapabilitiesReturnPathStatus = "not_configured"
+	DomainCapabilitiesReturnPathStatusPending          DomainCapabilitiesReturnPathStatus = "pending"
+	DomainCapabilitiesReturnPathStatusTemporaryFailure DomainCapabilitiesReturnPathStatus = "temporary_failure"
+	DomainCapabilitiesReturnPathStatusVerified         DomainCapabilitiesReturnPathStatus = "verified"
+	DomainCapabilitiesReturnPathStatusWarning          DomainCapabilitiesReturnPathStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilitiesReturnPathStatus enum.
+func (e DomainCapabilitiesReturnPathStatus) Valid() bool {
+	switch e {
+	case DomainCapabilitiesReturnPathStatusFailed:
+		return true
+	case DomainCapabilitiesReturnPathStatusNotConfigured:
+		return true
+	case DomainCapabilitiesReturnPathStatusPending:
+		return true
+	case DomainCapabilitiesReturnPathStatusTemporaryFailure:
+		return true
+	case DomainCapabilitiesReturnPathStatusVerified:
+		return true
+	case DomainCapabilitiesReturnPathStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilitiesSendingStatus.
+const (
+	DomainCapabilitiesSendingStatusFailed           DomainCapabilitiesSendingStatus = "failed"
+	DomainCapabilitiesSendingStatusNotConfigured    DomainCapabilitiesSendingStatus = "not_configured"
+	DomainCapabilitiesSendingStatusPending          DomainCapabilitiesSendingStatus = "pending"
+	DomainCapabilitiesSendingStatusTemporaryFailure DomainCapabilitiesSendingStatus = "temporary_failure"
+	DomainCapabilitiesSendingStatusVerified         DomainCapabilitiesSendingStatus = "verified"
+	DomainCapabilitiesSendingStatusWarning          DomainCapabilitiesSendingStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilitiesSendingStatus enum.
+func (e DomainCapabilitiesSendingStatus) Valid() bool {
+	switch e {
+	case DomainCapabilitiesSendingStatusFailed:
+		return true
+	case DomainCapabilitiesSendingStatusNotConfigured:
+		return true
+	case DomainCapabilitiesSendingStatusPending:
+		return true
+	case DomainCapabilitiesSendingStatusTemporaryFailure:
+		return true
+	case DomainCapabilitiesSendingStatusVerified:
+		return true
+	case DomainCapabilitiesSendingStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilitiesTrackingStatus.
+const (
+	DomainCapabilitiesTrackingStatusFailed           DomainCapabilitiesTrackingStatus = "failed"
+	DomainCapabilitiesTrackingStatusNotConfigured    DomainCapabilitiesTrackingStatus = "not_configured"
+	DomainCapabilitiesTrackingStatusPending          DomainCapabilitiesTrackingStatus = "pending"
+	DomainCapabilitiesTrackingStatusTemporaryFailure DomainCapabilitiesTrackingStatus = "temporary_failure"
+	DomainCapabilitiesTrackingStatusVerified         DomainCapabilitiesTrackingStatus = "verified"
+	DomainCapabilitiesTrackingStatusWarning          DomainCapabilitiesTrackingStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilitiesTrackingStatus enum.
+func (e DomainCapabilitiesTrackingStatus) Valid() bool {
+	switch e {
+	case DomainCapabilitiesTrackingStatusFailed:
+		return true
+	case DomainCapabilitiesTrackingStatusNotConfigured:
+		return true
+	case DomainCapabilitiesTrackingStatusPending:
+		return true
+	case DomainCapabilitiesTrackingStatusTemporaryFailure:
+		return true
+	case DomainCapabilitiesTrackingStatusVerified:
+		return true
+	case DomainCapabilitiesTrackingStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilityStatus.
+const (
+	DomainCapabilityStatusFailed           DomainCapabilityStatus = "failed"
+	DomainCapabilityStatusNotConfigured    DomainCapabilityStatus = "not_configured"
+	DomainCapabilityStatusPending          DomainCapabilityStatus = "pending"
+	DomainCapabilityStatusTemporaryFailure DomainCapabilityStatus = "temporary_failure"
+	DomainCapabilityStatusVerified         DomainCapabilityStatus = "verified"
+	DomainCapabilityStatusWarning          DomainCapabilityStatus = "warning"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilityStatus enum.
+func (e DomainCapabilityStatus) Valid() bool {
+	switch e {
+	case DomainCapabilityStatusFailed:
+		return true
+	case DomainCapabilityStatusNotConfigured:
+		return true
+	case DomainCapabilityStatusPending:
+		return true
+	case DomainCapabilityStatusTemporaryFailure:
+		return true
+	case DomainCapabilityStatusVerified:
+		return true
+	case DomainCapabilityStatusWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainCapabilityPendingStatus.
+const (
+	DomainCapabilityPendingStatusFailed           DomainCapabilityPendingStatus = "failed"
+	DomainCapabilityPendingStatusPending          DomainCapabilityPendingStatus = "pending"
+	DomainCapabilityPendingStatusTemporaryFailure DomainCapabilityPendingStatus = "temporary_failure"
+)
+
+// Valid indicates whether the value is a known member of the DomainCapabilityPendingStatus enum.
+func (e DomainCapabilityPendingStatus) Valid() bool {
+	switch e {
+	case DomainCapabilityPendingStatusFailed:
+		return true
+	case DomainCapabilityPendingStatusPending:
+		return true
+	case DomainCapabilityPendingStatusTemporaryFailure:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainDKIMMode.
+const (
+	DomainDKIMModeDelegated DomainDKIMMode = "delegated"
+	DomainDKIMModeTxt       DomainDKIMMode = "txt"
+)
+
+// Valid indicates whether the value is a known member of the DomainDKIMMode enum.
+func (e DomainDKIMMode) Valid() bool {
+	switch e {
+	case DomainDKIMModeDelegated:
+		return true
+	case DomainDKIMModeTxt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainDKIMConfigMode.
+const (
+	DomainDKIMConfigModeDelegated DomainDKIMConfigMode = "delegated"
+	DomainDKIMConfigModeTxt       DomainDKIMConfigMode = "txt"
+)
+
+// Valid indicates whether the value is a known member of the DomainDKIMConfigMode enum.
+func (e DomainDKIMConfigMode) Valid() bool {
+	switch e {
+	case DomainDKIMConfigModeDelegated:
+		return true
+	case DomainDKIMConfigModeTxt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DomainUpdateDkimMode.
+const (
+	Delegated DomainUpdateDkimMode = "delegated"
+	Txt       DomainUpdateDkimMode = "txt"
+)
+
+// Valid indicates whether the value is a known member of the DomainUpdateDkimMode enum.
+func (e DomainUpdateDkimMode) Valid() bool {
+	switch e {
+	case Delegated:
+		return true
+	case Txt:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailBounceType.
 const (
 	EmailBounceTypeAdmin        EmailBounceType = "admin"
@@ -1920,7 +2334,9 @@ type AudienceList struct {
 
 // AudienceMember defines model for AudienceMember.
 type AudienceMember struct {
-	Contact Contact `json:"contact"`
+	// Audiences The audiences this contact belongs to, including the one being listed, most-recently-joined first.
+	Audiences *[]AudienceRef `json:"audiences,omitempty"`
+	Contact   Contact        `json:"contact"`
 
 	// JoinedAt When this contact joined the audience. Members are listed in join order, most recent first.
 	JoinedAt *time.Time `json:"joined_at,omitempty"`
@@ -1941,6 +2357,14 @@ type AudienceMemberList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// AudienceRef A compact reference to an audience -- its ID and display name.
+type AudienceRef struct {
+	Id AudienceID `json:"id"`
+
+	// Name The audience's display name.
+	Name string `json:"name"`
+}
+
 // AudienceUpdateRequest defines model for AudienceUpdateRequest.
 type AudienceUpdateRequest struct {
 	// Description Longer description of who this audience is. Set to null to clear.
@@ -1952,7 +2376,9 @@ type AudienceUpdateRequest struct {
 
 // Contact defines model for Contact.
 type Contact struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Channels Channels this contact can be reached on, derived from the identifiers it has. A contact with an email address includes `email`. More values are added as a contact gains identifiers for other channels.
+	Channels  *[]ContactChannel `json:"channels,omitempty"`
+	CreatedAt *time.Time        `json:"created_at,omitempty"`
 
 	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, or boolean matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
@@ -1971,6 +2397,9 @@ type Contact struct {
 	LastName  *string    `json:"last_name,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
+
+// ContactChannel A channel a contact can be reached on. Open enum — `email` is present when the contact has an email address; more values (`sms`, `whatsapp`, `voice`) are added as contacts gain identifiers for other channels. Treat any unrecognized value as a future channel rather than an error. Slugs match `ChannelSlug`.
+type ContactChannel = string
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
@@ -2134,6 +2563,83 @@ type ContactUpsertResultItemStatus string
 // CurrencyCode ISO 4217 three-letter currency code.
 type CurrencyCode = string
 
+// DNSRecord defines model for DNSRecord.
+type DNSRecord struct {
+	// Error Human-readable detail for a failed check on this record — what was found in DNS and why it did not match. Null when the record is verified or not yet checked.
+	Error *string `json:"error,omitempty"`
+
+	// Host The fully qualified hostname for this record (e.g. `bird1._domainkey.mail.acme.com`).
+	Host string `json:"host"`
+
+	// Name The record name — the part you enter in your DNS provider's "Name" or "Host" field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
+	Name string `json:"name"`
+
+	// Optional Whether this record can be skipped. Optional records enable extra functionality (e.g. tracking) but are not required for sending.
+	Optional *bool `json:"optional,omitempty"`
+
+	// Purpose What this record is for.
+	// - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
+	//   present wherever inbound is available, as a regional reference,
+	//   regardless of whether receiving is enabled; publishing it does not
+	//   enable receiving on its own — see `DomainUpdate.inbound`.
+	Purpose DNSRecordPurpose `json:"purpose"`
+
+	// SafeToRemove Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. Null on `active` and `pending` records.
+	SafeToRemove *bool `json:"safe_to_remove,omitempty"`
+
+	// State Lifecycle state of this record.
+	// - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+	//   publish it to complete the change.
+	// - `deprecated` — the record belonged to a previous configuration.
+	//   Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
+	//   previously sent tracked links may still resolve through it.
+	State *DNSRecordState `json:"state,omitempty"`
+
+	// Status Verification status of this record's most recent DNS check.
+	// - `pending` — the record has not verified yet; publish it (or correct it)
+	//   and it will verify on the next check.
+	// - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+	//   matched, but it is still within the grace period. Sending is not yet
+	//   affected; fix the record before the grace period ends to avoid it
+	//   being blocked.
+	// - `failed` — the record verified before but later checks kept failing
+	//   past the grace period; the configuration has regressed and needs
+	//   attention.
+	Status *DNSRecordStatus `json:"status,omitempty"`
+	Type   DNSRecordType    `json:"type"`
+	Value  string           `json:"value"`
+}
+
+// DNSRecordPurpose What this record is for.
+//   - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
+//     present wherever inbound is available, as a regional reference,
+//     regardless of whether receiving is enabled; publishing it does not
+//     enable receiving on its own — see `DomainUpdate.inbound`.
+type DNSRecordPurpose string
+
+// DNSRecordState Lifecycle state of this record.
+//   - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+//     publish it to complete the change.
+//   - `deprecated` — the record belonged to a previous configuration.
+//     Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
+//     previously sent tracked links may still resolve through it.
+type DNSRecordState string
+
+// DNSRecordStatus Verification status of this record's most recent DNS check.
+//   - `pending` — the record has not verified yet; publish it (or correct it)
+//     and it will verify on the next check.
+//   - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+//     matched, but it is still within the grace period. Sending is not yet
+//     affected; fix the record before the grace period ends to avoid it
+//     being blocked.
+//   - `failed` — the record verified before but later checks kept failing
+//     past the grace period; the configuration has regressed and needs
+//     attention.
+type DNSRecordStatus string
+
+// DNSRecordType defines model for DNSRecord.Type.
+type DNSRecordType string
+
 // DocsSearchResponse defines model for DocsSearchResponse.
 type DocsSearchResponse struct {
 	// Locale The documentation locale the results were drawn from.
@@ -2176,8 +2682,492 @@ type DocsSearchResult struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// Domain defines model for Domain.
+type Domain struct {
+	Capabilities DomainCapabilities `json:"capabilities"`
+
+	// CreatedAt When the domain was added.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Dkim Active DKIM signing configuration for the domain.
+	Dkim DomainDKIM `json:"dkim"`
+
+	// DnsRecords The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off (`capabilities.inbound.status` is `not_configured`) — their presence alone does not mean receiving is enabled (see `DomainUpdate.inbound`).
+	DnsRecords *[]DNSRecord `json:"dns_records,omitempty"`
+
+	// Domain The sending domain name. Set at creation and immutable.
+	Domain *string  `json:"domain,omitempty"`
+	Id     DomainID `json:"id"`
+
+	// LastCheckedAt When Bird last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification — your manual refresh and the periodic automatic re-checks alike. Null if the domain has never been checked.
+	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
+
+	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
+	Settings DomainSettings `json:"settings"`
+
+	// Status Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
+	// - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+	//   value (for example a stale record from an earlier setup), or a
+	//   previously verified record was removed. Correct the record to
+	//   recover.
+	// - `temporary_failure` — DNS resolution failed transiently (timeout,
+	//   unreachable nameserver). Verification is queued for retry on a 72h
+	//   cadence; customer should not edit DNS records before the retry runs.
+	// - `rejected` — the domain was refused for policy reasons and cannot be
+	//   used for sending. Contact support if you believe this is an error.
+	Status *DomainStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the domain's configuration was last changed (such as a settings or return-path change). Verification re-checks do not change this; see `last_checked_at` and `verified_at` for verification timing.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Vendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+	Vendor *DomainVendor `json:"vendor,omitempty"`
+
+	// VerifiedAt When the domain's ownership was confirmed — the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. Null if the domain has never been verified.
+	VerifiedAt  *time.Time  `json:"verified_at,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// DomainStatus Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
+//   - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+//     value (for example a stale record from an earlier setup), or a
+//     previously verified record was removed. Correct the record to
+//     recover.
+//   - `temporary_failure` — DNS resolution failed transiently (timeout,
+//     unreachable nameserver). Verification is queued for retry on a 72h
+//     cadence; customer should not edit DNS records before the retry runs.
+//   - `rejected` — the domain was refused for policy reasons and cannot be
+//     used for sending. Contact support if you believe this is an error.
+type DomainStatus string
+
+// DomainVendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+type DomainVendor string
+
+// DomainCapabilities defines model for DomainCapabilities.
+type DomainCapabilities struct {
+	Dmarc struct {
+		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+		Domain *string `json:"domain,omitempty"`
+
+		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+		Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+		//   by another organization.
+		Reason *string `json:"reason,omitempty"`
+
+		// Status Capability verification status.
+		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+		//   expected values.
+		// - `warning` — a record for this capability verified before and a recent
+		//   check no longer matches, but it is still within the grace period.
+		//   Sending is not yet affected; fix it before the grace period ends.
+		// - `failed` — DNS records resolved but at least one value is wrong.
+		//   Update your DNS to recover.
+		// - `temporary_failure` — DNS lookup failed transiently. Verification is
+		//   queued for retry; don't change DNS records yet.
+		// - `not_configured` — the capability is not set up on this domain
+		//   (e.g. no tracking domain configured).
+		Status *DomainCapabilitiesDmarcStatus `json:"status,omitempty"`
+	} `json:"dmarc"`
+	Inbound *struct {
+		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+		Domain *string `json:"domain,omitempty"`
+
+		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+		Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+		//   by another organization.
+		Reason *string `json:"reason,omitempty"`
+
+		// Status Capability verification status.
+		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+		//   expected values.
+		// - `warning` — a record for this capability verified before and a recent
+		//   check no longer matches, but it is still within the grace period.
+		//   Sending is not yet affected; fix it before the grace period ends.
+		// - `failed` — DNS records resolved but at least one value is wrong.
+		//   Update your DNS to recover.
+		// - `temporary_failure` — DNS lookup failed transiently. Verification is
+		//   queued for retry; don't change DNS records yet.
+		// - `not_configured` — the capability is not set up on this domain
+		//   (e.g. no tracking domain configured).
+		Status *DomainCapabilitiesInboundStatus `json:"status,omitempty"`
+	} `json:"inbound,omitempty"`
+	ReturnPath struct {
+		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+		Domain *string `json:"domain,omitempty"`
+
+		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+		Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+		//   by another organization.
+		Reason *string `json:"reason,omitempty"`
+
+		// Status Capability verification status.
+		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+		//   expected values.
+		// - `warning` — a record for this capability verified before and a recent
+		//   check no longer matches, but it is still within the grace period.
+		//   Sending is not yet affected; fix it before the grace period ends.
+		// - `failed` — DNS records resolved but at least one value is wrong.
+		//   Update your DNS to recover.
+		// - `temporary_failure` — DNS lookup failed transiently. Verification is
+		//   queued for retry; don't change DNS records yet.
+		// - `not_configured` — the capability is not set up on this domain
+		//   (e.g. no tracking domain configured).
+		Status *DomainCapabilitiesReturnPathStatus `json:"status,omitempty"`
+	} `json:"return_path"`
+	Sending struct {
+		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+		Domain *string `json:"domain,omitempty"`
+
+		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+		Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+		//   by another organization.
+		Reason *string `json:"reason,omitempty"`
+
+		// Status Capability verification status.
+		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+		//   expected values.
+		// - `warning` — a record for this capability verified before and a recent
+		//   check no longer matches, but it is still within the grace period.
+		//   Sending is not yet affected; fix it before the grace period ends.
+		// - `failed` — DNS records resolved but at least one value is wrong.
+		//   Update your DNS to recover.
+		// - `temporary_failure` — DNS lookup failed transiently. Verification is
+		//   queued for retry; don't change DNS records yet.
+		// - `not_configured` — the capability is not set up on this domain
+		//   (e.g. no tracking domain configured).
+		Status *DomainCapabilitiesSendingStatus `json:"status,omitempty"`
+	} `json:"sending"`
+	Tracking struct {
+		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+		Domain *string `json:"domain,omitempty"`
+
+		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+		Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+		//   by another organization.
+		Reason *string `json:"reason,omitempty"`
+
+		// Status Capability verification status.
+		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+		//   expected values.
+		// - `warning` — a record for this capability verified before and a recent
+		//   check no longer matches, but it is still within the grace period.
+		//   Sending is not yet affected; fix it before the grace period ends.
+		// - `failed` — DNS records resolved but at least one value is wrong.
+		//   Update your DNS to recover.
+		// - `temporary_failure` — DNS lookup failed transiently. Verification is
+		//   queued for retry; don't change DNS records yet.
+		// - `not_configured` — the capability is not set up on this domain
+		//   (e.g. no tracking domain configured).
+		Status *DomainCapabilitiesTrackingStatus `json:"status,omitempty"`
+	} `json:"tracking"`
+}
+
+// DomainCapabilitiesDmarcStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilitiesDmarcStatus string
+
+// DomainCapabilitiesInboundStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilitiesInboundStatus string
+
+// DomainCapabilitiesReturnPathStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilitiesReturnPathStatus string
+
+// DomainCapabilitiesSendingStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilitiesSendingStatus string
+
+// DomainCapabilitiesTrackingStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilitiesTrackingStatus string
+
+// DomainCapability defines model for DomainCapability.
+type DomainCapability struct {
+	// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+	Domain *string `json:"domain,omitempty"`
+
+	// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+	Pending *DomainCapabilityPending `json:"pending,omitempty"`
+
+	// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
+	// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+	//   by another organization.
+	Reason *string `json:"reason,omitempty"`
+
+	// Status Capability verification status.
+	// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+	//   expected values.
+	// - `warning` — a record for this capability verified before and a recent
+	//   check no longer matches, but it is still within the grace period.
+	//   Sending is not yet affected; fix it before the grace period ends.
+	// - `failed` — DNS records resolved but at least one value is wrong.
+	//   Update your DNS to recover.
+	// - `temporary_failure` — DNS lookup failed transiently. Verification is
+	//   queued for retry; don't change DNS records yet.
+	// - `not_configured` — the capability is not set up on this domain
+	//   (e.g. no tracking domain configured).
+	Status *DomainCapabilityStatus `json:"status,omitempty"`
+}
+
+// DomainCapabilityStatus Capability verification status.
+//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//     expected values.
+//   - `warning` — a record for this capability verified before and a recent
+//     check no longer matches, but it is still within the grace period.
+//     Sending is not yet affected; fix it before the grace period ends.
+//   - `failed` — DNS records resolved but at least one value is wrong.
+//     Update your DNS to recover.
+//   - `temporary_failure` — DNS lookup failed transiently. Verification is
+//     queued for retry; don't change DNS records yet.
+//   - `not_configured` — the capability is not set up on this domain
+//     (e.g. no tracking domain configured).
+type DomainCapabilityStatus string
+
+// DomainCapabilityPending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
+type DomainCapabilityPending struct {
+	// Domain Hostname the capability will use once the staged change verifies.
+	Domain *string `json:"domain,omitempty"`
+
+	// Status Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+	Status *DomainCapabilityPendingStatus `json:"status,omitempty"`
+}
+
+// DomainCapabilityPendingStatus Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+type DomainCapabilityPendingStatus string
+
+// DomainCreate defines model for DomainCreate.
+type DomainCreate struct {
+	// Dkim DKIM signing configuration.
+	Dkim *DomainDKIMConfig `json:"dkim,omitempty"`
+
+	// Domain The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+	Domain string `json:"domain"`
+
+	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+	ReturnPath *DomainReturnPathConfig `json:"return_path,omitempty"`
+
+	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
+	Settings *DomainSettings `json:"settings,omitempty"`
+
+	// Tracking Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+	Tracking *DomainTrackingConfig `json:"tracking,omitempty"`
+}
+
+// DomainDKIM Active DKIM signing configuration for the domain.
+type DomainDKIM struct {
+	// KeySize RSA key size in bits.
+	KeySize *int `json:"key_size,omitempty"`
+
+	// Mode How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+	Mode *DomainDKIMMode `json:"mode,omitempty"`
+
+	// Selector DKIM selector used to sign mail from this domain.
+	Selector *string `json:"selector,omitempty"`
+}
+
+// DomainDKIMMode How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+type DomainDKIMMode string
+
+// DomainDKIMConfig DKIM signing configuration.
+type DomainDKIMConfig struct {
+	// Mode How the DKIM public key is published in your DNS.
+	// - `txt` — you publish the DKIM public key as a TXT record. Key
+	//   rotation requires updating the record.
+	// - `delegated` — preview, currently unavailable; supplying it returns
+	//   `422`. When available, you publish a single CNAME and Bird hosts
+	//   and rotates the key with no further DNS changes on your side.
+	Mode *DomainDKIMConfigMode `json:"mode,omitempty"`
+}
+
+// DomainDKIMConfigMode How the DKIM public key is published in your DNS.
+//   - `txt` — you publish the DKIM public key as a TXT record. Key
+//     rotation requires updating the record.
+//   - `delegated` — preview, currently unavailable; supplying it returns
+//     `422`. When available, you publish a single CNAME and Bird hosts
+//     and rotates the key with no further DNS changes on your side.
+type DomainDKIMConfigMode string
+
+// DomainEvent defines model for DomainEvent.
+type DomainEvent struct {
+	// CreatedAt When the event was recorded.
+	CreatedAt time.Time     `json:"created_at"`
+	Id        DomainEventID `json:"id"`
+
+	// Metadata Structured details for the event.
+	Metadata map[string]interface{} `json:"metadata"`
+
+	// Summary Human-readable summary of what changed.
+	Summary string `json:"summary"`
+
+	// Type Type of domain event. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	Type string `json:"type"`
+}
+
+// DomainEventID defines model for DomainEventID.
+type DomainEventID = string
+
+// DomainEventList defines model for DomainEventList.
+type DomainEventList struct {
+	// Data Page of domain events, newest first by default.
+	Data []DomainEvent `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
 // DomainID defines model for DomainID.
 type DomainID = string
+
+// DomainInboundConfig Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+type DomainInboundConfig struct {
+	// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Disabling tears receiving down and removes the MX records from `dns_records`; this is immediate in the normal case, and if a step needs retrying the capability clears as soon as teardown finishes.
+	Enabled bool `json:"enabled"`
+}
+
+// DomainList defines model for DomainList.
+type DomainList struct {
+	Data []Domain `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// DomainReturnPathConfig Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+type DomainReturnPathConfig struct {
+	// Name Name part to use for the return-path domain. For example, `send` on `mail.acme.com` becomes `send.mail.acme.com`. Defaults to `send` when omitted at creation.
+	Name string `json:"name"`
+}
+
+// DomainSettings Per-domain behavior toggles. Changes apply immediately to new sends.
+type DomainSettings struct {
+	// ClickTracking Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+	ClickTracking *bool `json:"click_tracking,omitempty"`
+
+	// OpenTracking Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+	OpenTracking *bool `json:"open_tracking,omitempty"`
+}
+
+// DomainTrackingConfig Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+type DomainTrackingConfig struct {
+	// Name Name part to use for branded open and click tracking URLs. For example, `links` on `mail.acme.com` becomes `links.mail.acme.com`.
+	Name string `json:"name"`
+}
+
+// DomainUpdate Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged: the current configuration keeps serving until the new one's DNS records verify, then the change is promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
+type DomainUpdate struct {
+	Dkim *struct {
+		// Mode How the DKIM public key is published in your DNS.
+		// - `txt` — you publish the DKIM public key as a TXT record. Key
+		//   rotation requires updating the record.
+		// - `delegated` — preview, currently unavailable; supplying it returns
+		//   `422`. When available, you publish a single CNAME and Bird hosts
+		//   and rotates the key with no further DNS changes on your side.
+		Mode *DomainUpdateDkimMode `json:"mode,omitempty"`
+	} `json:"dkim,omitempty"`
+	Inbound *struct {
+		// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Disabling tears receiving down and removes the MX records from `dns_records`; this is immediate in the normal case, and if a step needs retrying the capability clears as soon as teardown finishes.
+		Enabled bool `json:"enabled"`
+	} `json:"inbound,omitempty"`
+	ReturnPath *struct {
+		// Name Name part to use for the return-path domain. For example, `send` on `mail.acme.com` becomes `send.mail.acme.com`. Defaults to `send` when omitted at creation.
+		Name string `json:"name"`
+	} `json:"return_path,omitempty"`
+
+	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
+	Settings *DomainSettings `json:"settings,omitempty"`
+
+	// Tracking Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+	Tracking *DomainTrackingConfig `json:"tracking,omitempty"`
+}
+
+// DomainUpdateDkimMode How the DKIM public key is published in your DNS.
+//   - `txt` — you publish the DKIM public key as a TXT record. Key
+//     rotation requires updating the record.
+//   - `delegated` — preview, currently unavailable; supplying it returns
+//     `422`. When available, you publish a single CNAME and Bird hosts
+//     and rotates the key with no further DNS changes on your side.
+type DomainUpdateDkimMode string
 
 // EmailAddress An email address with an optional display name.
 type EmailAddress struct {
@@ -4363,6 +5353,12 @@ type SendWhatsAppMessageTemplate struct {
 	Name TemplateName `json:"name"`
 }
 
+// ShareDomainDnsRequest defines model for ShareDomainDnsRequest.
+type ShareDomainDnsRequest struct {
+	// Emails Email recipients to send the domain's current DNS records to.
+	Emails []openapi_types.Email `json:"emails"`
+}
+
 // Suppression defines model for Suppression.
 type Suppression struct {
 	// AppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences.
@@ -5152,6 +6148,9 @@ type UpdateAudienceParams struct {
 
 // ListAudienceContactsParams defines parameters for ListAudienceContacts.
 type ListAudienceContactsParams struct {
+	// Search Case-insensitive substring match against the member's email address.
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
 
@@ -8489,6 +9488,18 @@ func NewListAudienceContactsRequest(server string, audienceId AudienceID, params
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.Limit != nil {
 

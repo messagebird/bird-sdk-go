@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	version = "0.7.3"
+	version = "0.7.4"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
