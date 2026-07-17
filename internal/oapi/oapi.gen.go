@@ -2654,7 +2654,7 @@ type DocsSearchResponse struct {
 
 // DocsSearchResult defines model for DocsSearchResult.
 type DocsSearchResult struct {
-	// DocUrl Relative path to the page, without the section anchor. Results from the same page share it, so it can be used to group them.
+	// DocUrl Absolute URL of the page, without the section anchor. Results from the same page share it, so it can be used to group them.
 	DocUrl *string `json:"doc_url,omitempty"`
 
 	// Highlights The passages of the section that match the query, longer than the snippet. Returned only when contents is highlights.
@@ -2678,7 +2678,7 @@ type DocsSearchResult struct {
 	// TokenEstimate Approximate token count of the full page returned by markdown_url, to budget reading it. Results from the same page share it.
 	TokenEstimate *int `json:"token_estimate,omitempty"`
 
-	// Url Relative path to the matching section, including the heading anchor.
+	// Url Absolute URL of the matching section, including the heading anchor.
 	Url *string `json:"url,omitempty"`
 }
 
