@@ -5176,7 +5176,7 @@ type InboundAddressList struct {
 
 // InboundAddressUpdate Fields to update on an inbound address.
 type InboundAddressUpdate struct {
-	// Label Your own label for this address. Pass null to clear it.
+	// Label Your own label for this address.
 	Label *string `json:"label,omitempty"`
 }
 
