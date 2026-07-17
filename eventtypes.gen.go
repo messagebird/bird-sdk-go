@@ -42,4 +42,9 @@ const (
 	EventTypeSmsRejected                  WebhookEventType = "sms.rejected"
 	EventTypeSmsSent                      WebhookEventType = "sms.sent"
 	EventTypeSmsUndelivered               WebhookEventType = "sms.undelivered"
+	EventTypeWhatsappAccepted             WebhookEventType = "whatsapp.accepted"
+	EventTypeWhatsappDelivered            WebhookEventType = "whatsapp.delivered"
+	EventTypeWhatsappFailed               WebhookEventType = "whatsapp.failed"
+	EventTypeWhatsappRead                 WebhookEventType = "whatsapp.read"
+	EventTypeWhatsappSent                 WebhookEventType = "whatsapp.sent"
 )

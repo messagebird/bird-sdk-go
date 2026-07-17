@@ -1500,6 +1500,117 @@ func (e EventSMSUndeliveredType) Valid() bool {
 	}
 }
 
+// Defines values for EventWhatsAppAcceptedType.
+const (
+	WhatsappAccepted EventWhatsAppAcceptedType = "whatsapp.accepted"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppAcceptedType enum.
+func (e EventWhatsAppAcceptedType) Valid() bool {
+	switch e {
+	case WhatsappAccepted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppBaseDirection.
+const (
+	EventWhatsAppBaseDirectionInbound  EventWhatsAppBaseDirection = "inbound"
+	EventWhatsAppBaseDirectionOutbound EventWhatsAppBaseDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppBaseDirection enum.
+func (e EventWhatsAppBaseDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppBaseDirectionInbound:
+		return true
+	case EventWhatsAppBaseDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppDeliveredType.
+const (
+	WhatsappDelivered EventWhatsAppDeliveredType = "whatsapp.delivered"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppDeliveredType enum.
+func (e EventWhatsAppDeliveredType) Valid() bool {
+	switch e {
+	case WhatsappDelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppFailedType.
+const (
+	WhatsappFailed EventWhatsAppFailedType = "whatsapp.failed"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppFailedType enum.
+func (e EventWhatsAppFailedType) Valid() bool {
+	switch e {
+	case WhatsappFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppFailedDataDirection.
+const (
+	EventWhatsAppFailedDataDirectionInbound  EventWhatsAppFailedDataDirection = "inbound"
+	EventWhatsAppFailedDataDirectionOutbound EventWhatsAppFailedDataDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppFailedDataDirection enum.
+func (e EventWhatsAppFailedDataDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppFailedDataDirectionInbound:
+		return true
+	case EventWhatsAppFailedDataDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppReadType.
+const (
+	WhatsappRead EventWhatsAppReadType = "whatsapp.read"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppReadType enum.
+func (e EventWhatsAppReadType) Valid() bool {
+	switch e {
+	case WhatsappRead:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppSentType.
+const (
+	WhatsappSent EventWhatsAppSentType = "whatsapp.sent"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppSentType enum.
+func (e EventWhatsAppSentType) Valid() bool {
+	switch e {
+	case WhatsappSent:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for InboundRouteAction.
 const (
 	InboundRouteActionDeliverToMailbox InboundRouteAction = "deliver_to_mailbox"
@@ -4804,6 +4915,142 @@ type EventSMSUndeliveredData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventWhatsAppAccepted Bird accepted and charged the send request.
+type EventWhatsAppAccepted struct {
+	// Data Payload of the whatsapp.accepted event.
+	Data EventWhatsAppAcceptedData `json:"data"`
+
+	// Timestamp Time Bird accepted and charged the send request.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppAcceptedType `json:"type"`
+}
+
+// EventWhatsAppAcceptedType Event type.
+type EventWhatsAppAcceptedType string
+
+// EventWhatsAppAcceptedData Identity fields shared by every WhatsApp lifecycle event payload.
+type EventWhatsAppAcceptedData = EventWhatsAppBase
+
+// EventWhatsAppBase Identity fields shared by every WhatsApp lifecycle event payload.
+type EventWhatsAppBase struct {
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppBaseDirection `json:"direction"`
+
+	// From Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	From WhatsAppAddress `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppBaseDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppBaseDirection string
+
+// EventWhatsAppDelivered The message was delivered to the recipient's device.
+type EventWhatsAppDelivered struct {
+	// Data Payload of the whatsapp.delivered event.
+	Data EventWhatsAppDeliveredData `json:"data"`
+
+	// Timestamp Time the message was delivered to the recipient's device.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppDeliveredType `json:"type"`
+}
+
+// EventWhatsAppDeliveredType Event type.
+type EventWhatsAppDeliveredType string
+
+// EventWhatsAppDeliveredData Identity fields shared by every WhatsApp lifecycle event payload.
+type EventWhatsAppDeliveredData = EventWhatsAppBase
+
+// EventWhatsAppFailed The message terminally failed and will not be delivered.
+type EventWhatsAppFailed struct {
+	// Data Payload of the whatsapp.failed event.
+	Data EventWhatsAppFailedData `json:"data"`
+
+	// Timestamp Time the failure was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppFailedType `json:"type"`
+}
+
+// EventWhatsAppFailedType Event type.
+type EventWhatsAppFailedType string
+
+// EventWhatsAppFailedData defines model for EventWhatsAppFailedData.
+type EventWhatsAppFailedData struct {
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppFailedDataDirection `json:"direction"`
+
+	// Error Failure detail for a message that could not be delivered. Null when there is no failure.
+	Error *WhatsAppError `json:"error,omitempty"`
+
+	// From Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	From WhatsAppAddress `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppFailedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppFailedDataDirection string
+
+// EventWhatsAppRead The recipient read the message.
+type EventWhatsAppRead struct {
+	// Data Payload of the whatsapp.read event.
+	Data EventWhatsAppReadData `json:"data"`
+
+	// Timestamp Time the recipient read the message.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppReadType `json:"type"`
+}
+
+// EventWhatsAppReadType Event type.
+type EventWhatsAppReadType string
+
+// EventWhatsAppReadData Identity fields shared by every WhatsApp lifecycle event payload.
+type EventWhatsAppReadData = EventWhatsAppBase
+
+// EventWhatsAppSent Bird handed the message to Meta for delivery.
+type EventWhatsAppSent struct {
+	// Data Payload of the whatsapp.sent event.
+	Data EventWhatsAppSentData `json:"data"`
+
+	// Timestamp Time Bird handed the message to Meta for delivery.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppSentType `json:"type"`
+}
+
+// EventWhatsAppSentType Event type.
+type EventWhatsAppSentType string
+
+// EventWhatsAppSentData Identity fields shared by every WhatsApp lifecycle event payload.
+type EventWhatsAppSentData = EventWhatsAppBase
+
 // InboundAddress A Bird-minted email address that receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address and Bird parses every message it receives into a received email.
 type InboundAddress struct {
 	// Address The address to forward your mailbox to. Minted by Bird when the inbound address is created.
@@ -5791,6 +6038,15 @@ type WebhookTestResponse struct {
 
 // WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a 2xx status; `failed` means it returned a non-2xx status or could not be reached.
 type WebhookTestResponseStatus string
+
+// WhatsAppAddress Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+type WhatsAppAddress struct {
+	// Bsuid Business-scoped user ID — Meta's identifier for the WhatsApp user. Present only on the WhatsApp-user side of the message.
+	Bsuid *string `json:"bsuid,omitempty"`
+
+	// PhoneNumber Phone number in E.164 format, when known.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+}
 
 // WhatsAppError Failure detail for a message that could not be delivered. Null when there is no failure.
 type WhatsAppError struct {
@@ -8318,6 +8574,146 @@ func (t *WebhookEvent) MergeEventSMSUndelivered(v EventSMSUndelivered) error {
 	return err
 }
 
+// AsEventWhatsAppAccepted returns the union data inside the WebhookEvent as a EventWhatsAppAccepted
+func (t WebhookEvent) AsEventWhatsAppAccepted() (EventWhatsAppAccepted, error) {
+	var body EventWhatsAppAccepted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppAccepted overwrites any union data inside the WebhookEvent as the provided EventWhatsAppAccepted
+func (t *WebhookEvent) FromEventWhatsAppAccepted(v EventWhatsAppAccepted) error {
+	v.Type = "whatsapp.accepted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppAccepted performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppAccepted
+func (t *WebhookEvent) MergeEventWhatsAppAccepted(v EventWhatsAppAccepted) error {
+	v.Type = "whatsapp.accepted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventWhatsAppDelivered returns the union data inside the WebhookEvent as a EventWhatsAppDelivered
+func (t WebhookEvent) AsEventWhatsAppDelivered() (EventWhatsAppDelivered, error) {
+	var body EventWhatsAppDelivered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppDelivered overwrites any union data inside the WebhookEvent as the provided EventWhatsAppDelivered
+func (t *WebhookEvent) FromEventWhatsAppDelivered(v EventWhatsAppDelivered) error {
+	v.Type = "whatsapp.delivered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppDelivered performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppDelivered
+func (t *WebhookEvent) MergeEventWhatsAppDelivered(v EventWhatsAppDelivered) error {
+	v.Type = "whatsapp.delivered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventWhatsAppFailed returns the union data inside the WebhookEvent as a EventWhatsAppFailed
+func (t WebhookEvent) AsEventWhatsAppFailed() (EventWhatsAppFailed, error) {
+	var body EventWhatsAppFailed
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppFailed overwrites any union data inside the WebhookEvent as the provided EventWhatsAppFailed
+func (t *WebhookEvent) FromEventWhatsAppFailed(v EventWhatsAppFailed) error {
+	v.Type = "whatsapp.failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppFailed performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppFailed
+func (t *WebhookEvent) MergeEventWhatsAppFailed(v EventWhatsAppFailed) error {
+	v.Type = "whatsapp.failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventWhatsAppRead returns the union data inside the WebhookEvent as a EventWhatsAppRead
+func (t WebhookEvent) AsEventWhatsAppRead() (EventWhatsAppRead, error) {
+	var body EventWhatsAppRead
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppRead overwrites any union data inside the WebhookEvent as the provided EventWhatsAppRead
+func (t *WebhookEvent) FromEventWhatsAppRead(v EventWhatsAppRead) error {
+	v.Type = "whatsapp.read"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppRead performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppRead
+func (t *WebhookEvent) MergeEventWhatsAppRead(v EventWhatsAppRead) error {
+	v.Type = "whatsapp.read"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventWhatsAppSent returns the union data inside the WebhookEvent as a EventWhatsAppSent
+func (t WebhookEvent) AsEventWhatsAppSent() (EventWhatsAppSent, error) {
+	var body EventWhatsAppSent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppSent overwrites any union data inside the WebhookEvent as the provided EventWhatsAppSent
+func (t *WebhookEvent) FromEventWhatsAppSent(v EventWhatsAppSent) error {
+	v.Type = "whatsapp.sent"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppSent performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppSent
+func (t *WebhookEvent) MergeEventWhatsAppSent(v EventWhatsAppSent) error {
+	v.Type = "whatsapp.sent"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t WebhookEvent) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -8394,6 +8790,16 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSSent()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
+	case "whatsapp.accepted":
+		return t.AsEventWhatsAppAccepted()
+	case "whatsapp.delivered":
+		return t.AsEventWhatsAppDelivered()
+	case "whatsapp.failed":
+		return t.AsEventWhatsAppFailed()
+	case "whatsapp.read":
+		return t.AsEventWhatsAppRead()
+	case "whatsapp.sent":
+		return t.AsEventWhatsAppSent()
 	default:
 		return nil, errors.New("unknown discriminator value: " + discriminator)
 	}
