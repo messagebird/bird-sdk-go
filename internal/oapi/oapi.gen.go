@@ -1188,6 +1188,30 @@ func (e EventEmailMailboxMessageReceivedType) Valid() bool {
 	}
 }
 
+// Defines values for EventEmailMailboxMessageReceivedDataAuthentication.
+const (
+	EventEmailMailboxMessageReceivedDataAuthenticationFail        EventEmailMailboxMessageReceivedDataAuthentication = "fail"
+	EventEmailMailboxMessageReceivedDataAuthenticationLessThannil EventEmailMailboxMessageReceivedDataAuthentication = "<nil>"
+	EventEmailMailboxMessageReceivedDataAuthenticationPass        EventEmailMailboxMessageReceivedDataAuthentication = "pass"
+	EventEmailMailboxMessageReceivedDataAuthenticationUnknown     EventEmailMailboxMessageReceivedDataAuthentication = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the EventEmailMailboxMessageReceivedDataAuthentication enum.
+func (e EventEmailMailboxMessageReceivedDataAuthentication) Valid() bool {
+	switch e {
+	case EventEmailMailboxMessageReceivedDataAuthenticationFail:
+		return true
+	case EventEmailMailboxMessageReceivedDataAuthenticationLessThannil:
+		return true
+	case EventEmailMailboxMessageReceivedDataAuthenticationPass:
+		return true
+	case EventEmailMailboxMessageReceivedDataAuthenticationUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventEmailMailboxMessageSentType.
 const (
 	EmailMailboxMessageSent EventEmailMailboxMessageSentType = "email_mailbox.message_sent"
@@ -1305,6 +1329,30 @@ const (
 func (e EventEmailReceivedType) Valid() bool {
 	switch e {
 	case EmailReceived:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventEmailReceivedDataAuthentication.
+const (
+	EventEmailReceivedDataAuthenticationFail        EventEmailReceivedDataAuthentication = "fail"
+	EventEmailReceivedDataAuthenticationLessThannil EventEmailReceivedDataAuthentication = "<nil>"
+	EventEmailReceivedDataAuthenticationPass        EventEmailReceivedDataAuthentication = "pass"
+	EventEmailReceivedDataAuthenticationUnknown     EventEmailReceivedDataAuthentication = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the EventEmailReceivedDataAuthentication enum.
+func (e EventEmailReceivedDataAuthentication) Valid() bool {
+	switch e {
+	case EventEmailReceivedDataAuthenticationFail:
+		return true
+	case EventEmailReceivedDataAuthenticationLessThannil:
+		return true
+	case EventEmailReceivedDataAuthenticationPass:
+		return true
+	case EventEmailReceivedDataAuthenticationUnknown:
 		return true
 	default:
 		return false
@@ -1611,6 +1659,30 @@ func (e EventWhatsAppSentType) Valid() bool {
 	}
 }
 
+// Defines values for InboundEmailMessageAuthentication.
+const (
+	InboundEmailMessageAuthenticationFail        InboundEmailMessageAuthentication = "fail"
+	InboundEmailMessageAuthenticationLessThannil InboundEmailMessageAuthentication = "<nil>"
+	InboundEmailMessageAuthenticationPass        InboundEmailMessageAuthentication = "pass"
+	InboundEmailMessageAuthenticationUnknown     InboundEmailMessageAuthentication = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the InboundEmailMessageAuthentication enum.
+func (e InboundEmailMessageAuthentication) Valid() bool {
+	switch e {
+	case InboundEmailMessageAuthenticationFail:
+		return true
+	case InboundEmailMessageAuthenticationLessThannil:
+		return true
+	case InboundEmailMessageAuthenticationPass:
+		return true
+	case InboundEmailMessageAuthenticationUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for InboundRouteAction.
 const (
 	InboundRouteActionDeliverToMailbox InboundRouteAction = "deliver_to_mailbox"
@@ -1742,43 +1814,43 @@ func (e RecipientRole) Valid() bool {
 
 // Defines values for SMSErrorCode.
 const (
-	BlockedByCarrier    SMSErrorCode = "blocked_by_carrier"
-	BlockedByRecipient  SMSErrorCode = "blocked_by_recipient"
-	ContentRejected     SMSErrorCode = "content_rejected"
-	InsufficientBalance SMSErrorCode = "insufficient_balance"
-	InvalidDestination  SMSErrorCode = "invalid_destination"
-	LandlineUnreachable SMSErrorCode = "landline_unreachable"
-	ProviderUnavailable SMSErrorCode = "provider_unavailable"
-	RecipientOptedOut   SMSErrorCode = "recipient_opted_out"
-	SenderUnregistered  SMSErrorCode = "sender_unregistered"
-	Unknown             SMSErrorCode = "unknown"
-	Unreachable         SMSErrorCode = "unreachable"
+	SMSErrorCodeBlockedByCarrier    SMSErrorCode = "blocked_by_carrier"
+	SMSErrorCodeBlockedByRecipient  SMSErrorCode = "blocked_by_recipient"
+	SMSErrorCodeContentRejected     SMSErrorCode = "content_rejected"
+	SMSErrorCodeInsufficientBalance SMSErrorCode = "insufficient_balance"
+	SMSErrorCodeInvalidDestination  SMSErrorCode = "invalid_destination"
+	SMSErrorCodeLandlineUnreachable SMSErrorCode = "landline_unreachable"
+	SMSErrorCodeProviderUnavailable SMSErrorCode = "provider_unavailable"
+	SMSErrorCodeRecipientOptedOut   SMSErrorCode = "recipient_opted_out"
+	SMSErrorCodeSenderUnregistered  SMSErrorCode = "sender_unregistered"
+	SMSErrorCodeUnknown             SMSErrorCode = "unknown"
+	SMSErrorCodeUnreachable         SMSErrorCode = "unreachable"
 )
 
 // Valid indicates whether the value is a known member of the SMSErrorCode enum.
 func (e SMSErrorCode) Valid() bool {
 	switch e {
-	case BlockedByCarrier:
+	case SMSErrorCodeBlockedByCarrier:
 		return true
-	case BlockedByRecipient:
+	case SMSErrorCodeBlockedByRecipient:
 		return true
-	case ContentRejected:
+	case SMSErrorCodeContentRejected:
 		return true
-	case InsufficientBalance:
+	case SMSErrorCodeInsufficientBalance:
 		return true
-	case InvalidDestination:
+	case SMSErrorCodeInvalidDestination:
 		return true
-	case LandlineUnreachable:
+	case SMSErrorCodeLandlineUnreachable:
 		return true
-	case ProviderUnavailable:
+	case SMSErrorCodeProviderUnavailable:
 		return true
-	case RecipientOptedOut:
+	case SMSErrorCodeRecipientOptedOut:
 		return true
-	case SenderUnregistered:
+	case SMSErrorCodeSenderUnregistered:
 		return true
-	case Unknown:
+	case SMSErrorCodeUnknown:
 		return true
-	case Unreachable:
+	case SMSErrorCodeUnreachable:
 		return true
 	default:
 		return false
@@ -4296,6 +4368,9 @@ type EventEmailMailboxMessageReceivedData struct {
 	// AttachmentCount Number of attachments on the message. Metadata is durable; bytes are fetchable while within the 30-day original-source window.
 	AttachmentCount int `json:"attachment_count"`
 
+	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	Authentication *EventEmailMailboxMessageReceivedDataAuthentication `json:"authentication,omitempty"`
+
 	// DkimPass Whether DKIM passed for the sender, or null when no verdict was computable.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
@@ -4326,6 +4401,9 @@ type EventEmailMailboxMessageReceivedData struct {
 	// TruncatedText True when extracted_text was truncated to the 64 KB cap; fetch the full text via the thread-member endpoint.
 	TruncatedText *bool `json:"truncated_text,omitempty"`
 }
+
+// EventEmailMailboxMessageReceivedDataAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+type EventEmailMailboxMessageReceivedDataAuthentication string
 
 // EventEmailMailboxMessageSent A mailbox send reached provider handoff — the per-message status folded to sent. Status events are per-message folds, not per-recipient telemetry; the same send also fires the shipped per-recipient email.* lifecycle events. Pick one family per automation and dedupe by message_id.
 type EventEmailMailboxMessageSent struct {
@@ -4536,6 +4614,9 @@ type EventEmailReceivedType string
 
 // EventEmailReceivedData Payload of the email.received event.
 type EventEmailReceivedData struct {
+	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	Authentication *EventEmailReceivedDataAuthentication `json:"authentication,omitempty"`
+
 	// DkimPass Whether DKIM passed for the sender, or null when the result did not carry a DKIM verdict.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
@@ -4565,6 +4646,9 @@ type EventEmailReceivedData struct {
 	To          []openapi_types.Email `json:"to"`
 	WorkspaceId WorkspaceID           `json:"workspace_id"`
 }
+
+// EventEmailReceivedDataAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+type EventEmailReceivedDataAuthentication string
 
 // EventEmailRejected Bird rejected the email before sending it (suppression list hit, transmission failure, or a content/policy guard). Fires once per recipient.
 type EventEmailRejected struct {
@@ -5123,6 +5207,9 @@ type InboundEmailMessage struct {
 	// Attachments Metadata for each attachment found on the message. Empty when the message had no attachments.
 	Attachments []InboundAttachment `json:"attachments"`
 
+	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	Authentication *InboundEmailMessageAuthentication `json:"authentication"`
+
 	// Cc Recipients on the message's Cc header.
 	Cc []EmailAddress `json:"cc"`
 
@@ -5163,6 +5250,9 @@ type InboundEmailMessage struct {
 	// To Recipients on the message's To header.
 	To []EmailAddress `json:"to"`
 }
+
+// InboundEmailMessageAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+type InboundEmailMessageAuthentication string
 
 // InboundEmailMessageBody The parsed body of a received email.
 type InboundEmailMessageBody struct {
