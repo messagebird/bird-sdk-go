@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	version = "0.7.6"
+	version = "0.8.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -72,6 +72,7 @@ type Client struct {
 	Contacts          *ContactsService
 	Audiences         *AudiencesService
 	ContactProperties *ContactPropertiesService
+	Domains           *DomainsService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -117,6 +118,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Contacts = &ContactsService{client: c}
 	c.Audiences = &AudiencesService{client: c}
 	c.ContactProperties = &ContactPropertiesService{client: c}
+	c.Domains = &DomainsService{client: c}
 	return c, nil
 }
 

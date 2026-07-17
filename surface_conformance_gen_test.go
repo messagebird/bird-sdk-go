@@ -35,6 +35,12 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.WhatsappTemplates.List
 	_ = c.Verify.Verifications.Create
 	_ = c.Verify.Verifications.Check
+	_ = c.Domains.List
+	_ = c.Domains.Get
+	_ = c.Domains.Create
+	_ = c.Domains.Verify
+	_ = c.Domains.Update
+	_ = c.Domains.Delete
 	_ = c.Webhooks.Unwrap
 	_ = c.Contacts.List
 	_ = c.Contacts.Get

@@ -720,3 +720,88 @@ func ExampleVerificationsService_Check() {
 	}
 	fmt.Println(*result.Success)
 }
+
+// Register a sending domain. It returns in "pending" with the DNS records to
+// publish; call Verify once they are in place.
+func ExampleDomainsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	domain, err := client.Domains.Create(context.Background(), bird.DomainCreateParams{
+		Domain: "mail.acme.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(domain.Id, *domain.Status)
+}
+
+// Get returns a single sending domain by id, with its DNS records.
+func ExampleDomainsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	domain, err := client.Domains.Get(context.Background(), "dom_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*domain.Domain)
+}
+
+// List auto-paginates: it lazily fetches each page and yields every sending
+// domain across all of them.
+func ExampleDomainsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for domain, err := range client.Domains.List(context.Background(), bird.DomainListParams{Limit: 50}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(domain.Id, *domain.Status)
+	}
+}
+
+// Update edits a sending domain. Only the fields you set change.
+func ExampleDomainsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	domain, err := client.Domains.Update(context.Background(), "dom_123", bird.DomainUpdateParams{
+		Settings: &bird.DomainSettings{ClickTracking: bird.Bool(true), OpenTracking: bird.Bool(true)},
+		Tracking: &bird.DomainTrackingConfig{Name: "links"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(domain.Id)
+}
+
+// Delete removes a sending domain.
+func ExampleDomainsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Domains.Delete(context.Background(), "dom_123"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Verify triggers a fresh DNS check and returns the refreshed domain. Safe to
+// repeat while waiting for DNS to propagate.
+func ExampleDomainsService_Verify() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	domain, err := client.Domains.Verify(context.Background(), "dom_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*domain.Status)
+}

@@ -92,6 +92,22 @@ type (
 	ContactPropertyList = oapi.ContactPropertyList
 )
 
+// Domain is a sending domain with its DNS records and per-capability status;
+// DomainList is a page of domains. DNSRecord is one required DNS record and its
+// verification state; DomainDKIM is the domain's active DKIM signing
+// configuration; DomainCapabilities is the per-capability readiness breakdown.
+// These are the read-side types; the write-side configs are the *Config structs
+// in domains.go.
+type (
+	Domain             = oapi.Domain
+	DomainList         = oapi.DomainList
+	DNSRecord          = oapi.DNSRecord
+	DomainDKIM         = oapi.DomainDKIM
+	DomainCapabilities = oapi.DomainCapabilities
+	DomainCapability   = oapi.DomainCapability
+	DomainStatus       = oapi.DomainStatus
+)
+
 // WhatsAppMessage is a sent or received WhatsApp message; WhatsAppMessageList
 // is a page of messages.
 type (

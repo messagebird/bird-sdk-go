@@ -35,6 +35,12 @@ output-options:
     - listWhatsAppTemplates
     - createVerification
     - createVerificationCheck
+    - listDomains
+    - getDomain
+    - createDomain
+    - verifyDomain
+    - updateDomain
+    - deleteDomain
     - listContacts
     - getContact
     - createContact
