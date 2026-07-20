@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- **Breaking:** WhatsApp message reads now return `from` and `to` (each a phone number and/or business-scoped user ID) in place of `business` and `contact`, matching the SMS/email convention.
+
 ## 0.8.4
 
 - **Breaking:** the contact list free-text filter is now `ContactListParams.Q` (was `Search`), matching the API's renamed `q` query parameter. Rename `Search:` to `Q:` at call sites.

@@ -25,10 +25,10 @@ type WhatsappSendParams struct {
 	Components []WhatsAppMessageTemplateComponent // values that fill the template's placeholders
 }
 
-func (p WhatsappSendParams) toWire() oapi.SendWhatsAppMessageRequest {
-	body := oapi.SendWhatsAppMessageRequest{To: p.To}
+func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
+	body := oapi.WhatsAppMessageSendRequest{To: p.To}
 	if p.Template != "" || p.Language != "" || len(p.Components) > 0 {
-		tmpl := oapi.SendWhatsAppMessageTemplate{Name: p.Template}
+		tmpl := oapi.WhatsAppTemplateSend{Name: p.Template}
 		if p.Language != "" {
 			language := p.Language
 			tmpl.Language = &language

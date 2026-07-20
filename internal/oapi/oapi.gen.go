@@ -4873,7 +4873,7 @@ type EventSMSFailedType string
 
 // EventSMSFailedData defines model for EventSMSFailedData.
 type EventSMSFailedData struct {
-	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
@@ -4908,7 +4908,7 @@ type EventSMSRejectedType string
 
 // EventSMSRejectedData defines model for EventSMSRejectedData.
 type EventSMSRejectedData struct {
-	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
@@ -4981,7 +4981,7 @@ type EventSMSUndeliveredType string
 
 // EventSMSUndeliveredData defines model for EventSMSUndeliveredData.
 type EventSMSUndeliveredData struct {
-	// Error Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
 	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
@@ -5078,7 +5078,7 @@ type EventWhatsAppFailedData struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppFailedDataDirection `json:"direction"`
 
-	// Error Failure detail for a message that could not be delivered. Null when there is no failure.
+	// Error Failure detail for a message that could not be delivered.
 	Error *WhatsAppError `json:"error,omitempty"`
 
 	// From Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
@@ -5428,7 +5428,7 @@ type SMSCostBreakdown struct {
 	Segments int `json:"segments"`
 }
 
-// SMSError Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+// SMSError Failure detail for a message that could not be delivered or was rejected.
 type SMSError struct {
 	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
 	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
@@ -5470,7 +5470,7 @@ type SMSMessage struct {
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
-	// LastError Failure detail for a message that could not be delivered or was rejected. Null when there is no failure.
+	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *SMSError `json:"last_error,omitempty"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier, when known.
@@ -5698,33 +5698,6 @@ type SMSTemplateSend1 = interface{}
 
 // SMSTemplateVersionID defines model for SMSTemplateVersionID.
 type SMSTemplateVersionID = string
-
-// SendWhatsAppMessageRequest defines model for SendWhatsAppMessageRequest.
-type SendWhatsAppMessageRequest struct {
-	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-
-	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are currently the only supported content type, so every send must include one; free-text content will be added in a future release.
-	Template *SendWhatsAppMessageTemplate `json:"template,omitempty"`
-
-	// To The message recipient's phone number in E.164 format (for example `+31612345678`).
-	To string `json:"to"`
-}
-
-// SendWhatsAppMessageTemplate defines model for SendWhatsAppMessageTemplate.
-type SendWhatsAppMessageTemplate struct {
-	// Components The values that fill the template's placeholders.
-	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
-
-	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language.
-	Language *string `json:"language,omitempty"`
-
-	// Name The template to send, by its name (for example `bird_otp`).
-	Name TemplateName `json:"name"`
-}
 
 // ShareDomainDnsRequest defines model for ShareDomainDnsRequest.
 type ShareDomainDnsRequest struct {
@@ -6138,7 +6111,7 @@ type WhatsAppAddress struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
-// WhatsAppError Failure detail for a message that could not be delivered. Null when there is no failure.
+// WhatsAppError Failure detail for a message that could not be delivered.
 type WhatsAppError struct {
 	// Code Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance` — the workspace could not afford the send. `price_not_found` — no price was configured for this destination/template combination. `internal_error` — an unexpected Bird-side failure. `undeliverable` — the recipient could not be reached (e.g. not on WhatsApp, number invalid). `service_window_expired` — the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited` — the send was throttled.
 	Code WhatsAppErrorCode `json:"code"`
@@ -6158,7 +6131,7 @@ type WhatsAppErrorCode = string
 
 // WhatsAppEvent defines model for WhatsAppEvent.
 type WhatsAppEvent struct {
-	// Error Failure detail for a message that could not be delivered. Null when there is no failure.
+	// Error Failure detail for a message that could not be delivered.
 	Error *WhatsAppError  `json:"error,omitempty"`
 	Id    WhatsAppEventID `json:"id"`
 
@@ -6180,9 +6153,6 @@ type WhatsAppEventList struct {
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
-	Business *WhatsAppMessageBusiness `json:"business,omitempty"`
-	Contact  *WhatsAppMessageContact  `json:"contact,omitempty"`
-
 	// CreatedAt When the message was accepted for delivery.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
@@ -6191,9 +6161,12 @@ type WhatsAppMessage struct {
 
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction *WhatsAppMessageDirection `json:"direction,omitempty"`
-	Id        WhatsAppMessageID         `json:"id"`
 
-	// LastError Failure detail for a message that could not be delivered. Null when there is no failure.
+	// From Sender of the message. On outbound messages, the business number it was sent from; on inbound, the WhatsApp contact.
+	From *WhatsAppAddress  `json:"from,omitempty"`
+	Id   WhatsAppMessageID `json:"id"`
+
+	// LastError Failure detail for a message that could not be delivered.
 	LastError *WhatsAppError `json:"last_error,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message.
@@ -6211,28 +6184,13 @@ type WhatsAppMessage struct {
 
 	// Template The template the message was sent from. For authentication templates the filled-in values are not returned.
 	Template *WhatsAppMessageTemplate `json:"template,omitempty"`
+
+	// To Recipient of the message. On outbound messages, the WhatsApp contact; on inbound, the business number.
+	To *WhatsAppAddress `json:"to,omitempty"`
 }
 
 // WhatsAppMessageDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type WhatsAppMessageDirection string
-
-// WhatsAppMessageBusiness The business identity that sent the message. `phone_number` is always present; `phone_number_id` is included only for account-owned numbers.
-type WhatsAppMessageBusiness struct {
-	// PhoneNumber E.164 phone number of the WhatsApp business account that sent the message.
-	PhoneNumber *string `json:"phone_number,omitempty"`
-
-	// PhoneNumberId The WhatsApp phone number identifier. Present only for account-owned numbers.
-	PhoneNumberId *string `json:"phone_number_id,omitempty"`
-}
-
-// WhatsAppMessageContact Contact on the other end of the message. Fields are omitted when not available; at least one is always present.
-type WhatsAppMessageContact struct {
-	// Bsuid Business-scoped user ID (Meta's WhatsApp identifier for this contact within the business account), when available.
-	Bsuid *string `json:"bsuid,omitempty"`
-
-	// PhoneNumber Contact's phone number in E.164 format, when known.
-	PhoneNumber *string `json:"phone_number,omitempty"`
-}
 
 // WhatsAppMessageID defines model for WhatsAppMessageID.
 type WhatsAppMessageID = string
@@ -6252,6 +6210,21 @@ type WhatsAppMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// WhatsAppMessageSendRequest defines model for WhatsAppMessageSendRequest.
+type WhatsAppMessageSendRequest struct {
+	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are currently the only supported content type, so every send must include one; free-text content will be added in a future release.
+	Template *WhatsAppTemplateSend `json:"template,omitempty"`
+
+	// To The message recipient's phone number in E.164 format (for example `+31612345678`).
+	To string `json:"to"`
+}
+
 // WhatsAppMessageStatus Delivery status. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `canceled` means a scheduled message was canceled before it was sent. `received` is the status of an inbound message (`direction: inbound`) sent to you by a contact. There is no `read` status — a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value.
 type WhatsAppMessageStatus string
 
@@ -6267,7 +6240,7 @@ type WhatsAppMessageTemplate struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template's stable handle (for example `bird_otp`).
-	Name *TemplateName `json:"name,omitempty"`
+	Name *WhatsAppTemplateName `json:"name,omitempty"`
 }
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
@@ -6300,7 +6273,7 @@ type WhatsAppTemplate struct {
 	Language *string `json:"language,omitempty"`
 
 	// Name The template's stable handle. Pass it as the template reference when sending.
-	Name *TemplateName `json:"name,omitempty"`
+	Name *WhatsAppTemplateName `json:"name,omitempty"`
 
 	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
@@ -6357,8 +6330,23 @@ type WhatsAppTemplateList struct {
 	Data []WhatsAppTemplate `json:"data"`
 }
 
+// WhatsAppTemplateName A WhatsApp template's name — the stable handle used to reference the template when sending. Lowercase letters, numbers, and underscores.
+type WhatsAppTemplateName = string
+
 // WhatsAppTemplateParameterType The type of a template parameter.
 type WhatsAppTemplateParameterType = string
+
+// WhatsAppTemplateSend defines model for WhatsAppTemplateSend.
+type WhatsAppTemplateSend struct {
+	// Components The values that fill the template's placeholders.
+	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
+
+	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language.
+	Language *string `json:"language,omitempty"`
+
+	// Name The template to send, by its name (for example `bird_otp`).
+	Name WhatsAppTemplateName `json:"name"`
+}
 
 // WhatsAppTemplateStatus A message template's review and health status. `approved`, `pending`, and `rejected` are review outcomes; `paused`, `disabled`, `in_appeal`, `pending_deletion`, and `limit_exceeded` reflect a template's ongoing health after approval.
 type WhatsAppTemplateStatus = string
@@ -7124,7 +7112,7 @@ type CreateVerificationJSONRequestBody = VerificationCreateRequest
 type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 
 // SendWhatsAppMessageJSONRequestBody defines body for SendWhatsAppMessage for application/json ContentType.
-type SendWhatsAppMessageJSONRequestBody = SendWhatsAppMessageRequest
+type SendWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
