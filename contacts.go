@@ -79,7 +79,7 @@ func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 type ContactListParams struct {
 	Email      string // exact match; matches at most one contact
 	ExternalID string // exact match; matches at most one contact
-	Search     string // case-insensitive substring match against email
+	Q          string // case-insensitive substring match against email
 	Limit      int
 }
 
@@ -93,9 +93,9 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 		externalID := p.ExternalID
 		w.ExternalId = &externalID
 	}
-	if p.Search != "" {
-		search := p.Search
-		w.Search = &search
+	if p.Q != "" {
+		q := p.Q
+		w.Q = &q
 	}
 	if p.Limit > 0 {
 		limit := oapi.PaginationLimit(p.Limit)

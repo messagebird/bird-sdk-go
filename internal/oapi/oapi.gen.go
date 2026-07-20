@@ -6473,8 +6473,8 @@ type cookieAuthContextKey string
 
 // ListAudiencesParams defines parameters for ListAudiences.
 type ListAudiencesParams struct {
-	// Search Case-insensitive substring match against the audience's name.
-	Search *string `form:"search,omitempty" json:"search,omitempty"`
+	// Q Case-insensitive substring match against the audience's name.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -6530,8 +6530,8 @@ type UpdateAudienceParams struct {
 
 // ListAudienceContactsParams defines parameters for ListAudienceContacts.
 type ListAudienceContactsParams struct {
-	// Search Case-insensitive substring match against the member's email address.
-	Search *string `form:"search,omitempty" json:"search,omitempty"`
+	// Q Case-insensitive substring match against the member's email address.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -6661,8 +6661,8 @@ type ListContactsParams struct {
 	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
 	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
 
-	// Search Case-insensitive substring match against the contact's email address.
-	Search *string `form:"search,omitempty" json:"search,omitempty"`
+	// Q Case-insensitive substring match against the contact's email address.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -9934,9 +9934,9 @@ func NewListAudiencesRequest(server string, params *ListAudiencesParams) (*http.
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.Search != nil {
+		if params.Q != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -10231,9 +10231,9 @@ func NewListAudienceContactsRequest(server string, audienceId AudienceID, params
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.Search != nil {
+		if params.Q != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -10852,9 +10852,9 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 
 		}
 
-		if params.Search != nil {
+		if params.Q != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

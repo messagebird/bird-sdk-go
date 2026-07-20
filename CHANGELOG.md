@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.4
+
+- **Breaking:** the contact list free-text filter is now `ContactListParams.Q` (was `Search`), matching the API's renamed `q` query parameter. Rename `Search:` to `Q:` at call sites.
+
 ## 0.8.3
 
 - Documentation clarifications.
