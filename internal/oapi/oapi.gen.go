@@ -1548,6 +1548,51 @@ func (e EventSMSUndeliveredType) Valid() bool {
 	}
 }
 
+// Defines values for EventVoiceCallAnsweredType.
+const (
+	VoiceCallAnswered EventVoiceCallAnsweredType = "voice.call.answered"
+)
+
+// Valid indicates whether the value is a known member of the EventVoiceCallAnsweredType enum.
+func (e EventVoiceCallAnsweredType) Valid() bool {
+	switch e {
+	case VoiceCallAnswered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVoiceCallEndedType.
+const (
+	VoiceCallEnded EventVoiceCallEndedType = "voice.call.ended"
+)
+
+// Valid indicates whether the value is a known member of the EventVoiceCallEndedType enum.
+func (e EventVoiceCallEndedType) Valid() bool {
+	switch e {
+	case VoiceCallEnded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVoiceCallInitiatedType.
+const (
+	VoiceCallInitiated EventVoiceCallInitiatedType = "voice.call.initiated"
+)
+
+// Valid indicates whether the value is a known member of the EventVoiceCallInitiatedType enum.
+func (e EventVoiceCallInitiatedType) Valid() bool {
+	switch e {
+	case VoiceCallInitiated:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventWhatsAppAcceptedType.
 const (
 	WhatsappAccepted EventWhatsAppAcceptedType = "whatsapp.accepted"
@@ -2136,6 +2181,63 @@ func (e VerificationStatus) Valid() bool {
 	}
 }
 
+// Defines values for VoiceCallDirection.
+const (
+	VoiceCallDirectionInbound  VoiceCallDirection = "inbound"
+	VoiceCallDirectionOutbound VoiceCallDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallDirection enum.
+func (e VoiceCallDirection) Valid() bool {
+	switch e {
+	case VoiceCallDirectionInbound:
+		return true
+	case VoiceCallDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceCallStatus.
+const (
+	VoiceCallStatusAnswered   VoiceCallStatus = "answered"
+	VoiceCallStatusBusy       VoiceCallStatus = "busy"
+	VoiceCallStatusCanceled   VoiceCallStatus = "canceled"
+	VoiceCallStatusFailed     VoiceCallStatus = "failed"
+	VoiceCallStatusInProgress VoiceCallStatus = "in_progress"
+	VoiceCallStatusNoAnswer   VoiceCallStatus = "no_answer"
+	VoiceCallStatusRejected   VoiceCallStatus = "rejected"
+	VoiceCallStatusRinging    VoiceCallStatus = "ringing"
+	VoiceCallStatusUnknown    VoiceCallStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallStatus enum.
+func (e VoiceCallStatus) Valid() bool {
+	switch e {
+	case VoiceCallStatusAnswered:
+		return true
+	case VoiceCallStatusBusy:
+		return true
+	case VoiceCallStatusCanceled:
+		return true
+	case VoiceCallStatusFailed:
+		return true
+	case VoiceCallStatusInProgress:
+		return true
+	case VoiceCallStatusNoAnswer:
+		return true
+	case VoiceCallStatusRejected:
+		return true
+	case VoiceCallStatusRinging:
+		return true
+	case VoiceCallStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookAttemptStatus.
 const (
 	WebhookAttemptStatusDelivered WebhookAttemptStatus = "delivered"
@@ -2342,40 +2444,40 @@ func (e ListDomainsParamsOrder) Valid() bool {
 
 // Defines values for ListEmailMessagesParamsStatus.
 const (
-	ListEmailMessagesParamsStatusAccepted       ListEmailMessagesParamsStatus = "accepted"
-	ListEmailMessagesParamsStatusBounced        ListEmailMessagesParamsStatus = "bounced"
-	ListEmailMessagesParamsStatusCanceled       ListEmailMessagesParamsStatus = "canceled"
-	ListEmailMessagesParamsStatusComplained     ListEmailMessagesParamsStatus = "complained"
-	ListEmailMessagesParamsStatusDeferred       ListEmailMessagesParamsStatus = "deferred"
-	ListEmailMessagesParamsStatusDelivered      ListEmailMessagesParamsStatus = "delivered"
-	ListEmailMessagesParamsStatusPartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	ListEmailMessagesParamsStatusProcessed      ListEmailMessagesParamsStatus = "processed"
-	ListEmailMessagesParamsStatusRejected       ListEmailMessagesParamsStatus = "rejected"
-	ListEmailMessagesParamsStatusScheduled      ListEmailMessagesParamsStatus = "scheduled"
+	Accepted       ListEmailMessagesParamsStatus = "accepted"
+	Bounced        ListEmailMessagesParamsStatus = "bounced"
+	Canceled       ListEmailMessagesParamsStatus = "canceled"
+	Complained     ListEmailMessagesParamsStatus = "complained"
+	Deferred       ListEmailMessagesParamsStatus = "deferred"
+	Delivered      ListEmailMessagesParamsStatus = "delivered"
+	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
+	Processed      ListEmailMessagesParamsStatus = "processed"
+	Rejected       ListEmailMessagesParamsStatus = "rejected"
+	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
 func (e ListEmailMessagesParamsStatus) Valid() bool {
 	switch e {
-	case ListEmailMessagesParamsStatusAccepted:
+	case Accepted:
 		return true
-	case ListEmailMessagesParamsStatusBounced:
+	case Bounced:
 		return true
-	case ListEmailMessagesParamsStatusCanceled:
+	case Canceled:
 		return true
-	case ListEmailMessagesParamsStatusComplained:
+	case Complained:
 		return true
-	case ListEmailMessagesParamsStatusDeferred:
+	case Deferred:
 		return true
-	case ListEmailMessagesParamsStatusDelivered:
+	case Delivered:
 		return true
-	case ListEmailMessagesParamsStatusPartialFailure:
+	case PartialFailure:
 		return true
-	case ListEmailMessagesParamsStatusProcessed:
+	case Processed:
 		return true
-	case ListEmailMessagesParamsStatusRejected:
+	case Rejected:
 		return true
-	case ListEmailMessagesParamsStatusScheduled:
+	case Scheduled:
 		return true
 	default:
 		return false
@@ -2402,16 +2504,16 @@ func (e ListEmailMessagesParamsCategory) Valid() bool {
 
 // Defines values for ListSMSMessagesParamsDirection.
 const (
-	ListSMSMessagesParamsDirectionInbound  ListSMSMessagesParamsDirection = "inbound"
-	ListSMSMessagesParamsDirectionOutbound ListSMSMessagesParamsDirection = "outbound"
+	Inbound  ListSMSMessagesParamsDirection = "inbound"
+	Outbound ListSMSMessagesParamsDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
 func (e ListSMSMessagesParamsDirection) Valid() bool {
 	switch e {
-	case ListSMSMessagesParamsDirectionInbound:
+	case Inbound:
 		return true
-	case ListSMSMessagesParamsDirectionOutbound:
+	case Outbound:
 		return true
 	default:
 		return false
@@ -5017,6 +5119,104 @@ type EventSMSUndeliveredData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventVoiceBase Identity fields shared by every voice call lifecycle event payload.
+type EventVoiceBase struct {
+	CallId VoiceCallID `json:"call_id"`
+
+	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+	Direction VoiceCallDirection `json:"direction"`
+
+	// DstNumber Called party number in E.164 format.
+	DstNumber string `json:"dst_number"`
+
+	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+	SessionId *VoiceSessionID `json:"session_id,omitempty"`
+
+	// SrcNumber Calling party number in E.164 format.
+	SrcNumber   string      `json:"src_number"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventVoiceCallAnswered The called party answered — the carrier returned a 200 OK and media is flowing.
+type EventVoiceCallAnswered struct {
+	// Data Payload of the voice.call.answered event.
+	Data EventVoiceCallAnsweredData `json:"data"`
+
+	// Timestamp Time the call was answered.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVoiceCallAnsweredType `json:"type"`
+}
+
+// EventVoiceCallAnsweredType Event type.
+type EventVoiceCallAnsweredType string
+
+// EventVoiceCallAnsweredData Identity fields shared by every voice call lifecycle event payload.
+type EventVoiceCallAnsweredData = EventVoiceBase
+
+// EventVoiceCallEnded The call ended — a BYE or final non-2xx response was received and the call record was written.
+type EventVoiceCallEnded struct {
+	// Data Payload of the voice.call.ended event.
+	Data EventVoiceCallEndedData `json:"data"`
+
+	// Timestamp When the call ended (BYE or final non-2xx response).
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVoiceCallEndedType `json:"type"`
+}
+
+// EventVoiceCallEndedType Event type.
+type EventVoiceCallEndedType string
+
+// EventVoiceCallEndedData defines model for EventVoiceCallEndedData.
+type EventVoiceCallEndedData struct {
+	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls.
+	BillableMs int         `json:"billable_ms"`
+	CallId     VoiceCallID `json:"call_id"`
+
+	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+	Direction VoiceCallDirection `json:"direction"`
+
+	// DstNumber Called party number in E.164 format.
+	DstNumber string `json:"dst_number"`
+
+	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response.
+	DurationMs int `json:"duration_ms"`
+
+	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+	SessionId *VoiceSessionID `json:"session_id,omitempty"`
+
+	// SipResponseCode Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+	SipResponseCode *int `json:"sip_response_code"`
+
+	// SrcNumber Calling party number in E.164 format.
+	SrcNumber string `json:"src_number"`
+
+	// Status Call status. v1 records are always terminal and carry one of answered, no_answer, failed, rejected, or unknown. The remaining values are declared ahead of planned features so their arrival is not a breaking contract change: busy and canceled arrive with inbound (DID) termination — today both outcomes are folded into failed — and ringing and in_progress with a live-calls surface.
+	Status      VoiceCallStatus `json:"status"`
+	WorkspaceId WorkspaceID     `json:"workspace_id"`
+}
+
+// EventVoiceCallInitiated A call was initiated — Bird received the INVITE and began routing it.
+type EventVoiceCallInitiated struct {
+	// Data Payload of the voice.call.initiated event.
+	Data EventVoiceCallInitiatedData `json:"data"`
+
+	// Timestamp Time the call was initiated.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVoiceCallInitiatedType `json:"type"`
+}
+
+// EventVoiceCallInitiatedType Event type.
+type EventVoiceCallInitiatedType string
+
+// EventVoiceCallInitiatedData Identity fields shared by every voice call lifecycle event payload.
+type EventVoiceCallInitiatedData = EventVoiceBase
+
 // EventWhatsAppAccepted Bird accepted and charged the send request.
 type EventWhatsAppAccepted struct {
 	// Data Payload of the whatsapp.accepted event.
@@ -5936,6 +6136,18 @@ type VerificationTo struct {
 	// PhoneNumber The recipient's phone number in E.164 format.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
+
+// VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+type VoiceCallDirection string
+
+// VoiceCallID defines model for VoiceCallID.
+type VoiceCallID = string
+
+// VoiceCallStatus Call status. v1 records are always terminal and carry one of answered, no_answer, failed, rejected, or unknown. The remaining values are declared ahead of planned features so their arrival is not a breaking contract change: busy and canceled arrive with inbound (DID) termination — today both outcomes are folded into failed — and ringing and in_progress with a live-calls surface.
+type VoiceCallStatus string
+
+// VoiceSessionID defines model for VoiceSessionID.
+type VoiceSessionID = string
 
 // WebhookAttempt defines model for WebhookAttempt.
 type WebhookAttempt struct {
@@ -8670,6 +8882,90 @@ func (t *WebhookEvent) MergeEventSMSUndelivered(v EventSMSUndelivered) error {
 	return err
 }
 
+// AsEventVoiceCallAnswered returns the union data inside the WebhookEvent as a EventVoiceCallAnswered
+func (t WebhookEvent) AsEventVoiceCallAnswered() (EventVoiceCallAnswered, error) {
+	var body EventVoiceCallAnswered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVoiceCallAnswered overwrites any union data inside the WebhookEvent as the provided EventVoiceCallAnswered
+func (t *WebhookEvent) FromEventVoiceCallAnswered(v EventVoiceCallAnswered) error {
+	v.Type = "voice.call.answered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVoiceCallAnswered performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallAnswered
+func (t *WebhookEvent) MergeEventVoiceCallAnswered(v EventVoiceCallAnswered) error {
+	v.Type = "voice.call.answered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVoiceCallEnded returns the union data inside the WebhookEvent as a EventVoiceCallEnded
+func (t WebhookEvent) AsEventVoiceCallEnded() (EventVoiceCallEnded, error) {
+	var body EventVoiceCallEnded
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVoiceCallEnded overwrites any union data inside the WebhookEvent as the provided EventVoiceCallEnded
+func (t *WebhookEvent) FromEventVoiceCallEnded(v EventVoiceCallEnded) error {
+	v.Type = "voice.call.ended"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVoiceCallEnded performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallEnded
+func (t *WebhookEvent) MergeEventVoiceCallEnded(v EventVoiceCallEnded) error {
+	v.Type = "voice.call.ended"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVoiceCallInitiated returns the union data inside the WebhookEvent as a EventVoiceCallInitiated
+func (t WebhookEvent) AsEventVoiceCallInitiated() (EventVoiceCallInitiated, error) {
+	var body EventVoiceCallInitiated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVoiceCallInitiated overwrites any union data inside the WebhookEvent as the provided EventVoiceCallInitiated
+func (t *WebhookEvent) FromEventVoiceCallInitiated(v EventVoiceCallInitiated) error {
+	v.Type = "voice.call.initiated"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVoiceCallInitiated performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallInitiated
+func (t *WebhookEvent) MergeEventVoiceCallInitiated(v EventVoiceCallInitiated) error {
+	v.Type = "voice.call.initiated"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventWhatsAppAccepted returns the union data inside the WebhookEvent as a EventWhatsAppAccepted
 func (t WebhookEvent) AsEventWhatsAppAccepted() (EventWhatsAppAccepted, error) {
 	var body EventWhatsAppAccepted
@@ -8886,6 +9182,12 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSSent()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
+	case "voice.call.answered":
+		return t.AsEventVoiceCallAnswered()
+	case "voice.call.ended":
+		return t.AsEventVoiceCallEnded()
+	case "voice.call.initiated":
+		return t.AsEventVoiceCallInitiated()
 	case "whatsapp.accepted":
 		return t.AsEventWhatsAppAccepted()
 	case "whatsapp.delivered":
