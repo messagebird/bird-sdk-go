@@ -1,4 +1,4 @@
-.PHONY: build test lint fmt ci generate
+.PHONY: build test lint fmt generate
 
 # Worktree-agnostic build cache keys — see "Go in worktrees" in the root
 # AGENTS.md. Exported so direct `go build`/`go test` recipes inherit it.
@@ -15,7 +15,7 @@ build:
 	done
 
 test:
-	go test -race ./...
+	go test ./...
 
 lint:
 	golangci-lint run ./...
@@ -23,8 +23,6 @@ lint:
 fmt:
 	gofumpt -w .
 	gci write .
-
-ci: lint test build
 
 # Regenerate internal/oapi from the OpenAPI public bundle. The low-level
 # client is filtered to the curated operations (oapi-codegen.yaml); models are

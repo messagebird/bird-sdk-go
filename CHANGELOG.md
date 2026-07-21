@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.4
+
+- `make test` no longer enables the race detector by default; the monorepo's CI still runs the suite with `-race`. Run `go test -race ./...` to opt in. No library code changed.
+
 ## 0.9.3
 
 - Suppressions: `reason`, `origin`, and `applies_to` are now documented as growing vocabularies (open enums on the wire) — `origin` gained `unsubscribe_link`, a suppression created by the recipient through Bird's hosted unsubscribe page or its one-click link. Treat unknown values as informational rather than rejecting the record. Additive; no breaking change.
