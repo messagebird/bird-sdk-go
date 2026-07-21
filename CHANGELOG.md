@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+
+- Documentation search results now carry a `Slug`, and a new `DocsPage` type describes a documentation page's full Markdown. Additive wire types for the public docs read/search operations; no new SDK method.
+
 ## 0.9.0
 
 - **Breaking:** WhatsApp message reads now return `from` and `to` (each a phone number and/or business-scoped user ID) in place of `business` and `contact`, matching the SMS/email convention.

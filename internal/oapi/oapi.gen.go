@@ -2859,6 +2859,21 @@ type DNSRecordStatus string
 // DNSRecordType defines model for DNSRecord.Type.
 type DNSRecordType string
 
+// DocsPage defines model for DocsPage.
+type DocsPage struct {
+	// Locale Documentation locale the page was drawn from.
+	Locale *string `json:"locale,omitempty"`
+
+	// Markdown The page's full content as Markdown.
+	Markdown *string `json:"markdown,omitempty"`
+
+	// Slug Slug of the page, echoing the requested slug.
+	Slug *string `json:"slug,omitempty"`
+
+	// Url Absolute URL of the page, suitable to cite as the source of an answer.
+	Url *string `json:"url,omitempty"`
+}
+
 // DocsSearchResponse defines model for DocsSearchResponse.
 type DocsSearchResponse struct {
 	// Locale The documentation locale the results were drawn from.
@@ -2879,7 +2894,7 @@ type DocsSearchResult struct {
 	// Highlights The passages of the section that match the query, longer than the snippet. Returned only when contents is highlights.
 	Highlights *[]string `json:"highlights,omitempty"`
 
-	// MarkdownUrl Absolute URL that returns the page's full content as Markdown. Fetch it to read the whole page.
+	// MarkdownUrl Absolute URL that returns the page's full content as Markdown; also the page's canonical source URL.
 	MarkdownUrl *string `json:"markdown_url,omitempty"`
 
 	// Score Relevance score. Higher is more relevant; results are ordered by descending score.
@@ -2887,6 +2902,9 @@ type DocsSearchResult struct {
 
 	// Section Heading of the matching section within the page.
 	Section *string `json:"section,omitempty"`
+
+	// Slug Stable identifier of the page, used to read the whole page's Markdown.
+	Slug *string `json:"slug,omitempty"`
 
 	// Snippet Short excerpt of the matching content, with the query terms in context. Always returned.
 	Snippet *string `json:"snippet,omitempty"`
