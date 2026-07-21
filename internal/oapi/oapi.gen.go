@@ -1404,30 +1404,6 @@ func (e EventEmailSuppressionCreatedType) Valid() bool {
 	}
 }
 
-// Defines values for EventEmailSuppressionCreatedDataReason.
-const (
-	EventEmailSuppressionCreatedDataReasonComplaint   EventEmailSuppressionCreatedDataReason = "complaint"
-	EventEmailSuppressionCreatedDataReasonHardBounce  EventEmailSuppressionCreatedDataReason = "hard_bounce"
-	EventEmailSuppressionCreatedDataReasonManual      EventEmailSuppressionCreatedDataReason = "manual"
-	EventEmailSuppressionCreatedDataReasonUnsubscribe EventEmailSuppressionCreatedDataReason = "unsubscribe"
-)
-
-// Valid indicates whether the value is a known member of the EventEmailSuppressionCreatedDataReason enum.
-func (e EventEmailSuppressionCreatedDataReason) Valid() bool {
-	switch e {
-	case EventEmailSuppressionCreatedDataReasonComplaint:
-		return true
-	case EventEmailSuppressionCreatedDataReasonHardBounce:
-		return true
-	case EventEmailSuppressionCreatedDataReasonManual:
-		return true
-	case EventEmailSuppressionCreatedDataReasonUnsubscribe:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EventEmailUnsubscribedType.
 const (
 	EmailUnsubscribed EventEmailUnsubscribedType = "email.unsubscribed"
@@ -2031,78 +2007,6 @@ func (e SMSTemplateStatus) Valid() bool {
 	}
 }
 
-// Defines values for SuppressionAppliesTo.
-const (
-	SuppressionAppliesToAll              SuppressionAppliesTo = "all"
-	SuppressionAppliesToCategory         SuppressionAppliesTo = "category"
-	SuppressionAppliesToNonTransactional SuppressionAppliesTo = "non_transactional"
-)
-
-// Valid indicates whether the value is a known member of the SuppressionAppliesTo enum.
-func (e SuppressionAppliesTo) Valid() bool {
-	switch e {
-	case SuppressionAppliesToAll:
-		return true
-	case SuppressionAppliesToCategory:
-		return true
-	case SuppressionAppliesToNonTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for SuppressionOrigin.
-const (
-	ApiKey           SuppressionOrigin = "api_key"
-	BounceEvent      SuppressionOrigin = "bounce_event"
-	ComplaintEvent   SuppressionOrigin = "complaint_event"
-	UnsubscribeEvent SuppressionOrigin = "unsubscribe_event"
-	User             SuppressionOrigin = "user"
-)
-
-// Valid indicates whether the value is a known member of the SuppressionOrigin enum.
-func (e SuppressionOrigin) Valid() bool {
-	switch e {
-	case ApiKey:
-		return true
-	case BounceEvent:
-		return true
-	case ComplaintEvent:
-		return true
-	case UnsubscribeEvent:
-		return true
-	case User:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for SuppressionReason.
-const (
-	SuppressionReasonComplaint   SuppressionReason = "complaint"
-	SuppressionReasonHardBounce  SuppressionReason = "hard_bounce"
-	SuppressionReasonManual      SuppressionReason = "manual"
-	SuppressionReasonUnsubscribe SuppressionReason = "unsubscribe"
-)
-
-// Valid indicates whether the value is a known member of the SuppressionReason enum.
-func (e SuppressionReason) Valid() bool {
-	switch e {
-	case SuppressionReasonComplaint:
-		return true
-	case SuppressionReasonHardBounce:
-		return true
-	case SuppressionReasonManual:
-		return true
-	case SuppressionReasonUnsubscribe:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for SuppressionScopeType.
 const (
 	SuppressionScopeTypeAudience  SuppressionScopeType = "audience"
@@ -2546,16 +2450,16 @@ func (e ListSMSMessagesParamsCategory) Valid() bool {
 
 // Defines values for ListSMSTemplatesParamsScope.
 const (
-	ListSMSTemplatesParamsScopeSystem    ListSMSTemplatesParamsScope = "system"
-	ListSMSTemplatesParamsScopeWorkspace ListSMSTemplatesParamsScope = "workspace"
+	System    ListSMSTemplatesParamsScope = "system"
+	Workspace ListSMSTemplatesParamsScope = "workspace"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSTemplatesParamsScope enum.
 func (e ListSMSTemplatesParamsScope) Valid() bool {
 	switch e {
-	case ListSMSTemplatesParamsScopeSystem:
+	case System:
 		return true
-	case ListSMSTemplatesParamsScopeWorkspace:
+	case Workspace:
 		return true
 	default:
 		return false
@@ -4858,14 +4762,11 @@ type EventEmailSuppressionCreatedData struct {
 	// Email The recipient address that was added to the suppression list.
 	Email openapi_types.Email `json:"email"`
 
-	// Reason Why the address was suppressed.
-	Reason        EventEmailSuppressionCreatedDataReason `json:"reason"`
-	SuppressionId SuppressionID                          `json:"suppression_id"`
-	WorkspaceId   WorkspaceID                            `json:"workspace_id"`
+	// Reason Why the address was suppressed. This list grows over time — treat unknown values as informational rather than rejecting the event.
+	Reason        string        `json:"reason"`
+	SuppressionId SuppressionID `json:"suppression_id"`
+	WorkspaceId   WorkspaceID   `json:"workspace_id"`
 }
-
-// EventEmailSuppressionCreatedDataReason Why the address was suppressed.
-type EventEmailSuppressionCreatedDataReason string
 
 // EventEmailUnsubscribed Recipient unsubscribed by clicking a tracked unsubscribe link in the email. Fires once per recipient.
 type EventEmailUnsubscribed struct {
@@ -5925,14 +5826,18 @@ type ShareDomainDnsRequest struct {
 
 // Suppression defines model for Suppression.
 type Suppression struct {
-	// AppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences.
-	AppliesTo SuppressionAppliesTo `json:"applies_to"`
-	CreatedAt *time.Time           `json:"created_at,omitempty"`
-	Email     openapi_types.Email  `json:"email"`
-	Id        SuppressionID        `json:"id"`
-	Origin    SuppressionOrigin    `json:"origin"`
-	Reason    SuppressionReason    `json:"reason"`
-	Scope     SuppressionScope     `json:"scope"`
+	// AppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences. This list grows over time — treat an unknown value as blocking at least non-transactional mail.
+	AppliesTo string              `json:"applies_to"`
+	CreatedAt *time.Time          `json:"created_at,omitempty"`
+	Email     openapi_types.Email `json:"email"`
+	Id        SuppressionID       `json:"id"`
+
+	// Origin How the suppression came to exist. This list grows over time — treat unknown values as informational rather than rejecting the record.
+	Origin string `json:"origin"`
+
+	// Reason Why the address is suppressed. This list grows over time — treat unknown values as informational rather than rejecting the record.
+	Reason string           `json:"reason"`
+	Scope  SuppressionScope `json:"scope"`
 
 	// SourceEmailId ID of the email that triggered suppression. Null for manual additions.
 	SourceEmailId *EmailID `json:"source_email_id,omitempty"`
@@ -5940,15 +5845,6 @@ type Suppression struct {
 	// SourceRecipientId ID of the recipient event that triggered suppression. Null for manual additions.
 	SourceRecipientId *RecipientID `json:"source_recipient_id,omitempty"`
 }
-
-// SuppressionAppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences.
-type SuppressionAppliesTo string
-
-// SuppressionOrigin defines model for Suppression.Origin.
-type SuppressionOrigin string
-
-// SuppressionReason defines model for Suppression.Reason.
-type SuppressionReason string
 
 // SuppressionCreate defines model for SuppressionCreate.
 type SuppressionCreate struct {
