@@ -17,7 +17,12 @@ import (
 )
 
 // EmailService sends and reads email messages. Reach it via Client.Email.
-type EmailService struct{ client *Client }
+type EmailService struct {
+	client *Client
+
+	// Stats reads aggregated delivery and engagement statistics.
+	Stats *EmailStatsService
+}
 
 // EmailSendParams is an email send. Optional fields are omitted from the request
 // when left at their zero value.

@@ -22,6 +22,22 @@ output-options:
     - getEmailMessage
     - listEmailMessages
     - cancelEmailMessage
+    - getEmailStatsSummary
+    - getEmailStatsDaily
+    - getEmailStatsHourly
+    - getEmailStatsByTag
+    - getEmailStatsByCategory
+    - getEmailStatsBySendingIp
+    - getEmailStatsBySendingDomain
+    - getEmailStatsByRecipientDomain
+    - getEmailStatsByMailboxProvider
+    - getEmailStatsByMailboxProviderRegion
+    - getEmailStatsByTemplate
+    - getEmailStatsByLocation
+    - getEmailStatsByClient
+    - getEmailStatsByBounceCode
+    - getEmailStatsByComplaintType
+    - getEmailStatsByBroadcast
     - createSMSMessage
     - createSMSMessageBatch
     - getSMSMessage

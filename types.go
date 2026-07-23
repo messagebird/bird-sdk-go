@@ -43,6 +43,33 @@ type EmailAttachment = oapi.EmailAttachment
 // EmailStatus is a message's aggregate delivery status.
 type EmailStatus = oapi.EmailMessageStatus
 
+// Email statistics responses, returned by the Client.Email.Stats methods. Each
+// is the read-side body for one breakdown; the shared metric shapes (delivery,
+// engagement, latency, and the per-row points) live in internal/oapi and are
+// reachable through these aliases.
+type (
+	// EmailStatsSummary is the delivery/engagement/latency totals for a window,
+	// optionally with a previous-period comparison. Returned by Stats.Summary.
+	EmailStatsSummary = oapi.EmailStatsSummary
+	// EmailStatsResponse is a time series of per-bucket points. Returned by
+	// Stats.Daily and Stats.Hourly.
+	EmailStatsResponse = oapi.EmailStatsResponse
+	// EmailStatsTagsResponse is the ranked tag breakdown. Returned by Stats.ByTag.
+	EmailStatsTagsResponse                    = oapi.EmailStatsTagsResponse
+	EmailStatsByCategoryResponse              = oapi.EmailStatsByCategoryResponse
+	EmailStatsBySendingIpResponse             = oapi.EmailStatsBySendingIpResponse
+	EmailStatsBySendingDomainResponse         = oapi.EmailStatsBySendingDomainResponse
+	EmailStatsByRecipientDomainResponse       = oapi.EmailStatsByRecipientDomainResponse
+	EmailStatsByMailboxProviderResponse       = oapi.EmailStatsByMailboxProviderResponse
+	EmailStatsByMailboxProviderRegionResponse = oapi.EmailStatsByMailboxProviderRegionResponse
+	EmailStatsByTemplateResponse              = oapi.EmailStatsByTemplateResponse
+	EmailStatsByLocationResponse              = oapi.EmailStatsByLocationResponse
+	EmailStatsByClientResponse                = oapi.EmailStatsByClientResponse
+	EmailStatsByBounceCodeResponse            = oapi.EmailStatsByBounceCodeResponse
+	EmailStatsByComplaintTypeResponse         = oapi.EmailStatsByComplaintTypeResponse
+	EmailStatsByBroadcastResponse             = oapi.EmailStatsByBroadcastResponse
+)
+
 // SMSTemplate is an SMS template with its body, variables, and available
 // languages; SMSTemplateList is the (unpaginated) set of templates available to
 // the workspace.

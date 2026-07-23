@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	bird "github.com/messagebird/bird-sdk-go"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -719,6 +720,236 @@ func ExampleVerificationsService_Check() {
 		log.Fatal(err)
 	}
 	fmt.Println(*result.Success)
+}
+
+// Summary returns the delivery, engagement, and latency totals for a window.
+func ExampleEmailStatsService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	summary, err := client.Email.Stats.Summary(context.Background(), bird.EmailStatsSummaryParams{
+		From: "2026-05-01", // a calendar day for a day-grain window (up to 365 days), or
+		To:   "2026-05-31", // an RFC 3339 instant (e.g. "2026-05-01T00:00:00Z") for hour-grain (up to 720 hours)
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(summary.SendsAccepted)
+}
+
+// Daily returns one row per calendar day in the window.
+func ExampleEmailStatsService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Email.Stats.Daily(context.Background(), bird.EmailStatsDailyParams{
+		From: time.Now().AddDate(0, 0, -7),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(series.Data)
+}
+
+// Hourly returns one row per hour in the window (max 720 hours).
+func ExampleEmailStatsService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Email.Stats.Hourly(context.Background(), bird.EmailStatsHourlyParams{
+		From: time.Now().Add(-24 * time.Hour),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(series.Data)
+}
+
+// ByTag ranks statistics per tag.
+func ExampleEmailStatsService_ByTag() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByTag(context.Background(), bird.EmailStatsByTagParams{
+		Sort:  "opens",
+		Limit: 10,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByCategory ranks statistics per category.
+func ExampleEmailStatsService_ByCategory() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByCategory(context.Background(), bird.EmailStatsByCategoryParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// BySendingIp ranks delivery statistics per sending IP.
+func ExampleEmailStatsService_BySendingIp() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.BySendingIp(context.Background(), bird.EmailStatsBySendingIpParams{
+		Sort: "bounced",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// BySendingDomain ranks statistics per sending domain.
+func ExampleEmailStatsService_BySendingDomain() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.BySendingDomain(context.Background(), bird.EmailStatsBySendingDomainParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByRecipientDomain ranks statistics per recipient mailbox domain.
+func ExampleEmailStatsService_ByRecipientDomain() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByRecipientDomain(context.Background(), bird.EmailStatsByRecipientDomainParams{
+		Limit: 20,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByMailboxProvider ranks post-delivery statistics per mailbox provider.
+func ExampleEmailStatsService_ByMailboxProvider() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByMailboxProvider(context.Background(), bird.EmailStatsByMailboxProviderParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByMailboxProviderRegion ranks post-delivery statistics per provider region.
+func ExampleEmailStatsService_ByMailboxProviderRegion() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByMailboxProviderRegion(context.Background(), bird.EmailStatsByMailboxProviderRegionParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByTemplate ranks statistics per template.
+func ExampleEmailStatsService_ByTemplate() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByTemplate(context.Background(), bird.EmailStatsByTemplateParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByLocation ranks engagement statistics per geographic location.
+func ExampleEmailStatsService_ByLocation() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByLocation(context.Background(), bird.EmailStatsByLocationParams{
+		GroupBy: "country",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByClient ranks engagement statistics per reading environment.
+func ExampleEmailStatsService_ByClient() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByClient(context.Background(), bird.EmailStatsByClientParams{
+		GroupBy: "email_client",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByBounceCode ranks bounce counts per SMTP error code.
+func ExampleEmailStatsService_ByBounceCode() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByBounceCode(context.Background(), bird.EmailStatsByBounceCodeParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByComplaintType ranks complaint counts per complaint type.
+func ExampleEmailStatsService_ByComplaintType() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByComplaintType(context.Background(), bird.EmailStatsByComplaintTypeParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
+}
+
+// ByBroadcast ranks statistics per broadcast.
+func ExampleEmailStatsService_ByBroadcast() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Email.Stats.ByBroadcast(context.Background(), bird.EmailStatsByBroadcastParams{
+		Limit: 25,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(stats.Data)
 }
 
 // Register a sending domain. It returns in "pending" with the DNS records to

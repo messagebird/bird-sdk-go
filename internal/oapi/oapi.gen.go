@@ -588,6 +588,36 @@ func (e EmailBounceType) Valid() bool {
 	}
 }
 
+// Defines values for EmailEngagementSortMetric.
+const (
+	EmailEngagementSortMetricClicks                   EmailEngagementSortMetric = "clicks"
+	EmailEngagementSortMetricOpens                    EmailEngagementSortMetric = "opens"
+	EmailEngagementSortMetricOpensNonPrefetched       EmailEngagementSortMetric = "opens_non_prefetched"
+	EmailEngagementSortMetricUniqueClicks             EmailEngagementSortMetric = "unique_clicks"
+	EmailEngagementSortMetricUniqueOpens              EmailEngagementSortMetric = "unique_opens"
+	EmailEngagementSortMetricUniqueOpensNonPrefetched EmailEngagementSortMetric = "unique_opens_non_prefetched"
+)
+
+// Valid indicates whether the value is a known member of the EmailEngagementSortMetric enum.
+func (e EmailEngagementSortMetric) Valid() bool {
+	switch e {
+	case EmailEngagementSortMetricClicks:
+		return true
+	case EmailEngagementSortMetricOpens:
+		return true
+	case EmailEngagementSortMetricOpensNonPrefetched:
+		return true
+	case EmailEngagementSortMetricUniqueClicks:
+		return true
+	case EmailEngagementSortMetricUniqueOpens:
+		return true
+	case EmailEngagementSortMetricUniqueOpensNonPrefetched:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailEventBounceType.
 const (
 	EmailEventBounceTypeAdmin        EmailEventBounceType = "admin"
@@ -648,6 +678,99 @@ func (e EmailEventRejectionReason) Valid() bool {
 	case EmailEventRejectionReasonRecipientSuppressed:
 		return true
 	case EmailEventRejectionReasonTransmissionFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailMailboxProviderSortMetric.
+const (
+	EmailMailboxProviderSortMetricBounceRate               EmailMailboxProviderSortMetric = "bounce_rate"
+	EmailMailboxProviderSortMetricBounced                  EmailMailboxProviderSortMetric = "bounced"
+	EmailMailboxProviderSortMetricBouncesAdmin             EmailMailboxProviderSortMetric = "bounces.admin"
+	EmailMailboxProviderSortMetricBouncesAdminRate         EmailMailboxProviderSortMetric = "bounces.admin_rate"
+	EmailMailboxProviderSortMetricBouncesBlock             EmailMailboxProviderSortMetric = "bounces.block"
+	EmailMailboxProviderSortMetricBouncesBlockRate         EmailMailboxProviderSortMetric = "bounces.block_rate"
+	EmailMailboxProviderSortMetricBouncesHard              EmailMailboxProviderSortMetric = "bounces.hard"
+	EmailMailboxProviderSortMetricBouncesHardRate          EmailMailboxProviderSortMetric = "bounces.hard_rate"
+	EmailMailboxProviderSortMetricBouncesSoft              EmailMailboxProviderSortMetric = "bounces.soft"
+	EmailMailboxProviderSortMetricBouncesSoftRate          EmailMailboxProviderSortMetric = "bounces.soft_rate"
+	EmailMailboxProviderSortMetricBouncesUndetermined      EmailMailboxProviderSortMetric = "bounces.undetermined"
+	EmailMailboxProviderSortMetricBouncesUndeterminedRate  EmailMailboxProviderSortMetric = "bounces.undetermined_rate"
+	EmailMailboxProviderSortMetricClickRate                EmailMailboxProviderSortMetric = "click_rate"
+	EmailMailboxProviderSortMetricClicks                   EmailMailboxProviderSortMetric = "clicks"
+	EmailMailboxProviderSortMetricComplained               EmailMailboxProviderSortMetric = "complained"
+	EmailMailboxProviderSortMetricComplaintRate            EmailMailboxProviderSortMetric = "complaint_rate"
+	EmailMailboxProviderSortMetricDeferred                 EmailMailboxProviderSortMetric = "deferred"
+	EmailMailboxProviderSortMetricDelivered                EmailMailboxProviderSortMetric = "delivered"
+	EmailMailboxProviderSortMetricDeliveryRate             EmailMailboxProviderSortMetric = "delivery_rate"
+	EmailMailboxProviderSortMetricOpenRate                 EmailMailboxProviderSortMetric = "open_rate"
+	EmailMailboxProviderSortMetricOpens                    EmailMailboxProviderSortMetric = "opens"
+	EmailMailboxProviderSortMetricOpensNonPrefetched       EmailMailboxProviderSortMetric = "opens_non_prefetched"
+	EmailMailboxProviderSortMetricUniqueClicks             EmailMailboxProviderSortMetric = "unique_clicks"
+	EmailMailboxProviderSortMetricUniqueOpens              EmailMailboxProviderSortMetric = "unique_opens"
+	EmailMailboxProviderSortMetricUniqueOpensNonPrefetched EmailMailboxProviderSortMetric = "unique_opens_non_prefetched"
+	EmailMailboxProviderSortMetricUnsubscribeRate          EmailMailboxProviderSortMetric = "unsubscribe_rate"
+	EmailMailboxProviderSortMetricUnsubscribes             EmailMailboxProviderSortMetric = "unsubscribes"
+)
+
+// Valid indicates whether the value is a known member of the EmailMailboxProviderSortMetric enum.
+func (e EmailMailboxProviderSortMetric) Valid() bool {
+	switch e {
+	case EmailMailboxProviderSortMetricBounceRate:
+		return true
+	case EmailMailboxProviderSortMetricBounced:
+		return true
+	case EmailMailboxProviderSortMetricBouncesAdmin:
+		return true
+	case EmailMailboxProviderSortMetricBouncesAdminRate:
+		return true
+	case EmailMailboxProviderSortMetricBouncesBlock:
+		return true
+	case EmailMailboxProviderSortMetricBouncesBlockRate:
+		return true
+	case EmailMailboxProviderSortMetricBouncesHard:
+		return true
+	case EmailMailboxProviderSortMetricBouncesHardRate:
+		return true
+	case EmailMailboxProviderSortMetricBouncesSoft:
+		return true
+	case EmailMailboxProviderSortMetricBouncesSoftRate:
+		return true
+	case EmailMailboxProviderSortMetricBouncesUndetermined:
+		return true
+	case EmailMailboxProviderSortMetricBouncesUndeterminedRate:
+		return true
+	case EmailMailboxProviderSortMetricClickRate:
+		return true
+	case EmailMailboxProviderSortMetricClicks:
+		return true
+	case EmailMailboxProviderSortMetricComplained:
+		return true
+	case EmailMailboxProviderSortMetricComplaintRate:
+		return true
+	case EmailMailboxProviderSortMetricDeferred:
+		return true
+	case EmailMailboxProviderSortMetricDelivered:
+		return true
+	case EmailMailboxProviderSortMetricDeliveryRate:
+		return true
+	case EmailMailboxProviderSortMetricOpenRate:
+		return true
+	case EmailMailboxProviderSortMetricOpens:
+		return true
+	case EmailMailboxProviderSortMetricOpensNonPrefetched:
+		return true
+	case EmailMailboxProviderSortMetricUniqueClicks:
+		return true
+	case EmailMailboxProviderSortMetricUniqueOpens:
+		return true
+	case EmailMailboxProviderSortMetricUniqueOpensNonPrefetched:
+		return true
+	case EmailMailboxProviderSortMetricUnsubscribeRate:
+		return true
+	case EmailMailboxProviderSortMetricUnsubscribes:
 		return true
 	default:
 		return false
@@ -927,6 +1050,108 @@ func (e EmailSmtpConfigUpdateCategory) Valid() bool {
 	case EmailSmtpConfigUpdateCategoryMarketing:
 		return true
 	case EmailSmtpConfigUpdateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailStatsSortMetric.
+const (
+	EmailStatsSortMetricBounceRate               EmailStatsSortMetric = "bounce_rate"
+	EmailStatsSortMetricBounced                  EmailStatsSortMetric = "bounced"
+	EmailStatsSortMetricBouncesAdmin             EmailStatsSortMetric = "bounces.admin"
+	EmailStatsSortMetricBouncesAdminRate         EmailStatsSortMetric = "bounces.admin_rate"
+	EmailStatsSortMetricBouncesBlock             EmailStatsSortMetric = "bounces.block"
+	EmailStatsSortMetricBouncesBlockRate         EmailStatsSortMetric = "bounces.block_rate"
+	EmailStatsSortMetricBouncesHard              EmailStatsSortMetric = "bounces.hard"
+	EmailStatsSortMetricBouncesHardRate          EmailStatsSortMetric = "bounces.hard_rate"
+	EmailStatsSortMetricBouncesSoft              EmailStatsSortMetric = "bounces.soft"
+	EmailStatsSortMetricBouncesSoftRate          EmailStatsSortMetric = "bounces.soft_rate"
+	EmailStatsSortMetricBouncesUndetermined      EmailStatsSortMetric = "bounces.undetermined"
+	EmailStatsSortMetricBouncesUndeterminedRate  EmailStatsSortMetric = "bounces.undetermined_rate"
+	EmailStatsSortMetricClickRate                EmailStatsSortMetric = "click_rate"
+	EmailStatsSortMetricClicks                   EmailStatsSortMetric = "clicks"
+	EmailStatsSortMetricComplained               EmailStatsSortMetric = "complained"
+	EmailStatsSortMetricComplaintRate            EmailStatsSortMetric = "complaint_rate"
+	EmailStatsSortMetricDeferred                 EmailStatsSortMetric = "deferred"
+	EmailStatsSortMetricDelivered                EmailStatsSortMetric = "delivered"
+	EmailStatsSortMetricDeliveryRate             EmailStatsSortMetric = "delivery_rate"
+	EmailStatsSortMetricOobBounces               EmailStatsSortMetric = "oob_bounces"
+	EmailStatsSortMetricOpenRate                 EmailStatsSortMetric = "open_rate"
+	EmailStatsSortMetricOpens                    EmailStatsSortMetric = "opens"
+	EmailStatsSortMetricOpensNonPrefetched       EmailStatsSortMetric = "opens_non_prefetched"
+	EmailStatsSortMetricProcessed                EmailStatsSortMetric = "processed"
+	EmailStatsSortMetricRejected                 EmailStatsSortMetric = "rejected"
+	EmailStatsSortMetricUniqueClicks             EmailStatsSortMetric = "unique_clicks"
+	EmailStatsSortMetricUniqueOpens              EmailStatsSortMetric = "unique_opens"
+	EmailStatsSortMetricUniqueOpensNonPrefetched EmailStatsSortMetric = "unique_opens_non_prefetched"
+	EmailStatsSortMetricUnsubscribeRate          EmailStatsSortMetric = "unsubscribe_rate"
+	EmailStatsSortMetricUnsubscribes             EmailStatsSortMetric = "unsubscribes"
+)
+
+// Valid indicates whether the value is a known member of the EmailStatsSortMetric enum.
+func (e EmailStatsSortMetric) Valid() bool {
+	switch e {
+	case EmailStatsSortMetricBounceRate:
+		return true
+	case EmailStatsSortMetricBounced:
+		return true
+	case EmailStatsSortMetricBouncesAdmin:
+		return true
+	case EmailStatsSortMetricBouncesAdminRate:
+		return true
+	case EmailStatsSortMetricBouncesBlock:
+		return true
+	case EmailStatsSortMetricBouncesBlockRate:
+		return true
+	case EmailStatsSortMetricBouncesHard:
+		return true
+	case EmailStatsSortMetricBouncesHardRate:
+		return true
+	case EmailStatsSortMetricBouncesSoft:
+		return true
+	case EmailStatsSortMetricBouncesSoftRate:
+		return true
+	case EmailStatsSortMetricBouncesUndetermined:
+		return true
+	case EmailStatsSortMetricBouncesUndeterminedRate:
+		return true
+	case EmailStatsSortMetricClickRate:
+		return true
+	case EmailStatsSortMetricClicks:
+		return true
+	case EmailStatsSortMetricComplained:
+		return true
+	case EmailStatsSortMetricComplaintRate:
+		return true
+	case EmailStatsSortMetricDeferred:
+		return true
+	case EmailStatsSortMetricDelivered:
+		return true
+	case EmailStatsSortMetricDeliveryRate:
+		return true
+	case EmailStatsSortMetricOobBounces:
+		return true
+	case EmailStatsSortMetricOpenRate:
+		return true
+	case EmailStatsSortMetricOpens:
+		return true
+	case EmailStatsSortMetricOpensNonPrefetched:
+		return true
+	case EmailStatsSortMetricProcessed:
+		return true
+	case EmailStatsSortMetricRejected:
+		return true
+	case EmailStatsSortMetricUniqueClicks:
+		return true
+	case EmailStatsSortMetricUniqueOpens:
+		return true
+	case EmailStatsSortMetricUniqueOpensNonPrefetched:
+		return true
+	case EmailStatsSortMetricUnsubscribeRate:
+		return true
+	case EmailStatsSortMetricUnsubscribes:
 		return true
 	default:
 		return false
@@ -1503,6 +1728,66 @@ const (
 func (e EventSMSSentType) Valid() bool {
 	switch e {
 	case SmsSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSTfnVerificationApprovedType.
+const (
+	SmsTfnVerificationApproved EventSMSTfnVerificationApprovedType = "sms.tfn_verification.approved"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSTfnVerificationApprovedType enum.
+func (e EventSMSTfnVerificationApprovedType) Valid() bool {
+	switch e {
+	case SmsTfnVerificationApproved:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSTfnVerificationInfoRequestedType.
+const (
+	SmsTfnVerificationInfoRequested EventSMSTfnVerificationInfoRequestedType = "sms.tfn_verification.info_requested"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSTfnVerificationInfoRequestedType enum.
+func (e EventSMSTfnVerificationInfoRequestedType) Valid() bool {
+	switch e {
+	case SmsTfnVerificationInfoRequested:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSTfnVerificationRejectedType.
+const (
+	SmsTfnVerificationRejected EventSMSTfnVerificationRejectedType = "sms.tfn_verification.rejected"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSTfnVerificationRejectedType enum.
+func (e EventSMSTfnVerificationRejectedType) Valid() bool {
+	switch e {
+	case SmsTfnVerificationRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventSMSTfnVerificationSubmittedType.
+const (
+	SmsTfnVerificationSubmitted EventSMSTfnVerificationSubmittedType = "sms.tfn_verification.submitted"
+)
+
+// Valid indicates whether the value is a known member of the EventSMSTfnVerificationSubmittedType enum.
+func (e EventSMSTfnVerificationSubmittedType) Valid() bool {
+	switch e {
+	case SmsTfnVerificationSubmitted:
 		return true
 	default:
 		return false
@@ -2406,6 +2691,333 @@ func (e ListEmailMessagesParamsCategory) Valid() bool {
 	}
 }
 
+// Defines values for GetEmailStatsByBounceCodeParamsSort.
+const (
+	GetEmailStatsByBounceCodeParamsSortBounced             GetEmailStatsByBounceCodeParamsSort = "bounced"
+	GetEmailStatsByBounceCodeParamsSortBouncesAdmin        GetEmailStatsByBounceCodeParamsSort = "bounces.admin"
+	GetEmailStatsByBounceCodeParamsSortBouncesBlock        GetEmailStatsByBounceCodeParamsSort = "bounces.block"
+	GetEmailStatsByBounceCodeParamsSortBouncesHard         GetEmailStatsByBounceCodeParamsSort = "bounces.hard"
+	GetEmailStatsByBounceCodeParamsSortBouncesSoft         GetEmailStatsByBounceCodeParamsSort = "bounces.soft"
+	GetEmailStatsByBounceCodeParamsSortBouncesUndetermined GetEmailStatsByBounceCodeParamsSort = "bounces.undetermined"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByBounceCodeParamsSort enum.
+func (e GetEmailStatsByBounceCodeParamsSort) Valid() bool {
+	switch e {
+	case GetEmailStatsByBounceCodeParamsSortBounced:
+		return true
+	case GetEmailStatsByBounceCodeParamsSortBouncesAdmin:
+		return true
+	case GetEmailStatsByBounceCodeParamsSortBouncesBlock:
+		return true
+	case GetEmailStatsByBounceCodeParamsSortBouncesHard:
+		return true
+	case GetEmailStatsByBounceCodeParamsSortBouncesSoft:
+		return true
+	case GetEmailStatsByBounceCodeParamsSortBouncesUndetermined:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByBroadcastParamsTrendGrain.
+const (
+	GetEmailStatsByBroadcastParamsTrendGrainDaily  GetEmailStatsByBroadcastParamsTrendGrain = "daily"
+	GetEmailStatsByBroadcastParamsTrendGrainHourly GetEmailStatsByBroadcastParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByBroadcastParamsTrendGrain enum.
+func (e GetEmailStatsByBroadcastParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByBroadcastParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByBroadcastParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByCategoryParamsTrendGrain.
+const (
+	GetEmailStatsByCategoryParamsTrendGrainDaily  GetEmailStatsByCategoryParamsTrendGrain = "daily"
+	GetEmailStatsByCategoryParamsTrendGrainHourly GetEmailStatsByCategoryParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByCategoryParamsTrendGrain enum.
+func (e GetEmailStatsByCategoryParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByCategoryParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByCategoryParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByClientParamsGroupBy.
+const (
+	GetEmailStatsByClientParamsGroupByDeviceType  GetEmailStatsByClientParamsGroupBy = "device_type"
+	GetEmailStatsByClientParamsGroupByEmailClient GetEmailStatsByClientParamsGroupBy = "email_client"
+	GetEmailStatsByClientParamsGroupByOs          GetEmailStatsByClientParamsGroupBy = "os"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByClientParamsGroupBy enum.
+func (e GetEmailStatsByClientParamsGroupBy) Valid() bool {
+	switch e {
+	case GetEmailStatsByClientParamsGroupByDeviceType:
+		return true
+	case GetEmailStatsByClientParamsGroupByEmailClient:
+		return true
+	case GetEmailStatsByClientParamsGroupByOs:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByComplaintTypeParamsSort.
+const (
+	GetEmailStatsByComplaintTypeParamsSortComplained GetEmailStatsByComplaintTypeParamsSort = "complained"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByComplaintTypeParamsSort enum.
+func (e GetEmailStatsByComplaintTypeParamsSort) Valid() bool {
+	switch e {
+	case GetEmailStatsByComplaintTypeParamsSortComplained:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByLocationParamsGroupBy.
+const (
+	GetEmailStatsByLocationParamsGroupByCity    GetEmailStatsByLocationParamsGroupBy = "city"
+	GetEmailStatsByLocationParamsGroupByCountry GetEmailStatsByLocationParamsGroupBy = "country"
+	GetEmailStatsByLocationParamsGroupByRegion  GetEmailStatsByLocationParamsGroupBy = "region"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByLocationParamsGroupBy enum.
+func (e GetEmailStatsByLocationParamsGroupBy) Valid() bool {
+	switch e {
+	case GetEmailStatsByLocationParamsGroupByCity:
+		return true
+	case GetEmailStatsByLocationParamsGroupByCountry:
+		return true
+	case GetEmailStatsByLocationParamsGroupByRegion:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByMailboxProviderRegionParamsTrendGrain.
+const (
+	GetEmailStatsByMailboxProviderRegionParamsTrendGrainDaily  GetEmailStatsByMailboxProviderRegionParamsTrendGrain = "daily"
+	GetEmailStatsByMailboxProviderRegionParamsTrendGrainHourly GetEmailStatsByMailboxProviderRegionParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByMailboxProviderRegionParamsTrendGrain enum.
+func (e GetEmailStatsByMailboxProviderRegionParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByMailboxProviderRegionParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByMailboxProviderRegionParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByMailboxProviderParamsTrendGrain.
+const (
+	GetEmailStatsByMailboxProviderParamsTrendGrainDaily  GetEmailStatsByMailboxProviderParamsTrendGrain = "daily"
+	GetEmailStatsByMailboxProviderParamsTrendGrainHourly GetEmailStatsByMailboxProviderParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByMailboxProviderParamsTrendGrain enum.
+func (e GetEmailStatsByMailboxProviderParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByMailboxProviderParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByMailboxProviderParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByRecipientDomainParamsTrendGrain.
+const (
+	GetEmailStatsByRecipientDomainParamsTrendGrainDaily  GetEmailStatsByRecipientDomainParamsTrendGrain = "daily"
+	GetEmailStatsByRecipientDomainParamsTrendGrainHourly GetEmailStatsByRecipientDomainParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByRecipientDomainParamsTrendGrain enum.
+func (e GetEmailStatsByRecipientDomainParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByRecipientDomainParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByRecipientDomainParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsBySendingDomainParamsTrendGrain.
+const (
+	GetEmailStatsBySendingDomainParamsTrendGrainDaily  GetEmailStatsBySendingDomainParamsTrendGrain = "daily"
+	GetEmailStatsBySendingDomainParamsTrendGrainHourly GetEmailStatsBySendingDomainParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsBySendingDomainParamsTrendGrain enum.
+func (e GetEmailStatsBySendingDomainParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsBySendingDomainParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsBySendingDomainParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsBySendingIpParamsSort.
+const (
+	GetEmailStatsBySendingIpParamsSortBounceRate              GetEmailStatsBySendingIpParamsSort = "bounce_rate"
+	GetEmailStatsBySendingIpParamsSortBounced                 GetEmailStatsBySendingIpParamsSort = "bounced"
+	GetEmailStatsBySendingIpParamsSortBouncesAdmin            GetEmailStatsBySendingIpParamsSort = "bounces.admin"
+	GetEmailStatsBySendingIpParamsSortBouncesAdminRate        GetEmailStatsBySendingIpParamsSort = "bounces.admin_rate"
+	GetEmailStatsBySendingIpParamsSortBouncesBlock            GetEmailStatsBySendingIpParamsSort = "bounces.block"
+	GetEmailStatsBySendingIpParamsSortBouncesBlockRate        GetEmailStatsBySendingIpParamsSort = "bounces.block_rate"
+	GetEmailStatsBySendingIpParamsSortBouncesHard             GetEmailStatsBySendingIpParamsSort = "bounces.hard"
+	GetEmailStatsBySendingIpParamsSortBouncesHardRate         GetEmailStatsBySendingIpParamsSort = "bounces.hard_rate"
+	GetEmailStatsBySendingIpParamsSortBouncesSoft             GetEmailStatsBySendingIpParamsSort = "bounces.soft"
+	GetEmailStatsBySendingIpParamsSortBouncesSoftRate         GetEmailStatsBySendingIpParamsSort = "bounces.soft_rate"
+	GetEmailStatsBySendingIpParamsSortBouncesUndetermined     GetEmailStatsBySendingIpParamsSort = "bounces.undetermined"
+	GetEmailStatsBySendingIpParamsSortBouncesUndeterminedRate GetEmailStatsBySendingIpParamsSort = "bounces.undetermined_rate"
+	GetEmailStatsBySendingIpParamsSortComplained              GetEmailStatsBySendingIpParamsSort = "complained"
+	GetEmailStatsBySendingIpParamsSortComplaintRate           GetEmailStatsBySendingIpParamsSort = "complaint_rate"
+	GetEmailStatsBySendingIpParamsSortDeferred                GetEmailStatsBySendingIpParamsSort = "deferred"
+	GetEmailStatsBySendingIpParamsSortDelivered               GetEmailStatsBySendingIpParamsSort = "delivered"
+	GetEmailStatsBySendingIpParamsSortDeliveryRate            GetEmailStatsBySendingIpParamsSort = "delivery_rate"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsBySendingIpParamsSort enum.
+func (e GetEmailStatsBySendingIpParamsSort) Valid() bool {
+	switch e {
+	case GetEmailStatsBySendingIpParamsSortBounceRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBounced:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesAdmin:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesAdminRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesBlock:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesBlockRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesHard:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesHardRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesSoft:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesSoftRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesUndetermined:
+		return true
+	case GetEmailStatsBySendingIpParamsSortBouncesUndeterminedRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortComplained:
+		return true
+	case GetEmailStatsBySendingIpParamsSortComplaintRate:
+		return true
+	case GetEmailStatsBySendingIpParamsSortDeferred:
+		return true
+	case GetEmailStatsBySendingIpParamsSortDelivered:
+		return true
+	case GetEmailStatsBySendingIpParamsSortDeliveryRate:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsBySendingIpParamsTrendGrain.
+const (
+	GetEmailStatsBySendingIpParamsTrendGrainDaily  GetEmailStatsBySendingIpParamsTrendGrain = "daily"
+	GetEmailStatsBySendingIpParamsTrendGrainHourly GetEmailStatsBySendingIpParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsBySendingIpParamsTrendGrain enum.
+func (e GetEmailStatsBySendingIpParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsBySendingIpParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsBySendingIpParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsSummaryParamsCompare.
+const (
+	PreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsSummaryParamsCompare enum.
+func (e GetEmailStatsSummaryParamsCompare) Valid() bool {
+	switch e {
+	case PreviousPeriod:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByTagParamsTrendGrain.
+const (
+	GetEmailStatsByTagParamsTrendGrainDaily  GetEmailStatsByTagParamsTrendGrain = "daily"
+	GetEmailStatsByTagParamsTrendGrainHourly GetEmailStatsByTagParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByTagParamsTrendGrain enum.
+func (e GetEmailStatsByTagParamsTrendGrain) Valid() bool {
+	switch e {
+	case GetEmailStatsByTagParamsTrendGrainDaily:
+		return true
+	case GetEmailStatsByTagParamsTrendGrainHourly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailStatsByTemplateParamsTrendGrain.
+const (
+	Daily  GetEmailStatsByTemplateParamsTrendGrain = "daily"
+	Hourly GetEmailStatsByTemplateParamsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the GetEmailStatsByTemplateParamsTrendGrain enum.
+func (e GetEmailStatsByTemplateParamsTrendGrain) Valid() bool {
+	switch e {
+	case Daily:
+		return true
+	case Hourly:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListSMSMessagesParamsDirection.
 const (
 	Inbound  ListSMSMessagesParamsDirection = "inbound"
@@ -2504,23 +3116,23 @@ type Audience struct {
 	// Name Display name for the audience.
 	Name string `json:"name"`
 
-	// Type How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+	// Type How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
 	Type      AudienceType `json:"type"`
 	UpdatedAt *time.Time   `json:"updated_at,omitempty"`
 }
 
-// AudienceType How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+// AudienceType How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
 type AudienceType string
 
 // AudienceContactsAddRequest defines model for AudienceContactsAddRequest.
 type AudienceContactsAddRequest struct {
-	// ContactIds Contacts to add to the audience. Adding a contact that is already a member has no effect. If any ID does not exist, the whole request fails and no contacts are added.
+	// ContactIds Contacts to add to the audience. Adding a contact that is already a member has no effect and keeps its original join time; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no contacts are added.
 	ContactIds []ContactID `json:"contact_ids"`
 }
 
 // AudienceContactsRemoveRequest defines model for AudienceContactsRemoveRequest.
 type AudienceContactsRemoveRequest struct {
-	// ContactIds Contacts to remove from the audience. Removing a contact that is not a member has no effect. If any ID does not exist, the whole request fails and no contacts are removed.
+	// ContactIds Contacts to remove from the audience. Removing a contact that is not a member has no effect; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no memberships are removed.
 	ContactIds []ContactID `json:"contact_ids"`
 }
 
@@ -2532,11 +3144,11 @@ type AudienceCreateRequest struct {
 	// Name Display name for the audience.
 	Name string `json:"name"`
 
-	// Type How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+	// Type How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
 	Type *AudienceCreateRequestType `json:"type,omitempty"`
 }
 
-// AudienceCreateRequestType How the audience's recipients are determined. `static` audiences have an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable — creating an audience with either returns an error.
+// AudienceCreateRequestType How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
 type AudienceCreateRequestType string
 
 // AudienceID defines model for AudienceID.
@@ -2582,7 +3194,7 @@ type AudienceMemberList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AudienceRef A compact reference to an audience -- its ID and display name.
+// AudienceRef A compact reference to an audience, carrying its ID and display name.
 type AudienceRef struct {
 	Id AudienceID `json:"id"`
 
@@ -2595,7 +3207,7 @@ type AudienceUpdateRequest struct {
 	// Description Longer description of who this audience is. Set to null to clear.
 	Description *string `json:"description,omitempty"`
 
-	// Name Display name for the audience.
+	// Name New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name *string `json:"name,omitempty"`
 }
 
@@ -2605,7 +3217,7 @@ type Contact struct {
 	Channels  *[]ContactChannel `json:"channels,omitempty"`
 	CreatedAt *time.Time        `json:"created_at,omitempty"`
 
-	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, or boolean matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized.
+	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, or boolean matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address, stored trimmed and lowercased. Unique within the workspace.
@@ -2614,21 +3226,21 @@ type Contact struct {
 	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalId *string `json:"external_id,omitempty"`
 
-	// FirstName The contact's first name.
+	// FirstName The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
 	FirstName *string   `json:"first_name,omitempty"`
 	Id        ContactID `json:"id"`
 
-	// LastName The contact's last name.
+	// LastName The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
 	LastName  *string    `json:"last_name,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// ContactChannel A channel a contact can be reached on. Open enum — `email` is present when the contact has an email address; more values (`sms`, `whatsapp`, `voice`) are added as contacts gain identifiers for other channels. Treat any unrecognized value as a future channel rather than an error. Slugs match `ChannelSlug`.
+// ContactChannel A channel a contact can be reached on. Open enum: `email` is present when the contact has an email address; more values (`sms`, `whatsapp`, `voice`) are added as contacts gain identifiers for other channels. Treat any unrecognized value as a future channel rather than an error. Slugs match `ChannelSlug`.
 type ContactChannel = string
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
-	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); a null value is ignored. Total size is capped at 2 KB serialized.
+	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
@@ -2685,7 +3297,7 @@ type ContactPropertyType string
 
 // ContactPropertyCreateRequest defines model for ContactPropertyCreateRequest.
 type ContactPropertyCreateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null for no fallback.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 
 	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
@@ -2718,16 +3330,16 @@ type ContactPropertyList struct {
 
 // ContactPropertyUpdateRequest defines model for ContactPropertyUpdateRequest.
 type ContactPropertyUpdateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters). Set to null to remove the fallback.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 }
 
 // ContactUpdateRequest defines model for ContactUpdateRequest.
 type ContactUpdateRequest struct {
-	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters). The merged result is capped at 2 KB serialized.
+	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace.
+	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
 	Email *openapi_types.Email `json:"email,omitempty"`
 
 	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
@@ -2751,10 +3363,10 @@ type ContactUpsertError struct {
 
 // ContactUpsertRequest defines model for ContactUpsertRequest.
 type ContactUpsertRequest struct {
-	// AudienceIds Audiences every contact in this request is added to. Contacts that are already members are left in place.
+	// AudienceIds Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
 	AudienceIds *[]AudienceID `json:"audience_ids,omitempty"`
 
-	// Contacts Contacts to create or update, matched by email address. Existing contacts are updated with the supplied fields; new ones are created.
+	// Contacts Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
 	Contacts []ContactCreateRequest `json:"contacts"`
 
 	// DataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
@@ -2774,15 +3386,15 @@ type ContactUpsertResult struct {
 type ContactUpsertResultItem struct {
 	ContactId *ContactID `json:"contact_id,omitempty"`
 
-	// Email Email address of the contact this entry refers to.
+	// Email Email address this entry refers to, in the normalized (trimmed and lowercased) form it was matched and stored as.
 	Email openapi_types.Email `json:"email"`
 	Error *ContactUpsertError `json:"error,omitempty"`
 
-	// Status What happened to this contact. A failed entry does not affect the other entries in the request.
+	// Status What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
 	Status ContactUpsertResultItemStatus `json:"status"`
 }
 
-// ContactUpsertResultItemStatus What happened to this contact. A failed entry does not affect the other entries in the request.
+// ContactUpsertResultItemStatus What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
 type ContactUpsertResultItemStatus string
 
 // CurrencyCode ISO 4217 three-letter currency code.
@@ -2832,7 +3444,9 @@ type DNSRecord struct {
 	//   attention.
 	Status *DNSRecordStatus `json:"status,omitempty"`
 	Type   DNSRecordType    `json:"type"`
-	Value  string           `json:"value"`
+
+	// Value The value to publish, as entered in your DNS provider's "Value" or "Content" field: the full record content for `TXT`, the target hostname for `CNAME`, and the priority followed by the mail server hostname for `MX`.
+	Value string `json:"value"`
 }
 
 // DNSRecordPurpose What this record is for.
@@ -2897,7 +3511,7 @@ type DocsSearchResult struct {
 	// DocUrl Absolute URL of the page, without the section anchor. Results from the same page share it, so it can be used to group them.
 	DocUrl *string `json:"doc_url,omitempty"`
 
-	// Highlights The passages of the section that match the query, longer than the snippet. Returned only when contents is highlights.
+	// Highlights The passages of the section that match the query, longer than the snippet. Returned only when `contents` is `highlights`.
 	Highlights *[]string `json:"highlights,omitempty"`
 
 	// MarkdownUrl Absolute URL that returns the page's full content as Markdown; also the page's canonical source URL.
@@ -2909,7 +3523,7 @@ type DocsSearchResult struct {
 	// Section Heading of the matching section within the page.
 	Section *string `json:"section,omitempty"`
 
-	// Slug Stable identifier of the page, used to read the whole page's Markdown.
+	// Slug Stable identifier of the page. Pass it as the `slug` parameter of `GET /v1/docs/pages` to read the whole page as Markdown.
 	Slug *string `json:"slug,omitempty"`
 
 	// Snippet Short excerpt of the matching content, with the query terms in context. Always returned.
@@ -2918,7 +3532,7 @@ type DocsSearchResult struct {
 	// Title Title of the documentation page this result belongs to.
 	Title *string `json:"title,omitempty"`
 
-	// TokenEstimate Approximate token count of the full page returned by markdown_url, to budget reading it. Results from the same page share it.
+	// TokenEstimate Approximate token count of the full page returned by `markdown_url`, to budget reading it. Results from the same page share it.
 	TokenEstimate *int `json:"token_estimate,omitempty"`
 
 	// Url Absolute URL of the matching section, including the heading anchor.
@@ -3302,13 +3916,13 @@ type DomainEvent struct {
 	CreatedAt time.Time     `json:"created_at"`
 	Id        DomainEventID `json:"id"`
 
-	// Metadata Structured details for the event.
+	// Metadata Structured details for the event. Status-change events carry `from` and `to`; record-level changes also carry `domain`, the affected hostname.
 	Metadata map[string]interface{} `json:"metadata"`
 
 	// Summary Human-readable summary of what changed.
 	Summary string `json:"summary"`
 
-	// Type Type of domain event. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	// Type Type of domain event. `domain.status_changed` tracks ownership verification (the domain-level `status`); `domain.sending_status_changed` tracks readiness to send (`capabilities.sending`); the remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
 	Type string `json:"type"`
 }
 
@@ -3341,6 +3955,7 @@ type DomainInboundConfig struct {
 
 // DomainList defines model for DomainList.
 type DomainList struct {
+	// Data Page of sending domains, newest first by default.
 	Data []Domain `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -3473,8 +4088,232 @@ type EmailAttachmentRef struct {
 	Size int `json:"size"`
 }
 
+// EmailBounceCodeStatsPoint Bounce counts for a single SMTP status code over the requested period, with the per-type breakdown. This is a deliverability-debugging view keyed on what the receiving server returned, so it reports the failure side only (bounced recipients and their hard/soft/admin/block/undetermined split) and carries no delivered, open, or rate fields.
+type EmailBounceCodeStatsPoint struct {
+	// Bounced Distinct recipients whose delivery failed with this SMTP status code. Approximately the sum of the five `bounces.*` sub-counts; the totals are computed independently so they may differ slightly at the approximation error.
+	Bounced *int              `json:"bounced,omitempty"`
+	Bounces *EmailBounceStats `json:"bounces,omitempty"`
+
+	// SmtpErrorCode The SMTP error code the receiving mail server returned for these bounces, as reported by that server (for example `5.1.1` for an unknown recipient, `4.2.2` for a full mailbox). The form varies by server, and the set of codes is open.
+	SmtpErrorCode *string `json:"smtp_error_code,omitempty"`
+}
+
+// EmailBounceStats Breakdown of `bounced` by failure type. Each field counts distinct bounced recipients of that type in this row's scope; the five types approximately partition `bounced`.
+type EmailBounceStats struct {
+	// Admin Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain). Triage usually focuses on content or sender configuration rather than recipient cleanup.
+	Admin *int `json:"admin,omitempty"`
+
+	// Block Distinct recipients bounced because the receiving mail server blocked the sending IP for reputation reasons (mail block, spam block, spam content). Triage usually focuses on IP reputation and sending volume.
+	Block *int `json:"block,omitempty"`
+
+	// Hard Distinct recipients with a permanent delivery failure (invalid address or non-existent domain). The address is automatically added to the suppression list.
+	Hard *int `json:"hard,omitempty"`
+
+	// Soft Distinct recipients with a transient delivery failure (mailbox full or server temporarily unavailable). Delivery was retried.
+	Soft *int `json:"soft,omitempty"`
+
+	// Undetermined Distinct recipients bounced where the receiving server's response did not allow precise classification.
+	Undetermined *int `json:"undetermined,omitempty"`
+}
+
+// EmailBounceStatsWithRates Breakdown of `bounced` by failure type, with each rate as a fraction of `bounced`. Counts are distinct bounced recipients of that type; the five types approximately partition `bounced`, so the five rates sum to roughly 1.0 when `bounced` is non-zero.
+type EmailBounceStatsWithRates struct {
+	// Admin Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain).
+	Admin *int `json:"admin,omitempty"`
+
+	// AdminRate Fraction of bounced recipients that admin bounced, computed as `admin / bounced`. Null when `bounced` is zero.
+	AdminRate *float32 `json:"admin_rate,omitempty"`
+
+	// Block Distinct recipients bounced because the receiving mail server blocked the sending IP for reputation reasons.
+	Block *int `json:"block,omitempty"`
+
+	// BlockRate Fraction of bounced recipients that block bounced, computed as `block / bounced`. Null when `bounced` is zero.
+	BlockRate *float32 `json:"block_rate,omitempty"`
+
+	// Hard Distinct recipients with a permanent delivery failure (invalid address or non-existent domain).
+	Hard *int `json:"hard,omitempty"`
+
+	// HardRate Fraction of bounced recipients that hard bounced, computed as `hard / bounced`. Null when `bounced` is zero.
+	HardRate *float32 `json:"hard_rate,omitempty"`
+
+	// Soft Distinct recipients with a transient delivery failure (mailbox full or server temporarily unavailable).
+	Soft *int `json:"soft,omitempty"`
+
+	// SoftRate Fraction of bounced recipients that soft bounced, computed as `soft / bounced`. Null when `bounced` is zero.
+	SoftRate *float32 `json:"soft_rate,omitempty"`
+
+	// Undetermined Distinct recipients bounced where the receiving server's response did not allow precise classification.
+	Undetermined *int `json:"undetermined,omitempty"`
+
+	// UndeterminedRate Fraction of bounced recipients with undetermined classification, computed as `undetermined / bounced`. Null when `bounced` is zero.
+	UndeterminedRate *float32 `json:"undetermined_rate,omitempty"`
+}
+
 // EmailBounceType Bounce classification. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
 type EmailBounceType string
+
+// EmailBroadcastStatsPoint Aggregate delivery, engagement, and latency stats for the messages of a single broadcast over the requested period.
+type EmailBroadcastStatsPoint struct {
+	// BroadcastId The broadcast this row aggregates, the same identifier returned by the broadcast endpoints. Only messages sent as part of a broadcast carry a broadcast identifier; one-off and transactional sends are not included in this breakdown.
+	BroadcastId *string               `json:"broadcast_id,omitempty"`
+	Delivery    *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement  *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency     *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// Trend Per-bucket rate series for this broadcast over the window. Never returned today, because `include_trend` is not available for the broadcast breakdown (supplying it returns 422).
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailCategoryStatsPoint Aggregate delivery and engagement stats for a single category over the requested period.
+type EmailCategoryStatsPoint struct {
+	// Category The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+	Category   *string               `json:"category,omitempty"`
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// Trend Per-bucket rate series for this category over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity (opens, clicks, and the recipients behind them); it carries no delivery counts and no open/click rates, because the receiving mail server reports delivery without a client or device, leaving no per-client delivered denominator to divide by. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`; the other two are null. Engagement environment is detected from the opening client and is subject to the same inbox-privacy prefetch effects as the open counts (the `opens_non_prefetched` figure excludes auto-fetched opens).
+type EmailClientStatsPoint struct {
+	// DeviceType The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`; null otherwise.
+	DeviceType *string `json:"device_type,omitempty"`
+
+	// EmailClient The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`; null otherwise.
+	EmailClient *string                `json:"email_client,omitempty"`
+	Engagement  *EmailEngagementCounts `json:"engagement,omitempty"`
+
+	// Os The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`; null otherwise.
+	Os *string `json:"os,omitempty"`
+}
+
+// EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else (a complaint event carries no delivery or engagement context to aggregate).
+type EmailComplaintTypeStatsPoint struct {
+	// Complained Distinct recipients who reported a message as spam with this complaint type at any point in the period.
+	Complained *int `json:"complained,omitempty"`
+
+	// FeedbackType The complaint classification reported by the mailbox provider's feedback loop, in the abuse-reporting-format vocabulary (for example `abuse`, `fraud`, `virus`, `other`). The set is open.
+	FeedbackType *string `json:"feedback_type,omitempty"`
+}
+
+// EmailDeliveryLatencyStats Latency percentiles (p50, p95, p99) in milliseconds for the messages in this breakdown row, for breakdowns whose dimension is known only from delivery onward (sending IP, mailbox provider).
+//
+// - `delivery`: time from handing the message off to the receiving mail server accepting it. Null when no deliveries occurred for this row in the period.
+// - `total`: end-to-end time from accepting the send to delivery. Null when no deliveries occurred for this row in the period.
+//
+// These breakdowns have no `processing` latency family. Bird only learns a row's dimension (the sending IP or recipient mailbox provider) after the upstream mail-transfer system reports delivery, bounce, deferral, or late bounce; the accept-to-processed phase happens before that binding decision, so it cannot be attributed to the dimension. Use `GET /v1/email/stats/daily` for workspace-wide processing-latency percentiles.
+type EmailDeliveryLatencyStats struct {
+	// Delivery p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	Delivery *EmailLatencyQuantiles `json:"delivery,omitempty"`
+
+	// Total p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	Total *EmailLatencyQuantiles `json:"total,omitempty"`
+}
+
+// EmailDeliveryStats Delivery pipeline counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope (on the period summary, the sum of the per-bucket distinct counts), attributed by event time (not send time): a recipient delivered on Monday counts in Monday's row, and a recipient who bounced then succeeded on a retry can appear in both `bounced` and `delivered`. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. These counts are successive lifecycle stages, not interchangeable categories: `rejected` happens before any send attempt (suppression, policy, generation failure); `deferred` is a temporary in-flight delay still being retried; `bounced` (with its hard/soft/admin/block/undetermined sub-types) is a delivery failure; and `complained` is post-delivery spam feedback. Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary); breakdown rows omit it.
+type EmailDeliveryStats struct {
+	// Accepted Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary; omitted on breakdown rows, whose rollups do not carry it.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// AllBounces Total recipients in this scope who did not receive the message, computed as `bounced + oob_bounces`.
+	AllBounces *int `json:"all_bounces,omitempty"`
+
+	// BounceRate Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count; the rate is clamped to 1. Null when there were no attempts.
+	BounceRate *float32 `json:"bounce_rate,omitempty"`
+
+	// Bounced Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+	Bounced *int                       `json:"bounced,omitempty"`
+	Bounces *EmailBounceStatsWithRates `json:"bounces,omitempty"`
+
+	// Complained Distinct recipients who reported the message as spam via a feedback loop.
+	Complained *int `json:"complained,omitempty"`
+
+	// ComplaintRate Spam complaints in this scope relative to effectively delivered recipients, computed as `complained / effective_delivered`. Complaints are attributed by event time, so a scope can record more of them than it effectively delivered, pushing the rate above 1. Null when `effective_delivered` is zero.
+	ComplaintRate *float32 `json:"complaint_rate,omitempty"`
+
+	// Deferred Distinct recipients whose delivery the receiving server temporarily delayed and is still being retried.
+	Deferred *int `json:"deferred,omitempty"`
+
+	// Delivered Distinct recipients whose message the receiving mail server accepted.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Share of this scope's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+
+	// EffectiveDelivered Recipients who remain in-inbox in this scope after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+	EffectiveDelivered *int `json:"effective_delivered,omitempty"`
+
+	// OobBounces Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. Counted as deduplicated events, not unique recipients.
+	OobBounces *int `json:"oob_bounces,omitempty"`
+
+	// OobRate Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
+	OobRate *float32 `json:"oob_rate,omitempty"`
+
+	// Processed Distinct recipients whose message was processed and handed off for delivery.
+	Processed *int `json:"processed,omitempty"`
+
+	// Rejected Distinct recipients rejected before any delivery attempt. Includes recipients on the workspace suppression list, transmissions that could not be completed, message-generation failures, and recipients refused by sending policy. The per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` surfaces the specific cause.
+	Rejected *int `json:"rejected,omitempty"`
+}
+
+// EmailEngagementCounts Open and click counts for a breakdown row whose dimension is resolved from engagement events only. `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences); the `unique_*` fields count distinct recipients. Rates and unsubscribe counts are not included: there is no per-dimension delivered denominator for a rate, and unsubscribe events do not carry the engagement context this breakdown is keyed on.
+type EmailEngagementCounts struct {
+	// Clicks Distinct click events, counting repeat clicks from the same recipient.
+	Clicks *int `json:"clicks,omitempty"`
+
+	// Opens Distinct open events, counting repeat opens from the same recipient and opens auto-fetched by inbox privacy features (such as Apple Mail Privacy Protection and the Gmail image proxy).
+	Opens *int `json:"opens,omitempty"`
+
+	// OpensNonPrefetched Distinct open events excluding those auto-fetched by inbox privacy features. Same event-counting semantics as `opens`, with prefetched opens removed.
+	OpensNonPrefetched *int `json:"opens_non_prefetched,omitempty"`
+
+	// UniqueClicks Distinct recipients who clicked at least once.
+	UniqueClicks *int `json:"unique_clicks,omitempty"`
+
+	// UniqueOpens Distinct recipients who opened at least once, including opens auto-fetched by inbox privacy features.
+	UniqueOpens *int `json:"unique_opens,omitempty"`
+
+	// UniqueOpensNonPrefetched Distinct recipients who opened at least once, excluding opens auto-fetched by inbox privacy features.
+	UniqueOpensNonPrefetched *int `json:"unique_opens_non_prefetched,omitempty"`
+}
+
+// EmailEngagementSortMetric Metric to rank rows by, applied descending. Shared by the engagement-only breakdowns (locations, email clients), which report open and click counts but no rates (there is no per-dimension delivered denominator).
+type EmailEngagementSortMetric string
+
+// EmailEngagementStats Engagement counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences); the `unique_*` fields count distinct recipients; `unsubscribes` counts distinct unsubscribe events. Counts are attributed by event time (not send time), so an open recorded today for a message sent earlier counts in today's row. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. Each rate divides the counts in this scope and is null when its denominator is zero.
+type EmailEngagementStats struct {
+	// ClickRate Distinct clickers relative to effectively delivered recipients in the same scope, computed as `unique_clicks / delivery.effective_delivered` (`delivery.delivered` on rows without an `effective_delivered` field). Clicks are attributed by event time, so engagement earned by earlier deliveries can push the rate above 1. Null when the denominator is zero.
+	ClickRate *float32 `json:"click_rate,omitempty"`
+
+	// Clicks Distinct click events, counting repeat clicks from the same recipient.
+	Clicks *int `json:"clicks,omitempty"`
+
+	// OpenRate Distinct non-prefetched openers relative to effectively delivered recipients in the same scope, computed as `unique_opens_non_prefetched / delivery.effective_delivered`; on rows without an `effective_delivered` field (the mailbox-provider breakdowns) the denominator equals `delivery.delivered`. The numerator excludes opens auto-fetched by inbox privacy features. Opens are attributed by event time, so engagement earned by earlier deliveries can push the rate above 1. Null when the denominator is zero.
+	OpenRate *float32 `json:"open_rate,omitempty"`
+
+	// Opens Distinct open events, counting repeat opens from the same recipient and opens auto-fetched by inbox privacy features (such as Apple Mail Privacy Protection and the Gmail image proxy).
+	Opens *int `json:"opens,omitempty"`
+
+	// OpensNonPrefetched Distinct open events excluding those auto-fetched by inbox privacy features. Same event-counting semantics as `opens` (repeat opens from the same recipient count separately), with prefetched opens removed.
+	OpensNonPrefetched *int `json:"opens_non_prefetched,omitempty"`
+
+	// UniqueClicks Distinct recipients who clicked at least once.
+	UniqueClicks *int `json:"unique_clicks,omitempty"`
+
+	// UniqueOpens Distinct recipients who opened at least once, including opens auto-fetched by inbox privacy features.
+	UniqueOpens *int `json:"unique_opens,omitempty"`
+
+	// UniqueOpensNonPrefetched Distinct recipients who opened at least once, excluding opens auto-fetched by inbox privacy features. This is the numerator used for open rate, so iOS-heavy audiences (Apple Mail Privacy Protection and similar) do not inflate it.
+	UniqueOpensNonPrefetched *int `json:"unique_opens_non_prefetched,omitempty"`
+
+	// UnsubscribeRate Unsubscribe events relative to effectively delivered recipients in the same scope, computed as `unsubscribes / delivery.effective_delivered` (`delivery.delivered` on rows without an `effective_delivered` field). Unsubscribes are attributed by event time, so the rate can exceed 1. Null when the denominator is zero.
+	UnsubscribeRate *float32 `json:"unsubscribe_rate,omitempty"`
+
+	// Unsubscribes Distinct unsubscribe events, recorded via the list-unsubscribe header or the footer link.
+	Unsubscribes *int `json:"unsubscribes,omitempty"`
+}
 
 // EmailEvent defines model for EmailEvent.
 type EmailEvent struct {
@@ -3552,12 +4391,112 @@ type EmailID = string
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
 
+// EmailLatencyQuantiles p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+type EmailLatencyQuantiles struct {
+	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P50Ms *int `json:"p50_ms,omitempty"`
+
+	// P95Ms 95th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P95Ms *int `json:"p95_ms,omitempty"`
+
+	// P99Ms 99th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P99Ms *int `json:"p99_ms,omitempty"`
+}
+
+// EmailLatencyStats Latency percentiles (p50, p95, p99) in milliseconds for the bucket. On the summary endpoint these are computed across the whole period rather than per bucket. Three families are reported:
+//
+// - `processing`: time from accepting the send to handing the message off for delivery, covering internal queue depth and handoff. Measured per processed recipient; null when no recipient in the bucket has reached the processed stage.
+// - `delivery`: time from handoff to the receiving mail server accepting the message, dominated by recipient-side delivery behaviour. Measured per delivered recipient; null when no deliveries occurred in the bucket.
+// - `total`: end-to-end time from accepting the send to delivery, the most useful tile for a customer SLO. Measured per delivered recipient; null when no deliveries occurred in the bucket.
+//
+// Each family is reported independently and is omitted entirely when no qualifying event contributed a latency measurement in the bucket (including when latency for that stage has not yet been recorded for the workspace), so `processing` can be present while `delivery` and `total` are absent. A client must handle a missing family, and a null p50/p95/p99 within a present family, by rendering a placeholder rather than assuming a number.
+type EmailLatencyStats struct {
+	// Delivery p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	Delivery *EmailLatencyQuantiles `json:"delivery,omitempty"`
+
+	// Processing p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	Processing *EmailLatencyQuantiles `json:"processing,omitempty"`
+
+	// Total p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	Total *EmailLatencyQuantiles `json:"total,omitempty"`
+}
+
+// EmailLocationStatsPoint Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity (opens, clicks, and the recipients behind them); it carries no delivery counts and no open/click rates, because the receiving mail server reports delivery without a recipient location, leaving no per-location delivered denominator to divide by. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
+type EmailLocationStatsPoint struct {
+	// City The city within the region. Populated when `group_by` is `city`; null at coarser groupings.
+	City *string `json:"city,omitempty"`
+
+	// Country The country this row aggregates, as a two-letter country code (ISO 3166-1 alpha-2) resolved from the open or click event. Always present.
+	Country    *string                `json:"country,omitempty"`
+	Engagement *EmailEngagementCounts `json:"engagement,omitempty"`
+
+	// Region The region (state or province) within the country. Populated when `group_by` is `region` or `city`; null at coarser groupings.
+	Region *string `json:"region,omitempty"`
+}
+
+// EmailMailboxProviderDeliveryStats Delivery counts and rates for messages attributed to a single recipient mailbox provider. Per-provider results do not include `accepted` or `processed` counts because Bird only learns the recipient's mailbox provider after the upstream mail transfer system reports delivery/bounce/deferral/late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific provider.
+type EmailMailboxProviderDeliveryStats struct {
+	// BounceRate Share of attempted recipients on this mailbox provider that bounced, computed as `bounced / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	BounceRate *float32 `json:"bounce_rate,omitempty"`
+
+	// Bounced Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+	Bounced *int                       `json:"bounced,omitempty"`
+	Bounces *EmailBounceStatsWithRates `json:"bounces,omitempty"`
+
+	// Complained Distinct recipients who reported the message as spam.
+	Complained *int `json:"complained,omitempty"`
+
+	// ComplaintRate Share of delivered recipients on this mailbox provider who reported the message as spam, computed as `complained / delivered`. Null when `delivered` is zero.
+	ComplaintRate *float32 `json:"complaint_rate,omitempty"`
+
+	// Deferred Distinct recipients in transient delivery deferral that is still being retried.
+	Deferred *int `json:"deferred,omitempty"`
+
+	// Delivered Distinct recipients whose message the receiving mail server accepted.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Share of attempted recipients on this mailbox provider that were delivered, computed as `delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+}
+
+// EmailMailboxProviderRegionStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single mailbox provider and provider region pair over the requested period, for example `gmail` in `NA` or `microsoft` in `EU`. The provider region is the regional pod the receiving mail system reports for the recipient's provider; pairing it with the provider disambiguates a region label that several providers share. Like the mailbox-provider breakdown, rows cover the delivery stage onward: the `accepted` and `processed` counts and the `processing` latency family are omitted (a provider region cannot be attributed before delivery).
+type EmailMailboxProviderRegionStatsPoint struct {
+	Delivery   *EmailMailboxProviderDeliveryStats `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats              `json:"engagement,omitempty"`
+	Latency    *EmailDeliveryLatencyStats         `json:"latency,omitempty"`
+
+	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`).
+	MailboxProvider *string `json:"mailbox_provider,omitempty"`
+
+	// MailboxProviderRegion The provider region this row aggregates, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific.
+	MailboxProviderRegion *string `json:"mailbox_provider_region,omitempty"`
+
+	// Trend Per-bucket rate series for this provider region over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by the breakdowns whose attribution begins at delivery (mailbox providers, mailbox provider regions): `processed`, `rejected`, and `oob_bounces` are not part of those rows, so they are not sortable. Any count or rate the rows carry may be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types are addressed by their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
+type EmailMailboxProviderSortMetric string
+
+// EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. A recipient's mailbox provider is reported by the receiving mail system, so per-provider rows cover the delivery stage onward: they omit the `accepted` and `processed` counts and the `processing` latency family, which never appear (they are not returned as null). Engagement (opens, clicks, and their rates) is included because those events are post-delivery and carry the mailbox provider.
+type EmailMailboxProviderStatsPoint struct {
+	Delivery   *EmailMailboxProviderDeliveryStats `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats              `json:"engagement,omitempty"`
+	Latency    *EmailDeliveryLatencyStats         `json:"latency,omitempty"`
+
+	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorised.
+	MailboxProvider *string `json:"mailbox_provider,omitempty"`
+
+	// Trend Per-bucket rate series for this mailbox provider over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
 // EmailMessage defines model for EmailMessage.
 type EmailMessage struct {
 	// AcceptedCount Number of recipients currently in the `accepted` state — Bird has the send and is preparing to deliver.
 	AcceptedCount *int `json:"accepted_count,omitempty"`
 
-	// Attachments Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; use the future content-retrieval endpoint when storage is enabled.
+	// Attachments Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; when content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
 	Attachments *[]EmailAttachmentRef `json:"attachments,omitempty"`
 
 	// Bcc BCC recipients.
@@ -3768,7 +4707,24 @@ type EmailMessageSendRequest struct {
 // EmailMessageSendRequestCategory Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: marketing.
 type EmailMessageSendRequestCategory string
 
-// EmailMessageStatus Aggregate delivery status of an email, derived from its recipients' states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet; `canceled` means a scheduled message was canceled before it was sent.
+// EmailMessageStatus Aggregate delivery status of an email, derived from its recipients' states.
+//
+// In flight: `scheduled` means the message is queued to send at a future time and has
+// not been dispatched yet; `accepted` (the initial status of an immediate send) means
+// Bird has queued the message for its recipients; `processed` means delivery is underway
+// (at least one recipient has been handed to the delivery pipeline and none has failed);
+// `deferred` means at least one recipient's mailbox provider asked Bird to retry and
+// delivery attempts continue.
+//
+// Final: `delivered` means every recipient's mail server accepted the message; `bounced`
+// means every recipient permanently failed (bounced or was rejected); `rejected` means
+// every recipient was rejected before a delivery attempt (for example, all recipients
+// suppressed); `partial_failure` means some recipients permanently failed while others
+// were delivered or are still in flight; `canceled` means a scheduled message was
+// canceled before it was sent.
+//
+// `complained` takes precedence over every other status: at least one recipient reported
+// the message as spam, regardless of what happened to the rest.
 type EmailMessageStatus string
 
 // EmailRecipient defines model for EmailRecipient.
@@ -3811,18 +4767,30 @@ type EmailRecipient struct {
 	Recipient openapi_types.Email `json:"recipient"`
 
 	// RejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
+	//
 	// - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
 	//   did not attempt delivery.
-	// - `transmission_failed`: the message could not be transmitted for delivery. - `generation_failure`: the message could not be built for delivery (template or
+	// - `transmission_failed`: the message could not be transmitted for delivery.
+	// - `generation_failure`: the message could not be built for delivery (template or
 	//   content issue).
-	// - `policy_rejection`: the message was refused by sending policy. - `domain_unverified`: the sending domain was not verified. - `quota_exceeded`: the organization's send quota was reached. - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+	// - `policy_rejection`: the message was refused by sending policy.
+	// - `domain_unverified`: the sending domain was not verified.
+	// - `quota_exceeded`: the organization's send quota was reached.
+	// - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
 	//   onboarding-domain sends, recipients must be verified workspace members).
 	RejectionReason *EmailRecipientRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Role Envelope position of a recipient on an outbound email event.
 	Role RecipientRole `json:"role"`
 
-	// Status Delivery status for this recipient. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server.
+	// Status Delivery status for this recipient. `accepted` means Bird has the send and is
+	// preparing to deliver; `processed` means the message was handed to the delivery
+	// pipeline for this recipient; `deferred` means the recipient's mailbox provider
+	// asked Bird to retry and delivery attempts continue; `delivered` means the
+	// recipient's mail server accepted the message; `bounced` means delivery permanently
+	// failed (see `bounce_type` for hard vs soft); `complained` means the recipient
+	// reported the message as spam; `rejected` means Bird did not attempt delivery (see
+	// `rejection_reason` for why).
 	Status *EmailRecipientStatus `json:"status,omitempty"`
 
 	// TotalLatencyMs End-to-end accept → delivered time for this recipient, in milliseconds. Null until delivered.
@@ -3833,16 +4801,41 @@ type EmailRecipient struct {
 type EmailRecipientBounceType string
 
 // EmailRecipientRejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
+//
 //   - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
 //     did not attempt delivery.
-//   - `transmission_failed`: the message could not be transmitted for delivery. - `generation_failure`: the message could not be built for delivery (template or
+//   - `transmission_failed`: the message could not be transmitted for delivery.
+//   - `generation_failure`: the message could not be built for delivery (template or
 //     content issue).
-//   - `policy_rejection`: the message was refused by sending policy. - `domain_unverified`: the sending domain was not verified. - `quota_exceeded`: the organization's send quota was reached. - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+//   - `policy_rejection`: the message was refused by sending policy.
+//   - `domain_unverified`: the sending domain was not verified.
+//   - `quota_exceeded`: the organization's send quota was reached.
+//   - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
 //     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRecipientRejectionReason string
 
-// EmailRecipientStatus Delivery status for this recipient. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server.
+// EmailRecipientStatus Delivery status for this recipient. `accepted` means Bird has the send and is
+// preparing to deliver; `processed` means the message was handed to the delivery
+// pipeline for this recipient; `deferred` means the recipient's mailbox provider
+// asked Bird to retry and delivery attempts continue; `delivered` means the
+// recipient's mail server accepted the message; `bounced` means delivery permanently
+// failed (see `bounce_type` for hard vs soft); `complained` means the recipient
+// reported the message as spam; `rejected` means Bird did not attempt delivery (see
+// `rejection_reason` for why).
 type EmailRecipientStatus string
+
+// EmailRecipientDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent to a single recipient mailbox domain over the requested period.
+type EmailRecipientDomainStatsPoint struct {
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// RecipientDomain The recipient mailbox domain this row aggregates (the part of the recipient address after the `@`), normalized to lowercase.
+	RecipientDomain *string `json:"recipient_domain,omitempty"`
+
+	// Trend Per-bucket rate series for this recipient domain over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
 
 // EmailRecipientList defines model for EmailRecipientList.
 type EmailRecipientList struct {
@@ -3862,6 +4855,71 @@ type EmailRecipientList struct {
 // EmailRejectionReason Why an email was rejected before delivery.
 // `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
+
+// EmailSendingDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent from a single sending domain over the requested period.
+type EmailSendingDomainStatsPoint struct {
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// SendingDomain The sending domain (the portion of the `From` address after the `@`), normalized to lowercase.
+	SendingDomain *string `json:"sending_domain,omitempty"`
+
+	// Trend Per-bucket rate series for this sending domain over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailSendingIpDeliveryStats Delivery counts and rates for messages attributed to a single sending IP. Per-IP results do not include `accepted` or `processed` counts because Bird only learns which sending IP a message used after the upstream mail transfer system reports delivery/bounce/deferral/late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific IP. Spam complaints and out-of-band bounce notifications are also not attributed per IP on this breakdown, so `complained` and `oob_bounces` read 0 (their rates read 0 where the denominator is non-zero, null where it is zero), `effective_delivered` equals `delivered`, and `all_bounces` equals `bounced`.
+type EmailSendingIpDeliveryStats struct {
+	// AllBounces Total recipients on this IP who did not receive the message, computed as `bounced + oob_bounces`.
+	AllBounces *int `json:"all_bounces,omitempty"`
+
+	// BounceRate Share of this IP's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	BounceRate *float32 `json:"bounce_rate,omitempty"`
+
+	// Bounced Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+	Bounced *int                       `json:"bounced,omitempty"`
+	Bounces *EmailBounceStatsWithRates `json:"bounces,omitempty"`
+
+	// Complained Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown; read complaint counts from the summary or time-series statistics instead.
+	Complained *int `json:"complained,omitempty"`
+
+	// ComplaintRate Share of effectively delivered recipients on this IP who reported the message as spam, computed as `complained / effective_delivered`. Null when `effective_delivered` is zero.
+	ComplaintRate *float32 `json:"complaint_rate,omitempty"`
+
+	// Deferred Distinct recipients in transient delivery deferral that is still being retried.
+	Deferred *int `json:"deferred,omitempty"`
+
+	// Delivered Distinct recipients whose message the receiving mail server accepted.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Share of this IP's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+
+	// EffectiveDelivered Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+	EffectiveDelivered *int `json:"effective_delivered,omitempty"`
+
+	// OobBounces Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0; workspace-wide out-of-band counts are on the summary and time-series statistics.
+	OobBounces *int `json:"oob_bounces,omitempty"`
+
+	// OobRate Share of this IP's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	OobRate *float32 `json:"oob_rate,omitempty"`
+}
+
+// EmailSendingIpStatsPoint Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: the upstream mail-transfer system reports the IP it used on delivery, bounce, deferral, and late-bounce events, but not at acceptance or processing time. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family, which never appear (they are not returned as null).
+type EmailSendingIpStatsPoint struct {
+	Delivery *EmailSendingIpDeliveryStats `json:"delivery,omitempty"`
+
+	// IpPoolId The dedicated IP pool this address sent through, or null when the messages went through the shared pool. Recorded when each message was sent, so it reflects the pool used at send time even if the IP has since moved between pools or been released.
+	IpPoolId *IPPoolID                  `json:"ip_pool_id,omitempty"`
+	Latency  *EmailDeliveryLatencyStats `json:"latency,omitempty"`
+
+	// SendingIp The IP address used to send messages aggregated in this row.
+	SendingIp *string `json:"sending_ip,omitempty"`
+
+	// Trend Per-bucket delivery-rate series for this IP over the window. Present only when `include_trend=true`. Engagement is not attributed to a sending IP, so each point's open and click rates read 0 in buckets with deliveries and null in buckets without.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
 
 // EmailSmtpConfig defines model for EmailSmtpConfig.
 type EmailSmtpConfig struct {
@@ -3890,6 +4948,7 @@ type EmailSmtpConfigCategory string
 
 // EmailSmtpConfigList defines model for EmailSmtpConfigList.
 type EmailSmtpConfigList struct {
+	// Data Page of stored SMTP configs, newest first by default.
 	Data []EmailSmtpConfig `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -3926,6 +4985,436 @@ type EmailSmtpConfigUpdate struct {
 // EmailSmtpConfigUpdateCategory Content classification — independent of which endpoint messages are submitted through. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Omit to leave unchanged.
 type EmailSmtpConfigUpdateCategory string
 
+// EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByBounceCodeResponse struct {
+	// Data Bounce-code breakdown rows, ranked by the `sort` metric (default `bounced`) descending. Empty when no bounces occurred in the period.
+	Data   *[]EmailBounceCodeStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByBroadcastResponse Per-broadcast breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByBroadcastResponse struct {
+	// Data Broadcast breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no broadcast messages were active in the period.
+	Data   *[]EmailBroadcastStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByCategoryResponse Per-category breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByCategoryResponse struct {
+	// Data Category breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no sends occurred in the period.
+	Data   *[]EmailCategoryStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByClientResponse Per-client engagement breakdown for the requested period, grouped by the requested `group_by` facet, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByClientResponse struct {
+	// Data Client breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a detected client occurred in the period.
+	Data   *[]EmailClientStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByComplaintTypeResponse Per-complaint-type breakdown for the requested period, ranked by `complained` descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByComplaintTypeResponse struct {
+	// Data Complaint-type breakdown rows, ranked by `complained` descending. Empty when no complaints occurred in the period.
+	Data   *[]EmailComplaintTypeStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByLocationResponse Per-location engagement breakdown for the requested period, grouped at the requested `group_by` granularity, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByLocationResponse struct {
+	// Data Location breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a resolved location occurred in the period.
+	Data   *[]EmailLocationStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByMailboxProviderRegionResponse Per-(mailbox provider, provider region) breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByMailboxProviderRegionResponse struct {
+	// Data Provider-region breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no deliveries occurred in the period.
+	Data   *[]EmailMailboxProviderRegionStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByMailboxProviderResponse Per-mailbox-provider breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByMailboxProviderResponse struct {
+	// Data Mailbox-provider breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no eligible activity occurred in the period.
+	Data   *[]EmailMailboxProviderStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByRecipientDomainResponse Per-recipient-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByRecipientDomainResponse struct {
+	// Data Recipient-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
+	Data   *[]EmailRecipientDomainStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsBySendingDomainResponse Per-sending-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsBySendingDomainResponse struct {
+	// Data Sending-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
+	Data   *[]EmailSendingDomainStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsBySendingIpResponse Per-sending-IP breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsBySendingIpResponse struct {
+	// Data Sending-IP breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no per-IP-attributable activity (delivery, bounce, deferral, or late bounce) occurred in the period.
+	Data   *[]EmailSendingIpStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsByTemplateResponse struct {
+	// Data Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
+	Data   *[]EmailTemplateStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailStatsComparison The same statistics for the equal-length, inclusive period ending the day immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. Use it to render "+X% vs last period" without issuing a second request.
+type EmailStatsComparison struct {
+	Delivery   *EmailDeliveryStats        `json:"delivery,omitempty"`
+	Delta      *EmailStatsComparisonDelta `json:"delta,omitempty"`
+	Engagement *EmailEngagementStats      `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats         `json:"latency,omitempty"`
+	Period     struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
+		From *string `json:"from,omitempty"`
+
+		// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
+		To *string `json:"to,omitempty"`
+	} `json:"period"`
+
+	// SendsAccepted Distinct email messages accepted in the preceding period, counted at the message level.
+	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// EmailStatsComparisonDelta The change in each headline metric from the preceding period to the requested one. A `*_pct_change` is a signed relative change in a count, computed as `(current - previous) / previous` (so `0.5` means 50% higher, `-0.2` means 20% lower), and is null when the previous period's count was zero. A `*_rate_pp` is the signed arithmetic difference between the two periods' rate values, where each rate is a fraction in `[0,1]` (so `0.012` means the rate rose by 0.012, i.e. 1.2 percentage points; `-0.003` means it fell by 0.3 points), and is null when either period's rate is undefined (its denominator was zero). A `*_rate_pp` value ranges from `-1` to `1`: the most a rate can move between periods is from 0 to 1, or 1 to 0.
+type EmailStatsComparisonDelta struct {
+	// BounceRatePp Signed difference between this period's and the previous period's bounce rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's bounce rate is undefined.
+	BounceRatePp *float32 `json:"bounce_rate_pp,omitempty"`
+
+	// BouncedPctChange Relative change in total bounces including out-of-band (`delivery.all_bounces`, the bounce-rate numerator) versus the previous period, as a signed fraction. Null when the previous period had none.
+	BouncedPctChange *float32 `json:"bounced_pct_change,omitempty"`
+
+	// ClickRatePp Signed difference between this period's and the previous period's click rate, both fractions (multiply by 100 for percentage points). Null when either period's click rate is undefined.
+	ClickRatePp *float32 `json:"click_rate_pp,omitempty"`
+
+	// ComplainedPctChange Relative change in spam complaints (`delivery.complained`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ComplainedPctChange *float32 `json:"complained_pct_change,omitempty"`
+
+	// ComplaintRatePp Signed difference between this period's and the previous period's complaint rate, both fractions (multiply by 100 for percentage points). Null when either period's complaint rate is undefined.
+	ComplaintRatePp *float32 `json:"complaint_rate_pp,omitempty"`
+
+	// DeliveredPctChange Relative change in effectively delivered recipients (`delivery.effective_delivered`, the delivery-rate numerator) versus the previous period, as a signed fraction. Null when the previous period effectively delivered none.
+	DeliveredPctChange *float32 `json:"delivered_pct_change,omitempty"`
+
+	// DeliveryRatePp Signed difference between this period's and the previous period's delivery rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's delivery rate is undefined.
+	DeliveryRatePp *float32 `json:"delivery_rate_pp,omitempty"`
+
+	// OpenRatePp Signed difference between this period's and the previous period's open rate, both fractions (multiply by 100 for percentage points). Null when either period's open rate is undefined.
+	OpenRatePp *float32 `json:"open_rate_pp,omitempty"`
+
+	// OpenedPctChange Relative change in unique non-prefetched opens (`engagement.unique_opens_non_prefetched`, the same count the open rate uses) versus the previous period, as a signed fraction. Null when the previous period had none.
+	OpenedPctChange *float32 `json:"opened_pct_change,omitempty"`
+
+	// SendsAcceptedPctChange Relative change in accepted messages (the `sends_accepted` count) versus the previous period, as a signed fraction. Null when the previous period accepted none.
+	SendsAcceptedPctChange *float32 `json:"sends_accepted_pct_change,omitempty"`
+
+	// UnsubscribeRatePp Signed difference between this period's and the previous period's unsubscribe rate, both fractions (multiply by 100 for percentage points). Null when either period's unsubscribe rate is undefined.
+	UnsubscribeRatePp *float32 `json:"unsubscribe_rate_pp,omitempty"`
+}
+
+// EmailStatsPeriod The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+type EmailStatsPeriod struct {
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start date the response covers (YYYY-MM-DD).
+	From *openapi_types.Date `json:"from,omitempty"`
+
+	// To Inclusive end date the response covers (YYYY-MM-DD).
+	To *openapi_types.Date `json:"to,omitempty"`
+}
+
+// EmailStatsPoint Aggregate stats for one time bucket (a calendar day or hour, per the requested grain, in the requested `timezone` or UTC by default), bucketed by event time. Buckets with no activity are included with zero counts and null latency percentiles, so the series charts continuously without client-side gap handling.
+type EmailStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD, in the requested `timezone`) or hour this point covers, matching the period's grain. An hour bucket is an RFC 3339 UTC instant marking the start of the hour; it falls on a local hour boundary when `timezone` is set, which is on the UTC hour only for whole-hour offsets.
+	Bucket     *string               `json:"bucket,omitempty"`
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// SendsAccepted Distinct email messages accepted in this bucket, counted at the message level (one per accepted send regardless of how many recipients it addresses). Every other metric in `delivery` and `engagement` is recipient-level or event-level.
+	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// EmailStatsResponse Time-series stats payload. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type EmailStatsResponse struct {
+	// Data One row per bucket (day or hour, per the grain) in the period, in chronological order. Buckets with no activity are included with zero counts.
+	Data *[]EmailStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period EmailStatsSeriesPeriod `json:"period"`
+}
+
+// EmailStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+type EmailStatsSeriesPeriod struct {
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain; on the hour grain, an RFC 3339 UTC instant marking the start of the first hour bucket, which falls on a local hour boundary when `timezone` is set.
+	From *string `json:"from,omitempty"`
+
+	// Grain The bucket grain of the series, either `day` or `hour`.
+	Grain *string `json:"grain,omitempty"`
+
+	// To Inclusive end of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain; on the hour grain, an RFC 3339 UTC instant marking the start of the last hour bucket, which falls on a local hour boundary when `timezone` is set.
+	To *string `json:"to,omitempty"`
+}
+
+// EmailStatsSeriesPoint One point in a breakdown row's trend series: the headline delivery and engagement rates for that row's dimension value over a single day or hour. Returned only when `include_trend=true`; the bucket grain (day or hour) follows the `trend_grain` parameter. Counts and rates are approximate at scale.
+type EmailStatsSeriesPoint struct {
+	// BounceRate Bounce rate for this bucket, as a fraction. Null when nothing was delivered or bounced.
+	BounceRate *float32 `json:"bounce_rate,omitempty"`
+
+	// Bounced Bounced recipients in this bucket.
+	Bounced *int `json:"bounced,omitempty"`
+
+	// Bucket The day (YYYY-MM-DD) or hour (ISO 8601, on the hour) this point covers, matching the requested `trend_grain`.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// ClickRate Click rate for this bucket, as a fraction; event-time attribution can push it above 1 when clicks outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	ClickRate *float32 `json:"click_rate,omitempty"`
+
+	// ComplaintRate Complaint rate for this bucket, as a fraction; event-time attribution can push it above 1 when complaints outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row complaints are not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	ComplaintRate *float32 `json:"complaint_rate,omitempty"`
+
+	// Delivered Delivered recipients in this bucket.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Delivery rate for this bucket, as a fraction. Null when nothing was delivered or bounced.
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+
+	// OpenRate Open rate for this bucket, as a fraction; event-time attribution can push it above 1 when opens outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	OpenRate *float32 `json:"open_rate,omitempty"`
+}
+
+// EmailStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows carry the full delivery, engagement, and latency block (tags, sending domains, categories, recipient domains, templates, broadcasts). Any count or rate may be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types are addressed by their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
+type EmailStatsSortMetric string
+
+// EmailStatsSummary Single-row aggregate across the full requested period, including delivery and engagement counts plus derived rates. Use this endpoint for KPI tiles, campaign reporting, and any metric that needs a meaningful denominator; the daily and hourly endpoints carry the same rates per bucket, dividing each bucket's own counts.
+//
+// Every count is a sum of per-bucket counts across the window (per day for day windows, per hour for hour windows), so a recipient (or message) active in two buckets contributes one to each bucket and two to the period total. This matches common provider reporting and is not double-counting; it does not yield a period-distinct count. Latency percentiles, by contrast, are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+type EmailStatsSummary struct {
+	Comparison *EmailStatsComparison `json:"comparison,omitempty"`
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+	Period     struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
+		From *string `json:"from,omitempty"`
+
+		// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
+		To *string `json:"to,omitempty"`
+	} `json:"period"`
+
+	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
+	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// EmailStatsSummaryPeriod The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+type EmailStatsSummaryPeriod struct {
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
+	From *string `json:"from,omitempty"`
+
+	// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
+	To *string `json:"to,omitempty"`
+}
+
+// EmailStatsTagsResponse Per-tag breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+type EmailStatsTagsResponse struct {
+	// Data Tag breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no tagged sends occurred in the period.
+	Data   *[]EmailTagStatsPoint `json:"data,omitempty"`
+	Period struct {
+		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+		// From Inclusive start date the response covers (YYYY-MM-DD).
+		From *openapi_types.Date `json:"from,omitempty"`
+
+		// To Inclusive end date the response covers (YYYY-MM-DD).
+		To *openapi_types.Date `json:"to,omitempty"`
+	} `json:"period"`
+
+	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailTagStatsPoint Aggregate delivery and engagement stats for a single tag name-and-value pair over the requested period.
+type EmailTagStatsPoint struct {
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// Tag The tag this row aggregates, formatted as `name:value` from the tag set at send time (for example `campaign:welcome-series`). Each distinct name-and-value pair is its own row.
+	Tag *string `json:"tag,omitempty"`
+
+	// Trend Per-bucket rate series for this tag over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
 
@@ -3946,6 +5435,19 @@ type EmailTemplateSend0 = interface{}
 
 // EmailTemplateSend1 defines model for .
 type EmailTemplateSend1 = interface{}
+
+// EmailTemplateStatsPoint Aggregate delivery, engagement, and latency stats for the messages sent with a single template over the requested period.
+type EmailTemplateStatsPoint struct {
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// TemplateId The template this row aggregates, the same identifier returned by the email-template endpoints. Only messages sent with a template appear in this breakdown; a template deleted after sending still appears by its ID.
+	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
+
+	// Trend Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
+	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
 
 // Error defines model for Error.
 type Error struct {
@@ -4985,6 +6487,100 @@ type EventSMSSentData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventSMSTfnVerificationApproved The carrier approved a toll-free number verification; the number can now send in its licensed countries.
+type EventSMSTfnVerificationApproved struct {
+	// Data Payload of the sms.tfn_verification.approved event.
+	Data EventSMSTfnVerificationApprovedData `json:"data"`
+
+	// Timestamp Time the approval was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSTfnVerificationApprovedType `json:"type"`
+}
+
+// EventSMSTfnVerificationApprovedType Event type.
+type EventSMSTfnVerificationApprovedType string
+
+// EventSMSTfnVerificationApprovedData Identity fields shared by every toll-free verification event payload.
+type EventSMSTfnVerificationApprovedData = EventSMSTfnVerificationBase
+
+// EventSMSTfnVerificationBase Identity fields shared by every toll-free verification event payload.
+type EventSMSTfnVerificationBase struct {
+	SenderId SMSSenderID `json:"sender_id"`
+
+	// Status Lifecycle state of the verification at the time of the event.
+	Status         string            `json:"status"`
+	VerificationId TFNVerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID       `json:"workspace_id"`
+}
+
+// EventSMSTfnVerificationInfoRequested The carrier requested more information before deciding a toll-free number verification.
+type EventSMSTfnVerificationInfoRequested struct {
+	// Data Payload of the sms.tfn_verification.info_requested event.
+	Data EventSMSTfnVerificationInfoRequestedData `json:"data"`
+
+	// Timestamp Time the information request was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSTfnVerificationInfoRequestedType `json:"type"`
+}
+
+// EventSMSTfnVerificationInfoRequestedType Event type.
+type EventSMSTfnVerificationInfoRequestedType string
+
+// EventSMSTfnVerificationInfoRequestedData Identity fields shared by every toll-free verification event payload.
+type EventSMSTfnVerificationInfoRequestedData = EventSMSTfnVerificationBase
+
+// EventSMSTfnVerificationRejected The carrier rejected a toll-free number verification; the number cannot send until an accepted verification is approved.
+type EventSMSTfnVerificationRejected struct {
+	// Data Payload of the sms.tfn_verification.rejected event.
+	Data EventSMSTfnVerificationRejectedData `json:"data"`
+
+	// Timestamp Time the rejection was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSTfnVerificationRejectedType `json:"type"`
+}
+
+// EventSMSTfnVerificationRejectedType Event type.
+type EventSMSTfnVerificationRejectedType string
+
+// EventSMSTfnVerificationRejectedData defines model for EventSMSTfnVerificationRejectedData.
+type EventSMSTfnVerificationRejectedData struct {
+	// DenialReasons Human-readable reasons the carrier gave for the rejection.
+	DenialReasons []string `json:"denial_reasons"`
+
+	// ResubmitAllowed Whether the verification may be corrected and resubmitted within the resubmission window.
+	ResubmitAllowed bool        `json:"resubmit_allowed"`
+	SenderId        SMSSenderID `json:"sender_id"`
+
+	// Status Lifecycle state of the verification at the time of the event.
+	Status         string            `json:"status"`
+	VerificationId TFNVerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID       `json:"workspace_id"`
+}
+
+// EventSMSTfnVerificationSubmitted A toll-free number verification was submitted to the carrier for review.
+type EventSMSTfnVerificationSubmitted struct {
+	// Data Payload of the sms.tfn_verification.submitted event.
+	Data EventSMSTfnVerificationSubmittedData `json:"data"`
+
+	// Timestamp Time the verification was submitted.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventSMSTfnVerificationSubmittedType `json:"type"`
+}
+
+// EventSMSTfnVerificationSubmittedType Event type.
+type EventSMSTfnVerificationSubmittedType string
+
+// EventSMSTfnVerificationSubmittedData Identity fields shared by every toll-free verification event payload.
+type EventSMSTfnVerificationSubmittedData = EventSMSTfnVerificationBase
+
 // EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message.
 type EventSMSUndelivered struct {
 	// Data Payload of the sms.undelivered event.
@@ -5141,7 +6737,7 @@ type EventWhatsAppBase struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppBaseDirection `json:"direction"`
 
-	// From Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
 	From WhatsAppAddress `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
@@ -5150,7 +6746,7 @@ type EventWhatsAppBase struct {
 	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
 	To          WhatsAppAddress   `json:"to"`
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
@@ -5200,7 +6796,7 @@ type EventWhatsAppFailedData struct {
 	// Error Failure detail for a message that could not be delivered.
 	Error *WhatsAppError `json:"error,omitempty"`
 
-	// From Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
 	From WhatsAppAddress `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
@@ -5209,7 +6805,7 @@ type EventWhatsAppFailedData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
 	To          WhatsAppAddress   `json:"to"`
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
@@ -5254,6 +6850,9 @@ type EventWhatsAppSentType string
 // EventWhatsAppSentData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppSentData = EventWhatsAppBase
 
+// IPPoolID defines model for IPPoolID.
+type IPPoolID = string
+
 // InboundAddress A Bird-minted email address that receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address and Bird parses every message it receives into a received email.
 type InboundAddress struct {
 	// Address The address to forward your mailbox to. Minted by Bird when the inbound address is created.
@@ -5281,6 +6880,7 @@ type InboundAddressID = string
 
 // InboundAddressList defines model for InboundAddressList.
 type InboundAddressList struct {
+	// Data Page of inbound addresses, newest first.
 	Data []InboundAddress `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -5295,7 +6895,7 @@ type InboundAddressList struct {
 
 // InboundAddressUpdate Fields to update on an inbound address.
 type InboundAddressUpdate struct {
-	// Label Your own label for this address.
+	// Label Your own label for this address, typically the source mailbox it maps to. Send `null` to clear it; omit the field to leave it unchanged.
 	Label *string `json:"label,omitempty"`
 }
 
@@ -5387,6 +6987,7 @@ type InboundEmailMessageID = string
 
 // InboundEmailMessageList defines model for InboundEmailMessageList.
 type InboundEmailMessageList struct {
+	// Data Page of received emails, newest first.
 	Data []InboundEmailMessage `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -5401,7 +7002,7 @@ type InboundEmailMessageList struct {
 
 // InboundRoute A routing rule that directs inbound mail on one of your domains into a mailbox, or drops it. Routes are evaluated in priority order — lowest number first. Each mailbox's own address is always matched at priority 10 and explicit routes accept 11–1000, so exact-address delivery always takes precedence.
 type InboundRoute struct {
-	// Action What happens to matching mail.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`; `drop` discards it silently, with nothing stored and no webhook fired.
 	Action InboundRouteAction `json:"action"`
 
 	// CreatedAt When the route was created.
@@ -5430,7 +7031,7 @@ type InboundRoute struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// InboundRouteAction What happens to matching mail.
+// InboundRouteAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`; `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteAction string
 
 // InboundRouteMatchType How the route matches recipients. `address` matches one local part; `catch_all` matches every recipient on the domain that nothing else matched.
@@ -5438,7 +7039,7 @@ type InboundRouteMatchType string
 
 // InboundRouteCreate Parameters for creating an inbound route.
 type InboundRouteCreate struct {
-	// Action What happens to matching mail. `deliver_to_mailbox` requires `target_mailbox_id`.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
 	Action InboundRouteCreateAction `json:"action"`
 
 	// Domain The domain the route applies to — one of your inbound-enabled custom domains.
@@ -5458,7 +7059,7 @@ type InboundRouteCreate struct {
 	TargetMailboxId *MailboxID `json:"target_mailbox_id,omitempty"`
 }
 
-// InboundRouteCreateAction What happens to matching mail. `deliver_to_mailbox` requires `target_mailbox_id`.
+// InboundRouteCreateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteCreateAction string
 
 // InboundRouteCreateMatchType How the route matches recipients. `address` matches one local part and requires `match_value`; `catch_all` matches every recipient on the domain that nothing else matched.
@@ -5466,6 +7067,7 @@ type InboundRouteCreateMatchType string
 
 // InboundRouteList defines model for InboundRouteList.
 type InboundRouteList struct {
+	// Data Page of inbound routes in evaluation order: lowest priority number first.
 	Data []InboundRoute `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -5480,7 +7082,7 @@ type InboundRouteList struct {
 
 // InboundRouteUpdate Fields to update on an inbound route. Omitted fields are unchanged. The domain is immutable.
 type InboundRouteUpdate struct {
-	// Action What happens to matching mail. `deliver_to_mailbox` requires `target_mailbox_id`.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
 	Action *InboundRouteUpdateAction `json:"action,omitempty"`
 
 	// Enabled Whether the route is evaluated.
@@ -5499,7 +7101,7 @@ type InboundRouteUpdate struct {
 	TargetMailboxId *MailboxID `json:"target_mailbox_id,omitempty"`
 }
 
-// InboundRouteUpdateAction What happens to matching mail. `deliver_to_mailbox` requires `target_mailbox_id`.
+// InboundRouteUpdateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteUpdateAction string
 
 // InboundRouteUpdateMatchType How the route matches recipients.
@@ -5516,13 +7118,13 @@ type RecipientRole string
 
 // SMSBatchSummary Aggregate result for an SMS batch.
 type SMSBatchSummary struct {
-	// AcceptedCount Number of messages accepted in the batch.
+	// AcceptedCount Number of messages accepted in the batch. Acceptance is all-or-nothing, so this equals the number of messages submitted.
 	AcceptedCount int `json:"accepted_count"`
 }
 
 // SMSCost Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
 type SMSCost struct {
-	// Amount Total cost as a decimal string — the per-segment rate multiplied by the segment count, plus any surcharges.
+	// Amount Total cost as a decimal string: the per-segment rate multiplied by the segment count, plus any surcharges.
 	Amount *string `json:"amount,omitempty"`
 
 	// Breakdown Per-component cost breakdown. Returned on single-message reads; omitted from list rows.
@@ -5552,7 +7154,7 @@ type SMSError struct {
 	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
 	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
 
-	// Code Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `insufficient_balance` — the workspace wallet had insufficient balance to send the message. `unknown` — an unmapped failure.
+	// Code Bird-stable failure reason. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
 	Code SMSErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -5562,7 +7164,7 @@ type SMSError struct {
 	OccurredAt time.Time `json:"occurred_at"`
 }
 
-// SMSErrorCode Bird-stable failure reason. `invalid_destination` — the number is not assigned, ported out, or malformed. `unreachable` — handset off or out of coverage. `blocked_by_carrier` — the carrier filtered the message. `blocked_by_recipient` — the recipient device blocked the sender. `landline_unreachable` — the destination is a landline that does not accept SMS. `content_rejected` — the carrier rejected the content. `sender_unregistered` — the sender is not registered for the destination. `recipient_opted_out` — the recipient is on a suppression list. `provider_unavailable` — an upstream failure after retries. `insufficient_balance` — the workspace wallet had insufficient balance to send the message. `unknown` — an unmapped failure.
+// SMSErrorCode Bird-stable failure reason. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
 type SMSErrorCode string
 
 // SMSMessage defines model for SMSMessage.
@@ -5585,7 +7187,7 @@ type SMSMessage struct {
 	// Direction Whether the message was sent from a Bird sender (`outbound`) or received from a subscriber (`inbound`).
 	Direction *SMSMessageDirection `json:"direction,omitempty"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// From Sender the message was sent from: an E.164 number, an alphanumeric sender ID, or a short code.
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
@@ -5608,7 +7210,7 @@ type SMSMessage struct {
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Text Message body.
+	// Text The message body as sent. For a template send, this is the rendered text after parameter substitution.
 	Text string `json:"text"`
 
 	// To Recipient phone number in E.164 format.
@@ -5633,7 +7235,7 @@ type SMSMessageBatchResponse struct {
 	Summary *SMSBatchSummary `json:"summary,omitempty"`
 }
 
-// SMSMessageCategory Content classification. Drives opt-out (STOP) policy, quiet-hours, and per-country compliance.
+// SMSMessageCategory Content classification. Tells Bird and carriers why you're sending; per-country compliance rules (opt-out policy, quiet hours) key on it as they roll out.
 type SMSMessageCategory string
 
 // SMSMessageID defines model for SMSMessageID.
@@ -5641,7 +7243,7 @@ type SMSMessageID = string
 
 // SMSMessageList defines model for SMSMessageList.
 type SMSMessageList struct {
-	// Data Page of message objects.
+	// Data Page of SMS messages, newest first.
 	Data []SMSMessage `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -5656,40 +7258,40 @@ type SMSMessageList struct {
 
 // SMSMessageSendRequest A message to send. Supply exactly one of `text` (free-text, which also requires `category`) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
 type SMSMessageSendRequest struct {
-	// AudienceId Preview feature — audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// AudienceId Preview feature: audience-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	AudienceId *string `json:"audience_id,omitempty"`
 
-	// BroadcastId Preview feature — broadcast correlation. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// BroadcastId Preview feature: broadcast correlation. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	BroadcastId *string `json:"broadcast_id,omitempty"`
 
-	// CampaignId Preview feature — campaign correlation for analytics. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// CampaignId Preview feature: campaign correlation for analytics. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	CampaignId *string `json:"campaign_id,omitempty"`
 
-	// Category Content classification. Drives opt-out (STOP) policy, quiet-hours, and per-country compliance. Required on a free-text send; omit it on a template send, where the category is derived from the template.
+	// Category Content classification. Tells Bird and carriers why you're sending; per-country compliance rules (opt-out policy, quiet hours) key on it as they roll out. Required on a free-text send; omit it on a template send, where the category is derived from the template.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
-	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (up to 11 characters, for example `MyBrand`), or a short code (5–6 digits). When omitted, Bird selects an eligible sender for you.
+	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, or spaces, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
 	From *string `json:"from,omitempty"`
 
-	// MaxPricePerSegment Preview feature — per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
 
-	// MediaUrls Preview feature — multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
-	// MessagingProfileId Preview feature — sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// MessagingProfileId Preview feature: sender selection from a messaging profile pool. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MessagingProfileId *string `json:"messaging_profile_id,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Personalization Preview feature — per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// Personalization Preview feature: per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	Personalization *map[string]interface{} `json:"personalization,omitempty"`
 
-	// ScheduledAt Preview feature — send-later scheduling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// ScheduledAt Preview feature: send-later scheduling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Tags Structured `{name, value}` labels for filtering and analytics. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics by tag, and surface in webhook payloads. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
@@ -5704,13 +7306,13 @@ type SMSMessageSendRequest struct {
 	// To Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
 	To string `json:"to"`
 
-	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
 
-	// TrackClicks Preview feature — link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
+	// TrackClicks Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
 
-	// ValidityPeriod Preview feature — how long, in seconds (60–172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// ValidityPeriod Preview feature: how long, in seconds (60-172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 	union          json.RawMessage
 }
@@ -5721,7 +7323,7 @@ type SMSMessageSendRequest0 = interface{}
 // SMSMessageSendRequest1 defines model for .
 type SMSMessageSendRequest1 = interface{}
 
-// SMSMessageStatus Delivery status. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird accepted the request and it is awaiting handoff to the carrier network. `sent` means it was handed to the carrier and is awaiting a delivery receipt. `delivered` is confirmed delivery. `undelivered` is a non-permanent non-delivery (handset off, content blocked). `failed` is a terminal permanent failure. `rejected` means Bird refused it before reaching the carrier. `canceled` means a scheduled message was canceled before it was sent. `expired` means the validity period elapsed without a terminal receipt. `received` applies to inbound messages.
+// SMSMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is awaiting handoff to the carrier network. `sent` means it was handed to the carrier and is awaiting a delivery receipt. `delivered` is confirmed delivery. `undelivered` is a non-permanent non-delivery (handset off or unreachable). `failed` is a terminal permanent failure. `rejected` means Bird refused it before it reached the carrier (for example insufficient balance). `expired` means the validity period elapsed without a terminal receipt. `scheduled` means the message is queued to send at a future time and has not been dispatched yet, and `canceled` means a scheduled message was canceled before it was sent. `received` applies to inbound messages.
 type SMSMessageStatus string
 
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
@@ -5739,12 +7341,15 @@ type SMSSegments struct {
 // SMSSegmentsEncoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
 type SMSSegmentsEncoding string
 
+// SMSSenderID defines model for SMSSenderID.
+type SMSSenderID = string
+
 // SMSTemplate defines model for SMSTemplate.
 type SMSTemplate struct {
 	// AvailableLanguages The languages this template is available in, as BCP-47 tags.
 	AvailableLanguages *[]string `json:"available_languages,omitempty"`
 
-	// Body The template body in its default language, shown for preview.
+	// Body The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`).
 	Body *string `json:"body,omitempty"`
 
 	// Category Content classification applied to messages sent from this template.
@@ -5756,23 +7361,23 @@ type SMSTemplate struct {
 	// Description Human-readable description of what the template is for.
 	Description *string `json:"description,omitempty"`
 
-	// DraftVersionId The current editable draft version. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	// DraftVersionId The current editable draft version. Always null today: SMS templates are not yet versioned; present for parity with email templates.
 	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
 	Id             SMSTemplateID         `json:"id"`
 
 	// Name The template's stable handle. Pass it (or the id) as the template reference when sending.
 	Name *TemplateName `json:"name,omitempty"`
 
-	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today: SMS templates are not yet versioned; present for parity with email templates.
 	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
 
-	// Revision The draft's revision counter. Always null today — SMS templates are not yet versioned; present for parity with email templates.
+	// Revision The draft's revision counter. Always null today: SMS templates are not yet versioned; present for parity with email templates.
 	Revision *int `json:"revision,omitempty"`
 
 	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
 
-	// Status The template's lifecycle state. Built-in templates are always `active`.
+	// Status The template's lifecycle state. `active` means the template can be sent; every built-in Bird template is `active`. `draft` (being edited), `pending` (submitted for review), `approved` (passed review), and `rejected` (failed review) describe a workspace-authored template's authoring lifecycle; workspace-authored SMS templates are not available yet, so today every template is `active`.
 	Status *SMSTemplateStatus `json:"status,omitempty"`
 
 	// UpdatedAt When the template was last updated. Null for built-in templates.
@@ -5782,7 +7387,7 @@ type SMSTemplate struct {
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 }
 
-// SMSTemplateStatus The template's lifecycle state. Built-in templates are always `active`.
+// SMSTemplateStatus The template's lifecycle state. `active` means the template can be sent; every built-in Bird template is `active`. `draft` (being edited), `pending` (submitted for review), `approved` (passed review), and `rejected` (failed review) describe a workspace-authored template's authoring lifecycle; workspace-authored SMS templates are not available yet, so today every template is `active`.
 type SMSTemplateStatus string
 
 // SMSTemplateID defines model for SMSTemplateID.
@@ -5790,7 +7395,7 @@ type SMSTemplateID = string
 
 // SMSTemplateList defines model for SMSTemplateList.
 type SMSTemplateList struct {
-	// Data The templates available to your workspace. The catalogue is small and returned in full — this list is not paginated.
+	// Data The templates available to your workspace. The catalogue is small and returned in full; this list is not paginated.
 	Data []SMSTemplate `json:"data"`
 }
 
@@ -5804,7 +7409,7 @@ type SMSTemplateSend struct {
 	// Name The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
 	Name *TemplateName `json:"name,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template — see the template's `variables` on the templates endpoint. Every required variable must be supplied, and no undeclared key may be present. Cap: 16 KB serialized.
+	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 	union      json.RawMessage
 }
@@ -5820,22 +7425,26 @@ type SMSTemplateVersionID = string
 
 // ShareDomainDnsRequest defines model for ShareDomainDnsRequest.
 type ShareDomainDnsRequest struct {
-	// Emails Email recipients to send the domain's current DNS records to.
+	// Emails Email recipients for the domain's current DNS records. The first address is the direct recipient and the rest are copied on the same email; duplicates are ignored. Any invalid address fails the whole request with `422`.
 	Emails []openapi_types.Email `json:"emails"`
 }
 
 // Suppression defines model for Suppression.
 type Suppression struct {
-	// AppliesTo Blocking policy. "all" blocks every category. "non_transactional" blocks marketing and future non-transactional categories but allows transactional. "category" is reserved for category-specific preferences. This list grows over time — treat an unknown value as blocking at least non-transactional mail.
-	AppliesTo string              `json:"applies_to"`
-	CreatedAt *time.Time          `json:"created_at,omitempty"`
-	Email     openapi_types.Email `json:"email"`
-	Id        SuppressionID       `json:"id"`
+	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing and future non-transactional categories but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` is reserved for category-specific preferences. This list grows over time; treat an unknown value as blocking at least non-transactional mail.
+	AppliesTo string `json:"applies_to"`
 
-	// Origin How the suppression came to exist. This list grows over time — treat unknown values as informational rather than rejecting the record.
+	// CreatedAt When the address was suppressed.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Email The suppressed address, stored lowercase.
+	Email openapi_types.Email `json:"email"`
+	Id    SuppressionID       `json:"id"`
+
+	// Origin How the suppression came to exist: `bounce_event` (created automatically from a hard bounce), `complaint_event` (from a spam complaint), `unsubscribe_event` (from an unsubscribe reported for a message, such as the recipient's mail client's unsubscribe action), `unsubscribe_link` (the recipient opted out through the unsubscribe page linked from a message), `api_key` (added through the API with an API key), or `user` (added by a user in the dashboard). This list grows over time; treat unknown values as informational rather than rejecting the record.
 	Origin string `json:"origin"`
 
-	// Reason Why the address is suppressed. This list grows over time — treat unknown values as informational rather than rejecting the record.
+	// Reason Why the address is suppressed: `hard_bounce` (a delivery permanently failed), `complaint` (the recipient reported a message as spam), `unsubscribe` (the recipient opted out), or `manual` (added through the API or dashboard). An address can hold one record per reason. This list grows over time; treat unknown values as informational rather than rejecting the record.
 	Reason string           `json:"reason"`
 	Scope  SuppressionScope `json:"scope"`
 
@@ -5848,7 +7457,7 @@ type Suppression struct {
 
 // SuppressionCreate defines model for SuppressionCreate.
 type SuppressionCreate struct {
-	// Email Email address to suppress. Normalized to lowercase before storage.
+	// Email The address to stop sending to. Normalized before storage and matching: lowercased and trimmed of surrounding whitespace.
 	Email openapi_types.Email `json:"email"`
 }
 
@@ -5857,6 +7466,7 @@ type SuppressionID = string
 
 // SuppressionList defines model for SuppressionList.
 type SuppressionList struct {
+	// Data Page of suppression records.
 	Data []Suppression `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -5871,7 +7481,7 @@ type SuppressionList struct {
 
 // SuppressionScope defines model for SuppressionScope.
 type SuppressionScope struct {
-	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID (ws_ prefix).
+	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID (`ws_`-prefixed).
 	Id string `json:"id"`
 
 	// Type The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
@@ -5880,6 +7490,9 @@ type SuppressionScope struct {
 
 // SuppressionScopeType The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
 type SuppressionScopeType string
+
+// TFNVerificationID defines model for TFNVerificationID.
+type TFNVerificationID = string
 
 // Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
 // Tag count and per-tag size are capped to keep per-send tag payloads small — see the send request for the array maximum. Tag names are unique within a send; supplying the same name twice is rejected.
@@ -5938,27 +7551,27 @@ type UnmetGate struct {
 
 // Verification defines model for Verification.
 type Verification struct {
-	// Channels The ordered channels this verification uses to deliver the passcode. An email recipient is verified over email; a phone recipient is verified over SMS.
+	// Channels The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over SMS.
 	Channels  *[]VerificationChannelEntry `json:"channels,omitempty"`
 	CreatedAt *time.Time                  `json:"created_at,omitempty"`
 
-	// ExpiresAt When the verification expires if no correct passcode is submitted.
+	// ExpiresAt When the verification expires if no correct passcode is submitted first. After this time its status reports `expired`.
 	ExpiresAt *time.Time     `json:"expires_at,omitempty"`
 	Id        VerificationID `json:"id"`
 
-	// LastChannel The channel the most recent passcode was sent on, or null before the first send. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// LastChannel The channel the most recent passcode was sent on, or null before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	LastChannel *string `json:"last_channel,omitempty"`
 
 	// Metadata The key/value pairs attached when the verification was created.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Reason Why the verification reached its final state, or null while pending or once verified. Open enum — treat any unrecognized value as a future reason.
+	// Reason Why the verification reached its final state: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Null while `pending` and once `verified`. Open enum; treat any unrecognized value as a future reason.
 	Reason *string `json:"reason,omitempty"`
 
-	// Status The verification's current state: pending (awaiting a valid passcode), verified (a correct passcode was submitted), failed (too many incorrect attempts), expired (the time window elapsed before a correct passcode), canceled (the verification was canceled before completing), or blocked (it was stopped by a fraud or abuse control).
+	// Status The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 	Status *VerificationStatus `json:"status,omitempty"`
 
-	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To        VerificationTo `json:"to"`
 	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
 
@@ -5966,7 +7579,7 @@ type Verification struct {
 	VerifiedAt *time.Time `json:"verified_at,omitempty"`
 }
 
-// VerificationStatus The verification's current state: pending (awaiting a valid passcode), verified (a correct passcode was submitted), failed (too many incorrect attempts), expired (the time window elapsed before a correct passcode), canceled (the verification was canceled before completing), or blocked (it was stopped by a fraud or abuse control).
+// VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 type VerificationStatus string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
@@ -5980,22 +7593,22 @@ type VerificationChannelEntry struct {
 
 // VerificationCheckRequest defines model for VerificationCheckRequest.
 type VerificationCheckRequest struct {
-	// Code The passcode the recipient received.
+	// Code The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
 	Code string `json:"code"`
 
-	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo `json:"to"`
 }
 
 // VerificationCheckResult defines model for VerificationCheckResult.
 type VerificationCheckResult struct {
-	// AttemptsRemaining The number of check attempts left, or null once the verification is complete.
+	// AttemptsRemaining The number of check attempts left while the verification is still pending, or null once it has reached a final state.
 	AttemptsRemaining *int `json:"attempts_remaining,omitempty"`
 
-	// Reason Why the check did not succeed, or null when success is true. incorrect_code means the passcode was wrong and attempts remain; expired means the time window elapsed; attempts_exhausted means too many incorrect attempts. Open enum — treat any unrecognized value as a future reason.
+	// Reason Why the check did not succeed, or null when `success` is true: `incorrect_code` means the passcode was wrong and attempts remain; `expired` means the time window elapsed; `attempts_exhausted` means too many incorrect attempts. Open enum; treat any unrecognized value as a future reason.
 	Reason *string `json:"reason,omitempty"`
 
-	// Success Whether the submitted passcode verified this verification. true means the passcode was correct and the verification is now complete; false means it was not verified — see reason. A verification that has already reached a final state is no longer checkable and returns 404.
+	// Success Whether the submitted passcode verified this verification. `true` means the passcode was correct and the verification is now complete; `false` means it did not verify, and `reason` says why. A verification that has already reached a final state is no longer checkable and returns `404`.
 	Success      *bool        `json:"success,omitempty"`
 	Verification Verification `json:"verification"`
 }
@@ -6008,7 +7621,7 @@ type VerificationCreateRequest struct {
 	// Options Per-request overrides applied to this verification only.
 	Options *VerificationOptions `json:"options,omitempty"`
 
-	// To The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo `json:"to"`
 }
 
@@ -6017,19 +7630,19 @@ type VerificationID = string
 
 // VerificationOptions Per-request overrides applied to this verification only.
 type VerificationOptions struct {
-	// Channels Reorder or narrow the delivery channels for this request. List channel names in the order to try them; a channel you omit is not used for this request, and a channel not already enabled for the recipient is ignored. Omit the field to use the configured order.
+	// Channels Reorder or narrow the delivery channels for this request. List channel names in the order to try them; a channel you omit is not used for this request, and a channel not already enabled for the recipient is ignored. A list that leaves no usable channel fails the request with `422`. Omit the field to use the configured order.
 	Channels *[]VerificationChannel `json:"channels,omitempty"`
 
-	// CodeLength Passcode length for this verification, overriding the configured length.
+	// CodeLength Passcode length for this verification. Omit to use the configured length.
 	CodeLength *int `json:"code_length,omitempty"`
 }
 
-// VerificationTo The recipient to verify. Provide an email_address, a phone_number, or both; at least one is required.
+// VerificationTo The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 type VerificationTo struct {
-	// EmailAddress The recipient's email address.
+	// EmailAddress The recipient's email address. Case does not matter; the address is lowercased before use.
 	EmailAddress *openapi_types.Email `json:"email_address,omitempty"`
 
-	// PhoneNumber The recipient's phone number in E.164 format.
+	// PhoneNumber The recipient's phone number in E.164 format, with the leading `+` and country code (for example `+15551234567`). A number in any other format is rejected as an invalid recipient (`422`).
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
@@ -6047,19 +7660,19 @@ type VoiceSessionID = string
 
 // WebhookAttempt defines model for WebhookAttempt.
 type WebhookAttempt struct {
-	// AttemptedAt When the delivery attempt was made.
+	// AttemptedAt When this attempt was made. Attempts are listed newest first by this timestamp, and the list's `before`/`after` parameters bound it.
 	AttemptedAt *time.Time `json:"attempted_at,omitempty"`
 
 	// EventId Bird's source event ID, stable across retries of the same event. Null only for older attempts recorded before event IDs were available.
 	EventId *WebhookEventID `json:"event_id,omitempty"`
 
-	// EventType Webhook event type. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	// EventType Webhook event type. Open enum: new event types may be added over time, so treat any unrecognized value in a delivery as a future event rather than an error. Subscribing to a type that is not in the catalog returns a `422`. The values below are the types known at this version.
 	EventType WebhookEventType `json:"event_type"`
 
-	// Id Unique identifier for this delivery attempt.
+	// Id Identifier of this individual delivery attempt. Each retry is a separate attempt with its own id; use `event_id` to group the attempts for one event.
 	Id *string `json:"id,omitempty"`
 
-	// ResponseBody Body returned by your endpoint, truncated when oversized. Empty string when no body was returned.
+	// ResponseBody Response body your endpoint returned, which may be truncated. Omitted when no body was returned.
 	ResponseBody *string `json:"response_body,omitempty"`
 
 	// ResponseDurationMs Round-trip duration in milliseconds.
@@ -6068,66 +7681,123 @@ type WebhookAttempt struct {
 	// ResponseStatusCode HTTP status returned by the receiver. Null when no response was received (timeout, connection error, DNS failure).
 	ResponseStatusCode *int `json:"response_status_code"`
 
-	// Status Current state of the delivery attempt. `pending` covers in-flight and sending attempts; `failed` is reserved for terminal failures.
+	// Status Outcome of this attempt. `delivered` means your endpoint accepted it with a `2xx` response; `pending` means the attempt is still in flight; `failed` means it returned a non-`2xx` response or no response at all. A `failed` attempt is not final for the event: automatic retries appear as further attempts with the same `event_id`.
 	Status WebhookAttemptStatus `json:"status"`
 
-	// Url The endpoint URL the attempt targeted.
+	// Url URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
 	Url string `json:"url"`
 }
 
-// WebhookAttemptStatus Current state of the delivery attempt. `pending` covers in-flight and sending attempts; `failed` is reserved for terminal failures.
+// WebhookAttemptStatus Outcome of this attempt. `delivered` means your endpoint accepted it with a `2xx` response; `pending` means the attempt is still in flight; `failed` means it returned a non-`2xx` response or no response at all. A `failed` attempt is not final for the event: automatic retries appear as further attempts with the same `event_id`.
 type WebhookAttemptStatus string
 
 // WebhookAttemptList defines model for WebhookAttemptList.
 type WebhookAttemptList struct {
+	// Data Delivery attempts, newest first.
 	Data []WebhookAttempt `json:"data"`
 }
 
 // WebhookEndpoint defines model for WebhookEndpoint.
 type WebhookEndpoint struct {
-	CreatedAt   *time.Time `json:"created_at,omitempty"`
-	Description *string    `json:"description,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// Events Concrete event types this endpoint is subscribed to.
-	Events    []WebhookEventType     `json:"events"`
-	Id        WebhookEndpointID      `json:"id"`
+	// Description Human-readable label for the endpoint.
+	Description *string `json:"description,omitempty"`
+
+	// Events Event types this endpoint is subscribed to; only matching events are delivered. Change the set with [Update a webhook endpoint](/docs/api/reference/update-webhook).
+	Events []WebhookEventType `json:"events"`
+	Id     WebhookEndpointID  `json:"id"`
+
+	// Status Delivery state of the endpoint.
+	//
+	// - `active`: the initial state; events are being delivered normally.
+	// - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+	//   and the endpoint returns to `active` automatically once deliveries succeed
+	//   again.
+	// - `paused`: all delivery is stopped, either because an update set `status` to
+	//   `paused` or automatically after sustained delivery failures. A paused endpoint
+	//   never resumes on its own: re-enable it with
+	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
+	//   the missed events with
+	//   [Replay missed events](/docs/api/reference/create-webhook-replay).
 	Status    *WebhookEndpointStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time             `json:"updated_at,omitempty"`
-	Url       string                 `json:"url"`
+
+	// Url HTTPS URL Bird delivers this endpoint's events to.
+	Url string `json:"url"`
 }
 
-// WebhookEndpointStatus defines model for WebhookEndpoint.Status.
+// WebhookEndpointStatus Delivery state of the endpoint.
+//
+//   - `active`: the initial state; events are being delivered normally.
+//   - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+//     and the endpoint returns to `active` automatically once deliveries succeed
+//     again.
+//   - `paused`: all delivery is stopped, either because an update set `status` to
+//     `paused` or automatically after sustained delivery failures. A paused endpoint
+//     never resumes on its own: re-enable it with
+//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
+//     the missed events with
+//     [Replay missed events](/docs/api/reference/create-webhook-replay).
 type WebhookEndpointStatus string
 
 // WebhookEndpointCreate defines model for WebhookEndpointCreate.
 type WebhookEndpointCreate struct {
-	// Description Human-readable label for this endpoint.
+	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
-	// Events Event types to subscribe to. May combine platform types with `realtime.*` types on one endpoint, all signed with the endpoint's single secret. Server-enforced (returns 422 otherwise): a `realtime.*` type requires the `realtime` object, and `realtime` requires at least one `realtime.*` type.
+	// Events Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries. Platform types may be combined with `realtime.*` types on one endpoint, all signed with the endpoint's single secret. Server-enforced (returns `422` otherwise): a `realtime.*` type requires the `realtime` object, and `realtime` requires at least one `realtime.*` type.
 	Events []WebhookEventType `json:"events"`
 
-	// Url HTTPS URL to deliver events to.
+	// Url HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
 	Url string `json:"url"`
 }
 
 // WebhookEndpointCreated defines model for WebhookEndpointCreated.
 type WebhookEndpointCreated struct {
-	CreatedAt   *time.Time `json:"created_at,omitempty"`
-	Description *string    `json:"description,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// Events Concrete event types this endpoint is subscribed to.
+	// Description Human-readable label for the endpoint.
+	Description *string `json:"description,omitempty"`
+
+	// Events Event types this endpoint is subscribed to; only matching events are delivered. Change the set with [Update a webhook endpoint](/docs/api/reference/update-webhook).
 	Events []WebhookEventType `json:"events"`
 	Id     WebhookEndpointID  `json:"id"`
 
-	// Secret Signing secret (whsec_ prefix). Present in this response only — store it immediately, it cannot be retrieved again.
-	Secret    string                        `json:"secret" pii:"true"`
+	// Secret Signing secret for this endpoint (`whsec_` prefix), used to verify the `webhook-signature` header on every delivery. Present in this response only: store it immediately, it cannot be retrieved again. If you lose it, mint a new one with [Rotate webhook signing secret](/docs/api/reference/rotate-webhook-secret).
+	Secret string `json:"secret" pii:"true"`
+
+	// Status Delivery state of the endpoint.
+	//
+	// - `active`: the initial state; events are being delivered normally.
+	// - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+	//   and the endpoint returns to `active` automatically once deliveries succeed
+	//   again.
+	// - `paused`: all delivery is stopped, either because an update set `status` to
+	//   `paused` or automatically after sustained delivery failures. A paused endpoint
+	//   never resumes on its own: re-enable it with
+	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
+	//   the missed events with
+	//   [Replay missed events](/docs/api/reference/create-webhook-replay).
 	Status    *WebhookEndpointCreatedStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time                    `json:"updated_at,omitempty"`
-	Url       string                        `json:"url"`
+
+	// Url HTTPS URL Bird delivers this endpoint's events to.
+	Url string `json:"url"`
 }
 
-// WebhookEndpointCreatedStatus defines model for WebhookEndpointCreated.Status.
+// WebhookEndpointCreatedStatus Delivery state of the endpoint.
+//
+//   - `active`: the initial state; events are being delivered normally.
+//   - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+//     and the endpoint returns to `active` automatically once deliveries succeed
+//     again.
+//   - `paused`: all delivery is stopped, either because an update set `status` to
+//     `paused` or automatically after sustained delivery failures. A paused endpoint
+//     never resumes on its own: re-enable it with
+//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
+//     the missed events with
+//     [Replay missed events](/docs/api/reference/create-webhook-replay).
 type WebhookEndpointCreatedStatus string
 
 // WebhookEndpointID defines model for WebhookEndpointID.
@@ -6152,25 +7822,33 @@ type WebhookEndpointList struct {
 
 // WebhookEndpointUpdate defines model for WebhookEndpointUpdate.
 type WebhookEndpointUpdate struct {
-	// Description Human-readable label for this endpoint.
+	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
-	// Events Replacement set of event type subscriptions.
+	// Events Replacement set of event type subscriptions: the endpoint's subscriptions become exactly this list (there is no partial add or remove). Omit to keep the current set. Types outside the event catalog return a `422`, and a `realtime.*` type can only be added to an endpoint that already has a Realtime app scope.
 	Events *[]WebhookEventType `json:"events,omitempty"`
 
-	// Status Set to "active" to re-enable a paused endpoint, or "paused" to stop delivery.
+	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 	Status *WebhookEndpointUpdateStatus `json:"status,omitempty"`
 
-	// Url New HTTPS URL to deliver events to.
+	// Url Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
 	Url *string `json:"url,omitempty"`
 }
 
-// WebhookEndpointUpdateStatus Set to "active" to re-enable a paused endpoint, or "paused" to stop delivery.
+// WebhookEndpointUpdateStatus `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 type WebhookEndpointUpdateStatus string
 
 // WebhookEvent Discriminated union of every webhook event the Bird platform emits.
-// Each variant is the full delivery body: `type` names the event, `timestamp` is when the event occurred, and `data` carries the event-specific payload. The `type` property selects the variant — SDKs that consume this schema (openapi-typescript, oapi-codegen) generate a narrowed union keyed on `type`, so customer code can switch on the event id and access the variant-specific payload fields without casting.
-// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers per Standard Webhooks and is handled by the SDK's webhook verification helper, which returns one of these variants.
+//
+// Each variant is the full delivery body: `type` names the event, `timestamp` is when the
+// event occurred, and `data` carries the event-specific payload. The `type` property
+// selects the variant, and the generated SDK types narrow on it, so your code can switch
+// on the event id and read the variant-specific payload fields without casting.
+//
+// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers
+// per Standard Webhooks and is handled by the SDK's webhook verification helper, which
+// returns one of these variants. See the [webhooks guide](/docs/guides/webhooks) for
+// header names and the verification recipe.
 type WebhookEvent struct {
 	union json.RawMessage
 }
@@ -6178,27 +7856,27 @@ type WebhookEvent struct {
 // WebhookEventID defines model for WebhookEventID.
 type WebhookEventID = string
 
-// WebhookEventType Webhook event type. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+// WebhookEventType Webhook event type. Open enum: new event types may be added over time, so treat any unrecognized value in a delivery as a future event rather than an error. Subscribing to a type that is not in the catalog returns a `422`. The values below are the types known at this version.
 type WebhookEventType = string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
 type WebhookReplayRequest struct {
-	// Since Replay events created at or after this timestamp. Defaults to 24h ago when omitted.
+	// Since Replay events that occurred at or after this timestamp. Defaults to 24 hours before the request when omitted.
 	Since *time.Time `json:"since,omitempty"`
 
-	// Until Replay events created before or at this timestamp. Omit to bound only by `since`.
+	// Until Replay events that occurred before or at this timestamp. Omit to bound the window only by `since`.
 	Until *time.Time `json:"until,omitempty"`
 }
 
 // WebhookRotateSecretResponse defines model for WebhookRotateSecretResponse.
 type WebhookRotateSecretResponse struct {
-	// Secret The new signing secret (whsec_ prefix). Store this immediately — it is not shown again.
+	// Secret The new signing secret (`whsec_` prefix). Shown only in this response: store it immediately, it cannot be retrieved again. Deliveries are signed with both this and the previous secret for 24 hours after rotation, then the previous secret stops signing.
 	Secret string `json:"secret" pii:"true"`
 }
 
 // WebhookTestRequest defines model for WebhookTestRequest.
 type WebhookTestRequest struct {
-	// EventType Event type to simulate. Defaults to a generic test ping if omitted.
+	// EventType Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
 	EventType *string `json:"event_type,omitempty"`
 }
 
@@ -6208,11 +7886,19 @@ type WebhookTestResponse struct {
 	Error *string `json:"error,omitempty"`
 
 	// EventPayload Discriminated union of every webhook event the Bird platform emits.
-	// Each variant is the full delivery body: `type` names the event, `timestamp` is when the event occurred, and `data` carries the event-specific payload. The `type` property selects the variant — SDKs that consume this schema (openapi-typescript, oapi-codegen) generate a narrowed union keyed on `type`, so customer code can switch on the event id and access the variant-specific payload fields without casting.
-	// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers per Standard Webhooks and is handled by the SDK's webhook verification helper, which returns one of these variants.
+	//
+	// Each variant is the full delivery body: `type` names the event, `timestamp` is when the
+	// event occurred, and `data` carries the event-specific payload. The `type` property
+	// selects the variant, and the generated SDK types narrow on it, so your code can switch
+	// on the event id and read the variant-specific payload fields without casting.
+	//
+	// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers
+	// per Standard Webhooks and is handled by the SDK's webhook verification helper, which
+	// returns one of these variants. See the [webhooks guide](/docs/guides/webhooks) for
+	// header names and the verification recipe.
 	EventPayload *WebhookEvent `json:"event_payload,omitempty"`
 
-	// ResponseBody Response body returned by your endpoint, truncated when oversized. Empty when no body was returned.
+	// ResponseBody Response body returned by your endpoint, truncated to the first 1024 bytes. Omitted when your endpoint returned no body or could not be reached.
 	ResponseBody *string `json:"response_body,omitempty"`
 
 	// ResponseDurationMs Round-trip delivery latency in milliseconds.
@@ -6221,16 +7907,16 @@ type WebhookTestResponse struct {
 	// ResponseStatusCode HTTP status returned by your endpoint. Null when no response was received (timeout, connection error, DNS failure).
 	ResponseStatusCode *int `json:"response_status_code"`
 
-	// Status Whether your endpoint accepted the test event. `delivered` means it returned a 2xx status; `failed` means it returned a non-2xx status or could not be reached.
+	// Status Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
 	Status WebhookTestResponseStatus `json:"status"`
 }
 
-// WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a 2xx status; `failed` means it returned a non-2xx status or could not be reached.
+// WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
 type WebhookTestResponseStatus string
 
-// WhatsAppAddress Sender or recipient of a WhatsApp message — a phone number, a business-scoped user ID, or both.
+// WhatsAppAddress Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
 type WhatsAppAddress struct {
-	// Bsuid Business-scoped user ID — Meta's identifier for the WhatsApp user. Present only on the WhatsApp-user side of the message.
+	// Bsuid Business-scoped user ID, Meta's identifier for the WhatsApp user. Present only on the WhatsApp-user side of the message.
 	Bsuid *string `json:"bsuid,omitempty"`
 
 	// PhoneNumber Phone number in E.164 format, when known.
@@ -6239,7 +7925,7 @@ type WhatsAppAddress struct {
 
 // WhatsAppError Failure detail for a message that could not be delivered.
 type WhatsAppError struct {
-	// Code Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance` — the workspace could not afford the send. `price_not_found` — no price was configured for this destination/template combination. `internal_error` — an unexpected Bird-side failure. `undeliverable` — the recipient could not be reached (e.g. not on WhatsApp, number invalid). `service_window_expired` — the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited` — the send was throttled.
+	// Code Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
 	Code WhatsAppErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -6252,7 +7938,7 @@ type WhatsAppError struct {
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 }
 
-// WhatsAppErrorCode Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance` — the workspace could not afford the send. `price_not_found` — no price was configured for this destination/template combination. `internal_error` — an unexpected Bird-side failure. `undeliverable` — the recipient could not be reached (e.g. not on WhatsApp, number invalid). `service_window_expired` — the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited` — the send was throttled.
+// WhatsAppErrorCode Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
 type WhatsAppErrorCode = string
 
 // WhatsAppEvent defines model for WhatsAppEvent.
@@ -6264,7 +7950,7 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
-	// Type Lifecycle event type. `whatsapp.accepted` — Bird accepted the request. `whatsapp.sent` — handed to the WhatsApp network. `whatsapp.delivered` — delivery confirmed to the recipient's device. `whatsapp.read` — the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed` — terminal permanent failure. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -6273,9 +7959,12 @@ type WhatsAppEventID = string
 
 // WhatsAppEventList defines model for WhatsAppEventList.
 type WhatsAppEventList struct {
-	// Data Timeline events for this WhatsApp message, in chronological order. The timeline is bounded and returned in full — this list is not paginated.
+	// Data Timeline events for this WhatsApp message, in chronological order. The timeline is bounded and returned in full; this list is not paginated.
 	Data []WhatsAppEvent `json:"data"`
 }
+
+// WhatsAppLanguage Language code of the template variant (for example `en` or `pt_BR`).
+type WhatsAppLanguage = string
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
@@ -6323,7 +8012,7 @@ type WhatsAppMessageID = string
 
 // WhatsAppMessageList defines model for WhatsAppMessageList.
 type WhatsAppMessageList struct {
-	// Data Page of WhatsApp message objects.
+	// Data Page of WhatsApp messages, newest first.
 	Data []WhatsAppMessage `json:"data"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
@@ -6344,17 +8033,17 @@ type WhatsAppMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are currently the only supported content type, so every send must include one; free-text content will be added in a future release.
+	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
-	// To The message recipient's phone number in E.164 format (for example `+31612345678`).
+	// To The message recipient's phone number in E.164 format (for example `+31612345678`). A value that is not a valid phone number returns a `422` `WhatsAppInvalidRecipient`.
 	To string `json:"to"`
 }
 
-// WhatsAppMessageStatus Delivery status. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `canceled` means a scheduled message was canceled before it was sent. `received` is the status of an inbound message (`direction: inbound`) sent to you by a contact. There is no `read` status — a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value.
+// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
 type WhatsAppMessageStatus string
 
-// WhatsAppMessageTemplate The template a message was sent from. On reads `name`, `language`, `category`, and `components` are always present — `components` is an empty array for an authentication template (the filled-in values, e.g. a verification code, are never returned).
+// WhatsAppMessageTemplate The template a message was sent from. On reads `name`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
 type WhatsAppMessageTemplate struct {
 	// Category Content classification applied to messages sent from this template.
 	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
@@ -6371,19 +8060,22 @@ type WhatsAppMessageTemplate struct {
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
 type WhatsAppMessageTemplateComponent struct {
-	// Parameters The values that fill this part's placeholders, in order.
+	// Parameters The values that fill this part's placeholders, in `{{n}}` placeholder order.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
-	// Type Which part of the template this fills in.
+	// Type Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header. Bird manages header values itself, so a `header` entry supplied on a send is ignored.
 	Type string `json:"type"`
 }
 
 // WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
 type WhatsAppMessageTemplateComponentParameter struct {
-	// Text Parameter value.
+	// Name For named-parameter templates: the placeholder this value fills (for example `first_name`). Omit for positional templates.
+	Name *string `json:"name,omitempty"`
+
+	// Text The value substituted into the placeholder, as a plain string.
 	Text string `json:"text"`
 
-	// Type Parameter type.
+	// Type The kind of value this parameter carries. `text` is the only kind today.
 	Type WhatsAppTemplateParameterType `json:"type"`
 }
 
@@ -6395,8 +8087,12 @@ type WhatsAppTemplate struct {
 	// Components The content blocks that make up the template, in display order.
 	Components *[]WhatsAppTemplateComponent `json:"components,omitempty"`
 
-	// Language The language code of this template variant (for example `en` or `pt_BR`).
-	Language *string `json:"language,omitempty"`
+	// Description Optional description of the template's purpose. Null when unset.
+	Description *string `json:"description,omitempty"`
+
+	// Id Stable Bird identifier for the template.
+	Id       *WhatsAppTemplateID `json:"id,omitempty"`
+	Language *WhatsAppLanguage   `json:"language,omitempty"`
 
 	// Name The template's stable handle. Pass it as the template reference when sending.
 	Name *WhatsAppTemplateName `json:"name,omitempty"`
@@ -6413,6 +8109,9 @@ type WhatsAppTemplateButton struct {
 	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button URL has variables.
 	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
 
+	// OtpType How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
+	OtpType *string `json:"otp_type,omitempty"`
+
 	// Text The button's label text.
 	Text *string `json:"text,omitempty"`
 
@@ -6423,7 +8122,7 @@ type WhatsAppTemplateButton struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// WhatsAppTemplateCategory WhatsApp template category — Meta's content classification for a template. Open enum — Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error. The values below are the categories known at this version.
+// WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
 type WhatsAppTemplateCategory = string
 
 // WhatsAppTemplateComponent defines model for WhatsAppTemplateComponent.
@@ -6431,7 +8130,7 @@ type WhatsAppTemplateComponent struct {
 	// Buttons The buttons attached to this block. Present when the block carries buttons.
 	Buttons *[]WhatsAppTemplateButton `json:"buttons,omitempty"`
 
-	// ExampleParameters Example values for this block's variables, in placeholder order — one per `{{n}}`. Use them to see what a filled message looks like. Present when the block has variables.
+	// ExampleParameters Example values for this block's variables, in placeholder order (one per `{{n}}`). Use them to see what a filled message looks like. Present when the block has variables.
 	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
 
 	// Text The block's text content, with any variable placeholders shown inline. Present when the block carries text.
@@ -6443,12 +8142,18 @@ type WhatsAppTemplateComponent struct {
 
 // WhatsAppTemplateExampleParameter defines model for WhatsAppTemplateExampleParameter.
 type WhatsAppTemplateExampleParameter struct {
+	// Name The named placeholder this example fills, for templates that use named parameters. Absent for system templates, which use positional parameters.
+	Name *string `json:"name,omitempty"`
+
 	// Text An example value for a text parameter. Present when `type` is `text`.
 	Text *string `json:"text,omitempty"`
 
 	// Type The kind of value this parameter accepts.
 	Type *WhatsAppTemplateParameterType `json:"type,omitempty"`
 }
+
+// WhatsAppTemplateID defines model for WhatsAppTemplateID.
+type WhatsAppTemplateID = string
 
 // WhatsAppTemplateList defines model for WhatsAppTemplateList.
 type WhatsAppTemplateList struct {
@@ -6459,22 +8164,22 @@ type WhatsAppTemplateList struct {
 // WhatsAppTemplateName A WhatsApp template's name — the stable handle used to reference the template when sending. Lowercase letters, numbers, and underscores.
 type WhatsAppTemplateName = string
 
-// WhatsAppTemplateParameterType The type of a template parameter.
+// WhatsAppTemplateParameterType The kind of value a template parameter accepts. `text` (the only kind today) is a plain string substituted into the placeholder. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType = string
 
 // WhatsAppTemplateSend defines model for WhatsAppTemplateSend.
 type WhatsAppTemplateSend struct {
-	// Components The values that fill the template's placeholders.
+	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters` in `{{n}}` order. Parameter counts must match the template's declared placeholders exactly, or the send returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 
-	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language.
-	Language *string `json:"language,omitempty"`
+	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
+	Language *WhatsAppLanguage `json:"language,omitempty"`
 
 	// Name The template to send, by its name (for example `bird_otp`).
 	Name WhatsAppTemplateName `json:"name"`
 }
 
-// WhatsAppTemplateStatus A message template's review and health status. `approved`, `pending`, and `rejected` are review outcomes; `paused`, `disabled`, `in_appeal`, `pending_deletion`, and `limit_exceeded` reflect a template's ongoing health after approval.
+// WhatsAppTemplateStatus A message template's review and health status. `approved` (passed review and sendable), `pending` (review in progress), and `rejected` (failed review) are review outcomes. The rest reflect a template's ongoing health after approval: `paused` and `disabled` mean sending from it is suspended, `in_appeal` means a review decision is under appeal, `pending_deletion` means the template is queued for removal, and `limit_exceeded` means it has exceeded a usage limit. Every template in Bird's catalogue is currently `approved`. Open enum: new statuses may be added over time, so treat any unrecognized value as a future status rather than an error.
 type WhatsAppTemplateStatus = string
 
 // WorkspaceID defines model for WorkspaceID.
@@ -6513,6 +8218,9 @@ type CreatedAfter = time.Time
 // CreatedBefore defines model for CreatedBefore.
 type CreatedBefore = time.Time
 
+// EmailStatsTemplateFilter defines model for EmailStatsTemplateFilter.
+type EmailStatsTemplateFilter = string
+
 // EndingBefore defines model for EndingBefore.
 type EndingBefore = string
 
@@ -6533,6 +8241,9 @@ type PaginationLimit = int
 
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
+
+// StatsTimezone defines model for StatsTimezone.
+type StatsTimezone = string
 
 // XWorkspaceId defines model for XWorkspaceId.
 type XWorkspaceId = string
@@ -7011,6 +8722,471 @@ type CancelEmailMessageParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// GetEmailStatsByBounceCodeParams defines parameters for GetEmailStatsByBounceCode.
+type GetEmailStatsByBounceCodeParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Defaults to `bounced`. Only bounce counts are sortable; this breakdown has no rates.
+	Sort *GetEmailStatsByBounceCodeParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of bounce-code rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetEmailStatsByBounceCodeParamsSort defines parameters for GetEmailStatsByBounceCode.
+type GetEmailStatsByBounceCodeParamsSort string
+
+// GetEmailStatsByBroadcastParams defines parameters for GetEmailStatsByBroadcast.
+type GetEmailStatsByBroadcastParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, UTC. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of broadcast rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend Requests a per-row `trend` series. Not available for the broadcast breakdown; supplying `true` returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect on this breakdown, where `include_trend` is not available.
+	TrendGrain *GetEmailStatsByBroadcastParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByBroadcastParamsTrendGrain defines parameters for GetEmailStatsByBroadcast.
+type GetEmailStatsByBroadcastParamsTrendGrain string
+
+// GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
+type GetEmailStatsByCategoryParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of category rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that category's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByCategoryParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByCategoryParamsTrendGrain defines parameters for GetEmailStatsByCategory.
+type GetEmailStatsByCategoryParamsTrendGrain string
+
+// GetEmailStatsByClientParams defines parameters for GetEmailStatsByClient.
+type GetEmailStatsByClientParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// GroupBy Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two null.
+	GroupBy *GetEmailStatsByClientParamsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
+	Sort *EmailEngagementSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of client rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetEmailStatsByClientParamsGroupBy defines parameters for GetEmailStatsByClient.
+type GetEmailStatsByClientParamsGroupBy string
+
+// GetEmailStatsByComplaintTypeParams defines parameters for GetEmailStatsByComplaintType.
+type GetEmailStatsByComplaintTypeParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Defaults to `complained`, the only sortable metric for this breakdown.
+	Sort *GetEmailStatsByComplaintTypeParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of complaint-type rows to return, ranked by `complained` descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetEmailStatsByComplaintTypeParamsSort defines parameters for GetEmailStatsByComplaintType.
+type GetEmailStatsByComplaintTypeParamsSort string
+
+// GetEmailStatsDailyParams defines parameters for GetEmailStatsDaily.
+type GetEmailStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
+
+	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
+
+	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+}
+
+// GetEmailStatsHourlyParams defines parameters for GetEmailStatsHourly.
+type GetEmailStatsHourlyParams struct {
+	// From Start of the window (ISO 8601 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included. When `timezone` is set, a numeric UTC offset here (for example `+05:45`) is rejected; use a `Z` (UTC) instant. Defaults to 7 days before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (ISO 8601 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included (both bounds inclusive). When `timezone` is set, a numeric UTC offset here is rejected; use a `Z` (UTC) instant. Defaults to the current hour when omitted. Window may not exceed 30 days (720 hours).
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
+
+	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
+
+	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+}
+
+// GetEmailStatsByLocationParams defines parameters for GetEmailStatsByLocation.
+type GetEmailStatsByLocationParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// GroupBy Location granularity for each row. `country` (default) groups by country; `region` groups by region within country; `city` groups by city within region. Each row reports the location hierarchy down to the chosen level.
+	GroupBy *GetEmailStatsByLocationParamsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
+	Sort *EmailEngagementSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of location rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetEmailStatsByLocationParamsGroupBy defines parameters for GetEmailStatsByLocation.
+type GetEmailStatsByLocationParamsGroupBy string
+
+// GetEmailStatsByMailboxProviderRegionParams defines parameters for GetEmailStatsByMailboxProviderRegion.
+type GetEmailStatsByMailboxProviderRegionParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
+	Sort *EmailMailboxProviderSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of provider-region rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that provider region's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByMailboxProviderRegionParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByMailboxProviderRegionParamsTrendGrain defines parameters for GetEmailStatsByMailboxProviderRegion.
+type GetEmailStatsByMailboxProviderRegionParamsTrendGrain string
+
+// GetEmailStatsByMailboxProviderParams defines parameters for GetEmailStatsByMailboxProvider.
+type GetEmailStatsByMailboxProviderParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
+	Sort *EmailMailboxProviderSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that provider's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByMailboxProviderParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByMailboxProviderParamsTrendGrain defines parameters for GetEmailStatsByMailboxProvider.
+type GetEmailStatsByMailboxProviderParamsTrendGrain string
+
+// GetEmailStatsByRecipientDomainParams defines parameters for GetEmailStatsByRecipientDomain.
+type GetEmailStatsByRecipientDomainParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that recipient domain's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByRecipientDomainParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByRecipientDomainParamsTrendGrain defines parameters for GetEmailStatsByRecipientDomain.
+type GetEmailStatsByRecipientDomainParamsTrendGrain string
+
+// GetEmailStatsBySendingDomainParams defines parameters for GetEmailStatsBySendingDomain.
+type GetEmailStatsBySendingDomainParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of domain rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsBySendingDomainParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsBySendingDomainParamsTrendGrain defines parameters for GetEmailStatsBySendingDomain.
+type GetEmailStatsBySendingDomainParamsTrendGrain string
+
+// GetEmailStatsBySendingIpParams defines parameters for GetEmailStatsBySendingIp.
+type GetEmailStatsBySendingIpParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank IPs by, applied descending. `bounces.block` surfaces the IPs whose reputation is most likely degraded. Rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. Engagement metrics (a sending IP carries no engagement), `processed`, `rejected`, and `oob_bounces` are not sortable here.
+	Sort *GetEmailStatsBySendingIpParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of IP rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that IP's delivery rates over the window (per-IP rows have no engagement, so each trend point's open and click rates read 0 in buckets that had deliveries and null in buckets that had none). Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsBySendingIpParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsBySendingIpParamsSort defines parameters for GetEmailStatsBySendingIp.
+type GetEmailStatsBySendingIpParamsSort string
+
+// GetEmailStatsBySendingIpParamsTrendGrain defines parameters for GetEmailStatsBySendingIp.
+type GetEmailStatsBySendingIpParamsTrendGrain string
+
+// GetEmailStatsSummaryParams defines parameters for GetEmailStatsSummary.
+type GetEmailStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` for day windows, or 168 hours (7 days) before `to` for hour windows, when omitted.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
+
+	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
+
+	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *GetEmailStatsSummaryParamsCompare `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetEmailStatsSummaryParamsCompare defines parameters for GetEmailStatsSummary.
+type GetEmailStatsSummaryParamsCompare string
+
+// GetEmailStatsByTagParams defines parameters for GetEmailStatsByTag.
+type GetEmailStatsByTagParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of tag rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByTagParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByTagParamsTrendGrain defines parameters for GetEmailStatsByTag.
+type GetEmailStatsByTagParamsTrendGrain string
+
+// GetEmailStatsByTemplateParams defines parameters for GetEmailStatsByTemplate.
+type GetEmailStatsByTemplateParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of template rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *GetEmailStatsByTemplateParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetEmailStatsByTemplateParamsTrendGrain defines parameters for GetEmailStatsByTemplate.
+type GetEmailStatsByTemplateParamsTrendGrain string
+
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
 type CreateSMSMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
@@ -7045,10 +9221,10 @@ type ListSMSMessagesParams struct {
 	// Direction Filter by direction. Omit for both.
 	Direction *ListSMSMessagesParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Filter by status; repeat the parameter to match any of several. One of scheduled, accepted, sent, delivered, undelivered, failed, rejected, canceled, expired, or received.
+	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
 
-	// ErrorCode Filter to messages whose failure reason matches one of the supplied values; repeat the parameter to match any of several. One of invalid_destination, unreachable, blocked_by_carrier, blocked_by_recipient, landline_unreachable, content_rejected, sender_unregistered, recipient_opted_out, provider_unavailable, or unknown.
+	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`.
 	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
 
 	// Category Filter by category.
@@ -7057,7 +9233,7 @@ type ListSMSMessagesParams struct {
 	// To Filter by recipient phone number (E.164 exact match).
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// From Filter by sender (E.164, alphanumeric, or short code — exact match).
+	// From Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
 	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
@@ -7086,13 +9262,13 @@ type CreateSMSMessageParams struct {
 
 // ListSMSTemplatesParams defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParams struct {
-	// Scope Filter by scope. Omit for all.
+	// Scope Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all. Workspace-authored SMS templates are not available yet, so `workspace` currently matches nothing.
 	Scope *ListSMSTemplatesParamsScope `form:"scope,omitempty" json:"scope,omitempty"`
 
-	// Category Filter by category.
+	// Category Keep only templates whose `category` matches. Omit for all categories.
 	Category *ListSMSTemplatesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// Language Keep only templates available in this language, as a BCP-47 tag.
+	// Language Keep only templates available in this language, as a BCP-47 tag. Matches the template's `available_languages` entries exactly, with no fallback.
 	Language *string `form:"language,omitempty" json:"language,omitempty"`
 }
 
@@ -7182,7 +9358,7 @@ type SendWhatsAppMessageParams struct {
 
 // ListWhatsAppMessageEventsParams defines parameters for ListWhatsAppMessageEvents.
 type ListWhatsAppMessageEventsParams struct {
-	// Type Filter by event type (e.g. `whatsapp.delivered`, `whatsapp.failed`).
+	// Type Keep only events of this exact type (for example `whatsapp.delivered` or `whatsapp.failed`). Omit for the full timeline.
 	Type *string `form:"type,omitempty" json:"type,omitempty"`
 }
 
@@ -8750,6 +10926,118 @@ func (t *WebhookEvent) MergeEventSMSSent(v EventSMSSent) error {
 	return err
 }
 
+// AsEventSMSTfnVerificationApproved returns the union data inside the WebhookEvent as a EventSMSTfnVerificationApproved
+func (t WebhookEvent) AsEventSMSTfnVerificationApproved() (EventSMSTfnVerificationApproved, error) {
+	var body EventSMSTfnVerificationApproved
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSTfnVerificationApproved overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationApproved
+func (t *WebhookEvent) FromEventSMSTfnVerificationApproved(v EventSMSTfnVerificationApproved) error {
+	v.Type = "sms.tfn_verification.approved"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSTfnVerificationApproved performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationApproved
+func (t *WebhookEvent) MergeEventSMSTfnVerificationApproved(v EventSMSTfnVerificationApproved) error {
+	v.Type = "sms.tfn_verification.approved"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSTfnVerificationInfoRequested returns the union data inside the WebhookEvent as a EventSMSTfnVerificationInfoRequested
+func (t WebhookEvent) AsEventSMSTfnVerificationInfoRequested() (EventSMSTfnVerificationInfoRequested, error) {
+	var body EventSMSTfnVerificationInfoRequested
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSTfnVerificationInfoRequested overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationInfoRequested
+func (t *WebhookEvent) FromEventSMSTfnVerificationInfoRequested(v EventSMSTfnVerificationInfoRequested) error {
+	v.Type = "sms.tfn_verification.info_requested"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSTfnVerificationInfoRequested performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationInfoRequested
+func (t *WebhookEvent) MergeEventSMSTfnVerificationInfoRequested(v EventSMSTfnVerificationInfoRequested) error {
+	v.Type = "sms.tfn_verification.info_requested"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSTfnVerificationRejected returns the union data inside the WebhookEvent as a EventSMSTfnVerificationRejected
+func (t WebhookEvent) AsEventSMSTfnVerificationRejected() (EventSMSTfnVerificationRejected, error) {
+	var body EventSMSTfnVerificationRejected
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSTfnVerificationRejected overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationRejected
+func (t *WebhookEvent) FromEventSMSTfnVerificationRejected(v EventSMSTfnVerificationRejected) error {
+	v.Type = "sms.tfn_verification.rejected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSTfnVerificationRejected performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationRejected
+func (t *WebhookEvent) MergeEventSMSTfnVerificationRejected(v EventSMSTfnVerificationRejected) error {
+	v.Type = "sms.tfn_verification.rejected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventSMSTfnVerificationSubmitted returns the union data inside the WebhookEvent as a EventSMSTfnVerificationSubmitted
+func (t WebhookEvent) AsEventSMSTfnVerificationSubmitted() (EventSMSTfnVerificationSubmitted, error) {
+	var body EventSMSTfnVerificationSubmitted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSTfnVerificationSubmitted overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationSubmitted
+func (t *WebhookEvent) FromEventSMSTfnVerificationSubmitted(v EventSMSTfnVerificationSubmitted) error {
+	v.Type = "sms.tfn_verification.submitted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSTfnVerificationSubmitted performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationSubmitted
+func (t *WebhookEvent) MergeEventSMSTfnVerificationSubmitted(v EventSMSTfnVerificationSubmitted) error {
+	v.Type = "sms.tfn_verification.submitted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventSMSUndelivered returns the union data inside the WebhookEvent as a EventSMSUndelivered
 func (t WebhookEvent) AsEventSMSUndelivered() (EventSMSUndelivered, error) {
 	var body EventSMSUndelivered
@@ -9076,6 +11364,14 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSRejected()
 	case "sms.sent":
 		return t.AsEventSMSSent()
+	case "sms.tfn_verification.approved":
+		return t.AsEventSMSTfnVerificationApproved()
+	case "sms.tfn_verification.info_requested":
+		return t.AsEventSMSTfnVerificationInfoRequested()
+	case "sms.tfn_verification.rejected":
+		return t.AsEventSMSTfnVerificationRejected()
+	case "sms.tfn_verification.submitted":
+		return t.AsEventSMSTfnVerificationSubmitted()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
 	case "voice.call.answered":
@@ -9303,6 +11599,54 @@ type ClientInterface interface {
 
 	// CancelEmailMessage request
 	CancelEmailMessage(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByBounceCode request
+	GetEmailStatsByBounceCode(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByBroadcast request
+	GetEmailStatsByBroadcast(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByCategory request
+	GetEmailStatsByCategory(ctx context.Context, params *GetEmailStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByClient request
+	GetEmailStatsByClient(ctx context.Context, params *GetEmailStatsByClientParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByComplaintType request
+	GetEmailStatsByComplaintType(ctx context.Context, params *GetEmailStatsByComplaintTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsDaily request
+	GetEmailStatsDaily(ctx context.Context, params *GetEmailStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsHourly request
+	GetEmailStatsHourly(ctx context.Context, params *GetEmailStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByLocation request
+	GetEmailStatsByLocation(ctx context.Context, params *GetEmailStatsByLocationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByMailboxProviderRegion request
+	GetEmailStatsByMailboxProviderRegion(ctx context.Context, params *GetEmailStatsByMailboxProviderRegionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByMailboxProvider request
+	GetEmailStatsByMailboxProvider(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByRecipientDomain request
+	GetEmailStatsByRecipientDomain(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsBySendingDomain request
+	GetEmailStatsBySendingDomain(ctx context.Context, params *GetEmailStatsBySendingDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsBySendingIp request
+	GetEmailStatsBySendingIp(ctx context.Context, params *GetEmailStatsBySendingIpParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsSummary request
+	GetEmailStatsSummary(ctx context.Context, params *GetEmailStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByTag request
+	GetEmailStatsByTag(ctx context.Context, params *GetEmailStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailStatsByTemplate request
+	GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateSMSMessageBatchWithBody request with any body
 	CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -9884,6 +12228,198 @@ func (c *Client) GetEmailMessage(ctx context.Context, messageId EmailID, reqEdit
 
 func (c *Client) CancelEmailMessage(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCancelEmailMessageRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByBounceCode(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByBounceCodeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByBroadcast(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByBroadcastRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByCategory(ctx context.Context, params *GetEmailStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByCategoryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByClient(ctx context.Context, params *GetEmailStatsByClientParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByClientRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByComplaintType(ctx context.Context, params *GetEmailStatsByComplaintTypeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByComplaintTypeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsDaily(ctx context.Context, params *GetEmailStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsHourly(ctx context.Context, params *GetEmailStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByLocation(ctx context.Context, params *GetEmailStatsByLocationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByLocationRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByMailboxProviderRegion(ctx context.Context, params *GetEmailStatsByMailboxProviderRegionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByMailboxProviderRegionRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByMailboxProvider(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByMailboxProviderRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByRecipientDomain(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByRecipientDomainRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsBySendingDomain(ctx context.Context, params *GetEmailStatsBySendingDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsBySendingDomainRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsBySendingIp(ctx context.Context, params *GetEmailStatsBySendingIpParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsBySendingIpRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsSummary(ctx context.Context, params *GetEmailStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByTag(ctx context.Context, params *GetEmailStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByTagRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsByTemplateRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -12103,6 +14639,2166 @@ func NewCancelEmailMessageRequest(server string, messageId EmailID, params *Canc
 	return req, nil
 }
 
+// NewGetEmailStatsByBounceCodeRequest generates requests for GetEmailStatsByBounceCode
+func NewGetEmailStatsByBounceCodeRequest(server string, params *GetEmailStatsByBounceCodeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/bounce-codes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByBroadcastRequest generates requests for GetEmailStatsByBroadcast
+func NewGetEmailStatsByBroadcastRequest(server string, params *GetEmailStatsByBroadcastParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/broadcasts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByCategoryRequest generates requests for GetEmailStatsByCategory
+func NewGetEmailStatsByCategoryRequest(server string, params *GetEmailStatsByCategoryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/categories")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByClientRequest generates requests for GetEmailStatsByClient
+func NewGetEmailStatsByClientRequest(server string, params *GetEmailStatsByClientParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/clients")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_by", *params.GroupBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByComplaintTypeRequest generates requests for GetEmailStatsByComplaintType
+func NewGetEmailStatsByComplaintTypeRequest(server string, params *GetEmailStatsByComplaintTypeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/complaint-types")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsDailyRequest generates requests for GetEmailStatsDaily
+func NewGetEmailStatsDailyRequest(server string, params *GetEmailStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", *params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingIp != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_ip", *params.SendingIp, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.RecipientDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "recipient_domain", *params.RecipientDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsHourlyRequest generates requests for GetEmailStatsHourly
+func NewGetEmailStatsHourlyRequest(server string, params *GetEmailStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", *params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingIp != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_ip", *params.SendingIp, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.RecipientDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "recipient_domain", *params.RecipientDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByLocationRequest generates requests for GetEmailStatsByLocation
+func NewGetEmailStatsByLocationRequest(server string, params *GetEmailStatsByLocationParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/locations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_by", *params.GroupBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByMailboxProviderRegionRequest generates requests for GetEmailStatsByMailboxProviderRegion
+func NewGetEmailStatsByMailboxProviderRegionRequest(server string, params *GetEmailStatsByMailboxProviderRegionParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/mailbox-provider-regions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByMailboxProviderRequest generates requests for GetEmailStatsByMailboxProvider
+func NewGetEmailStatsByMailboxProviderRequest(server string, params *GetEmailStatsByMailboxProviderParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/mailbox-providers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByRecipientDomainRequest generates requests for GetEmailStatsByRecipientDomain
+func NewGetEmailStatsByRecipientDomainRequest(server string, params *GetEmailStatsByRecipientDomainParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/recipient-domains")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsBySendingDomainRequest generates requests for GetEmailStatsBySendingDomain
+func NewGetEmailStatsBySendingDomainRequest(server string, params *GetEmailStatsBySendingDomainParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/sending-domains")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsBySendingIpRequest generates requests for GetEmailStatsBySendingIp
+func NewGetEmailStatsBySendingIpRequest(server string, params *GetEmailStatsBySendingIpParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/sending-ips")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsSummaryRequest generates requests for GetEmailStatsSummary
+func NewGetEmailStatsSummaryRequest(server string, params *GetEmailStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", *params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SendingIp != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_ip", *params.SendingIp, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.RecipientDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "recipient_domain", *params.RecipientDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByTagRequest generates requests for GetEmailStatsByTag
+func NewGetEmailStatsByTagRequest(server string, params *GetEmailStatsByTagParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/tags")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailStatsByTemplateRequest generates requests for GetEmailStatsByTemplate
+func NewGetEmailStatsByTemplateRequest(server string, params *GetEmailStatsByTemplateParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewCreateSMSMessageBatchRequest calls the generic CreateSMSMessageBatch builder with application/json body
 func NewCreateSMSMessageBatchRequest(server string, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -13168,6 +17864,54 @@ type ClientWithResponsesInterface interface {
 
 	// CancelEmailMessageWithResponse request
 	CancelEmailMessageWithResponse(ctx context.Context, messageId EmailID, params *CancelEmailMessageParams, reqEditors ...RequestEditorFn) (*CancelEmailMessageResponse, error)
+
+	// GetEmailStatsByBounceCodeWithResponse request
+	GetEmailStatsByBounceCodeWithResponse(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBounceCodeResponse, error)
+
+	// GetEmailStatsByBroadcastWithResponse request
+	GetEmailStatsByBroadcastWithResponse(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBroadcastResponse, error)
+
+	// GetEmailStatsByCategoryWithResponse request
+	GetEmailStatsByCategoryWithResponse(ctx context.Context, params *GetEmailStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByCategoryResponse, error)
+
+	// GetEmailStatsByClientWithResponse request
+	GetEmailStatsByClientWithResponse(ctx context.Context, params *GetEmailStatsByClientParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByClientResponse, error)
+
+	// GetEmailStatsByComplaintTypeWithResponse request
+	GetEmailStatsByComplaintTypeWithResponse(ctx context.Context, params *GetEmailStatsByComplaintTypeParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByComplaintTypeResponse, error)
+
+	// GetEmailStatsDailyWithResponse request
+	GetEmailStatsDailyWithResponse(ctx context.Context, params *GetEmailStatsDailyParams, reqEditors ...RequestEditorFn) (*GetEmailStatsDailyResponse, error)
+
+	// GetEmailStatsHourlyWithResponse request
+	GetEmailStatsHourlyWithResponse(ctx context.Context, params *GetEmailStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetEmailStatsHourlyResponse, error)
+
+	// GetEmailStatsByLocationWithResponse request
+	GetEmailStatsByLocationWithResponse(ctx context.Context, params *GetEmailStatsByLocationParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByLocationResponse, error)
+
+	// GetEmailStatsByMailboxProviderRegionWithResponse request
+	GetEmailStatsByMailboxProviderRegionWithResponse(ctx context.Context, params *GetEmailStatsByMailboxProviderRegionParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByMailboxProviderRegionResponse, error)
+
+	// GetEmailStatsByMailboxProviderWithResponse request
+	GetEmailStatsByMailboxProviderWithResponse(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByMailboxProviderResponse, error)
+
+	// GetEmailStatsByRecipientDomainWithResponse request
+	GetEmailStatsByRecipientDomainWithResponse(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByRecipientDomainResponse, error)
+
+	// GetEmailStatsBySendingDomainWithResponse request
+	GetEmailStatsBySendingDomainWithResponse(ctx context.Context, params *GetEmailStatsBySendingDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsBySendingDomainResponse, error)
+
+	// GetEmailStatsBySendingIpWithResponse request
+	GetEmailStatsBySendingIpWithResponse(ctx context.Context, params *GetEmailStatsBySendingIpParams, reqEditors ...RequestEditorFn) (*GetEmailStatsBySendingIpResponse, error)
+
+	// GetEmailStatsSummaryWithResponse request
+	GetEmailStatsSummaryWithResponse(ctx context.Context, params *GetEmailStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetEmailStatsSummaryResponse, error)
+
+	// GetEmailStatsByTagWithResponse request
+	GetEmailStatsByTagWithResponse(ctx context.Context, params *GetEmailStatsByTagParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTagResponse, error)
+
+	// GetEmailStatsByTemplateWithResponse request
+	GetEmailStatsByTemplateWithResponse(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTemplateResponse, error)
 
 	// CreateSMSMessageBatchWithBodyWithResponse request with any body
 	CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
@@ -14361,6 +19105,598 @@ func (r CancelEmailMessageResponse) ContentType() string {
 	return ""
 }
 
+type GetEmailStatsByBounceCodeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByBounceCodeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByBounceCodeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByBounceCodeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByBounceCodeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByBroadcastResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByCategoryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByCategoryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByCategoryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByCategoryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByCategoryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByClientResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByClientResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByClientResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByClientResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByClientResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByComplaintTypeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByComplaintTypeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByComplaintTypeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByComplaintTypeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByComplaintTypeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByLocationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByLocationResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByLocationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByLocationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByLocationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByMailboxProviderRegionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByMailboxProviderRegionResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByMailboxProviderRegionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByMailboxProviderRegionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByMailboxProviderRegionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByMailboxProviderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByMailboxProviderResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByMailboxProviderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByMailboxProviderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByMailboxProviderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByRecipientDomainResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByRecipientDomainResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByRecipientDomainResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByRecipientDomainResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByRecipientDomainResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsBySendingDomainResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsBySendingDomainResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsBySendingDomainResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsBySendingDomainResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsBySendingDomainResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsBySendingIpResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsBySendingIpResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsBySendingIpResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsBySendingIpResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsBySendingIpResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByTagResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsTagsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByTagResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByTagResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByTagResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsByTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsByTemplateResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsByTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsByTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateSMSMessageBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -15217,6 +20553,150 @@ func (c *ClientWithResponses) CancelEmailMessageWithResponse(ctx context.Context
 		return nil, err
 	}
 	return ParseCancelEmailMessageResponse(rsp)
+}
+
+// GetEmailStatsByBounceCodeWithResponse request returning *GetEmailStatsByBounceCodeResponse
+func (c *ClientWithResponses) GetEmailStatsByBounceCodeWithResponse(ctx context.Context, params *GetEmailStatsByBounceCodeParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBounceCodeResponse, error) {
+	rsp, err := c.GetEmailStatsByBounceCode(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByBounceCodeResponse(rsp)
+}
+
+// GetEmailStatsByBroadcastWithResponse request returning *GetEmailStatsByBroadcastResponse
+func (c *ClientWithResponses) GetEmailStatsByBroadcastWithResponse(ctx context.Context, params *GetEmailStatsByBroadcastParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByBroadcastResponse, error) {
+	rsp, err := c.GetEmailStatsByBroadcast(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByBroadcastResponse(rsp)
+}
+
+// GetEmailStatsByCategoryWithResponse request returning *GetEmailStatsByCategoryResponse
+func (c *ClientWithResponses) GetEmailStatsByCategoryWithResponse(ctx context.Context, params *GetEmailStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByCategoryResponse, error) {
+	rsp, err := c.GetEmailStatsByCategory(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByCategoryResponse(rsp)
+}
+
+// GetEmailStatsByClientWithResponse request returning *GetEmailStatsByClientResponse
+func (c *ClientWithResponses) GetEmailStatsByClientWithResponse(ctx context.Context, params *GetEmailStatsByClientParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByClientResponse, error) {
+	rsp, err := c.GetEmailStatsByClient(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByClientResponse(rsp)
+}
+
+// GetEmailStatsByComplaintTypeWithResponse request returning *GetEmailStatsByComplaintTypeResponse
+func (c *ClientWithResponses) GetEmailStatsByComplaintTypeWithResponse(ctx context.Context, params *GetEmailStatsByComplaintTypeParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByComplaintTypeResponse, error) {
+	rsp, err := c.GetEmailStatsByComplaintType(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByComplaintTypeResponse(rsp)
+}
+
+// GetEmailStatsDailyWithResponse request returning *GetEmailStatsDailyResponse
+func (c *ClientWithResponses) GetEmailStatsDailyWithResponse(ctx context.Context, params *GetEmailStatsDailyParams, reqEditors ...RequestEditorFn) (*GetEmailStatsDailyResponse, error) {
+	rsp, err := c.GetEmailStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsDailyResponse(rsp)
+}
+
+// GetEmailStatsHourlyWithResponse request returning *GetEmailStatsHourlyResponse
+func (c *ClientWithResponses) GetEmailStatsHourlyWithResponse(ctx context.Context, params *GetEmailStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetEmailStatsHourlyResponse, error) {
+	rsp, err := c.GetEmailStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsHourlyResponse(rsp)
+}
+
+// GetEmailStatsByLocationWithResponse request returning *GetEmailStatsByLocationResponse
+func (c *ClientWithResponses) GetEmailStatsByLocationWithResponse(ctx context.Context, params *GetEmailStatsByLocationParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByLocationResponse, error) {
+	rsp, err := c.GetEmailStatsByLocation(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByLocationResponse(rsp)
+}
+
+// GetEmailStatsByMailboxProviderRegionWithResponse request returning *GetEmailStatsByMailboxProviderRegionResponse
+func (c *ClientWithResponses) GetEmailStatsByMailboxProviderRegionWithResponse(ctx context.Context, params *GetEmailStatsByMailboxProviderRegionParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByMailboxProviderRegionResponse, error) {
+	rsp, err := c.GetEmailStatsByMailboxProviderRegion(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByMailboxProviderRegionResponse(rsp)
+}
+
+// GetEmailStatsByMailboxProviderWithResponse request returning *GetEmailStatsByMailboxProviderResponse
+func (c *ClientWithResponses) GetEmailStatsByMailboxProviderWithResponse(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByMailboxProviderResponse, error) {
+	rsp, err := c.GetEmailStatsByMailboxProvider(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByMailboxProviderResponse(rsp)
+}
+
+// GetEmailStatsByRecipientDomainWithResponse request returning *GetEmailStatsByRecipientDomainResponse
+func (c *ClientWithResponses) GetEmailStatsByRecipientDomainWithResponse(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByRecipientDomainResponse, error) {
+	rsp, err := c.GetEmailStatsByRecipientDomain(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByRecipientDomainResponse(rsp)
+}
+
+// GetEmailStatsBySendingDomainWithResponse request returning *GetEmailStatsBySendingDomainResponse
+func (c *ClientWithResponses) GetEmailStatsBySendingDomainWithResponse(ctx context.Context, params *GetEmailStatsBySendingDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsBySendingDomainResponse, error) {
+	rsp, err := c.GetEmailStatsBySendingDomain(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsBySendingDomainResponse(rsp)
+}
+
+// GetEmailStatsBySendingIpWithResponse request returning *GetEmailStatsBySendingIpResponse
+func (c *ClientWithResponses) GetEmailStatsBySendingIpWithResponse(ctx context.Context, params *GetEmailStatsBySendingIpParams, reqEditors ...RequestEditorFn) (*GetEmailStatsBySendingIpResponse, error) {
+	rsp, err := c.GetEmailStatsBySendingIp(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsBySendingIpResponse(rsp)
+}
+
+// GetEmailStatsSummaryWithResponse request returning *GetEmailStatsSummaryResponse
+func (c *ClientWithResponses) GetEmailStatsSummaryWithResponse(ctx context.Context, params *GetEmailStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetEmailStatsSummaryResponse, error) {
+	rsp, err := c.GetEmailStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsSummaryResponse(rsp)
+}
+
+// GetEmailStatsByTagWithResponse request returning *GetEmailStatsByTagResponse
+func (c *ClientWithResponses) GetEmailStatsByTagWithResponse(ctx context.Context, params *GetEmailStatsByTagParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTagResponse, error) {
+	rsp, err := c.GetEmailStatsByTag(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByTagResponse(rsp)
+}
+
+// GetEmailStatsByTemplateWithResponse request returning *GetEmailStatsByTemplateResponse
+func (c *ClientWithResponses) GetEmailStatsByTemplateWithResponse(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTemplateResponse, error) {
+	rsp, err := c.GetEmailStatsByTemplate(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsByTemplateResponse(rsp)
 }
 
 // CreateSMSMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageBatchResponse
@@ -17476,6 +22956,1206 @@ func ParseCancelEmailMessageResponse(rsp *http.Response) (*CancelEmailMessageRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByBounceCodeResponse parses an HTTP response from a GetEmailStatsByBounceCodeWithResponse call
+func ParseGetEmailStatsByBounceCodeResponse(rsp *http.Response) (*GetEmailStatsByBounceCodeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByBounceCodeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByBounceCodeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByBroadcastResponse parses an HTTP response from a GetEmailStatsByBroadcastWithResponse call
+func ParseGetEmailStatsByBroadcastResponse(rsp *http.Response) (*GetEmailStatsByBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByBroadcastResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByCategoryResponse parses an HTTP response from a GetEmailStatsByCategoryWithResponse call
+func ParseGetEmailStatsByCategoryResponse(rsp *http.Response) (*GetEmailStatsByCategoryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByCategoryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByCategoryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByClientResponse parses an HTTP response from a GetEmailStatsByClientWithResponse call
+func ParseGetEmailStatsByClientResponse(rsp *http.Response) (*GetEmailStatsByClientResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByClientResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByClientResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByComplaintTypeResponse parses an HTTP response from a GetEmailStatsByComplaintTypeWithResponse call
+func ParseGetEmailStatsByComplaintTypeResponse(rsp *http.Response) (*GetEmailStatsByComplaintTypeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByComplaintTypeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByComplaintTypeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsDailyResponse parses an HTTP response from a GetEmailStatsDailyWithResponse call
+func ParseGetEmailStatsDailyResponse(rsp *http.Response) (*GetEmailStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsHourlyResponse parses an HTTP response from a GetEmailStatsHourlyWithResponse call
+func ParseGetEmailStatsHourlyResponse(rsp *http.Response) (*GetEmailStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByLocationResponse parses an HTTP response from a GetEmailStatsByLocationWithResponse call
+func ParseGetEmailStatsByLocationResponse(rsp *http.Response) (*GetEmailStatsByLocationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByLocationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByLocationResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByMailboxProviderRegionResponse parses an HTTP response from a GetEmailStatsByMailboxProviderRegionWithResponse call
+func ParseGetEmailStatsByMailboxProviderRegionResponse(rsp *http.Response) (*GetEmailStatsByMailboxProviderRegionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByMailboxProviderRegionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByMailboxProviderRegionResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByMailboxProviderResponse parses an HTTP response from a GetEmailStatsByMailboxProviderWithResponse call
+func ParseGetEmailStatsByMailboxProviderResponse(rsp *http.Response) (*GetEmailStatsByMailboxProviderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByMailboxProviderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByMailboxProviderResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByRecipientDomainResponse parses an HTTP response from a GetEmailStatsByRecipientDomainWithResponse call
+func ParseGetEmailStatsByRecipientDomainResponse(rsp *http.Response) (*GetEmailStatsByRecipientDomainResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByRecipientDomainResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByRecipientDomainResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsBySendingDomainResponse parses an HTTP response from a GetEmailStatsBySendingDomainWithResponse call
+func ParseGetEmailStatsBySendingDomainResponse(rsp *http.Response) (*GetEmailStatsBySendingDomainResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsBySendingDomainResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsBySendingDomainResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsBySendingIpResponse parses an HTTP response from a GetEmailStatsBySendingIpWithResponse call
+func ParseGetEmailStatsBySendingIpResponse(rsp *http.Response) (*GetEmailStatsBySendingIpResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsBySendingIpResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsBySendingIpResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsSummaryResponse parses an HTTP response from a GetEmailStatsSummaryWithResponse call
+func ParseGetEmailStatsSummaryResponse(rsp *http.Response) (*GetEmailStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByTagResponse parses an HTTP response from a GetEmailStatsByTagWithResponse call
+func ParseGetEmailStatsByTagResponse(rsp *http.Response) (*GetEmailStatsByTagResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByTagResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsTagsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailStatsByTemplateResponse parses an HTTP response from a GetEmailStatsByTemplateWithResponse call
+func ParseGetEmailStatsByTemplateResponse(rsp *http.Response) (*GetEmailStatsByTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsByTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsByTemplateResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

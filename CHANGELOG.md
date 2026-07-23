@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.10.0
+
+- Add sms.tfn_verification webhook event types
+- Email message status enum constants are now type-prefixed (Accepted -> ListEmailMessagesParamsStatusAccepted, ...) so their names are stable across releases
+- Add email statistics reads under `email.stats`: the period summary, the daily and hourly time series, and the dimension breakdowns (by tag, category, sending IP, sending domain, recipient domain, mailbox provider, mailbox-provider region, template, location, client, bounce code, complaint type, and broadcast).
+- **Breaking:** the Realtime webhook event type `realtime.subscription_count` is now `realtime.connection_count`, matching Bird's Realtime vocabulary (per channel it counts connections — one connection cannot subscribe twice). Realtime is in early access; the old event type had no GA consumers.
+- Documentation-only: docstrings and help text regenerated from a description pass across the entire API spec. Operations and fields now document units, defaults, omission behavior, and per-value status meanings. Several descriptions were corrected to match actual behavior, including engagement-rate denominators, suppression prefix matching, and stored-content retention. No functional changes.
+- Regenerate from the beak codegen toolchain (generator provenance headers only; no API changes)
+- WhatsApp templates: create and list/get a workspace's own message templates. Reads now include a template id and an optional description; create takes a name, category, components, a WhatsApp language code, and an optional description; sending gained a named parameter name for named-parameter templates. Additive; no breaking change.
+
 ## 0.9.4
 
 - `make test` no longer enables the race detector by default; the monorepo's CI still runs the suite with `-race`. Run `go test -race ./...` to opt in. No library code changed.
