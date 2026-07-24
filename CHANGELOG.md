@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+
+- Message list filters: created_after is an inclusive lower bound and created_before is now an exclusive upper bound.
+
 ## 0.10.0
 
 - Add sms.tfn_verification webhook event types

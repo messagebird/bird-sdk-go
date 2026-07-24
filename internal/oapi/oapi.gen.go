@@ -1950,6 +1950,39 @@ func (e EventWhatsAppReadType) Valid() bool {
 	}
 }
 
+// Defines values for EventWhatsAppRejectedType.
+const (
+	WhatsappRejected EventWhatsAppRejectedType = "whatsapp.rejected"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppRejectedType enum.
+func (e EventWhatsAppRejectedType) Valid() bool {
+	switch e {
+	case WhatsappRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppRejectedDataDirection.
+const (
+	EventWhatsAppRejectedDataDirectionInbound  EventWhatsAppRejectedDataDirection = "inbound"
+	EventWhatsAppRejectedDataDirectionOutbound EventWhatsAppRejectedDataDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppRejectedDataDirection enum.
+func (e EventWhatsAppRejectedDataDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppRejectedDataDirectionInbound:
+		return true
+	case EventWhatsAppRejectedDataDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventWhatsAppSentType.
 const (
 	WhatsappSent EventWhatsAppSentType = "whatsapp.sent"
@@ -2551,6 +2584,7 @@ const (
 	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
 	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
 	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
+	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
 	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
 	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
 )
@@ -2567,6 +2601,8 @@ func (e WhatsAppMessageStatus) Valid() bool {
 	case WhatsAppMessageStatusFailed:
 		return true
 	case WhatsAppMessageStatusReceived:
+		return true
+	case WhatsAppMessageStatusRejected:
 		return true
 	case WhatsAppMessageStatusScheduled:
 		return true
@@ -3020,16 +3056,16 @@ func (e GetEmailStatsByTemplateParamsTrendGrain) Valid() bool {
 
 // Defines values for ListSMSMessagesParamsDirection.
 const (
-	Inbound  ListSMSMessagesParamsDirection = "inbound"
-	Outbound ListSMSMessagesParamsDirection = "outbound"
+	ListSMSMessagesParamsDirectionInbound  ListSMSMessagesParamsDirection = "inbound"
+	ListSMSMessagesParamsDirectionOutbound ListSMSMessagesParamsDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
 func (e ListSMSMessagesParamsDirection) Valid() bool {
 	switch e {
-	case Inbound:
+	case ListSMSMessagesParamsDirectionInbound:
 		return true
-	case Outbound:
+	case ListSMSMessagesParamsDirectionOutbound:
 		return true
 	default:
 		return false
@@ -6793,7 +6829,7 @@ type EventWhatsAppFailedData struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppFailedDataDirection `json:"direction"`
 
-	// Error Failure detail for a message that could not be delivered.
+	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *WhatsAppError `json:"error,omitempty"`
 
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
@@ -6831,6 +6867,47 @@ type EventWhatsAppReadType string
 
 // EventWhatsAppReadData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppReadData = EventWhatsAppBase
+
+// EventWhatsAppRejected Bird rejected the message before sending it to WhatsApp (the recipient is on the workspace suppression list).
+type EventWhatsAppRejected struct {
+	// Data Payload of the whatsapp.rejected event.
+	Data EventWhatsAppRejectedData `json:"data"`
+
+	// Timestamp Time the rejection was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventWhatsAppRejectedType `json:"type"`
+}
+
+// EventWhatsAppRejectedType Event type.
+type EventWhatsAppRejectedType string
+
+// EventWhatsAppRejectedData defines model for EventWhatsAppRejectedData.
+type EventWhatsAppRejectedData struct {
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppRejectedDataDirection `json:"direction"`
+
+	// Error Failure detail for a message that could not be delivered or was rejected.
+	Error *WhatsAppError `json:"error,omitempty"`
+
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	From WhatsAppAddress `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppRejectedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppRejectedDataDirection string
 
 // EventWhatsAppSent Bird handed the message to Meta for delivery.
 type EventWhatsAppSent struct {
@@ -7923,9 +8000,9 @@ type WhatsAppAddress struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
-// WhatsAppError Failure detail for a message that could not be delivered.
+// WhatsAppError Failure detail for a message that could not be delivered or was rejected.
 type WhatsAppError struct {
-	// Code Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+	// Code Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
 	Code WhatsAppErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -7938,12 +8015,12 @@ type WhatsAppError struct {
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 }
 
-// WhatsAppErrorCode Bird-stable failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+// WhatsAppErrorCode Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
 type WhatsAppErrorCode = string
 
 // WhatsAppEvent defines model for WhatsAppEvent.
 type WhatsAppEvent struct {
-	// Error Failure detail for a message that could not be delivered.
+	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *WhatsAppError  `json:"error,omitempty"`
 	Id    WhatsAppEventID `json:"id"`
 
@@ -7981,7 +8058,7 @@ type WhatsAppMessage struct {
 	From *WhatsAppAddress  `json:"from,omitempty"`
 	Id   WhatsAppMessageID `json:"id"`
 
-	// LastError Failure detail for a message that could not be delivered.
+	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *WhatsAppError `json:"last_error,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message.
@@ -8040,7 +8117,7 @@ type WhatsAppMessageSendRequest struct {
 	To string `json:"to"`
 }
 
-// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
+// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means the recipient is on the workspace's suppression list; the message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `name`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -8666,10 +8743,10 @@ type ListEmailMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created strictly after this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Status Filter by aggregate delivery status.
@@ -9212,10 +9289,10 @@ type ListSMSMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created strictly after this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Direction Filter by direction. Omit for both.
@@ -9323,10 +9400,10 @@ type ListWhatsAppMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created strictly after this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Status Filter by status. Repeat the parameter to match any of several statuses.
@@ -11262,6 +11339,34 @@ func (t *WebhookEvent) MergeEventWhatsAppRead(v EventWhatsAppRead) error {
 	return err
 }
 
+// AsEventWhatsAppRejected returns the union data inside the WebhookEvent as a EventWhatsAppRejected
+func (t WebhookEvent) AsEventWhatsAppRejected() (EventWhatsAppRejected, error) {
+	var body EventWhatsAppRejected
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppRejected overwrites any union data inside the WebhookEvent as the provided EventWhatsAppRejected
+func (t *WebhookEvent) FromEventWhatsAppRejected(v EventWhatsAppRejected) error {
+	v.Type = "whatsapp.rejected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppRejected performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppRejected
+func (t *WebhookEvent) MergeEventWhatsAppRejected(v EventWhatsAppRejected) error {
+	v.Type = "whatsapp.rejected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventWhatsAppSent returns the union data inside the WebhookEvent as a EventWhatsAppSent
 func (t WebhookEvent) AsEventWhatsAppSent() (EventWhatsAppSent, error) {
 	var body EventWhatsAppSent
@@ -11388,6 +11493,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventWhatsAppFailed()
 	case "whatsapp.read":
 		return t.AsEventWhatsAppRead()
+	case "whatsapp.rejected":
+		return t.AsEventWhatsAppRejected()
 	case "whatsapp.sent":
 		return t.AsEventWhatsAppSent()
 	default:
