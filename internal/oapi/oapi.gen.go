@@ -1811,7 +1811,7 @@ func (e EventSMSUndeliveredType) Valid() bool {
 
 // Defines values for EventVoiceCallAnsweredType.
 const (
-	VoiceCallAnswered EventVoiceCallAnsweredType = "voice.call.answered"
+	VoiceCallAnswered EventVoiceCallAnsweredType = "voice_call.answered"
 )
 
 // Valid indicates whether the value is a known member of the EventVoiceCallAnsweredType enum.
@@ -1826,7 +1826,7 @@ func (e EventVoiceCallAnsweredType) Valid() bool {
 
 // Defines values for EventVoiceCallEndedType.
 const (
-	VoiceCallEnded EventVoiceCallEndedType = "voice.call.ended"
+	VoiceCallEnded EventVoiceCallEndedType = "voice_call.ended"
 )
 
 // Valid indicates whether the value is a known member of the EventVoiceCallEndedType enum.
@@ -1841,7 +1841,7 @@ func (e EventVoiceCallEndedType) Valid() bool {
 
 // Defines values for EventVoiceCallInitiatedType.
 const (
-	VoiceCallInitiated EventVoiceCallInitiatedType = "voice.call.initiated"
+	VoiceCallInitiated EventVoiceCallInitiatedType = "voice_call.initiated"
 )
 
 // Valid indicates whether the value is a known member of the EventVoiceCallInitiatedType enum.
@@ -6672,7 +6672,7 @@ type EventVoiceBase struct {
 
 // EventVoiceCallAnswered The called party answered — the carrier returned a 200 OK and media is flowing.
 type EventVoiceCallAnswered struct {
-	// Data Payload of the voice.call.answered event.
+	// Data Payload of the voice_call.answered event.
 	Data EventVoiceCallAnsweredData `json:"data"`
 
 	// Timestamp Time the call was answered.
@@ -6690,7 +6690,7 @@ type EventVoiceCallAnsweredData = EventVoiceBase
 
 // EventVoiceCallEnded The call ended — a BYE or final non-2xx response was received and the call record was written.
 type EventVoiceCallEnded struct {
-	// Data Payload of the voice.call.ended event.
+	// Data Payload of the voice_call.ended event.
 	Data EventVoiceCallEndedData `json:"data"`
 
 	// Timestamp When the call ended (BYE or final non-2xx response).
@@ -6734,7 +6734,7 @@ type EventVoiceCallEndedData struct {
 
 // EventVoiceCallInitiated A call was initiated — Bird received the INVITE and began routing it.
 type EventVoiceCallInitiated struct {
-	// Data Payload of the voice.call.initiated event.
+	// Data Payload of the voice_call.initiated event.
 	Data EventVoiceCallInitiatedData `json:"data"`
 
 	// Timestamp Time the call was initiated.
@@ -11152,7 +11152,7 @@ func (t WebhookEvent) AsEventVoiceCallAnswered() (EventVoiceCallAnswered, error)
 
 // FromEventVoiceCallAnswered overwrites any union data inside the WebhookEvent as the provided EventVoiceCallAnswered
 func (t *WebhookEvent) FromEventVoiceCallAnswered(v EventVoiceCallAnswered) error {
-	v.Type = "voice.call.answered"
+	v.Type = "voice_call.answered"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
@@ -11160,7 +11160,7 @@ func (t *WebhookEvent) FromEventVoiceCallAnswered(v EventVoiceCallAnswered) erro
 
 // MergeEventVoiceCallAnswered performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallAnswered
 func (t *WebhookEvent) MergeEventVoiceCallAnswered(v EventVoiceCallAnswered) error {
-	v.Type = "voice.call.answered"
+	v.Type = "voice_call.answered"
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -11180,7 +11180,7 @@ func (t WebhookEvent) AsEventVoiceCallEnded() (EventVoiceCallEnded, error) {
 
 // FromEventVoiceCallEnded overwrites any union data inside the WebhookEvent as the provided EventVoiceCallEnded
 func (t *WebhookEvent) FromEventVoiceCallEnded(v EventVoiceCallEnded) error {
-	v.Type = "voice.call.ended"
+	v.Type = "voice_call.ended"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
@@ -11188,7 +11188,7 @@ func (t *WebhookEvent) FromEventVoiceCallEnded(v EventVoiceCallEnded) error {
 
 // MergeEventVoiceCallEnded performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallEnded
 func (t *WebhookEvent) MergeEventVoiceCallEnded(v EventVoiceCallEnded) error {
-	v.Type = "voice.call.ended"
+	v.Type = "voice_call.ended"
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -11208,7 +11208,7 @@ func (t WebhookEvent) AsEventVoiceCallInitiated() (EventVoiceCallInitiated, erro
 
 // FromEventVoiceCallInitiated overwrites any union data inside the WebhookEvent as the provided EventVoiceCallInitiated
 func (t *WebhookEvent) FromEventVoiceCallInitiated(v EventVoiceCallInitiated) error {
-	v.Type = "voice.call.initiated"
+	v.Type = "voice_call.initiated"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
@@ -11216,7 +11216,7 @@ func (t *WebhookEvent) FromEventVoiceCallInitiated(v EventVoiceCallInitiated) er
 
 // MergeEventVoiceCallInitiated performs a merge with any union data inside the WebhookEvent, using the provided EventVoiceCallInitiated
 func (t *WebhookEvent) MergeEventVoiceCallInitiated(v EventVoiceCallInitiated) error {
-	v.Type = "voice.call.initiated"
+	v.Type = "voice_call.initiated"
 	b, err := json.Marshal(v)
 	if err != nil {
 		return err
@@ -11479,11 +11479,11 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSTfnVerificationSubmitted()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
-	case "voice.call.answered":
+	case "voice_call.answered":
 		return t.AsEventVoiceCallAnswered()
-	case "voice.call.ended":
+	case "voice_call.ended":
 		return t.AsEventVoiceCallEnded()
-	case "voice.call.initiated":
+	case "voice_call.initiated":
 		return t.AsEventVoiceCallInitiated()
 	case "whatsapp.accepted":
 		return t.AsEventWhatsAppAccepted()

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0
+
+- Add the `rejected` WhatsApp message delivery status, returned when the recipient is on the workspace's suppression list.
+- Add the `whatsapp.rejected` webhook event, delivered when Bird rejects a WhatsApp message before sending because the recipient is on the workspace's suppression list.
+- Rename voice call webhook event types from voice.call.* to voice_call.* (single-dot resource convention; events were never emitted, so no delivered payload changes)
+
 ## 0.10.1
 
 - Message list filters: created_after is an inclusive lower bound and created_before is now an exclusive upper bound.
