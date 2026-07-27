@@ -217,3 +217,34 @@ type (
 	EmailSuppressionCreatedEvent = oapi.EventEmailSuppressionCreated
 	EmailUnsubscribedEvent       = oapi.EventEmailUnsubscribed
 )
+
+// Agent mailbox types.
+type (
+	// Mailbox is a durable inbox on inbox.ai or a custom domain.
+	Mailbox = oapi.Mailbox
+	// MailboxList is one page of mailboxes plus its pagination cursors.
+	MailboxList = oapi.MailboxList
+	// MailboxStatsResponse is the stats time series for a mailbox.
+	MailboxStatsResponse = oapi.MailboxStatsResponse
+	// EmailMailboxLabelList is the list of labels available in a mailbox.
+	EmailMailboxLabelList = oapi.EmailMailboxLabelList
+
+	// ReceiveRule is a per-sender allow or block rule on a mailbox.
+	ReceiveRule = oapi.ReceiveRule
+	// ReceiveRuleList is one page of receive rules.
+	ReceiveRuleList = oapi.ReceiveRuleList
+
+	// EmailThread is a conversation: a group of messages on the same topic.
+	EmailThread = oapi.EmailThread
+	// EmailThreadList is one page of threads plus its pagination cursors.
+	EmailThreadList = oapi.EmailThreadList
+
+	// EmailThreadMessage is a single message in a conversation.
+	EmailThreadMessage = oapi.EmailThreadMessage
+	// EmailThreadMessageList is one page of messages.
+	EmailThreadMessageList = oapi.EmailThreadMessageList
+	// EmailThreadMessageBody is the parsed HTML and plain-text body.
+	EmailThreadMessageBody = oapi.EmailThreadMessageBody
+	// EmailThreadMessageAttachmentList is the attachment manifest.
+	EmailThreadMessageAttachmentList = oapi.EmailThreadMessageAttachmentList
+)

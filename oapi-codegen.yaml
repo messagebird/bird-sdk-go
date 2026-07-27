@@ -78,3 +78,25 @@ output-options:
     - assignAudienceContacts
     - unassignAudienceContacts
     - unassignAudienceContact
+    - listMailboxes
+    - createMailbox
+    - getMailbox
+    - updateMailbox
+    - deleteMailbox
+    - restoreMailbox
+    - resumeMailbox
+    - getMailboxStats
+    - createMailboxMessage
+    - listMailboxLabels
+    - listMailboxReceiveRules
+    - createMailboxReceiveRule
+    - deleteMailboxReceiveRule
+    - listEmailThreads
+    - getEmailThread
+    - updateEmailThread
+    - deleteEmailThread
+    - listEmailThreadMessages
+    - getEmailThreadMessage
+    - getEmailThreadMessageBody
+    - replyEmailThreadMessage
+    - listEmailThreadMessageAttachments

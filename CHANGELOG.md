@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.0
+
+- Agent mailboxes (inbox.ai): create and manage durable inboxes; receive, read, label, compose, and reply over the API
+- Internal pipeline improvements.
+
 ## 0.11.0
 
 - Add the `rejected` WhatsApp message delivery status, returned when the recipient is on the workspace's suppression list.

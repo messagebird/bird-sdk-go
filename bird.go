@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	version = "0.11.0"
+	version = "0.12.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -62,17 +62,21 @@ type Client struct {
 	cfg  requestconfig.Config
 	oapi *oapi.Client
 
-	Email             *EmailService
-	Sms               *SMSService
-	SmsTemplates      *SMSTemplatesService
-	Whatsapp          *WhatsAppService
-	WhatsappTemplates *WhatsAppTemplatesService
-	Verify            *VerifyService
-	Webhooks          *WebhookService
-	Contacts          *ContactsService
-	Audiences         *AudiencesService
-	ContactProperties *ContactPropertiesService
-	Domains           *DomainsService
+	Email                *EmailService
+	Sms                  *SMSService
+	SmsTemplates         *SMSTemplatesService
+	Whatsapp             *WhatsAppService
+	WhatsappTemplates    *WhatsAppTemplatesService
+	Verify               *VerifyService
+	Webhooks             *WebhookService
+	Contacts             *ContactsService
+	Audiences            *AudiencesService
+	ContactProperties    *ContactPropertiesService
+	Domains              *DomainsService
+	Mailbox              *MailboxService
+	MailboxReceiveRule   *MailboxReceiveRuleService
+	MailboxThread        *MailboxThreadService
+	MailboxThreadMessage *MailboxThreadMessageService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -109,17 +113,21 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 
 	c := &Client{cfg: cfg, oapi: oc}
 	c.Email = &EmailService{client: c}
-	c.Email.Stats = &EmailStatsService{client: c}
+	c.Email.Stats = &EmailStatsService{resource{client: c}}
 	c.Sms = &SMSService{client: c}
 	c.SmsTemplates = &SMSTemplatesService{client: c}
 	c.Whatsapp = &WhatsAppService{client: c}
 	c.WhatsappTemplates = &WhatsAppTemplatesService{client: c}
 	c.Verify = &VerifyService{Verifications: &VerificationsService{client: c}}
 	c.Webhooks = &WebhookService{client: c}
-	c.Contacts = &ContactsService{client: c}
+	c.Contacts = &ContactsService{resource{client: c}}
 	c.Audiences = &AudiencesService{client: c}
 	c.ContactProperties = &ContactPropertiesService{client: c}
 	c.Domains = &DomainsService{client: c}
+	c.Mailbox = &MailboxService{client: c}
+	c.MailboxReceiveRule = &MailboxReceiveRuleService{client: c}
+	c.MailboxThread = &MailboxThreadService{client: c}
+	c.MailboxThreadMessage = &MailboxThreadMessageService{client: c}
 	return c, nil
 }
 

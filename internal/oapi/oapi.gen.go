@@ -684,6 +684,42 @@ func (e EmailEventRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for EmailMailboxComposeRequestCategory.
+const (
+	EmailMailboxComposeRequestCategoryMarketing     EmailMailboxComposeRequestCategory = "marketing"
+	EmailMailboxComposeRequestCategoryTransactional EmailMailboxComposeRequestCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailMailboxComposeRequestCategory enum.
+func (e EmailMailboxComposeRequestCategory) Valid() bool {
+	switch e {
+	case EmailMailboxComposeRequestCategoryMarketing:
+		return true
+	case EmailMailboxComposeRequestCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailMailboxLabelType.
+const (
+	EmailMailboxLabelTypeCustom EmailMailboxLabelType = "custom"
+	EmailMailboxLabelTypeSystem EmailMailboxLabelType = "system"
+)
+
+// Valid indicates whether the value is a known member of the EmailMailboxLabelType enum.
+func (e EmailMailboxLabelType) Valid() bool {
+	switch e {
+	case EmailMailboxLabelTypeCustom:
+		return true
+	case EmailMailboxLabelTypeSystem:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailMailboxProviderSortMetric.
 const (
 	EmailMailboxProviderSortMetricBounceRate               EmailMailboxProviderSortMetric = "bounce_rate"
@@ -1152,6 +1188,102 @@ func (e EmailStatsSortMetric) Valid() bool {
 	case EmailStatsSortMetricUnsubscribeRate:
 		return true
 	case EmailStatsSortMetricUnsubscribes:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadLastDirection.
+const (
+	EmailThreadLastDirectionInbound  EmailThreadLastDirection = "inbound"
+	EmailThreadLastDirectionOutbound EmailThreadLastDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadLastDirection enum.
+func (e EmailThreadLastDirection) Valid() bool {
+	switch e {
+	case EmailThreadLastDirectionInbound:
+		return true
+	case EmailThreadLastDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadMessageAuthentication.
+const (
+	EmailThreadMessageAuthenticationFail        EmailThreadMessageAuthentication = "fail"
+	EmailThreadMessageAuthenticationLessThannil EmailThreadMessageAuthentication = "<nil>"
+	EmailThreadMessageAuthenticationPass        EmailThreadMessageAuthentication = "pass"
+	EmailThreadMessageAuthenticationUnknown     EmailThreadMessageAuthentication = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadMessageAuthentication enum.
+func (e EmailThreadMessageAuthentication) Valid() bool {
+	switch e {
+	case EmailThreadMessageAuthenticationFail:
+		return true
+	case EmailThreadMessageAuthenticationLessThannil:
+		return true
+	case EmailThreadMessageAuthenticationPass:
+		return true
+	case EmailThreadMessageAuthenticationUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadMessageDirection.
+const (
+	EmailThreadMessageDirectionInbound  EmailThreadMessageDirection = "inbound"
+	EmailThreadMessageDirectionOutbound EmailThreadMessageDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadMessageDirection enum.
+func (e EmailThreadMessageDirection) Valid() bool {
+	switch e {
+	case EmailThreadMessageDirectionInbound:
+		return true
+	case EmailThreadMessageDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadMessageRecipientStatus.
+const (
+	EmailThreadMessageRecipientStatusDelivered EmailThreadMessageRecipientStatus = "delivered"
+	EmailThreadMessageRecipientStatusFailed    EmailThreadMessageRecipientStatus = "failed"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadMessageRecipientStatus enum.
+func (e EmailThreadMessageRecipientStatus) Valid() bool {
+	switch e {
+	case EmailThreadMessageRecipientStatusDelivered:
+		return true
+	case EmailThreadMessageRecipientStatusFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailThreadMessageReplyRequestCategory.
+const (
+	EmailThreadMessageReplyRequestCategoryMarketing     EmailThreadMessageReplyRequestCategory = "marketing"
+	EmailThreadMessageReplyRequestCategoryTransactional EmailThreadMessageReplyRequestCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailThreadMessageReplyRequestCategory enum.
+func (e EmailThreadMessageReplyRequestCategory) Valid() bool {
+	switch e {
+	case EmailThreadMessageReplyRequestCategoryMarketing:
+		return true
+	case EmailThreadMessageReplyRequestCategoryTransactional:
 		return true
 	default:
 		return false
@@ -2096,16 +2228,16 @@ func (e InboundRouteCreateMatchType) Valid() bool {
 
 // Defines values for InboundRouteUpdateAction.
 const (
-	DeliverToMailbox InboundRouteUpdateAction = "deliver_to_mailbox"
-	Drop             InboundRouteUpdateAction = "drop"
+	InboundRouteUpdateActionDeliverToMailbox InboundRouteUpdateAction = "deliver_to_mailbox"
+	InboundRouteUpdateActionDrop             InboundRouteUpdateAction = "drop"
 )
 
 // Valid indicates whether the value is a known member of the InboundRouteUpdateAction enum.
 func (e InboundRouteUpdateAction) Valid() bool {
 	switch e {
-	case DeliverToMailbox:
+	case InboundRouteUpdateActionDeliverToMailbox:
 		return true
-	case Drop:
+	case InboundRouteUpdateActionDrop:
 		return true
 	default:
 		return false
@@ -2114,16 +2246,241 @@ func (e InboundRouteUpdateAction) Valid() bool {
 
 // Defines values for InboundRouteUpdateMatchType.
 const (
-	Address  InboundRouteUpdateMatchType = "address"
-	CatchAll InboundRouteUpdateMatchType = "catch_all"
+	InboundRouteUpdateMatchTypeAddress  InboundRouteUpdateMatchType = "address"
+	InboundRouteUpdateMatchTypeCatchAll InboundRouteUpdateMatchType = "catch_all"
 )
 
 // Valid indicates whether the value is a known member of the InboundRouteUpdateMatchType enum.
 func (e InboundRouteUpdateMatchType) Valid() bool {
 	switch e {
-	case Address:
+	case InboundRouteUpdateMatchTypeAddress:
 		return true
-	case CatchAll:
+	case InboundRouteUpdateMatchTypeCatchAll:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxChannel.
+const (
+	Email MailboxChannel = "email"
+)
+
+// Valid indicates whether the value is a known member of the MailboxChannel enum.
+func (e MailboxChannel) Valid() bool {
+	switch e {
+	case Email:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxReceivePolicy.
+const (
+	MailboxReceivePolicyAllowlist   MailboxReceivePolicy = "allowlist"
+	MailboxReceivePolicyDrop        MailboxReceivePolicy = "drop"
+	MailboxReceivePolicyOpen        MailboxReceivePolicy = "open"
+	MailboxReceivePolicyRepliesOnly MailboxReceivePolicy = "replies_only"
+)
+
+// Valid indicates whether the value is a known member of the MailboxReceivePolicy enum.
+func (e MailboxReceivePolicy) Valid() bool {
+	switch e {
+	case MailboxReceivePolicyAllowlist:
+		return true
+	case MailboxReceivePolicyDrop:
+		return true
+	case MailboxReceivePolicyOpen:
+		return true
+	case MailboxReceivePolicyRepliesOnly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxRetentionTier.
+const (
+	MailboxRetentionTierN1y  MailboxRetentionTier = "1y"
+	MailboxRetentionTierN30d MailboxRetentionTier = "30d"
+	MailboxRetentionTierN90d MailboxRetentionTier = "90d"
+)
+
+// Valid indicates whether the value is a known member of the MailboxRetentionTier enum.
+func (e MailboxRetentionTier) Valid() bool {
+	switch e {
+	case MailboxRetentionTierN1y:
+		return true
+	case MailboxRetentionTierN30d:
+		return true
+	case MailboxRetentionTierN90d:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxState.
+const (
+	MailboxStateActive    MailboxState = "active"
+	MailboxStateSuspended MailboxState = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the MailboxState enum.
+func (e MailboxState) Valid() bool {
+	switch e {
+	case MailboxStateActive:
+		return true
+	case MailboxStateSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxCreateReceivePolicy.
+const (
+	MailboxCreateReceivePolicyAllowlist   MailboxCreateReceivePolicy = "allowlist"
+	MailboxCreateReceivePolicyDrop        MailboxCreateReceivePolicy = "drop"
+	MailboxCreateReceivePolicyOpen        MailboxCreateReceivePolicy = "open"
+	MailboxCreateReceivePolicyRepliesOnly MailboxCreateReceivePolicy = "replies_only"
+)
+
+// Valid indicates whether the value is a known member of the MailboxCreateReceivePolicy enum.
+func (e MailboxCreateReceivePolicy) Valid() bool {
+	switch e {
+	case MailboxCreateReceivePolicyAllowlist:
+		return true
+	case MailboxCreateReceivePolicyDrop:
+		return true
+	case MailboxCreateReceivePolicyOpen:
+		return true
+	case MailboxCreateReceivePolicyRepliesOnly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxCreateRetentionTier.
+const (
+	MailboxCreateRetentionTierN30d MailboxCreateRetentionTier = "30d"
+)
+
+// Valid indicates whether the value is a known member of the MailboxCreateRetentionTier enum.
+func (e MailboxCreateRetentionTier) Valid() bool {
+	switch e {
+	case MailboxCreateRetentionTierN30d:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxOwnerType.
+const (
+	MailboxOwnerTypeWorkspace MailboxOwnerType = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the MailboxOwnerType enum.
+func (e MailboxOwnerType) Valid() bool {
+	switch e {
+	case MailboxOwnerTypeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxUpdateReceivePolicy.
+const (
+	MailboxUpdateReceivePolicyAllowlist   MailboxUpdateReceivePolicy = "allowlist"
+	MailboxUpdateReceivePolicyDrop        MailboxUpdateReceivePolicy = "drop"
+	MailboxUpdateReceivePolicyOpen        MailboxUpdateReceivePolicy = "open"
+	MailboxUpdateReceivePolicyRepliesOnly MailboxUpdateReceivePolicy = "replies_only"
+)
+
+// Valid indicates whether the value is a known member of the MailboxUpdateReceivePolicy enum.
+func (e MailboxUpdateReceivePolicy) Valid() bool {
+	switch e {
+	case MailboxUpdateReceivePolicyAllowlist:
+		return true
+	case MailboxUpdateReceivePolicyDrop:
+		return true
+	case MailboxUpdateReceivePolicyOpen:
+		return true
+	case MailboxUpdateReceivePolicyRepliesOnly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MailboxUpdateRetentionTier.
+const (
+	N30d MailboxUpdateRetentionTier = "30d"
+)
+
+// Valid indicates whether the value is a known member of the MailboxUpdateRetentionTier enum.
+func (e MailboxUpdateRetentionTier) Valid() bool {
+	switch e {
+	case N30d:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ReceiveRuleAction.
+const (
+	ReceiveRuleActionAllow ReceiveRuleAction = "allow"
+	ReceiveRuleActionBlock ReceiveRuleAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the ReceiveRuleAction enum.
+func (e ReceiveRuleAction) Valid() bool {
+	switch e {
+	case ReceiveRuleActionAllow:
+		return true
+	case ReceiveRuleActionBlock:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ReceiveRuleEntryType.
+const (
+	ReceiveRuleEntryTypeAddress ReceiveRuleEntryType = "address"
+	ReceiveRuleEntryTypeDomain  ReceiveRuleEntryType = "domain"
+)
+
+// Valid indicates whether the value is a known member of the ReceiveRuleEntryType enum.
+func (e ReceiveRuleEntryType) Valid() bool {
+	switch e {
+	case ReceiveRuleEntryTypeAddress:
+		return true
+	case ReceiveRuleEntryTypeDomain:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ReceiveRuleCreateAction.
+const (
+	ReceiveRuleCreateActionAllow ReceiveRuleCreateAction = "allow"
+	ReceiveRuleCreateActionBlock ReceiveRuleCreateAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the ReceiveRuleCreateAction enum.
+func (e ReceiveRuleCreateAction) Valid() bool {
+	switch e {
+	case ReceiveRuleCreateActionAllow:
+		return true
+	case ReceiveRuleCreateActionBlock:
 		return true
 	default:
 		return false
@@ -2525,16 +2882,16 @@ func (e WebhookEndpointCreatedStatus) Valid() bool {
 
 // Defines values for WebhookEndpointUpdateStatus.
 const (
-	Active WebhookEndpointUpdateStatus = "active"
-	Paused WebhookEndpointUpdateStatus = "paused"
+	WebhookEndpointUpdateStatusActive WebhookEndpointUpdateStatus = "active"
+	WebhookEndpointUpdateStatusPaused WebhookEndpointUpdateStatus = "paused"
 )
 
 // Valid indicates whether the value is a known member of the WebhookEndpointUpdateStatus enum.
 func (e WebhookEndpointUpdateStatus) Valid() bool {
 	switch e {
-	case Active:
+	case WebhookEndpointUpdateStatusActive:
 		return true
-	case Paused:
+	case WebhookEndpointUpdateStatusPaused:
 		return true
 	default:
 		return false
@@ -2667,42 +3024,96 @@ func (e ListDomainsParamsOrder) Valid() bool {
 	}
 }
 
+// Defines values for ListMailboxesParamsState.
+const (
+	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
+	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
+func (e ListMailboxesParamsState) Valid() bool {
+	switch e {
+	case ListMailboxesParamsStateActive:
+		return true
+	case ListMailboxesParamsStateSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListMailboxReceiveRulesParamsAction.
+const (
+	Allow ListMailboxReceiveRulesParamsAction = "allow"
+	Block ListMailboxReceiveRulesParamsAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the ListMailboxReceiveRulesParamsAction enum.
+func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
+	switch e {
+	case Allow:
+		return true
+	case Block:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetMailboxStatsParamsGranularity.
+const (
+	Day  GetMailboxStatsParamsGranularity = "day"
+	Hour GetMailboxStatsParamsGranularity = "hour"
+)
+
+// Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
+func (e GetMailboxStatsParamsGranularity) Valid() bool {
+	switch e {
+	case Day:
+		return true
+	case Hour:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListEmailMessagesParamsStatus.
 const (
-	Accepted       ListEmailMessagesParamsStatus = "accepted"
-	Bounced        ListEmailMessagesParamsStatus = "bounced"
-	Canceled       ListEmailMessagesParamsStatus = "canceled"
-	Complained     ListEmailMessagesParamsStatus = "complained"
-	Deferred       ListEmailMessagesParamsStatus = "deferred"
-	Delivered      ListEmailMessagesParamsStatus = "delivered"
-	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	Processed      ListEmailMessagesParamsStatus = "processed"
-	Rejected       ListEmailMessagesParamsStatus = "rejected"
-	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
+	ListEmailMessagesParamsStatusAccepted       ListEmailMessagesParamsStatus = "accepted"
+	ListEmailMessagesParamsStatusBounced        ListEmailMessagesParamsStatus = "bounced"
+	ListEmailMessagesParamsStatusCanceled       ListEmailMessagesParamsStatus = "canceled"
+	ListEmailMessagesParamsStatusComplained     ListEmailMessagesParamsStatus = "complained"
+	ListEmailMessagesParamsStatusDeferred       ListEmailMessagesParamsStatus = "deferred"
+	ListEmailMessagesParamsStatusDelivered      ListEmailMessagesParamsStatus = "delivered"
+	ListEmailMessagesParamsStatusPartialFailure ListEmailMessagesParamsStatus = "partial_failure"
+	ListEmailMessagesParamsStatusProcessed      ListEmailMessagesParamsStatus = "processed"
+	ListEmailMessagesParamsStatusRejected       ListEmailMessagesParamsStatus = "rejected"
+	ListEmailMessagesParamsStatusScheduled      ListEmailMessagesParamsStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
 func (e ListEmailMessagesParamsStatus) Valid() bool {
 	switch e {
-	case Accepted:
+	case ListEmailMessagesParamsStatusAccepted:
 		return true
-	case Bounced:
+	case ListEmailMessagesParamsStatusBounced:
 		return true
-	case Canceled:
+	case ListEmailMessagesParamsStatusCanceled:
 		return true
-	case Complained:
+	case ListEmailMessagesParamsStatusComplained:
 		return true
-	case Deferred:
+	case ListEmailMessagesParamsStatusDeferred:
 		return true
-	case Delivered:
+	case ListEmailMessagesParamsStatusDelivered:
 		return true
-	case PartialFailure:
+	case ListEmailMessagesParamsStatusPartialFailure:
 		return true
-	case Processed:
+	case ListEmailMessagesParamsStatusProcessed:
 		return true
-	case Rejected:
+	case ListEmailMessagesParamsStatusRejected:
 		return true
-	case Scheduled:
+	case ListEmailMessagesParamsStatusScheduled:
 		return true
 	default:
 		return false
@@ -3054,18 +3465,51 @@ func (e GetEmailStatsByTemplateParamsTrendGrain) Valid() bool {
 	}
 }
 
+// Defines values for ListEmailThreadMessagesParamsDirection.
+const (
+	ListEmailThreadMessagesParamsDirectionInbound  ListEmailThreadMessagesParamsDirection = "inbound"
+	ListEmailThreadMessagesParamsDirectionOutbound ListEmailThreadMessagesParamsDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the ListEmailThreadMessagesParamsDirection enum.
+func (e ListEmailThreadMessagesParamsDirection) Valid() bool {
+	switch e {
+	case ListEmailThreadMessagesParamsDirectionInbound:
+		return true
+	case ListEmailThreadMessagesParamsDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListEmailThreadMessagesParamsInclude.
+const (
+	ExtractedText ListEmailThreadMessagesParamsInclude = "extracted_text"
+)
+
+// Valid indicates whether the value is a known member of the ListEmailThreadMessagesParamsInclude enum.
+func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
+	switch e {
+	case ExtractedText:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ListSMSMessagesParamsDirection.
 const (
-	ListSMSMessagesParamsDirectionInbound  ListSMSMessagesParamsDirection = "inbound"
-	ListSMSMessagesParamsDirectionOutbound ListSMSMessagesParamsDirection = "outbound"
+	Inbound  ListSMSMessagesParamsDirection = "inbound"
+	Outbound ListSMSMessagesParamsDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
 func (e ListSMSMessagesParamsDirection) Valid() bool {
 	switch e {
-	case ListSMSMessagesParamsDirectionInbound:
+	case Inbound:
 		return true
-	case ListSMSMessagesParamsDirectionOutbound:
+	case Outbound:
 		return true
 	default:
 		return false
@@ -4427,6 +4871,15 @@ type EmailID = string
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
 
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+type EmailLabelsUpdate struct {
+	// Add Labels to apply.
+	Add *[]string `json:"add,omitempty"`
+
+	// Remove Labels to take off.
+	Remove *[]string `json:"remove,omitempty"`
+}
+
 // EmailLatencyQuantiles p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
 type EmailLatencyQuantiles struct {
 	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
@@ -4468,6 +4921,62 @@ type EmailLocationStatsPoint struct {
 
 	// Region The region (state or province) within the country. Populated when `group_by` is `region` or `city`; null at coarser groupings.
 	Region *string `json:"region,omitempty"`
+}
+
+// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request minus `from` — the mailbox is the sender identity — and minus `scheduled_at` (mailbox sends are immediate). Bird mints the RFC 5322 Message-ID so replies thread back to this conversation. At least one of `html` or `text` must be provided.
+type EmailMailboxComposeRequest struct {
+	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
+
+	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
+
+	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
+	Category *EmailMailboxComposeRequestCategory `json:"category,omitempty"`
+
+	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	Cc *[]EmailAddressInput `json:"cc,omitempty"`
+
+	// Html HTML body. At least one of html or text must be provided.
+	Html *string `json:"html,omitempty"`
+
+	// Metadata Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReplyTo Reply-To addresses. When omitted, the mailbox's `default_reply_to` applies (replies then come back to the mailbox itself).
+	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// Subject Message subject line.
+	Subject string `json:"subject"`
+
+	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Text Plain-text body. At least one of html or text must be provided.
+	Text *string `json:"text,omitempty"`
+
+	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	To []EmailAddressInput `json:"to"`
+}
+
+// EmailMailboxComposeRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
+type EmailMailboxComposeRequestCategory string
+
+// EmailMailboxLabel One label available in a mailbox.
+type EmailMailboxLabel struct {
+	// Name The label name, as it appears on conversations and messages.
+	Name *string `json:"name,omitempty"`
+
+	// Type `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+	Type *EmailMailboxLabelType `json:"type,omitempty"`
+}
+
+// EmailMailboxLabelType `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+type EmailMailboxLabelType string
+
+// EmailMailboxLabelList The labels available in a mailbox.
+type EmailMailboxLabelList struct {
+	Data []EmailMailboxLabel `json:"data"`
 }
 
 // EmailMailboxProviderDeliveryStats Delivery counts and rates for messages attributed to a single recipient mailbox provider. Per-provider results do not include `accepted` or `processed` counts because Bird only learns the recipient's mailbox provider after the upstream mail transfer system reports delivery/bounce/deferral/late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific provider.
@@ -5483,6 +5992,261 @@ type EmailTemplateStatsPoint struct {
 
 	// Trend Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailThread A conversation in a mailbox. Threads group related messages both directions — mail the mailbox received and replies it sent — and carry the conversation-level read state, labels, and participant list. Message counts reflect the messages currently retained under the mailbox's retention period.
+type EmailThread struct {
+	// Channel Channel this conversation lives on. Always `email`.
+	Channel *string `json:"channel,omitempty"`
+
+	// ContactId Contact linked to this conversation, or null when none is linked.
+	ContactId *ContactID `json:"contact_id"`
+
+	// CreatedAt When the thread was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Highlights Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
+	Highlights *EmailThreadHighlights `json:"highlights,omitempty"`
+	Id         ThreadID               `json:"id"`
+
+	// Labels Labels on this conversation. Exactly one system placement label is always present — `inbox`, `archive` (filed away, done for now), `spam` (the opening message failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — set by the message that started the conversation. Move a conversation by updating its labels: add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox` — or remove `spam`, `blocked`, or `archive` — to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list; a conversation carries at most 20.
+	Labels []string `json:"labels"`
+
+	// LastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+	LastDirection *EmailThreadLastDirection `json:"last_direction,omitempty"`
+
+	// LastMessageAt When the most recent retained message in this conversation was received or sent.
+	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
+	MailboxId     MailboxID  `json:"mailbox_id"`
+
+	// MessageCount Number of retained messages in this conversation, both directions.
+	MessageCount *int `json:"message_count,omitempty"`
+
+	// Participants Addresses that appear on the retained messages in this conversation, including the mailbox's own address.
+	Participants *[]openapi_types.Email `json:"participants,omitempty"`
+
+	// Subject Subject of the conversation, taken from its first message. Null when that message had no subject.
+	Subject *string `json:"subject,omitempty"`
+
+	// UnreadCount Number of retained received messages that are still unread. Spam and blocked mail is not counted.
+	UnreadCount *int `json:"unread_count,omitempty"`
+
+	// UpdatedAt When the thread last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailThreadLastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+type EmailThreadLastDirection string
+
+// EmailThreadHighlights Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
+type EmailThreadHighlights struct {
+	// Subject Matched fragments from the conversation's subject.
+	Subject *[]string `json:"subject,omitempty"`
+
+	// Text Matched fragments from a message's body text.
+	Text *[]string `json:"text,omitempty"`
+}
+
+// EmailThreadList defines model for EmailThreadList.
+type EmailThreadList struct {
+	Data []EmailThread `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata and extracted text remain readable for the mailbox's retention period; the original rendered source (HTML body, raw MIME, attachment bytes) is available through the body, raw, and attachment endpoints for 30 days after the message occurred.
+type EmailThreadMessage struct {
+	// AttachmentCount Number of attachments on the message.
+	AttachmentCount *int `json:"attachment_count,omitempty"`
+
+	// AttachmentManifest Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
+	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
+
+	// Authentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+	Authentication *EmailThreadMessageAuthentication `json:"authentication,omitempty"`
+
+	// Cc Recipient addresses on the Cc line. Empty when the message had none.
+	Cc *[]openapi_types.Email `json:"cc,omitempty"`
+
+	// Channel Channel this message was carried on. Always `email`.
+	Channel *string `json:"channel,omitempty"`
+
+	// ContactId Contact linked to this message, or null when none is linked.
+	ContactId *ContactID `json:"contact_id"`
+
+	// DeliveredTo Address the message was actually delivered to, when it differs from the mailbox address (for example mail routed in from another address). Null for sent messages and for mail addressed directly to the mailbox.
+	DeliveredTo *openapi_types.Email `json:"delivered_to,omitempty"`
+
+	// Direction Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+	Direction *EmailThreadMessageDirection `json:"direction,omitempty"`
+
+	// DkimPass Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	DkimPass *bool `json:"dkim_pass,omitempty"`
+
+	// DmarcPass Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	DmarcPass *bool `json:"dmarc_pass,omitempty"`
+
+	// ExtractedText Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
+	ExtractedText *string `json:"extracted_text,omitempty"`
+
+	// From Sender address.
+	From *openapi_types.Email `json:"from,omitempty"`
+
+	// Id Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
+	Id *string `json:"id,omitempty"`
+
+	// Labels Labels on this message. System labels carry its state: a received message holds exactly one placement label — `inbox` for accepted mail, `archive` when its conversation was filed away, `spam` (failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — plus `unread` until it is read. `trash` marks a message in the trash, either direction. Custom labels share the same list; a message carries at most 20.
+	Labels []string `json:"labels"`
+
+	// OccurredAt When the message was received or accepted for sending.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+
+	// Preview Short plain-text preview of the message body.
+	Preview *string `json:"preview,omitempty"`
+
+	// PurgeAt When the message will be permanently deleted: the end of the mailbox's retention period, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+	PurgeAt *time.Time `json:"purge_at,omitempty"`
+
+	// Recipients Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+	Recipients *[]EmailThreadMessageRecipient `json:"recipients,omitempty"`
+
+	// ReferenceIds RFC 5322 References header entries used to thread the conversation.
+	ReferenceIds *[]string `json:"reference_ids,omitempty"`
+
+	// Source Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+	Source EmailThreadMessageSource `json:"source"`
+
+	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	SpfPass *bool `json:"spf_pass,omitempty"`
+
+	// Status Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
+	Status *string `json:"status,omitempty"`
+
+	// Subject Message subject. Null when the message had no subject.
+	Subject  *string  `json:"subject,omitempty"`
+	ThreadId ThreadID `json:"thread_id"`
+
+	// To Recipient addresses on the To line.
+	To *[]openapi_types.Email `json:"to,omitempty"`
+}
+
+// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+type EmailThreadMessageAuthentication string
+
+// EmailThreadMessageDirection Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+type EmailThreadMessageDirection string
+
+// EmailThreadMessageAttachment Attachment metadata on a conversation message. The metadata remains readable for the mailbox's retention period; the attachment bytes are downloadable for 30 days after the message occurred.
+type EmailThreadMessageAttachment struct {
+	// ContentType MIME content type, or null when it could not be determined.
+	ContentType *string `json:"content_type,omitempty"`
+
+	// Filename Original filename, or null when the attachment had none.
+	Filename *string `json:"filename,omitempty"`
+
+	// Id Attachment ID, used to download the attachment bytes.
+	Id *string `json:"id,omitempty"`
+
+	// Size Attachment size in bytes.
+	Size *int `json:"size,omitempty"`
+}
+
+// EmailThreadMessageAttachmentList The attachments on a conversation message.
+type EmailThreadMessageAttachmentList struct {
+	Data []EmailThreadMessageAttachment `json:"data"`
+}
+
+// EmailThreadMessageBody The original rendered body of a conversation message. Available for 30 days after the message occurred; after that the endpoint returns `410 Gone` while the message's extracted text remains readable on the message itself.
+type EmailThreadMessageBody struct {
+	// Html The HTML body of the message, or null when the message had no HTML part.
+	Html *string `json:"html"`
+
+	// Text The plain-text body of the message, or null when the message had no text part.
+	Text *string `json:"text"`
+}
+
+// EmailThreadMessageList defines model for EmailThreadMessageList.
+type EmailThreadMessageList struct {
+	Data []EmailThreadMessage `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailThreadMessageRecipient One recipient's terminal delivery outcome on a sent conversation message, folded into the message's durable memory when the outcome becomes known.
+type EmailThreadMessageRecipient struct {
+	// Address Recipient address.
+	Address *openapi_types.Email `json:"address,omitempty"`
+
+	// Status Terminal outcome: `delivered`, or `failed` (bounce or provider rejection).
+	Status *EmailThreadMessageRecipientStatus `json:"status,omitempty"`
+}
+
+// EmailThreadMessageRecipientStatus Terminal outcome: `delivered`, or `failed` (bounce or provider rejection).
+type EmailThreadMessageRecipientStatus string
+
+// EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
+type EmailThreadMessageReplyRequest struct {
+	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
+	Category *EmailThreadMessageReplyRequestCategory `json:"category,omitempty"`
+
+	// Html HTML body of the reply. At least one of html or text must be provided.
+	Html *string `json:"html,omitempty"`
+
+	// Metadata Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReplyAll Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
+	ReplyAll *bool `json:"reply_all,omitempty"`
+
+	// Tags Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Text Plain-text body of the reply. At least one of html or text must be provided.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailThreadMessageReplyRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
+type EmailThreadMessageReplyRequestCategory string
+
+// EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+type EmailThreadMessageSource struct {
+	// AvailableUntil When the log entry (and the message's original rendered source) expires.
+	AvailableUntil *time.Time `json:"available_until,omitempty"`
+
+	// Resource API path of the log entry for this message.
+	Resource *string `json:"resource,omitempty"`
+}
+
+// EmailThreadMessageUpdateRequest Changes to apply to a conversation message. Omitted fields are left unchanged.
+type EmailThreadMessageUpdateRequest struct {
+	// ContactId Contact to link this message to, or null to unlink the current contact.
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
+}
+
+// EmailThreadUpdateRequest Changes to apply to a thread. Omitted fields are left unchanged.
+type EmailThreadUpdateRequest struct {
+	// ContactId Contact to link this conversation to, or null to unlink the current contact.
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
 // Error defines model for Error.
@@ -7184,8 +7948,250 @@ type InboundRouteUpdateAction string
 // InboundRouteUpdateMatchType How the route matches recipients.
 type InboundRouteUpdateMatchType string
 
+// Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata and extracted text for its retention tier. The original rendered source of each message remains available for 30 days.
+type Mailbox struct {
+	// Address The mailbox's email address. Immutable once created.
+	Address *openapi_types.Email `json:"address,omitempty"`
+
+	// Channel The channel this mailbox receives on. Always `email`.
+	Channel *MailboxChannel `json:"channel,omitempty"`
+
+	// CreatedAt When the mailbox was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
+	DefaultReplyTo *openapi_types.Email `json:"default_reply_to"`
+
+	// DeletedAt When the mailbox was deleted, or null if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// DisplayName Display name used as the sender name on mail from this mailbox. Null when unset.
+	DisplayName      *string          `json:"display_name"`
+	Id               MailboxID        `json:"id"`
+	InboundAddressId InboundAddressID `json:"inbound_address_id"`
+
+	// LocalPartGenerated Whether Bird generated the local part of the address. `false` means a custom handle was chosen at creation; on the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
+	LocalPartGenerated *bool `json:"local_part_generated,omitempty"`
+
+	// MessageCount Number of retained messages across all threads.
+	MessageCount *int64 `json:"message_count,omitempty"`
+
+	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+	Metadata map[string]interface{} `json:"metadata"`
+
+	// Owner The principal that owns the mailbox. Always the workspace.
+	Owner MailboxOwner `json:"owner"`
+
+	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+	ReceivePolicy MailboxReceivePolicy `json:"receive_policy"`
+
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+	RetentionTier MailboxRetentionTier `json:"retention_tier"`
+
+	// State Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+	State *MailboxState `json:"state,omitempty"`
+
+	// ThreadCount Number of retained threads.
+	ThreadCount *int64 `json:"thread_count,omitempty"`
+
+	// UnreadThreadCount Number of threads with unread messages in this mailbox, excluding trash. Null on create/update responses.
+	UnreadThreadCount *int64 `json:"unread_thread_count,omitempty"`
+
+	// UpdatedAt When the mailbox was last updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// MailboxChannel The channel this mailbox receives on. Always `email`.
+type MailboxChannel string
+
+// MailboxReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+type MailboxReceivePolicy string
+
+// MailboxRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+type MailboxRetentionTier string
+
+// MailboxState Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+type MailboxState string
+
+// MailboxCreate Parameters for creating a mailbox.
+type MailboxCreate struct {
+	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox.
+	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
+
+	// DisplayName Display name used as the sender name on mail from this mailbox.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Domain The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+	Domain *string `json:"domain,omitempty"`
+
+	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+	LocalPart *string `json:"local_part,omitempty"`
+
+	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
+
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
+}
+
+// MailboxCreateReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+type MailboxCreateReceivePolicy string
+
+// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+type MailboxCreateRetentionTier string
+
 // MailboxID defines model for MailboxID.
 type MailboxID = string
+
+// MailboxList defines model for MailboxList.
+type MailboxList struct {
+	Data []Mailbox `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// MailboxOwner The principal that owns the mailbox. Always the workspace.
+type MailboxOwner struct {
+	Id WorkspaceID `json:"id"`
+
+	// Type Owner principal type.
+	Type *MailboxOwnerType `json:"type,omitempty"`
+}
+
+// MailboxOwnerType Owner principal type.
+type MailboxOwnerType string
+
+// MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics carry the same delivery, engagement, and latency breakdowns as the email stats endpoints; `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and null latency percentiles.
+type MailboxStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
+	Bucket     *string               `json:"bucket,omitempty"`
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// Received Distinct emails the mailbox received in this bucket.
+	Received *int `json:"received,omitempty"`
+
+	// SendsAccepted Distinct email messages the mailbox sent that were accepted in this bucket, counted at the message level (one per accepted send regardless of how many recipients it addresses). Every other sent-mail metric in `delivery` and `engagement` is recipient-level or event-level.
+	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// MailboxStatsResponse A mailbox's sent and received email statistics: a period-wide summary plus a bucketed time series. `period` echoes the range and grain the server computed against; `data` is one row per bucket in chronological order.
+type MailboxStatsResponse struct {
+	// Data One row per bucket in the period, in chronological order. Buckets with no activity are included with zero counts.
+	Data *[]MailboxStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period EmailStatsSeriesPeriod `json:"period"`
+
+	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window; latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+	Summary *MailboxStatsSummary `json:"summary,omitempty"`
+}
+
+// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window; latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+type MailboxStatsSummary struct {
+	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
+	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
+
+	// Received Distinct emails the mailbox received, summed per bucket across the period.
+	Received *int `json:"received,omitempty"`
+
+	// SendsAccepted Distinct email messages the mailbox sent that were accepted, counted at the message level and summed per bucket across the period.
+	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged; fields set to null are cleared. The address and domain are immutable.
+type MailboxUpdate struct {
+	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
+	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
+
+	// DisplayName Display name used as the sender name on mail from this mailbox. Null clears it.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Metadata Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReceivePolicy Which inbound mail the mailbox accepts.
+	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
+
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
+}
+
+// MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts.
+type MailboxUpdateReceivePolicy string
+
+// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+type MailboxUpdateRetentionTier string
+
+// ReceiveRule An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
+type ReceiveRule struct {
+	// Action What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+	Action *ReceiveRuleAction `json:"action,omitempty"`
+
+	// CreatedAt When the rule was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Entry The sender address or domain the rule matches. Domains also match their subdomains.
+	Entry *string `json:"entry,omitempty"`
+
+	// EntryType Whether the entry is a full address or a domain.
+	EntryType *ReceiveRuleEntryType `json:"entry_type,omitempty"`
+	Id        ReceiveRuleID         `json:"id"`
+	MailboxId MailboxID             `json:"mailbox_id"`
+
+	// Note Your own note about why the rule exists. Null when unset.
+	Note *string `json:"note,omitempty"`
+}
+
+// ReceiveRuleAction What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+type ReceiveRuleAction string
+
+// ReceiveRuleEntryType Whether the entry is a full address or a domain.
+type ReceiveRuleEntryType string
+
+// ReceiveRuleCreate Parameters for adding a receive rule to a mailbox.
+type ReceiveRuleCreate struct {
+	// Action What the rule does when it matches. Block rules always win. To flip an entry's action, delete the existing rule and re-create it.
+	Action ReceiveRuleCreateAction `json:"action"`
+
+	// Entry The sender address (`alice@example.com`) or domain (`example.com`) to match. Domains also match their subdomains. Stored lowercase.
+	Entry string `json:"entry"`
+
+	// Note Your own note about why the rule exists.
+	Note *string `json:"note,omitempty"`
+}
+
+// ReceiveRuleCreateAction What the rule does when it matches. Block rules always win. To flip an entry's action, delete the existing rule and re-create it.
+type ReceiveRuleCreateAction string
+
+// ReceiveRuleID defines model for ReceiveRuleID.
+type ReceiveRuleID = string
+
+// ReceiveRuleList defines model for ReceiveRuleList.
+type ReceiveRuleList struct {
+	Data []ReceiveRule `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
 
 // RecipientID defines model for RecipientID.
 type RecipientID = string
@@ -8732,6 +9738,187 @@ type VerifyDomainParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListMailboxesParams defines parameters for ListMailboxes.
+type ListMailboxesParams struct {
+	// Address Filter to the mailbox with exactly this address.
+	Address *openapi_types.Email `form:"address,omitempty" json:"address,omitempty"`
+
+	// Q Case-insensitive search matching the mailbox's address or display name (substring).
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// State Filter by lifecycle state.
+	State *ListMailboxesParamsState `form:"state,omitempty" json:"state,omitempty"`
+
+	// Domain Filter to mailboxes whose address is on this domain.
+	Domain *string `form:"domain,omitempty" json:"domain,omitempty"`
+
+	// IncludeDeleted Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. Deleted mailboxes carry a non-null `deleted_at`.
+	IncludeDeleted *bool `form:"include_deleted,omitempty" json:"include_deleted,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListMailboxesParamsState defines parameters for ListMailboxes.
+type ListMailboxesParamsState string
+
+// CreateMailboxParams defines parameters for CreateMailbox.
+type CreateMailboxParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteMailboxParams defines parameters for DeleteMailbox.
+type DeleteMailboxParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateMailboxParams defines parameters for UpdateMailbox.
+type UpdateMailboxParams struct {
+	// Confirm Required as `true` when lowering `retention_tier`, acknowledging that remembered messages older than the new horizon are deleted.
+	Confirm *bool `form:"confirm,omitempty" json:"confirm,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateMailboxMessageParams defines parameters for CreateMailboxMessage.
+type CreateMailboxMessageParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListMailboxReceiveRulesParams defines parameters for ListMailboxReceiveRules.
+type ListMailboxReceiveRulesParams struct {
+	// Action Filter by rule action.
+	Action *ListMailboxReceiveRulesParamsAction `form:"action,omitempty" json:"action,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListMailboxReceiveRulesParamsAction defines parameters for ListMailboxReceiveRules.
+type ListMailboxReceiveRulesParamsAction string
+
+// CreateMailboxReceiveRuleParams defines parameters for CreateMailboxReceiveRule.
+type CreateMailboxReceiveRuleParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteMailboxReceiveRuleParams defines parameters for DeleteMailboxReceiveRule.
+type DeleteMailboxReceiveRuleParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// RestoreMailboxParams defines parameters for RestoreMailbox.
+type RestoreMailboxParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ResumeMailboxParams defines parameters for ResumeMailbox.
+type ResumeMailboxParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetMailboxStatsParams defines parameters for GetMailboxStats.
+type GetMailboxStatsParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` at `day` granularity and 7 days before `to` at `hour`, when omitted.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Granularity Bucket grain of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
+	Granularity *GetMailboxStatsParamsGranularity `form:"granularity,omitempty" json:"granularity,omitempty"`
+}
+
+// GetMailboxStatsParamsGranularity defines parameters for GetMailboxStats.
+type GetMailboxStatsParamsGranularity string
+
 // ListEmailMessagesParams defines parameters for ListEmailMessages.
 type ListEmailMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -9264,6 +10451,114 @@ type GetEmailStatsByTemplateParams struct {
 // GetEmailStatsByTemplateParamsTrendGrain defines parameters for GetEmailStatsByTemplate.
 type GetEmailStatsByTemplateParamsTrendGrain string
 
+// ListEmailThreadsParams defines parameters for ListEmailThreads.
+type ListEmailThreadsParams struct {
+	// MailboxId Filter to conversations in a specific mailbox.
+	MailboxId *MailboxID `form:"mailbox_id,omitempty" json:"mailbox_id,omitempty"`
+
+	// ContactId Filter to conversations linked to a specific contact.
+	ContactId *ContactID `form:"contact_id,omitempty" json:"contact_id,omitempty"`
+
+	// Label Filter to conversations carrying this label. Repeat the parameter to require several — only conversations carrying every listed label match. A placement label selects a folder (`inbox`, `archive`, `spam`, `blocked`); a custom label matches conversations in any folder. Defaults to `inbox` when omitted.
+	Label *[]string `form:"label,omitempty" json:"label,omitempty"`
+
+	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so it combines with `label` — for example, unread conversations in the archive. (The `unread` label itself lives on messages, not conversations.)
+	HasUnread *bool `form:"has_unread,omitempty" json:"has_unread,omitempty"`
+
+	// Participant Conversations involving this address — matches the sender or any recipient, as a case-insensitive contains-match, so a full address or any fragment of one works.
+	Participant *string `form:"participant,omitempty" json:"participant,omitempty"`
+
+	// Subject Conversations whose subject contains this text (case-insensitive).
+	Subject *string `form:"subject,omitempty" json:"subject,omitempty"`
+
+	// After Filter to conversations whose most recent message is at or after this time. This is a time filter, not a cursor.
+	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
+
+	// Before Filter to conversations whose most recent message is at or before this time. This is a time filter, not a cursor.
+	Before *time.Time `form:"before,omitempty" json:"before,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// DeleteEmailThreadParams defines parameters for DeleteEmailThread.
+type DeleteEmailThreadParams struct {
+	// Permanent Permanently delete the conversation and its messages immediately instead of moving them to the trash.
+	Permanent *bool `form:"permanent,omitempty" json:"permanent,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateEmailThreadParams defines parameters for UpdateEmailThread.
+type UpdateEmailThreadParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListEmailThreadMessagesParams defines parameters for ListEmailThreadMessages.
+type ListEmailThreadMessagesParams struct {
+	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
+	Direction *ListEmailThreadMessagesParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// Label Filter to messages carrying this label. `trash` lists trashed messages; any other label — `archive`, `spam`, `blocked`, `unread`, or a custom label — lists its non-trashed carriers. When omitted, received messages in the inbox and all sent messages are returned.
+	Label *string `form:"label,omitempty" json:"label,omitempty"`
+
+	// Include Set to `extracted_text` to inline each message's extracted plain text.
+	Include *ListEmailThreadMessagesParamsInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListEmailThreadMessagesParamsDirection defines parameters for ListEmailThreadMessages.
+type ListEmailThreadMessagesParamsDirection string
+
+// ListEmailThreadMessagesParamsInclude defines parameters for ListEmailThreadMessages.
+type ListEmailThreadMessagesParamsInclude string
+
+// ReplyEmailThreadMessageParams defines parameters for ReplyEmailThreadMessage.
+type ReplyEmailThreadMessageParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
 type CreateSMSMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
@@ -9475,8 +10770,26 @@ type CreateDomainJSONRequestBody = DomainCreate
 // UpdateDomainJSONRequestBody defines body for UpdateDomain for application/json ContentType.
 type UpdateDomainJSONRequestBody = DomainUpdate
 
+// CreateMailboxJSONRequestBody defines body for CreateMailbox for application/json ContentType.
+type CreateMailboxJSONRequestBody = MailboxCreate
+
+// UpdateMailboxJSONRequestBody defines body for UpdateMailbox for application/json ContentType.
+type UpdateMailboxJSONRequestBody = MailboxUpdate
+
+// CreateMailboxMessageJSONRequestBody defines body for CreateMailboxMessage for application/json ContentType.
+type CreateMailboxMessageJSONRequestBody = EmailMailboxComposeRequest
+
+// CreateMailboxReceiveRuleJSONRequestBody defines body for CreateMailboxReceiveRule for application/json ContentType.
+type CreateMailboxReceiveRuleJSONRequestBody = ReceiveRuleCreate
+
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
+
+// UpdateEmailThreadJSONRequestBody defines body for UpdateEmailThread for application/json ContentType.
+type UpdateEmailThreadJSONRequestBody = EmailThreadUpdateRequest
+
+// ReplyEmailThreadMessageJSONRequestBody defines body for ReplyEmailThreadMessage for application/json ContentType.
+type ReplyEmailThreadMessageJSONRequestBody = EmailThreadMessageReplyRequest
 
 // CreateSMSMessageBatchJSONRequestBody defines body for CreateSMSMessageBatch for application/json ContentType.
 type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
@@ -11693,6 +13006,53 @@ type ClientInterface interface {
 	// VerifyDomain request
 	VerifyDomain(ctx context.Context, domainId DomainID, params *VerifyDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListMailboxes request
+	ListMailboxes(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateMailboxWithBody request with any body
+	CreateMailboxWithBody(ctx context.Context, params *CreateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateMailbox(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteMailbox request
+	DeleteMailbox(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetMailbox request
+	GetMailbox(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateMailboxWithBody request with any body
+	UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateMailbox(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListMailboxLabels request
+	ListMailboxLabels(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateMailboxMessageWithBody request with any body
+	CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateMailboxMessage(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListMailboxReceiveRules request
+	ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateMailboxReceiveRuleWithBody request with any body
+	CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteMailboxReceiveRule request
+	DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RestoreMailbox request
+	RestoreMailbox(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ResumeMailbox request
+	ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetMailboxStats request
+	GetMailboxStats(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailMessages request
 	ListEmailMessages(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -11754,6 +13114,37 @@ type ClientInterface interface {
 
 	// GetEmailStatsByTemplate request
 	GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailThreads request
+	ListEmailThreads(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailThread request
+	DeleteEmailThread(ctx context.Context, threadId ThreadID, params *DeleteEmailThreadParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailThread request
+	GetEmailThread(ctx context.Context, threadId ThreadID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailThreadWithBody request with any body
+	UpdateEmailThreadWithBody(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailThread(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, body UpdateEmailThreadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailThreadMessages request
+	ListEmailThreadMessages(ctx context.Context, threadId ThreadID, params *ListEmailThreadMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailThreadMessage request
+	GetEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailThreadMessageAttachments request
+	ListEmailThreadMessageAttachments(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailThreadMessageBody request
+	GetEmailThreadMessageBody(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReplyEmailThreadMessageWithBody request with any body
+	ReplyEmailThreadMessageWithBody(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateSMSMessageBatchWithBody request with any body
 	CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -12285,6 +13676,210 @@ func (c *Client) VerifyDomain(ctx context.Context, domainId DomainID, params *Ve
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListMailboxes(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListMailboxesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxWithBody(ctx context.Context, params *CreateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailbox(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteMailbox(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteMailboxRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetMailbox(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMailboxRequest(c.Server, mailboxId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateMailboxWithBody(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateMailboxRequestWithBody(c.Server, mailboxId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateMailbox(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateMailboxRequest(c.Server, mailboxId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListMailboxLabels(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListMailboxLabelsRequest(c.Server, mailboxId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxMessageWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxMessageRequestWithBody(c.Server, mailboxId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxMessage(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxMessageRequest(c.Server, mailboxId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListMailboxReceiveRules(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListMailboxReceiveRulesRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxReceiveRuleWithBody(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxReceiveRuleRequestWithBody(c.Server, mailboxId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateMailboxReceiveRuleRequest(c.Server, mailboxId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteMailboxReceiveRule(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteMailboxReceiveRuleRequest(c.Server, mailboxId, ruleId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RestoreMailbox(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRestoreMailboxRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ResumeMailbox(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewResumeMailboxRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetMailboxStats(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetMailboxStatsRequest(c.Server, mailboxId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListEmailMessages(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListEmailMessagesRequest(c.Server, params)
 	if err != nil {
@@ -12527,6 +14122,138 @@ func (c *Client) GetEmailStatsByTag(ctx context.Context, params *GetEmailStatsBy
 
 func (c *Client) GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailStatsByTemplateRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailThreads(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailThreadsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailThread(ctx context.Context, threadId ThreadID, params *DeleteEmailThreadParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailThreadRequest(c.Server, threadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailThread(ctx context.Context, threadId ThreadID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailThreadRequest(c.Server, threadId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailThreadWithBody(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailThreadRequestWithBody(c.Server, threadId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailThread(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, body UpdateEmailThreadJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailThreadRequest(c.Server, threadId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailThreadMessages(ctx context.Context, threadId ThreadID, params *ListEmailThreadMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailThreadMessagesRequest(c.Server, threadId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailThreadMessageRequest(c.Server, threadId, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailThreadMessageAttachments(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailThreadMessageAttachmentsRequest(c.Server, threadId, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailThreadMessageBody(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailThreadMessageBodyRequest(c.Server, threadId, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ReplyEmailThreadMessageWithBody(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplyEmailThreadMessageRequestWithBody(c.Server, threadId, messageId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReplyEmailThreadMessageRequest(c.Server, threadId, messageId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -14441,6 +16168,877 @@ func NewVerifyDomainRequest(server string, domainId DomainID, params *VerifyDoma
 			req.Header.Set("Idempotency-Key", headerParam0)
 		}
 
+	}
+
+	return req, nil
+}
+
+// NewListMailboxesRequest generates requests for ListMailboxes
+func NewListMailboxesRequest(server string, params *ListMailboxesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Address != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "address", *params.Address, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "email"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "state", *params.State, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Domain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "domain", *params.Domain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeDeleted != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_deleted", *params.IncludeDeleted, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateMailboxRequest calls the generic CreateMailbox builder with application/json body
+func NewCreateMailboxRequest(server string, params *CreateMailboxParams, body CreateMailboxJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateMailboxRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateMailboxRequestWithBody generates requests for CreateMailbox with any type of body
+func NewCreateMailboxRequestWithBody(server string, params *CreateMailboxParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteMailboxRequest generates requests for DeleteMailbox
+func NewDeleteMailboxRequest(server string, mailboxId MailboxID, params *DeleteMailboxParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetMailboxRequest generates requests for GetMailbox
+func NewGetMailboxRequest(server string, mailboxId MailboxID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateMailboxRequest calls the generic UpdateMailbox builder with application/json body
+func NewUpdateMailboxRequest(server string, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateMailboxRequestWithBody(server, mailboxId, params, "application/json", bodyReader)
+}
+
+// NewUpdateMailboxRequestWithBody generates requests for UpdateMailbox with any type of body
+func NewUpdateMailboxRequestWithBody(server string, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Confirm != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "confirm", *params.Confirm, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListMailboxLabelsRequest generates requests for ListMailboxLabels
+func NewListMailboxLabelsRequest(server string, mailboxId MailboxID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/labels", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateMailboxMessageRequest calls the generic CreateMailboxMessage builder with application/json body
+func NewCreateMailboxMessageRequest(server string, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateMailboxMessageRequestWithBody(server, mailboxId, params, "application/json", bodyReader)
+}
+
+// NewCreateMailboxMessageRequestWithBody generates requests for CreateMailboxMessage with any type of body
+func NewCreateMailboxMessageRequestWithBody(server string, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/messages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListMailboxReceiveRulesRequest generates requests for ListMailboxReceiveRules
+func NewListMailboxReceiveRulesRequest(server string, mailboxId MailboxID, params *ListMailboxReceiveRulesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/receive-rules", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Action != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "action", *params.Action, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateMailboxReceiveRuleRequest calls the generic CreateMailboxReceiveRule builder with application/json body
+func NewCreateMailboxReceiveRuleRequest(server string, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateMailboxReceiveRuleRequestWithBody(server, mailboxId, params, "application/json", bodyReader)
+}
+
+// NewCreateMailboxReceiveRuleRequestWithBody generates requests for CreateMailboxReceiveRule with any type of body
+func NewCreateMailboxReceiveRuleRequestWithBody(server string, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/receive-rules", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteMailboxReceiveRuleRequest generates requests for DeleteMailboxReceiveRule
+func NewDeleteMailboxReceiveRuleRequest(server string, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "rule_id", ruleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/receive-rules/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRestoreMailboxRequest generates requests for RestoreMailbox
+func NewRestoreMailboxRequest(server string, mailboxId MailboxID, params *RestoreMailboxParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/restore", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewResumeMailboxRequest generates requests for ResumeMailbox
+func NewResumeMailboxRequest(server string, mailboxId MailboxID, params *ResumeMailboxParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/resume", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetMailboxStatsRequest generates requests for GetMailboxStats
+func NewGetMailboxStatsRequest(server string, mailboxId MailboxID, params *GetMailboxStatsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "mailbox_id", mailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/mailboxes/%s/stats", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Granularity != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "granularity", *params.Granularity, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -16906,6 +19504,665 @@ func NewGetEmailStatsByTemplateRequest(server string, params *GetEmailStatsByTem
 	return req, nil
 }
 
+// NewListEmailThreadsRequest generates requests for ListEmailThreads
+func NewListEmailThreadsRequest(server string, params *ListEmailThreadsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.MailboxId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "mailbox_id", *params.MailboxId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContactId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "contact_id", *params.ContactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Label != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.HasUnread != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "has_unread", *params.HasUnread, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Participant != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "participant", *params.Participant, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Subject != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "subject", *params.Subject, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.After != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "after", *params.After, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Before != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "before", *params.Before, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailThreadRequest generates requests for DeleteEmailThread
+func NewDeleteEmailThreadRequest(server string, threadId ThreadID, params *DeleteEmailThreadParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Permanent != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "permanent", *params.Permanent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailThreadRequest generates requests for GetEmailThread
+func NewGetEmailThreadRequest(server string, threadId ThreadID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailThreadRequest calls the generic UpdateEmailThread builder with application/json body
+func NewUpdateEmailThreadRequest(server string, threadId ThreadID, params *UpdateEmailThreadParams, body UpdateEmailThreadJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailThreadRequestWithBody(server, threadId, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailThreadRequestWithBody generates requests for UpdateEmailThread with any type of body
+func NewUpdateEmailThreadRequestWithBody(server string, threadId ThreadID, params *UpdateEmailThreadParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailThreadMessagesRequest generates requests for ListEmailThreadMessages
+func NewListEmailThreadMessagesRequest(server string, threadId ThreadID, params *ListEmailThreadMessagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/messages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Label != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailThreadMessageRequest generates requests for GetEmailThreadMessage
+func NewGetEmailThreadMessageRequest(server string, threadId ThreadID, messageId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/messages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListEmailThreadMessageAttachmentsRequest generates requests for ListEmailThreadMessageAttachments
+func NewListEmailThreadMessageAttachmentsRequest(server string, threadId ThreadID, messageId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/messages/%s/attachments", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailThreadMessageBodyRequest generates requests for GetEmailThreadMessageBody
+func NewGetEmailThreadMessageBodyRequest(server string, threadId ThreadID, messageId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/messages/%s/body", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewReplyEmailThreadMessageRequest calls the generic ReplyEmailThreadMessage builder with application/json body
+func NewReplyEmailThreadMessageRequest(server string, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewReplyEmailThreadMessageRequestWithBody(server, threadId, messageId, params, "application/json", bodyReader)
+}
+
+// NewReplyEmailThreadMessageRequestWithBody generates requests for ReplyEmailThreadMessage with any type of body
+func NewReplyEmailThreadMessageRequestWithBody(server string, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "thread_id", threadId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/threads/%s/messages/%s/reply", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewCreateSMSMessageBatchRequest calls the generic CreateSMSMessageBatch builder with application/json body
 func NewCreateSMSMessageBatchRequest(server string, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -17958,6 +21215,53 @@ type ClientWithResponsesInterface interface {
 	// VerifyDomainWithResponse request
 	VerifyDomainWithResponse(ctx context.Context, domainId DomainID, params *VerifyDomainParams, reqEditors ...RequestEditorFn) (*VerifyDomainResponse, error)
 
+	// ListMailboxesWithResponse request
+	ListMailboxesWithResponse(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*ListMailboxesResponse, error)
+
+	// CreateMailboxWithBodyWithResponse request with any body
+	CreateMailboxWithBodyWithResponse(ctx context.Context, params *CreateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxResponse, error)
+
+	CreateMailboxWithResponse(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxResponse, error)
+
+	// DeleteMailboxWithResponse request
+	DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error)
+
+	// GetMailboxWithResponse request
+	GetMailboxWithResponse(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error)
+
+	// UpdateMailboxWithBodyWithResponse request with any body
+	UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
+
+	UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error)
+
+	// ListMailboxLabelsWithResponse request
+	ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error)
+
+	// CreateMailboxMessageWithBodyWithResponse request with any body
+	CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
+
+	CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error)
+
+	// ListMailboxReceiveRulesWithResponse request
+	ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error)
+
+	// CreateMailboxReceiveRuleWithBodyWithResponse request with any body
+	CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
+
+	CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error)
+
+	// DeleteMailboxReceiveRuleWithResponse request
+	DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error)
+
+	// RestoreMailboxWithResponse request
+	RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error)
+
+	// ResumeMailboxWithResponse request
+	ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error)
+
+	// GetMailboxStatsWithResponse request
+	GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error)
+
 	// ListEmailMessagesWithResponse request
 	ListEmailMessagesWithResponse(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailMessagesResponse, error)
 
@@ -18019,6 +21323,37 @@ type ClientWithResponsesInterface interface {
 
 	// GetEmailStatsByTemplateWithResponse request
 	GetEmailStatsByTemplateWithResponse(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTemplateResponse, error)
+
+	// ListEmailThreadsWithResponse request
+	ListEmailThreadsWithResponse(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*ListEmailThreadsResponse, error)
+
+	// DeleteEmailThreadWithResponse request
+	DeleteEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *DeleteEmailThreadParams, reqEditors ...RequestEditorFn) (*DeleteEmailThreadResponse, error)
+
+	// GetEmailThreadWithResponse request
+	GetEmailThreadWithResponse(ctx context.Context, threadId ThreadID, reqEditors ...RequestEditorFn) (*GetEmailThreadResponse, error)
+
+	// UpdateEmailThreadWithBodyWithResponse request with any body
+	UpdateEmailThreadWithBodyWithResponse(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailThreadResponse, error)
+
+	UpdateEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, body UpdateEmailThreadJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailThreadResponse, error)
+
+	// ListEmailThreadMessagesWithResponse request
+	ListEmailThreadMessagesWithResponse(ctx context.Context, threadId ThreadID, params *ListEmailThreadMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailThreadMessagesResponse, error)
+
+	// GetEmailThreadMessageWithResponse request
+	GetEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*GetEmailThreadMessageResponse, error)
+
+	// ListEmailThreadMessageAttachmentsWithResponse request
+	ListEmailThreadMessageAttachmentsWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*ListEmailThreadMessageAttachmentsResponse, error)
+
+	// GetEmailThreadMessageBodyWithResponse request
+	GetEmailThreadMessageBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*GetEmailThreadMessageBodyResponse, error)
+
+	// ReplyEmailThreadMessageWithBodyWithResponse request with any body
+	ReplyEmailThreadMessageWithBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
+
+	ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
 
 	// CreateSMSMessageBatchWithBodyWithResponse request with any body
 	CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
@@ -19070,6 +22405,477 @@ func (r VerifyDomainResponse) ContentType() string {
 	return ""
 }
 
+type ListMailboxesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *MailboxList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListMailboxesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListMailboxesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListMailboxesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *Mailbox
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Mailbox
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Mailbox
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListMailboxLabelsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailMailboxLabelList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListMailboxLabelsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListMailboxLabelsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListMailboxLabelsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateMailboxMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailThreadMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateMailboxMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateMailboxMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateMailboxMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListMailboxReceiveRulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ReceiveRuleList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListMailboxReceiveRulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListMailboxReceiveRulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListMailboxReceiveRulesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateMailboxReceiveRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *ReceiveRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateMailboxReceiveRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateMailboxReceiveRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateMailboxReceiveRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteMailboxReceiveRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteMailboxReceiveRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteMailboxReceiveRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteMailboxReceiveRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RestoreMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Mailbox
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r RestoreMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RestoreMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RestoreMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ResumeMailboxResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Mailbox
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ResumeMailboxResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ResumeMailboxResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ResumeMailboxResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetMailboxStatsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *MailboxStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetMailboxStatsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetMailboxStatsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetMailboxStatsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListEmailMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -19798,6 +23604,334 @@ func (r GetEmailStatsByTemplateResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailThreadsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThreadList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailThreadsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailThreadsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailThreadsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailThreadResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailThreadResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailThreadResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailThreadResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailThreadResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThread
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailThreadResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailThreadResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailThreadResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailThreadResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThread
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailThreadResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailThreadResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailThreadResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailThreadMessagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThreadMessageList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailThreadMessagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailThreadMessagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailThreadMessagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailThreadMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThreadMessage
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailThreadMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailThreadMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailThreadMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailThreadMessageAttachmentsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThreadMessageAttachmentList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailThreadMessageAttachmentsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailThreadMessageAttachmentsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailThreadMessageAttachmentsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailThreadMessageBodyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailThreadMessageBody
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailThreadMessageBodyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailThreadMessageBodyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailThreadMessageBodyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReplyEmailThreadMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailThreadMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ReplyEmailThreadMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReplyEmailThreadMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReplyEmailThreadMessageResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -20618,6 +24752,155 @@ func (c *ClientWithResponses) VerifyDomainWithResponse(ctx context.Context, doma
 	return ParseVerifyDomainResponse(rsp)
 }
 
+// ListMailboxesWithResponse request returning *ListMailboxesResponse
+func (c *ClientWithResponses) ListMailboxesWithResponse(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*ListMailboxesResponse, error) {
+	rsp, err := c.ListMailboxes(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMailboxesResponse(rsp)
+}
+
+// CreateMailboxWithBodyWithResponse request with arbitrary body returning *CreateMailboxResponse
+func (c *ClientWithResponses) CreateMailboxWithBodyWithResponse(ctx context.Context, params *CreateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxResponse, error) {
+	rsp, err := c.CreateMailboxWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateMailboxWithResponse(ctx context.Context, params *CreateMailboxParams, body CreateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxResponse, error) {
+	rsp, err := c.CreateMailbox(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxResponse(rsp)
+}
+
+// DeleteMailboxWithResponse request returning *DeleteMailboxResponse
+func (c *ClientWithResponses) DeleteMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *DeleteMailboxParams, reqEditors ...RequestEditorFn) (*DeleteMailboxResponse, error) {
+	rsp, err := c.DeleteMailbox(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteMailboxResponse(rsp)
+}
+
+// GetMailboxWithResponse request returning *GetMailboxResponse
+func (c *ClientWithResponses) GetMailboxWithResponse(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*GetMailboxResponse, error) {
+	rsp, err := c.GetMailbox(ctx, mailboxId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMailboxResponse(rsp)
+}
+
+// UpdateMailboxWithBodyWithResponse request with arbitrary body returning *UpdateMailboxResponse
+func (c *ClientWithResponses) UpdateMailboxWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
+	rsp, err := c.UpdateMailboxWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateMailboxResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *UpdateMailboxParams, body UpdateMailboxJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateMailboxResponse, error) {
+	rsp, err := c.UpdateMailbox(ctx, mailboxId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateMailboxResponse(rsp)
+}
+
+// ListMailboxLabelsWithResponse request returning *ListMailboxLabelsResponse
+func (c *ClientWithResponses) ListMailboxLabelsWithResponse(ctx context.Context, mailboxId MailboxID, reqEditors ...RequestEditorFn) (*ListMailboxLabelsResponse, error) {
+	rsp, err := c.ListMailboxLabels(ctx, mailboxId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMailboxLabelsResponse(rsp)
+}
+
+// CreateMailboxMessageWithBodyWithResponse request with arbitrary body returning *CreateMailboxMessageResponse
+func (c *ClientWithResponses) CreateMailboxMessageWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
+	rsp, err := c.CreateMailboxMessageWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxMessageResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateMailboxMessageWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxMessageParams, body CreateMailboxMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxMessageResponse, error) {
+	rsp, err := c.CreateMailboxMessage(ctx, mailboxId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxMessageResponse(rsp)
+}
+
+// ListMailboxReceiveRulesWithResponse request returning *ListMailboxReceiveRulesResponse
+func (c *ClientWithResponses) ListMailboxReceiveRulesWithResponse(ctx context.Context, mailboxId MailboxID, params *ListMailboxReceiveRulesParams, reqEditors ...RequestEditorFn) (*ListMailboxReceiveRulesResponse, error) {
+	rsp, err := c.ListMailboxReceiveRules(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListMailboxReceiveRulesResponse(rsp)
+}
+
+// CreateMailboxReceiveRuleWithBodyWithResponse request with arbitrary body returning *CreateMailboxReceiveRuleResponse
+func (c *ClientWithResponses) CreateMailboxReceiveRuleWithBodyWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
+	rsp, err := c.CreateMailboxReceiveRuleWithBody(ctx, mailboxId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxReceiveRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, params *CreateMailboxReceiveRuleParams, body CreateMailboxReceiveRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateMailboxReceiveRuleResponse, error) {
+	rsp, err := c.CreateMailboxReceiveRule(ctx, mailboxId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateMailboxReceiveRuleResponse(rsp)
+}
+
+// DeleteMailboxReceiveRuleWithResponse request returning *DeleteMailboxReceiveRuleResponse
+func (c *ClientWithResponses) DeleteMailboxReceiveRuleWithResponse(ctx context.Context, mailboxId MailboxID, ruleId ReceiveRuleID, params *DeleteMailboxReceiveRuleParams, reqEditors ...RequestEditorFn) (*DeleteMailboxReceiveRuleResponse, error) {
+	rsp, err := c.DeleteMailboxReceiveRule(ctx, mailboxId, ruleId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteMailboxReceiveRuleResponse(rsp)
+}
+
+// RestoreMailboxWithResponse request returning *RestoreMailboxResponse
+func (c *ClientWithResponses) RestoreMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *RestoreMailboxParams, reqEditors ...RequestEditorFn) (*RestoreMailboxResponse, error) {
+	rsp, err := c.RestoreMailbox(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRestoreMailboxResponse(rsp)
+}
+
+// ResumeMailboxWithResponse request returning *ResumeMailboxResponse
+func (c *ClientWithResponses) ResumeMailboxWithResponse(ctx context.Context, mailboxId MailboxID, params *ResumeMailboxParams, reqEditors ...RequestEditorFn) (*ResumeMailboxResponse, error) {
+	rsp, err := c.ResumeMailbox(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseResumeMailboxResponse(rsp)
+}
+
+// GetMailboxStatsWithResponse request returning *GetMailboxStatsResponse
+func (c *ClientWithResponses) GetMailboxStatsWithResponse(ctx context.Context, mailboxId MailboxID, params *GetMailboxStatsParams, reqEditors ...RequestEditorFn) (*GetMailboxStatsResponse, error) {
+	rsp, err := c.GetMailboxStats(ctx, mailboxId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetMailboxStatsResponse(rsp)
+}
+
 // ListEmailMessagesWithResponse request returning *ListEmailMessagesResponse
 func (c *ClientWithResponses) ListEmailMessagesWithResponse(ctx context.Context, params *ListEmailMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailMessagesResponse, error) {
 	rsp, err := c.ListEmailMessages(ctx, params, reqEditors...)
@@ -20804,6 +25087,103 @@ func (c *ClientWithResponses) GetEmailStatsByTemplateWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseGetEmailStatsByTemplateResponse(rsp)
+}
+
+// ListEmailThreadsWithResponse request returning *ListEmailThreadsResponse
+func (c *ClientWithResponses) ListEmailThreadsWithResponse(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*ListEmailThreadsResponse, error) {
+	rsp, err := c.ListEmailThreads(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailThreadsResponse(rsp)
+}
+
+// DeleteEmailThreadWithResponse request returning *DeleteEmailThreadResponse
+func (c *ClientWithResponses) DeleteEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *DeleteEmailThreadParams, reqEditors ...RequestEditorFn) (*DeleteEmailThreadResponse, error) {
+	rsp, err := c.DeleteEmailThread(ctx, threadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailThreadResponse(rsp)
+}
+
+// GetEmailThreadWithResponse request returning *GetEmailThreadResponse
+func (c *ClientWithResponses) GetEmailThreadWithResponse(ctx context.Context, threadId ThreadID, reqEditors ...RequestEditorFn) (*GetEmailThreadResponse, error) {
+	rsp, err := c.GetEmailThread(ctx, threadId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailThreadResponse(rsp)
+}
+
+// UpdateEmailThreadWithBodyWithResponse request with arbitrary body returning *UpdateEmailThreadResponse
+func (c *ClientWithResponses) UpdateEmailThreadWithBodyWithResponse(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailThreadResponse, error) {
+	rsp, err := c.UpdateEmailThreadWithBody(ctx, threadId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailThreadResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailThreadWithResponse(ctx context.Context, threadId ThreadID, params *UpdateEmailThreadParams, body UpdateEmailThreadJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailThreadResponse, error) {
+	rsp, err := c.UpdateEmailThread(ctx, threadId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailThreadResponse(rsp)
+}
+
+// ListEmailThreadMessagesWithResponse request returning *ListEmailThreadMessagesResponse
+func (c *ClientWithResponses) ListEmailThreadMessagesWithResponse(ctx context.Context, threadId ThreadID, params *ListEmailThreadMessagesParams, reqEditors ...RequestEditorFn) (*ListEmailThreadMessagesResponse, error) {
+	rsp, err := c.ListEmailThreadMessages(ctx, threadId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailThreadMessagesResponse(rsp)
+}
+
+// GetEmailThreadMessageWithResponse request returning *GetEmailThreadMessageResponse
+func (c *ClientWithResponses) GetEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*GetEmailThreadMessageResponse, error) {
+	rsp, err := c.GetEmailThreadMessage(ctx, threadId, messageId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailThreadMessageResponse(rsp)
+}
+
+// ListEmailThreadMessageAttachmentsWithResponse request returning *ListEmailThreadMessageAttachmentsResponse
+func (c *ClientWithResponses) ListEmailThreadMessageAttachmentsWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*ListEmailThreadMessageAttachmentsResponse, error) {
+	rsp, err := c.ListEmailThreadMessageAttachments(ctx, threadId, messageId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailThreadMessageAttachmentsResponse(rsp)
+}
+
+// GetEmailThreadMessageBodyWithResponse request returning *GetEmailThreadMessageBodyResponse
+func (c *ClientWithResponses) GetEmailThreadMessageBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, reqEditors ...RequestEditorFn) (*GetEmailThreadMessageBodyResponse, error) {
+	rsp, err := c.GetEmailThreadMessageBody(ctx, threadId, messageId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailThreadMessageBodyResponse(rsp)
+}
+
+// ReplyEmailThreadMessageWithBodyWithResponse request with arbitrary body returning *ReplyEmailThreadMessageResponse
+func (c *ClientWithResponses) ReplyEmailThreadMessageWithBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error) {
+	rsp, err := c.ReplyEmailThreadMessageWithBody(ctx, threadId, messageId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyEmailThreadMessageResponse(rsp)
+}
+
+func (c *ClientWithResponses) ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error) {
+	rsp, err := c.ReplyEmailThreadMessage(ctx, threadId, messageId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReplyEmailThreadMessageResponse(rsp)
 }
 
 // CreateSMSMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageBatchResponse
@@ -22811,6 +27191,911 @@ func ParseVerifyDomainResponse(rsp *http.Response) (*VerifyDomainResponse, error
 	return response, nil
 }
 
+// ParseListMailboxesResponse parses an HTTP response from a ListMailboxesWithResponse call
+func ParseListMailboxesResponse(rsp *http.Response) (*ListMailboxesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListMailboxesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest MailboxList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateMailboxResponse parses an HTTP response from a CreateMailboxWithResponse call
+func ParseCreateMailboxResponse(rsp *http.Response) (*CreateMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteMailboxResponse parses an HTTP response from a DeleteMailboxWithResponse call
+func ParseDeleteMailboxResponse(rsp *http.Response) (*DeleteMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetMailboxResponse parses an HTTP response from a GetMailboxWithResponse call
+func ParseGetMailboxResponse(rsp *http.Response) (*GetMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateMailboxResponse parses an HTTP response from a UpdateMailboxWithResponse call
+func ParseUpdateMailboxResponse(rsp *http.Response) (*UpdateMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListMailboxLabelsResponse parses an HTTP response from a ListMailboxLabelsWithResponse call
+func ParseListMailboxLabelsResponse(rsp *http.Response) (*ListMailboxLabelsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListMailboxLabelsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailMailboxLabelList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateMailboxMessageResponse parses an HTTP response from a CreateMailboxMessageWithResponse call
+func ParseCreateMailboxMessageResponse(rsp *http.Response) (*CreateMailboxMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateMailboxMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailThreadMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListMailboxReceiveRulesResponse parses an HTTP response from a ListMailboxReceiveRulesWithResponse call
+func ParseListMailboxReceiveRulesResponse(rsp *http.Response) (*ListMailboxReceiveRulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListMailboxReceiveRulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ReceiveRuleList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateMailboxReceiveRuleResponse parses an HTTP response from a CreateMailboxReceiveRuleWithResponse call
+func ParseCreateMailboxReceiveRuleResponse(rsp *http.Response) (*CreateMailboxReceiveRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateMailboxReceiveRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest ReceiveRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteMailboxReceiveRuleResponse parses an HTTP response from a DeleteMailboxReceiveRuleWithResponse call
+func ParseDeleteMailboxReceiveRuleResponse(rsp *http.Response) (*DeleteMailboxReceiveRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteMailboxReceiveRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRestoreMailboxResponse parses an HTTP response from a RestoreMailboxWithResponse call
+func ParseRestoreMailboxResponse(rsp *http.Response) (*RestoreMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RestoreMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseResumeMailboxResponse parses an HTTP response from a ResumeMailboxWithResponse call
+func ParseResumeMailboxResponse(rsp *http.Response) (*ResumeMailboxResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ResumeMailboxResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Mailbox
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetMailboxStatsResponse parses an HTTP response from a GetMailboxStatsWithResponse call
+func ParseGetMailboxStatsResponse(rsp *http.Response) (*GetMailboxStatsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetMailboxStatsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest MailboxStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListEmailMessagesResponse parses an HTTP response from a ListEmailMessagesWithResponse call
 func ParseListEmailMessagesResponse(rsp *http.Response) (*ListEmailMessagesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -24263,6 +29548,646 @@ func ParseGetEmailStatsByTemplateResponse(rsp *http.Response) (*GetEmailStatsByT
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailThreadsResponse parses an HTTP response from a ListEmailThreadsWithResponse call
+func ParseListEmailThreadsResponse(rsp *http.Response) (*ListEmailThreadsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailThreadsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThreadList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailThreadResponse parses an HTTP response from a DeleteEmailThreadWithResponse call
+func ParseDeleteEmailThreadResponse(rsp *http.Response) (*DeleteEmailThreadResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailThreadResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailThreadResponse parses an HTTP response from a GetEmailThreadWithResponse call
+func ParseGetEmailThreadResponse(rsp *http.Response) (*GetEmailThreadResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailThreadResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThread
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailThreadResponse parses an HTTP response from a UpdateEmailThreadWithResponse call
+func ParseUpdateEmailThreadResponse(rsp *http.Response) (*UpdateEmailThreadResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailThreadResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThread
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailThreadMessagesResponse parses an HTTP response from a ListEmailThreadMessagesWithResponse call
+func ParseListEmailThreadMessagesResponse(rsp *http.Response) (*ListEmailThreadMessagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailThreadMessagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThreadMessageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailThreadMessageResponse parses an HTTP response from a GetEmailThreadMessageWithResponse call
+func ParseGetEmailThreadMessageResponse(rsp *http.Response) (*GetEmailThreadMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailThreadMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThreadMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailThreadMessageAttachmentsResponse parses an HTTP response from a ListEmailThreadMessageAttachmentsWithResponse call
+func ParseListEmailThreadMessageAttachmentsResponse(rsp *http.Response) (*ListEmailThreadMessageAttachmentsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailThreadMessageAttachmentsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThreadMessageAttachmentList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailThreadMessageBodyResponse parses an HTTP response from a GetEmailThreadMessageBodyWithResponse call
+func ParseGetEmailThreadMessageBodyResponse(rsp *http.Response) (*GetEmailThreadMessageBodyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailThreadMessageBodyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailThreadMessageBody
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReplyEmailThreadMessageResponse parses an HTTP response from a ReplyEmailThreadMessageWithResponse call
+func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThreadMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReplyEmailThreadMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailThreadMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

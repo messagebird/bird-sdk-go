@@ -1036,3 +1036,290 @@ func ExampleDomainsService_Verify() {
 	}
 	fmt.Println(*domain.Status)
 }
+
+// List auto-paginates across all mailboxes in the workspace.
+func ExampleMailboxService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for mailbox, err := range client.Mailbox.List(context.Background(), bird.MailboxListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(mailbox.Id)
+	}
+}
+
+func ExampleMailboxService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mailbox, err := client.Mailbox.Create(context.Background(), bird.MailboxCreateParams{
+		DisplayName: "Support",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(mailbox.Id, *mailbox.Address)
+}
+
+func ExampleMailboxService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mailbox, err := client.Mailbox.Get(context.Background(), "mbx_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*mailbox.Address)
+}
+
+func ExampleMailboxService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	name := "Sales"
+	mailbox, err := client.Mailbox.Update(context.Background(), "mbx_123", bird.MailboxUpdateParams{
+		DisplayName: &name,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(mailbox.Id)
+}
+
+func ExampleMailboxService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Mailbox.Delete(context.Background(), "mbx_123"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleMailboxService_Restore() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mailbox, err := client.Mailbox.Restore(context.Background(), "mbx_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(mailbox.Id)
+}
+
+func ExampleMailboxService_Resume() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mailbox, err := client.Mailbox.Resume(context.Background(), "mbx_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(mailbox.Id)
+}
+
+func ExampleMailboxService_Stats() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Mailbox.Stats(context.Background(), "mbx_123", bird.MailboxStatsParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if stats.Summary != nil {
+		if d := stats.Summary.Delivery; d != nil {
+			fmt.Println(d.Delivered, d.Bounced)
+		}
+	}
+}
+
+func ExampleMailboxService_Compose() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Mailbox.Compose(context.Background(), "mbx_123", bird.MailboxComposeParams{
+		To:      []string{"customer@example.com"},
+		Subject: "Following up",
+		HTML:    "<p>Hi, just checking in.</p>",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id)
+}
+
+func ExampleMailboxService_Labels() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	labels, err := client.Mailbox.Labels(context.Background(), "mbx_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, l := range labels.Data {
+		fmt.Println(l.Name)
+	}
+}
+
+func ExampleMailboxReceiveRuleService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rule, err := range client.MailboxReceiveRule.List(context.Background(), "mbx_123", bird.MailboxReceiveRuleListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(rule.Id, rule.Action, rule.Entry)
+	}
+}
+
+func ExampleMailboxReceiveRuleService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rule, err := client.MailboxReceiveRule.Create(context.Background(), "mbx_123", bird.MailboxReceiveRuleCreateParams{
+		Action: "block",
+		Entry:  "spam.example.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(rule.Id)
+}
+
+func ExampleMailboxReceiveRuleService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.MailboxReceiveRule.Delete(context.Background(), "mbx_123", "erl_456"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleMailboxThreadService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for thread, err := range client.MailboxThread.List(context.Background(), bird.MailboxThreadListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(thread.Id)
+	}
+}
+
+func ExampleMailboxThreadService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	thread, err := client.MailboxThread.Get(context.Background(), "thr_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(thread.Id)
+}
+
+func ExampleMailboxThreadService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	thread, err := client.MailboxThread.Update(context.Background(), "thr_123", bird.MailboxThreadUpdateParams{
+		AddLabels: []string{"urgent"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(thread.Id)
+}
+
+func ExampleMailboxThreadService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.MailboxThread.Delete(context.Background(), "thr_123", false); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleMailboxThreadMessageService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for msg, err := range client.MailboxThreadMessage.List(context.Background(), "thr_123", bird.MailboxThreadMessageListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(msg.Id, msg.Direction)
+	}
+}
+
+func ExampleMailboxThreadMessageService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.MailboxThreadMessage.Get(context.Background(), "thr_123", "rem_456")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, msg.Direction)
+}
+
+func ExampleMailboxThreadMessageService_Body() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	body, err := client.MailboxThreadMessage.Body(context.Background(), "thr_123", "rem_456")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(body.Text)
+}
+
+func ExampleMailboxThreadMessageService_Reply() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	reply, err := client.MailboxThreadMessage.Reply(context.Background(), "thr_123", "rem_456", bird.MailboxThreadMessageReplyParams{
+		Text: "Thanks for reaching out!",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(reply.Id)
+}
+
+func ExampleMailboxThreadMessageService_Attachments() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.MailboxThreadMessage.Attachments(context.Background(), "thr_123", "rem_456")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, a := range result.Data {
+		fmt.Println(a.Filename, a.Size)
+	}
+}

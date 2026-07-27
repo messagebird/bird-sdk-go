@@ -19,9 +19,9 @@ type WhatsAppService struct{ client *Client }
 // content will be added in a future release. Zero-value fields are omitted from
 // the request.
 type WhatsappSendParams struct {
-	To         string                            // required; recipient phone number in E.164 format
-	Template   string                            // required; the template's stable handle (e.g. bird_otp)
-	Language   string                            // template language variant; omit when the template has a single language
+	To         string                             // required; recipient phone number in E.164 format
+	Template   string                             // required; the template's stable handle (e.g. bird_otp)
+	Language   string                             // template language variant; omit when the template has a single language
 	Components []WhatsAppMessageTemplateComponent // values that fill the template's placeholders
 }
 

@@ -79,4 +79,26 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Audiences.AddContacts
 	_ = c.Audiences.RemoveContacts
 	_ = c.Audiences.RemoveContact
+	_ = c.Mailbox.List
+	_ = c.Mailbox.Create
+	_ = c.Mailbox.Get
+	_ = c.Mailbox.Update
+	_ = c.Mailbox.Delete
+	_ = c.Mailbox.Restore
+	_ = c.Mailbox.Resume
+	_ = c.Mailbox.Stats
+	_ = c.Mailbox.Compose
+	_ = c.Mailbox.Labels
+	_ = c.MailboxReceiveRule.List
+	_ = c.MailboxReceiveRule.Create
+	_ = c.MailboxReceiveRule.Delete
+	_ = c.MailboxThread.List
+	_ = c.MailboxThread.Get
+	_ = c.MailboxThread.Update
+	_ = c.MailboxThread.Delete
+	_ = c.MailboxThreadMessage.List
+	_ = c.MailboxThreadMessage.Get
+	_ = c.MailboxThreadMessage.Body
+	_ = c.MailboxThreadMessage.Reply
+	_ = c.MailboxThreadMessage.Attachments
 }
