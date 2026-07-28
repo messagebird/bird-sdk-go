@@ -27,7 +27,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Stats.Hourly
 	_ = c.Email.Stats.ByTag
 	_ = c.Email.Stats.ByCategory
-	_ = c.Email.Stats.BySendingIp
+	_ = c.Email.Stats.BySendingIP
 	_ = c.Email.Stats.BySendingDomain
 	_ = c.Email.Stats.ByRecipientDomain
 	_ = c.Email.Stats.ByMailboxProvider

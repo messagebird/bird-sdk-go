@@ -26,11 +26,11 @@ type ContactListParams struct {
 
 func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams {
 	return &oapi.ListContactsParams{
-		Email:         statsStr(p.Email),
-		ExternalId:    statsStr(p.ExternalID),
-		Q:             statsStr(p.Q),
-		Limit:         statsInt(p.Limit),
-		StartingAfter: statsStr(startingAfter),
+		Email:         optStr(p.Email),
+		ExternalId:    optStr(p.ExternalID),
+		Q:             optStr(p.Q),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 

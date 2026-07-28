@@ -36,16 +36,16 @@ type EmailStatsSummaryParams struct {
 
 func (p EmailStatsSummaryParams) toWire() *oapi.GetEmailStatsSummaryParams {
 	return &oapi.GetEmailStatsSummaryParams{
-		From:            statsStr(p.From),
-		To:              statsStr(p.To),
-		Timezone:        statsStr(p.Timezone),
-		Category:        statsStr(p.Category),
-		SendingDomain:   statsStr(p.SendingDomain),
-		Tag:             statsStr(p.Tag),
-		SendingIp:       statsStr(p.SendingIP),
-		RecipientDomain: statsStr(p.RecipientDomain),
-		Template:        statsStr(p.Template),
-		Compare:         statsEnum[oapi.GetEmailStatsSummaryParamsCompare](p.Compare),
+		From:            optStr(p.From),
+		To:              optStr(p.To),
+		Timezone:        optStr(p.Timezone),
+		Category:        optStr(p.Category),
+		SendingDomain:   optStr(p.SendingDomain),
+		Tag:             optStr(p.Tag),
+		SendingIp:       optStr(p.SendingIP),
+		RecipientDomain: optStr(p.RecipientDomain),
+		Template:        optStr(p.Template),
+		Compare:         optEnum[oapi.GetEmailStatsSummaryParamsCompare](p.Compare),
 	}
 }
 
@@ -73,15 +73,15 @@ type EmailStatsDailyParams struct {
 
 func (p EmailStatsDailyParams) toWire() *oapi.GetEmailStatsDailyParams {
 	return &oapi.GetEmailStatsDailyParams{
-		From:            statsDate(p.From),
-		To:              statsDate(p.To),
-		Timezone:        statsStr(p.Timezone),
-		Category:        statsStr(p.Category),
-		SendingDomain:   statsStr(p.SendingDomain),
-		Tag:             statsStr(p.Tag),
-		SendingIp:       statsStr(p.SendingIP),
-		RecipientDomain: statsStr(p.RecipientDomain),
-		Template:        statsStr(p.Template),
+		From:            optDate(p.From),
+		To:              optDate(p.To),
+		Timezone:        optStr(p.Timezone),
+		Category:        optStr(p.Category),
+		SendingDomain:   optStr(p.SendingDomain),
+		Tag:             optStr(p.Tag),
+		SendingIp:       optStr(p.SendingIP),
+		RecipientDomain: optStr(p.RecipientDomain),
+		Template:        optStr(p.Template),
 	}
 }
 
@@ -109,15 +109,15 @@ type EmailStatsHourlyParams struct {
 
 func (p EmailStatsHourlyParams) toWire() *oapi.GetEmailStatsHourlyParams {
 	return &oapi.GetEmailStatsHourlyParams{
-		From:            statsTime(p.From),
-		To:              statsTime(p.To),
-		Timezone:        statsStr(p.Timezone),
-		Category:        statsStr(p.Category),
-		SendingDomain:   statsStr(p.SendingDomain),
-		Tag:             statsStr(p.Tag),
-		SendingIp:       statsStr(p.SendingIP),
-		RecipientDomain: statsStr(p.RecipientDomain),
-		Template:        statsStr(p.Template),
+		From:            optTime(p.From),
+		To:              optTime(p.To),
+		Timezone:        optStr(p.Timezone),
+		Category:        optStr(p.Category),
+		SendingDomain:   optStr(p.SendingDomain),
+		Tag:             optStr(p.Tag),
+		SendingIp:       optStr(p.SendingIP),
+		RecipientDomain: optStr(p.RecipientDomain),
+		Template:        optStr(p.Template),
 	}
 }
 
@@ -143,14 +143,14 @@ type EmailStatsByTagParams struct {
 
 func (p EmailStatsByTagParams) toWire() *oapi.GetEmailStatsByTagParams {
 	return &oapi.GetEmailStatsByTagParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByTagParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByTagParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -174,18 +174,18 @@ type EmailStatsByCategoryParams struct {
 
 func (p EmailStatsByCategoryParams) toWire() *oapi.GetEmailStatsByCategoryParams {
 	return &oapi.GetEmailStatsByCategoryParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByCategoryParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByCategoryParamsTrendGrain](p.TrendGrain),
 	}
 }
 
-// EmailStatsBySendingIpParams filters the by_sending_ip read.
-type EmailStatsBySendingIpParams struct {
+// EmailStatsBySendingIPParams filters the by_sending_ip read.
+type EmailStatsBySendingIPParams struct {
 	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -204,16 +204,16 @@ type EmailStatsBySendingIpParams struct {
 	TrendGrain string
 }
 
-func (p EmailStatsBySendingIpParams) toWire() *oapi.GetEmailStatsBySendingIpParams {
+func (p EmailStatsBySendingIPParams) toWire() *oapi.GetEmailStatsBySendingIpParams {
 	return &oapi.GetEmailStatsBySendingIpParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.GetEmailStatsBySendingIpParamsSort](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsBySendingIpParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.GetEmailStatsBySendingIpParamsSort](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsBySendingIpParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -239,14 +239,14 @@ type EmailStatsBySendingDomainParams struct {
 
 func (p EmailStatsBySendingDomainParams) toWire() *oapi.GetEmailStatsBySendingDomainParams {
 	return &oapi.GetEmailStatsBySendingDomainParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsBySendingDomainParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsBySendingDomainParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -272,14 +272,14 @@ type EmailStatsByRecipientDomainParams struct {
 
 func (p EmailStatsByRecipientDomainParams) toWire() *oapi.GetEmailStatsByRecipientDomainParams {
 	return &oapi.GetEmailStatsByRecipientDomainParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByRecipientDomainParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByRecipientDomainParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -305,14 +305,14 @@ type EmailStatsByMailboxProviderParams struct {
 
 func (p EmailStatsByMailboxProviderParams) toWire() *oapi.GetEmailStatsByMailboxProviderParams {
 	return &oapi.GetEmailStatsByMailboxProviderParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByMailboxProviderParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByMailboxProviderParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -338,14 +338,14 @@ type EmailStatsByMailboxProviderRegionParams struct {
 
 func (p EmailStatsByMailboxProviderRegionParams) toWire() *oapi.GetEmailStatsByMailboxProviderRegionParams {
 	return &oapi.GetEmailStatsByMailboxProviderRegionParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByMailboxProviderRegionParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByMailboxProviderRegionParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -371,14 +371,14 @@ type EmailStatsByTemplateParams struct {
 
 func (p EmailStatsByTemplateParams) toWire() *oapi.GetEmailStatsByTemplateParams {
 	return &oapi.GetEmailStatsByTemplateParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Timezone:     statsStr(p.Timezone),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByTemplateParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Timezone:     optStr(p.Timezone),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByTemplateParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -402,13 +402,13 @@ type EmailStatsByLocationParams struct {
 
 func (p EmailStatsByLocationParams) toWire() *oapi.GetEmailStatsByLocationParams {
 	return &oapi.GetEmailStatsByLocationParams{
-		From:     statsDate(p.From),
-		To:       statsDate(p.To),
-		Timezone: statsStr(p.Timezone),
-		Category: statsStr(p.Category),
-		GroupBy:  statsEnum[oapi.GetEmailStatsByLocationParamsGroupBy](p.GroupBy),
-		Sort:     statsEnum[oapi.EmailEngagementSortMetric](p.Sort),
-		Limit:    statsInt(p.Limit),
+		From:     optDate(p.From),
+		To:       optDate(p.To),
+		Timezone: optStr(p.Timezone),
+		Category: optStr(p.Category),
+		GroupBy:  optEnum[oapi.GetEmailStatsByLocationParamsGroupBy](p.GroupBy),
+		Sort:     optEnum[oapi.EmailEngagementSortMetric](p.Sort),
+		Limit:    optInt(p.Limit),
 	}
 }
 
@@ -432,13 +432,13 @@ type EmailStatsByClientParams struct {
 
 func (p EmailStatsByClientParams) toWire() *oapi.GetEmailStatsByClientParams {
 	return &oapi.GetEmailStatsByClientParams{
-		From:     statsDate(p.From),
-		To:       statsDate(p.To),
-		Timezone: statsStr(p.Timezone),
-		Category: statsStr(p.Category),
-		GroupBy:  statsEnum[oapi.GetEmailStatsByClientParamsGroupBy](p.GroupBy),
-		Sort:     statsEnum[oapi.EmailEngagementSortMetric](p.Sort),
-		Limit:    statsInt(p.Limit),
+		From:     optDate(p.From),
+		To:       optDate(p.To),
+		Timezone: optStr(p.Timezone),
+		Category: optStr(p.Category),
+		GroupBy:  optEnum[oapi.GetEmailStatsByClientParamsGroupBy](p.GroupBy),
+		Sort:     optEnum[oapi.EmailEngagementSortMetric](p.Sort),
+		Limit:    optInt(p.Limit),
 	}
 }
 
@@ -460,12 +460,12 @@ type EmailStatsByBounceCodeParams struct {
 
 func (p EmailStatsByBounceCodeParams) toWire() *oapi.GetEmailStatsByBounceCodeParams {
 	return &oapi.GetEmailStatsByBounceCodeParams{
-		From:     statsDate(p.From),
-		To:       statsDate(p.To),
-		Timezone: statsStr(p.Timezone),
-		Category: statsStr(p.Category),
-		Sort:     statsEnum[oapi.GetEmailStatsByBounceCodeParamsSort](p.Sort),
-		Limit:    statsInt(p.Limit),
+		From:     optDate(p.From),
+		To:       optDate(p.To),
+		Timezone: optStr(p.Timezone),
+		Category: optStr(p.Category),
+		Sort:     optEnum[oapi.GetEmailStatsByBounceCodeParamsSort](p.Sort),
+		Limit:    optInt(p.Limit),
 	}
 }
 
@@ -487,12 +487,12 @@ type EmailStatsByComplaintTypeParams struct {
 
 func (p EmailStatsByComplaintTypeParams) toWire() *oapi.GetEmailStatsByComplaintTypeParams {
 	return &oapi.GetEmailStatsByComplaintTypeParams{
-		From:     statsDate(p.From),
-		To:       statsDate(p.To),
-		Timezone: statsStr(p.Timezone),
-		Category: statsStr(p.Category),
-		Sort:     statsEnum[oapi.GetEmailStatsByComplaintTypeParamsSort](p.Sort),
-		Limit:    statsInt(p.Limit),
+		From:     optDate(p.From),
+		To:       optDate(p.To),
+		Timezone: optStr(p.Timezone),
+		Category: optStr(p.Category),
+		Sort:     optEnum[oapi.GetEmailStatsByComplaintTypeParamsSort](p.Sort),
+		Limit:    optInt(p.Limit),
 	}
 }
 
@@ -516,13 +516,13 @@ type EmailStatsByBroadcastParams struct {
 
 func (p EmailStatsByBroadcastParams) toWire() *oapi.GetEmailStatsByBroadcastParams {
 	return &oapi.GetEmailStatsByBroadcastParams{
-		From:         statsDate(p.From),
-		To:           statsDate(p.To),
-		Category:     statsStr(p.Category),
-		Sort:         statsEnum[oapi.EmailStatsSortMetric](p.Sort),
-		Limit:        statsInt(p.Limit),
-		IncludeTrend: statsBool(p.IncludeTrend),
-		TrendGrain:   statsEnum[oapi.GetEmailStatsByBroadcastParamsTrendGrain](p.TrendGrain),
+		From:         optDate(p.From),
+		To:           optDate(p.To),
+		Category:     optStr(p.Category),
+		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Limit:        optInt(p.Limit),
+		IncludeTrend: optBool(p.IncludeTrend),
+		TrendGrain:   optEnum[oapi.GetEmailStatsByBroadcastParamsTrendGrain](p.TrendGrain),
 	}
 }
 
@@ -601,15 +601,15 @@ func (s *EmailStatsService) ByCategory(ctx context.Context, params EmailStatsByC
 	return &out, nil
 }
 
-// BySendingIp Delivery and bounce stats grouped by sending IP; `sort=bounces.block` surfaces reputation-damaged IPs first. No engagement, complaint, or accepted/processed counts per IP; use email_stats_daily for workspace-wide figures.
-func (s *EmailStatsService) BySendingIp(ctx context.Context, params EmailStatsBySendingIpParams, opts ...option.RequestOption) (*EmailStatsBySendingIpResponse, error) {
+// BySendingIP Delivery and bounce stats grouped by sending IP; `sort=bounces.block` surfaces reputation-damaged IPs first. No engagement, complaint, or accepted/processed counts per IP; use email_stats_daily for workspace-wide figures.
+func (s *EmailStatsService) BySendingIP(ctx context.Context, params EmailStatsBySendingIPParams, opts ...option.RequestOption) (*EmailStatsBySendingIPResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsBySendingIp(ctx, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
 	}
-	var out EmailStatsBySendingIpResponse
+	var out EmailStatsBySendingIPResponse
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

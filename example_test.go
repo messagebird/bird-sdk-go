@@ -799,13 +799,13 @@ func ExampleEmailStatsService_ByCategory() {
 	fmt.Println(stats.Data)
 }
 
-// BySendingIp ranks delivery statistics per sending IP.
-func ExampleEmailStatsService_BySendingIp() {
+// BySendingIP ranks delivery statistics per sending IP.
+func ExampleEmailStatsService_BySendingIP() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	stats, err := client.Email.Stats.BySendingIp(context.Background(), bird.EmailStatsBySendingIpParams{
+	stats, err := client.Email.Stats.BySendingIP(context.Background(), bird.EmailStatsBySendingIPParams{
 		Sort: "bounced",
 	})
 	if err != nil {

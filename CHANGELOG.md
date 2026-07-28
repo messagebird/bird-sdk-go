@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+
+- **Breaking:** `Email.Stats.BySendingIp` is renamed `BySendingIP`, with its `EmailStatsBySendingIpParams`/`EmailStatsBySendingIpResponse` types renamed to `...IP...` — idiomatic Go initialism (golint ST1003), matching the `SendingIP` field the SDK already uses.
+- Docs: resource and package docstrings now describe behavior only, without internal implementation notes.
+- Internal improvements.
+
 ## 0.12.0
 
 - Agent mailboxes (inbox.ai): create and manage durable inboxes; receive, read, label, compose, and reply over the API

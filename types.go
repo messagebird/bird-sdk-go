@@ -44,9 +44,7 @@ type EmailAttachment = oapi.EmailAttachment
 type EmailStatus = oapi.EmailMessageStatus
 
 // Email statistics responses, returned by the Client.Email.Stats methods. Each
-// is the read-side body for one breakdown; the shared metric shapes (delivery,
-// engagement, latency, and the per-row points) live in internal/oapi and are
-// reachable through these aliases.
+// is the read-side body for one breakdown.
 type (
 	// EmailStatsSummary is the delivery/engagement/latency totals for a window,
 	// optionally with a previous-period comparison. Returned by Stats.Summary.
@@ -57,7 +55,7 @@ type (
 	// EmailStatsTagsResponse is the ranked tag breakdown. Returned by Stats.ByTag.
 	EmailStatsTagsResponse                    = oapi.EmailStatsTagsResponse
 	EmailStatsByCategoryResponse              = oapi.EmailStatsByCategoryResponse
-	EmailStatsBySendingIpResponse             = oapi.EmailStatsBySendingIpResponse
+	EmailStatsBySendingIPResponse             = oapi.EmailStatsBySendingIpResponse
 	EmailStatsBySendingDomainResponse         = oapi.EmailStatsBySendingDomainResponse
 	EmailStatsByRecipientDomainResponse       = oapi.EmailStatsByRecipientDomainResponse
 	EmailStatsByMailboxProviderResponse       = oapi.EmailStatsByMailboxProviderResponse
@@ -193,9 +191,9 @@ const (
 	CategoryMarketing     Category = "marketing"
 )
 
-// WebhookEventType is a webhook event's discriminant. It is an open string:
-// the known values are the EventType* constants in eventtypes.gen.go, and an
-// event type added by a newer server flows through Unwrap as a plain string.
+// WebhookEventType is a webhook event's discriminant. It is an open string: the
+// known values are the EventType* constants, and an event type added by a newer
+// server flows through Unwrap as a plain string.
 type WebhookEventType = oapi.WebhookEventType
 
 // Webhook event payloads, returned by Event.AsAny. Type-switch on these.

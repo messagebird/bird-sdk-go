@@ -151,7 +151,7 @@ func TestErrorMapping(t *testing.T) {
 		{
 			name:   "validation",
 			status: http.StatusUnprocessableEntity,
-			body:   `{"error":{"type":"validation_error","code":"E12001","name":"invalid_recipient","message":"bad","doc_url":"https://docs.bird.com/errors/E12001","request_id":"req_body","param":"to","vendor_code":"550","details":[{"param":"to[0]","message":"invalid address"}]}}`,
+			body:   `{"error":{"type":"validation_error","code":"E12001","name":"invalid_recipient","message":"bad","doc_url":"https://bird.com/docs/api/errors/E12001","request_id":"req_body","param":"to","vendor_code":"550","details":[{"param":"to[0]","message":"invalid address"}]}}`,
 			check: func(t *testing.T, err error) {
 				var ve *bird.ValidationError
 				if !errors.As(err, &ve) {
@@ -174,7 +174,7 @@ func TestErrorMapping(t *testing.T) {
 				if api.Message != "bad" {
 					t.Errorf("Message = %q, want bad", api.Message)
 				}
-				if api.DocURL != "https://docs.bird.com/errors/E12001" {
+				if api.DocURL != "https://bird.com/docs/api/errors/E12001" {
 					t.Errorf("DocURL = %q", api.DocURL)
 				}
 				if api.RequestID != "req_body" {

@@ -11,10 +11,7 @@ import (
 )
 
 // ContactsService manages workspace contacts: create, read, update, delete, bulk
-// upsert, and list. Reach it via Client.Contacts. Get, Delete, and List (with
-// ListPage) are generated (contacts.gen.go); the writes are hand-written here
-// because they carry craft the generator does not express (clearable PATCH
-// fields, an ergonomic nested-contact batch).
+// upsert, and list. Reach it via Client.Contacts.
 type ContactsService struct{ resource }
 
 // ContactUpdateParams is a partial update of a contact. Every field is a
