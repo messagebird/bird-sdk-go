@@ -63,8 +63,10 @@ func (p MailboxCreateParams) toWire() oapi.MailboxCreate {
 
 // MailboxUpdateParams is a partial update. Nil fields leave values unchanged.
 type MailboxUpdateParams struct {
-	DisplayName    *string
-	DefaultReplyTo *string
+	// DisplayName and DefaultReplyTo are Nullable: bird.Value sets a value,
+	// bird.Null clears it (explicit JSON null), and the zero value omits it.
+	DisplayName    Nullable[string]
+	DefaultReplyTo Nullable[string]
 	ReceivePolicy  *string
 	RetentionTier  *string
 	Metadata       map[string]any
@@ -74,10 +76,7 @@ type MailboxUpdateParams struct {
 func (p MailboxUpdateParams) toWire() oapi.MailboxUpdate {
 	body := oapi.MailboxUpdate{}
 	body.DisplayName = p.DisplayName
-	if p.DefaultReplyTo != nil {
-		e := openapi_types.Email(*p.DefaultReplyTo)
-		body.DefaultReplyTo = &e
-	}
+	body.DefaultReplyTo = p.DefaultReplyTo
 	if p.ReceivePolicy != nil {
 		rp := oapi.MailboxUpdateReceivePolicy(*p.ReceivePolicy)
 		body.ReceivePolicy = &rp

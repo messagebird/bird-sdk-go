@@ -15,6 +15,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oapi-codegen/nullable"
 	"github.com/oapi-codegen/runtime"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
@@ -1941,6 +1942,81 @@ func (e EventSMSUndeliveredType) Valid() bool {
 	}
 }
 
+// Defines values for EventVerifyAttemptDeliveredType.
+const (
+	VerifyAttemptDelivered EventVerifyAttemptDeliveredType = "verify.attempt.delivered"
+)
+
+// Valid indicates whether the value is a known member of the EventVerifyAttemptDeliveredType enum.
+func (e EventVerifyAttemptDeliveredType) Valid() bool {
+	switch e {
+	case VerifyAttemptDelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVerifyAttemptSentType.
+const (
+	VerifyAttemptSent EventVerifyAttemptSentType = "verify.attempt.sent"
+)
+
+// Valid indicates whether the value is a known member of the EventVerifyAttemptSentType enum.
+func (e EventVerifyAttemptSentType) Valid() bool {
+	switch e {
+	case VerifyAttemptSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVerifyAttemptUndeliveredType.
+const (
+	VerifyAttemptUndelivered EventVerifyAttemptUndeliveredType = "verify.attempt.undelivered"
+)
+
+// Valid indicates whether the value is a known member of the EventVerifyAttemptUndeliveredType enum.
+func (e EventVerifyAttemptUndeliveredType) Valid() bool {
+	switch e {
+	case VerifyAttemptUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVerifyVerificationCreatedType.
+const (
+	VerifyVerificationCreated EventVerifyVerificationCreatedType = "verify.verification.created"
+)
+
+// Valid indicates whether the value is a known member of the EventVerifyVerificationCreatedType enum.
+func (e EventVerifyVerificationCreatedType) Valid() bool {
+	switch e {
+	case VerifyVerificationCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventVerifyVerificationVerifiedType.
+const (
+	VerifyVerificationVerified EventVerifyVerificationVerifiedType = "verify.verification.verified"
+)
+
+// Valid indicates whether the value is a known member of the EventVerifyVerificationVerifiedType enum.
+func (e EventVerifyVerificationVerifiedType) Valid() bool {
+	switch e {
+	case VerifyVerificationVerified:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventVoiceCallAnsweredType.
 const (
 	VoiceCallAnswered EventVoiceCallAnsweredType = "voice_call.answered"
@@ -2682,6 +2758,24 @@ func (e SMSTemplateStatus) Valid() bool {
 	}
 }
 
+// Defines values for StatsGrain.
+const (
+	StatsGrainDay  StatsGrain = "day"
+	StatsGrainHour StatsGrain = "hour"
+)
+
+// Valid indicates whether the value is a known member of the StatsGrain enum.
+func (e StatsGrain) Valid() bool {
+	switch e {
+	case StatsGrainDay:
+		return true
+	case StatsGrainHour:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SuppressionScopeType.
 const (
 	SuppressionScopeTypeAudience  SuppressionScopeType = "audience"
@@ -3062,16 +3156,16 @@ func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 
 // Defines values for GetMailboxStatsParamsGranularity.
 const (
-	Day  GetMailboxStatsParamsGranularity = "day"
-	Hour GetMailboxStatsParamsGranularity = "hour"
+	GetMailboxStatsParamsGranularityDay  GetMailboxStatsParamsGranularity = "day"
+	GetMailboxStatsParamsGranularityHour GetMailboxStatsParamsGranularity = "hour"
 )
 
 // Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
 func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	switch e {
-	case Day:
+	case GetMailboxStatsParamsGranularityDay:
 		return true
-	case Hour:
+	case GetMailboxStatsParamsGranularityHour:
 		return true
 	default:
 		return false
@@ -3685,7 +3779,7 @@ type AudienceRef struct {
 // AudienceUpdateRequest defines model for AudienceUpdateRequest.
 type AudienceUpdateRequest struct {
 	// Description Longer description of who this audience is. Set to null to clear.
-	Description *string `json:"description,omitempty"`
+	Description nullable.Nullable[string] `json:"description,omitempty"`
 
 	// Name New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name *string `json:"name,omitempty"`
@@ -3823,13 +3917,13 @@ type ContactUpdateRequest struct {
 	Email *openapi_types.Email `json:"email,omitempty"`
 
 	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
-	ExternalId *string `json:"external_id,omitempty"`
+	ExternalId nullable.Nullable[string] `json:"external_id,omitempty"`
 
 	// FirstName The contact's first name. Set to null to clear.
-	FirstName *string `json:"first_name,omitempty"`
+	FirstName nullable.Nullable[string] `json:"first_name,omitempty"`
 
 	// LastName The contact's last name. Set to null to clear.
-	LastName *string `json:"last_name,omitempty"`
+	LastName nullable.Nullable[string] `json:"last_name,omitempty"`
 }
 
 // ContactUpsertError defines model for ContactUpsertError.
@@ -4496,7 +4590,7 @@ type DomainUpdate struct {
 	Settings *DomainSettings `json:"settings,omitempty"`
 
 	// Tracking Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
-	Tracking *DomainTrackingConfig `json:"tracking,omitempty"`
+	Tracking nullable.Nullable[DomainTrackingConfig] `json:"tracking,omitempty"`
 }
 
 // DomainUpdateDkimMode How the DKIM public key is published in your DNS.
@@ -5515,7 +5609,7 @@ type EmailSmtpConfigUpdate struct {
 	Category *EmailSmtpConfigUpdateCategory `json:"category,omitempty"`
 
 	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Send `null` to reset to your organization's default pool, or omit to leave unchanged. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
-	IpPoolId *string `json:"ip_pool_id,omitempty"`
+	IpPoolId nullable.Nullable[string] `json:"ip_pool_id,omitempty"`
 
 	// Tags Structured `{name, value}` labels applied to every message submitted over SMTP with this key. Send an empty array to clear all tags, or omit to leave unchanged.
 	Tags *[]Tag `json:"tags,omitempty"`
@@ -5857,7 +5951,7 @@ type EmailStatsSeriesPeriod struct {
 	From *string `json:"from,omitempty"`
 
 	// Grain The bucket grain of the series, either `day` or `hour`.
-	Grain *string `json:"grain,omitempty"`
+	Grain *StatsGrain `json:"grain,omitempty"`
 
 	// To Inclusive end of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain; on the hour grain, an RFC 3339 UTC instant marking the start of the last hour bucket, which falls on a local hour boundary when `timezone` is set.
 	To *string `json:"to,omitempty"`
@@ -6234,7 +6328,7 @@ type EmailThreadMessageSource struct {
 // EmailThreadMessageUpdateRequest Changes to apply to a conversation message. Omitted fields are left unchanged.
 type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
-	ContactId *ContactID `json:"contact_id,omitempty"`
+	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
 	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
@@ -6243,7 +6337,7 @@ type EmailThreadMessageUpdateRequest struct {
 // EmailThreadUpdateRequest Changes to apply to a thread. Omitted fields are left unchanged.
 type EmailThreadUpdateRequest struct {
 	// ContactId Contact to link this conversation to, or null to unlink the current contact.
-	ContactId *ContactID `json:"contact_id,omitempty"`
+	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
 	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
@@ -7416,6 +7510,207 @@ type EventSMSUndeliveredData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventVerifyAttemptDelivered The channel confirmed delivery of a one-time passcode to the recipient.
+type EventVerifyAttemptDelivered struct {
+	// Data Payload of the verify.attempt.delivered event.
+	Data EventVerifyAttemptDeliveredData `json:"data"`
+
+	// Timestamp Time delivery was confirmed.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVerifyAttemptDeliveredType `json:"type"`
+}
+
+// EventVerifyAttemptDeliveredType Event type.
+type EventVerifyAttemptDeliveredType string
+
+// EventVerifyAttemptDeliveredData defines model for EventVerifyAttemptDeliveredData.
+type EventVerifyAttemptDeliveredData struct {
+	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
+	Address string `json:"address"`
+
+	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email and WhatsApp.
+	Carrier *string `json:"carrier"`
+
+	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	Channel VerificationChannel `json:"channel"`
+
+	// DeliveredAt Time delivery was confirmed.
+	DeliveredAt time.Time `json:"delivered_at"`
+
+	// MccMnc Mobile country code and mobile network code of the delivering carrier, when reported. Always null for email and WhatsApp.
+	MccMnc *string `json:"mcc_mnc"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyAttemptSent A one-time passcode was dispatched to the recipient on a channel.
+type EventVerifyAttemptSent struct {
+	// Data Payload of the verify.attempt.sent event.
+	Data EventVerifyAttemptSentData `json:"data"`
+
+	// Timestamp Time the passcode was dispatched.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVerifyAttemptSentType `json:"type"`
+}
+
+// EventVerifyAttemptSentType Event type.
+type EventVerifyAttemptSentType string
+
+// EventVerifyAttemptSentData defines model for EventVerifyAttemptSentData.
+type EventVerifyAttemptSentData struct {
+	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
+	Address string `json:"address"`
+
+	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	Channel VerificationChannel `json:"channel"`
+
+	// From The sender the passcode was sent from: a phone number, alphanumeric sender ID, short code, or email address. Null when the channel exposes no sender.
+	From *string `json:"from"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// SentAt Time the passcode was dispatched.
+	SentAt time.Time `json:"sent_at"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyAttemptUndelivered A one-time passcode failed to deliver to the recipient.
+type EventVerifyAttemptUndelivered struct {
+	// Data Payload of the verify.attempt.undelivered event.
+	Data EventVerifyAttemptUndeliveredData `json:"data"`
+
+	// Timestamp Time the failure was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVerifyAttemptUndeliveredType `json:"type"`
+}
+
+// EventVerifyAttemptUndeliveredType Event type.
+type EventVerifyAttemptUndeliveredType string
+
+// EventVerifyAttemptUndeliveredData defines model for EventVerifyAttemptUndeliveredData.
+type EventVerifyAttemptUndeliveredData struct {
+	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
+	Address string `json:"address"`
+
+	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	Channel VerificationChannel `json:"channel"`
+
+	// Error Diagnostic text describing the failure, for display only. Null when none was reported.
+	Error *string `json:"error"`
+
+	// FailedAt Time the failure was recorded.
+	FailedAt time.Time `json:"failed_at"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. v1 emits `carrier_rejected` (SMS), `hard_bounce` (email), `undelivered` (a generic terminal delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+	Reason VerificationAttemptFailureReason `json:"reason"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyBase Identity fields shared by every Verify lifecycle event payload.
+type EventVerifyBase struct {
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyVerificationCreated A verification session was created and its first one-time passcode is being sent.
+type EventVerifyVerificationCreated struct {
+	// Data Payload of the verify.verification.created event.
+	Data EventVerifyVerificationCreatedData `json:"data"`
+
+	// Timestamp Time the verification session was created.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVerifyVerificationCreatedType `json:"type"`
+}
+
+// EventVerifyVerificationCreatedType Event type.
+type EventVerifyVerificationCreatedType string
+
+// EventVerifyVerificationCreatedData defines model for EventVerifyVerificationCreatedData.
+type EventVerifyVerificationCreatedData struct {
+	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	Channel VerificationChannel `json:"channel"`
+
+	// CreatedAt Time the verification session was created.
+	CreatedAt time.Time `json:"created_at"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Status The verification's state at creation, always `pending`. Open enum for forward compatibility.
+	Status string `json:"status"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyVerificationVerified The verification was successfully resolved: the recipient confirmed the correct code.
+type EventVerifyVerificationVerified struct {
+	// Data Payload of the verify.verification.verified event.
+	Data EventVerifyVerificationVerifiedData `json:"data"`
+
+	// Timestamp Time the verification was verified.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type EventVerifyVerificationVerifiedType `json:"type"`
+}
+
+// EventVerifyVerificationVerifiedType Event type.
+type EventVerifyVerificationVerifiedType string
+
+// EventVerifyVerificationVerifiedData defines model for EventVerifyVerificationVerifiedData.
+type EventVerifyVerificationVerifiedData struct {
+	// Channel The channel whose passcode the recipient confirmed, the channel that converted. Null when the verification was resolved without attributing a channel.
+	Channel *VerificationChannel `json:"channel"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Status The verification's state, always `verified`. Open enum for forward compatibility.
+	Status string `json:"status"`
+
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+
+	// VerifiedAt Time the verification was verified.
+	VerifiedAt  time.Time   `json:"verified_at"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
 // EventVoiceBase Identity fields shared by every voice call lifecycle event payload.
 type EventVoiceBase struct {
 	CallId VoiceCallID `json:"call_id"`
@@ -7737,7 +8032,7 @@ type InboundAddressList struct {
 // InboundAddressUpdate Fields to update on an inbound address.
 type InboundAddressUpdate struct {
 	// Label Your own label for this address, typically the source mailbox it maps to. Send `null` to clear it; omit the field to leave it unchanged.
-	Label *string `json:"label,omitempty"`
+	Label nullable.Nullable[string] `json:"label,omitempty"`
 }
 
 // InboundAttachment Metadata for a file attached to a received email. The raw bytes are fetched separately with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
@@ -7933,13 +8228,13 @@ type InboundRouteUpdate struct {
 	MatchType *InboundRouteUpdateMatchType `json:"match_type,omitempty"`
 
 	// MatchValue The local part an `address` route matches. Null for `catch_all` routes.
-	MatchValue *string `json:"match_value,omitempty"`
+	MatchValue nullable.Nullable[string] `json:"match_value,omitempty"`
 
 	// Priority Evaluation order — lowest number wins. Explicit routes accept 11–1000; the mailbox's own address always matches at priority 10.
 	Priority *int `json:"priority,omitempty"`
 
 	// TargetMailboxId The mailbox that receives matching mail. Null for `drop` routes.
-	TargetMailboxId *MailboxID `json:"target_mailbox_id,omitempty"`
+	TargetMailboxId nullable.Nullable[MailboxID] `json:"target_mailbox_id,omitempty"`
 }
 
 // InboundRouteUpdateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
@@ -8114,10 +8409,10 @@ type MailboxStatsSummary struct {
 // MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged; fields set to null are cleared. The address and domain are immutable.
 type MailboxUpdate struct {
 	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
-	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
+	DefaultReplyTo nullable.Nullable[string] `json:"default_reply_to,omitempty"`
 
 	// DisplayName Display name used as the sender name on mail from this mailbox. Null clears it.
-	DisplayName *string `json:"display_name,omitempty"`
+	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
 
 	// Metadata Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -8512,6 +8807,9 @@ type ShareDomainDnsRequest struct {
 	Emails []openapi_types.Email `json:"emails"`
 }
 
+// StatsGrain The bucket grain of the series, either `day` or `hour`.
+type StatsGrain string
+
 // Suppression defines model for Suppression.
 type Suppression struct {
 	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing and future non-transactional categories but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` is reserved for category-specific preferences. This list grows over time; treat an unknown value as blocking at least non-transactional mail.
@@ -8648,8 +8946,8 @@ type Verification struct {
 	// Metadata The key/value pairs attached when the verification was created.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Reason Why the verification reached its final state: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Null while `pending` and once `verified`. Open enum; treat any unrecognized value as a future reason.
-	Reason *string `json:"reason,omitempty"`
+	// Reason Why the verification reached its final state, or null while `pending` and once `verified`. See the enum for the values it can take.
+	Reason *VerificationTerminalReason `json:"reason,omitempty"`
 
 	// Status The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 	Status *VerificationStatus `json:"status,omitempty"`
@@ -8664,6 +8962,9 @@ type Verification struct {
 
 // VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 type VerificationStatus string
+
+// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. v1 emits `carrier_rejected` (SMS), `hard_bounce` (email), `undelivered` (a generic terminal delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+type VerificationAttemptFailureReason = string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 type VerificationChannel = string
@@ -8719,6 +9020,9 @@ type VerificationOptions struct {
 	// CodeLength Passcode length for this verification. Omit to use the configured length.
 	CodeLength *int `json:"code_length,omitempty"`
 }
+
+// VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
+type VerificationTerminalReason = string
 
 // VerificationTo The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 type VerificationTo struct {
@@ -12456,6 +12760,146 @@ func (t *WebhookEvent) MergeEventSMSUndelivered(v EventSMSUndelivered) error {
 	return err
 }
 
+// AsEventVerifyAttemptDelivered returns the union data inside the WebhookEvent as a EventVerifyAttemptDelivered
+func (t WebhookEvent) AsEventVerifyAttemptDelivered() (EventVerifyAttemptDelivered, error) {
+	var body EventVerifyAttemptDelivered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyAttemptDelivered overwrites any union data inside the WebhookEvent as the provided EventVerifyAttemptDelivered
+func (t *WebhookEvent) FromEventVerifyAttemptDelivered(v EventVerifyAttemptDelivered) error {
+	v.Type = "verify.attempt.delivered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyAttemptDelivered performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyAttemptDelivered
+func (t *WebhookEvent) MergeEventVerifyAttemptDelivered(v EventVerifyAttemptDelivered) error {
+	v.Type = "verify.attempt.delivered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVerifyAttemptSent returns the union data inside the WebhookEvent as a EventVerifyAttemptSent
+func (t WebhookEvent) AsEventVerifyAttemptSent() (EventVerifyAttemptSent, error) {
+	var body EventVerifyAttemptSent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyAttemptSent overwrites any union data inside the WebhookEvent as the provided EventVerifyAttemptSent
+func (t *WebhookEvent) FromEventVerifyAttemptSent(v EventVerifyAttemptSent) error {
+	v.Type = "verify.attempt.sent"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyAttemptSent performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyAttemptSent
+func (t *WebhookEvent) MergeEventVerifyAttemptSent(v EventVerifyAttemptSent) error {
+	v.Type = "verify.attempt.sent"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVerifyAttemptUndelivered returns the union data inside the WebhookEvent as a EventVerifyAttemptUndelivered
+func (t WebhookEvent) AsEventVerifyAttemptUndelivered() (EventVerifyAttemptUndelivered, error) {
+	var body EventVerifyAttemptUndelivered
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyAttemptUndelivered overwrites any union data inside the WebhookEvent as the provided EventVerifyAttemptUndelivered
+func (t *WebhookEvent) FromEventVerifyAttemptUndelivered(v EventVerifyAttemptUndelivered) error {
+	v.Type = "verify.attempt.undelivered"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyAttemptUndelivered performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyAttemptUndelivered
+func (t *WebhookEvent) MergeEventVerifyAttemptUndelivered(v EventVerifyAttemptUndelivered) error {
+	v.Type = "verify.attempt.undelivered"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVerifyVerificationCreated returns the union data inside the WebhookEvent as a EventVerifyVerificationCreated
+func (t WebhookEvent) AsEventVerifyVerificationCreated() (EventVerifyVerificationCreated, error) {
+	var body EventVerifyVerificationCreated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyVerificationCreated overwrites any union data inside the WebhookEvent as the provided EventVerifyVerificationCreated
+func (t *WebhookEvent) FromEventVerifyVerificationCreated(v EventVerifyVerificationCreated) error {
+	v.Type = "verify.verification.created"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyVerificationCreated performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyVerificationCreated
+func (t *WebhookEvent) MergeEventVerifyVerificationCreated(v EventVerifyVerificationCreated) error {
+	v.Type = "verify.verification.created"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventVerifyVerificationVerified returns the union data inside the WebhookEvent as a EventVerifyVerificationVerified
+func (t WebhookEvent) AsEventVerifyVerificationVerified() (EventVerifyVerificationVerified, error) {
+	var body EventVerifyVerificationVerified
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyVerificationVerified overwrites any union data inside the WebhookEvent as the provided EventVerifyVerificationVerified
+func (t *WebhookEvent) FromEventVerifyVerificationVerified(v EventVerifyVerificationVerified) error {
+	v.Type = "verify.verification.verified"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyVerificationVerified performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyVerificationVerified
+func (t *WebhookEvent) MergeEventVerifyVerificationVerified(v EventVerifyVerificationVerified) error {
+	v.Type = "verify.verification.verified"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventVoiceCallAnswered returns the union data inside the WebhookEvent as a EventVoiceCallAnswered
 func (t WebhookEvent) AsEventVoiceCallAnswered() (EventVoiceCallAnswered, error) {
 	var body EventVoiceCallAnswered
@@ -12792,6 +13236,16 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSTfnVerificationSubmitted()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
+	case "verify.attempt.delivered":
+		return t.AsEventVerifyAttemptDelivered()
+	case "verify.attempt.sent":
+		return t.AsEventVerifyAttemptSent()
+	case "verify.attempt.undelivered":
+		return t.AsEventVerifyAttemptUndelivered()
+	case "verify.verification.created":
+		return t.AsEventVerifyVerificationCreated()
+	case "verify.verification.verified":
+		return t.AsEventVerifyVerificationVerified()
 	case "voice_call.answered":
 		return t.AsEventVoiceCallAnswered()
 	case "voice_call.ended":

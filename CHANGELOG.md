@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0
+
+- Audiences params now match the API's declared field types: `AudienceCreateParams.Type` is the typed enum (was `string`), and `AudienceUpdateParams.Name` is a plain `string` (the name cannot be cleared).
+- `ContactUpdateParams` first name, last name, and external id can now be cleared: they are `bird.Nullable[string]` (was `*string`) — `bird.Value(v)` sets, `bird.Null[string]()` clears (explicit JSON null), zero omits. Email stays a pointer (it cannot be cleared).
+- Nullable request fields can now send an explicit JSON `null` to clear a value. Clearable request params use `bird.Nullable[T]`, built with `bird.Value(v)` (set), `bird.Null[T]()` (clear), or left zero (omit); response fields stay plain pointers for ergonomic reads. `AudienceUpdateParams.Description` is now `bird.Nullable[string]` (was `*string`), and `DomainUpdateParams.ClearTracking` now sends a real null.
+- Extract the verification terminal-reason enum into a shared `VerificationTerminalReason` type (no behavior change).
+- Stats `period.grain` is now typed as a shared `StatsGrain` (`day` | `hour`) instead of a plain string. No wire or behavioural change.
+
 ## 0.13.0
 
 - **Breaking:** `Email.Stats.BySendingIp` is renamed `BySendingIP`, with its `EmailStatsBySendingIpParams`/`EmailStatsBySendingIpResponse` types renamed to `...IP...` — idiomatic Go initialism (golint ST1003), matching the `SendingIP` field the SDK already uses.

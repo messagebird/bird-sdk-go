@@ -14,15 +14,17 @@ import (
 // upsert, and list. Reach it via Client.Contacts.
 type ContactsService struct{ resource }
 
-// ContactUpdateParams is a partial update of a contact. Every field is a
-// pointer: nil leaves it unchanged; point at "" to clear a name or the
-// external id. A key in Data set to nil removes that key from the contact's
+// ContactUpdateParams is a partial update of a contact. Omit a field to leave it
+// unchanged. Email is a pointer — nil leaves it unchanged, and a contact's email
+// cannot be cleared. FirstName, LastName, and ExternalID are Nullable: bird.Value
+// sets a value, bird.Null clears the field (explicit JSON null), and the zero
+// value omits it. A key in Data set to nil removes that key from the contact's
 // stored custom values; keys omitted from Data are left unchanged.
 type ContactUpdateParams struct {
 	Email      *string
-	ExternalID *string
-	FirstName  *string
-	LastName   *string
+	ExternalID Nullable[string]
+	FirstName  Nullable[string]
+	LastName   Nullable[string]
 	Data       map[string]any
 }
 

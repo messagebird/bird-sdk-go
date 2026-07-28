@@ -83,8 +83,7 @@ func (p MailboxThreadUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
 		body.Labels = lu
 	}
 	if p.ContactID != nil && *p.ContactID != "" {
-		id := oapi.ContactID(*p.ContactID)
-		body.ContactId = &id
+		body.ContactId = Value(oapi.ContactID(*p.ContactID))
 	}
 	return body
 }

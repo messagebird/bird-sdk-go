@@ -441,8 +441,11 @@ func ExampleContactsService_Update() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Set the first name and clear the last name (Null sends an explicit JSON
+	// null); omit a field to leave it unchanged.
 	contact, err := client.Contacts.Update(context.Background(), "con_123", bird.ContactUpdateParams{
-		FirstName: bird.String("Jane"),
+		FirstName: bird.Value("Jane"),
+		LastName:  bird.Null[string](),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -530,8 +533,11 @@ func ExampleAudiencesService_Update() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Rename the audience and clear its description (Null sends an explicit JSON
+	// null). Omit a field to leave it unchanged; bird.Value(...) sets a new value.
 	audience, err := client.Audiences.Update(context.Background(), "adn_123", bird.AudienceUpdateParams{
-		Name: bird.String("Renamed"),
+		Name:        "Renamed",
+		Description: bird.Null[string](),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1082,9 +1088,8 @@ func ExampleMailboxService_Update() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	name := "Sales"
 	mailbox, err := client.Mailbox.Update(context.Background(), "mbx_123", bird.MailboxUpdateParams{
-		DisplayName: &name,
+		DisplayName: bird.Value("Sales"),
 	})
 	if err != nil {
 		log.Fatal(err)

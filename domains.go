@@ -1,9 +1,7 @@
 package bird
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"iter"
 	"net/http"
 
@@ -95,8 +93,11 @@ func (p DomainUpdateParams) toWire() oapi.DomainUpdate {
 	if p.Settings != nil {
 		body.Settings = &oapi.DomainSettings{ClickTracking: p.Settings.ClickTracking, OpenTracking: p.Settings.OpenTracking}
 	}
-	if p.Tracking != nil && !p.ClearTracking {
-		body.Tracking = &oapi.DomainTrackingConfig{Name: p.Tracking.Name}
+	switch {
+	case p.ClearTracking:
+		body.Tracking = Null[oapi.DomainTrackingConfig]()
+	case p.Tracking != nil:
+		body.Tracking = Value(oapi.DomainTrackingConfig{Name: p.Tracking.Name})
 	}
 	if p.ReturnPath != nil {
 		body.ReturnPath = &struct {
@@ -201,15 +202,6 @@ func (s *DomainsService) Update(ctx context.Context, id string, params DomainUpd
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		// The generated body omits a nil tracking pointer, so an explicit
-		// removal (tracking: null) has to go out as raw JSON.
-		if params.ClearTracking {
-			raw, err := marshalUpdateWithTrackingNull(wire)
-			if err != nil {
-				return nil, err
-			}
-			return s.client.oapi.UpdateDomainWithBody(ctx, id, p, "application/json", bytes.NewReader(raw), s.client.callEditors(cfg)...)
-		}
 		return s.client.oapi.UpdateDomain(ctx, id, p, wire, s.client.callEditors(cfg)...)
 	})
 	if err != nil {
@@ -224,18 +216,6 @@ func (s *DomainsService) Update(ctx context.Context, id string, params DomainUpd
 
 // marshalUpdateWithTrackingNull serializes the update body and forces an
 // explicit tracking: null, which the typed body (omitempty) can't express.
-func marshalUpdateWithTrackingNull(w oapi.DomainUpdate) ([]byte, error) {
-	raw, err := json.Marshal(w)
-	if err != nil {
-		return nil, err
-	}
-	fields := map[string]json.RawMessage{}
-	if err := json.Unmarshal(raw, &fields); err != nil {
-		return nil, err
-	}
-	fields["tracking"] = json.RawMessage("null")
-	return json.Marshal(fields)
-}
 
 // Delete removes a sending domain. Mail already accepted still sends; no new
 // mail can be sent from it. Retried safely with a reused idempotency key.

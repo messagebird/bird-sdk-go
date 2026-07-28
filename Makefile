@@ -31,7 +31,7 @@ generate:
 	@test -f ../../backend/openapi/.generated/openapi.public.bundle.yaml || \
 		{ echo "Error: openapi bundle not found. Run 'make openapi-bundle' from the repo root first."; exit 1; }
 	go run ../../backend/scripts/openapi-compat.go \
-		--strip-go-type \
+		--strip-go-type --nullable-request-types \
 		../../backend/openapi/.generated/openapi.public.bundle.yaml \
 		../../backend/openapi/.generated/openapi.compat.sdkgo.yaml
 	go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.7.0 \

@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.13.0"
+	version = "0.14.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -117,8 +117,8 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Verify = &VerifyService{Verifications: &VerificationsService{client: c}}
 	c.Webhooks = &WebhookService{client: c}
 	c.Contacts = &ContactsService{resource{client: c}}
-	c.Audiences = &AudiencesService{client: c}
-	c.ContactProperties = &ContactPropertiesService{client: c}
+	c.Audiences = &AudiencesService{resource{client: c}}
+	c.ContactProperties = &ContactPropertiesService{resource{client: c}}
 	c.Domains = &DomainsService{client: c}
 	c.Mailbox = &MailboxService{client: c}
 	c.MailboxReceiveRule = &MailboxReceiveRuleService{client: c}

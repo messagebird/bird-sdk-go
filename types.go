@@ -1,6 +1,9 @@
 package bird
 
-import "github.com/messagebird/bird-sdk-go/internal/oapi"
+import (
+	"github.com/messagebird/bird-sdk-go/internal/oapi"
+	"github.com/oapi-codegen/nullable"
+)
 
 // Ptr returns a pointer to v, for setting optional pointer fields inline. Bool,
 // String, and Int are typed shorthands for the common cases:
@@ -16,6 +19,21 @@ func String(v string) *string { return &v }
 
 // Int returns a pointer to v.
 func Int(v int) *int { return &v }
+
+// Nullable is a nullable/clearable request-param field. It carries one of three
+// states: a value, an explicit JSON null (clears the field), or unspecified (the
+// zero value — omitted, leaving the field unchanged). Only request params use it;
+// response fields stay plain pointers. Build it with Value or Null:
+//
+//	bird.AudienceUpdateParams{Description: bird.Null[string]()}   // clear
+//	bird.AudienceUpdateParams{Description: bird.Value("Q4 leads")} // set
+type Nullable[T any] = nullable.Nullable[T]
+
+// Value sets a Nullable request field to send v.
+func Value[T any](v T) Nullable[T] { return nullable.NewNullableWithValue(v) }
+
+// Null sets a Nullable request field to send an explicit JSON null, clearing it.
+func Null[T any]() Nullable[T] { return nullable.NewNullNullable[T]() }
 
 // Public aliases for the curated surface. The generated types live in
 // internal/oapi; these names are the semver-locked commitment. Typed IDs are
