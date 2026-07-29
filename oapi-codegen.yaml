@@ -100,3 +100,9 @@ output-options:
     - getEmailThreadMessageBody
     - replyEmailThreadMessage
     - listEmailThreadMessageAttachments
+    - publishRealtimeAppEvent
+    - publishRealtimeAppBatch
+    - listRealtimeAppChannels
+    - getRealtimeAppChannel
+    - listRealtimeAppChannelMembers
+    - disconnectRealtimeAppMember

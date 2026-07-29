@@ -1010,7 +1010,7 @@ func ExampleDomainsService_Update() {
 	}
 	domain, err := client.Domains.Update(context.Background(), "dom_123", bird.DomainUpdateParams{
 		Settings: &bird.DomainSettings{ClickTracking: bird.Bool(true), OpenTracking: bird.Bool(true)},
-		Tracking: &bird.DomainTrackingConfig{Name: "links"},
+		Tracking: bird.Value(bird.DomainTrackingConfig{Name: "links"}),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1326,5 +1326,120 @@ func ExampleMailboxThreadMessageService_Attachments() {
 	}
 	for _, a := range result.Data {
 		fmt.Println(a.Filename, a.Size)
+	}
+}
+
+// Publish delivers one event to one or more channels. The Realtime app's own
+// key and secret authenticate the call, alongside the workspace API key.
+func ExampleRealtimeService_Publish() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Realtime.Publish(context.Background(), "rap_123", bird.RealtimePublishParams{
+		Event:    "order.created",
+		Channels: []string{"orders", "presence-lobby"},
+		Data:     map[string]any{"order_id": "ord_1", "total": 4200},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.Data)
+}
+
+// PublishBatch sends several events, each to a single channel, in one request.
+func ExampleRealtimeService_PublishBatch() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Realtime.PublishBatch(context.Background(), "rap_123", bird.RealtimePublishBatchParams{
+		Events: []bird.RealtimeBatchEventParams{
+			{Event: "order.created", Channel: "orders", Data: map[string]any{"id": 1}},
+			{Event: "order.updated", Channel: "orders", Data: map[string]any{"id": 2}},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.Data)
+}
+
+// List returns the app's occupied channels. The Realtime service does not
+// paginate this listing, so one response holds every occupied channel.
+func ExampleRealtimeChannelsService_List() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	channels, err := client.Realtime.Channels.List(context.Background(), "rap_123", bird.RealtimeChannelListParams{
+		Prefix:  "presence-",
+		Include: []bird.RealtimeChannelInclude{bird.RealtimeIncludeMemberCount},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, ch := range channels.Data {
+		fmt.Println(ch.Name, ch.MemberCount)
+	}
+}
+
+// Get reads one channel's occupancy, plus any counts named in Include.
+func ExampleRealtimeChannelsService_Get() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	channel, err := client.Realtime.Channels.Get(context.Background(), "rap_123", "presence-lobby", bird.RealtimeChannelGetParams{
+		Include: []bird.RealtimeChannelInclude{bird.RealtimeIncludeMemberCount},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(channel.Occupied, channel.MemberCount)
+}
+
+// Members lists the members present on a presence channel.
+func ExampleRealtimeChannelsService_Members() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	members, err := client.Realtime.Channels.Members(context.Background(), "rap_123", "presence-lobby")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, m := range members.Members {
+		fmt.Println(m.MemberId)
+	}
+}
+
+// Disconnect closes every connection belonging to one member — the sign-out or
+// ban path.
+func ExampleRealtimeMembersService_Disconnect() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Realtime.Members.Disconnect(context.Background(), "rap_123", "member:42"); err != nil {
+		log.Fatal(err)
 	}
 }

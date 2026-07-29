@@ -101,4 +101,10 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.MailboxThreadMessage.Body
 	_ = c.MailboxThreadMessage.Reply
 	_ = c.MailboxThreadMessage.Attachments
+	_ = c.Realtime.Publish
+	_ = c.Realtime.PublishBatch
+	_ = c.Realtime.Channels.List
+	_ = c.Realtime.Channels.Get
+	_ = c.Realtime.Channels.Members
+	_ = c.Realtime.Members.Disconnect
 }

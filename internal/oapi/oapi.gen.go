@@ -307,156 +307,6 @@ func (e DomainVendor) Valid() bool {
 	}
 }
 
-// Defines values for DomainCapabilitiesDmarcStatus.
-const (
-	DomainCapabilitiesDmarcStatusFailed           DomainCapabilitiesDmarcStatus = "failed"
-	DomainCapabilitiesDmarcStatusNotConfigured    DomainCapabilitiesDmarcStatus = "not_configured"
-	DomainCapabilitiesDmarcStatusPending          DomainCapabilitiesDmarcStatus = "pending"
-	DomainCapabilitiesDmarcStatusTemporaryFailure DomainCapabilitiesDmarcStatus = "temporary_failure"
-	DomainCapabilitiesDmarcStatusVerified         DomainCapabilitiesDmarcStatus = "verified"
-	DomainCapabilitiesDmarcStatusWarning          DomainCapabilitiesDmarcStatus = "warning"
-)
-
-// Valid indicates whether the value is a known member of the DomainCapabilitiesDmarcStatus enum.
-func (e DomainCapabilitiesDmarcStatus) Valid() bool {
-	switch e {
-	case DomainCapabilitiesDmarcStatusFailed:
-		return true
-	case DomainCapabilitiesDmarcStatusNotConfigured:
-		return true
-	case DomainCapabilitiesDmarcStatusPending:
-		return true
-	case DomainCapabilitiesDmarcStatusTemporaryFailure:
-		return true
-	case DomainCapabilitiesDmarcStatusVerified:
-		return true
-	case DomainCapabilitiesDmarcStatusWarning:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for DomainCapabilitiesInboundStatus.
-const (
-	DomainCapabilitiesInboundStatusFailed           DomainCapabilitiesInboundStatus = "failed"
-	DomainCapabilitiesInboundStatusNotConfigured    DomainCapabilitiesInboundStatus = "not_configured"
-	DomainCapabilitiesInboundStatusPending          DomainCapabilitiesInboundStatus = "pending"
-	DomainCapabilitiesInboundStatusTemporaryFailure DomainCapabilitiesInboundStatus = "temporary_failure"
-	DomainCapabilitiesInboundStatusVerified         DomainCapabilitiesInboundStatus = "verified"
-	DomainCapabilitiesInboundStatusWarning          DomainCapabilitiesInboundStatus = "warning"
-)
-
-// Valid indicates whether the value is a known member of the DomainCapabilitiesInboundStatus enum.
-func (e DomainCapabilitiesInboundStatus) Valid() bool {
-	switch e {
-	case DomainCapabilitiesInboundStatusFailed:
-		return true
-	case DomainCapabilitiesInboundStatusNotConfigured:
-		return true
-	case DomainCapabilitiesInboundStatusPending:
-		return true
-	case DomainCapabilitiesInboundStatusTemporaryFailure:
-		return true
-	case DomainCapabilitiesInboundStatusVerified:
-		return true
-	case DomainCapabilitiesInboundStatusWarning:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for DomainCapabilitiesReturnPathStatus.
-const (
-	DomainCapabilitiesReturnPathStatusFailed           DomainCapabilitiesReturnPathStatus = "failed"
-	DomainCapabilitiesReturnPathStatusNotConfigured    DomainCapabilitiesReturnPathStatus = "not_configured"
-	DomainCapabilitiesReturnPathStatusPending          DomainCapabilitiesReturnPathStatus = "pending"
-	DomainCapabilitiesReturnPathStatusTemporaryFailure DomainCapabilitiesReturnPathStatus = "temporary_failure"
-	DomainCapabilitiesReturnPathStatusVerified         DomainCapabilitiesReturnPathStatus = "verified"
-	DomainCapabilitiesReturnPathStatusWarning          DomainCapabilitiesReturnPathStatus = "warning"
-)
-
-// Valid indicates whether the value is a known member of the DomainCapabilitiesReturnPathStatus enum.
-func (e DomainCapabilitiesReturnPathStatus) Valid() bool {
-	switch e {
-	case DomainCapabilitiesReturnPathStatusFailed:
-		return true
-	case DomainCapabilitiesReturnPathStatusNotConfigured:
-		return true
-	case DomainCapabilitiesReturnPathStatusPending:
-		return true
-	case DomainCapabilitiesReturnPathStatusTemporaryFailure:
-		return true
-	case DomainCapabilitiesReturnPathStatusVerified:
-		return true
-	case DomainCapabilitiesReturnPathStatusWarning:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for DomainCapabilitiesSendingStatus.
-const (
-	DomainCapabilitiesSendingStatusFailed           DomainCapabilitiesSendingStatus = "failed"
-	DomainCapabilitiesSendingStatusNotConfigured    DomainCapabilitiesSendingStatus = "not_configured"
-	DomainCapabilitiesSendingStatusPending          DomainCapabilitiesSendingStatus = "pending"
-	DomainCapabilitiesSendingStatusTemporaryFailure DomainCapabilitiesSendingStatus = "temporary_failure"
-	DomainCapabilitiesSendingStatusVerified         DomainCapabilitiesSendingStatus = "verified"
-	DomainCapabilitiesSendingStatusWarning          DomainCapabilitiesSendingStatus = "warning"
-)
-
-// Valid indicates whether the value is a known member of the DomainCapabilitiesSendingStatus enum.
-func (e DomainCapabilitiesSendingStatus) Valid() bool {
-	switch e {
-	case DomainCapabilitiesSendingStatusFailed:
-		return true
-	case DomainCapabilitiesSendingStatusNotConfigured:
-		return true
-	case DomainCapabilitiesSendingStatusPending:
-		return true
-	case DomainCapabilitiesSendingStatusTemporaryFailure:
-		return true
-	case DomainCapabilitiesSendingStatusVerified:
-		return true
-	case DomainCapabilitiesSendingStatusWarning:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for DomainCapabilitiesTrackingStatus.
-const (
-	DomainCapabilitiesTrackingStatusFailed           DomainCapabilitiesTrackingStatus = "failed"
-	DomainCapabilitiesTrackingStatusNotConfigured    DomainCapabilitiesTrackingStatus = "not_configured"
-	DomainCapabilitiesTrackingStatusPending          DomainCapabilitiesTrackingStatus = "pending"
-	DomainCapabilitiesTrackingStatusTemporaryFailure DomainCapabilitiesTrackingStatus = "temporary_failure"
-	DomainCapabilitiesTrackingStatusVerified         DomainCapabilitiesTrackingStatus = "verified"
-	DomainCapabilitiesTrackingStatusWarning          DomainCapabilitiesTrackingStatus = "warning"
-)
-
-// Valid indicates whether the value is a known member of the DomainCapabilitiesTrackingStatus enum.
-func (e DomainCapabilitiesTrackingStatus) Valid() bool {
-	switch e {
-	case DomainCapabilitiesTrackingStatusFailed:
-		return true
-	case DomainCapabilitiesTrackingStatusNotConfigured:
-		return true
-	case DomainCapabilitiesTrackingStatusPending:
-		return true
-	case DomainCapabilitiesTrackingStatusTemporaryFailure:
-		return true
-	case DomainCapabilitiesTrackingStatusVerified:
-		return true
-	case DomainCapabilitiesTrackingStatusWarning:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for DomainCapabilityStatus.
 const (
 	DomainCapabilityStatusFailed           DomainCapabilityStatus = "failed"
@@ -538,24 +388,6 @@ func (e DomainDKIMConfigMode) Valid() bool {
 	case DomainDKIMConfigModeDelegated:
 		return true
 	case DomainDKIMConfigModeTxt:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for DomainUpdateDkimMode.
-const (
-	Delegated DomainUpdateDkimMode = "delegated"
-	Txt       DomainUpdateDkimMode = "txt"
-)
-
-// Valid indicates whether the value is a known member of the DomainUpdateDkimMode enum.
-func (e DomainUpdateDkimMode) Valid() bool {
-	switch e {
-	case Delegated:
-		return true
-	case Txt:
 		return true
 	default:
 		return false
@@ -2509,6 +2341,24 @@ func (e MailboxUpdateRetentionTier) Valid() bool {
 	}
 }
 
+// Defines values for RealtimeChannelInclude.
+const (
+	ConnectionCount RealtimeChannelInclude = "connection_count"
+	MemberCount     RealtimeChannelInclude = "member_count"
+)
+
+// Valid indicates whether the value is a known member of the RealtimeChannelInclude enum.
+func (e RealtimeChannelInclude) Valid() bool {
+	switch e {
+	case ConnectionCount:
+		return true
+	case MemberCount:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ReceiveRuleAction.
 const (
 	ReceiveRuleActionAllow ReceiveRuleAction = "allow"
@@ -3174,40 +3024,40 @@ func (e GetMailboxStatsParamsGranularity) Valid() bool {
 
 // Defines values for ListEmailMessagesParamsStatus.
 const (
-	ListEmailMessagesParamsStatusAccepted       ListEmailMessagesParamsStatus = "accepted"
-	ListEmailMessagesParamsStatusBounced        ListEmailMessagesParamsStatus = "bounced"
-	ListEmailMessagesParamsStatusCanceled       ListEmailMessagesParamsStatus = "canceled"
-	ListEmailMessagesParamsStatusComplained     ListEmailMessagesParamsStatus = "complained"
-	ListEmailMessagesParamsStatusDeferred       ListEmailMessagesParamsStatus = "deferred"
-	ListEmailMessagesParamsStatusDelivered      ListEmailMessagesParamsStatus = "delivered"
-	ListEmailMessagesParamsStatusPartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	ListEmailMessagesParamsStatusProcessed      ListEmailMessagesParamsStatus = "processed"
-	ListEmailMessagesParamsStatusRejected       ListEmailMessagesParamsStatus = "rejected"
-	ListEmailMessagesParamsStatusScheduled      ListEmailMessagesParamsStatus = "scheduled"
+	Accepted       ListEmailMessagesParamsStatus = "accepted"
+	Bounced        ListEmailMessagesParamsStatus = "bounced"
+	Canceled       ListEmailMessagesParamsStatus = "canceled"
+	Complained     ListEmailMessagesParamsStatus = "complained"
+	Deferred       ListEmailMessagesParamsStatus = "deferred"
+	Delivered      ListEmailMessagesParamsStatus = "delivered"
+	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
+	Processed      ListEmailMessagesParamsStatus = "processed"
+	Rejected       ListEmailMessagesParamsStatus = "rejected"
+	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
 )
 
 // Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
 func (e ListEmailMessagesParamsStatus) Valid() bool {
 	switch e {
-	case ListEmailMessagesParamsStatusAccepted:
+	case Accepted:
 		return true
-	case ListEmailMessagesParamsStatusBounced:
+	case Bounced:
 		return true
-	case ListEmailMessagesParamsStatusCanceled:
+	case Canceled:
 		return true
-	case ListEmailMessagesParamsStatusComplained:
+	case Complained:
 		return true
-	case ListEmailMessagesParamsStatusDeferred:
+	case Deferred:
 		return true
-	case ListEmailMessagesParamsStatusDelivered:
+	case Delivered:
 		return true
-	case ListEmailMessagesParamsStatusPartialFailure:
+	case PartialFailure:
 		return true
-	case ListEmailMessagesParamsStatusProcessed:
+	case Processed:
 		return true
-	case ListEmailMessagesParamsStatusRejected:
+	case Rejected:
 		return true
-	case ListEmailMessagesParamsStatusScheduled:
+	case Scheduled:
 		return true
 	default:
 		return false
@@ -4176,207 +4026,12 @@ type DomainVendor string
 
 // DomainCapabilities defines model for DomainCapabilities.
 type DomainCapabilities struct {
-	Dmarc struct {
-		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
-		Domain *string `json:"domain,omitempty"`
-
-		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
-		Pending *DomainCapabilityPending `json:"pending,omitempty"`
-
-		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
-		//   by another organization.
-		Reason *string `json:"reason,omitempty"`
-
-		// Status Capability verification status.
-		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-		//   expected values.
-		// - `warning` — a record for this capability verified before and a recent
-		//   check no longer matches, but it is still within the grace period.
-		//   Sending is not yet affected; fix it before the grace period ends.
-		// - `failed` — DNS records resolved but at least one value is wrong.
-		//   Update your DNS to recover.
-		// - `temporary_failure` — DNS lookup failed transiently. Verification is
-		//   queued for retry; don't change DNS records yet.
-		// - `not_configured` — the capability is not set up on this domain
-		//   (e.g. no tracking domain configured).
-		Status *DomainCapabilitiesDmarcStatus `json:"status,omitempty"`
-	} `json:"dmarc"`
-	Inbound *struct {
-		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
-		Domain *string `json:"domain,omitempty"`
-
-		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
-		Pending *DomainCapabilityPending `json:"pending,omitempty"`
-
-		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
-		//   by another organization.
-		Reason *string `json:"reason,omitempty"`
-
-		// Status Capability verification status.
-		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-		//   expected values.
-		// - `warning` — a record for this capability verified before and a recent
-		//   check no longer matches, but it is still within the grace period.
-		//   Sending is not yet affected; fix it before the grace period ends.
-		// - `failed` — DNS records resolved but at least one value is wrong.
-		//   Update your DNS to recover.
-		// - `temporary_failure` — DNS lookup failed transiently. Verification is
-		//   queued for retry; don't change DNS records yet.
-		// - `not_configured` — the capability is not set up on this domain
-		//   (e.g. no tracking domain configured).
-		Status *DomainCapabilitiesInboundStatus `json:"status,omitempty"`
-	} `json:"inbound,omitempty"`
-	ReturnPath struct {
-		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
-		Domain *string `json:"domain,omitempty"`
-
-		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
-		Pending *DomainCapabilityPending `json:"pending,omitempty"`
-
-		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
-		//   by another organization.
-		Reason *string `json:"reason,omitempty"`
-
-		// Status Capability verification status.
-		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-		//   expected values.
-		// - `warning` — a record for this capability verified before and a recent
-		//   check no longer matches, but it is still within the grace period.
-		//   Sending is not yet affected; fix it before the grace period ends.
-		// - `failed` — DNS records resolved but at least one value is wrong.
-		//   Update your DNS to recover.
-		// - `temporary_failure` — DNS lookup failed transiently. Verification is
-		//   queued for retry; don't change DNS records yet.
-		// - `not_configured` — the capability is not set up on this domain
-		//   (e.g. no tracking domain configured).
-		Status *DomainCapabilitiesReturnPathStatus `json:"status,omitempty"`
-	} `json:"return_path"`
-	Sending struct {
-		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
-		Domain *string `json:"domain,omitempty"`
-
-		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
-		Pending *DomainCapabilityPending `json:"pending,omitempty"`
-
-		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
-		//   by another organization.
-		Reason *string `json:"reason,omitempty"`
-
-		// Status Capability verification status.
-		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-		//   expected values.
-		// - `warning` — a record for this capability verified before and a recent
-		//   check no longer matches, but it is still within the grace period.
-		//   Sending is not yet affected; fix it before the grace period ends.
-		// - `failed` — DNS records resolved but at least one value is wrong.
-		//   Update your DNS to recover.
-		// - `temporary_failure` — DNS lookup failed transiently. Verification is
-		//   queued for retry; don't change DNS records yet.
-		// - `not_configured` — the capability is not set up on this domain
-		//   (e.g. no tracking domain configured).
-		Status *DomainCapabilitiesSendingStatus `json:"status,omitempty"`
-	} `json:"sending"`
-	Tracking struct {
-		// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
-		Domain *string `json:"domain,omitempty"`
-
-		// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
-		Pending *DomainCapabilityPending `json:"pending,omitempty"`
-
-		// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-		// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
-		//   by another organization.
-		Reason *string `json:"reason,omitempty"`
-
-		// Status Capability verification status.
-		// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-		//   expected values.
-		// - `warning` — a record for this capability verified before and a recent
-		//   check no longer matches, but it is still within the grace period.
-		//   Sending is not yet affected; fix it before the grace period ends.
-		// - `failed` — DNS records resolved but at least one value is wrong.
-		//   Update your DNS to recover.
-		// - `temporary_failure` — DNS lookup failed transiently. Verification is
-		//   queued for retry; don't change DNS records yet.
-		// - `not_configured` — the capability is not set up on this domain
-		//   (e.g. no tracking domain configured).
-		Status *DomainCapabilitiesTrackingStatus `json:"status,omitempty"`
-	} `json:"tracking"`
+	Dmarc      DomainCapability  `json:"dmarc"`
+	Inbound    *DomainCapability `json:"inbound,omitempty"`
+	ReturnPath DomainCapability  `json:"return_path"`
+	Sending    DomainCapability  `json:"sending"`
+	Tracking   DomainCapability  `json:"tracking"`
 }
-
-// DomainCapabilitiesDmarcStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-//     expected values.
-//   - `warning` — a record for this capability verified before and a recent
-//     check no longer matches, but it is still within the grace period.
-//     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
-//     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
-type DomainCapabilitiesDmarcStatus string
-
-// DomainCapabilitiesInboundStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-//     expected values.
-//   - `warning` — a record for this capability verified before and a recent
-//     check no longer matches, but it is still within the grace period.
-//     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
-//     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
-type DomainCapabilitiesInboundStatus string
-
-// DomainCapabilitiesReturnPathStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-//     expected values.
-//   - `warning` — a record for this capability verified before and a recent
-//     check no longer matches, but it is still within the grace period.
-//     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
-//     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
-type DomainCapabilitiesReturnPathStatus string
-
-// DomainCapabilitiesSendingStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-//     expected values.
-//   - `warning` — a record for this capability verified before and a recent
-//     check no longer matches, but it is still within the grace period.
-//     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
-//     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
-type DomainCapabilitiesSendingStatus string
-
-// DomainCapabilitiesTrackingStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
-//     expected values.
-//   - `warning` — a record for this capability verified before and a recent
-//     check no longer matches, but it is still within the grace period.
-//     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
-//     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
-type DomainCapabilitiesTrackingStatus string
 
 // DomainCapability defines model for DomainCapability.
 type DomainCapability struct {
@@ -4568,23 +4223,14 @@ type DomainTrackingConfig struct {
 
 // DomainUpdate Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged: the current configuration keeps serving until the new one's DNS records verify, then the change is promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
 type DomainUpdate struct {
-	Dkim *struct {
-		// Mode How the DKIM public key is published in your DNS.
-		// - `txt` — you publish the DKIM public key as a TXT record. Key
-		//   rotation requires updating the record.
-		// - `delegated` — preview, currently unavailable; supplying it returns
-		//   `422`. When available, you publish a single CNAME and Bird hosts
-		//   and rotates the key with no further DNS changes on your side.
-		Mode *DomainUpdateDkimMode `json:"mode,omitempty"`
-	} `json:"dkim,omitempty"`
-	Inbound *struct {
-		// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Disabling tears receiving down and removes the MX records from `dns_records`; this is immediate in the normal case, and if a step needs retrying the capability clears as soon as teardown finishes.
-		Enabled bool `json:"enabled"`
-	} `json:"inbound,omitempty"`
-	ReturnPath *struct {
-		// Name Name part to use for the return-path domain. For example, `send` on `mail.acme.com` becomes `send.mail.acme.com`. Defaults to `send` when omitted at creation.
-		Name string `json:"name"`
-	} `json:"return_path,omitempty"`
+	// Dkim DKIM signing configuration.
+	Dkim *DomainDKIMConfig `json:"dkim,omitempty"`
+
+	// Inbound Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+	Inbound *DomainInboundConfig `json:"inbound,omitempty"`
+
+	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+	ReturnPath *DomainReturnPathConfig `json:"return_path,omitempty"`
 
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings `json:"settings,omitempty"`
@@ -4592,14 +4238,6 @@ type DomainUpdate struct {
 	// Tracking Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
 	Tracking nullable.Nullable[DomainTrackingConfig] `json:"tracking,omitempty"`
 }
-
-// DomainUpdateDkimMode How the DKIM public key is published in your DNS.
-//   - `txt` — you publish the DKIM public key as a TXT record. Key
-//     rotation requires updating the record.
-//   - `delegated` — preview, currently unavailable; supplying it returns
-//     `422`. When available, you publish a single CNAME and Bird hosts
-//     and rotates the key with no further DNS changes on your side.
-type DomainUpdateDkimMode string
 
 // EmailAddress An email address with an optional display name.
 type EmailAddress struct {
@@ -5627,17 +5265,10 @@ type EmailSmtpConfigUpdateCategory string
 // EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByBounceCodeResponse struct {
 	// Data Bounce-code breakdown rows, ranked by the `sort` metric (default `bounced`) descending. Empty when no bounces occurred in the period.
-	Data   *[]EmailBounceCodeStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailBounceCodeStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5646,17 +5277,10 @@ type EmailStatsByBounceCodeResponse struct {
 // EmailStatsByBroadcastResponse Per-broadcast breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByBroadcastResponse struct {
 	// Data Broadcast breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no broadcast messages were active in the period.
-	Data   *[]EmailBroadcastStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailBroadcastStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5665,17 +5289,10 @@ type EmailStatsByBroadcastResponse struct {
 // EmailStatsByCategoryResponse Per-category breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByCategoryResponse struct {
 	// Data Category breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no sends occurred in the period.
-	Data   *[]EmailCategoryStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailCategoryStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5684,17 +5301,10 @@ type EmailStatsByCategoryResponse struct {
 // EmailStatsByClientResponse Per-client engagement breakdown for the requested period, grouped by the requested `group_by` facet, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByClientResponse struct {
 	// Data Client breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a detected client occurred in the period.
-	Data   *[]EmailClientStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailClientStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5703,17 +5313,10 @@ type EmailStatsByClientResponse struct {
 // EmailStatsByComplaintTypeResponse Per-complaint-type breakdown for the requested period, ranked by `complained` descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByComplaintTypeResponse struct {
 	// Data Complaint-type breakdown rows, ranked by `complained` descending. Empty when no complaints occurred in the period.
-	Data   *[]EmailComplaintTypeStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailComplaintTypeStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5722,17 +5325,10 @@ type EmailStatsByComplaintTypeResponse struct {
 // EmailStatsByLocationResponse Per-location engagement breakdown for the requested period, grouped at the requested `group_by` granularity, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByLocationResponse struct {
 	// Data Location breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a resolved location occurred in the period.
-	Data   *[]EmailLocationStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailLocationStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5741,17 +5337,10 @@ type EmailStatsByLocationResponse struct {
 // EmailStatsByMailboxProviderRegionResponse Per-(mailbox provider, provider region) breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByMailboxProviderRegionResponse struct {
 	// Data Provider-region breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no deliveries occurred in the period.
-	Data   *[]EmailMailboxProviderRegionStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailMailboxProviderRegionStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5760,17 +5349,10 @@ type EmailStatsByMailboxProviderRegionResponse struct {
 // EmailStatsByMailboxProviderResponse Per-mailbox-provider breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByMailboxProviderResponse struct {
 	// Data Mailbox-provider breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no eligible activity occurred in the period.
-	Data   *[]EmailMailboxProviderStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailMailboxProviderStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5779,17 +5361,10 @@ type EmailStatsByMailboxProviderResponse struct {
 // EmailStatsByRecipientDomainResponse Per-recipient-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByRecipientDomainResponse struct {
 	// Data Recipient-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
-	Data   *[]EmailRecipientDomainStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailRecipientDomainStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5798,17 +5373,10 @@ type EmailStatsByRecipientDomainResponse struct {
 // EmailStatsBySendingDomainResponse Per-sending-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsBySendingDomainResponse struct {
 	// Data Sending-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
-	Data   *[]EmailSendingDomainStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailSendingDomainStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5817,17 +5385,10 @@ type EmailStatsBySendingDomainResponse struct {
 // EmailStatsBySendingIpResponse Per-sending-IP breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsBySendingIpResponse struct {
 	// Data Sending-IP breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no per-IP-attributable activity (delivery, bounce, deferral, or late bounce) occurred in the period.
-	Data   *[]EmailSendingIpStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailSendingIpStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5836,17 +5397,10 @@ type EmailStatsBySendingIpResponse struct {
 // EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByTemplateResponse struct {
 	// Data Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
-	Data   *[]EmailTemplateStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailTemplateStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -5858,16 +5412,9 @@ type EmailStatsComparison struct {
 	Delta      *EmailStatsComparisonDelta `json:"delta,omitempty"`
 	Engagement *EmailEngagementStats      `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats         `json:"latency,omitempty"`
-	Period     struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
-		// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
-		From *string `json:"from,omitempty"`
-
-		// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
-		To *string `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+	Period EmailStatsSummaryPeriod `json:"period"`
 
 	// SendsAccepted Distinct email messages accepted in the preceding period, counted at the message level.
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
@@ -5995,16 +5542,9 @@ type EmailStatsSummary struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
-	Period     struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
-		// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
-		From *string `json:"from,omitempty"`
-
-		// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
-		To *string `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+	Period EmailStatsSummaryPeriod `json:"period"`
 
 	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
@@ -6025,17 +5565,10 @@ type EmailStatsSummaryPeriod struct {
 // EmailStatsTagsResponse Per-tag breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsTagsResponse struct {
 	// Data Tag breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no tagged sends occurred in the period.
-	Data   *[]EmailTagStatsPoint `json:"data,omitempty"`
-	Period struct {
-		// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
-		DataAsOf *time.Time `json:"data_as_of,omitempty"`
+	Data *[]EmailTagStatsPoint `json:"data,omitempty"`
 
-		// From Inclusive start date the response covers (YYYY-MM-DD).
-		From *openapi_types.Date `json:"from,omitempty"`
-
-		// To Inclusive end date the response covers (YYYY-MM-DD).
-		To *openapi_types.Date `json:"to,omitempty"`
-	} `json:"period"`
+	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
 
 	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
@@ -8430,6 +7963,143 @@ type MailboxUpdateReceivePolicy string
 // MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
 type MailboxUpdateRetentionTier string
 
+// RealtimeAppID defines model for RealtimeAppID.
+type RealtimeAppID = string
+
+// RealtimeBatchEvent One item of a batch publish — a single event to a single channel.
+type RealtimeBatchEvent struct {
+	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	Channel RealtimeChannelName `json:"channel"`
+
+	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	Data *RealtimeEventData `json:"data,omitempty"`
+
+	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
+	Event RealtimeEventName `json:"event"`
+
+	// ExcludeConnectionId Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
+	ExcludeConnectionId *RealtimeExcludeConnectionId `json:"exclude_connection_id,omitempty"`
+
+	// Include Attributes of this event's channel to return alongside the publish (same semantics and validation errors as on the channel endpoints). Requesting attributes counts as one additional message toward usage.
+	Include *[]RealtimeChannelInclude `json:"include,omitempty"`
+}
+
+// RealtimeBatchPublish A batch of events, each delivered to a single channel, in one request.
+type RealtimeBatchPublish struct {
+	// Events Up to 10 events per batch.
+	Events []RealtimeBatchEvent `json:"events"`
+}
+
+// RealtimeBatchPublishResult The result of a Realtime batch publish. The events were accepted for delivery; delivery to connected clients is asynchronous.
+type RealtimeBatchPublishResult struct {
+	// Data Per-event channel attributes at publish time, present only when at least one event asked for them via `include`. Positional: one item per event, in request order.
+	Data *[]RealtimeBatchPublishResultItem `json:"data,omitempty"`
+}
+
+// RealtimeBatchPublishResultItem defines model for RealtimeBatchPublishResultItem.
+type RealtimeBatchPublishResultItem struct {
+	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	Channel RealtimeChannelName `json:"channel"`
+
+	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	ConnectionCount *int64 `json:"connection_count,omitempty"`
+
+	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	MemberCount *int64 `json:"member_count,omitempty"`
+}
+
+// RealtimeChannelCounts Per-channel counts, present only when requested via `include` and applicable.
+type RealtimeChannelCounts struct {
+	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	ConnectionCount *int64 `json:"connection_count,omitempty"`
+
+	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	MemberCount *int64 `json:"member_count,omitempty"`
+}
+
+// RealtimeChannelInclude A per-channel attribute to include in the response. `member_count` is presence-channels only; `connection_count` requires the app's connection-counting flag.
+type RealtimeChannelInclude string
+
+// RealtimeChannelInfo defines model for RealtimeChannelInfo.
+type RealtimeChannelInfo struct {
+	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	ConnectionCount *int64 `json:"connection_count,omitempty"`
+
+	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	MemberCount *int64 `json:"member_count,omitempty"`
+
+	// Occupied Whether at least one client is subscribed.
+	Occupied bool `json:"occupied"`
+}
+
+// RealtimeChannelListItem defines model for RealtimeChannelListItem.
+type RealtimeChannelListItem struct {
+	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	ConnectionCount *int64 `json:"connection_count,omitempty"`
+
+	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	MemberCount *int64 `json:"member_count,omitempty"`
+
+	// Name A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	Name RealtimeChannelName `json:"name"`
+}
+
+// RealtimeChannelMember A member present on a presence channel.
+type RealtimeChannelMember struct {
+	// MemberId An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+	MemberId RealtimeMemberID `json:"member_id"`
+}
+
+// RealtimeChannelMembers The members present on a presence channel.
+type RealtimeChannelMembers struct {
+	Members []RealtimeChannelMember `json:"members"`
+}
+
+// RealtimeChannelName A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+type RealtimeChannelName = string
+
+// RealtimeChannelsList The app's occupied channels. The Realtime service does not paginate this listing, so all occupied channels are returned in one response.
+type RealtimeChannelsList struct {
+	// Data The occupied channels, sorted by name.
+	Data []RealtimeChannelListItem `json:"data"`
+}
+
+// RealtimeEventData Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+type RealtimeEventData = interface{}
+
+// RealtimeEventName The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
+type RealtimeEventName = string
+
+// RealtimeExcludeConnectionId Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
+type RealtimeExcludeConnectionId = string
+
+// RealtimeMemberID An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+type RealtimeMemberID = string
+
+// RealtimePublish A Realtime publish: delivers one event to one or more channels of the app. Listing several channels fans the event out to all of them (broadcast) in a single call.
+type RealtimePublish struct {
+	// Channels The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
+	Channels []RealtimeChannelName `json:"channels"`
+
+	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	Data *RealtimeEventData `json:"data,omitempty"`
+
+	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
+	Event RealtimeEventName `json:"event"`
+
+	// ExcludeConnectionId Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
+	ExcludeConnectionId *RealtimeExcludeConnectionId `json:"exclude_connection_id,omitempty"`
+
+	// Include Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
+	Include *[]RealtimeChannelInclude `json:"include,omitempty"`
+}
+
+// RealtimePublishResult The result of a Realtime publish. The event was accepted and fanned out to the requested channels; delivery to connected clients is asynchronous.
+type RealtimePublishResult struct {
+	// Data Per-channel attributes at publish time, present only when the request asked for them via `include`; one item per distinct target channel, sorted by name.
+	Data *[]RealtimeChannelListItem `json:"data,omitempty"`
+}
+
 // ReceiveRule An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
 type ReceiveRule struct {
 	// Action What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
@@ -9625,6 +9295,12 @@ type OrderDesc string
 
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
+
+// RealtimeKey defines model for RealtimeKey.
+type RealtimeKey = string
+
+// RealtimeSecret defines model for RealtimeSecret.
+type RealtimeSecret = string
 
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
@@ -10863,6 +10539,120 @@ type ReplyEmailThreadMessageParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// PublishRealtimeAppBatchParams defines parameters for PublishRealtimeAppBatch.
+type PublishRealtimeAppBatchParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// ListRealtimeAppChannelsParams defines parameters for ListRealtimeAppChannels.
+type ListRealtimeAppChannelsParams struct {
+	// Prefix Only channels whose name starts with this prefix (e.g. "presence-").
+	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
+
+	// Include Per-channel attributes to include. Repeatable. Requesting `member_count` without a presence-channel `prefix`, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
+	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// GetRealtimeAppChannelParams defines parameters for GetRealtimeAppChannel.
+type GetRealtimeAppChannelParams struct {
+	// Include Attributes to include. Repeatable. Requesting `member_count` for a non-presence channel, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
+	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// ListRealtimeAppChannelMembersParams defines parameters for ListRealtimeAppChannelMembers.
+type ListRealtimeAppChannelMembersParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// PublishRealtimeAppEventParams defines parameters for PublishRealtimeAppEvent.
+type PublishRealtimeAppEventParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// DisconnectRealtimeAppMemberParams defines parameters for DisconnectRealtimeAppMember.
+type DisconnectRealtimeAppMemberParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004) — the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
 type CreateSMSMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
@@ -11094,6 +10884,12 @@ type UpdateEmailThreadJSONRequestBody = EmailThreadUpdateRequest
 
 // ReplyEmailThreadMessageJSONRequestBody defines body for ReplyEmailThreadMessage for application/json ContentType.
 type ReplyEmailThreadMessageJSONRequestBody = EmailThreadMessageReplyRequest
+
+// PublishRealtimeAppBatchJSONRequestBody defines body for PublishRealtimeAppBatch for application/json ContentType.
+type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
+
+// PublishRealtimeAppEventJSONRequestBody defines body for PublishRealtimeAppEvent for application/json ContentType.
+type PublishRealtimeAppEventJSONRequestBody = RealtimePublish
 
 // CreateSMSMessageBatchJSONRequestBody defines body for CreateSMSMessageBatch for application/json ContentType.
 type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
@@ -13600,6 +13396,28 @@ type ClientInterface interface {
 
 	ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// PublishRealtimeAppBatchWithBody request with any body
+	PublishRealtimeAppBatchWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PublishRealtimeAppBatch(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListRealtimeAppChannels request
+	ListRealtimeAppChannels(ctx context.Context, realtimeAppId RealtimeAppID, params *ListRealtimeAppChannelsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetRealtimeAppChannel request
+	GetRealtimeAppChannel(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *GetRealtimeAppChannelParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListRealtimeAppChannelMembers request
+	ListRealtimeAppChannelMembers(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *ListRealtimeAppChannelMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PublishRealtimeAppEventWithBody request with any body
+	PublishRealtimeAppEventWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PublishRealtimeAppEvent(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, body PublishRealtimeAppEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DisconnectRealtimeAppMember request
+	DisconnectRealtimeAppMember(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateSMSMessageBatchWithBody request with any body
 	CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -14708,6 +14526,102 @@ func (c *Client) ReplyEmailThreadMessageWithBody(ctx context.Context, threadId T
 
 func (c *Client) ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewReplyEmailThreadMessageRequest(c.Server, threadId, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishRealtimeAppBatchWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishRealtimeAppBatchRequestWithBody(c.Server, realtimeAppId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishRealtimeAppBatch(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishRealtimeAppBatchRequest(c.Server, realtimeAppId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListRealtimeAppChannels(ctx context.Context, realtimeAppId RealtimeAppID, params *ListRealtimeAppChannelsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListRealtimeAppChannelsRequest(c.Server, realtimeAppId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetRealtimeAppChannel(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *GetRealtimeAppChannelParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetRealtimeAppChannelRequest(c.Server, realtimeAppId, channelName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListRealtimeAppChannelMembers(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *ListRealtimeAppChannelMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListRealtimeAppChannelMembersRequest(c.Server, realtimeAppId, channelName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishRealtimeAppEventWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishRealtimeAppEventRequestWithBody(c.Server, realtimeAppId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishRealtimeAppEvent(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, body PublishRealtimeAppEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishRealtimeAppEventRequest(c.Server, realtimeAppId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DisconnectRealtimeAppMember(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDisconnectRealtimeAppMemberRequest(c.Server, realtimeAppId, memberId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -20617,6 +20531,554 @@ func NewReplyEmailThreadMessageRequestWithBody(server string, threadId ThreadID,
 	return req, nil
 }
 
+// NewPublishRealtimeAppBatchRequest calls the generic PublishRealtimeAppBatch builder with application/json body
+func NewPublishRealtimeAppBatchRequest(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPublishRealtimeAppBatchRequestWithBody(server, realtimeAppId, params, "application/json", bodyReader)
+}
+
+// NewPublishRealtimeAppBatchRequestWithBody generates requests for PublishRealtimeAppBatch with any type of body
+func NewPublishRealtimeAppBatchRequestWithBody(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/batch-events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam2)
+
+		var headerParam3 string
+
+		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam3)
+
+	}
+
+	return req, nil
+}
+
+// NewListRealtimeAppChannelsRequest generates requests for ListRealtimeAppChannels
+func NewListRealtimeAppChannelsRequest(server string, realtimeAppId RealtimeAppID, params *ListRealtimeAppChannelsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/channels", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Prefix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "prefix", *params.Prefix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		var headerParam1 string
+
+		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam1)
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam2)
+
+	}
+
+	return req, nil
+}
+
+// NewGetRealtimeAppChannelRequest generates requests for GetRealtimeAppChannel
+func NewGetRealtimeAppChannelRequest(server string, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *GetRealtimeAppChannelParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "channel_name", channelName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/channels/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		var headerParam1 string
+
+		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam1)
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam2)
+
+	}
+
+	return req, nil
+}
+
+// NewListRealtimeAppChannelMembersRequest generates requests for ListRealtimeAppChannelMembers
+func NewListRealtimeAppChannelMembersRequest(server string, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *ListRealtimeAppChannelMembersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "channel_name", channelName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/channels/%s/members", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		var headerParam1 string
+
+		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam1)
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam2)
+
+	}
+
+	return req, nil
+}
+
+// NewPublishRealtimeAppEventRequest calls the generic PublishRealtimeAppEvent builder with application/json body
+func NewPublishRealtimeAppEventRequest(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, body PublishRealtimeAppEventJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPublishRealtimeAppEventRequestWithBody(server, realtimeAppId, params, "application/json", bodyReader)
+}
+
+// NewPublishRealtimeAppEventRequestWithBody generates requests for PublishRealtimeAppEvent with any type of body
+func NewPublishRealtimeAppEventRequestWithBody(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam2)
+
+		var headerParam3 string
+
+		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam3)
+
+	}
+
+	return req, nil
+}
+
+// NewDisconnectRealtimeAppMemberRequest generates requests for DisconnectRealtimeAppMember
+func NewDisconnectRealtimeAppMemberRequest(server string, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "member_id", memberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/members/%s/disconnect", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam2)
+
+		var headerParam3 string
+
+		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam3)
+
+	}
+
+	return req, nil
+}
+
 // NewCreateSMSMessageBatchRequest calls the generic CreateSMSMessageBatch builder with application/json body
 func NewCreateSMSMessageBatchRequest(server string, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -21808,6 +22270,28 @@ type ClientWithResponsesInterface interface {
 	ReplyEmailThreadMessageWithBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
 
 	ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
+
+	// PublishRealtimeAppBatchWithBodyWithResponse request with any body
+	PublishRealtimeAppBatchWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error)
+
+	PublishRealtimeAppBatchWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error)
+
+	// ListRealtimeAppChannelsWithResponse request
+	ListRealtimeAppChannelsWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *ListRealtimeAppChannelsParams, reqEditors ...RequestEditorFn) (*ListRealtimeAppChannelsResponse, error)
+
+	// GetRealtimeAppChannelWithResponse request
+	GetRealtimeAppChannelWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *GetRealtimeAppChannelParams, reqEditors ...RequestEditorFn) (*GetRealtimeAppChannelResponse, error)
+
+	// ListRealtimeAppChannelMembersWithResponse request
+	ListRealtimeAppChannelMembersWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *ListRealtimeAppChannelMembersParams, reqEditors ...RequestEditorFn) (*ListRealtimeAppChannelMembersResponse, error)
+
+	// PublishRealtimeAppEventWithBodyWithResponse request with any body
+	PublishRealtimeAppEventWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppEventResponse, error)
+
+	PublishRealtimeAppEventWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, body PublishRealtimeAppEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishRealtimeAppEventResponse, error)
+
+	// DisconnectRealtimeAppMemberWithResponse request
+	DisconnectRealtimeAppMemberWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*DisconnectRealtimeAppMemberResponse, error)
 
 	// CreateSMSMessageBatchWithBodyWithResponse request with any body
 	CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
@@ -24392,6 +24876,223 @@ func (r ReplyEmailThreadMessageResponse) ContentType() string {
 	return ""
 }
 
+type PublishRealtimeAppBatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RealtimeBatchPublishResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishRealtimeAppBatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishRealtimeAppBatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PublishRealtimeAppBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListRealtimeAppChannelsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RealtimeChannelsList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListRealtimeAppChannelsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListRealtimeAppChannelsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListRealtimeAppChannelsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetRealtimeAppChannelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RealtimeChannelInfo
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetRealtimeAppChannelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetRealtimeAppChannelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetRealtimeAppChannelResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListRealtimeAppChannelMembersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RealtimeChannelMembers
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListRealtimeAppChannelMembersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListRealtimeAppChannelMembersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListRealtimeAppChannelMembersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type PublishRealtimeAppEventResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *RealtimePublishResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishRealtimeAppEventResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishRealtimeAppEventResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PublishRealtimeAppEventResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DisconnectRealtimeAppMemberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DisconnectRealtimeAppMemberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DisconnectRealtimeAppMemberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DisconnectRealtimeAppMemberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateSMSMessageBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -25638,6 +26339,76 @@ func (c *ClientWithResponses) ReplyEmailThreadMessageWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseReplyEmailThreadMessageResponse(rsp)
+}
+
+// PublishRealtimeAppBatchWithBodyWithResponse request with arbitrary body returning *PublishRealtimeAppBatchResponse
+func (c *ClientWithResponses) PublishRealtimeAppBatchWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error) {
+	rsp, err := c.PublishRealtimeAppBatchWithBody(ctx, realtimeAppId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishRealtimeAppBatchResponse(rsp)
+}
+
+func (c *ClientWithResponses) PublishRealtimeAppBatchWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error) {
+	rsp, err := c.PublishRealtimeAppBatch(ctx, realtimeAppId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishRealtimeAppBatchResponse(rsp)
+}
+
+// ListRealtimeAppChannelsWithResponse request returning *ListRealtimeAppChannelsResponse
+func (c *ClientWithResponses) ListRealtimeAppChannelsWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *ListRealtimeAppChannelsParams, reqEditors ...RequestEditorFn) (*ListRealtimeAppChannelsResponse, error) {
+	rsp, err := c.ListRealtimeAppChannels(ctx, realtimeAppId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListRealtimeAppChannelsResponse(rsp)
+}
+
+// GetRealtimeAppChannelWithResponse request returning *GetRealtimeAppChannelResponse
+func (c *ClientWithResponses) GetRealtimeAppChannelWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *GetRealtimeAppChannelParams, reqEditors ...RequestEditorFn) (*GetRealtimeAppChannelResponse, error) {
+	rsp, err := c.GetRealtimeAppChannel(ctx, realtimeAppId, channelName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetRealtimeAppChannelResponse(rsp)
+}
+
+// ListRealtimeAppChannelMembersWithResponse request returning *ListRealtimeAppChannelMembersResponse
+func (c *ClientWithResponses) ListRealtimeAppChannelMembersWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, channelName RealtimeChannelName, params *ListRealtimeAppChannelMembersParams, reqEditors ...RequestEditorFn) (*ListRealtimeAppChannelMembersResponse, error) {
+	rsp, err := c.ListRealtimeAppChannelMembers(ctx, realtimeAppId, channelName, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListRealtimeAppChannelMembersResponse(rsp)
+}
+
+// PublishRealtimeAppEventWithBodyWithResponse request with arbitrary body returning *PublishRealtimeAppEventResponse
+func (c *ClientWithResponses) PublishRealtimeAppEventWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppEventResponse, error) {
+	rsp, err := c.PublishRealtimeAppEventWithBody(ctx, realtimeAppId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishRealtimeAppEventResponse(rsp)
+}
+
+func (c *ClientWithResponses) PublishRealtimeAppEventWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppEventParams, body PublishRealtimeAppEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishRealtimeAppEventResponse, error) {
+	rsp, err := c.PublishRealtimeAppEvent(ctx, realtimeAppId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishRealtimeAppEventResponse(rsp)
+}
+
+// DisconnectRealtimeAppMemberWithResponse request returning *DisconnectRealtimeAppMemberResponse
+func (c *ClientWithResponses) DisconnectRealtimeAppMemberWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*DisconnectRealtimeAppMemberResponse, error) {
+	rsp, err := c.DisconnectRealtimeAppMember(ctx, realtimeAppId, memberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDisconnectRealtimeAppMemberResponse(rsp)
 }
 
 // CreateSMSMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageBatchResponse
@@ -30628,6 +31399,421 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishRealtimeAppBatchResponse parses an HTTP response from a PublishRealtimeAppBatchWithResponse call
+func ParsePublishRealtimeAppBatchResponse(rsp *http.Response) (*PublishRealtimeAppBatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishRealtimeAppBatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RealtimeBatchPublishResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListRealtimeAppChannelsResponse parses an HTTP response from a ListRealtimeAppChannelsWithResponse call
+func ParseListRealtimeAppChannelsResponse(rsp *http.Response) (*ListRealtimeAppChannelsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListRealtimeAppChannelsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RealtimeChannelsList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetRealtimeAppChannelResponse parses an HTTP response from a GetRealtimeAppChannelWithResponse call
+func ParseGetRealtimeAppChannelResponse(rsp *http.Response) (*GetRealtimeAppChannelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetRealtimeAppChannelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RealtimeChannelInfo
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListRealtimeAppChannelMembersResponse parses an HTTP response from a ListRealtimeAppChannelMembersWithResponse call
+func ParseListRealtimeAppChannelMembersResponse(rsp *http.Response) (*ListRealtimeAppChannelMembersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListRealtimeAppChannelMembersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RealtimeChannelMembers
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishRealtimeAppEventResponse parses an HTTP response from a PublishRealtimeAppEventWithResponse call
+func ParsePublishRealtimeAppEventResponse(rsp *http.Response) (*PublishRealtimeAppEventResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishRealtimeAppEventResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest RealtimePublishResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDisconnectRealtimeAppMemberResponse parses an HTTP response from a DisconnectRealtimeAppMemberWithResponse call
+func ParseDisconnectRealtimeAppMemberResponse(rsp *http.Response) (*DisconnectRealtimeAppMemberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DisconnectRealtimeAppMemberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited

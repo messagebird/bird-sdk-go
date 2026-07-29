@@ -26,6 +26,10 @@ type Config struct {
 	Timeout        time.Duration
 	IdempotencyKey string
 	WebhookSecret  string
+	// RealtimeKey and RealtimeSecret are the Realtime app's own credentials,
+	// sent as X-Realtime-Key/X-Realtime-Secret on every Realtime call.
+	RealtimeKey    string
+	RealtimeSecret string
 	Header         http.Header
 	ResponseInto   *Response
 	EmailDefaults  EmailDefaults

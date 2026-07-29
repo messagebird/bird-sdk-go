@@ -76,6 +76,18 @@ func WithWebhookSecret(secret string) RequestOption {
 	return func(c *requestconfig.Config) error { c.WebhookSecret = secret; return nil }
 }
 
+// WithRealtimeCredentials sets the Realtime app key and secret every
+// Client.Realtime call authenticates with, sent as X-Realtime-Key and
+// X-Realtime-Secret. They are the app's own credentials, separate from the
+// workspace API key. Set them at construction for a single app, or per call
+// when one client addresses several apps.
+func WithRealtimeCredentials(key, secret string) RequestOption {
+	return func(c *requestconfig.Config) error {
+		c.RealtimeKey, c.RealtimeSecret = key, secret
+		return nil
+	}
+}
+
 // WithEmailDefaults sets values applied to every email send when the per-send
 // params leave the corresponding field unset (the per-send value always wins).
 func WithEmailDefaults(d requestconfig.EmailDefaults) RequestOption {

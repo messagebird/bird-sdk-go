@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.14.0"
+	version = "0.15.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors (ADR-0074), not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -73,6 +73,7 @@ type Client struct {
 	MailboxReceiveRule   *MailboxReceiveRuleService
 	MailboxThread        *MailboxThreadService
 	MailboxThreadMessage *MailboxThreadMessageService
+	Realtime             *RealtimeService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -119,11 +120,16 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Contacts = &ContactsService{resource{client: c}}
 	c.Audiences = &AudiencesService{resource{client: c}}
 	c.ContactProperties = &ContactPropertiesService{resource{client: c}}
-	c.Domains = &DomainsService{client: c}
+	c.Domains = &DomainsService{resource{client: c}}
 	c.Mailbox = &MailboxService{client: c}
 	c.MailboxReceiveRule = &MailboxReceiveRuleService{client: c}
 	c.MailboxThread = &MailboxThreadService{client: c}
 	c.MailboxThreadMessage = &MailboxThreadMessageService{client: c}
+	c.Realtime = &RealtimeService{
+		client:   c,
+		Channels: &RealtimeChannelsService{client: c},
+		Members:  &RealtimeMembersService{client: c},
+	}
 	return c, nil
 }
 
@@ -218,7 +224,11 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 func isReservedHeader(key string) bool {
 	switch http.CanonicalHeaderKey(key) {
 	case "Authorization", "User-Agent", "X-Bird-Api-Version", "Idempotency-Key",
-		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch", "Bird-Caller":
+		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch", "Bird-Caller",
+		// Realtime app credentials come from option.WithRealtimeCredentials and are
+		// stamped by the generated request builder; the editors below must not
+		// overwrite them from a caller's option.WithHeader.
+		"X-Realtime-Key", "X-Realtime-Secret":
 		return true
 	default:
 		return false

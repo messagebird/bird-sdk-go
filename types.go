@@ -139,8 +139,8 @@ type (
 // DomainList is a page of domains. DNSRecord is one required DNS record and its
 // verification state; DomainDKIM is the domain's active DKIM signing
 // configuration; DomainCapabilities is the per-capability readiness breakdown.
-// These are the read-side types; the write-side configs are the *Config structs
-// in domains.go.
+// The write-side *Config aliases are emitted next to the generated
+// DomainCreateParams / DomainUpdateParams in domains.gen.go.
 type (
 	Domain             = oapi.Domain
 	DomainList         = oapi.DomainList
@@ -188,6 +188,33 @@ type (
 type (
 	Verification            = oapi.Verification
 	VerificationCheckResult = oapi.VerificationCheckResult
+)
+
+// Realtime read and publish results. RealtimePublishResult and
+// RealtimeBatchPublishResult carry per-channel counts only when the call asked
+// for them via Include. RealtimeChannelsList is the app's occupied channels
+// (unpaginated); RealtimeChannelInfo is one channel's state;
+// RealtimeChannelMembers is the members present on a presence channel.
+type (
+	RealtimePublishResult          = oapi.RealtimePublishResult
+	RealtimeBatchPublishResult     = oapi.RealtimeBatchPublishResult
+	RealtimeBatchPublishResultItem = oapi.RealtimeBatchPublishResultItem
+	RealtimeChannelsList           = oapi.RealtimeChannelsList
+	RealtimeChannelListItem        = oapi.RealtimeChannelListItem
+	RealtimeChannelInfo            = oapi.RealtimeChannelInfo
+	RealtimeChannelMembers         = oapi.RealtimeChannelMembers
+	RealtimeChannelMember          = oapi.RealtimeChannelMember
+)
+
+// RealtimeChannelInclude names a per-channel attribute to return alongside a
+// publish or channel read.
+type RealtimeChannelInclude = oapi.RealtimeChannelInclude
+
+const (
+	// RealtimeIncludeMemberCount is presence-channels only.
+	RealtimeIncludeMemberCount RealtimeChannelInclude = "member_count"
+	// RealtimeIncludeConnectionCount requires the app's connection-counting flag.
+	RealtimeIncludeConnectionCount RealtimeChannelInclude = "connection_count"
 )
 
 const (

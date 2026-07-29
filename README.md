@@ -16,6 +16,7 @@ Requires Go 1.24+.
 
 - **`client.Email`** — `Send`, `Get`, `List` (auto-paginating; `ListPage` for manual cursors).
 - **`client.Whatsapp`** — `Send` (template messages), `Get`, `List` (auto-paginating; `ListPage` for manual cursors), `ListEvents` (a message's delivery timeline). `client.WhatsappTemplates` reads the template catalogue.
+- **`client.Realtime`** — `Publish`, `PublishBatch`, plus `Channels` (`List`, `Get`, `Members`) and `Members.Disconnect`. Every call takes the Realtime app id and needs the app's own credentials on top of the API key: `option.WithRealtimeCredentials(key, secret)`, at construction or per call.
 - **`client.Webhooks`** — `Unwrap` (verify a signed event into a typed value).
 - **Typed errors.** A failure is a `*bird.APIError` (or a richer `*bird.RateLimitError` / `*bird.ValidationError`) you branch on with `errors.As`. Transient failures (timeouts, 429, 5xx) are retried automatically with a reused idempotency key.
 - **Options** configure the client and override per call (`option.WithEmailDefaults`, `WithTimeout`, `WithIdempotencyKey`, …).

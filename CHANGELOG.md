@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.15.0
+
+- Add Realtime data-plane methods: publish, batch publish, channel list/get/members, and member disconnect.
+- Add the domains resource: create, read, update, delete, and verify. List supports `sort`/`order`/`include_total`; update clears the tracking domain via `bird.Null(...)` instead of a `ClearTracking` flag.
+- Add `verify.*` webhook event types and payloads.
+- Internal improvements.
+
 ## 0.14.0
 
 - Audiences params now match the API's declared field types: `AudienceCreateParams.Type` is the typed enum (was `string`), and `AudienceUpdateParams.Name` is a plain `string` (the name cannot be cleared).
