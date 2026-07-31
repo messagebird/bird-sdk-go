@@ -8766,7 +8766,7 @@ type WhatsAppMessageSendRequest struct {
 // WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means the recipient is on the workspace's suppression list; the message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
 type WhatsAppMessageStatus string
 
-// WhatsAppMessageTemplate The template a message was sent from. On reads `name`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
+// WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
 type WhatsAppMessageTemplate struct {
 	// Category Content classification applied to messages sent from this template.
 	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
@@ -8777,8 +8777,8 @@ type WhatsAppMessageTemplate struct {
 	// Language The language code of the template variant that was sent (for example `en`).
 	Language *string `json:"language,omitempty"`
 
-	// Name The template's stable handle (for example `bird_otp`).
-	Name *WhatsAppTemplateName `json:"name,omitempty"`
+	// Slug The template's stable handle (for example `bird_otp`).
+	Slug *TemplateSlug `json:"slug,omitempty"`
 }
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
@@ -8805,9 +8805,6 @@ type WhatsAppMessageTemplateComponentParameter struct {
 // WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
 type WhatsAppTemplateCategory = string
 
-// WhatsAppTemplateName A WhatsApp template's name — the stable handle used to reference the template when sending. Lowercase letters, numbers, and underscores.
-type WhatsAppTemplateName = string
-
 // WhatsAppTemplateParameterType The kind of value a template parameter accepts. `text` (the only kind today) is a plain string substituted into the placeholder. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType = string
 
@@ -8819,8 +8816,8 @@ type WhatsAppTemplateSend struct {
 	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
 	Language *WhatsAppLanguage `json:"language,omitempty"`
 
-	// Name The template to send, by its name (for example `bird_otp`).
-	Name WhatsAppTemplateName `json:"name"`
+	// Slug The template to send, by its slug (for example `bird_otp`).
+	Slug TemplateSlug `json:"slug"`
 }
 
 // WorkspaceID defines model for WorkspaceID.

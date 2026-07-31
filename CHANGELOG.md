@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.18.0
+
+- **Breaking:** a WhatsApp send addresses its template by `slug` (previously `name`), and a WhatsApp message read echoes `template.slug` (previously `template.name`). Templates carry the slug as their permanent handle; the display name is cosmetic and never affects sending.
+
 ## 0.17.0
 
 - Email message reads now report the message as delivered. For a send that used a template, `subject` and the bodies from the message-content endpoint previously returned the template source, tokens and all, which is content no recipient received; they now return that source with the send's substitution values applied. The values themselves are exposed as a new `parameters` field so the inputs stay visible beside the result. Sends that supplied their content inline are unaffected.

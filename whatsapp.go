@@ -26,7 +26,7 @@ type WhatsappSendParams struct {
 func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 	body := oapi.WhatsAppMessageSendRequest{To: p.To}
 	if p.Template != "" || p.Language != "" || len(p.Components) > 0 {
-		tmpl := oapi.WhatsAppTemplateSend{Name: p.Template}
+		tmpl := oapi.WhatsAppTemplateSend{Slug: p.Template}
 		if p.Language != "" {
 			language := p.Language
 			tmpl.Language = &language
