@@ -10,6 +10,8 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type ContactPropertyType = oapi.ContactPropertyType
+
 // ContactPropertyListParams filters the list. Zero-value fields are omitted.
 type ContactPropertyListParams struct {
 	// Maximum number of items to return per page.
@@ -21,6 +23,39 @@ func (p ContactPropertyListParams) toWire(startingAfter string) *oapi.ListContac
 		Limit:         optInt(p.Limit),
 		StartingAfter: optStr(startingAfter),
 	}
+}
+
+// ContactPropertyCreateParams is the request body for create.
+type ContactPropertyCreateParams struct {
+	// The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	Key  string
+	Type ContactPropertyType
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
+	FallbackValue any
+}
+
+func (p ContactPropertyCreateParams) toWire() oapi.ContactPropertyCreateRequest {
+	body := oapi.ContactPropertyCreateRequest{}
+	body.Key = p.Key
+	body.Type = p.Type
+	if p.FallbackValue != nil {
+		body.FallbackValue = p.FallbackValue
+	}
+	return body
+}
+
+// ContactPropertyUpdateParams is the request body for update.
+type ContactPropertyUpdateParams struct {
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
+	FallbackValue any
+}
+
+func (p ContactPropertyUpdateParams) toWire() oapi.ContactPropertyUpdateRequest {
+	body := oapi.ContactPropertyUpdateRequest{}
+	if p.FallbackValue != nil {
+		body.FallbackValue = p.FallbackValue
+	}
+	return body
 }
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
@@ -56,6 +91,44 @@ func (s *ContactPropertiesService) List(ctx context.Context, params ContactPrope
 func (s *ContactPropertiesService) Get(ctx context.Context, propertyId string, opts ...option.RequestOption) (*ContactProperty, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetContactProperty(ctx, oapi.ContactPropertyID(propertyId), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out ContactProperty
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Create Define a custom contact property (key + value type) that becomes available in contact data and as a broadcast template variable. The key and type cannot change after creation; a workspace holds at most 200 properties, archived included.
+func (s *ContactPropertiesService) Create(ctx context.Context, params ContactPropertyCreateParams, opts ...option.RequestOption) (*ContactProperty, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateContactPropertyParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateContactProperty(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out ContactProperty
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Update Update a contact property's fallback value. The key and type are immutable; create a new property instead.
+func (s *ContactPropertiesService) Update(ctx context.Context, propertyId string, params ContactPropertyUpdateParams, opts ...option.RequestOption) (*ContactProperty, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateContactPropertyParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateContactProperty(ctx, oapi.ContactPropertyID(propertyId), op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err

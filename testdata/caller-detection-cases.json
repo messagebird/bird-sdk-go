@@ -1,5 +1,5 @@
 {
-  "_comment": "Golden test vectors for Bird-Caller detection, shared by the CLI (api-go) + all three SDK test suites so the per-language detector shells cannot silently diverge: each `env` fixture must resolve to `want` in every language. JSON (not YAML) so every language parses it with only its stdlib. Hand-maintained alongside caller-detection.yaml; add a case when you add or reorder a rule.",
+  "_comment": "Golden test vectors for Bird-Caller detection, shared by the CLI (commandapi) + all three SDK test suites so the per-language detector shells cannot silently diverge: each `env` fixture must resolve to `want` in every language. JSON (not YAML) so every language parses it with only its stdlib. Hand-maintained alongside caller-detection.yaml; add a case when you add or reorder a rule.",
   "cases": [
     {"name": "empty env is shell", "env": {}, "want": "shell"},
 

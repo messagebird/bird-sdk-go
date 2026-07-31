@@ -35,9 +35,8 @@ func Value[T any](v T) Nullable[T] { return nullable.NewNullableWithValue(v) }
 // Null sets a Nullable request field to send an explicit JSON null, clearing it.
 func Null[T any]() Nullable[T] { return nullable.NewNullNullable[T]() }
 
-// Public aliases for the curated surface. The generated types live in
-// internal/oapi; these names are the semver-locked commitment. Typed IDs are
-// plain strings on the wire, so they need no alias.
+// Public type aliases — the semver-locked names for the SDK's response and
+// enum types. Typed IDs are plain strings on the wire, so they need no alias.
 
 // EmailMessage is a sent message with aggregate delivery status.
 type EmailMessage = oapi.EmailMessage
@@ -60,6 +59,30 @@ type EmailAttachment = oapi.EmailAttachment
 
 // EmailStatus is a message's aggregate delivery status.
 type EmailStatus = oapi.EmailMessageStatus
+
+// Enum vocabularies the read filters expose. Each is a named type, so a params
+// field carries it rather than a bare string.
+type (
+	// TemplateScope distinguishes Bird's built-in templates from a workspace's own.
+	TemplateScope = oapi.TemplateScope
+	// SMSMessageCategory is an SMS's content classification.
+	SMSMessageCategory = oapi.SMSMessageCategory
+	// EmailStatsSortMetric is the metric an email-stats breakdown sorts by.
+	EmailStatsSortMetric = oapi.EmailStatsSortMetric
+	// EmailEngagementSortMetric is the engagement metric a breakdown sorts by.
+	EmailEngagementSortMetric = oapi.EmailEngagementSortMetric
+	// EmailMailboxProviderSortMetric is the metric a mailbox-provider breakdown
+	// sorts by.
+	EmailMailboxProviderSortMetric = oapi.EmailMailboxProviderSortMetric
+	// StatsTrendGrain is the bucket grain of a stats trend series.
+	StatsTrendGrain = oapi.StatsTrendGrain
+	// MessageDirection is whether a message was sent or received.
+	MessageDirection = oapi.MessageDirection
+	// EmailMessageStatus is an alias of EmailStatus, used by the read filters.
+	EmailMessageStatus = oapi.EmailMessageStatus
+	// EmailMessageCategory is an alias of Category, used by the read filters.
+	EmailMessageCategory = oapi.EmailMessageCategory
+)
 
 // Email statistics responses, returned by the Client.Email.Stats methods. Each
 // is the read-side body for one breakdown.
@@ -139,8 +162,7 @@ type (
 // DomainList is a page of domains. DNSRecord is one required DNS record and its
 // verification state; DomainDKIM is the domain's active DKIM signing
 // configuration; DomainCapabilities is the per-capability readiness breakdown.
-// The write-side *Config aliases are emitted next to the generated
-// DomainCreateParams / DomainUpdateParams in domains.gen.go.
+// The write-side *Config aliases accompany DomainCreateParams / DomainUpdateParams.
 type (
 	Domain             = oapi.Domain
 	DomainList         = oapi.DomainList
@@ -174,13 +196,6 @@ type (
 type (
 	WhatsAppMessageTemplateComponent          = oapi.WhatsAppMessageTemplateComponent
 	WhatsAppMessageTemplateComponentParameter = oapi.WhatsAppMessageTemplateComponentParameter
-)
-
-// WhatsAppTemplate is a template available to the workspace; WhatsAppTemplateList
-// is the (unpaginated) set of templates.
-type (
-	WhatsAppTemplate     = oapi.WhatsAppTemplate
-	WhatsAppTemplateList = oapi.WhatsAppTemplateList
 )
 
 // Verification is a verification's current state (id, status, channel plan);

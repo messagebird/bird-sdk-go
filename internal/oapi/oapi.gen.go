@@ -69,40 +69,19 @@ func (e AudienceCreateRequestType) Valid() bool {
 
 // Defines values for ContactPropertyType.
 const (
-	ContactPropertyTypeContactPropertyTypeBoolean ContactPropertyType = "boolean"
-	ContactPropertyTypeContactPropertyTypeNumber  ContactPropertyType = "number"
-	ContactPropertyTypeContactPropertyTypeString  ContactPropertyType = "string"
+	ContactPropertyTypeBoolean ContactPropertyType = "boolean"
+	ContactPropertyTypeNumber  ContactPropertyType = "number"
+	ContactPropertyTypeString  ContactPropertyType = "string"
 )
 
 // Valid indicates whether the value is a known member of the ContactPropertyType enum.
 func (e ContactPropertyType) Valid() bool {
 	switch e {
-	case ContactPropertyTypeContactPropertyTypeBoolean:
+	case ContactPropertyTypeBoolean:
 		return true
-	case ContactPropertyTypeContactPropertyTypeNumber:
+	case ContactPropertyTypeNumber:
 		return true
-	case ContactPropertyTypeContactPropertyTypeString:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ContactPropertyCreateRequestType.
-const (
-	ContactPropertyCreateRequestTypeContactPropertyTypeBoolean ContactPropertyCreateRequestType = "boolean"
-	ContactPropertyCreateRequestTypeContactPropertyTypeNumber  ContactPropertyCreateRequestType = "number"
-	ContactPropertyCreateRequestTypeContactPropertyTypeString  ContactPropertyCreateRequestType = "string"
-)
-
-// Valid indicates whether the value is a known member of the ContactPropertyCreateRequestType enum.
-func (e ContactPropertyCreateRequestType) Valid() bool {
-	switch e {
-	case ContactPropertyCreateRequestTypeContactPropertyTypeBoolean:
-		return true
-	case ContactPropertyCreateRequestTypeContactPropertyTypeNumber:
-		return true
-	case ContactPropertyCreateRequestTypeContactPropertyTypeString:
+	case ContactPropertyTypeString:
 		return true
 	default:
 		return false
@@ -517,24 +496,6 @@ func (e EmailEventRejectionReason) Valid() bool {
 	}
 }
 
-// Defines values for EmailMailboxComposeRequestCategory.
-const (
-	EmailMailboxComposeRequestCategoryMarketing     EmailMailboxComposeRequestCategory = "marketing"
-	EmailMailboxComposeRequestCategoryTransactional EmailMailboxComposeRequestCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailMailboxComposeRequestCategory enum.
-func (e EmailMailboxComposeRequestCategory) Valid() bool {
-	switch e {
-	case EmailMailboxComposeRequestCategoryMarketing:
-		return true
-	case EmailMailboxComposeRequestCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EmailMailboxLabelType.
 const (
 	EmailMailboxLabelTypeCustom EmailMailboxLabelType = "custom"
@@ -646,24 +607,6 @@ func (e EmailMailboxProviderSortMetric) Valid() bool {
 	}
 }
 
-// Defines values for EmailMessageCategory.
-const (
-	EmailMessageCategoryMarketing     EmailMessageCategory = "marketing"
-	EmailMessageCategoryTransactional EmailMessageCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailMessageCategory enum.
-func (e EmailMessageCategory) Valid() bool {
-	switch e {
-	case EmailMessageCategoryMarketing:
-		return true
-	case EmailMessageCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EmailMessageBatchItemCategory.
 const (
 	EmailMessageBatchItemCategoryMarketing     EmailMessageBatchItemCategory = "marketing"
@@ -697,18 +640,18 @@ func (e EmailMessageBatchItemStatus) Valid() bool {
 	}
 }
 
-// Defines values for EmailMessageSendRequestCategory.
+// Defines values for EmailMessageCategory.
 const (
-	EmailMessageSendRequestCategoryMarketing     EmailMessageSendRequestCategory = "marketing"
-	EmailMessageSendRequestCategoryTransactional EmailMessageSendRequestCategory = "transactional"
+	EmailMessageCategoryMarketing     EmailMessageCategory = "marketing"
+	EmailMessageCategoryTransactional EmailMessageCategory = "transactional"
 )
 
-// Valid indicates whether the value is a known member of the EmailMessageSendRequestCategory enum.
-func (e EmailMessageSendRequestCategory) Valid() bool {
+// Valid indicates whether the value is a known member of the EmailMessageCategory enum.
+func (e EmailMessageCategory) Valid() bool {
 	switch e {
-	case EmailMessageSendRequestCategoryMarketing:
+	case EmailMessageCategoryMarketing:
 		return true
-	case EmailMessageSendRequestCategoryTransactional:
+	case EmailMessageCategoryTransactional:
 		return true
 	default:
 		return false
@@ -1099,24 +1042,6 @@ func (e EmailThreadMessageRecipientStatus) Valid() bool {
 	case EmailThreadMessageRecipientStatusDelivered:
 		return true
 	case EmailThreadMessageRecipientStatusFailed:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EmailThreadMessageReplyRequestCategory.
-const (
-	EmailThreadMessageReplyRequestCategoryMarketing     EmailThreadMessageReplyRequestCategory = "marketing"
-	EmailThreadMessageReplyRequestCategoryTransactional EmailThreadMessageReplyRequestCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the EmailThreadMessageReplyRequestCategory enum.
-func (e EmailThreadMessageReplyRequestCategory) Valid() bool {
-	switch e {
-	case EmailThreadMessageReplyRequestCategoryMarketing:
-		return true
-	case EmailThreadMessageReplyRequestCategoryTransactional:
 		return true
 	default:
 		return false
@@ -2341,6 +2266,24 @@ func (e MailboxUpdateRetentionTier) Valid() bool {
 	}
 }
 
+// Defines values for MessageDirection.
+const (
+	MessageDirectionInbound  MessageDirection = "inbound"
+	MessageDirectionOutbound MessageDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the MessageDirection enum.
+func (e MessageDirection) Valid() bool {
+	switch e {
+	case MessageDirectionInbound:
+		return true
+	case MessageDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeChannelInclude.
 const (
 	ConnectionCount RealtimeChannelInclude = "connection_count"
@@ -2499,22 +2442,22 @@ func (e SMSMessageDirection) Valid() bool {
 
 // Defines values for SMSMessageCategory.
 const (
-	SMSMessageCategoryAuthentication SMSMessageCategory = "authentication"
-	SMSMessageCategoryMarketing      SMSMessageCategory = "marketing"
-	SMSMessageCategoryService        SMSMessageCategory = "service"
-	SMSMessageCategoryTransactional  SMSMessageCategory = "transactional"
+	Authentication SMSMessageCategory = "authentication"
+	Marketing      SMSMessageCategory = "marketing"
+	Service        SMSMessageCategory = "service"
+	Transactional  SMSMessageCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSMessageCategory enum.
 func (e SMSMessageCategory) Valid() bool {
 	switch e {
-	case SMSMessageCategoryAuthentication:
+	case Authentication:
 		return true
-	case SMSMessageCategoryMarketing:
+	case Marketing:
 		return true
-	case SMSMessageCategoryService:
+	case Service:
 		return true
-	case SMSMessageCategoryTransactional:
+	case Transactional:
 		return true
 	default:
 		return false
@@ -2620,6 +2563,24 @@ func (e StatsGrain) Valid() bool {
 	case StatsGrainDay:
 		return true
 	case StatsGrainHour:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for StatsTrendGrain.
+const (
+	Daily  StatsTrendGrain = "daily"
+	Hourly StatsTrendGrain = "hourly"
+)
+
+// Valid indicates whether the value is a known member of the StatsTrendGrain enum.
+func (e StatsTrendGrain) Valid() bool {
+	switch e {
+	case Daily:
+		return true
+	case Hourly:
 		return true
 	default:
 		return false
@@ -3022,66 +2983,6 @@ func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	}
 }
 
-// Defines values for ListEmailMessagesParamsStatus.
-const (
-	Accepted       ListEmailMessagesParamsStatus = "accepted"
-	Bounced        ListEmailMessagesParamsStatus = "bounced"
-	Canceled       ListEmailMessagesParamsStatus = "canceled"
-	Complained     ListEmailMessagesParamsStatus = "complained"
-	Deferred       ListEmailMessagesParamsStatus = "deferred"
-	Delivered      ListEmailMessagesParamsStatus = "delivered"
-	PartialFailure ListEmailMessagesParamsStatus = "partial_failure"
-	Processed      ListEmailMessagesParamsStatus = "processed"
-	Rejected       ListEmailMessagesParamsStatus = "rejected"
-	Scheduled      ListEmailMessagesParamsStatus = "scheduled"
-)
-
-// Valid indicates whether the value is a known member of the ListEmailMessagesParamsStatus enum.
-func (e ListEmailMessagesParamsStatus) Valid() bool {
-	switch e {
-	case Accepted:
-		return true
-	case Bounced:
-		return true
-	case Canceled:
-		return true
-	case Complained:
-		return true
-	case Deferred:
-		return true
-	case Delivered:
-		return true
-	case PartialFailure:
-		return true
-	case Processed:
-		return true
-	case Rejected:
-		return true
-	case Scheduled:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListEmailMessagesParamsCategory.
-const (
-	ListEmailMessagesParamsCategoryMarketing     ListEmailMessagesParamsCategory = "marketing"
-	ListEmailMessagesParamsCategoryTransactional ListEmailMessagesParamsCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the ListEmailMessagesParamsCategory enum.
-func (e ListEmailMessagesParamsCategory) Valid() bool {
-	switch e {
-	case ListEmailMessagesParamsCategoryMarketing:
-		return true
-	case ListEmailMessagesParamsCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for GetEmailStatsByBounceCodeParamsSort.
 const (
 	GetEmailStatsByBounceCodeParamsSortBounced             GetEmailStatsByBounceCodeParamsSort = "bounced"
@@ -3106,42 +3007,6 @@ func (e GetEmailStatsByBounceCodeParamsSort) Valid() bool {
 	case GetEmailStatsByBounceCodeParamsSortBouncesSoft:
 		return true
 	case GetEmailStatsByBounceCodeParamsSortBouncesUndetermined:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByBroadcastParamsTrendGrain.
-const (
-	GetEmailStatsByBroadcastParamsTrendGrainDaily  GetEmailStatsByBroadcastParamsTrendGrain = "daily"
-	GetEmailStatsByBroadcastParamsTrendGrainHourly GetEmailStatsByBroadcastParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByBroadcastParamsTrendGrain enum.
-func (e GetEmailStatsByBroadcastParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByBroadcastParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByBroadcastParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByCategoryParamsTrendGrain.
-const (
-	GetEmailStatsByCategoryParamsTrendGrainDaily  GetEmailStatsByCategoryParamsTrendGrain = "daily"
-	GetEmailStatsByCategoryParamsTrendGrainHourly GetEmailStatsByCategoryParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByCategoryParamsTrendGrain enum.
-func (e GetEmailStatsByCategoryParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByCategoryParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByCategoryParamsTrendGrainHourly:
 		return true
 	default:
 		return false
@@ -3199,78 +3064,6 @@ func (e GetEmailStatsByLocationParamsGroupBy) Valid() bool {
 	case GetEmailStatsByLocationParamsGroupByCountry:
 		return true
 	case GetEmailStatsByLocationParamsGroupByRegion:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByMailboxProviderRegionParamsTrendGrain.
-const (
-	GetEmailStatsByMailboxProviderRegionParamsTrendGrainDaily  GetEmailStatsByMailboxProviderRegionParamsTrendGrain = "daily"
-	GetEmailStatsByMailboxProviderRegionParamsTrendGrainHourly GetEmailStatsByMailboxProviderRegionParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByMailboxProviderRegionParamsTrendGrain enum.
-func (e GetEmailStatsByMailboxProviderRegionParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByMailboxProviderRegionParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByMailboxProviderRegionParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByMailboxProviderParamsTrendGrain.
-const (
-	GetEmailStatsByMailboxProviderParamsTrendGrainDaily  GetEmailStatsByMailboxProviderParamsTrendGrain = "daily"
-	GetEmailStatsByMailboxProviderParamsTrendGrainHourly GetEmailStatsByMailboxProviderParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByMailboxProviderParamsTrendGrain enum.
-func (e GetEmailStatsByMailboxProviderParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByMailboxProviderParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByMailboxProviderParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByRecipientDomainParamsTrendGrain.
-const (
-	GetEmailStatsByRecipientDomainParamsTrendGrainDaily  GetEmailStatsByRecipientDomainParamsTrendGrain = "daily"
-	GetEmailStatsByRecipientDomainParamsTrendGrainHourly GetEmailStatsByRecipientDomainParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByRecipientDomainParamsTrendGrain enum.
-func (e GetEmailStatsByRecipientDomainParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByRecipientDomainParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByRecipientDomainParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsBySendingDomainParamsTrendGrain.
-const (
-	GetEmailStatsBySendingDomainParamsTrendGrainDaily  GetEmailStatsBySendingDomainParamsTrendGrain = "daily"
-	GetEmailStatsBySendingDomainParamsTrendGrainHourly GetEmailStatsBySendingDomainParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsBySendingDomainParamsTrendGrain enum.
-func (e GetEmailStatsBySendingDomainParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsBySendingDomainParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsBySendingDomainParamsTrendGrainHourly:
 		return true
 	default:
 		return false
@@ -3340,24 +3133,6 @@ func (e GetEmailStatsBySendingIpParamsSort) Valid() bool {
 	}
 }
 
-// Defines values for GetEmailStatsBySendingIpParamsTrendGrain.
-const (
-	GetEmailStatsBySendingIpParamsTrendGrainDaily  GetEmailStatsBySendingIpParamsTrendGrain = "daily"
-	GetEmailStatsBySendingIpParamsTrendGrainHourly GetEmailStatsBySendingIpParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsBySendingIpParamsTrendGrain enum.
-func (e GetEmailStatsBySendingIpParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsBySendingIpParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsBySendingIpParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for GetEmailStatsSummaryParamsCompare.
 const (
 	PreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
@@ -3373,60 +3148,6 @@ func (e GetEmailStatsSummaryParamsCompare) Valid() bool {
 	}
 }
 
-// Defines values for GetEmailStatsByTagParamsTrendGrain.
-const (
-	GetEmailStatsByTagParamsTrendGrainDaily  GetEmailStatsByTagParamsTrendGrain = "daily"
-	GetEmailStatsByTagParamsTrendGrainHourly GetEmailStatsByTagParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByTagParamsTrendGrain enum.
-func (e GetEmailStatsByTagParamsTrendGrain) Valid() bool {
-	switch e {
-	case GetEmailStatsByTagParamsTrendGrainDaily:
-		return true
-	case GetEmailStatsByTagParamsTrendGrainHourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for GetEmailStatsByTemplateParamsTrendGrain.
-const (
-	Daily  GetEmailStatsByTemplateParamsTrendGrain = "daily"
-	Hourly GetEmailStatsByTemplateParamsTrendGrain = "hourly"
-)
-
-// Valid indicates whether the value is a known member of the GetEmailStatsByTemplateParamsTrendGrain enum.
-func (e GetEmailStatsByTemplateParamsTrendGrain) Valid() bool {
-	switch e {
-	case Daily:
-		return true
-	case Hourly:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListEmailThreadMessagesParamsDirection.
-const (
-	ListEmailThreadMessagesParamsDirectionInbound  ListEmailThreadMessagesParamsDirection = "inbound"
-	ListEmailThreadMessagesParamsDirectionOutbound ListEmailThreadMessagesParamsDirection = "outbound"
-)
-
-// Valid indicates whether the value is a known member of the ListEmailThreadMessagesParamsDirection enum.
-func (e ListEmailThreadMessagesParamsDirection) Valid() bool {
-	switch e {
-	case ListEmailThreadMessagesParamsDirectionInbound:
-		return true
-	case ListEmailThreadMessagesParamsDirectionOutbound:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for ListEmailThreadMessagesParamsInclude.
 const (
 	ExtractedText ListEmailThreadMessagesParamsInclude = "extracted_text"
@@ -3436,90 +3157,6 @@ const (
 func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 	switch e {
 	case ExtractedText:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListSMSMessagesParamsDirection.
-const (
-	Inbound  ListSMSMessagesParamsDirection = "inbound"
-	Outbound ListSMSMessagesParamsDirection = "outbound"
-)
-
-// Valid indicates whether the value is a known member of the ListSMSMessagesParamsDirection enum.
-func (e ListSMSMessagesParamsDirection) Valid() bool {
-	switch e {
-	case Inbound:
-		return true
-	case Outbound:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListSMSMessagesParamsCategory.
-const (
-	ListSMSMessagesParamsCategoryAuthentication ListSMSMessagesParamsCategory = "authentication"
-	ListSMSMessagesParamsCategoryMarketing      ListSMSMessagesParamsCategory = "marketing"
-	ListSMSMessagesParamsCategoryService        ListSMSMessagesParamsCategory = "service"
-	ListSMSMessagesParamsCategoryTransactional  ListSMSMessagesParamsCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the ListSMSMessagesParamsCategory enum.
-func (e ListSMSMessagesParamsCategory) Valid() bool {
-	switch e {
-	case ListSMSMessagesParamsCategoryAuthentication:
-		return true
-	case ListSMSMessagesParamsCategoryMarketing:
-		return true
-	case ListSMSMessagesParamsCategoryService:
-		return true
-	case ListSMSMessagesParamsCategoryTransactional:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListSMSTemplatesParamsScope.
-const (
-	System    ListSMSTemplatesParamsScope = "system"
-	Workspace ListSMSTemplatesParamsScope = "workspace"
-)
-
-// Valid indicates whether the value is a known member of the ListSMSTemplatesParamsScope enum.
-func (e ListSMSTemplatesParamsScope) Valid() bool {
-	switch e {
-	case System:
-		return true
-	case Workspace:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListSMSTemplatesParamsCategory.
-const (
-	Authentication ListSMSTemplatesParamsCategory = "authentication"
-	Marketing      ListSMSTemplatesParamsCategory = "marketing"
-	Service        ListSMSTemplatesParamsCategory = "service"
-	Transactional  ListSMSTemplatesParamsCategory = "transactional"
-)
-
-// Valid indicates whether the value is a known member of the ListSMSTemplatesParamsCategory enum.
-func (e ListSMSTemplatesParamsCategory) Valid() bool {
-	switch e {
-	case Authentication:
-		return true
-	case Marketing:
-		return true
-	case Service:
-		return true
-	case Transactional:
 		return true
 	default:
 		return false
@@ -3711,13 +3348,10 @@ type ContactProperty struct {
 	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string `json:"key"`
 
-	// Type The value type every contact must use for this property. Cannot be changed after creation.
+	// Type The value type every contact must use for a property. Cannot be changed after creation.
 	Type      ContactPropertyType `json:"type"`
 	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
 }
-
-// ContactPropertyType The value type every contact must use for this property. Cannot be changed after creation.
-type ContactPropertyType string
 
 // ContactPropertyCreateRequest defines model for ContactPropertyCreateRequest.
 type ContactPropertyCreateRequest struct {
@@ -3727,12 +3361,9 @@ type ContactPropertyCreateRequest struct {
 	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string `json:"key"`
 
-	// Type The value type every contact must use for this property. Cannot be changed after creation.
-	Type ContactPropertyCreateRequestType `json:"type"`
+	// Type The value type every contact must use for a property. Cannot be changed after creation.
+	Type ContactPropertyType `json:"type"`
 }
-
-// ContactPropertyCreateRequestType The value type every contact must use for this property. Cannot be changed after creation.
-type ContactPropertyCreateRequestType string
 
 // ContactPropertyID defines model for ContactPropertyID.
 type ContactPropertyID = string
@@ -3751,6 +3382,9 @@ type ContactPropertyList struct {
 	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// ContactPropertyType The value type every contact must use for a property. Cannot be changed after creation.
+type ContactPropertyType string
 
 // ContactPropertyUpdateRequest defines model for ContactPropertyUpdateRequest.
 type ContactPropertyUpdateRequest struct {
@@ -4663,8 +4297,8 @@ type EmailMailboxComposeRequest struct {
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-	Category *EmailMailboxComposeRequestCategory `json:"category,omitempty"`
+	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	Category *EmailMessageCategory `json:"category,omitempty"`
 
 	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Cc *[]EmailAddressInput `json:"cc,omitempty"`
@@ -4690,9 +4324,6 @@ type EmailMailboxComposeRequest struct {
 	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	To []EmailAddressInput `json:"to"`
 }
-
-// EmailMailboxComposeRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-type EmailMailboxComposeRequestCategory string
 
 // EmailMailboxLabel One label available in a mailbox.
 type EmailMailboxLabel struct {
@@ -4782,7 +4413,7 @@ type EmailMessage struct {
 	// BouncedCount Number of recipients that resulted in a permanent delivery failure.
 	BouncedCount *int `json:"bounced_count,omitempty"`
 
-	// Category Content classification. Controls suppression policy — `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
+	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category EmailMessageCategory `json:"category"`
 
 	// Cc CC recipients.
@@ -4862,9 +4493,6 @@ type EmailMessage struct {
 	TrackOpens bool `json:"track_opens"`
 }
 
-// EmailMessageCategory Content classification. Controls suppression policy — `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
-type EmailMessageCategory string
-
 // EmailMessageBatchItem defines model for EmailMessageBatchItem.
 type EmailMessageBatchItem struct {
 	// Category Resolved category for this batch item.
@@ -4889,6 +4517,9 @@ type EmailMessageBatchResponse struct {
 	// Data One entry per message in the batch, in submission order.
 	Data []EmailMessageBatchItem `json:"data"`
 }
+
+// EmailMessageCategory Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+type EmailMessageCategory string
 
 // EmailMessageContent The stored body content of a sent email message.
 type EmailMessageContent struct {
@@ -4922,8 +4553,8 @@ type EmailMessageSendRequest struct {
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// Category Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: marketing.
-	Category *EmailMessageSendRequestCategory `json:"category,omitempty"`
+	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	Category *EmailMessageCategory `json:"category,omitempty"`
 
 	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
 	Cc *[]EmailAddressInput `json:"cc,omitempty"`
@@ -4980,9 +4611,6 @@ type EmailMessageSendRequest struct {
 	// TrackOpens Whether to track open events for this message.
 	TrackOpens *bool `json:"track_opens,omitempty"`
 }
-
-// EmailMessageSendRequestCategory Content classification — independent of which endpoint you use. Controls suppression policy: `marketing` blocks on all suppression reasons (use for marketing content); `transactional` allows delivery through complaint and unsubscribe suppressions (use for receipts, password resets, and similar operational messages). Default: marketing.
-type EmailMessageSendRequestCategory string
 
 // EmailMessageStatus Aggregate delivery status of an email, derived from its recipients' states.
 //
@@ -5590,16 +5218,19 @@ type EmailTagStatsPoint struct {
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
 
-// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `name` (supply exactly one), and pass its variable values in `parameters`.
+// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), and pass its variable values in `parameters`.
 type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
-	// Name The template to send, by its name handle — a workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
-	Name *TemplateName `json:"name,omitempty"`
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Cap: 16 KB serialized.
+	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Send everything the template's `variables` lists rather than only what you expect the chosen language to use: languages need not reference the same variables, and a value no language uses is ignored. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
-	union      json.RawMessage
+
+	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
+	Slug  *TemplateSlug `json:"slug,omitempty"`
+	union json.RawMessage
 }
 
 // EmailTemplateSend0 defines model for .
@@ -5827,8 +5458,11 @@ type EmailThreadMessageRecipientStatus string
 
 // EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
 type EmailThreadMessageReplyRequest struct {
-	// Category Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-	Category *EmailThreadMessageReplyRequestCategory `json:"category,omitempty"`
+	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
+
+	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	Category *EmailMessageCategory `json:"category,omitempty"`
 
 	// Html HTML body of the reply. At least one of html or text must be provided.
 	Html *string `json:"html,omitempty"`
@@ -5845,9 +5479,6 @@ type EmailThreadMessageReplyRequest struct {
 	// Text Plain-text body of the reply. At least one of html or text must be provided.
 	Text *string `json:"text,omitempty"`
 }
-
-// EmailThreadMessageReplyRequestCategory Content classification — controls suppression policy. `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Default: transactional.
-type EmailThreadMessageReplyRequestCategory string
 
 // EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 type EmailThreadMessageSource struct {
@@ -7154,7 +6785,7 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. v1 emits `carrier_rejected` (SMS), `hard_bounce` (email), `undelivered` (a generic terminal delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
 	Reason VerificationAttemptFailureReason `json:"reason"`
 
 	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -7319,7 +6950,11 @@ type EventVoiceCallEndedData struct {
 	// SrcNumber Calling party number in E.164 format.
 	SrcNumber string `json:"src_number"`
 
-	// Status Call status. v1 records are always terminal and carry one of answered, no_answer, failed, rejected, or unknown. The remaining values are declared ahead of planned features so their arrival is not a breaking contract change: busy and canceled arrive with inbound (DID) termination — today both outcomes are folded into failed — and ringing and in_progress with a live-calls surface.
+	// Status Call status.
+	//
+	// A call that has ended carries answered, no_answer, failed, rejected, or unknown. A call that is still up carries ringing before it is picked up and in_progress once it is; both are what the `status` filter on the call list selects on to show calls happening right now.
+	//
+	// busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
 	Status      VoiceCallStatus `json:"status"`
 	WorkspaceId WorkspaceID     `json:"workspace_id"`
 }
@@ -7776,6 +7411,9 @@ type InboundRouteUpdateAction string
 // InboundRouteUpdateMatchType How the route matches recipients.
 type InboundRouteUpdateMatchType string
 
+// LanguageTag A language tag in BCP-47 form, for example `en` or `pt-BR`.
+type LanguageTag = string
+
 // Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata and extracted text for its retention tier. The original rendered source of each message remains available for 30 days.
 type Mailbox struct {
 	// Address The mailbox's email address. Immutable once created.
@@ -7962,6 +7600,18 @@ type MailboxUpdateReceivePolicy string
 
 // MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
 type MailboxUpdateRetentionTier string
+
+// MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
+type MessageDirection string
+
+// Money defines model for Money.
+type Money struct {
+	// Amount Decimal amount as a string, in major currency units.
+	Amount string `json:"amount"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+}
 
 // RealtimeAppID defines model for RealtimeAppID.
 type RealtimeAppID = string
@@ -8321,7 +7971,7 @@ type SMSMessageSendRequest struct {
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, or spaces, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
 	From *string `json:"from,omitempty"`
 
 	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -8480,6 +8130,9 @@ type ShareDomainDnsRequest struct {
 // StatsGrain The bucket grain of the series, either `day` or `hour`.
 type StatsGrain string
 
+// StatsTrendGrain Bucket grain for a stats trend series.
+type StatsTrendGrain string
+
 // Suppression defines model for Suppression.
 type Suppression struct {
 	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing and future non-transactional categories but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` is reserved for category-specific preferences. This list grows over time; treat an unknown value as blocking at least non-transactional mail.
@@ -8561,6 +8214,9 @@ type TemplateName = string
 // TemplateScope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
 type TemplateScope string
 
+// TemplateSlug A template's slug: its permanent, workspace-unique handle and API address. Lowercase letters, numbers, hyphens, and underscores. Fixed at creation, so anything that references it never breaks; the display name is the label to change freely.
+type TemplateSlug = string
+
 // TemplateVariable A single variable slot a template fills in from the values supplied when sending. Shared across channels (SMS, email) so template introspection reads the same everywhere.
 type TemplateVariable struct {
 	// Constraint A human-readable description of the accepted values.
@@ -8633,7 +8289,7 @@ type Verification struct {
 // VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 type VerificationStatus string
 
-// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. v1 emits `carrier_rejected` (SMS), `hard_bounce` (email), `undelivered` (a generic terminal delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
 type VerificationAttemptFailureReason = string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
@@ -8709,7 +8365,11 @@ type VoiceCallDirection string
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
 
-// VoiceCallStatus Call status. v1 records are always terminal and carry one of answered, no_answer, failed, rejected, or unknown. The remaining values are declared ahead of planned features so their arrival is not a breaking contract change: busy and canceled arrive with inbound (DID) termination — today both outcomes are folded into failed — and ringing and in_progress with a live-calls surface.
+// VoiceCallStatus Call status.
+//
+// A call that has ended carries answered, no_answer, failed, rejected, or unknown. A call that is still up carries ringing before it is picked up and in_progress once it is; both are what the `status` filter on the call list selects on to show calls happening right now.
+//
+// busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
 type VoiceCallStatus string
 
 // VoiceSessionID defines model for VoiceSessionID.
@@ -8803,7 +8463,7 @@ type WebhookEndpointCreate struct {
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
-	// Events Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries. Platform types may be combined with `realtime.*` types on one endpoint, all signed with the endpoint's single secret. Server-enforced (returns `422` otherwise): a `realtime.*` type requires the `realtime` object, and `realtime` requires at least one `realtime.*` type.
+	// Events Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries.
 	Events []WebhookEventType `json:"events"`
 
 	// Url HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
@@ -8882,7 +8542,7 @@ type WebhookEndpointUpdate struct {
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
-	// Events Replacement set of event type subscriptions: the endpoint's subscriptions become exactly this list (there is no partial add or remove). Omit to keep the current set. Types outside the event catalog return a `422`, and a `realtime.*` type can only be added to an endpoint that already has a Realtime app scope.
+	// Events Replacement set of event type subscriptions: the endpoint's subscriptions become exactly this list (there is no partial add or remove). Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events *[]WebhookEventType `json:"events,omitempty"`
 
 	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
@@ -9025,6 +8685,9 @@ type WhatsAppLanguage = string
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
+	// Cost Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
+	Cost *Money `json:"cost,omitempty"`
+
 	// CreatedAt When the message was accepted for delivery.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
@@ -9136,87 +8799,8 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	Type WhatsAppTemplateParameterType `json:"type"`
 }
 
-// WhatsAppTemplate defines model for WhatsAppTemplate.
-type WhatsAppTemplate struct {
-	// Category Content classification applied to messages sent from this template.
-	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
-
-	// Components The content blocks that make up the template, in display order.
-	Components *[]WhatsAppTemplateComponent `json:"components,omitempty"`
-
-	// Description Optional description of the template's purpose. Null when unset.
-	Description *string `json:"description,omitempty"`
-
-	// Id Stable Bird identifier for the template.
-	Id       *WhatsAppTemplateID `json:"id,omitempty"`
-	Language *WhatsAppLanguage   `json:"language,omitempty"`
-
-	// Name The template's stable handle. Pass it as the template reference when sending.
-	Name *WhatsAppTemplateName `json:"name,omitempty"`
-
-	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
-	Scope *TemplateScope `json:"scope,omitempty"`
-
-	// Status The template's review and health status.
-	Status *WhatsAppTemplateStatus `json:"status,omitempty"`
-}
-
-// WhatsAppTemplateButton defines model for WhatsAppTemplateButton.
-type WhatsAppTemplateButton struct {
-	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button URL has variables.
-	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
-
-	// OtpType How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
-	OtpType *string `json:"otp_type,omitempty"`
-
-	// Text The button's label text.
-	Text *string `json:"text,omitempty"`
-
-	// Type The button's behavior type.
-	Type *string `json:"type,omitempty"`
-
-	// Url The URL the button opens, with any variable placeholder shown inline. Present on link buttons.
-	Url *string `json:"url,omitempty"`
-}
-
 // WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
 type WhatsAppTemplateCategory = string
-
-// WhatsAppTemplateComponent defines model for WhatsAppTemplateComponent.
-type WhatsAppTemplateComponent struct {
-	// Buttons The buttons attached to this block. Present when the block carries buttons.
-	Buttons *[]WhatsAppTemplateButton `json:"buttons,omitempty"`
-
-	// ExampleParameters Example values for this block's variables, in placeholder order (one per `{{n}}`). Use them to see what a filled message looks like. Present when the block has variables.
-	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
-
-	// Text The block's text content, with any variable placeholders shown inline. Present when the block carries text.
-	Text *string `json:"text,omitempty"`
-
-	// Type The content block's type within the template.
-	Type *string `json:"type,omitempty"`
-}
-
-// WhatsAppTemplateExampleParameter defines model for WhatsAppTemplateExampleParameter.
-type WhatsAppTemplateExampleParameter struct {
-	// Name The named placeholder this example fills, for templates that use named parameters. Absent for system templates, which use positional parameters.
-	Name *string `json:"name,omitempty"`
-
-	// Text An example value for a text parameter. Present when `type` is `text`.
-	Text *string `json:"text,omitempty"`
-
-	// Type The kind of value this parameter accepts.
-	Type *WhatsAppTemplateParameterType `json:"type,omitempty"`
-}
-
-// WhatsAppTemplateID defines model for WhatsAppTemplateID.
-type WhatsAppTemplateID = string
-
-// WhatsAppTemplateList defines model for WhatsAppTemplateList.
-type WhatsAppTemplateList struct {
-	// Data The templates available to your workspace.
-	Data []WhatsAppTemplate `json:"data"`
-}
 
 // WhatsAppTemplateName A WhatsApp template's name — the stable handle used to reference the template when sending. Lowercase letters, numbers, and underscores.
 type WhatsAppTemplateName = string
@@ -9235,9 +8819,6 @@ type WhatsAppTemplateSend struct {
 	// Name The template to send, by its name (for example `bird_otp`).
 	Name WhatsAppTemplateName `json:"name"`
 }
-
-// WhatsAppTemplateStatus A message template's review and health status. `approved` (passed review and sendable), `pending` (review in progress), and `rejected` (failed review) are review outcomes. The rest reflect a template's ongoing health after approval: `paused` and `disabled` mean sending from it is suspended, `in_appeal` means a review decision is under appeal, `pending_deletion` means the template is queued for removal, and `limit_exceeded` means it has exceeded a usage limit. Every template in Bird's catalogue is currently `approved`. Open enum: new statuses may be added over time, so treat any unrecognized value as a future status rather than an error.
-type WhatsAppTemplateStatus = string
 
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
@@ -9917,13 +9498,13 @@ type ListEmailMessagesParams struct {
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Status Filter by aggregate delivery status.
-	Status *ListEmailMessagesParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+	Status *EmailMessageStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Category Filter by category.
-	Category *ListEmailMessagesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
+	Category *EmailMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// To Filter by recipient address. Exact match against any `to`/`cc`/`bcc` recipient on the message; normalised to lowercase before comparison.
 	To *openapi_types.Email `form:"to,omitempty" json:"to,omitempty"`
@@ -9931,12 +9512,6 @@ type ListEmailMessagesParams struct {
 	// From Filter by sender address. Exact match against the message `from` field; normalised to lowercase before comparison.
 	From *openapi_types.Email `form:"from,omitempty" json:"from,omitempty"`
 }
-
-// ListEmailMessagesParamsStatus defines parameters for ListEmailMessages.
-type ListEmailMessagesParamsStatus string
-
-// ListEmailMessagesParamsCategory defines parameters for ListEmailMessages.
-type ListEmailMessagesParamsCategory string
 
 // CreateEmailMessageParams defines parameters for CreateEmailMessage.
 type CreateEmailMessageParams struct {
@@ -10011,11 +9586,8 @@ type GetEmailStatsByBroadcastParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect on this breakdown, where `include_trend` is not available.
-	TrendGrain *GetEmailStatsByBroadcastParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByBroadcastParamsTrendGrain defines parameters for GetEmailStatsByBroadcast.
-type GetEmailStatsByBroadcastParamsTrendGrain string
 
 // GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
 type GetEmailStatsByCategoryParams struct {
@@ -10038,11 +9610,8 @@ type GetEmailStatsByCategoryParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByCategoryParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByCategoryParamsTrendGrain defines parameters for GetEmailStatsByCategory.
-type GetEmailStatsByCategoryParamsTrendGrain string
 
 // GetEmailStatsByClientParams defines parameters for GetEmailStatsByClient.
 type GetEmailStatsByClientParams struct {
@@ -10206,11 +9775,8 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByMailboxProviderRegionParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByMailboxProviderRegionParamsTrendGrain defines parameters for GetEmailStatsByMailboxProviderRegion.
-type GetEmailStatsByMailboxProviderRegionParamsTrendGrain string
 
 // GetEmailStatsByMailboxProviderParams defines parameters for GetEmailStatsByMailboxProvider.
 type GetEmailStatsByMailboxProviderParams struct {
@@ -10236,11 +9802,8 @@ type GetEmailStatsByMailboxProviderParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByMailboxProviderParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByMailboxProviderParamsTrendGrain defines parameters for GetEmailStatsByMailboxProvider.
-type GetEmailStatsByMailboxProviderParamsTrendGrain string
 
 // GetEmailStatsByRecipientDomainParams defines parameters for GetEmailStatsByRecipientDomain.
 type GetEmailStatsByRecipientDomainParams struct {
@@ -10266,11 +9829,8 @@ type GetEmailStatsByRecipientDomainParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByRecipientDomainParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByRecipientDomainParamsTrendGrain defines parameters for GetEmailStatsByRecipientDomain.
-type GetEmailStatsByRecipientDomainParamsTrendGrain string
 
 // GetEmailStatsBySendingDomainParams defines parameters for GetEmailStatsBySendingDomain.
 type GetEmailStatsBySendingDomainParams struct {
@@ -10296,11 +9856,8 @@ type GetEmailStatsBySendingDomainParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsBySendingDomainParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsBySendingDomainParamsTrendGrain defines parameters for GetEmailStatsBySendingDomain.
-type GetEmailStatsBySendingDomainParamsTrendGrain string
 
 // GetEmailStatsBySendingIpParams defines parameters for GetEmailStatsBySendingIp.
 type GetEmailStatsBySendingIpParams struct {
@@ -10326,14 +9883,11 @@ type GetEmailStatsBySendingIpParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsBySendingIpParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
 
 // GetEmailStatsBySendingIpParamsSort defines parameters for GetEmailStatsBySendingIp.
 type GetEmailStatsBySendingIpParamsSort string
-
-// GetEmailStatsBySendingIpParamsTrendGrain defines parameters for GetEmailStatsBySendingIp.
-type GetEmailStatsBySendingIpParamsTrendGrain string
 
 // GetEmailStatsSummaryParams defines parameters for GetEmailStatsSummary.
 type GetEmailStatsSummaryParams struct {
@@ -10395,11 +9949,8 @@ type GetEmailStatsByTagParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByTagParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByTagParamsTrendGrain defines parameters for GetEmailStatsByTag.
-type GetEmailStatsByTagParamsTrendGrain string
 
 // GetEmailStatsByTemplateParams defines parameters for GetEmailStatsByTemplate.
 type GetEmailStatsByTemplateParams struct {
@@ -10425,11 +9976,8 @@ type GetEmailStatsByTemplateParams struct {
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain *GetEmailStatsByTemplateParamsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
-
-// GetEmailStatsByTemplateParamsTrendGrain defines parameters for GetEmailStatsByTemplate.
-type GetEmailStatsByTemplateParamsTrendGrain string
 
 // ListEmailThreadsParams defines parameters for ListEmailThreads.
 type ListEmailThreadsParams struct {
@@ -10501,7 +10049,7 @@ type UpdateEmailThreadParams struct {
 // ListEmailThreadMessagesParams defines parameters for ListEmailThreadMessages.
 type ListEmailThreadMessagesParams struct {
 	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
-	Direction *ListEmailThreadMessagesParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
 	// Label Filter to messages carrying this label. `trash` lists trashed messages; any other label — `archive`, `spam`, `blocked`, `unread`, or a custom label — lists its non-trashed carriers. When omitted, received messages in the inbox and all sent messages are returned.
 	Label *string `form:"label,omitempty" json:"label,omitempty"`
@@ -10518,9 +10066,6 @@ type ListEmailThreadMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
-
-// ListEmailThreadMessagesParamsDirection defines parameters for ListEmailThreadMessages.
-type ListEmailThreadMessagesParamsDirection string
 
 // ListEmailThreadMessagesParamsInclude defines parameters for ListEmailThreadMessages.
 type ListEmailThreadMessagesParamsInclude string
@@ -10685,7 +10230,7 @@ type ListSMSMessagesParams struct {
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Direction Filter by direction. Omit for both.
-	Direction *ListSMSMessagesParamsDirection `form:"direction,omitempty" json:"direction,omitempty"`
+	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
 	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
@@ -10694,7 +10239,7 @@ type ListSMSMessagesParams struct {
 	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
 
 	// Category Filter by category.
-	Category *ListSMSMessagesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
+	Category *SMSMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// To Filter by recipient phone number (E.164 exact match).
 	To *string `form:"to,omitempty" json:"to,omitempty"`
@@ -10705,12 +10250,6 @@ type ListSMSMessagesParams struct {
 	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
-
-// ListSMSMessagesParamsDirection defines parameters for ListSMSMessages.
-type ListSMSMessagesParamsDirection string
-
-// ListSMSMessagesParamsCategory defines parameters for ListSMSMessages.
-type ListSMSMessagesParamsCategory string
 
 // CreateSMSMessageParams defines parameters for CreateSMSMessage.
 type CreateSMSMessageParams struct {
@@ -10729,20 +10268,14 @@ type CreateSMSMessageParams struct {
 // ListSMSTemplatesParams defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParams struct {
 	// Scope Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all. Workspace-authored SMS templates are not available yet, so `workspace` currently matches nothing.
-	Scope *ListSMSTemplatesParamsScope `form:"scope,omitempty" json:"scope,omitempty"`
+	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
 
 	// Category Keep only templates whose `category` matches. Omit for all categories.
-	Category *ListSMSTemplatesParamsCategory `form:"category,omitempty" json:"category,omitempty"`
+	Category *SMSMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// Language Keep only templates available in this language, as a BCP-47 tag. Matches the template's `available_languages` entries exactly, with no fallback.
 	Language *string `form:"language,omitempty" json:"language,omitempty"`
 }
-
-// ListSMSTemplatesParamsScope defines parameters for ListSMSTemplates.
-type ListSMSTemplatesParamsScope string
-
-// ListSMSTemplatesParamsCategory defines parameters for ListSMSTemplates.
-type ListSMSTemplatesParamsCategory string
 
 // CreateVerificationParams defines parameters for CreateVerification.
 type CreateVerificationParams struct {
@@ -11040,10 +10573,10 @@ func (t EmailTemplateSend) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.Name != nil {
-		object["name"], err = json.Marshal(t.Name)
+	if t.Language != nil {
+		object["language"], err = json.Marshal(t.Language)
 		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'name': %w", err)
+			return nil, fmt.Errorf("error marshaling 'language': %w", err)
 		}
 	}
 
@@ -11051,6 +10584,13 @@ func (t EmailTemplateSend) MarshalJSON() ([]byte, error) {
 		object["parameters"], err = json.Marshal(t.Parameters)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+
+	if t.Slug != nil {
+		object["slug"], err = json.Marshal(t.Slug)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'slug': %w", err)
 		}
 	}
 	b, err = json.Marshal(object)
@@ -11075,10 +10615,10 @@ func (t *EmailTemplateSend) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if raw, found := object["name"]; found {
-		err = json.Unmarshal(raw, &t.Name)
+	if raw, found := object["language"]; found {
+		err = json.Unmarshal(raw, &t.Language)
 		if err != nil {
-			return fmt.Errorf("error reading 'name': %w", err)
+			return fmt.Errorf("error reading 'language': %w", err)
 		}
 	}
 
@@ -11086,6 +10626,13 @@ func (t *EmailTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Parameters)
 		if err != nil {
 			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
+	if raw, found := object["slug"]; found {
+		err = json.Unmarshal(raw, &t.Slug)
+		if err != nil {
+			return fmt.Errorf("error reading 'slug': %w", err)
 		}
 	}
 
@@ -13463,9 +13010,6 @@ type ClientInterface interface {
 
 	// ListWhatsAppMessageEvents request
 	ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ListWhatsAppTemplates request
-	ListWhatsAppTemplates(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -14826,18 +14370,6 @@ func (c *Client) GetWhatsAppMessage(ctx context.Context, messageId WhatsAppMessa
 
 func (c *Client) ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWhatsAppMessageEventsRequest(c.Server, messageId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListWhatsAppTemplates(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListWhatsAppTemplatesRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -21953,33 +21485,6 @@ func NewListWhatsAppMessageEventsRequest(server string, messageId WhatsAppMessag
 	return req, nil
 }
 
-// NewListWhatsAppTemplatesRequest generates requests for ListWhatsAppTemplates
-func NewListWhatsAppTemplatesRequest(server string) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/whatsapp/templates")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -22338,9 +21843,6 @@ type ClientWithResponsesInterface interface {
 
 	// ListWhatsAppMessageEventsWithResponse request
 	ListWhatsAppMessageEventsWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessageEventsResponse, error)
-
-	// ListWhatsAppTemplatesWithResponse request
-	ListWhatsAppTemplatesWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error)
 }
 
 type ListAudiencesResponse struct {
@@ -25525,40 +25027,6 @@ func (r ListWhatsAppMessageEventsResponse) ContentType() string {
 	return ""
 }
 
-type ListWhatsAppTemplatesResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *WhatsAppTemplateList
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r ListWhatsAppTemplatesResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListWhatsAppTemplatesResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListWhatsAppTemplatesResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
 // ListAudiencesWithResponse request returning *ListAudiencesResponse
 func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error) {
 	rsp, err := c.ListAudiences(ctx, params, reqEditors...)
@@ -26557,15 +26025,6 @@ func (c *ClientWithResponses) ListWhatsAppMessageEventsWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseListWhatsAppMessageEventsResponse(rsp)
-}
-
-// ListWhatsAppTemplatesWithResponse request returning *ListWhatsAppTemplatesResponse
-func (c *ClientWithResponses) ListWhatsAppTemplatesWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error) {
-	rsp, err := c.ListWhatsAppTemplates(ctx, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListWhatsAppTemplatesResponse(rsp)
 }
 
 // ParseListAudiencesResponse parses an HTTP response from a ListAudiencesWithResponse call
@@ -32644,60 +32103,6 @@ func ParseListWhatsAppMessageEventsResponse(rsp *http.Response) (*ListWhatsAppMe
 			return nil, err
 		}
 		response.JSON503 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListWhatsAppTemplatesResponse parses an HTTP response from a ListWhatsAppTemplatesWithResponse call
-func ParseListWhatsAppTemplatesResponse(rsp *http.Response) (*ListWhatsAppTemplatesResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListWhatsAppTemplatesResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest WhatsAppTemplateList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
 
 	}
 

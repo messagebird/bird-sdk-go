@@ -12,6 +12,10 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type ContactCreateRequest = oapi.ContactCreateRequest
+
+type ContactUpsertRequestDataMode = oapi.ContactUpsertRequestDataMode
+
 // ContactListParams filters the list. Zero-value fields are omitted.
 type ContactListParams struct {
 	// Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact.
@@ -63,6 +67,61 @@ func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 	if len(p.Data) > 0 {
 		v := p.Data
 		body.Data = &v
+	}
+	return body
+}
+
+// ContactUpdateParams is the request body for update.
+type ContactUpdateParams struct {
+	// New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
+	Email string
+	// The contact's first name. Set to null to clear.
+	FirstName Nullable[string]
+	// The contact's last name. Set to null to clear.
+	LastName Nullable[string]
+	// Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+	ExternalID Nullable[string]
+	// Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
+	Data map[string]any
+}
+
+func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
+	body := oapi.ContactUpdateRequest{}
+	if p.Email != "" {
+		body.Email = Ptr(openapi_types.Email(p.Email))
+	}
+	body.FirstName = p.FirstName
+	body.LastName = p.LastName
+	body.ExternalId = p.ExternalID
+	if len(p.Data) > 0 {
+		v := p.Data
+		body.Data = &v
+	}
+	return body
+}
+
+// ContactBatchParams is the request body for batch.
+type ContactBatchParams struct {
+	// Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+	Contacts []ContactCreateRequest
+	// Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
+	AudienceIDs []string
+	// How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+	DataMode *ContactUpsertRequestDataMode
+}
+
+func (p ContactBatchParams) toWire() oapi.ContactUpsertRequest {
+	body := oapi.ContactUpsertRequest{}
+	body.Contacts = p.Contacts
+	audienceIds := make([]oapi.AudienceID, len(p.AudienceIDs))
+	for i, v := range p.AudienceIDs {
+		audienceIds[i] = oapi.AudienceID(v)
+	}
+	if len(audienceIds) > 0 {
+		body.AudienceIds = &audienceIds
+	}
+	if p.DataMode != nil {
+		body.DataMode = p.DataMode
 	}
 	return body
 }
@@ -130,6 +189,25 @@ func (s *ContactsService) Create(ctx context.Context, params ContactCreateParams
 	return &out, nil
 }
 
+// Update Update a contact's name, external_id, email, or custom data. Only supplied fields change; custom data keys are merged, with null removing a key.
+func (s *ContactsService) Update(ctx context.Context, contactId string, params ContactUpdateParams, opts ...option.RequestOption) (*Contact, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateContactParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateContact(ctx, oapi.ContactID(contactId), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out Contact
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 // Delete Delete a contact and remove it from every audience it belongs to. Suppression records for the address are unaffected.
 func (s *ContactsService) Delete(ctx context.Context, contactId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
@@ -140,4 +218,23 @@ func (s *ContactsService) Delete(ctx context.Context, contactId string, opts ...
 		return s.client.oapi.DeleteContact(ctx, oapi.ContactID(contactId), op, cfg...)
 	})
 	return err
+}
+
+// Batch Create or update up to 1,000 contacts in one request, matched by email address, and optionally add them all to one or more audiences. Per-contact results are returned in submission order.
+func (s *ContactsService) Batch(ctx context.Context, params ContactBatchParams, opts ...option.RequestOption) (*ContactUpsertResult, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateContactBatchParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateContactBatch(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out ContactUpsertResult
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

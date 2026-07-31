@@ -20,7 +20,7 @@ type (
 	ErrorType                = apierror.ErrorType
 )
 
-// ErrorType values — the coarse categories clients branch on (ADR-0016).
+// ErrorType values — the coarse categories clients branch on.
 const (
 	ErrorTypeBadRequest         = apierror.ErrorTypeBadRequest
 	ErrorTypeAuth               = apierror.ErrorTypeAuth

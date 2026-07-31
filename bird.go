@@ -33,9 +33,9 @@ import (
 )
 
 const (
-	version = "0.15.0"
+	version = "0.16.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
-	// Bird-* headers set in callEditors (ADR-0074), not the UA.
+	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
 )
 
@@ -59,10 +59,9 @@ type Client struct {
 	oapi *oapi.Client
 
 	Email                *EmailService
-	Sms                  *SMSService
-	SmsTemplates         *SMSTemplatesService
-	Whatsapp             *WhatsAppService
-	WhatsappTemplates    *WhatsAppTemplatesService
+	Sms                  *SmsService
+	SmsTemplates         *SmsTemplatesService
+	Whatsapp             *WhatsappService
 	Verify               *VerifyService
 	Webhooks             *WebhookService
 	Contacts             *ContactsService
@@ -109,22 +108,21 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	}
 
 	c := &Client{cfg: cfg, oapi: oc}
-	c.Email = &EmailService{client: c}
+	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
-	c.Sms = &SMSService{client: c}
-	c.SmsTemplates = &SMSTemplatesService{client: c}
-	c.Whatsapp = &WhatsAppService{client: c}
-	c.WhatsappTemplates = &WhatsAppTemplatesService{client: c}
-	c.Verify = &VerifyService{Verifications: &VerificationsService{client: c}}
+	c.Sms = &SmsService{resource{client: c}}
+	c.SmsTemplates = &SmsTemplatesService{resource{client: c}}
+	c.Whatsapp = &WhatsappService{resource{client: c}}
+	c.Verify = &VerifyService{Verifications: &VerifyVerificationsService{resource{client: c}}}
 	c.Webhooks = &WebhookService{client: c}
 	c.Contacts = &ContactsService{resource{client: c}}
 	c.Audiences = &AudiencesService{resource{client: c}}
 	c.ContactProperties = &ContactPropertiesService{resource{client: c}}
 	c.Domains = &DomainsService{resource{client: c}}
-	c.Mailbox = &MailboxService{client: c}
-	c.MailboxReceiveRule = &MailboxReceiveRuleService{client: c}
-	c.MailboxThread = &MailboxThreadService{client: c}
-	c.MailboxThreadMessage = &MailboxThreadMessageService{client: c}
+	c.Mailbox = &MailboxService{resource{client: c}}
+	c.MailboxReceiveRule = &MailboxReceiveRuleService{resource{client: c}}
+	c.MailboxThread = &MailboxThreadService{resource{client: c}}
+	c.MailboxThreadMessage = &MailboxThreadMessageService{resource{client: c}}
 	c.Realtime = &RealtimeService{
 		client:   c,
 		Channels: &RealtimeChannelsService{client: c},
@@ -202,7 +200,7 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 		}
 		req.Header.Set("Authorization", "Bearer "+cfg.APIKey)
 		req.Header.Set("User-Agent", userAgent)
-		// Bird-* client-identity headers (ADR-0074) — telemetry labels only.
+		// Bird-* client-identity headers — telemetry labels only.
 		// Header keys are the canonical wire form http.Header.Set normalizes to.
 		req.Header.Set("Bird-Surface", "sdk-go")
 		req.Header.Set("Bird-Version", version)

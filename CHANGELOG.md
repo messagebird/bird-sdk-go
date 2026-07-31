@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.16.0
+
+- Add an optional `language` to the email template send block, selecting which of the template's languages to send. The template's `on_missing_language` decides whether an unstocked language falls back or is rejected.
+- Add `contacts.batch`; its `Contacts` field is typed `[]ContactCreateRequest`.
+- `mailbox_thread_message.reply` now accepts the full message body, including structured `tags` (`{name, value}`) and `attachments`. In Go, `ReplyAll` is now `*bool` so an explicit `false` reaches the wire.
+- `mailbox_thread.update`: `AddLabels`/`RemoveLabels` collapse to a single `Labels` field, and `ContactID` becomes `Nullable[string]` so a contact link can be cleared.
+- `mailbox.update`: `ReceivePolicy` and `RetentionTier` are now the typed `*MailboxUpdateReceivePolicy` / `*MailboxUpdateRetentionTier` instead of `*string`.
+- Add the `mailbox` resource: `list`, `create`, `get`, `stats`, `labels`, `restore`, `resume`, and `delete`.
+- **Go:** the create body's `ReceivePolicy` and `RetentionTier` are now the typed `MailboxCreateReceivePolicy` / `MailboxCreateRetentionTier` enums instead of plain strings.
+- **TypeScript:** a write whose body has no required field now defaults its params to `{}`, so `bird.mailbox.create()`, `bird.audiences.update(id)`, and `bird.domains.update(id)` are callable without a body; the unused `MailboxList` envelope export is removed.
+- Add the `mailbox_thread_message` reads: `list`, `get`, `body`, and `attachments`.
+- **Python:** the `client.mailbox_thread.messages` nested accessor is replaced by the top-level `client.mailbox_thread_message` (matching Go and TypeScript).
+- **TypeScript:** the unused `EmailThreadMessageList` export is removed.
+- Add the `mailbox_thread` reads (`list`, `get`) and `delete`.
+- **Go (breaking, 0.x):** `MailboxThreadService.Delete` takes `MailboxThreadDeleteParams{Permanent bool}` instead of a positional `permanent bool`.
+- **TypeScript:** `mailboxThread.delete` accepts an optional `MailboxThreadDeleteQuery`; the unused `EmailThreadList` export is removed.
+- **Python:** `mailbox_thread.delete` accepts a `permanent` keyword.
+- Add the `mailbox_receive_rule` resource: `list`, `create`, and `delete`.
+- **Go:** the create body's `Action` is now the typed `ReceiveRuleCreateAction` enum instead of a plain string.
+- **Python:** the `client.mailbox.receive_rules` nested accessor is replaced by the top-level `client.mailbox_receive_rule` (matching Go and TypeScript).
+- **TypeScript:** the unused `ReceiveRuleList` export is removed.
+- Add the SMS reads `get` and `list`. The Go service type is now `SmsService` (was `SMSService`), matching the client field. `SmsListParams` exposes `Status` and `ErrorCode` as `[]string` and adds the previously-missing `Tag` filter; `Category` keeps its enum type.
+- Add the `SmsTemplates` and `WhatsappTemplates` resources. The list filters are now plain strings (`SMSTemplateScope` / `SMSTemplateCategory` and their constants are removed). Service types are `SmsTemplatesService` / `WhatsappTemplatesService`, matching the client fields.
+- Add the WhatsApp reads `get`, `list`, and `list_events`. The Go service type is now `WhatsappService` (was `WhatsAppService`). `WhatsappListParams.Status` is now `[]string` (was `Statuses []WhatsAppMessageStatus`) and adds the previously-missing `Tag` filter.
+- **Breaking (0.x):** `VerificationsService` is now `VerifyVerificationsService`; its params take the nested shape: `To VerificationTo` replaces flat `Email`/`Phone`, and `Options *VerificationOptions` replaces `CodeLength`/`Channels`.
+- WhatsApp messages now return `cost`, the amount charged for the message.
+- Go read filters that reference a named enum are now typed with it instead of a plain string: `SMSTemplateListParams.Scope` / `Category` are `TemplateScope` / `SMSMessageCategory`, and the email-stats breakdowns take their `EmailStatsSortMetric` / `EmailEngagementSortMetric` / `EmailMailboxProviderSortMetric` sort metric.
+- The email template send block addresses a stored template by `slug` (previously `name`). Templates carry the slug as their permanent handle plus a separate free-text display `name`.
+- The realtime.* webhook event type constants are no longer exported. Realtime webhooks are created and managed in the Bird dashboard.
+- **Breaking:** remove the WhatsApp templates-list surface — `bird whatsapp templates list`, the `whatsapp_templates_list` MCP tool, and `whatsappTemplates.list` / `WhatsappTemplates.List` / `whatsapp_templates.list` in the TypeScript, Go, and Python SDKs. WhatsApp is still in preview and the templates contract is being reshaped for localisation; templates return to the public and command audiences at GA in the new shape.
+- Add the `soft_bounce` verification attempt failure reason (open enum) for transient email bounces.
+- Clarified the VoiceCallStatus documentation: ringing and in_progress describe a call that is still up, rather than values held back for a future feature.
+- SMS alphanumeric sender IDs now allow dashes and underscores alongside letters, digits, and spaces, and must contain at least one letter with no separator at either end. A digits-only value is a long code or short code, and is no longer accepted as a sender ID.
+- `contact-properties` `create` and `update`: the fallback value is typed as any JSON value, and the property type is the named `ContactPropertyType`.
+- `contacts.update`: the `Email` field is now a plain string rather than a pointer.
+- Add the email read methods: `get`, `list`, and `cancel`.
+- `EmailThreadMessageReplyRequest` gains an optional `attachments` field, matching the compose and direct-send surfaces.
+- Type the stats trend-grain, message direction, and email status read filters, which were plain strings, by factoring each into a shared schema.
+
 ## 0.15.0
 
 - Add Realtime data-plane methods: publish, batch publish, channel list/get/members, and member disconnect.

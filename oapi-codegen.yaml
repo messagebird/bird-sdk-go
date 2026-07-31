@@ -48,7 +48,6 @@ output-options:
     - getWhatsAppMessage
     - listWhatsAppMessages
     - listWhatsAppMessageEvents
-    - listWhatsAppTemplates
     - createVerification
     - createVerificationCheck
     - listDomains

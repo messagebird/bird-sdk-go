@@ -26,7 +26,7 @@ fmt:
 
 # Regenerate internal/oapi from the OpenAPI public bundle. The low-level
 # client is filtered to the curated operations (oapi-codegen.yaml); models are
-# kept whole so the webhook event union survives. Mirrors clients/api-go.
+# kept whole so the webhook event union survives. Mirrors clients/commandapi.
 generate:
 	@test -f ../../backend/openapi/.generated/openapi.public.bundle.yaml || \
 		{ echo "Error: openapi bundle not found. Run 'make openapi-bundle' from the repo root first."; exit 1; }

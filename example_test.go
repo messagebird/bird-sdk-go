@@ -251,7 +251,7 @@ func ExampleClient_Get() {
 }
 
 // Send a free-text SMS.
-func ExampleSMSService_Send() {
+func ExampleSmsService_Send() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -268,7 +268,7 @@ func ExampleSMSService_Send() {
 }
 
 // Send an SMS from a stored template, supplying its variables.
-func ExampleSMSService_Send_template() {
+func ExampleSmsService_Send_template() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -286,13 +286,13 @@ func ExampleSMSService_Send_template() {
 
 // List the SMS templates available to the workspace. The catalogue is small and
 // returned in full — this list is not paginated.
-func ExampleSMSTemplatesService_List() {
+func ExampleSmsTemplatesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
 	list, err := client.SmsTemplates.List(context.Background(), bird.SMSTemplateListParams{
-		Scope: bird.SMSTemplateScopeSystem,
+		Scope: "system",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -303,7 +303,7 @@ func ExampleSMSTemplatesService_List() {
 }
 
 // Read one SMS template by its name (or id).
-func ExampleSMSTemplatesService_Get() {
+func ExampleSmsTemplatesService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -317,7 +317,7 @@ func ExampleSMSTemplatesService_Get() {
 
 // Send a WhatsApp template message. Templates are currently the only supported
 // content type.
-func ExampleWhatsAppService_Send() {
+func ExampleWhatsappService_Send() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -333,7 +333,7 @@ func ExampleWhatsAppService_Send() {
 }
 
 // Read a single WhatsApp message by id.
-func ExampleWhatsAppService_Get() {
+func ExampleWhatsappService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -346,7 +346,7 @@ func ExampleWhatsAppService_Get() {
 }
 
 // List WhatsApp messages to a given contact, paginating lazily.
-func ExampleWhatsAppService_List() {
+func ExampleWhatsappService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -360,7 +360,7 @@ func ExampleWhatsAppService_List() {
 }
 
 // List the lifecycle events for a WhatsApp message, in chronological order.
-func ExampleWhatsAppService_ListEvents() {
+func ExampleWhatsappService_ListEvents() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -371,22 +371,6 @@ func ExampleWhatsAppService_ListEvents() {
 	}
 	for _, e := range events.Data {
 		fmt.Println(e.Id, *e.Type)
-	}
-}
-
-// List the WhatsApp templates available to the workspace. The catalogue is
-// small and returned in full — this list is not paginated.
-func ExampleWhatsAppTemplatesService_List() {
-	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
-	if err != nil {
-		log.Fatal(err)
-	}
-	list, err := client.WhatsappTemplates.List(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, tpl := range list.Data {
-		fmt.Println(*tpl.Name)
 	}
 }
 
@@ -472,7 +456,7 @@ func ExampleContactsService_Batch() {
 		log.Fatal(err)
 	}
 	result, err := client.Contacts.Batch(context.Background(), bird.ContactBatchParams{
-		Contacts: []bird.ContactCreateParams{
+		Contacts: []bird.ContactCreateRequest{
 			{Email: "a@x.com"},
 		},
 	})
@@ -698,13 +682,13 @@ func ExampleContactPropertiesService_Unarchive() {
 }
 
 // Start a verification: send a one-time passcode over SMS.
-func ExampleVerificationsService_Create() {
+func ExampleVerifyVerificationsService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	verification, err := client.Verify.Verifications.Create(context.Background(), bird.VerificationCreateParams{
-		Phone: "+15551234567",
+	verification, err := client.Verify.Verifications.Create(context.Background(), bird.VerifyVerificationsCreateParams{
+		To: bird.VerificationTo{PhoneNumber: bird.String("+15551234567")},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -713,14 +697,14 @@ func ExampleVerificationsService_Create() {
 }
 
 // Check the passcode a recipient submitted, identified by the same recipient.
-func ExampleVerificationsService_Check() {
+func ExampleVerifyVerificationsService_Check() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	result, err := client.Verify.Verifications.Check(context.Background(), bird.VerificationCheckParams{
-		Phone: "+15551234567",
-		Code:  "123456",
+	result, err := client.Verify.Verifications.Check(context.Background(), bird.VerifyVerificationsCheckParams{
+		To:   bird.VerificationTo{PhoneNumber: bird.String("+15551234567")},
+		Code: "123456",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1246,7 +1230,7 @@ func ExampleMailboxThreadService_Update() {
 		log.Fatal(err)
 	}
 	thread, err := client.MailboxThread.Update(context.Background(), "thr_123", bird.MailboxThreadUpdateParams{
-		AddLabels: []string{"urgent"},
+		Labels: &bird.EmailLabelsUpdate{Add: &[]string{"urgent"}},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1259,7 +1243,7 @@ func ExampleMailboxThreadService_Delete() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := client.MailboxThread.Delete(context.Background(), "thr_123", false); err != nil {
+	if err := client.MailboxThread.Delete(context.Background(), "thr_123", bird.MailboxThreadDeleteParams{Permanent: true}); err != nil {
 		log.Fatal(err)
 	}
 }

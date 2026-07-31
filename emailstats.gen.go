@@ -132,13 +132,13 @@ type EmailStatsByTagParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByTagParams) toWire() *oapi.GetEmailStatsByTagParams {
@@ -147,10 +147,10 @@ func (p EmailStatsByTagParams) toWire() *oapi.GetEmailStatsByTagParams {
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByTagParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -163,13 +163,13 @@ type EmailStatsByCategoryParams struct {
 	// IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
 	Timezone string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that category's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByCategoryParams) toWire() *oapi.GetEmailStatsByCategoryParams {
@@ -177,10 +177,10 @@ func (p EmailStatsByCategoryParams) toWire() *oapi.GetEmailStatsByCategoryParams
 		From:         optDate(p.From),
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByCategoryParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -201,7 +201,7 @@ type EmailStatsBySendingIPParams struct {
 	// When true, each row also carries a `trend` array: a short per-bucket series of that IP's delivery rates over the window (per-IP rows have no engagement, so each trend point's open and click rates read 0 in buckets that had deliveries and null in buckets that had none). Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsBySendingIPParams) toWire() *oapi.GetEmailStatsBySendingIpParams {
@@ -213,7 +213,7 @@ func (p EmailStatsBySendingIPParams) toWire() *oapi.GetEmailStatsBySendingIpPara
 		Sort:         optEnum[oapi.GetEmailStatsBySendingIpParamsSort](p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsBySendingIpParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -228,13 +228,13 @@ type EmailStatsBySendingDomainParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of domain rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsBySendingDomainParams) toWire() *oapi.GetEmailStatsBySendingDomainParams {
@@ -243,10 +243,10 @@ func (p EmailStatsBySendingDomainParams) toWire() *oapi.GetEmailStatsBySendingDo
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsBySendingDomainParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -261,13 +261,13 @@ type EmailStatsByRecipientDomainParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that recipient domain's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByRecipientDomainParams) toWire() *oapi.GetEmailStatsByRecipientDomainParams {
@@ -276,10 +276,10 @@ func (p EmailStatsByRecipientDomainParams) toWire() *oapi.GetEmailStatsByRecipie
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByRecipientDomainParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -294,13 +294,13 @@ type EmailStatsByMailboxProviderParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
-	Sort string
+	Sort EmailMailboxProviderSortMetric
 	// Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that provider's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByMailboxProviderParams) toWire() *oapi.GetEmailStatsByMailboxProviderParams {
@@ -309,10 +309,10 @@ func (p EmailStatsByMailboxProviderParams) toWire() *oapi.GetEmailStatsByMailbox
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByMailboxProviderParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -327,13 +327,13 @@ type EmailStatsByMailboxProviderRegionParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
-	Sort string
+	Sort EmailMailboxProviderSortMetric
 	// Maximum number of provider-region rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that provider region's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByMailboxProviderRegionParams) toWire() *oapi.GetEmailStatsByMailboxProviderRegionParams {
@@ -342,10 +342,10 @@ func (p EmailStatsByMailboxProviderRegionParams) toWire() *oapi.GetEmailStatsByM
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailMailboxProviderSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByMailboxProviderRegionParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -360,13 +360,13 @@ type EmailStatsByTemplateParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of template rows to return, ranked by the `sort` field descending.
 	Limit int
 	// When true, each row also carries a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByTemplateParams) toWire() *oapi.GetEmailStatsByTemplateParams {
@@ -375,10 +375,10 @@ func (p EmailStatsByTemplateParams) toWire() *oapi.GetEmailStatsByTemplateParams
 		To:           optDate(p.To),
 		Timezone:     optStr(p.Timezone),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByTemplateParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 
@@ -395,7 +395,7 @@ type EmailStatsByLocationParams struct {
 	// Location granularity for each row. `country` (default) groups by country; `region` groups by region within country; `city` groups by city within region. Each row reports the location hierarchy down to the chosen level.
 	GroupBy string
 	// Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
-	Sort string
+	Sort EmailEngagementSortMetric
 	// Maximum number of location rows to return, ranked by the `sort` field descending.
 	Limit int
 }
@@ -407,7 +407,7 @@ func (p EmailStatsByLocationParams) toWire() *oapi.GetEmailStatsByLocationParams
 		Timezone: optStr(p.Timezone),
 		Category: optStr(p.Category),
 		GroupBy:  optEnum[oapi.GetEmailStatsByLocationParamsGroupBy](p.GroupBy),
-		Sort:     optEnum[oapi.EmailEngagementSortMetric](p.Sort),
+		Sort:     optZero(p.Sort),
 		Limit:    optInt(p.Limit),
 	}
 }
@@ -425,7 +425,7 @@ type EmailStatsByClientParams struct {
 	// Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two null.
 	GroupBy string
 	// Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
-	Sort string
+	Sort EmailEngagementSortMetric
 	// Maximum number of client rows to return, ranked by the `sort` field descending.
 	Limit int
 }
@@ -437,7 +437,7 @@ func (p EmailStatsByClientParams) toWire() *oapi.GetEmailStatsByClientParams {
 		Timezone: optStr(p.Timezone),
 		Category: optStr(p.Category),
 		GroupBy:  optEnum[oapi.GetEmailStatsByClientParamsGroupBy](p.GroupBy),
-		Sort:     optEnum[oapi.EmailEngagementSortMetric](p.Sort),
+		Sort:     optZero(p.Sort),
 		Limit:    optInt(p.Limit),
 	}
 }
@@ -505,13 +505,13 @@ type EmailStatsByBroadcastParams struct {
 	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
-	Sort string
+	Sort EmailStatsSortMetric
 	// Maximum number of broadcast rows to return, ranked by the `sort` field descending.
 	Limit int
 	// Requests a per-row `trend` series. Not available for the broadcast breakdown; supplying `true` returns 422.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect on this breakdown, where `include_trend` is not available.
-	TrendGrain string
+	TrendGrain StatsTrendGrain
 }
 
 func (p EmailStatsByBroadcastParams) toWire() *oapi.GetEmailStatsByBroadcastParams {
@@ -519,10 +519,10 @@ func (p EmailStatsByBroadcastParams) toWire() *oapi.GetEmailStatsByBroadcastPara
 		From:         optDate(p.From),
 		To:           optDate(p.To),
 		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.EmailStatsSortMetric](p.Sort),
+		Sort:         optZero(p.Sort),
 		Limit:        optInt(p.Limit),
 		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optEnum[oapi.GetEmailStatsByBroadcastParamsTrendGrain](p.TrendGrain),
+		TrendGrain:   optZero(p.TrendGrain),
 	}
 }
 

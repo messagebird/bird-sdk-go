@@ -4,12 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"iter"
 	"net/http"
 	"strings"
-	"time"
-
-	openapi_types "github.com/oapi-codegen/runtime/types"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/internal/requestconfig"
@@ -18,7 +14,7 @@ import (
 
 // EmailService sends and reads email messages. Reach it via Client.Email.
 type EmailService struct {
-	client *Client
+	resource
 
 	// Stats reads aggregated delivery and engagement statistics.
 	Stats *EmailStatsService
@@ -50,7 +46,7 @@ type EmailSendParams struct {
 	TrackClicks *bool
 	// Template, when set, sends a published template in place of inline content:
 	// leave Subject/HTML/Text empty (the template supplies them) and personalize
-	// with Parameters. The value is the template's ID (`emt_…`) or its name handle.
+	// with Parameters. The value is the template's ID (`emt_…`) or its slug handle.
 	Template string
 	// Parameters holds template variables rendered into the subject and
 	// body at send time; works with both inline content and a Template.
@@ -126,25 +122,25 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		body.Attachments = &attachments
 	}
 	if p.Category != "" {
-		category := oapi.EmailMessageSendRequestCategory(p.Category)
+		category := oapi.EmailMessageCategory(p.Category)
 		body.Category = &category
 	}
 	if p.IpPoolId != "" {
 		ipPool := p.IpPoolId
 		body.IpPoolId = &ipPool
 	}
-	// A template send nests its reference (id or name) and variables under the
+	// A template send nests its reference (id or slug) and variables under the
 	// template object; an inline send uses the top-level parameters. The two
 	// content modes are exclusive. The `emt_` prefix marks an id; anything else
-	// is a name handle.
+	// is a slug handle.
 	if p.Template != "" {
 		var tmpl oapi.EmailTemplateSend
 		if strings.HasPrefix(p.Template, "emt_") {
 			id := oapi.EmailTemplateID(p.Template)
 			tmpl.Id = &id
 		} else {
-			name := p.Template
-			tmpl.Name = &name
+			slug := p.Template
+			tmpl.Slug = &slug
 		}
 		if len(p.Parameters) > 0 {
 			parameters := p.Parameters
@@ -243,137 +239,6 @@ func (s *EmailService) SendBatch(ctx context.Context, params EmailSendBatchParam
 	return &out, nil
 }
 
-// Get returns a single message by ID, with aggregate delivery status rolled up
-// across recipients.
-func (s *EmailService) Get(ctx context.Context, id string, opts ...option.RequestOption) (*EmailMessage, error) {
-	cfg, err := s.client.resolve(opts)
-	if err != nil {
-		return nil, err
-	}
-	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
-		return s.client.oapi.GetEmailMessage(ctx, id, s.client.callEditors(cfg)...)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var out EmailMessage
-	if err := decodeBody(body, &out); err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// Cancel cancels a message scheduled with ScheduledAt before it sends. Only a
-// message that is still scheduled can be canceled; one that already started
-// sending — or was previously canceled — returns a conflict error. It returns no
-// content on success. Retries reuse one idempotency key; provide your own with
-// option.WithIdempotencyKey.
-func (s *EmailService) Cancel(ctx context.Context, id string, opts ...option.RequestOption) error {
-	cfg, err := s.client.resolve(opts)
-	if err != nil {
-		return err
-	}
-	_, err = cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
-		params := &oapi.CancelEmailMessageParams{}
-		if idempotencyKey != "" {
-			params.IdempotencyKey = &idempotencyKey
-		}
-		return s.client.oapi.CancelEmailMessage(ctx, id, params, s.client.callEditors(cfg)...)
-	})
-	return err
-}
-
-// EmailListParams filters the message list. Zero-value fields are omitted.
-type EmailListParams struct {
-	Limit         int
-	Status        EmailStatus
-	Category      Category
-	Tag           string
-	To            string
-	From          string
-	CreatedAfter  time.Time
-	CreatedBefore time.Time
-}
-
-func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesParams {
-	w := &oapi.ListEmailMessagesParams{}
-	if p.Limit > 0 {
-		limit := oapi.PaginationLimit(p.Limit)
-		w.Limit = &limit
-	}
-	if startingAfter != "" {
-		cursor := oapi.StartingAfter(startingAfter)
-		w.StartingAfter = &cursor
-	}
-	if p.Status != "" {
-		status := oapi.ListEmailMessagesParamsStatus(p.Status)
-		w.Status = &status
-	}
-	if p.Category != "" {
-		category := oapi.ListEmailMessagesParamsCategory(p.Category)
-		w.Category = &category
-	}
-	if p.Tag != "" {
-		tags := []string{p.Tag}
-		w.Tag = &tags
-	}
-	if p.To != "" {
-		to := openapi_types.Email(p.To)
-		w.To = &to
-	}
-	if p.From != "" {
-		from := openapi_types.Email(p.From)
-		w.From = &from
-	}
-	if !p.CreatedAfter.IsZero() {
-		createdAfter := oapi.CreatedAfter(p.CreatedAfter)
-		w.CreatedAfter = &createdAfter
-	}
-	if !p.CreatedBefore.IsZero() {
-		createdBefore := oapi.CreatedBefore(p.CreatedBefore)
-		w.CreatedBefore = &createdBefore
-	}
-	return w
-}
-
-// ListPage fetches one page of messages. Pass the previous page's NextCursor as
-// startingAfter to advance; "" starts from the most recent.
-func (s *EmailService) ListPage(ctx context.Context, params EmailListParams, startingAfter string, opts ...option.RequestOption) (*EmailMessageList, error) {
-	cfg, err := s.client.resolve(opts)
-	if err != nil {
-		return nil, err
-	}
-	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
-		return s.client.oapi.ListEmailMessages(ctx, params.toWire(startingAfter), s.client.callEditors(cfg)...)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var out EmailMessageList
-	if err := decodeBody(body, &out); err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// List walks every message matching params, fetching pages lazily. Range over
-// it; the second value is non-nil only on the iteration where a fetch failed,
-// after which the sequence ends.
-//
-//	for msg, err := range client.Email.List(ctx, bird.EmailListParams{Status: bird.EmailStatusBounced}) {
-//		if err != nil { return err }
-//		log.Println(msg.Id)
-//	}
-func (s *EmailService) List(ctx context.Context, params EmailListParams, opts ...option.RequestOption) iter.Seq2[*EmailMessage, error] {
-	return paginate(func(cursor string) ([]EmailMessage, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
-		if err != nil {
-			return nil, nil, err
-		}
-		return page.Data, page.NextCursor, nil
-	})
-}
-
 // applyEmailDefaults fills any field the per-send params left unset (nil on the
 // wire body) from the configured defaults. The per-send value always wins.
 func applyEmailDefaults(wire *oapi.EmailMessageSendRequest, d requestconfig.EmailDefaults) {
@@ -390,7 +255,7 @@ func applyEmailDefaults(wire *oapi.EmailMessageSendRequest, d requestconfig.Emai
 		}
 	}
 	if wire.Category == nil && d.Category != "" {
-		category := oapi.EmailMessageSendRequestCategory(d.Category)
+		category := oapi.EmailMessageCategory(d.Category)
 		wire.Category = &category
 	}
 	if wire.TrackOpens == nil {
