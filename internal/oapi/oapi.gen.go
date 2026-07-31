@@ -4453,6 +4453,9 @@ type EmailMessage struct {
 	// OpenCount Total open events across all recipients.
 	OpenCount *int `json:"open_count,omitempty"`
 
+	// Parameters The substitution values this send supplied, or null for a send that carried its content inline. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
 	// ProcessedCount Number of recipients for whom Bird has processed the message and queued it for delivery.
 	ProcessedCount *int `json:"processed_count,omitempty"`
 
@@ -4471,7 +4474,7 @@ type EmailMessage struct {
 	// Status Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
 	Status *EmailMessageStatus `json:"status,omitempty"`
 
-	// Subject Message subject line.
+	// Subject The subject line as delivered. For a send that used a template, the stored subject is the template's, so this reports it with the send's `parameters` substituted in, which is what the recipient saw.
 	Subject string `json:"subject"`
 
 	// Tags Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
@@ -4521,12 +4524,12 @@ type EmailMessageBatchResponse struct {
 // EmailMessageCategory Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 type EmailMessageCategory string
 
-// EmailMessageContent The stored body content of a sent email message.
+// EmailMessageContent The body content of a sent email message, as delivered. A send that used a template stores the template's body, so these report it with the send's `parameters` substituted in.
 type EmailMessageContent struct {
-	// Html The HTML body of the message, if it was stored.
+	// Html The HTML body of the message as delivered, if it was stored.
 	Html *string `json:"html,omitempty"`
 
-	// Text The plain-text body of the message, if it was stored.
+	// Text The plain-text body of the message as delivered, if it was stored.
 	Text *string `json:"text,omitempty"`
 }
 

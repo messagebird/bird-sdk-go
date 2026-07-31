@@ -12,8 +12,8 @@ import (
 
 type Tag = oapi.Tag
 
-// MailboxThreadMessageListParams filters the list. Zero-value fields are omitted.
-type MailboxThreadMessageListParams struct {
+// EmailThreadsMessagesListParams filters the list. Zero-value fields are omitted.
+type EmailThreadsMessagesListParams struct {
 	// Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction MessageDirection
 	// Filter to messages carrying this label. `trash` lists trashed messages; any other label — `archive`, `spam`, `blocked`, `unread`, or a custom label — lists its non-trashed carriers. When omitted, received messages in the inbox and all sent messages are returned.
@@ -24,7 +24,7 @@ type MailboxThreadMessageListParams struct {
 	Limit int
 }
 
-func (p MailboxThreadMessageListParams) toWire(startingAfter string) *oapi.ListEmailThreadMessagesParams {
+func (p EmailThreadsMessagesListParams) toWire(startingAfter string) *oapi.ListEmailThreadMessagesParams {
 	return &oapi.ListEmailThreadMessagesParams{
 		Direction:     optZero(p.Direction),
 		Label:         optStr(p.Label),
@@ -34,8 +34,8 @@ func (p MailboxThreadMessageListParams) toWire(startingAfter string) *oapi.ListE
 	}
 }
 
-// MailboxThreadMessageReplyParams is the request body for reply.
-type MailboxThreadMessageReplyParams struct {
+// EmailThreadsMessagesReplyParams is the request body for reply.
+type EmailThreadsMessagesReplyParams struct {
 	// HTML body of the reply. At least one of html or text must be provided.
 	HTML string
 	// Plain-text body of the reply. At least one of html or text must be provided.
@@ -51,7 +51,7 @@ type MailboxThreadMessageReplyParams struct {
 	Attachments []EmailAttachment
 }
 
-func (p MailboxThreadMessageReplyParams) toWire() oapi.EmailThreadMessageReplyRequest {
+func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRequest {
 	body := oapi.EmailThreadMessageReplyRequest{}
 	if p.HTML != "" {
 		body.Html = Ptr(p.HTML)
@@ -80,7 +80,7 @@ func (p MailboxThreadMessageReplyParams) toWire() oapi.EmailThreadMessageReplyRe
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
-func (s *MailboxThreadMessageService) ListPage(ctx context.Context, threadId string, params MailboxThreadMessageListParams, startingAfter string, opts ...option.RequestOption) (*EmailThreadMessageList, error) {
+func (s *EmailThreadsMessagesService) ListPage(ctx context.Context, threadId string, params EmailThreadsMessagesListParams, startingAfter string, opts ...option.RequestOption) (*EmailThreadMessageList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListEmailThreadMessages(ctx, oapi.ThreadID(threadId), params.toWire(startingAfter), cfg...)
 	})
@@ -97,7 +97,7 @@ func (s *MailboxThreadMessageService) ListPage(ctx context.Context, threadId str
 // List List the messages in a conversation newest first, both directions. Page older messages with starting_after, and pass include=extracted_text to inline each message's durable plain text.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
-func (s *MailboxThreadMessageService) List(ctx context.Context, threadId string, params MailboxThreadMessageListParams, opts ...option.RequestOption) iter.Seq2[*EmailThreadMessage, error] {
+func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string, params EmailThreadsMessagesListParams, opts ...option.RequestOption) iter.Seq2[*EmailThreadMessage, error] {
 	return paginate(func(cursor string) ([]EmailThreadMessage, *string, error) {
 		page, err := s.ListPage(ctx, threadId, params, cursor, opts...)
 		if err != nil {
@@ -108,7 +108,7 @@ func (s *MailboxThreadMessageService) List(ctx context.Context, threadId string,
 }
 
 // Get Get one conversation message with its extracted plain text — readable for the mailbox's full retention period, no MIME parsing needed.
-func (s *MailboxThreadMessageService) Get(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessage, error) {
+func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThreadMessage(ctx, oapi.ThreadID(threadId), messageId, cfg...)
 	})
@@ -123,7 +123,7 @@ func (s *MailboxThreadMessageService) Get(ctx context.Context, threadId string, 
 }
 
 // Body Get the original rendered HTML and plain-text body of a conversation message. Available 30 days; after that use the message's extracted_text.
-func (s *MailboxThreadMessageService) Body(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageBody, error) {
+func (s *EmailThreadsMessagesService) Body(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageBody, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThreadMessageBody(ctx, oapi.ThreadID(threadId), messageId, cfg...)
 	})
@@ -138,7 +138,7 @@ func (s *MailboxThreadMessageService) Body(ctx context.Context, threadId string,
 }
 
 // Reply Reply to a specific conversation message from the mailbox's own address. To reply to a conversation, target its newest received message. Recipients, subject, and threading headers are derived automatically.
-func (s *MailboxThreadMessageService) Reply(ctx context.Context, threadId string, messageId string, params MailboxThreadMessageReplyParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
+func (s *EmailThreadsMessagesService) Reply(ctx context.Context, threadId string, messageId string, params EmailThreadsMessagesReplyParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ReplyEmailThreadMessageParams{}
 		if idempotencyKey != "" {
@@ -157,7 +157,7 @@ func (s *MailboxThreadMessageService) Reply(ctx context.Context, threadId string
 }
 
 // Attachments List the attachments on a conversation message. Bytes are downloadable for 30 days; the metadata also rides the message's attachment_manifest durably.
-func (s *MailboxThreadMessageService) Attachments(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageAttachmentList, error) {
+func (s *EmailThreadsMessagesService) Attachments(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageAttachmentList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListEmailThreadMessageAttachments(ctx, oapi.ThreadID(threadId), messageId, cfg...)
 	})

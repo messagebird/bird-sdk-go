@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.17.0
+
+- Email message reads now report the message as delivered. For a send that used a template, `subject` and the bodies from the message-content endpoint previously returned the template source, tokens and all, which is content no recipient received; they now return that source with the send's substitution values applied. The values themselves are exposed as a new `parameters` field so the inputs stay visible beside the result. Sends that supplied their content inline are unaffected.
+- Nest mailboxes and threads under email, matching the URL and the CLI/MCP names. Client.Mailbox becomes Client.Email.Mailboxes, Client.MailboxThread becomes Client.Email.Threads, Client.MailboxThreadMessage becomes Client.Email.Threads.Messages, Client.MailboxReceiveRule becomes Client.Email.Mailboxes.ReceiveRules, and Mailbox.Compose becomes Email.Mailboxes.Messages.Create. Params and service types are renamed to match.
+
 ## 0.16.0
 
 - Add an optional `language` to the email template send block, selecting which of the template's languages to send. The template's `on_missing_language` decides whether an unstocked language falls back or is rejected.

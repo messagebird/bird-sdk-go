@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.16.0"
+	version = "0.17.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -68,10 +68,6 @@ type Client struct {
 	Audiences            *AudiencesService
 	ContactProperties    *ContactPropertiesService
 	Domains              *DomainsService
-	Mailbox              *MailboxService
-	MailboxReceiveRule   *MailboxReceiveRuleService
-	MailboxThread        *MailboxThreadService
-	MailboxThreadMessage *MailboxThreadMessageService
 	Realtime             *RealtimeService
 }
 
@@ -119,10 +115,11 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Audiences = &AudiencesService{resource{client: c}}
 	c.ContactProperties = &ContactPropertiesService{resource{client: c}}
 	c.Domains = &DomainsService{resource{client: c}}
-	c.Mailbox = &MailboxService{resource{client: c}}
-	c.MailboxReceiveRule = &MailboxReceiveRuleService{resource{client: c}}
-	c.MailboxThread = &MailboxThreadService{resource{client: c}}
-	c.MailboxThreadMessage = &MailboxThreadMessageService{resource{client: c}}
+	c.Email.Mailboxes = &EmailMailboxesService{resource: resource{client: c}}
+	c.Email.Mailboxes.Messages = &EmailMailboxesMessagesService{resource{client: c}}
+	c.Email.Mailboxes.ReceiveRules = &EmailMailboxesReceiveRulesService{resource{client: c}}
+	c.Email.Threads = &EmailThreadsService{resource: resource{client: c}}
+	c.Email.Threads.Messages = &EmailThreadsMessagesService{resource{client: c}}
 	c.Realtime = &RealtimeService{
 		client:   c,
 		Channels: &RealtimeChannelsService{client: c},

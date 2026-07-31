@@ -8,13 +8,12 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// MailboxService manages agent mailboxes — durable inboxes on inbox.ai or
-// your own domain that receive, store, and send email. Reach it via
-// Client.Mailbox.
-type MailboxService struct{ resource }
+// EmailMailboxesMessagesService sends messages from a mailbox's own address.
+// Reach it via Client.Email.Mailboxes.Messages.
+type EmailMailboxesMessagesService struct{ resource }
 
-// MailboxComposeParams sends a new message from the mailbox.
-type MailboxComposeParams struct {
+// EmailMailboxesMessagesCreateParams sends a new message from the mailbox.
+type EmailMailboxesMessagesCreateParams struct {
 	To       []string // required; plain address or "Name <addr>"
 	Subject  string   // required
 	HTML     string
@@ -34,7 +33,7 @@ func parseAddresses(addrs []string) []oapi.EmailAddressInput {
 	return out
 }
 
-func (p MailboxComposeParams) toWire() oapi.EmailMailboxComposeRequest {
+func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeRequest {
 	body := oapi.EmailMailboxComposeRequest{
 		Subject: p.Subject,
 		To:      parseAddresses(p.To),
@@ -72,7 +71,7 @@ func (p MailboxComposeParams) toWire() oapi.EmailMailboxComposeRequest {
 
 // Compose sends a new email from the mailbox's own address, starting a new
 // conversation. Retried safely with a reused idempotency key.
-func (s *MailboxService) Compose(ctx context.Context, mailboxID string, params MailboxComposeParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
+func (s *EmailMailboxesMessagesService) Create(ctx context.Context, mailboxID string, params EmailMailboxesMessagesCreateParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	wire := params.toWire()
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateMailboxMessageParams{}

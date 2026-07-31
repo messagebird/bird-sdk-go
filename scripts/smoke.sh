@@ -20,15 +20,22 @@ cd "$tmp"
 
 go mod init birdsmoke >/dev/null
 
-# Just-pushed tags can take a moment to become resolvable through the module
-# proxy, so retry the fetch a few times before giving up.
-for attempt in 1 2 3 4 5; do
-	if GOFLAGS=-trimpath go get "${mod}@v${ver}"; then
+# proxy.golang.org NEGATIVE-caches a miss, so a just-pushed tag stays unresolvable
+# for a while after it exists — retry for ~5 minutes. Print the resolver's own
+# output on the last attempt: swallowing it makes a propagation lag look identical
+# to a packaging break.
+attempts=10
+for attempt in $(seq 1 "$attempts"); do
+	if out=$(GOFLAGS=-trimpath go get "${mod}@v${ver}" 2>&1); then
 		break
 	fi
-	[ "$attempt" -eq 5 ] && { echo "smoke: ${mod}@v${ver} not resolvable after 5 attempts" >&2; exit 1; }
-	echo "smoke: ${mod}@v${ver} not available yet — retrying in 15s"
-	sleep 15
+	if [ "$attempt" -eq "$attempts" ]; then
+		echo "smoke: ${mod}@v${ver} not resolvable after ${attempts} attempts (~5m); last error:" >&2
+		printf '%s\n' "$out" | sed 's/^/  /' >&2
+		exit 1
+	fi
+	echo "smoke: ${mod}@v${ver} not available yet — retrying in 30s (attempt ${attempt}/${attempts})"
+	sleep 30
 done
 
 cat > main.go <<EOF

@@ -13,8 +13,8 @@ import (
 
 type EmailLabelsUpdate = oapi.EmailLabelsUpdate
 
-// MailboxThreadListParams filters the list. Zero-value fields are omitted.
-type MailboxThreadListParams struct {
+// EmailThreadsListParams filters the list. Zero-value fields are omitted.
+type EmailThreadsListParams struct {
 	// Filter to conversations in a specific mailbox.
 	MailboxID string
 	// Filter to conversations linked to a specific contact.
@@ -35,7 +35,7 @@ type MailboxThreadListParams struct {
 	Limit int
 }
 
-func (p MailboxThreadListParams) toWire(startingAfter string) *oapi.ListEmailThreadsParams {
+func (p EmailThreadsListParams) toWire(startingAfter string) *oapi.ListEmailThreadsParams {
 	return &oapi.ListEmailThreadsParams{
 		MailboxId:     optZero(p.MailboxID),
 		ContactId:     optZero(p.ContactID),
@@ -50,14 +50,14 @@ func (p MailboxThreadListParams) toWire(startingAfter string) *oapi.ListEmailThr
 	}
 }
 
-// MailboxThreadUpdateParams is the request body for update.
-type MailboxThreadUpdateParams struct {
+// EmailThreadsUpdateParams is the request body for update.
+type EmailThreadsUpdateParams struct {
 	Labels *EmailLabelsUpdate
 	// Contact to link this conversation to, or null to unlink the current contact.
 	ContactID Nullable[string]
 }
 
-func (p MailboxThreadUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
+func (p EmailThreadsUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
 	body := oapi.EmailThreadUpdateRequest{}
 	if p.Labels != nil {
 		body.Labels = p.Labels
@@ -66,13 +66,13 @@ func (p MailboxThreadUpdateParams) toWire() oapi.EmailThreadUpdateRequest {
 	return body
 }
 
-// MailboxThreadDeleteParams holds the delete's query filters.
-type MailboxThreadDeleteParams struct {
+// EmailThreadsDeleteParams holds the delete's query filters.
+type EmailThreadsDeleteParams struct {
 	// Permanently delete the conversation and its messages immediately instead of moving them to the trash.
 	Permanent bool
 }
 
-func (p MailboxThreadDeleteParams) toWire() *oapi.DeleteEmailThreadParams {
+func (p EmailThreadsDeleteParams) toWire() *oapi.DeleteEmailThreadParams {
 	return &oapi.DeleteEmailThreadParams{
 		Permanent: optBool(p.Permanent),
 	}
@@ -80,7 +80,7 @@ func (p MailboxThreadDeleteParams) toWire() *oapi.DeleteEmailThreadParams {
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
-func (s *MailboxThreadService) ListPage(ctx context.Context, params MailboxThreadListParams, startingAfter string, opts ...option.RequestOption) (*EmailThreadList, error) {
+func (s *EmailThreadsService) ListPage(ctx context.Context, params EmailThreadsListParams, startingAfter string, opts ...option.RequestOption) (*EmailThreadList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListEmailThreads(ctx, params.toWire(startingAfter), cfg...)
 	})
@@ -97,7 +97,7 @@ func (s *MailboxThreadService) ListPage(ctx context.Context, params MailboxThrea
 // List List mailbox conversations as a cursor page, most recently active first. `label` selects the view — inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
-func (s *MailboxThreadService) List(ctx context.Context, params MailboxThreadListParams, opts ...option.RequestOption) iter.Seq2[*EmailThread, error] {
+func (s *EmailThreadsService) List(ctx context.Context, params EmailThreadsListParams, opts ...option.RequestOption) iter.Seq2[*EmailThread, error] {
 	return paginate(func(cursor string) ([]EmailThread, *string, error) {
 		page, err := s.ListPage(ctx, params, cursor, opts...)
 		if err != nil {
@@ -108,7 +108,7 @@ func (s *MailboxThreadService) List(ctx context.Context, params MailboxThreadLis
 }
 
 // Get Get one conversation: participants, counts, labels, read state. Fetch its messages with the thread messages endpoint.
-func (s *MailboxThreadService) Get(ctx context.Context, threadId string, opts ...option.RequestOption) (*EmailThread, error) {
+func (s *EmailThreadsService) Get(ctx context.Context, threadId string, opts ...option.RequestOption) (*EmailThread, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThread(ctx, oapi.ThreadID(threadId), cfg...)
 	})
@@ -123,7 +123,7 @@ func (s *MailboxThreadService) Get(ctx context.Context, threadId string, opts ..
 }
 
 // Update Add or remove labels on a conversation — adding `spam` files it as spam, adding `archive` clears it out of the inbox, adding `inbox` brings it back — or link/unlink a contact.
-func (s *MailboxThreadService) Update(ctx context.Context, threadId string, params MailboxThreadUpdateParams, opts ...option.RequestOption) (*EmailThread, error) {
+func (s *EmailThreadsService) Update(ctx context.Context, threadId string, params EmailThreadsUpdateParams, opts ...option.RequestOption) (*EmailThread, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailThreadParams{}
 		if idempotencyKey != "" {
@@ -142,7 +142,7 @@ func (s *MailboxThreadService) Update(ctx context.Context, threadId string, para
 }
 
 // Delete Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with ?permanent=true.
-func (s *MailboxThreadService) Delete(ctx context.Context, threadId string, params MailboxThreadDeleteParams, opts ...option.RequestOption) error {
+func (s *EmailThreadsService) Delete(ctx context.Context, threadId string, params EmailThreadsDeleteParams, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWire()
 		if idempotencyKey != "" {

@@ -20,8 +20,8 @@ type MailboxUpdateReceivePolicy = oapi.MailboxUpdateReceivePolicy
 
 type MailboxUpdateRetentionTier = oapi.MailboxUpdateRetentionTier
 
-// MailboxListParams filters the list. Zero-value fields are omitted.
-type MailboxListParams struct {
+// EmailMailboxesListParams filters the list. Zero-value fields are omitted.
+type EmailMailboxesListParams struct {
 	// Filter to the mailbox with exactly this address.
 	Address string
 	// Case-insensitive search matching the mailbox's address or display name (substring).
@@ -36,7 +36,7 @@ type MailboxListParams struct {
 	Limit int
 }
 
-func (p MailboxListParams) toWire(startingAfter string) *oapi.ListMailboxesParams {
+func (p EmailMailboxesListParams) toWire(startingAfter string) *oapi.ListMailboxesParams {
 	return &oapi.ListMailboxesParams{
 		Address:        optEmail(p.Address),
 		Q:              optStr(p.Q),
@@ -48,8 +48,8 @@ func (p MailboxListParams) toWire(startingAfter string) *oapi.ListMailboxesParam
 	}
 }
 
-// MailboxCreateParams is the request body for create.
-type MailboxCreateParams struct {
+// EmailMailboxesCreateParams is the request body for create.
+type EmailMailboxesCreateParams struct {
 	// The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
 	LocalPart string
 	// The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
@@ -66,7 +66,7 @@ type MailboxCreateParams struct {
 	Metadata map[string]any
 }
 
-func (p MailboxCreateParams) toWire() oapi.MailboxCreate {
+func (p EmailMailboxesCreateParams) toWire() oapi.MailboxCreate {
 	body := oapi.MailboxCreate{}
 	if p.LocalPart != "" {
 		body.LocalPart = Ptr(p.LocalPart)
@@ -93,8 +93,8 @@ func (p MailboxCreateParams) toWire() oapi.MailboxCreate {
 	return body
 }
 
-// MailboxUpdateParams is the request body for update.
-type MailboxUpdateParams struct {
+// EmailMailboxesUpdateParams is the request body for update.
+type EmailMailboxesUpdateParams struct {
 	// Display name used as the sender name on mail from this mailbox. Null clears it.
 	DisplayName Nullable[string]
 	// Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
@@ -109,7 +109,7 @@ type MailboxUpdateParams struct {
 	Confirm bool
 }
 
-func (p MailboxUpdateParams) toWire() oapi.MailboxUpdate {
+func (p EmailMailboxesUpdateParams) toWire() oapi.MailboxUpdate {
 	body := oapi.MailboxUpdate{}
 	body.DisplayName = p.DisplayName
 	body.DefaultReplyTo = p.DefaultReplyTo
@@ -126,14 +126,14 @@ func (p MailboxUpdateParams) toWire() oapi.MailboxUpdate {
 	return body
 }
 
-func (p MailboxUpdateParams) toWireParams() *oapi.UpdateMailboxParams {
+func (p EmailMailboxesUpdateParams) toWireParams() *oapi.UpdateMailboxParams {
 	return &oapi.UpdateMailboxParams{
 		Confirm: optBool(p.Confirm),
 	}
 }
 
-// MailboxStatsParams filters the stats read.
-type MailboxStatsParams struct {
+// EmailMailboxesStatsParams filters the stats read.
+type EmailMailboxesStatsParams struct {
 	// Inclusive start of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` at `day` granularity and 7 days before `to` at `hour`, when omitted.
 	From string
 	// Inclusive end of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
@@ -144,7 +144,7 @@ type MailboxStatsParams struct {
 	Granularity string
 }
 
-func (p MailboxStatsParams) toWire() *oapi.GetMailboxStatsParams {
+func (p EmailMailboxesStatsParams) toWire() *oapi.GetMailboxStatsParams {
 	return &oapi.GetMailboxStatsParams{
 		From:        optStr(p.From),
 		To:          optStr(p.To),
@@ -155,7 +155,7 @@ func (p MailboxStatsParams) toWire() *oapi.GetMailboxStatsParams {
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
-func (s *MailboxService) ListPage(ctx context.Context, params MailboxListParams, startingAfter string, opts ...option.RequestOption) (*MailboxList, error) {
+func (s *EmailMailboxesService) ListPage(ctx context.Context, params EmailMailboxesListParams, startingAfter string, opts ...option.RequestOption) (*MailboxList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListMailboxes(ctx, params.toWire(startingAfter), cfg...)
 	})
@@ -172,7 +172,7 @@ func (s *MailboxService) ListPage(ctx context.Context, params MailboxListParams,
 // List List the workspace's mailboxes as a cursor page, newest first. Search addresses and display names with q, or filter by exact address, state, or domain.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
-func (s *MailboxService) List(ctx context.Context, params MailboxListParams, opts ...option.RequestOption) iter.Seq2[*Mailbox, error] {
+func (s *EmailMailboxesService) List(ctx context.Context, params EmailMailboxesListParams, opts ...option.RequestOption) iter.Seq2[*Mailbox, error] {
 	return paginate(func(cursor string) ([]Mailbox, *string, error) {
 		page, err := s.ListPage(ctx, params, cursor, opts...)
 		if err != nil {
@@ -183,7 +183,7 @@ func (s *MailboxService) List(ctx context.Context, params MailboxListParams, opt
 }
 
 // Create Create a mailbox — a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
-func (s *MailboxService) Create(ctx context.Context, params MailboxCreateParams, opts ...option.RequestOption) (*Mailbox, error) {
+func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxesCreateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateMailboxParams{}
 		if idempotencyKey != "" {
@@ -201,7 +201,7 @@ func (s *MailboxService) Create(ctx context.Context, params MailboxCreateParams,
 	return &out, nil
 }
 
-func (s *MailboxService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
+func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), cfg...)
 	})
@@ -216,7 +216,7 @@ func (s *MailboxService) Get(ctx context.Context, mailboxId string, opts ...opti
 }
 
 // Update Update a mailbox's display name, reply-to, receive policy, retention tier, contact, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
-func (s *MailboxService) Update(ctx context.Context, mailboxId string, params MailboxUpdateParams, opts ...option.RequestOption) (*Mailbox, error) {
+func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, params EmailMailboxesUpdateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWireParams()
 		if idempotencyKey != "" {
@@ -235,7 +235,7 @@ func (s *MailboxService) Update(ctx context.Context, mailboxId string, params Ma
 }
 
 // Delete Delete a mailbox. The address stops receiving immediately and is quarantined; the mailbox and its remembered messages stay restorable for 30 days via the restore endpoint, then are permanently deleted.
-func (s *MailboxService) Delete(ctx context.Context, mailboxId string, opts ...option.RequestOption) error {
+func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteMailboxParams{}
 		if idempotencyKey != "" {
@@ -247,7 +247,7 @@ func (s *MailboxService) Delete(ctx context.Context, mailboxId string, opts ...o
 }
 
 // Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and the remembered messages are back. Past the window the mailbox is permanently deleted and returns 404; a mailbox that is not deleted returns 409.
-func (s *MailboxService) Restore(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
+func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.RestoreMailboxParams{}
 		if idempotencyKey != "" {
@@ -266,7 +266,7 @@ func (s *MailboxService) Restore(ctx context.Context, mailboxId string, opts ...
 }
 
 // Resume Reactivate a suspended mailbox so it can send and receive again and its threads become visible. Fails if your plan does not have room for another active mailbox (or another custom inbox.ai handle); delete an active mailbox or upgrade first. A mailbox that is not suspended returns 409.
-func (s *MailboxService) Resume(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
+func (s *EmailMailboxesService) Resume(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ResumeMailboxParams{}
 		if idempotencyKey != "" {
@@ -284,7 +284,7 @@ func (s *MailboxService) Resume(ctx context.Context, mailboxId string, opts ...o
 	return &out, nil
 }
 
-func (s *MailboxService) Stats(ctx context.Context, mailboxId string, params MailboxStatsParams, opts ...option.RequestOption) (*MailboxStatsResponse, error) {
+func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, params EmailMailboxesStatsParams, opts ...option.RequestOption) (*MailboxStatsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetMailboxStats(ctx, oapi.MailboxID(mailboxId), params.toWire(), cfg...)
 	})
@@ -299,7 +299,7 @@ func (s *MailboxService) Stats(ctx context.Context, mailboxId string, params Mai
 }
 
 // Labels List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in use.
-func (s *MailboxService) Labels(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*EmailMailboxLabelList, error) {
+func (s *EmailMailboxesService) Labels(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*EmailMailboxLabelList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxID(mailboxId), cfg...)
 	})

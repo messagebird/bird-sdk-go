@@ -18,6 +18,12 @@ type EmailService struct {
 
 	// Stats reads aggregated delivery and engagement statistics.
 	Stats *EmailStatsService
+
+	// Mailboxes manages durable agent mailboxes that receive, store, and send email.
+	Mailboxes *EmailMailboxesService
+
+	// Threads reads and manages email conversations across every mailbox.
+	Threads *EmailThreadsService
 }
 
 // EmailSendParams is an email send. Optional fields are omitted from the request
