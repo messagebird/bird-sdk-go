@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.0
+
+- Add a per-send `language` override for templated email: `EmailSendParams.Language` on the Go SDK, a `language` keyword argument on `client.email.send`/`send_batch` in the Python SDK, and `--language` on `bird email send`. Omitting it keeps today's behavior, sending the template's default language.
+- Export the known values of every open enum (EmailEventType, VerificationChannel, WhatsAppErrorCode and the rest) as constants, so an open enum is no longer a bare string with its values buried in prose.
+- Email message reads and send responses now report `requested_language` and `resolved_language`.
+- Email message reads and send responses now report `template_id` and `template_version_id`. A template's live version changes each time you submit it, so the version is what identifies the wording a message was actually delivered with, and the two together fetch that content back.
+- Passcode attempts can report `channel_disabled`, meaning Bird has temporarily stopped sending over that channel and the verification moved on to the next one.
+
 ## 0.18.0
 
 - **Breaking:** a WhatsApp send addresses its template by `slug` (previously `name`), and a WhatsApp message read echoes `template.slug` (previously `template.name`). Templates carry the slug as their permanent handle; the display name is cosmetic and never affects sending.

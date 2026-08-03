@@ -113,6 +113,50 @@ func TestSendSuccess(t *testing.T) {
 	}
 }
 
+func TestSendTemplateLanguage(t *testing.T) {
+	var gotBody string
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		body, _ := io.ReadAll(r.Body)
+		gotBody = string(body)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = io.WriteString(w, messageJSON)
+	})
+	client := newClient(t, server)
+
+	t.Run("language serializes onto the template when set", func(t *testing.T) {
+		if _, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+			From: "hello@acme.com", To: []string{"customer@example.com"},
+			Template: "welcome-email", Language: "pt-BR",
+		}); err != nil {
+			t.Fatalf("Send: %v", err)
+		}
+		var sent struct {
+			Template struct {
+				Slug     string `json:"slug"`
+				Language string `json:"language"`
+			} `json:"template"`
+		}
+		if err := json.Unmarshal([]byte(gotBody), &sent); err != nil {
+			t.Fatalf("decode request body: %v", err)
+		}
+		if sent.Template.Slug != "welcome-email" || sent.Template.Language != "pt-BR" {
+			t.Errorf("request body template = %+v", sent.Template)
+		}
+	})
+
+	t.Run("language is absent when unset", func(t *testing.T) {
+		if _, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+			From: "hello@acme.com", To: []string{"customer@example.com"},
+			Template: "welcome-email",
+		}); err != nil {
+			t.Fatalf("Send: %v", err)
+		}
+		if strings.Contains(gotBody, `"language"`) {
+			t.Errorf("request body should omit language when unset: %s", gotBody)
+		}
+	})
+}
+
 func TestIdempotencyKeyReusedAcrossRetries(t *testing.T) {
 	var keys []string
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {

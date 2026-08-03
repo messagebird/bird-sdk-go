@@ -4468,6 +4468,12 @@ type EmailMessage struct {
 	// ReplyTo Reply-To addresses, if set on the send. Empty/null when no Reply-To was provided.
 	ReplyTo *[]EmailAddress `json:"reply_to,omitempty"`
 
+	// RequestedLanguage The template language this send asked for, in canonical form (`pt-BR` for a request of `pt-br`). Null when the send named no language (it took the template's default) or used no template at all. Compare it with `resolved_language`: when they differ, the language you asked for was not available and the template's `on_missing_language` policy chose the one shown there instead.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// ResolvedLanguage The template language this send was actually delivered in, in canonical form. Null when the send used no template. A non-null value with a null `requested_language` means the send named no language and took the template's default.
+	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
 	// ScheduledAt When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
@@ -4479,6 +4485,12 @@ type EmailMessage struct {
 
 	// Tags Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
 	Tags *[]Tag `json:"tags,omitempty"`
+
+	// TemplateId The template this send rendered from, or null for a send that supplied its content inline.
+	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
+
+	// TemplateVersionId The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
+	TemplateVersionId *EmailTemplateVersionID `json:"template_version_id,omitempty"`
 
 	// ThreadId Thread this message belongs to. Null until threading is enabled.
 	ThreadId *string `json:"thread_id,omitempty"`
@@ -4502,8 +4514,20 @@ type EmailMessageBatchItem struct {
 	Category EmailMessageBatchItemCategory `json:"category"`
 	Id       EmailID                       `json:"id"`
 
+	// RequestedLanguage The template language this item asked for, in canonical form. Null when the item named no language or used no template. Every item in a batch resolves its own template reference, so this and `resolved_language` can differ from item to item.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// ResolvedLanguage The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not carry the language asked for and its `on_missing_language` policy chose this one.
+	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
 	// Status Initial status of this message in the batch.
 	Status *EmailMessageBatchItemStatus `json:"status,omitempty"`
+
+	// TemplateId The template this item rendered from, or null for an item that supplied its content inline.
+	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
+
+	// TemplateVersionId The exact template version this item rendered from, or null for an inline item. Record it if you need to reproduce what was sent: a template's live version changes every time you submit it.
+	TemplateVersionId *EmailTemplateVersionID `json:"template_version_id,omitempty"`
 }
 
 // EmailMessageBatchItemCategory Resolved category for this batch item.
@@ -5254,6 +5278,9 @@ type EmailTemplateStatsPoint struct {
 	// Trend Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
+
+// EmailTemplateVersionID defines model for EmailTemplateVersionID.
+type EmailTemplateVersionID = string
 
 // EmailThread A conversation in a mailbox. Threads group related messages both directions — mail the mailbox received and replies it sent — and carry the conversation-level read state, labels, and participant list. Message counts reflect the messages currently retained under the mailbox's retention period.
 type EmailThread struct {
@@ -6788,7 +6815,7 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), and `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one).
 	Reason VerificationAttemptFailureReason `json:"reason"`
 
 	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -8292,7 +8319,7 @@ type Verification struct {
 // VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 type VerificationStatus string
 
-// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), and `channel_unavailable` (the channel could not be used and the verification failed over).
+// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), and `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one).
 type VerificationAttemptFailureReason = string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.

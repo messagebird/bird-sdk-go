@@ -54,6 +54,13 @@ type EmailSendParams struct {
 	// leave Subject/HTML/Text empty (the template supplies them) and personalize
 	// with Parameters. The value is the template's ID (`emt_…`) or its slug handle.
 	Template string
+	// Language selects which of the template's languages to send, as a BCP-47 tag
+	// (e.g. "en", "pt-BR"). Template sends only. Omit it to send the template's
+	// default language, unless the template's language_source_required is true, in
+	// which case a send naming none is rejected. A language the template doesn't
+	// carry is resolved by the template's own on_missing_language setting
+	// (fallback to the closest match, or fail the send).
+	Language string
 	// Parameters holds template variables rendered into the subject and
 	// body at send time; works with both inline content and a Template.
 	Parameters map[string]any
@@ -135,18 +142,26 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		ipPool := p.IpPoolId
 		body.IpPoolId = &ipPool
 	}
-	// A template send nests its reference (id or slug) and variables under the
-	// template object; an inline send uses the top-level parameters. The two
-	// content modes are exclusive. The `emt_` prefix marks an id; anything else
-	// is a slug handle.
-	if p.Template != "" {
+	// A template send nests its reference (id or slug), language, and variables
+	// under the template object; an inline send uses the top-level parameters.
+	// The two content modes are exclusive. The `emt_` prefix marks an id;
+	// anything else is a slug handle. Language alone (no Template) still opens
+	// the template object, so a caller who sets it without a reference gets the
+	// server's own validation error rather than a silently dropped field.
+	if p.Template != "" || p.Language != "" {
 		var tmpl oapi.EmailTemplateSend
-		if strings.HasPrefix(p.Template, "emt_") {
-			id := oapi.EmailTemplateID(p.Template)
-			tmpl.Id = &id
-		} else {
-			slug := p.Template
-			tmpl.Slug = &slug
+		if p.Template != "" {
+			if strings.HasPrefix(p.Template, "emt_") {
+				id := oapi.EmailTemplateID(p.Template)
+				tmpl.Id = &id
+			} else {
+				slug := p.Template
+				tmpl.Slug = &slug
+			}
+		}
+		if p.Language != "" {
+			language := p.Language
+			tmpl.Language = &language
 		}
 		if len(p.Parameters) > 0 {
 			parameters := p.Parameters
