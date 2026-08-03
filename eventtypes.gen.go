@@ -2,57 +2,61 @@
 
 package bird
 
+import (
+	"github.com/messagebird/bird-sdk-go/internal/oapi"
+)
+
 // Webhook event types known at this SDK version. WebhookEventType is an open
 // string on the wire: a value added by a newer server flows through Unwrap
 // unchanged, so switch on these constants with a default branch.
 const (
-	EventTypeDomainFailed                    WebhookEventType = "domain.failed"
-	EventTypeDomainVerified                  WebhookEventType = "domain.verified"
-	EventTypeEmailAccepted                   WebhookEventType = "email.accepted"
-	EventTypeEmailBounced                    WebhookEventType = "email.bounced"
-	EventTypeEmailCanceled                   WebhookEventType = "email.canceled"
-	EventTypeEmailClicked                    WebhookEventType = "email.clicked"
-	EventTypeEmailComplained                 WebhookEventType = "email.complained"
-	EventTypeEmailDeferred                   WebhookEventType = "email.deferred"
-	EventTypeEmailDelivered                  WebhookEventType = "email.delivered"
-	EventTypeEmailListUnsubscribed           WebhookEventType = "email.list_unsubscribed"
-	EventTypeEmailMailboxMessageDelivered    WebhookEventType = "email_mailbox.message_delivered"
-	EventTypeEmailMailboxMessageFailed       WebhookEventType = "email_mailbox.message_failed"
-	EventTypeEmailMailboxMessageReceived     WebhookEventType = "email_mailbox.message_received"
-	EventTypeEmailMailboxMessageSent         WebhookEventType = "email_mailbox.message_sent"
-	EventTypeEmailMailboxSuspended           WebhookEventType = "email_mailbox.suspended"
-	EventTypeEmailMailboxThreadCreated       WebhookEventType = "email_mailbox.thread_created"
-	EventTypeEmailOpened                     WebhookEventType = "email.opened"
-	EventTypeEmailOutOfBandBounce            WebhookEventType = "email.out_of_band_bounce"
-	EventTypeEmailProcessed                  WebhookEventType = "email.processed"
-	EventTypeEmailReceived                   WebhookEventType = "email.received"
-	EventTypeEmailRejected                   WebhookEventType = "email.rejected"
-	EventTypeEmailScheduled                  WebhookEventType = "email.scheduled"
-	EventTypeEmailSuppressionCreated         WebhookEventType = "email_suppression.created"
-	EventTypeEmailUnsubscribed               WebhookEventType = "email.unsubscribed"
-	EventTypeSmsAccepted                     WebhookEventType = "sms.accepted"
-	EventTypeSmsDelivered                    WebhookEventType = "sms.delivered"
-	EventTypeSmsExpired                      WebhookEventType = "sms.expired"
-	EventTypeSmsFailed                       WebhookEventType = "sms.failed"
-	EventTypeSmsRejected                     WebhookEventType = "sms.rejected"
-	EventTypeSmsSent                         WebhookEventType = "sms.sent"
-	EventTypeSmsTfnVerificationApproved      WebhookEventType = "sms.tfn_verification.approved"
-	EventTypeSmsTfnVerificationInfoRequested WebhookEventType = "sms.tfn_verification.info_requested"
-	EventTypeSmsTfnVerificationRejected      WebhookEventType = "sms.tfn_verification.rejected"
-	EventTypeSmsTfnVerificationSubmitted     WebhookEventType = "sms.tfn_verification.submitted"
-	EventTypeSmsUndelivered                  WebhookEventType = "sms.undelivered"
-	EventTypeVerifyAttemptDelivered          WebhookEventType = "verify.attempt.delivered"
-	EventTypeVerifyAttemptSent               WebhookEventType = "verify.attempt.sent"
-	EventTypeVerifyAttemptUndelivered        WebhookEventType = "verify.attempt.undelivered"
-	EventTypeVerifyVerificationCreated       WebhookEventType = "verify.verification.created"
-	EventTypeVerifyVerificationVerified      WebhookEventType = "verify.verification.verified"
-	EventTypeVoiceCallAnswered               WebhookEventType = "voice_call.answered"
-	EventTypeVoiceCallEnded                  WebhookEventType = "voice_call.ended"
-	EventTypeVoiceCallInitiated              WebhookEventType = "voice_call.initiated"
-	EventTypeWhatsappAccepted                WebhookEventType = "whatsapp.accepted"
-	EventTypeWhatsappDelivered               WebhookEventType = "whatsapp.delivered"
-	EventTypeWhatsappFailed                  WebhookEventType = "whatsapp.failed"
-	EventTypeWhatsappRead                    WebhookEventType = "whatsapp.read"
-	EventTypeWhatsappRejected                WebhookEventType = "whatsapp.rejected"
-	EventTypeWhatsappSent                    WebhookEventType = "whatsapp.sent"
+	EventTypeDomainFailed                    = oapi.EventTypeDomainFailed
+	EventTypeDomainVerified                  = oapi.EventTypeDomainVerified
+	EventTypeEmailAccepted                   = oapi.EventTypeEmailAccepted
+	EventTypeEmailBounced                    = oapi.EventTypeEmailBounced
+	EventTypeEmailCanceled                   = oapi.EventTypeEmailCanceled
+	EventTypeEmailClicked                    = oapi.EventTypeEmailClicked
+	EventTypeEmailComplained                 = oapi.EventTypeEmailComplained
+	EventTypeEmailDeferred                   = oapi.EventTypeEmailDeferred
+	EventTypeEmailDelivered                  = oapi.EventTypeEmailDelivered
+	EventTypeEmailListUnsubscribed           = oapi.EventTypeEmailListUnsubscribed
+	EventTypeEmailMailboxMessageDelivered    = oapi.EventTypeEmailMailboxMessageDelivered
+	EventTypeEmailMailboxMessageFailed       = oapi.EventTypeEmailMailboxMessageFailed
+	EventTypeEmailMailboxMessageReceived     = oapi.EventTypeEmailMailboxMessageReceived
+	EventTypeEmailMailboxMessageSent         = oapi.EventTypeEmailMailboxMessageSent
+	EventTypeEmailMailboxSuspended           = oapi.EventTypeEmailMailboxSuspended
+	EventTypeEmailMailboxThreadCreated       = oapi.EventTypeEmailMailboxThreadCreated
+	EventTypeEmailOpened                     = oapi.EventTypeEmailOpened
+	EventTypeEmailOutOfBandBounce            = oapi.EventTypeEmailOutOfBandBounce
+	EventTypeEmailProcessed                  = oapi.EventTypeEmailProcessed
+	EventTypeEmailReceived                   = oapi.EventTypeEmailReceived
+	EventTypeEmailRejected                   = oapi.EventTypeEmailRejected
+	EventTypeEmailScheduled                  = oapi.EventTypeEmailScheduled
+	EventTypeEmailSuppressionCreated         = oapi.EventTypeEmailSuppressionCreated
+	EventTypeEmailUnsubscribed               = oapi.EventTypeEmailUnsubscribed
+	EventTypeSmsAccepted                     = oapi.EventTypeSmsAccepted
+	EventTypeSmsDelivered                    = oapi.EventTypeSmsDelivered
+	EventTypeSmsExpired                      = oapi.EventTypeSmsExpired
+	EventTypeSmsFailed                       = oapi.EventTypeSmsFailed
+	EventTypeSmsRejected                     = oapi.EventTypeSmsRejected
+	EventTypeSmsSent                         = oapi.EventTypeSmsSent
+	EventTypeSmsTfnVerificationApproved      = oapi.EventTypeSmsTfnVerificationApproved
+	EventTypeSmsTfnVerificationInfoRequested = oapi.EventTypeSmsTfnVerificationInfoRequested
+	EventTypeSmsTfnVerificationRejected      = oapi.EventTypeSmsTfnVerificationRejected
+	EventTypeSmsTfnVerificationSubmitted     = oapi.EventTypeSmsTfnVerificationSubmitted
+	EventTypeSmsUndelivered                  = oapi.EventTypeSmsUndelivered
+	EventTypeVerifyAttemptDelivered          = oapi.EventTypeVerifyAttemptDelivered
+	EventTypeVerifyAttemptSent               = oapi.EventTypeVerifyAttemptSent
+	EventTypeVerifyAttemptUndelivered        = oapi.EventTypeVerifyAttemptUndelivered
+	EventTypeVerifyVerificationCreated       = oapi.EventTypeVerifyVerificationCreated
+	EventTypeVerifyVerificationVerified      = oapi.EventTypeVerifyVerificationVerified
+	EventTypeVoiceCallAnswered               = oapi.EventTypeVoiceCallAnswered
+	EventTypeVoiceCallEnded                  = oapi.EventTypeVoiceCallEnded
+	EventTypeVoiceCallInitiated              = oapi.EventTypeVoiceCallInitiated
+	EventTypeWhatsappAccepted                = oapi.EventTypeWhatsappAccepted
+	EventTypeWhatsappDelivered               = oapi.EventTypeWhatsappDelivered
+	EventTypeWhatsappFailed                  = oapi.EventTypeWhatsappFailed
+	EventTypeWhatsappRead                    = oapi.EventTypeWhatsappRead
+	EventTypeWhatsappRejected                = oapi.EventTypeWhatsappRejected
+	EventTypeWhatsappSent                    = oapi.EventTypeWhatsappSent
 )

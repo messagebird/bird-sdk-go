@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.20.0
+
+- BREAKING: open-enum fields are now defined types (EmailEventType, VerificationChannel, WhatsAppErrorCode and six others) instead of aliases for string, so they carry their known values and a Valid() method. Assigning a string variable to one of these fields now needs an explicit conversion; an untyped string literal and any unrecognized value both still work.
+
 ## 0.19.0
 
 - Add a per-send `language` override for templated email: `EmailSendParams.Language` on the Go SDK, a `language` keyword argument on `client.email.send`/`send_batch` in the Python SDK, and `--language` on `bird email send`. Omitting it keeps today's behavior, sending the template's default language.

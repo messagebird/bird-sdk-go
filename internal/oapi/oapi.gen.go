@@ -67,6 +67,21 @@ func (e AudienceCreateRequestType) Valid() bool {
 	}
 }
 
+// Defines values for ContactChannel.
+const (
+	ContactChannelEmail ContactChannel = "email"
+)
+
+// Valid indicates whether the value is a known member of the ContactChannel enum.
+func (e ContactChannel) Valid() bool {
+	switch e {
+	case ContactChannelEmail:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ContactPropertyType.
 const (
 	ContactPropertyTypeBoolean ContactPropertyType = "boolean"
@@ -490,6 +505,60 @@ func (e EmailEventRejectionReason) Valid() bool {
 	case EmailEventRejectionReasonRecipientSuppressed:
 		return true
 	case EmailEventRejectionReasonTransmissionFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailEventType.
+const (
+	EmailEventTypeEmailAccepted         EmailEventType = "email.accepted"
+	EmailEventTypeEmailBounced          EmailEventType = "email.bounced"
+	EmailEventTypeEmailCanceled         EmailEventType = "email.canceled"
+	EmailEventTypeEmailClicked          EmailEventType = "email.clicked"
+	EmailEventTypeEmailComplained       EmailEventType = "email.complained"
+	EmailEventTypeEmailDeferred         EmailEventType = "email.deferred"
+	EmailEventTypeEmailDelivered        EmailEventType = "email.delivered"
+	EmailEventTypeEmailListUnsubscribed EmailEventType = "email.list_unsubscribed"
+	EmailEventTypeEmailOpened           EmailEventType = "email.opened"
+	EmailEventTypeEmailOutOfBandBounce  EmailEventType = "email.out_of_band_bounce"
+	EmailEventTypeEmailProcessed        EmailEventType = "email.processed"
+	EmailEventTypeEmailRejected         EmailEventType = "email.rejected"
+	EmailEventTypeEmailScheduled        EmailEventType = "email.scheduled"
+	EmailEventTypeEmailUnsubscribed     EmailEventType = "email.unsubscribed"
+)
+
+// Valid indicates whether the value is a known member of the EmailEventType enum.
+func (e EmailEventType) Valid() bool {
+	switch e {
+	case EmailEventTypeEmailAccepted:
+		return true
+	case EmailEventTypeEmailBounced:
+		return true
+	case EmailEventTypeEmailCanceled:
+		return true
+	case EmailEventTypeEmailClicked:
+		return true
+	case EmailEventTypeEmailComplained:
+		return true
+	case EmailEventTypeEmailDeferred:
+		return true
+	case EmailEventTypeEmailDelivered:
+		return true
+	case EmailEventTypeEmailListUnsubscribed:
+		return true
+	case EmailEventTypeEmailOpened:
+		return true
+	case EmailEventTypeEmailOutOfBandBounce:
+		return true
+	case EmailEventTypeEmailProcessed:
+		return true
+	case EmailEventTypeEmailRejected:
+		return true
+	case EmailEventTypeEmailScheduled:
+		return true
+	case EmailEventTypeEmailUnsubscribed:
 		return true
 	default:
 		return false
@@ -2665,6 +2734,75 @@ func (e VerificationStatus) Valid() bool {
 	}
 }
 
+// Defines values for VerificationAttemptFailureReason.
+const (
+	VerificationAttemptFailureReasonCarrierRejected    VerificationAttemptFailureReason = "carrier_rejected"
+	VerificationAttemptFailureReasonChannelDisabled    VerificationAttemptFailureReason = "channel_disabled"
+	VerificationAttemptFailureReasonChannelUnavailable VerificationAttemptFailureReason = "channel_unavailable"
+	VerificationAttemptFailureReasonHardBounce         VerificationAttemptFailureReason = "hard_bounce"
+	VerificationAttemptFailureReasonSoftBounce         VerificationAttemptFailureReason = "soft_bounce"
+	VerificationAttemptFailureReasonUndelivered        VerificationAttemptFailureReason = "undelivered"
+)
+
+// Valid indicates whether the value is a known member of the VerificationAttemptFailureReason enum.
+func (e VerificationAttemptFailureReason) Valid() bool {
+	switch e {
+	case VerificationAttemptFailureReasonCarrierRejected:
+		return true
+	case VerificationAttemptFailureReasonChannelDisabled:
+		return true
+	case VerificationAttemptFailureReasonChannelUnavailable:
+		return true
+	case VerificationAttemptFailureReasonHardBounce:
+		return true
+	case VerificationAttemptFailureReasonSoftBounce:
+		return true
+	case VerificationAttemptFailureReasonUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VerificationChannel.
+const (
+	VerificationChannelEmail    VerificationChannel = "email"
+	VerificationChannelSms      VerificationChannel = "sms"
+	VerificationChannelWhatsapp VerificationChannel = "whatsapp"
+)
+
+// Valid indicates whether the value is a known member of the VerificationChannel enum.
+func (e VerificationChannel) Valid() bool {
+	switch e {
+	case VerificationChannelEmail:
+		return true
+	case VerificationChannelSms:
+		return true
+	case VerificationChannelWhatsapp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VerificationTerminalReason.
+const (
+	VerificationTerminalReasonAttemptsExhausted VerificationTerminalReason = "attempts_exhausted"
+	VerificationTerminalReasonTtlElapsed        VerificationTerminalReason = "ttl_elapsed"
+)
+
+// Valid indicates whether the value is a known member of the VerificationTerminalReason enum.
+func (e VerificationTerminalReason) Valid() bool {
+	switch e {
+	case VerificationTerminalReasonAttemptsExhausted:
+		return true
+	case VerificationTerminalReasonTtlElapsed:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceCallDirection.
 const (
 	VoiceCallDirectionInbound  VoiceCallDirection = "inbound"
@@ -2803,6 +2941,165 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 	}
 }
 
+// Defines values for WebhookEventType.
+const (
+	EventTypeDomainFailed                    WebhookEventType = "domain.failed"
+	EventTypeDomainVerified                  WebhookEventType = "domain.verified"
+	EventTypeEmailAccepted                   WebhookEventType = "email.accepted"
+	EventTypeEmailBounced                    WebhookEventType = "email.bounced"
+	EventTypeEmailCanceled                   WebhookEventType = "email.canceled"
+	EventTypeEmailClicked                    WebhookEventType = "email.clicked"
+	EventTypeEmailComplained                 WebhookEventType = "email.complained"
+	EventTypeEmailDeferred                   WebhookEventType = "email.deferred"
+	EventTypeEmailDelivered                  WebhookEventType = "email.delivered"
+	EventTypeEmailListUnsubscribed           WebhookEventType = "email.list_unsubscribed"
+	EventTypeEmailMailboxMessageDelivered    WebhookEventType = "email_mailbox.message_delivered"
+	EventTypeEmailMailboxMessageFailed       WebhookEventType = "email_mailbox.message_failed"
+	EventTypeEmailMailboxMessageReceived     WebhookEventType = "email_mailbox.message_received"
+	EventTypeEmailMailboxMessageSent         WebhookEventType = "email_mailbox.message_sent"
+	EventTypeEmailMailboxSuspended           WebhookEventType = "email_mailbox.suspended"
+	EventTypeEmailMailboxThreadCreated       WebhookEventType = "email_mailbox.thread_created"
+	EventTypeEmailOpened                     WebhookEventType = "email.opened"
+	EventTypeEmailOutOfBandBounce            WebhookEventType = "email.out_of_band_bounce"
+	EventTypeEmailProcessed                  WebhookEventType = "email.processed"
+	EventTypeEmailReceived                   WebhookEventType = "email.received"
+	EventTypeEmailRejected                   WebhookEventType = "email.rejected"
+	EventTypeEmailScheduled                  WebhookEventType = "email.scheduled"
+	EventTypeEmailSuppressionCreated         WebhookEventType = "email_suppression.created"
+	EventTypeEmailUnsubscribed               WebhookEventType = "email.unsubscribed"
+	EventTypeSmsAccepted                     WebhookEventType = "sms.accepted"
+	EventTypeSmsDelivered                    WebhookEventType = "sms.delivered"
+	EventTypeSmsExpired                      WebhookEventType = "sms.expired"
+	EventTypeSmsFailed                       WebhookEventType = "sms.failed"
+	EventTypeSmsRejected                     WebhookEventType = "sms.rejected"
+	EventTypeSmsSent                         WebhookEventType = "sms.sent"
+	EventTypeSmsTfnVerificationApproved      WebhookEventType = "sms.tfn_verification.approved"
+	EventTypeSmsTfnVerificationInfoRequested WebhookEventType = "sms.tfn_verification.info_requested"
+	EventTypeSmsTfnVerificationRejected      WebhookEventType = "sms.tfn_verification.rejected"
+	EventTypeSmsTfnVerificationSubmitted     WebhookEventType = "sms.tfn_verification.submitted"
+	EventTypeSmsUndelivered                  WebhookEventType = "sms.undelivered"
+	EventTypeVerifyAttemptDelivered          WebhookEventType = "verify.attempt.delivered"
+	EventTypeVerifyAttemptSent               WebhookEventType = "verify.attempt.sent"
+	EventTypeVerifyAttemptUndelivered        WebhookEventType = "verify.attempt.undelivered"
+	EventTypeVerifyVerificationCreated       WebhookEventType = "verify.verification.created"
+	EventTypeVerifyVerificationVerified      WebhookEventType = "verify.verification.verified"
+	EventTypeVoiceCallAnswered               WebhookEventType = "voice_call.answered"
+	EventTypeVoiceCallEnded                  WebhookEventType = "voice_call.ended"
+	EventTypeVoiceCallInitiated              WebhookEventType = "voice_call.initiated"
+	EventTypeWhatsappAccepted                WebhookEventType = "whatsapp.accepted"
+	EventTypeWhatsappDelivered               WebhookEventType = "whatsapp.delivered"
+	EventTypeWhatsappFailed                  WebhookEventType = "whatsapp.failed"
+	EventTypeWhatsappRead                    WebhookEventType = "whatsapp.read"
+	EventTypeWhatsappRejected                WebhookEventType = "whatsapp.rejected"
+	EventTypeWhatsappSent                    WebhookEventType = "whatsapp.sent"
+)
+
+// Valid indicates whether the value is a known member of the WebhookEventType enum.
+func (e WebhookEventType) Valid() bool {
+	switch e {
+	case EventTypeDomainFailed:
+		return true
+	case EventTypeDomainVerified:
+		return true
+	case EventTypeEmailAccepted:
+		return true
+	case EventTypeEmailBounced:
+		return true
+	case EventTypeEmailCanceled:
+		return true
+	case EventTypeEmailClicked:
+		return true
+	case EventTypeEmailComplained:
+		return true
+	case EventTypeEmailDeferred:
+		return true
+	case EventTypeEmailDelivered:
+		return true
+	case EventTypeEmailListUnsubscribed:
+		return true
+	case EventTypeEmailMailboxMessageDelivered:
+		return true
+	case EventTypeEmailMailboxMessageFailed:
+		return true
+	case EventTypeEmailMailboxMessageReceived:
+		return true
+	case EventTypeEmailMailboxMessageSent:
+		return true
+	case EventTypeEmailMailboxSuspended:
+		return true
+	case EventTypeEmailMailboxThreadCreated:
+		return true
+	case EventTypeEmailOpened:
+		return true
+	case EventTypeEmailOutOfBandBounce:
+		return true
+	case EventTypeEmailProcessed:
+		return true
+	case EventTypeEmailReceived:
+		return true
+	case EventTypeEmailRejected:
+		return true
+	case EventTypeEmailScheduled:
+		return true
+	case EventTypeEmailSuppressionCreated:
+		return true
+	case EventTypeEmailUnsubscribed:
+		return true
+	case EventTypeSmsAccepted:
+		return true
+	case EventTypeSmsDelivered:
+		return true
+	case EventTypeSmsExpired:
+		return true
+	case EventTypeSmsFailed:
+		return true
+	case EventTypeSmsRejected:
+		return true
+	case EventTypeSmsSent:
+		return true
+	case EventTypeSmsTfnVerificationApproved:
+		return true
+	case EventTypeSmsTfnVerificationInfoRequested:
+		return true
+	case EventTypeSmsTfnVerificationRejected:
+		return true
+	case EventTypeSmsTfnVerificationSubmitted:
+		return true
+	case EventTypeSmsUndelivered:
+		return true
+	case EventTypeVerifyAttemptDelivered:
+		return true
+	case EventTypeVerifyAttemptSent:
+		return true
+	case EventTypeVerifyAttemptUndelivered:
+		return true
+	case EventTypeVerifyVerificationCreated:
+		return true
+	case EventTypeVerifyVerificationVerified:
+		return true
+	case EventTypeVoiceCallAnswered:
+		return true
+	case EventTypeVoiceCallEnded:
+		return true
+	case EventTypeVoiceCallInitiated:
+		return true
+	case EventTypeWhatsappAccepted:
+		return true
+	case EventTypeWhatsappDelivered:
+		return true
+	case EventTypeWhatsappFailed:
+		return true
+	case EventTypeWhatsappRead:
+		return true
+	case EventTypeWhatsappRejected:
+		return true
+	case EventTypeWhatsappSent:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookTestResponseStatus.
 const (
 	WebhookTestResponseStatusDelivered WebhookTestResponseStatus = "delivered"
@@ -2815,6 +3112,39 @@ func (e WebhookTestResponseStatus) Valid() bool {
 	case WebhookTestResponseStatusDelivered:
 		return true
 	case WebhookTestResponseStatusFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppErrorCode.
+const (
+	WhatsAppErrorCodeInsufficientBalance  WhatsAppErrorCode = "insufficient_balance"
+	WhatsAppErrorCodeInternalError        WhatsAppErrorCode = "internal_error"
+	WhatsAppErrorCodePriceNotFound        WhatsAppErrorCode = "price_not_found"
+	WhatsAppErrorCodeRateLimited          WhatsAppErrorCode = "rate_limited"
+	WhatsAppErrorCodeRecipientSuppressed  WhatsAppErrorCode = "recipient_suppressed"
+	WhatsAppErrorCodeServiceWindowExpired WhatsAppErrorCode = "service_window_expired"
+	WhatsAppErrorCodeUndeliverable        WhatsAppErrorCode = "undeliverable"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppErrorCode enum.
+func (e WhatsAppErrorCode) Valid() bool {
+	switch e {
+	case WhatsAppErrorCodeInsufficientBalance:
+		return true
+	case WhatsAppErrorCodeInternalError:
+		return true
+	case WhatsAppErrorCodePriceNotFound:
+		return true
+	case WhatsAppErrorCodeRateLimited:
+		return true
+	case WhatsAppErrorCodeRecipientSuppressed:
+		return true
+	case WhatsAppErrorCodeServiceWindowExpired:
+		return true
+	case WhatsAppErrorCodeUndeliverable:
 		return true
 	default:
 		return false
@@ -2869,6 +3199,42 @@ func (e WhatsAppMessageStatus) Valid() bool {
 	case WhatsAppMessageStatusScheduled:
 		return true
 	case WhatsAppMessageStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateCategory.
+const (
+	WhatsAppTemplateCategoryAuthentication WhatsAppTemplateCategory = "authentication"
+	WhatsAppTemplateCategoryMarketing      WhatsAppTemplateCategory = "marketing"
+	WhatsAppTemplateCategoryUtility        WhatsAppTemplateCategory = "utility"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateCategory enum.
+func (e WhatsAppTemplateCategory) Valid() bool {
+	switch e {
+	case WhatsAppTemplateCategoryAuthentication:
+		return true
+	case WhatsAppTemplateCategoryMarketing:
+		return true
+	case WhatsAppTemplateCategoryUtility:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateParameterType.
+const (
+	WhatsAppTemplateParameterTypeText WhatsAppTemplateParameterType = "text"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateParameterType enum.
+func (e WhatsAppTemplateParameterType) Valid() bool {
+	switch e {
+	case WhatsAppTemplateParameterTypeText:
 		return true
 	default:
 		return false
@@ -3297,7 +3663,7 @@ type Contact struct {
 }
 
 // ContactChannel A channel a contact can be reached on. Open enum: `email` is present when the contact has an email address; more values (`sms`, `whatsapp`, `voice`) are added as contacts gain identifiers for other channels. Treat any unrecognized value as a future channel rather than an error. Slugs match `ChannelSlug`.
-type ContactChannel = string
+type ContactChannel string
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
@@ -4229,7 +4595,7 @@ type EmailEventList struct {
 }
 
 // EmailEventType Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
-type EmailEventType = string
+type EmailEventType string
 
 // EmailID defines model for EmailID.
 type EmailID = string
@@ -8320,10 +8686,10 @@ type Verification struct {
 type VerificationStatus string
 
 // VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), and `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one).
-type VerificationAttemptFailureReason = string
+type VerificationAttemptFailureReason string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
-type VerificationChannel = string
+type VerificationChannel string
 
 // VerificationChannelEntry defines model for VerificationChannelEntry.
 type VerificationChannelEntry struct {
@@ -8378,7 +8744,7 @@ type VerificationOptions struct {
 }
 
 // VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
-type VerificationTerminalReason = string
+type VerificationTerminalReason string
 
 // VerificationTo The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 type VerificationTo struct {
@@ -8604,7 +8970,7 @@ type WebhookEvent struct {
 type WebhookEventID = string
 
 // WebhookEventType Webhook event type. Open enum: new event types may be added over time, so treat any unrecognized value in a delivery as a future event rather than an error. Subscribing to a type that is not in the catalog returns a `422`. The values below are the types known at this version.
-type WebhookEventType = string
+type WebhookEventType string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
 type WebhookReplayRequest struct {
@@ -8686,7 +9052,7 @@ type WhatsAppError struct {
 }
 
 // WhatsAppErrorCode Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
-type WhatsAppErrorCode = string
+type WhatsAppErrorCode string
 
 // WhatsAppEvent defines model for WhatsAppEvent.
 type WhatsAppEvent struct {
@@ -8830,10 +9196,10 @@ type WhatsAppMessageTemplateComponentParameter struct {
 }
 
 // WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
-type WhatsAppTemplateCategory = string
+type WhatsAppTemplateCategory string
 
 // WhatsAppTemplateParameterType The kind of value a template parameter accepts. `text` (the only kind today) is a plain string substituted into the placeholder. Open enum: more kinds may be added over time.
-type WhatsAppTemplateParameterType = string
+type WhatsAppTemplateParameterType string
 
 // WhatsAppTemplateSend defines model for WhatsAppTemplateSend.
 type WhatsAppTemplateSend struct {

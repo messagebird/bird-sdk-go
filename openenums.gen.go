@@ -12,7 +12,7 @@ import (
 type ContactChannel = oapi.ContactChannel
 
 const (
-	ContactChannelEmail ContactChannel = "email"
+	ContactChannelEmail = oapi.ContactChannelEmail
 )
 
 // EmailEventType is an open string on the wire: a value added by a newer server
@@ -21,20 +21,20 @@ const (
 type EmailEventType = oapi.EmailEventType
 
 const (
-	EmailEventTypeEmailAccepted         EmailEventType = "email.accepted"
-	EmailEventTypeEmailBounced          EmailEventType = "email.bounced"
-	EmailEventTypeEmailCanceled         EmailEventType = "email.canceled"
-	EmailEventTypeEmailClicked          EmailEventType = "email.clicked"
-	EmailEventTypeEmailComplained       EmailEventType = "email.complained"
-	EmailEventTypeEmailDeferred         EmailEventType = "email.deferred"
-	EmailEventTypeEmailDelivered        EmailEventType = "email.delivered"
-	EmailEventTypeEmailListUnsubscribed EmailEventType = "email.list_unsubscribed"
-	EmailEventTypeEmailOpened           EmailEventType = "email.opened"
-	EmailEventTypeEmailOutOfBandBounce  EmailEventType = "email.out_of_band_bounce"
-	EmailEventTypeEmailProcessed        EmailEventType = "email.processed"
-	EmailEventTypeEmailRejected         EmailEventType = "email.rejected"
-	EmailEventTypeEmailScheduled        EmailEventType = "email.scheduled"
-	EmailEventTypeEmailUnsubscribed     EmailEventType = "email.unsubscribed"
+	EmailEventTypeEmailAccepted         = oapi.EmailEventTypeEmailAccepted
+	EmailEventTypeEmailBounced          = oapi.EmailEventTypeEmailBounced
+	EmailEventTypeEmailCanceled         = oapi.EmailEventTypeEmailCanceled
+	EmailEventTypeEmailClicked          = oapi.EmailEventTypeEmailClicked
+	EmailEventTypeEmailComplained       = oapi.EmailEventTypeEmailComplained
+	EmailEventTypeEmailDeferred         = oapi.EmailEventTypeEmailDeferred
+	EmailEventTypeEmailDelivered        = oapi.EmailEventTypeEmailDelivered
+	EmailEventTypeEmailListUnsubscribed = oapi.EmailEventTypeEmailListUnsubscribed
+	EmailEventTypeEmailOpened           = oapi.EmailEventTypeEmailOpened
+	EmailEventTypeEmailOutOfBandBounce  = oapi.EmailEventTypeEmailOutOfBandBounce
+	EmailEventTypeEmailProcessed        = oapi.EmailEventTypeEmailProcessed
+	EmailEventTypeEmailRejected         = oapi.EmailEventTypeEmailRejected
+	EmailEventTypeEmailScheduled        = oapi.EmailEventTypeEmailScheduled
+	EmailEventTypeEmailUnsubscribed     = oapi.EmailEventTypeEmailUnsubscribed
 )
 
 // VerificationAttemptFailureReason is an open string on the wire: a value added by a newer server
@@ -43,12 +43,12 @@ const (
 type VerificationAttemptFailureReason = oapi.VerificationAttemptFailureReason
 
 const (
-	VerificationAttemptFailureReasonCarrierRejected    VerificationAttemptFailureReason = "carrier_rejected"
-	VerificationAttemptFailureReasonChannelDisabled    VerificationAttemptFailureReason = "channel_disabled"
-	VerificationAttemptFailureReasonChannelUnavailable VerificationAttemptFailureReason = "channel_unavailable"
-	VerificationAttemptFailureReasonHardBounce         VerificationAttemptFailureReason = "hard_bounce"
-	VerificationAttemptFailureReasonSoftBounce         VerificationAttemptFailureReason = "soft_bounce"
-	VerificationAttemptFailureReasonUndelivered        VerificationAttemptFailureReason = "undelivered"
+	VerificationAttemptFailureReasonCarrierRejected    = oapi.VerificationAttemptFailureReasonCarrierRejected
+	VerificationAttemptFailureReasonChannelDisabled    = oapi.VerificationAttemptFailureReasonChannelDisabled
+	VerificationAttemptFailureReasonChannelUnavailable = oapi.VerificationAttemptFailureReasonChannelUnavailable
+	VerificationAttemptFailureReasonHardBounce         = oapi.VerificationAttemptFailureReasonHardBounce
+	VerificationAttemptFailureReasonSoftBounce         = oapi.VerificationAttemptFailureReasonSoftBounce
+	VerificationAttemptFailureReasonUndelivered        = oapi.VerificationAttemptFailureReasonUndelivered
 )
 
 // VerificationChannel is an open string on the wire: a value added by a newer server
@@ -57,9 +57,9 @@ const (
 type VerificationChannel = oapi.VerificationChannel
 
 const (
-	VerificationChannelEmail    VerificationChannel = "email"
-	VerificationChannelSms      VerificationChannel = "sms"
-	VerificationChannelWhatsapp VerificationChannel = "whatsapp"
+	VerificationChannelEmail    = oapi.VerificationChannelEmail
+	VerificationChannelSms      = oapi.VerificationChannelSms
+	VerificationChannelWhatsapp = oapi.VerificationChannelWhatsapp
 )
 
 // VerificationTerminalReason is an open string on the wire: a value added by a newer server
@@ -68,8 +68,8 @@ const (
 type VerificationTerminalReason = oapi.VerificationTerminalReason
 
 const (
-	VerificationTerminalReasonAttemptsExhausted VerificationTerminalReason = "attempts_exhausted"
-	VerificationTerminalReasonTtlElapsed        VerificationTerminalReason = "ttl_elapsed"
+	VerificationTerminalReasonAttemptsExhausted = oapi.VerificationTerminalReasonAttemptsExhausted
+	VerificationTerminalReasonTtlElapsed        = oapi.VerificationTerminalReasonTtlElapsed
 )
 
 // WhatsAppErrorCode is an open string on the wire: a value added by a newer server
@@ -78,13 +78,13 @@ const (
 type WhatsAppErrorCode = oapi.WhatsAppErrorCode
 
 const (
-	WhatsAppErrorCodeInsufficientBalance  WhatsAppErrorCode = "insufficient_balance"
-	WhatsAppErrorCodeInternalError        WhatsAppErrorCode = "internal_error"
-	WhatsAppErrorCodePriceNotFound        WhatsAppErrorCode = "price_not_found"
-	WhatsAppErrorCodeRateLimited          WhatsAppErrorCode = "rate_limited"
-	WhatsAppErrorCodeRecipientSuppressed  WhatsAppErrorCode = "recipient_suppressed"
-	WhatsAppErrorCodeServiceWindowExpired WhatsAppErrorCode = "service_window_expired"
-	WhatsAppErrorCodeUndeliverable        WhatsAppErrorCode = "undeliverable"
+	WhatsAppErrorCodeInsufficientBalance  = oapi.WhatsAppErrorCodeInsufficientBalance
+	WhatsAppErrorCodeInternalError        = oapi.WhatsAppErrorCodeInternalError
+	WhatsAppErrorCodePriceNotFound        = oapi.WhatsAppErrorCodePriceNotFound
+	WhatsAppErrorCodeRateLimited          = oapi.WhatsAppErrorCodeRateLimited
+	WhatsAppErrorCodeRecipientSuppressed  = oapi.WhatsAppErrorCodeRecipientSuppressed
+	WhatsAppErrorCodeServiceWindowExpired = oapi.WhatsAppErrorCodeServiceWindowExpired
+	WhatsAppErrorCodeUndeliverable        = oapi.WhatsAppErrorCodeUndeliverable
 )
 
 // WhatsAppTemplateCategory is an open string on the wire: a value added by a newer server
@@ -93,9 +93,9 @@ const (
 type WhatsAppTemplateCategory = oapi.WhatsAppTemplateCategory
 
 const (
-	WhatsAppTemplateCategoryAuthentication WhatsAppTemplateCategory = "authentication"
-	WhatsAppTemplateCategoryMarketing      WhatsAppTemplateCategory = "marketing"
-	WhatsAppTemplateCategoryUtility        WhatsAppTemplateCategory = "utility"
+	WhatsAppTemplateCategoryAuthentication = oapi.WhatsAppTemplateCategoryAuthentication
+	WhatsAppTemplateCategoryMarketing      = oapi.WhatsAppTemplateCategoryMarketing
+	WhatsAppTemplateCategoryUtility        = oapi.WhatsAppTemplateCategoryUtility
 )
 
 // WhatsAppTemplateParameterType is an open string on the wire: a value added by a newer server
@@ -104,5 +104,5 @@ const (
 type WhatsAppTemplateParameterType = oapi.WhatsAppTemplateParameterType
 
 const (
-	WhatsAppTemplateParameterTypeText WhatsAppTemplateParameterType = "text"
+	WhatsAppTemplateParameterTypeText = oapi.WhatsAppTemplateParameterTypeText
 )
