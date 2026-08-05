@@ -105,5 +105,6 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Realtime.Channels.List
 	_ = c.Realtime.Channels.Get
 	_ = c.Realtime.Channels.Members
+	_ = c.Realtime.Members.Send
 	_ = c.Realtime.Members.Disconnect
 }

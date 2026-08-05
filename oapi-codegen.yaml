@@ -104,4 +104,5 @@ output-options:
     - listRealtimeAppChannels
     - getRealtimeAppChannel
     - listRealtimeAppChannelMembers
+    - sendRealtimeAppMemberEvent
     - disconnectRealtimeAppMember

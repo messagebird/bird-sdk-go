@@ -251,6 +251,48 @@ func (s *RealtimeChannelsService) Members(ctx context.Context, appID, channelNam
 	return &out, nil
 }
 
+// RealtimeMemberSendParams is an event addressed to one member rather than to
+// channels.
+type RealtimeMemberSendParams struct {
+	// Event is the name clients bind to. The bird: and bird_internal: prefixes
+	// are reserved for the protocol and rejected.
+	Event string
+	// Data is the event payload — any JSON value (object, array, or scalar),
+	// capped at 10 KB serialized. Nil sends no data field at all.
+	Data any
+}
+
+func (p RealtimeMemberSendParams) toWire() oapi.RealtimeMemberPublish {
+	return oapi.RealtimeMemberPublish{
+		Event: p.Event,
+		Data:  realtimeData(p.Data),
+	}
+}
+
+// Send delivers an event to one member instead of to a channel. Every
+// connection that member currently holds receives it, across tabs and devices,
+// so there is no need to track their connections or give them a channel of
+// their own. The member must have signed in on the connection to be
+// addressable.
+//
+// Delivery is best-effort: a member holding no connections right now simply
+// does not receive the event, and that is not reported back.
+func (s *RealtimeMembersService) Send(ctx context.Context, appID, memberID string, params RealtimeMemberSendParams, opts ...option.RequestOption) error {
+	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	if err != nil {
+		return err
+	}
+	wire := params.toWire()
+	_, err = cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
+		p := &oapi.SendRealtimeAppMemberEventParams{XRealtimeKey: key, XRealtimeSecret: secret}
+		if idempotencyKey != "" {
+			p.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.SendRealtimeAppMemberEvent(ctx, appID, memberID, p, wire, s.client.callEditors(cfg)...)
+	})
+	return err
+}
+
 // Disconnect closes every active connection of one member, across all channels
 // — the sign-out or ban path. Retried safely with a reused idempotency key.
 func (s *RealtimeMembersService) Disconnect(ctx context.Context, appID, memberID string, opts ...option.RequestOption) error {

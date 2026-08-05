@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.20.0"
+	version = "0.21.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version

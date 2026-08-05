@@ -84,15 +84,18 @@ func (e ContactChannel) Valid() bool {
 
 // Defines values for ContactPropertyType.
 const (
-	ContactPropertyTypeBoolean ContactPropertyType = "boolean"
-	ContactPropertyTypeNumber  ContactPropertyType = "number"
-	ContactPropertyTypeString  ContactPropertyType = "string"
+	ContactPropertyTypeBoolean  ContactPropertyType = "boolean"
+	ContactPropertyTypeDatetime ContactPropertyType = "datetime"
+	ContactPropertyTypeNumber   ContactPropertyType = "number"
+	ContactPropertyTypeString   ContactPropertyType = "string"
 )
 
 // Valid indicates whether the value is a known member of the ContactPropertyType enum.
 func (e ContactPropertyType) Valid() bool {
 	switch e {
 	case ContactPropertyTypeBoolean:
+		return true
+	case ContactPropertyTypeDatetime:
 		return true
 	case ContactPropertyTypeNumber:
 		return true
@@ -2353,6 +2356,42 @@ func (e MessageDirection) Valid() bool {
 	}
 }
 
+// Defines values for RealtimeAppStatus.
+const (
+	RealtimeAppStatusActive    RealtimeAppStatus = "active"
+	RealtimeAppStatusSuspended RealtimeAppStatus = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the RealtimeAppStatus enum.
+func (e RealtimeAppStatus) Valid() bool {
+	switch e {
+	case RealtimeAppStatusActive:
+		return true
+	case RealtimeAppStatusSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for RealtimeAppCreatedStatus.
+const (
+	RealtimeAppCreatedStatusActive    RealtimeAppCreatedStatus = "active"
+	RealtimeAppCreatedStatusSuspended RealtimeAppCreatedStatus = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the RealtimeAppCreatedStatus enum.
+func (e RealtimeAppCreatedStatus) Valid() bool {
+	switch e {
+	case RealtimeAppCreatedStatusActive:
+		return true
+	case RealtimeAppCreatedStatusSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeChannelInclude.
 const (
 	ConnectionCount RealtimeChannelInclude = "connection_count"
@@ -2440,6 +2479,24 @@ func (e RecipientRole) Valid() bool {
 	case Cc:
 		return true
 	case To:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for Region.
+const (
+	Eu1 Region = "eu1"
+	Us1 Region = "us1"
+)
+
+// Valid indicates whether the value is a known member of the Region enum.
+func (e Region) Valid() bool {
+	switch e {
+	case Eu1:
+		return true
+	case Us1:
 		return true
 	default:
 		return false
@@ -3644,7 +3701,7 @@ type Contact struct {
 	Channels  *[]ContactChannel `json:"channels,omitempty"`
 	CreatedAt *time.Time        `json:"created_at,omitempty"`
 
-	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, or boolean matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address, stored trimmed and lowercased. Unique within the workspace.
@@ -3667,7 +3724,7 @@ type ContactChannel string
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
-	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
+	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
@@ -3699,6 +3756,9 @@ type ContactList struct {
 
 	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	Total *int64 `json:"total,omitempty"`
 }
 
 // ContactProperty defines model for ContactProperty.
@@ -3707,7 +3767,7 @@ type ContactProperty struct {
 	Archived  *bool      `json:"archived,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null when no fallback is set.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null when no fallback is set.
 	FallbackValue interface{}       `json:"fallback_value,omitempty"`
 	Id            ContactPropertyID `json:"id"`
 
@@ -3715,19 +3775,23 @@ type ContactProperty struct {
 	Key string `json:"key"`
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
+	//
+	// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type      ContactPropertyType `json:"type"`
 	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
 }
 
 // ContactPropertyCreateRequest defines model for ContactPropertyCreateRequest.
 type ContactPropertyCreateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 
 	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string `json:"key"`
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
+	//
+	// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type ContactPropertyType `json:"type"`
 }
 
@@ -3750,17 +3814,19 @@ type ContactPropertyList struct {
 }
 
 // ContactPropertyType The value type every contact must use for a property. Cannot be changed after creation.
+//
+// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 type ContactPropertyType string
 
 // ContactPropertyUpdateRequest defines model for ContactPropertyUpdateRequest.
 type ContactPropertyUpdateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, or boolean matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 }
 
 // ContactUpdateRequest defines model for ContactUpdateRequest.
 type ContactUpdateRequest struct {
-	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
+	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
@@ -4371,9 +4437,6 @@ type EmailBroadcastStatsPoint struct {
 	Delivery    *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement  *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency     *EmailLatencyStats    `json:"latency,omitempty"`
-
-	// Trend Per-bucket rate series for this broadcast over the window. Never returned today, because `include_trend` is not available for the broadcast breakdown (supplying it returns 422).
-	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
 // EmailCategoryStatsPoint Aggregate delivery and engagement stats for a single category over the requested period.
@@ -4819,7 +4882,7 @@ type EmailMessage struct {
 	// OpenCount Total open events across all recipients.
 	OpenCount *int `json:"open_count,omitempty"`
 
-	// Parameters The substitution values this send supplied, or null for a send that carried its content inline. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
+	// Parameters The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// ProcessedCount Number of recipients for whom Bird has processed the message and queued it for delivery.
@@ -5618,7 +5681,7 @@ type EmailTemplateSend struct {
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Send everything the template's `variables` lists rather than only what you expect the chosen language to use: languages need not reference the same variables, and a value no language uses is ignored. Cap: 16 KB serialized.
+	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Nest values to fill dotted tokens: `{"contact": {"first_name": "Ada"}}` fills `{{ contact.first_name }}`. Send everything the template's `variables` lists rather than only what you expect the chosen language to use: languages need not reference the same variables, and a value no language uses is ignored. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
@@ -7491,7 +7554,7 @@ type EventWhatsAppReadType string
 // EventWhatsAppReadData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppReadData = EventWhatsAppBase
 
-// EventWhatsAppRejected Bird rejected the message before sending it to WhatsApp (the recipient is on the workspace suppression list).
+// EventWhatsAppRejected Bird rejected the message before sending it to WhatsApp (the recipient is on the workspace suppression list, the wallet had insufficient balance, or the destination is unpriced). It was not sent and not charged.
 type EventWhatsAppRejected struct {
 	// Data Payload of the whatsapp.rejected event.
 	Data EventWhatsAppRejectedData `json:"data"`
@@ -8009,8 +8072,157 @@ type Money struct {
 	CurrencyCode CurrencyCode `json:"currency_code"`
 }
 
+// RealtimeApp defines model for RealtimeApp.
+type RealtimeApp struct {
+	// AppId The numeric Realtime app id. Use it together with a key and secret to initialize a Realtime client/server SDK. Immutable.
+	AppId *int64 `json:"app_id,omitempty"`
+
+	// AuthorizedConnections Require every connection to be authorized.
+	AuthorizedConnections bool `json:"authorized_connections"`
+
+	// ClientEvents Allow clients to trigger events directly (client events).
+	ClientEvents bool `json:"client_events"`
+
+	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	ConnectionCountEvents bool `json:"connection_count_events"`
+
+	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
+	ConnectionCounting bool          `json:"connection_counting"`
+	CreatedAt          *time.Time    `json:"created_at,omitempty"`
+	Id                 RealtimeAppID `json:"id"`
+	Name               string        `json:"name"`
+
+	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	Region Region `json:"region"`
+
+	// Status Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
+	Status    *RealtimeAppStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time         `json:"updated_at,omitempty"`
+}
+
+// RealtimeAppStatus Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
+type RealtimeAppStatus string
+
+// RealtimeAppConfig Realtime app configuration flags. TLS is always enforced (non-TLS client connections are rejected) and is not configurable.
+type RealtimeAppConfig struct {
+	// AuthorizedConnections Require every connection to be authorized.
+	AuthorizedConnections *bool `json:"authorized_connections,omitempty"`
+
+	// ClientEvents Allow clients to trigger events directly (client events).
+	ClientEvents *bool `json:"client_events,omitempty"`
+
+	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
+
+	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
+	ConnectionCounting *bool `json:"connection_counting,omitempty"`
+}
+
+// RealtimeAppCreate defines model for RealtimeAppCreate.
+type RealtimeAppCreate struct {
+	AuthorizedConnections *bool  `json:"authorized_connections,omitempty"`
+	ClientEvents          *bool  `json:"client_events,omitempty"`
+	ConnectionCountEvents *bool  `json:"connection_count_events,omitempty"`
+	ConnectionCounting    *bool  `json:"connection_counting,omitempty"`
+	Name                  string `json:"name"`
+
+	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	Region Region `json:"region"`
+}
+
+// RealtimeAppCreated defines model for RealtimeAppCreated.
+type RealtimeAppCreated struct {
+	// AppId The numeric Realtime app id. Use it together with a key and secret to initialize a Realtime client/server SDK. Immutable.
+	AppId *int64 `json:"app_id,omitempty"`
+
+	// AuthorizedConnections Require every connection to be authorized.
+	AuthorizedConnections bool `json:"authorized_connections"`
+
+	// ClientEvents Allow clients to trigger events directly (client events).
+	ClientEvents bool `json:"client_events"`
+
+	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	ConnectionCountEvents bool `json:"connection_count_events"`
+
+	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
+	ConnectionCounting bool          `json:"connection_counting"`
+	CreatedAt          *time.Time    `json:"created_at,omitempty"`
+	Id                 RealtimeAppID `json:"id"`
+
+	// Key The app's initial key, including its one-time secret. Present in this create response only; the secret is never returned again.
+	Key  *RealtimeAppKey `json:"key,omitempty"`
+	Name string          `json:"name"`
+
+	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	Region Region `json:"region"`
+
+	// Status Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
+	Status    *RealtimeAppCreatedStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time                `json:"updated_at,omitempty"`
+}
+
+// RealtimeAppCreatedStatus Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
+type RealtimeAppCreatedStatus string
+
 // RealtimeAppID defines model for RealtimeAppID.
 type RealtimeAppID = string
+
+// RealtimeAppKey defines model for RealtimeAppKey.
+type RealtimeAppKey struct {
+	CreatedAt *time.Time       `json:"created_at,omitempty"`
+	Id        RealtimeAppKeyID `json:"id"`
+
+	// Key The public app key clients use to connect.
+	Key *string `json:"key,omitempty"`
+
+	// RevokedAt When the key was revoked, or null if still active.
+	RevokedAt *time.Time `json:"revoked_at,omitempty"`
+
+	// Secret The key secret, used for server-side request signing. Returned only when the key is created, and never shown again — store it securely. If lost, create a new key and revoke this one.
+	Secret *string `json:"secret,omitempty" pii:"true"`
+}
+
+// RealtimeAppKeyID defines model for RealtimeAppKeyID.
+type RealtimeAppKeyID = string
+
+// RealtimeAppKeyList defines model for RealtimeAppKeyList.
+type RealtimeAppKeyList struct {
+	// Data The app's keys, oldest first. Revoked keys are excluded unless include_revoked=true.
+	Data []RealtimeAppKey `json:"data"`
+}
+
+// RealtimeAppList defines model for RealtimeAppList.
+type RealtimeAppList struct {
+	Data []RealtimeApp `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// RealtimeAppUpdate Mutable Realtime app fields. Omitted fields are left unchanged. Region is immutable and TLS is always enforced, so neither appears here.
+type RealtimeAppUpdate struct {
+	// AuthorizedConnections Require every connection to be authorized.
+	AuthorizedConnections *bool `json:"authorized_connections,omitempty"`
+
+	// ClientEvents Allow clients to trigger events directly (client events).
+	ClientEvents *bool `json:"client_events,omitempty"`
+
+	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
+
+	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
+	ConnectionCounting *bool   `json:"connection_counting,omitempty"`
+	Name               *string `json:"name,omitempty"`
+}
 
 // RealtimeBatchEvent One item of a batch publish — a single event to a single channel.
 type RealtimeBatchEvent struct {
@@ -8122,6 +8334,15 @@ type RealtimeExcludeConnectionId = string
 // RealtimeMemberID An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
 type RealtimeMemberID = string
 
+// RealtimeMemberPublish An event addressed to one member rather than to a channel. Every connection that member currently holds receives it; if they hold none, the event is dropped.
+type RealtimeMemberPublish struct {
+	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	Data *RealtimeEventData `json:"data,omitempty"`
+
+	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
+	Event RealtimeEventName `json:"event"`
+}
+
 // RealtimePublish A Realtime publish: delivers one event to one or more channels of the app. Listing several channels fans the event out to all of them (broadcast) in a single call.
 type RealtimePublish struct {
 	// Channels The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
@@ -8144,6 +8365,18 @@ type RealtimePublish struct {
 type RealtimePublishResult struct {
 	// Data Per-channel attributes at publish time, present only when the request asked for them via `include`; one item per distinct target channel, sorted by name.
 	Data *[]RealtimeChannelListItem `json:"data,omitempty"`
+}
+
+// RealtimeRegion defines model for RealtimeRegion.
+type RealtimeRegion struct {
+	// Id Region identifier to pass as a Realtime app's region.
+	Id Region `json:"id"`
+}
+
+// RealtimeRegionList defines model for RealtimeRegionList.
+type RealtimeRegionList struct {
+	// Data The regions a Realtime app can be created in.
+	Data []RealtimeRegion `json:"data"`
 }
 
 // ReceiveRule An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
@@ -8209,6 +8442,9 @@ type RecipientID = string
 
 // RecipientRole Envelope position of a recipient on an outbound email event.
 type RecipientRole string
+
+// Region Deployment region identifier.
+type Region string
 
 // SMSBatchSummary Aggregate result for an SMS batch.
 type SMSBatchSummary struct {
@@ -8304,7 +8540,7 @@ type SMSMessage struct {
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Text The message body as sent. For a template send, this is the rendered text after parameter substitution.
+	// Text The message body as sent. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
 	Text string `json:"text"`
 
 	// To Recipient phone number in E.164 format.
@@ -8623,6 +8859,9 @@ type TemplateVariable struct {
 
 	// Required Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
 	Required *bool `json:"required,omitempty"`
+
+	// Sensitive Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+	Sensitive *bool `json:"sensitive,omitempty"`
 
 	// Type The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
 	Type *string `json:"type,omitempty"`
@@ -9063,7 +9302,7 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
-	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -9156,7 +9395,7 @@ type WhatsAppMessageSendRequest struct {
 	To string `json:"to"`
 }
 
-// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means the recipient is on the workspace's suppression list; the message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
+// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -9176,7 +9415,7 @@ type WhatsAppMessageTemplate struct {
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
 type WhatsAppMessageTemplateComponent struct {
-	// Parameters The values that fill this part's placeholders, in `{{n}}` placeholder order.
+	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
 	// Type Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header. Bird manages header values itself, so a `header` entry supplied on a send is ignored.
@@ -9185,7 +9424,7 @@ type WhatsAppMessageTemplateComponent struct {
 
 // WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
 type WhatsAppMessageTemplateComponentParameter struct {
-	// Name For named-parameter templates: the placeholder this value fills (for example `first_name`). Omit for positional templates.
+	// Name Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Name *string `json:"name,omitempty"`
 
 	// Text The value substituted into the placeholder, as a plain string.
@@ -9203,7 +9442,7 @@ type WhatsAppTemplateParameterType string
 
 // WhatsAppTemplateSend defines model for WhatsAppTemplateSend.
 type WhatsAppTemplateSend struct {
-	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters` in `{{n}}` order. Parameter counts must match the template's declared placeholders exactly, or the send returns a `422` `WhatsAppTemplateParameterMismatch`.
+	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 
 	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
@@ -9352,10 +9591,10 @@ type ListAudiencesParams struct {
 type CreateAudienceParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9366,10 +9605,10 @@ type CreateAudienceParams struct {
 type DeleteAudienceParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9380,10 +9619,10 @@ type DeleteAudienceParams struct {
 type UpdateAudienceParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9409,10 +9648,10 @@ type ListAudienceContactsParams struct {
 type AssignAudienceContactsParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9423,10 +9662,10 @@ type AssignAudienceContactsParams struct {
 type UnassignAudienceContactsParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9437,10 +9676,10 @@ type UnassignAudienceContactsParams struct {
 type UnassignAudienceContactParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9463,10 +9702,10 @@ type ListContactPropertiesParams struct {
 type CreateContactPropertyParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9477,10 +9716,10 @@ type CreateContactPropertyParams struct {
 type UpdateContactPropertyParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9491,10 +9730,10 @@ type UpdateContactPropertyParams struct {
 type ArchiveContactPropertyParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9505,10 +9744,10 @@ type ArchiveContactPropertyParams struct {
 type UnarchiveContactPropertyParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9523,7 +9762,7 @@ type ListContactsParams struct {
 	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
 	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
 
-	// Q Case-insensitive substring match against the contact's email address.
+	// Q Case-insensitive substring match against the contact's email address, first name, or last name.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -9534,16 +9773,19 @@ type ListContactsParams struct {
 
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
 }
 
 // CreateContactParams defines parameters for CreateContact.
 type CreateContactParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9554,10 +9796,10 @@ type CreateContactParams struct {
 type CreateContactBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9568,10 +9810,10 @@ type CreateContactBatchParams struct {
 type DeleteContactParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9582,10 +9824,10 @@ type DeleteContactParams struct {
 type UpdateContactParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9596,10 +9838,10 @@ type UpdateContactParams struct {
 type CreateEmailMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9640,10 +9882,10 @@ type ListDomainsParamsOrder string
 type CreateDomainParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9654,10 +9896,10 @@ type CreateDomainParams struct {
 type DeleteDomainParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9668,10 +9910,10 @@ type DeleteDomainParams struct {
 type UpdateDomainParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9682,10 +9924,10 @@ type UpdateDomainParams struct {
 type VerifyDomainParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9726,10 +9968,10 @@ type ListMailboxesParamsState string
 type CreateMailboxParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9740,10 +9982,10 @@ type CreateMailboxParams struct {
 type DeleteMailboxParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9757,10 +9999,10 @@ type UpdateMailboxParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9771,10 +10013,10 @@ type UpdateMailboxParams struct {
 type CreateMailboxMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9803,10 +10045,10 @@ type ListMailboxReceiveRulesParamsAction string
 type CreateMailboxReceiveRuleParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9817,10 +10059,10 @@ type CreateMailboxReceiveRuleParams struct {
 type DeleteMailboxReceiveRuleParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9831,10 +10073,10 @@ type DeleteMailboxReceiveRuleParams struct {
 type RestoreMailboxParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9845,10 +10087,10 @@ type RestoreMailboxParams struct {
 type ResumeMailboxParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9863,7 +10105,7 @@ type GetMailboxStatsParams struct {
 	// To Inclusive end of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Granularity Bucket grain of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
@@ -9910,10 +10152,10 @@ type ListEmailMessagesParams struct {
 type CreateEmailMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9924,10 +10166,10 @@ type CreateEmailMessageParams struct {
 type CancelEmailMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -9942,7 +10184,7 @@ type GetEmailStatsByBounceCodeParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -9974,12 +10216,6 @@ type GetEmailStatsByBroadcastParams struct {
 
 	// Limit Maximum number of broadcast rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
-
-	// IncludeTrend Requests a per-row `trend` series. Not available for the broadcast breakdown; supplying `true` returns 422.
-	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
-
-	// TrendGrain Bucket grain for the `trend` series. Has no effect on this breakdown, where `include_trend` is not available.
-	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
 
 // GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
@@ -9990,7 +10226,7 @@ type GetEmailStatsByCategoryParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
@@ -10014,7 +10250,7 @@ type GetEmailStatsByClientParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10041,7 +10277,7 @@ type GetEmailStatsByComplaintTypeParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10065,7 +10301,7 @@ type GetEmailStatsDailyParams struct {
 	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -10095,7 +10331,7 @@ type GetEmailStatsHourlyParams struct {
 	// To End of the window (ISO 8601 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included (both bounds inclusive). When `timezone` is set, a numeric UTC offset here is rejected; use a `Z` (UTC) instant. Defaults to the current hour when omitted. Window may not exceed 30 days (720 hours).
 	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -10125,7 +10361,7 @@ type GetEmailStatsByLocationParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10152,7 +10388,7 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10179,7 +10415,7 @@ type GetEmailStatsByMailboxProviderParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10206,7 +10442,7 @@ type GetEmailStatsByRecipientDomainParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10233,7 +10469,7 @@ type GetEmailStatsBySendingDomainParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10260,7 +10496,7 @@ type GetEmailStatsBySendingIpParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10290,7 +10526,7 @@ type GetEmailStatsSummaryParams struct {
 	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -10326,7 +10562,7 @@ type GetEmailStatsByTagParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10353,7 +10589,7 @@ type GetEmailStatsByTemplateParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
@@ -10415,10 +10651,10 @@ type DeleteEmailThreadParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10429,10 +10665,10 @@ type DeleteEmailThreadParams struct {
 type UpdateEmailThreadParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10467,10 +10703,10 @@ type ListEmailThreadMessagesParamsInclude string
 type ReplyEmailThreadMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10484,10 +10720,10 @@ type PublishRealtimeAppBatchParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10552,10 +10788,10 @@ type PublishRealtimeAppEventParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10575,10 +10811,33 @@ type DisconnectRealtimeAppMemberParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
+	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
+
+	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
+	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
+}
+
+// SendRealtimeAppMemberEventParams defines parameters for SendRealtimeAppMemberEvent.
+type SendRealtimeAppMemberEventParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004): the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10595,10 +10854,10 @@ type DisconnectRealtimeAppMemberParams struct {
 type CreateSMSMessageBatchParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10648,10 +10907,10 @@ type ListSMSMessagesParams struct {
 type CreateSMSMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10677,10 +10936,10 @@ type CreateVerificationParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10694,10 +10953,10 @@ type CreateVerificationCheckParams struct {
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10738,10 +10997,10 @@ type ListWhatsAppMessagesParams struct {
 type SendWhatsAppMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004) — the same key is currently being
+	// - `request_in_progress` (E01004): the same key is currently being
 	//   processed by a concurrent request. Wait briefly and retry; the lock
 	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005) — the same key has already completed
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
@@ -10816,6 +11075,9 @@ type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
 
 // PublishRealtimeAppEventJSONRequestBody defines body for PublishRealtimeAppEvent for application/json ContentType.
 type PublishRealtimeAppEventJSONRequestBody = RealtimePublish
+
+// SendRealtimeAppMemberEventJSONRequestBody defines body for SendRealtimeAppMemberEvent for application/json ContentType.
+type SendRealtimeAppMemberEventJSONRequestBody = RealtimeMemberPublish
 
 // CreateSMSMessageBatchJSONRequestBody defines body for CreateSMSMessageBatch for application/json ContentType.
 type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
@@ -13358,6 +13620,11 @@ type ClientInterface interface {
 	// DisconnectRealtimeAppMember request
 	DisconnectRealtimeAppMember(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// SendRealtimeAppMemberEventWithBody request with any body
+	SendRealtimeAppMemberEventWithBody(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SendRealtimeAppMemberEvent(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, body SendRealtimeAppMemberEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateSMSMessageBatchWithBody request with any body
 	CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -14569,6 +14836,30 @@ func (c *Client) DisconnectRealtimeAppMember(ctx context.Context, realtimeAppId 
 	return c.Client.Do(req)
 }
 
+func (c *Client) SendRealtimeAppMemberEventWithBody(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendRealtimeAppMemberEventRequestWithBody(c.Server, realtimeAppId, memberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendRealtimeAppMemberEvent(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, body SendRealtimeAppMemberEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendRealtimeAppMemberEventRequest(c.Server, realtimeAppId, memberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) CreateSMSMessageBatchWithBody(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateSMSMessageBatchRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
@@ -15758,6 +16049,18 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 		if params.EndingBefore != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -17830,30 +18133,6 @@ func NewGetEmailStatsByBroadcastRequest(server string, params *GetEmailStatsByBr
 		if params.Limit != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.IncludeTrend != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.TrendGrain != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -21004,6 +21283,104 @@ func NewDisconnectRealtimeAppMemberRequest(server string, realtimeAppId Realtime
 	return req, nil
 }
 
+// NewSendRealtimeAppMemberEventRequest calls the generic SendRealtimeAppMemberEvent builder with application/json body
+func NewSendRealtimeAppMemberEventRequest(server string, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, body SendRealtimeAppMemberEventJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSendRealtimeAppMemberEventRequestWithBody(server, realtimeAppId, memberId, params, "application/json", bodyReader)
+}
+
+// NewSendRealtimeAppMemberEventRequestWithBody generates requests for SendRealtimeAppMemberEvent with any type of body
+func NewSendRealtimeAppMemberEventRequestWithBody(server string, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "realtime_app_id", realtimeAppId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "member_id", memberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/realtime/apps/%s/members/%s/events", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		var headerParam2 string
+
+		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Key", headerParam2)
+
+		var headerParam3 string
+
+		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-Realtime-Secret", headerParam3)
+
+	}
+
+	return req, nil
+}
+
 // NewCreateSMSMessageBatchRequest calls the generic CreateSMSMessageBatch builder with application/json body
 func NewCreateSMSMessageBatchRequest(server string, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -22190,6 +22567,11 @@ type ClientWithResponsesInterface interface {
 
 	// DisconnectRealtimeAppMemberWithResponse request
 	DisconnectRealtimeAppMemberWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *DisconnectRealtimeAppMemberParams, reqEditors ...RequestEditorFn) (*DisconnectRealtimeAppMemberResponse, error)
+
+	// SendRealtimeAppMemberEventWithBodyWithResponse request with any body
+	SendRealtimeAppMemberEventWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendRealtimeAppMemberEventResponse, error)
+
+	SendRealtimeAppMemberEventWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, body SendRealtimeAppMemberEventJSONRequestBody, reqEditors ...RequestEditorFn) (*SendRealtimeAppMemberEventResponse, error)
 
 	// CreateSMSMessageBatchWithBodyWithResponse request with any body
 	CreateSMSMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
@@ -24988,6 +25370,42 @@ func (r DisconnectRealtimeAppMemberResponse) ContentType() string {
 	return ""
 }
 
+type SendRealtimeAppMemberEventResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r SendRealtimeAppMemberEventResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SendRealtimeAppMemberEventResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SendRealtimeAppMemberEventResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateSMSMessageBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -26270,6 +26688,23 @@ func (c *ClientWithResponses) DisconnectRealtimeAppMemberWithResponse(ctx contex
 		return nil, err
 	}
 	return ParseDisconnectRealtimeAppMemberResponse(rsp)
+}
+
+// SendRealtimeAppMemberEventWithBodyWithResponse request with arbitrary body returning *SendRealtimeAppMemberEventResponse
+func (c *ClientWithResponses) SendRealtimeAppMemberEventWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendRealtimeAppMemberEventResponse, error) {
+	rsp, err := c.SendRealtimeAppMemberEventWithBody(ctx, realtimeAppId, memberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendRealtimeAppMemberEventResponse(rsp)
+}
+
+func (c *ClientWithResponses) SendRealtimeAppMemberEventWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, memberId RealtimeMemberID, params *SendRealtimeAppMemberEventParams, body SendRealtimeAppMemberEventJSONRequestBody, reqEditors ...RequestEditorFn) (*SendRealtimeAppMemberEventResponse, error) {
+	rsp, err := c.SendRealtimeAppMemberEvent(ctx, realtimeAppId, memberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendRealtimeAppMemberEventResponse(rsp)
 }
 
 // CreateSMSMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateSMSMessageBatchResponse
@@ -31666,6 +32101,74 @@ func ParseDisconnectRealtimeAppMemberResponse(rsp *http.Response) (*DisconnectRe
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSendRealtimeAppMemberEventResponse parses an HTTP response from a SendRealtimeAppMemberEventWithResponse call
+func ParseSendRealtimeAppMemberEventResponse(rsp *http.Response) (*SendRealtimeAppMemberEventResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SendRealtimeAppMemberEventResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited

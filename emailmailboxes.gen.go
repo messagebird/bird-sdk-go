@@ -138,7 +138,7 @@ type EmailMailboxesStatsParams struct {
 	From string
 	// Inclusive end of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
 	To string
-	// IANA timezone identifier (for example `Asia/Kathmandu` or `America/New_York`) to report the statistics in. It is the single source of timezone: day and hour boundaries, and the relative window defaults used when `from` and `to` are omitted, are computed in this timezone instead of UTC, so a timezone with a sub-hour offset (such as India at +05:30 or Nepal at +05:45) still gets correct local-day and local-hour totals. When it is set, a `from` or `to` given as a calendar day names a local day in this timezone, and one given as an instant stays an absolute point in time but is rounded down to its hour and bucketed in this timezone (so the hour boundaries are local, not UTC). To avoid specifying the zone twice, a `from` or `to` that carries its own numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant instead. Defaults to UTC.
+	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone string
 	// Bucket grain of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
 	Granularity string
@@ -201,6 +201,7 @@ func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxe
 	return &out, nil
 }
 
+// Get Read one mailbox by id. A mailbox deleted within its 30-day restore window is still returned, carrying a non-null `deleted_at`; once that window closes it is gone and this returns 404.
 func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), cfg...)
@@ -284,6 +285,7 @@ func (s *EmailMailboxesService) Resume(ctx context.Context, mailboxId string, op
 	return &out, nil
 }
 
+// Stats Read a mailbox's sent and received email statistics over a window: a period summary plus a bucketed series. Rows are bucketed by event time rather than send time, so engagement that arrived during the period for messages sent earlier is counted here. Both window bounds must use the same form, calendar days or RFC 3339 instants, matching the granularity.
 func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, params EmailMailboxesStatsParams, opts ...option.RequestOption) (*MailboxStatsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetMailboxStats(ctx, oapi.MailboxID(mailboxId), params.toWire(), cfg...)

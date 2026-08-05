@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.21.0
+
+- Add a `datetime` contact property type: an RFC 3339 timestamp with an explicit offset.
+- Add realtime.members.send: deliver an event to every connection one member holds, addressing the person rather than a channel.
+- Listing contacts gains an `include_total` flag for a total count, and `q` now matches first and last name as well as email.
+- WhatsApp `rejected` now covers every refusal before transmit, not only a suppressed recipient: a charge decline (insufficient wallet balance, unpriced destination) and an undeliverable recipient report `status: rejected` with a `whatsapp.rejected` timeline event instead of `failed`. `whatsapp.rejected` is also now published on the message-events enum.
+- **Breaking:** a WhatsApp send against a template that declares named parameters must now name every parameter, matched as a set, so order no longer matters; an unnamed, misnamed, duplicated, or missing name returns `422 WhatsAppTemplateParameterMismatch`. `bird_otp` stays positional: its values go in `{{n}}` order and must carry no name. Unnamed values were previously matched by position and could render the wrong content while reporting success, so sends made against these templates before this release are worth re-checking.
+- A parameter that arrived with no description now carries the one its field documents.
+- Clarify the email broadcast and template descriptions, including the errors each operation can return.
+- Correct the `parameters` field description for an inline send.
+- Document that an authentication-category message returns a redacted body.
+- Template variables now report a `sensitive` flag showing whether the value is redacted before storage.
+
 ## 0.20.0
 
 - BREAKING: open-enum fields are now defined types (EmailEventType, VerificationChannel, WhatsAppErrorCode and six others) instead of aliases for string, so they carry their known values and a Valid() method. Assigning a string variable to one of these fields now needs an explicit conversion; an untyped string literal and any unrecognized value both still work.
@@ -58,7 +71,7 @@
 - `contacts.update`: the `Email` field is now a plain string rather than a pointer.
 - Add the email read methods: `get`, `list`, and `cancel`.
 - `EmailThreadMessageReplyRequest` gains an optional `attachments` field, matching the compose and direct-send surfaces.
-- Type the stats trend-grain, message direction, and email status read filters, which were plain strings, by factoring each into a shared schema.
+- The stats trend-grain, message direction, and email status read filters are now typed rather than plain strings, so each carries the values it accepts.
 
 ## 0.15.0
 
@@ -72,19 +85,19 @@
 - Audiences params now match the API's declared field types: `AudienceCreateParams.Type` is the typed enum (was `string`), and `AudienceUpdateParams.Name` is a plain `string` (the name cannot be cleared).
 - `ContactUpdateParams` first name, last name, and external id can now be cleared: they are `bird.Nullable[string]` (was `*string`) — `bird.Value(v)` sets, `bird.Null[string]()` clears (explicit JSON null), zero omits. Email stays a pointer (it cannot be cleared).
 - Nullable request fields can now send an explicit JSON `null` to clear a value. Clearable request params use `bird.Nullable[T]`, built with `bird.Value(v)` (set), `bird.Null[T]()` (clear), or left zero (omit); response fields stay plain pointers for ergonomic reads. `AudienceUpdateParams.Description` is now `bird.Nullable[string]` (was `*string`), and `DomainUpdateParams.ClearTracking` now sends a real null.
-- Extract the verification terminal-reason enum into a shared `VerificationTerminalReason` type (no behavior change).
+- The verification terminal reason is now the named type `VerificationTerminalReason`, carrying its known values, rather than a bare string.
 - Stats `period.grain` is now typed as a shared `StatsGrain` (`day` | `hour`) instead of a plain string. No wire or behavioural change.
 
 ## 0.13.0
 
 - **Breaking:** `Email.Stats.BySendingIp` is renamed `BySendingIP`, with its `EmailStatsBySendingIpParams`/`EmailStatsBySendingIpResponse` types renamed to `...IP...` — idiomatic Go initialism (golint ST1003), matching the `SendingIP` field the SDK already uses.
-- Docs: resource and package docstrings now describe behavior only, without internal implementation notes.
+- Resource and package docstrings now describe behavior only.
 - Internal improvements.
 
 ## 0.12.0
 
 - Agent mailboxes (inbox.ai): create and manage durable inboxes; receive, read, label, compose, and reply over the API
-- Internal pipeline improvements.
+- Internal improvements.
 
 ## 0.11.0
 
@@ -102,8 +115,8 @@
 - Email message status enum constants are now type-prefixed (Accepted -> ListEmailMessagesParamsStatusAccepted, ...) so their names are stable across releases
 - Add email statistics reads under `email.stats`: the period summary, the daily and hourly time series, and the dimension breakdowns (by tag, category, sending IP, sending domain, recipient domain, mailbox provider, mailbox-provider region, template, location, client, bounce code, complaint type, and broadcast).
 - **Breaking:** the Realtime webhook event type `realtime.subscription_count` is now `realtime.connection_count`, matching Bird's Realtime vocabulary (per channel it counts connections — one connection cannot subscribe twice). Realtime is in early access; the old event type had no GA consumers.
-- Documentation-only: docstrings and help text regenerated from a description pass across the entire API spec. Operations and fields now document units, defaults, omission behavior, and per-value status meanings. Several descriptions were corrected to match actual behavior, including engagement-rate denominators, suppression prefix matching, and stored-content retention. No functional changes.
-- Regenerate from the beak codegen toolchain (generator provenance headers only; no API changes)
+- Operations and fields now document their units, defaults, omission behavior, and per-value status meanings. Several descriptions were corrected to match actual behavior, including engagement-rate denominators, suppression prefix matching, and stored-content retention.
+- Internal improvements.
 - WhatsApp templates: create and list/get a workspace's own message templates. Reads now include a template id and an optional description; create takes a name, category, components, a WhatsApp language code, and an optional description; sending gained a named parameter name for named-parameter templates. Additive; no breaking change.
 
 ## 0.9.4

@@ -22,10 +22,12 @@ type ContactListParams struct {
 	Email string
 	// Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
 	ExternalID string
-	// Case-insensitive substring match against the contact's email address.
+	// Case-insensitive substring match against the contact's email address, first name, or last name.
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
+	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal bool
 }
 
 func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams {
@@ -34,6 +36,7 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 		ExternalId:    optStr(p.ExternalID),
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
+		IncludeTotal:  optBool(p.IncludeTotal),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -48,7 +51,7 @@ type ContactCreateParams struct {
 	LastName string
 	// Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalID string
-	// Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
+	// Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
 	Data map[string]any
 }
 
@@ -81,7 +84,7 @@ type ContactUpdateParams struct {
 	LastName Nullable[string]
 	// Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
 	ExternalID Nullable[string]
-	// Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, or boolean matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
+	// Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
 	Data map[string]any
 }
 
@@ -142,7 +145,7 @@ func (s *ContactsService) ListPage(ctx context.Context, params ContactListParams
 	return &out, nil
 }
 
-// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email or external_id, or search by email substring.
+// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email or external_id, or search by email/name substring. Pass include_total for a total count.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *ContactsService) List(ctx context.Context, params ContactListParams, opts ...option.RequestOption) iter.Seq2[*Contact, error] {

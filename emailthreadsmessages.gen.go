@@ -46,6 +46,7 @@ type EmailThreadsMessagesReplyParams struct {
 	Tags []Tag
 	// Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
 	Metadata map[string]any
+	// Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory
 	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
 	Attachments []EmailAttachment

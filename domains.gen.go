@@ -55,11 +55,15 @@ func (p DomainListParams) toWire(startingAfter string) *oapi.ListDomainsParams {
 // DomainCreateParams is the request body for create.
 type DomainCreateParams struct {
 	// The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
-	Domain     string
+	Domain string
+	// Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
 	ReturnPath *DomainReturnPathConfig
-	Tracking   *DomainTrackingConfig
-	Dkim       *DomainDKIMConfig
-	Settings   *DomainSettings
+	// Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+	Tracking *DomainTrackingConfig
+	// DKIM signing configuration.
+	Dkim *DomainDKIMConfig
+	// Per-domain behavior toggles. Changes apply immediately to new sends.
+	Settings *DomainSettings
 }
 
 func (p DomainCreateParams) toWire() oapi.DomainCreate {
@@ -82,6 +86,7 @@ func (p DomainCreateParams) toWire() oapi.DomainCreate {
 
 // DomainUpdateParams is the request body for update.
 type DomainUpdateParams struct {
+	// Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings
 	// Change the return-path name part. Cannot be removed — the return-path is required for sending.
 	ReturnPath *DomainReturnPathConfig
