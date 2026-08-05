@@ -7343,14 +7343,14 @@ type EventVoiceBase struct {
 	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
-	// DstNumber Called party number in E.164 format.
-	DstNumber string `json:"dst_number"`
+	// From Calling party number in E.164 format.
+	From string `json:"from"`
 
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
 
-	// SrcNumber Calling party number in E.164 format.
-	SrcNumber   string      `json:"src_number"`
+	// To Called party number in E.164 format.
+	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -7396,11 +7396,11 @@ type EventVoiceCallEndedData struct {
 	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
-	// DstNumber Called party number in E.164 format.
-	DstNumber string `json:"dst_number"`
-
 	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response.
 	DurationMs int `json:"duration_ms"`
+
+	// From Calling party number in E.164 format.
+	From string `json:"from"`
 
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
@@ -7408,16 +7408,16 @@ type EventVoiceCallEndedData struct {
 	// SipResponseCode Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
 	SipResponseCode *int `json:"sip_response_code"`
 
-	// SrcNumber Calling party number in E.164 format.
-	SrcNumber string `json:"src_number"`
-
 	// Status Call status.
 	//
 	// A call that has ended carries answered, no_answer, failed, rejected, or unknown. A call that is still up carries ringing before it is picked up and in_progress once it is; both are what the `status` filter on the call list selects on to show calls happening right now.
 	//
 	// busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
-	Status      VoiceCallStatus `json:"status"`
-	WorkspaceId WorkspaceID     `json:"workspace_id"`
+	Status VoiceCallStatus `json:"status"`
+
+	// To Called party number in E.164 format.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
 // EventVoiceCallInitiated A call was initiated — Bird received the INVITE and began routing it.
@@ -8735,8 +8735,8 @@ type SMSTemplateList struct {
 type SMSTemplateSend struct {
 	Id *SMSTemplateID `json:"id,omitempty"`
 
-	// Language Language tag (BCP 47, for example `fr` or `pt-BR`) selecting the localized body. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
-	Language *string `json:"language,omitempty"`
+	// Language Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+	Language *LanguageTag `json:"language,omitempty"`
 
 	// Name The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
 	Name *TemplateName `json:"name,omitempty"`
@@ -9317,9 +9317,6 @@ type WhatsAppEventList struct {
 	Data []WhatsAppEvent `json:"data"`
 }
 
-// WhatsAppLanguage Language code of the template variant (for example `en` or `pt_BR`).
-type WhatsAppLanguage = string
-
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
 	// Cost Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
@@ -9393,7 +9390,7 @@ type WhatsAppMessageSendRequest struct {
 	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
-	// To The message recipient's phone number in E.164 format (for example `+31612345678`). A value that is not a valid phone number returns a `422` `WhatsAppInvalidRecipient`.
+	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
 	To string `json:"to"`
 }
 
@@ -9408,8 +9405,8 @@ type WhatsAppMessageTemplate struct {
 	// Components The values that filled the template's placeholders. Empty for an authentication template, whose content is never returned.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 
-	// Language The language code of the template variant that was sent (for example `en`).
-	Language *string `json:"language,omitempty"`
+	// Language The canonical BCP-47 tag of the template variant that was sent.
+	Language *LanguageTag `json:"language,omitempty"`
 
 	// Slug The template's stable handle (for example `bird_otp`).
 	Slug *TemplateSlug `json:"slug,omitempty"`
@@ -9439,20 +9436,31 @@ type WhatsAppMessageTemplateComponentParameter struct {
 // WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
 type WhatsAppTemplateCategory string
 
+// WhatsAppTemplateID defines model for WhatsAppTemplateID.
+type WhatsAppTemplateID = string
+
 // WhatsAppTemplateParameterType The kind of value a template parameter accepts. `text` (the only kind today) is a plain string substituted into the placeholder. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType string
 
-// WhatsAppTemplateSend defines model for WhatsAppTemplateSend.
+// WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally pick a language, and pass its placeholder values in `components`.
 type WhatsAppTemplateSend struct {
 	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
+	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Language code of the template variant to send (for example `en` or `pt_BR`). May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available codes. The accepted message echoes the resolved language.
-	Language *WhatsAppLanguage `json:"language,omitempty"`
+	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available tags.
+	Language *LanguageTag `json:"language,omitempty"`
 
 	// Slug The template to send, by its slug (for example `bird_otp`).
-	Slug TemplateSlug `json:"slug"`
+	Slug  *TemplateSlug `json:"slug,omitempty"`
+	union json.RawMessage
 }
+
+// WhatsAppTemplateSend0 defines model for .
+type WhatsAppTemplateSend0 = interface{}
+
+// WhatsAppTemplateSend1 defines model for .
+type WhatsAppTemplateSend1 = interface{}
 
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
@@ -10953,8 +10961,8 @@ type ListWhatsAppMessagesParams struct {
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
-// SendWhatsAppMessageParams defines parameters for SendWhatsAppMessage.
-type SendWhatsAppMessageParams struct {
+// CreateWhatsAppMessageParams defines parameters for CreateWhatsAppMessage.
+type CreateWhatsAppMessageParams struct {
 	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
 	// Two distinct 409 errors signal misuse:
 	// - `request_in_progress` (E01004): the same key is currently being
@@ -11051,8 +11059,8 @@ type CreateVerificationJSONRequestBody = VerificationCreateRequest
 // CreateVerificationCheckJSONRequestBody defines body for CreateVerificationCheck for application/json ContentType.
 type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 
-// SendWhatsAppMessageJSONRequestBody defines body for SendWhatsAppMessage for application/json ContentType.
-type SendWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
+// CreateWhatsAppMessageJSONRequestBody defines body for CreateWhatsAppMessage for application/json ContentType.
+type CreateWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
@@ -13237,6 +13245,144 @@ func (t *WebhookEvent) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsWhatsAppTemplateSend0 returns the union data inside the WhatsAppTemplateSend as a WhatsAppTemplateSend0
+func (t WhatsAppTemplateSend) AsWhatsAppTemplateSend0() (WhatsAppTemplateSend0, error) {
+	var body WhatsAppTemplateSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppTemplateSend0 overwrites any union data inside the WhatsAppTemplateSend as the provided WhatsAppTemplateSend0
+func (t *WhatsAppTemplateSend) FromWhatsAppTemplateSend0(v WhatsAppTemplateSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppTemplateSend0 performs a merge with any union data inside the WhatsAppTemplateSend, using the provided WhatsAppTemplateSend0
+func (t *WhatsAppTemplateSend) MergeWhatsAppTemplateSend0(v WhatsAppTemplateSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppTemplateSend1 returns the union data inside the WhatsAppTemplateSend as a WhatsAppTemplateSend1
+func (t WhatsAppTemplateSend) AsWhatsAppTemplateSend1() (WhatsAppTemplateSend1, error) {
+	var body WhatsAppTemplateSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppTemplateSend1 overwrites any union data inside the WhatsAppTemplateSend as the provided WhatsAppTemplateSend1
+func (t *WhatsAppTemplateSend) FromWhatsAppTemplateSend1(v WhatsAppTemplateSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppTemplateSend1 performs a merge with any union data inside the WhatsAppTemplateSend, using the provided WhatsAppTemplateSend1
+func (t *WhatsAppTemplateSend) MergeWhatsAppTemplateSend1(v WhatsAppTemplateSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppTemplateSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Components != nil {
+		object["components"], err = json.Marshal(t.Components)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'components': %w", err)
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Language != nil {
+		object["language"], err = json.Marshal(t.Language)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'language': %w", err)
+		}
+	}
+
+	if t.Slug != nil {
+		object["slug"], err = json.Marshal(t.Slug)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'slug': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppTemplateSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["components"]; found {
+		err = json.Unmarshal(raw, &t.Components)
+		if err != nil {
+			return fmt.Errorf("error reading 'components': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["language"]; found {
+		err = json.Unmarshal(raw, &t.Language)
+		if err != nil {
+			return fmt.Errorf("error reading 'language': %w", err)
+		}
+	}
+
+	if raw, found := object["slug"]; found {
+		err = json.Unmarshal(raw, &t.Slug)
+		if err != nil {
+			return fmt.Errorf("error reading 'slug': %w", err)
+		}
+	}
+
+	return err
+}
+
 // RequestEditorFn  is the function signature for the RequestEditor callback function
 type RequestEditorFn func(ctx context.Context, req *http.Request) error
 
@@ -13620,10 +13766,10 @@ type ClientInterface interface {
 	// ListWhatsAppMessages request
 	ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// SendWhatsAppMessageWithBody request with any body
-	SendWhatsAppMessageWithBody(ctx context.Context, params *SendWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// CreateWhatsAppMessageWithBody request with any body
+	CreateWhatsAppMessageWithBody(ctx context.Context, params *CreateWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	SendWhatsAppMessage(ctx context.Context, params *SendWhatsAppMessageParams, body SendWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateWhatsAppMessage(ctx context.Context, params *CreateWhatsAppMessageParams, body CreateWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetWhatsAppMessage request
 	GetWhatsAppMessage(ctx context.Context, messageId WhatsAppMessageID, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -14976,8 +15122,8 @@ func (c *Client) ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppM
 	return c.Client.Do(req)
 }
 
-func (c *Client) SendWhatsAppMessageWithBody(ctx context.Context, params *SendWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSendWhatsAppMessageRequestWithBody(c.Server, params, contentType, body)
+func (c *Client) CreateWhatsAppMessageWithBody(ctx context.Context, params *CreateWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppMessageRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -14988,8 +15134,8 @@ func (c *Client) SendWhatsAppMessageWithBody(ctx context.Context, params *SendWh
 	return c.Client.Do(req)
 }
 
-func (c *Client) SendWhatsAppMessage(ctx context.Context, params *SendWhatsAppMessageParams, body SendWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewSendWhatsAppMessageRequest(c.Server, params, body)
+func (c *Client) CreateWhatsAppMessage(ctx context.Context, params *CreateWhatsAppMessageParams, body CreateWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppMessageRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -21939,19 +22085,19 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 	return req, nil
 }
 
-// NewSendWhatsAppMessageRequest calls the generic SendWhatsAppMessage builder with application/json body
-func NewSendWhatsAppMessageRequest(server string, params *SendWhatsAppMessageParams, body SendWhatsAppMessageJSONRequestBody) (*http.Request, error) {
+// NewCreateWhatsAppMessageRequest calls the generic CreateWhatsAppMessage builder with application/json body
+func NewCreateWhatsAppMessageRequest(server string, params *CreateWhatsAppMessageParams, body CreateWhatsAppMessageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewSendWhatsAppMessageRequestWithBody(server, params, "application/json", bodyReader)
+	return NewCreateWhatsAppMessageRequestWithBody(server, params, "application/json", bodyReader)
 }
 
-// NewSendWhatsAppMessageRequestWithBody generates requests for SendWhatsAppMessage with any type of body
-func NewSendWhatsAppMessageRequestWithBody(server string, params *SendWhatsAppMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+// NewCreateWhatsAppMessageRequestWithBody generates requests for CreateWhatsAppMessage with any type of body
+func NewCreateWhatsAppMessageRequestWithBody(server string, params *CreateWhatsAppMessageParams, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -22442,10 +22588,10 @@ type ClientWithResponsesInterface interface {
 	// ListWhatsAppMessagesWithResponse request
 	ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error)
 
-	// SendWhatsAppMessageWithBodyWithResponse request with any body
-	SendWhatsAppMessageWithBodyWithResponse(ctx context.Context, params *SendWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppMessageResponse, error)
+	// CreateWhatsAppMessageWithBodyWithResponse request with any body
+	CreateWhatsAppMessageWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppMessageResponse, error)
 
-	SendWhatsAppMessageWithResponse(ctx context.Context, params *SendWhatsAppMessageParams, body SendWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppMessageResponse, error)
+	CreateWhatsAppMessageWithResponse(ctx context.Context, params *CreateWhatsAppMessageParams, body CreateWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppMessageResponse, error)
 
 	// GetWhatsAppMessageWithResponse request
 	GetWhatsAppMessageWithResponse(ctx context.Context, messageId WhatsAppMessageID, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageResponse, error)
@@ -25565,7 +25711,7 @@ func (r ListWhatsAppMessagesResponse) ContentType() string {
 	return ""
 }
 
-type SendWhatsAppMessageResponse struct {
+type CreateWhatsAppMessageResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON202      *WhatsAppMessage
@@ -25578,7 +25724,7 @@ type SendWhatsAppMessageResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r SendWhatsAppMessageResponse) Status() string {
+func (r CreateWhatsAppMessageResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -25586,7 +25732,7 @@ func (r SendWhatsAppMessageResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r SendWhatsAppMessageResponse) StatusCode() int {
+func (r CreateWhatsAppMessageResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -25594,7 +25740,7 @@ func (r SendWhatsAppMessageResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r SendWhatsAppMessageResponse) ContentType() string {
+func (r CreateWhatsAppMessageResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -26655,21 +26801,21 @@ func (c *ClientWithResponses) ListWhatsAppMessagesWithResponse(ctx context.Conte
 	return ParseListWhatsAppMessagesResponse(rsp)
 }
 
-// SendWhatsAppMessageWithBodyWithResponse request with arbitrary body returning *SendWhatsAppMessageResponse
-func (c *ClientWithResponses) SendWhatsAppMessageWithBodyWithResponse(ctx context.Context, params *SendWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppMessageResponse, error) {
-	rsp, err := c.SendWhatsAppMessageWithBody(ctx, params, contentType, body, reqEditors...)
+// CreateWhatsAppMessageWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppMessageResponse
+func (c *ClientWithResponses) CreateWhatsAppMessageWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppMessageResponse, error) {
+	rsp, err := c.CreateWhatsAppMessageWithBody(ctx, params, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSendWhatsAppMessageResponse(rsp)
+	return ParseCreateWhatsAppMessageResponse(rsp)
 }
 
-func (c *ClientWithResponses) SendWhatsAppMessageWithResponse(ctx context.Context, params *SendWhatsAppMessageParams, body SendWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppMessageResponse, error) {
-	rsp, err := c.SendWhatsAppMessage(ctx, params, body, reqEditors...)
+func (c *ClientWithResponses) CreateWhatsAppMessageWithResponse(ctx context.Context, params *CreateWhatsAppMessageParams, body CreateWhatsAppMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppMessageResponse, error) {
+	rsp, err := c.CreateWhatsAppMessage(ctx, params, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseSendWhatsAppMessageResponse(rsp)
+	return ParseCreateWhatsAppMessageResponse(rsp)
 }
 
 // GetWhatsAppMessageWithResponse request returning *GetWhatsAppMessageResponse
@@ -32643,15 +32789,15 @@ func ParseListWhatsAppMessagesResponse(rsp *http.Response) (*ListWhatsAppMessage
 	return response, nil
 }
 
-// ParseSendWhatsAppMessageResponse parses an HTTP response from a SendWhatsAppMessageWithResponse call
-func ParseSendWhatsAppMessageResponse(rsp *http.Response) (*SendWhatsAppMessageResponse, error) {
+// ParseCreateWhatsAppMessageResponse parses an HTTP response from a CreateWhatsAppMessageWithResponse call
+func ParseCreateWhatsAppMessageResponse(rsp *http.Response) (*CreateWhatsAppMessageResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &SendWhatsAppMessageResponse{
+	response := &CreateWhatsAppMessageResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

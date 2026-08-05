@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.23.0
+
+- Voice call webhook payloads name the two parties from and to, replacing src_number and dst_number. A handler reading those fields on voice_call.initiated, voice_call.answered or voice_call.ended must rename them; every other field is unchanged.
+- WhatsApp and SMS template `language` fields now take a BCP-47 tag (for example `pt-BR`); Meta's underscore form (`pt_BR`) is still accepted as an input alias but is no longer echoed back. WhatsApp template sends can now also address a template by `id`, as an alternative to `slug`: the existing `Template` field takes either, resolving a `wat_`-prefixed value as the id — the same convention it already uses for SMS's `smt_`.
+- WhatsApp send: the `to` field now accepts a business-scoped user ID as well as an E.164 phone number, so you can message a WhatsApp user whose phone number you do not have. One-time-passcode templates still require a phone number and return `422 WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
+
 ## 0.22.0
 
 - Add `bird.Email(...)`, the pointer shorthand for a `format: email` field, so an email recipient such as `VerificationTo.EmailAddress` can be set inline alongside `bird.String` and `bird.Bool`.

@@ -44,7 +44,7 @@ output-options:
     - listSMSMessages
     - listSMSTemplates
     - getSMSTemplate
-    - sendWhatsAppMessage
+    - createWhatsAppMessage
     - getWhatsAppMessage
     - listWhatsAppMessages
     - listWhatsAppMessageEvents

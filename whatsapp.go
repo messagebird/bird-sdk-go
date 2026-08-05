@@ -3,6 +3,7 @@ package bird
 import (
 	"context"
 	"net/http"
+	"strings"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -18,15 +19,25 @@ type WhatsappService struct{ resource }
 // the request.
 type WhatsappSendParams struct {
 	To         string                             // required; recipient phone number in E.164 format
-	Template   string                             // required; the template's stable handle (e.g. bird_otp)
-	Language   string                             // template language variant; omit when the template has a single language
+	Template   string                             // required; the template's id (wat_…) or its slug (e.g. bird_otp)
+	Language   string                             // template language as a BCP-47 tag; omit when the template has a single language
 	Components []WhatsAppMessageTemplateComponent // values that fill the template's placeholders
 }
 
 func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 	body := oapi.WhatsAppMessageSendRequest{To: p.To}
 	if p.Template != "" || p.Language != "" || len(p.Components) > 0 {
-		tmpl := oapi.WhatsAppTemplateSend{Slug: p.Template}
+		var tmpl oapi.WhatsAppTemplateSend
+		if p.Template != "" {
+			// A wat_-prefixed value is the id; anything else is the slug handle.
+			if strings.HasPrefix(p.Template, "wat_") {
+				id := oapi.WhatsAppTemplateID(p.Template)
+				tmpl.Id = &id
+			} else {
+				slug := oapi.TemplateSlug(p.Template)
+				tmpl.Slug = &slug
+			}
+		}
 		if p.Language != "" {
 			language := p.Language
 			tmpl.Language = &language
@@ -46,11 +57,11 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 func (s *WhatsappService) Send(ctx context.Context, params WhatsappSendParams, opts ...option.RequestOption) (*WhatsAppMessage, error) {
 	wire := params.toWire()
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
-		p := &oapi.SendWhatsAppMessageParams{}
+		p := &oapi.CreateWhatsAppMessageParams{}
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.SendWhatsAppMessage(ctx, p, wire, cfg...)
+		return s.client.oapi.CreateWhatsAppMessage(ctx, p, wire, cfg...)
 	})
 	if err != nil {
 		return nil, err
