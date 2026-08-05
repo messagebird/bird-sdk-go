@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.22.0
+
+- Add `bird.Email(...)`, the pointer shorthand for a `format: email` field, so an email recipient such as `VerificationTo.EmailAddress` can be set inline alongside `bird.String` and `bird.Bool`.
+
 ## 0.21.1
 
 - The five bespoke delete-blocked error codes (IPPoolContainsIPs, DomainHasMailboxes, AudienceInUse, TCRBrandHasCampaigns, ConfigurationInUse) are retired in favor of the single E01028 ResourceInUse. domains.delete may now return a 409 (Conflict), decoded as DeleteDomainResponse.JSON409, when the domain still has mailboxes bound to it.

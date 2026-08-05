@@ -122,7 +122,7 @@ func (s *ContactPropertiesService) Create(ctx context.Context, params ContactPro
 	return &out, nil
 }
 
-// Update Update a contact property's fallback value. The key and type are immutable; create a new property instead.
+// Update Update a contact property's fallback value. Only the fallback value can change; the key and type are fixed at creation, so a different key or type needs a new property.
 func (s *ContactPropertiesService) Update(ctx context.Context, propertyId string, params ContactPropertyUpdateParams, opts ...option.RequestOption) (*ContactProperty, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateContactPropertyParams{}

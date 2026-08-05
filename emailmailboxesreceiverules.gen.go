@@ -96,7 +96,7 @@ func (s *EmailMailboxesReceiveRulesService) Create(ctx context.Context, mailboxI
 	return &out, nil
 }
 
-// Delete Remove a receive rule from a mailbox. Delete-and-recreate is how an entry's action is flipped.
+// Delete Remove a receive rule from a mailbox. Rules have no update operation, so a rule's allow or block action cannot be changed after it is created.
 func (s *EmailMailboxesReceiveRulesService) Delete(ctx context.Context, mailboxId string, ruleId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteMailboxReceiveRuleParams{}

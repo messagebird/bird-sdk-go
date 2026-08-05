@@ -21,8 +21,10 @@ import (
 )
 
 const (
-	BearerAuthScopes bearerAuthContextKey = "BearerAuth.Scopes"
-	CookieAuthScopes cookieAuthContextKey = "CookieAuth.Scopes"
+	BearerAuthScopes     bearerAuthContextKey     = "BearerAuth.Scopes"
+	CookieAuthScopes     cookieAuthContextKey     = "CookieAuth.Scopes"
+	RealtimeKeyScopes    realtimeKeyContextKey    = "RealtimeKey.Scopes"
+	RealtimeSecretScopes realtimeSecretContextKey = "RealtimeSecret.Scopes"
 )
 
 // Defines values for AudienceType.
@@ -4167,7 +4169,7 @@ type DomainCreate struct {
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings `json:"settings,omitempty"`
 
-	// Tracking Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+	// Tracking Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
 	Tracking *DomainTrackingConfig `json:"tracking,omitempty"`
 }
 
@@ -4281,7 +4283,7 @@ type DomainSettings struct {
 	OpenTracking *bool `json:"open_tracking,omitempty"`
 }
 
-// DomainTrackingConfig Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. Defaults to `links` when omitted at creation. Tracked links are served over HTTPS once the tracking record verifies.
+// DomainTrackingConfig Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
 type DomainTrackingConfig struct {
 	// Name Name part to use for branded open and click tracking URLs. For example, `links` on `mail.acme.com` becomes `links.mail.acme.com`.
 	Name string `json:"name"`
@@ -5490,7 +5492,7 @@ type EmailStatsByTemplateResponse struct {
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsComparison The same statistics for the equal-length, inclusive period ending the day immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. Use it to render "+X% vs last period" without issuing a second request.
+// EmailStatsComparison The same statistics for the equal-length, inclusive period ending the day immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
 type EmailStatsComparison struct {
 	Delivery   *EmailDeliveryStats        `json:"delivery,omitempty"`
 	Delta      *EmailStatsComparisonDelta `json:"delta,omitempty"`
@@ -7958,14 +7960,14 @@ type MailboxCreate struct {
 	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
 	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
 }
 
 // MailboxCreateReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
 type MailboxCreateReceivePolicy string
 
-// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
 type MailboxCreateRetentionTier string
 
 // MailboxID defines model for MailboxID.
@@ -8050,14 +8052,14 @@ type MailboxUpdate struct {
 	// ReceivePolicy Which inbound mail the mailbox accepts.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
 // MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts.
 type MailboxUpdateReceivePolicy string
 
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
 type MailboxUpdateRetentionTier string
 
 // MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
@@ -9509,12 +9511,6 @@ type OrderDesc string
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
 
-// RealtimeKey defines model for RealtimeKey.
-type RealtimeKey = string
-
-// RealtimeSecret defines model for RealtimeSecret.
-type RealtimeSecret = string
-
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
 
@@ -9571,6 +9567,12 @@ type bearerAuthContextKey string
 
 // cookieAuthContextKey is the context key for CookieAuth security scheme
 type cookieAuthContextKey string
+
+// realtimeKeyContextKey is the context key for RealtimeKey security scheme
+type realtimeKeyContextKey string
+
+// realtimeSecretContextKey is the context key for RealtimeSecret security scheme
+type realtimeSecretContextKey string
 
 // ListAudiencesParams defines parameters for ListAudiences.
 type ListAudiencesParams struct {
@@ -10728,12 +10730,6 @@ type PublishRealtimeAppBatchParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // ListRealtimeAppChannelsParams defines parameters for ListRealtimeAppChannels.
@@ -10746,12 +10742,6 @@ type ListRealtimeAppChannelsParams struct {
 
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // GetRealtimeAppChannelParams defines parameters for GetRealtimeAppChannel.
@@ -10761,24 +10751,12 @@ type GetRealtimeAppChannelParams struct {
 
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // ListRealtimeAppChannelMembersParams defines parameters for ListRealtimeAppChannelMembers.
 type ListRealtimeAppChannelMembersParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // PublishRealtimeAppEventParams defines parameters for PublishRealtimeAppEvent.
@@ -10796,12 +10774,6 @@ type PublishRealtimeAppEventParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // DisconnectRealtimeAppMemberParams defines parameters for DisconnectRealtimeAppMember.
@@ -10819,12 +10791,6 @@ type DisconnectRealtimeAppMemberParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // SendRealtimeAppMemberEventParams defines parameters for SendRealtimeAppMemberEvent.
@@ -10842,12 +10808,6 @@ type SendRealtimeAppMemberEventParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-
-	// XRealtimeKey The Realtime app key. With X-Realtime-Secret it authenticates the request to the Realtime edge. Both come from the app's credentials (shown once at creation) and must belong to the calling workspace.
-	XRealtimeKey RealtimeKey `json:"X-Realtime-Key"`
-
-	// XRealtimeSecret The Realtime app secret, paired with X-Realtime-Key. Sent over TLS and used only to sign the request to the edge — never stored. Rotate it by rotating the app key.
-	XRealtimeSecret RealtimeSecret `json:"X-Realtime-Secret"`
 }
 
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
@@ -20803,24 +20763,6 @@ func NewPublishRealtimeAppBatchRequestWithBody(server string, realtimeAppId Real
 			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam2)
-
-		var headerParam3 string
-
-		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam3)
-
 	}
 
 	return req, nil
@@ -20909,24 +20851,6 @@ func NewListRealtimeAppChannelsRequest(server string, realtimeAppId RealtimeAppI
 			req.Header.Set("X-Workspace-Id", headerParam0)
 		}
 
-		var headerParam1 string
-
-		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam1)
-
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam2)
-
 	}
 
 	return req, nil
@@ -21010,24 +20934,6 @@ func NewGetRealtimeAppChannelRequest(server string, realtimeAppId RealtimeAppID,
 			req.Header.Set("X-Workspace-Id", headerParam0)
 		}
 
-		var headerParam1 string
-
-		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam1)
-
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam2)
-
 	}
 
 	return req, nil
@@ -21083,24 +20989,6 @@ func NewListRealtimeAppChannelMembersRequest(server string, realtimeAppId Realti
 
 			req.Header.Set("X-Workspace-Id", headerParam0)
 		}
-
-		var headerParam1 string
-
-		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam1)
-
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam2)
 
 	}
 
@@ -21175,24 +21063,6 @@ func NewPublishRealtimeAppEventRequestWithBody(server string, realtimeAppId Real
 			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam2)
-
-		var headerParam3 string
-
-		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam3)
-
 	}
 
 	return req, nil
@@ -21259,24 +21129,6 @@ func NewDisconnectRealtimeAppMemberRequest(server string, realtimeAppId Realtime
 
 			req.Header.Set("Idempotency-Key", headerParam1)
 		}
-
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam2)
-
-		var headerParam3 string
-
-		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam3)
 
 	}
 
@@ -21357,24 +21209,6 @@ func NewSendRealtimeAppMemberEventRequestWithBody(server string, realtimeAppId R
 
 			req.Header.Set("Idempotency-Key", headerParam1)
 		}
-
-		var headerParam2 string
-
-		headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Key", params.XRealtimeKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Key", headerParam2)
-
-		var headerParam3 string
-
-		headerParam3, err = runtime.StyleParamWithOptions("simple", false, "X-Realtime-Secret", params.XRealtimeSecret, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
-		}
-
-		req.Header.Set("X-Realtime-Secret", headerParam3)
 
 	}
 

@@ -73,17 +73,17 @@ func (p RealtimePublishParams) toWire() oapi.RealtimePublish {
 // Retried safely: a single idempotency key is reused across attempts. Provide
 // your own key with option.WithIdempotencyKey.
 func (s *RealtimeService) Publish(ctx context.Context, appID string, params RealtimePublishParams, opts ...option.RequestOption) (*RealtimePublishResult, error) {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return nil, err
 	}
 	wire := params.toWire()
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
-		p := &oapi.PublishRealtimeAppEventParams{XRealtimeKey: key, XRealtimeSecret: secret}
+		p := &oapi.PublishRealtimeAppEventParams{}
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.PublishRealtimeAppEvent(ctx, appID, p, wire, s.client.callEditors(cfg)...)
+		return s.client.oapi.PublishRealtimeAppEvent(ctx, appID, p, wire, s.client.realtimeEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err
@@ -131,17 +131,17 @@ func (p RealtimePublishBatchParams) toWire() oapi.RealtimeBatchPublish {
 // PublishBatch delivers several events, each to a single channel, in one
 // request. Retried safely with a reused idempotency key.
 func (s *RealtimeService) PublishBatch(ctx context.Context, appID string, params RealtimePublishBatchParams, opts ...option.RequestOption) (*RealtimeBatchPublishResult, error) {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return nil, err
 	}
 	wire := params.toWire()
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
-		p := &oapi.PublishRealtimeAppBatchParams{XRealtimeKey: key, XRealtimeSecret: secret}
+		p := &oapi.PublishRealtimeAppBatchParams{}
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.PublishRealtimeAppBatch(ctx, appID, p, wire, s.client.callEditors(cfg)...)
+		return s.client.oapi.PublishRealtimeAppBatch(ctx, appID, p, wire, s.client.realtimeEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err
@@ -164,12 +164,10 @@ type RealtimeChannelListParams struct {
 	Include []RealtimeChannelInclude
 }
 
-func (p RealtimeChannelListParams) toWire(key, secret string) *oapi.ListRealtimeAppChannelsParams {
+func (p RealtimeChannelListParams) toWire() *oapi.ListRealtimeAppChannelsParams {
 	return &oapi.ListRealtimeAppChannelsParams{
-		Prefix:          realtimeStr(p.Prefix),
-		Include:         realtimeInclude(p.Include),
-		XRealtimeKey:    key,
-		XRealtimeSecret: secret,
+		Prefix:  realtimeStr(p.Prefix),
+		Include: realtimeInclude(p.Include),
 	}
 }
 
@@ -177,12 +175,12 @@ func (p RealtimeChannelListParams) toWire(key, secret string) *oapi.ListRealtime
 // Realtime service does not paginate this listing, so the single response holds
 // every occupied channel.
 func (s *RealtimeChannelsService) List(ctx context.Context, appID string, params RealtimeChannelListParams, opts ...option.RequestOption) (*RealtimeChannelsList, error) {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return nil, err
 	}
 	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
-		return s.client.oapi.ListRealtimeAppChannels(ctx, appID, params.toWire(key, secret), s.client.callEditors(cfg)...)
+		return s.client.oapi.ListRealtimeAppChannels(ctx, appID, params.toWire(), s.client.realtimeEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err
@@ -202,22 +200,20 @@ type RealtimeChannelGetParams struct {
 	Include []RealtimeChannelInclude
 }
 
-func (p RealtimeChannelGetParams) toWire(key, secret string) *oapi.GetRealtimeAppChannelParams {
+func (p RealtimeChannelGetParams) toWire() *oapi.GetRealtimeAppChannelParams {
 	return &oapi.GetRealtimeAppChannelParams{
-		Include:         realtimeInclude(p.Include),
-		XRealtimeKey:    key,
-		XRealtimeSecret: secret,
+		Include: realtimeInclude(p.Include),
 	}
 }
 
 // Get returns one channel's occupancy, plus the counts named in params.Include.
 func (s *RealtimeChannelsService) Get(ctx context.Context, appID, channelName string, params RealtimeChannelGetParams, opts ...option.RequestOption) (*RealtimeChannelInfo, error) {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return nil, err
 	}
 	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
-		return s.client.oapi.GetRealtimeAppChannel(ctx, appID, channelName, params.toWire(key, secret), s.client.callEditors(cfg)...)
+		return s.client.oapi.GetRealtimeAppChannel(ctx, appID, channelName, params.toWire(), s.client.realtimeEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err
@@ -233,13 +229,13 @@ func (s *RealtimeChannelsService) Get(ctx context.Context, appID, channelName st
 // channel operation — a channel without the presence- prefix has no members.
 // The listing is not paginated.
 func (s *RealtimeChannelsService) Members(ctx context.Context, appID, channelName string, opts ...option.RequestOption) (*RealtimeChannelMembers, error) {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return nil, err
 	}
 	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
-		p := &oapi.ListRealtimeAppChannelMembersParams{XRealtimeKey: key, XRealtimeSecret: secret}
-		return s.client.oapi.ListRealtimeAppChannelMembers(ctx, appID, channelName, p, s.client.callEditors(cfg)...)
+		p := &oapi.ListRealtimeAppChannelMembersParams{}
+		return s.client.oapi.ListRealtimeAppChannelMembers(ctx, appID, channelName, p, s.client.realtimeEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err
@@ -278,17 +274,17 @@ func (p RealtimeMemberSendParams) toWire() oapi.RealtimeMemberPublish {
 // Delivery is best-effort: a member holding no connections right now simply
 // does not receive the event, and that is not reported back.
 func (s *RealtimeMembersService) Send(ctx context.Context, appID, memberID string, params RealtimeMemberSendParams, opts ...option.RequestOption) error {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return err
 	}
 	wire := params.toWire()
 	_, err = cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
-		p := &oapi.SendRealtimeAppMemberEventParams{XRealtimeKey: key, XRealtimeSecret: secret}
+		p := &oapi.SendRealtimeAppMemberEventParams{}
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.SendRealtimeAppMemberEvent(ctx, appID, memberID, p, wire, s.client.callEditors(cfg)...)
+		return s.client.oapi.SendRealtimeAppMemberEvent(ctx, appID, memberID, p, wire, s.client.realtimeEditors(cfg)...)
 	})
 	return err
 }
@@ -296,34 +292,32 @@ func (s *RealtimeMembersService) Send(ctx context.Context, appID, memberID strin
 // Disconnect closes every active connection of one member, across all channels
 // — the sign-out or ban path. Retried safely with a reused idempotency key.
 func (s *RealtimeMembersService) Disconnect(ctx context.Context, appID, memberID string, opts ...option.RequestOption) error {
-	cfg, key, secret, err := s.client.realtimeConfig(opts)
+	cfg, err := s.client.realtimeConfig(opts)
 	if err != nil {
 		return err
 	}
 	_, err = cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
-		p := &oapi.DisconnectRealtimeAppMemberParams{XRealtimeKey: key, XRealtimeSecret: secret}
+		p := &oapi.DisconnectRealtimeAppMemberParams{}
 		if idempotencyKey != "" {
 			p.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.DisconnectRealtimeAppMember(ctx, appID, memberID, p, s.client.callEditors(cfg)...)
+		return s.client.oapi.DisconnectRealtimeAppMember(ctx, appID, memberID, p, s.client.realtimeEditors(cfg)...)
 	})
 	return err
 }
 
-// realtimeConfig resolves the per-call options and pulls out the Realtime app
-// credentials every operation needs. Missing credentials fail here, before any
-// network call. The key and secret travel as X-Realtime-Key/X-Realtime-Secret,
-// stamped by the generated request builder from the wire params — the request
-// editors that follow leave them alone, because isReservedHeader lists both.
-func (c *Client) realtimeConfig(opts []option.RequestOption) (requestconfig.Config, string, string, error) {
+// realtimeConfig resolves the per-call options and checks the Realtime app
+// credentials are present, so a missing one fails here rather than as a 401.
+// callEditors stamps the pair from the config it returns.
+func (c *Client) realtimeConfig(opts []option.RequestOption) (requestconfig.Config, error) {
 	cfg, err := c.resolve(opts)
 	if err != nil {
-		return cfg, "", "", err
+		return cfg, err
 	}
 	if cfg.RealtimeKey == "" || cfg.RealtimeSecret == "" {
-		return cfg, "", "", errors.New("bird: Realtime app credentials are required; pass option.WithRealtimeCredentials")
+		return cfg, errors.New("bird: Realtime app credentials are required; pass option.WithRealtimeCredentials")
 	}
-	return cfg, cfg.RealtimeKey, cfg.RealtimeSecret, nil
+	return cfg, nil
 }
 
 // realtimeStr renders an optional string field; empty is omitted.

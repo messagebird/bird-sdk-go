@@ -15,14 +15,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	msg, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-		From:    "onboarding@messagebird.dev",
-		To:      []string{"delivered@messagebird.dev"},
-		Subject: "Hello World",
-		HTML:    "<p>You made your <strong>first email fly</strong>. Congratulations!</p>",
+	verification, err := client.Verify.Verifications.Create(context.Background(), bird.VerifyVerificationsCreateParams{
+		To: bird.VerificationTo{EmailAddress: bird.Email("user@example.com")},
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(msg.Id, *msg.Status)
+	fmt.Println(verification.Id, *verification.Status)
 }

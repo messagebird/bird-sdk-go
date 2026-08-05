@@ -95,7 +95,7 @@ func (s *EmailThreadsService) ListPage(ctx context.Context, params EmailThreadsL
 	return &out, nil
 }
 
-// List List mailbox conversations as a cursor page, most recently active first. `label` selects the view — inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
+// List List mailbox conversations as a cursor page, most recently active first. `label` selects the view: inbox (default), archive, spam, blocked, or a custom label. Filter by mailbox, contact, participant address, or subject substring.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailThreadsService) List(ctx context.Context, params EmailThreadsListParams, opts ...option.RequestOption) iter.Seq2[*EmailThread, error] {
@@ -123,7 +123,7 @@ func (s *EmailThreadsService) Get(ctx context.Context, threadId string, opts ...
 	return &out, nil
 }
 
-// Update Add or remove labels on a conversation — adding `spam` files it as spam, adding `archive` clears it out of the inbox, adding `inbox` brings it back — or link/unlink a contact.
+// Update Add or remove labels on a conversation, or link and unlink a contact. Adding `spam` files it as spam, `archive` clears it out of the inbox, and `inbox` brings it back.
 func (s *EmailThreadsService) Update(ctx context.Context, threadId string, params EmailThreadsUpdateParams, opts ...option.RequestOption) (*EmailThread, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailThreadParams{}

@@ -15,11 +15,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	msg, err := client.Email.Send(context.Background(), bird.EmailSendParams{
-		From:    "onboarding@messagebird.dev",
-		To:      []string{"delivered@messagebird.dev"},
-		Subject: "Hello World",
-		HTML:    "<p>You made your <strong>first email fly</strong>. Congratulations!</p>",
+	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
+		To:         "+15551234567",
+		Template:   "bird_otp_verification",
+		Parameters: map[string]any{"code": "493021"},
 	})
 	if err != nil {
 		log.Fatal(err)

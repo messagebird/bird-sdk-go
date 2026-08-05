@@ -670,7 +670,7 @@ func (s *EmailStatsService) ByMailboxProviderRegion(ctx context.Context, params 
 	return &out, nil
 }
 
-// ByTemplate Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. To track a single template over time, pass `template` to email_stats_daily instead.
+// ByTemplate Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from email_stats_daily with its `template` filter.
 func (s *EmailStatsService) ByTemplate(ctx context.Context, params EmailStatsByTemplateParams, opts ...option.RequestOption) (*EmailStatsByTemplateResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByTemplate(ctx, params.toWire(), cfg...)
@@ -715,7 +715,7 @@ func (s *EmailStatsService) ByClient(ctx context.Context, params EmailStatsByCli
 	return &out, nil
 }
 
-// ByBounceCode Bounce counts grouped by the SMTP error code the receiving server returned, with the hard/soft/admin/block/undetermined split; failure side only. Use it to find what is driving bounces; for bounces by destination use email_stats_by_recipient_domain or email_stats_by_mailbox_provider.
+// ByBounceCode Bounce counts grouped by the SMTP error code the receiving server returned, with the hard/soft/admin/block/undetermined split; failure side only. It shows what is driving bounces, while bounces by destination come from email_stats_by_recipient_domain or email_stats_by_mailbox_provider.
 func (s *EmailStatsService) ByBounceCode(ctx context.Context, params EmailStatsByBounceCodeParams, opts ...option.RequestOption) (*EmailStatsByBounceCodeResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByBounceCode(ctx, params.toWire(), cfg...)

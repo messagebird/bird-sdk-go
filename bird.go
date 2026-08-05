@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.21.1"
+	version = "0.22.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -212,6 +212,18 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 		}
 		return nil
 	}}
+}
+
+// realtimeEditors are callEditors plus the Realtime app credentials. Only the
+// Realtime resource uses them: a client configured with app credentials must not
+// put the app secret on an email or SMS request. realtimeConfig has already
+// checked both are present.
+func (c *Client) realtimeEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
+	return append(c.callEditors(cfg), func(_ context.Context, req *http.Request) error {
+		req.Header.Set("X-Realtime-Key", cfg.RealtimeKey)
+		req.Header.Set("X-Realtime-Secret", cfg.RealtimeSecret)
+		return nil
+	})
 }
 
 // isReservedHeader reports whether a header is owned by the SDK and so must not

@@ -108,7 +108,7 @@ func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string,
 	})
 }
 
-// Get Get one conversation message with its extracted plain text — readable for the mailbox's full retention period, no MIME parsing needed.
+// Get Get one conversation message with its extracted plain text, readable for the mailbox's full retention period without MIME parsing.
 func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThreadMessage(ctx, oapi.ThreadID(threadId), messageId, cfg...)

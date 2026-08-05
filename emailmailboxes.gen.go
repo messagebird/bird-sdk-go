@@ -60,7 +60,7 @@ type EmailMailboxesCreateParams struct {
 	DefaultReplyTo string
 	// Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy
-	// How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	// How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
 	RetentionTier *MailboxCreateRetentionTier
 	// Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
 	Metadata map[string]any
@@ -101,7 +101,7 @@ type EmailMailboxesUpdateParams struct {
 	DefaultReplyTo Nullable[string]
 	// Which inbound mail the mailbox accepts.
 	ReceivePolicy *MailboxUpdateReceivePolicy
-	// How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; longer tiers (`90d`, `1y`, and beyond) are coming soon.
+	// How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
 	RetentionTier *MailboxUpdateRetentionTier
 	// Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
 	Metadata map[string]any
@@ -182,7 +182,7 @@ func (s *EmailMailboxesService) List(ctx context.Context, params EmailMailboxesL
 	})
 }
 
-// Create Create a mailbox — a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
+// Create Create a mailbox: a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
 func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxesCreateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateMailboxParams{}
@@ -216,7 +216,7 @@ func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts 
 	return &out, nil
 }
 
-// Update Update a mailbox's display name, reply-to, receive policy, retention tier, contact, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
+// Update Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
 func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, params EmailMailboxesUpdateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWireParams()

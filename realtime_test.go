@@ -59,3 +59,27 @@ func TestRealtimeCredentialHeaders(t *testing.T) {
 		t.Errorf("credentials on the wire: got %q/%q, want rk_call/rs_call", gotKey, gotSecret)
 	}
 }
+
+// The app credentials are scoped to Realtime calls. A client configured with them
+// must not put the app secret on an unrelated request, where it would reach
+// proxies and logs that have no business seeing it.
+func TestRealtimeCredentialsNotSentOnOtherResources(t *testing.T) {
+	var gotKey, gotSecret string
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		gotKey = r.Header.Get("X-Realtime-Key")
+		gotSecret = r.Header.Get("X-Realtime-Secret")
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"id":"em_1"}`))
+	})
+	client := newClient(t, server, option.WithRealtimeCredentials("rk_client", "rs_client"))
+
+	_, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+		From: "hello@acme.com", To: []string{"customer@example.com"}, Subject: "hi", HTML: "<p>hi</p>",
+	})
+	if err != nil {
+		t.Fatalf("Email.Send: %v", err)
+	}
+	if gotKey != "" || gotSecret != "" {
+		t.Errorf("email send carried Realtime credentials: key=%q secret=%q", gotKey, gotSecret)
+	}
+}

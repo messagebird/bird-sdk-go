@@ -3,10 +3,11 @@ package bird
 import (
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/oapi-codegen/nullable"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // Ptr returns a pointer to v, for setting optional pointer fields inline. Bool,
-// String, and Int are typed shorthands for the common cases:
+// String, Int, and Email are typed shorthands for the common cases:
 //
 //	bird.EmailSendParams{TrackOpens: bird.Bool(false)}
 func Ptr[T any](v T) *T { return &v }
@@ -19,6 +20,16 @@ func String(v string) *string { return &v }
 
 // Int returns a pointer to v.
 func Int(v int) *int { return &v }
+
+// Email returns a pointer to v as an email-typed field. A schema's `format: email`
+// property is its own type on the wire, so bird.String does not fit one and Ptr
+// needs the conversion spelled out:
+//
+//	bird.VerificationTo{EmailAddress: bird.Email("user@example.com")}
+func Email(v string) *openapi_types.Email {
+	e := openapi_types.Email(v)
+	return &e
+}
 
 // Nullable is a nullable/clearable request-param field. It carries one of three
 // states: a value, an explicit JSON null (clears the field), or unspecified (the
