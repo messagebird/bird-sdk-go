@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.21.1
+
+- The five bespoke delete-blocked error codes (IPPoolContainsIPs, DomainHasMailboxes, AudienceInUse, TCRBrandHasCampaigns, ConfigurationInUse) are retired in favor of the single E01028 ResourceInUse. domains.delete may now return a 409 (Conflict), decoded as DeleteDomainResponse.JSON409, when the domain still has mailboxes bound to it.
+
 ## 0.21.0
 
 - Add a `datetime` contact property type: an RFC 3339 timestamp with an explicit offset.

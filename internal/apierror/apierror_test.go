@@ -40,15 +40,15 @@ func TestWireErrorCoversErrorBody(t *testing.T) {
 // typed error.
 func TestFromResponseSurfacesRecovery(t *testing.T) {
 	t.Parallel()
-	body := `{"error":{"type":"conflict_error","code":"E11003","message":"pool not empty",` +
-		`"remediation":"Reassign the pool's dedicated IPs, then delete it.",` +
+	body := `{"error":{"type":"conflict_error","code":"E01028","message":"resource still in use",` +
+		`"remediation":"Remove or reassign the resources that still reference this one, then retry the delete.",` +
 		`"next":[{"operation":"assignDedicatedIp","description":"Assign a dedicated IP","scope":"email:write"}]}}`
 	err := FromResponse(http.StatusConflict, []byte(body), http.Header{})
 	apiErr, ok := err.(*APIError)
 	if !ok {
 		t.Fatalf("FromResponse returned %T, want *APIError", err)
 	}
-	if apiErr.Remediation != "Reassign the pool's dedicated IPs, then delete it." {
+	if apiErr.Remediation != "Remove or reassign the resources that still reference this one, then retry the delete." {
 		t.Errorf("remediation not surfaced: %q", apiErr.Remediation)
 	}
 	if len(apiErr.Next) != 1 {
