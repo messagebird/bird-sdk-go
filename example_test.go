@@ -10,6 +10,8 @@ import (
 	"os"
 	"time"
 
+	openapi_types "github.com/oapi-codegen/runtime/types"
+
 	bird "github.com/messagebird/bird-sdk-go"
 	"github.com/messagebird/bird-sdk-go/option"
 )
@@ -457,14 +459,18 @@ func ExampleContactsService_Batch() {
 	}
 	result, err := client.Contacts.Batch(context.Background(), bird.ContactBatchParams{
 		Contacts: []bird.ContactCreateRequest{
-			{Email: "a@x.com"},
+			{Email: bird.Ptr(openapi_types.Email("a@x.com"))},
 		},
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, item := range result.Data {
-		fmt.Println(item.Email, item.Status)
+		email := ""
+		if item.Entry.Email != nil {
+			email = *item.Entry.Email
+		}
+		fmt.Println(email, item.Status)
 	}
 }
 

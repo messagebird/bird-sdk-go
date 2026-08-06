@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.0
+
+- Batch contact upserts now match each entry automatically on every identifier it carries (email, phone, or external_id), refusing entries whose identifiers belong to more than one contact; `match_on` (`email`, `phone`, or `external_id`) forces a single key. Result items echo what each entry supplied under a nested `entry` object (`email`, `phone`, `external_id`, null where absent, never the contact's current state), plus a top-level `matched_on` naming which identifier matched, null for created rows.
+- Failed rows in a batch contact upsert carry the specific error `code` (for example `E04058`, ambiguous match, versus `E04055`, phone taken) alongside `type` and `message`, so a sync can branch on which conflict it hit.
+- **Breaking (0.x):** `Contact.Channels` is removed: the field restated which identifiers are set under a reachability claim the platform cannot back. Read `Email`/`Phone` presence directly.
+- **Breaking (0.x):** `Contact.Email` becomes a pointer: a contact may be identified by an E.164 phone number instead of, or as well as, an email address. Contacts gain `Phone` and the contact list gains an exact `phone` filter.
+- Filter WhatsApp messages by `direction`. The unfiltered list returns the whole conversation, so `direction` narrows it to what you sent or what the contact sent you.
+
 ## 0.23.0
 
 - Voice call webhook payloads name the two parties from and to, replacing src_number and dst_number. A handler reading those fields on voice_call.initiated, voice_call.answered or voice_call.ended must rename them; every other field is unchanged.

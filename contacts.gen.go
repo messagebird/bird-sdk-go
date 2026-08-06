@@ -14,15 +14,19 @@ import (
 
 type ContactCreateRequest = oapi.ContactCreateRequest
 
+type ContactMatchKey = oapi.ContactMatchKey
+
 type ContactUpsertRequestDataMode = oapi.ContactUpsertRequestDataMode
 
 // ContactListParams filters the list. Zero-value fields are omitted.
 type ContactListParams struct {
-	// Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact.
+	// Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email string
-	// Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
+	// Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	Phone string
+	// Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalID string
-	// Case-insensitive substring match against the contact's email address, first name, or last name.
+	// Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
@@ -33,6 +37,7 @@ type ContactListParams struct {
 func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams {
 	return &oapi.ListContactsParams{
 		Email:         optStr(p.Email),
+		Phone:         optStr(p.Phone),
 		ExternalId:    optStr(p.ExternalID),
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
@@ -43,8 +48,10 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 
 // ContactCreateParams is the request body for create.
 type ContactCreateParams struct {
-	// The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
+	// The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
 	Email string
+	// The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+	Phone string
 	// The contact's first name.
 	FirstName string
 	// The contact's last name.
@@ -57,7 +64,12 @@ type ContactCreateParams struct {
 
 func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 	body := oapi.ContactCreateRequest{}
-	body.Email = openapi_types.Email(p.Email)
+	if p.Email != "" {
+		body.Email = Ptr(openapi_types.Email(p.Email))
+	}
+	if p.Phone != "" {
+		body.Phone = Ptr(p.Phone)
+	}
 	if p.FirstName != "" {
 		body.FirstName = Ptr(p.FirstName)
 	}
@@ -76,8 +88,10 @@ func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 
 // ContactUpdateParams is the request body for update.
 type ContactUpdateParams struct {
-	// New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
-	Email string
+	// New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+	Email Nullable[string]
+	// New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+	Phone Nullable[string]
 	// The contact's first name. Set to null to clear.
 	FirstName Nullable[string]
 	// The contact's last name. Set to null to clear.
@@ -90,9 +104,8 @@ type ContactUpdateParams struct {
 
 func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 	body := oapi.ContactUpdateRequest{}
-	if p.Email != "" {
-		body.Email = Ptr(openapi_types.Email(p.Email))
-	}
+	body.Email = p.Email
+	body.Phone = p.Phone
 	body.FirstName = p.FirstName
 	body.LastName = p.LastName
 	body.ExternalId = p.ExternalID
@@ -105,10 +118,12 @@ func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 
 // ContactBatchParams is the request body for batch.
 type ContactBatchParams struct {
-	// Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+	// Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
 	Contacts []ContactCreateRequest
 	// Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
 	AudienceIDs []string
+	// Optional. Forces every entry to be matched to an existing contact by this one field, which every entry must then carry. When omitted, each entry is matched automatically against every identifier it supplies: no match creates a contact, one match updates it, and an entry whose identifiers belong to more than one contact fails with an error naming each.
+	MatchOn *ContactMatchKey
 	// How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
 	DataMode *ContactUpsertRequestDataMode
 }
@@ -122,6 +137,9 @@ func (p ContactBatchParams) toWire() oapi.ContactUpsertRequest {
 	}
 	if len(audienceIds) > 0 {
 		body.AudienceIds = &audienceIds
+	}
+	if p.MatchOn != nil {
+		body.MatchOn = p.MatchOn
 	}
 	if p.DataMode != nil {
 		body.DataMode = p.DataMode
@@ -145,7 +163,7 @@ func (s *ContactsService) ListPage(ctx context.Context, params ContactListParams
 	return &out, nil
 }
 
-// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email or external_id, or search by email/name substring. Pass include_total for a total count.
+// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email, phone, or external_id, or search by email, name, or phone substring. Pass include_total for a total count.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *ContactsService) List(ctx context.Context, params ContactListParams, opts ...option.RequestOption) iter.Seq2[*Contact, error] {
@@ -158,7 +176,7 @@ func (s *ContactsService) List(ctx context.Context, params ContactListParams, op
 	})
 }
 
-// Get Get a single contact by ID (`con_`-prefixed). Look up an ID by exact email or external_id with `contacts.list`.
+// Get Get a single contact by ID (`con_`-prefixed). Look up an ID by exact email, phone, or external_id with `contacts.list`.
 func (s *ContactsService) Get(ctx context.Context, contactId string, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetContact(ctx, oapi.ContactID(contactId), cfg...)
@@ -173,7 +191,7 @@ func (s *ContactsService) Get(ctx context.Context, contactId string, opts ...opt
 	return &out, nil
 }
 
-// Create Create a contact by email address in the workspace. Fails with a conflict if the email or external_id is already used by another contact. For bulk import or create-or-update semantics use `contacts.batch`.
+// Create Create a contact identified by an email address, an E.164 phone number, or both. Fails with a conflict if the email, phone, or external_id is already used by another contact. For bulk import or create-or-update semantics use `contacts.batch`.
 func (s *ContactsService) Create(ctx context.Context, params ContactCreateParams, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateContactParams{}
@@ -192,7 +210,7 @@ func (s *ContactsService) Create(ctx context.Context, params ContactCreateParams
 	return &out, nil
 }
 
-// Update Update a contact's name, external_id, email, or custom data. Only supplied fields change; custom data keys are merged, with null removing a key.
+// Update Update a contact's name, external_id, email, phone, or custom data. Only supplied fields change; custom data keys are merged, with null removing a key. A contact keeps at least one identifier: clearing both email and phone is rejected.
 func (s *ContactsService) Update(ctx context.Context, contactId string, params ContactUpdateParams, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateContactParams{}
@@ -223,7 +241,7 @@ func (s *ContactsService) Delete(ctx context.Context, contactId string, opts ...
 	return err
 }
 
-// Batch Create or update up to 1,000 contacts in one request, matched by email address, and optionally add them all to one or more audiences. Per-contact results are returned in submission order.
+// Batch Create or update up to 1,000 contacts in one request, each entry matched automatically against every identifier it supplies (email, phone, external_id) or, with match_on, by that one field only, and optionally add them all to one or more audiences. Per-contact results are returned in submission order.
 func (s *ContactsService) Batch(ctx context.Context, params ContactBatchParams, opts ...option.RequestOption) (*ContactUpsertResult, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateContactBatchParams{}

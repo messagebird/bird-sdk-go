@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	version = "0.23.0"
+	version = "0.24.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -121,9 +121,9 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Email.Threads = &EmailThreadsService{resource: resource{client: c}}
 	c.Email.Threads.Messages = &EmailThreadsMessagesService{resource{client: c}}
 	c.Realtime = &RealtimeService{
-		client:   c,
-		Channels: &RealtimeChannelsService{client: c},
-		Members:  &RealtimeMembersService{client: c},
+		resource: resource{client: c},
+		Channels: &RealtimeChannelsService{resource{client: c}},
+		Members:  &RealtimeMembersService{resource{client: c}},
 	}
 	return c, nil
 }
@@ -214,16 +214,52 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 	}}
 }
 
-// realtimeEditors are callEditors plus the Realtime app credentials. Only the
-// Realtime resource uses them: a client configured with app credentials must not
-// put the app secret on an email or SMS request. realtimeConfig has already
-// checked both are present.
-func (c *Client) realtimeEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
+// credentialScheme is one extra credential an operation can require: the header it
+// travels in, the configured value, and how a caller supplies it.
+type credentialScheme struct {
+	header string
+	value  string
+	how    string
+}
+
+// credentialSchemeFor resolves a security-scheme name to its credential. One case
+// per apiKey-in-header scheme the API declares; a generated method names the
+// schemes its operation requires and never carries the values itself.
+func credentialSchemeFor(cfg requestconfig.Config, scheme string) (credentialScheme, bool) {
+	switch scheme {
+	case "RealtimeKey":
+		return credentialScheme{"X-Realtime-Key", cfg.RealtimeKey, "option.WithRealtimeCredentials"}, true
+	case "RealtimeSecret":
+		return credentialScheme{"X-Realtime-Secret", cfg.RealtimeSecret, "option.WithRealtimeCredentials"}, true
+	}
+	return credentialScheme{}, false
+}
+
+// credentialEditors are callEditors plus the extra credentials an operation
+// declares. Resolving per operation keeps a credential off every other request —
+// a client holding app credentials must not put the app secret on an email send —
+// and failing here means a missing one is a named error, not a 401.
+func (c *Client) credentialEditors(cfg requestconfig.Config, schemes []string) ([]oapi.RequestEditorFn, error) {
+	if len(schemes) == 0 {
+		return c.callEditors(cfg), nil
+	}
+	creds := make([]credentialScheme, 0, len(schemes))
+	for _, name := range schemes {
+		cred, known := credentialSchemeFor(cfg, name)
+		if !known {
+			return nil, fmt.Errorf("bird: unknown credential scheme %q", name)
+		}
+		if cred.value == "" {
+			return nil, fmt.Errorf("bird: %s is required for this operation; pass %s", cred.header, cred.how)
+		}
+		creds = append(creds, cred)
+	}
 	return append(c.callEditors(cfg), func(_ context.Context, req *http.Request) error {
-		req.Header.Set("X-Realtime-Key", cfg.RealtimeKey)
-		req.Header.Set("X-Realtime-Secret", cfg.RealtimeSecret)
+		for _, cred := range creds {
+			req.Header.Set(cred.header, cred.value)
+		}
 		return nil
-	})
+	}), nil
 }
 
 // isReservedHeader reports whether a header is owned by the SDK and so must not

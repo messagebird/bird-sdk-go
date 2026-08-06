@@ -69,15 +69,45 @@ func (e AudienceCreateRequestType) Valid() bool {
 	}
 }
 
-// Defines values for ContactChannel.
+// Defines values for ContactMatchKey.
 const (
-	ContactChannelEmail ContactChannel = "email"
+	ContactMatchKeyEmail      ContactMatchKey = "email"
+	ContactMatchKeyExternalId ContactMatchKey = "external_id"
+	ContactMatchKeyPhone      ContactMatchKey = "phone"
 )
 
-// Valid indicates whether the value is a known member of the ContactChannel enum.
-func (e ContactChannel) Valid() bool {
+// Valid indicates whether the value is a known member of the ContactMatchKey enum.
+func (e ContactMatchKey) Valid() bool {
 	switch e {
-	case ContactChannelEmail:
+	case ContactMatchKeyEmail:
+		return true
+	case ContactMatchKeyExternalId:
+		return true
+	case ContactMatchKeyPhone:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ContactMatchedOn.
+const (
+	ContactMatchedOnEmail       ContactMatchedOn = "email"
+	ContactMatchedOnExternalId  ContactMatchedOn = "external_id"
+	ContactMatchedOnLessThannil ContactMatchedOn = "<nil>"
+	ContactMatchedOnPhone       ContactMatchedOn = "phone"
+)
+
+// Valid indicates whether the value is a known member of the ContactMatchedOn enum.
+func (e ContactMatchedOn) Valid() bool {
+	switch e {
+	case ContactMatchedOnEmail:
+		return true
+	case ContactMatchedOnExternalId:
+		return true
+	case ContactMatchedOnLessThannil:
+		return true
+	case ContactMatchedOnPhone:
 		return true
 	default:
 		return false
@@ -1698,66 +1728,6 @@ func (e EventSMSSentType) Valid() bool {
 	}
 }
 
-// Defines values for EventSMSTfnVerificationApprovedType.
-const (
-	SmsTfnVerificationApproved EventSMSTfnVerificationApprovedType = "sms.tfn_verification.approved"
-)
-
-// Valid indicates whether the value is a known member of the EventSMSTfnVerificationApprovedType enum.
-func (e EventSMSTfnVerificationApprovedType) Valid() bool {
-	switch e {
-	case SmsTfnVerificationApproved:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventSMSTfnVerificationInfoRequestedType.
-const (
-	SmsTfnVerificationInfoRequested EventSMSTfnVerificationInfoRequestedType = "sms.tfn_verification.info_requested"
-)
-
-// Valid indicates whether the value is a known member of the EventSMSTfnVerificationInfoRequestedType enum.
-func (e EventSMSTfnVerificationInfoRequestedType) Valid() bool {
-	switch e {
-	case SmsTfnVerificationInfoRequested:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventSMSTfnVerificationRejectedType.
-const (
-	SmsTfnVerificationRejected EventSMSTfnVerificationRejectedType = "sms.tfn_verification.rejected"
-)
-
-// Valid indicates whether the value is a known member of the EventSMSTfnVerificationRejectedType enum.
-func (e EventSMSTfnVerificationRejectedType) Valid() bool {
-	switch e {
-	case SmsTfnVerificationRejected:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventSMSTfnVerificationSubmittedType.
-const (
-	SmsTfnVerificationSubmitted EventSMSTfnVerificationSubmittedType = "sms.tfn_verification.submitted"
-)
-
-// Valid indicates whether the value is a known member of the EventSMSTfnVerificationSubmittedType enum.
-func (e EventSMSTfnVerificationSubmittedType) Valid() bool {
-	switch e {
-	case SmsTfnVerificationSubmitted:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for EventSMSUndeliveredType.
 const (
 	SmsUndelivered EventSMSUndeliveredType = "sms.undelivered"
@@ -3002,55 +2972,51 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 
 // Defines values for WebhookEventType.
 const (
-	EventTypeDomainFailed                    WebhookEventType = "domain.failed"
-	EventTypeDomainVerified                  WebhookEventType = "domain.verified"
-	EventTypeEmailAccepted                   WebhookEventType = "email.accepted"
-	EventTypeEmailBounced                    WebhookEventType = "email.bounced"
-	EventTypeEmailCanceled                   WebhookEventType = "email.canceled"
-	EventTypeEmailClicked                    WebhookEventType = "email.clicked"
-	EventTypeEmailComplained                 WebhookEventType = "email.complained"
-	EventTypeEmailDeferred                   WebhookEventType = "email.deferred"
-	EventTypeEmailDelivered                  WebhookEventType = "email.delivered"
-	EventTypeEmailListUnsubscribed           WebhookEventType = "email.list_unsubscribed"
-	EventTypeEmailMailboxMessageDelivered    WebhookEventType = "email_mailbox.message_delivered"
-	EventTypeEmailMailboxMessageFailed       WebhookEventType = "email_mailbox.message_failed"
-	EventTypeEmailMailboxMessageReceived     WebhookEventType = "email_mailbox.message_received"
-	EventTypeEmailMailboxMessageSent         WebhookEventType = "email_mailbox.message_sent"
-	EventTypeEmailMailboxSuspended           WebhookEventType = "email_mailbox.suspended"
-	EventTypeEmailMailboxThreadCreated       WebhookEventType = "email_mailbox.thread_created"
-	EventTypeEmailOpened                     WebhookEventType = "email.opened"
-	EventTypeEmailOutOfBandBounce            WebhookEventType = "email.out_of_band_bounce"
-	EventTypeEmailProcessed                  WebhookEventType = "email.processed"
-	EventTypeEmailReceived                   WebhookEventType = "email.received"
-	EventTypeEmailRejected                   WebhookEventType = "email.rejected"
-	EventTypeEmailScheduled                  WebhookEventType = "email.scheduled"
-	EventTypeEmailSuppressionCreated         WebhookEventType = "email_suppression.created"
-	EventTypeEmailUnsubscribed               WebhookEventType = "email.unsubscribed"
-	EventTypeSmsAccepted                     WebhookEventType = "sms.accepted"
-	EventTypeSmsDelivered                    WebhookEventType = "sms.delivered"
-	EventTypeSmsExpired                      WebhookEventType = "sms.expired"
-	EventTypeSmsFailed                       WebhookEventType = "sms.failed"
-	EventTypeSmsRejected                     WebhookEventType = "sms.rejected"
-	EventTypeSmsSent                         WebhookEventType = "sms.sent"
-	EventTypeSmsTfnVerificationApproved      WebhookEventType = "sms.tfn_verification.approved"
-	EventTypeSmsTfnVerificationInfoRequested WebhookEventType = "sms.tfn_verification.info_requested"
-	EventTypeSmsTfnVerificationRejected      WebhookEventType = "sms.tfn_verification.rejected"
-	EventTypeSmsTfnVerificationSubmitted     WebhookEventType = "sms.tfn_verification.submitted"
-	EventTypeSmsUndelivered                  WebhookEventType = "sms.undelivered"
-	EventTypeVerifyAttemptDelivered          WebhookEventType = "verify.attempt.delivered"
-	EventTypeVerifyAttemptSent               WebhookEventType = "verify.attempt.sent"
-	EventTypeVerifyAttemptUndelivered        WebhookEventType = "verify.attempt.undelivered"
-	EventTypeVerifyVerificationCreated       WebhookEventType = "verify.verification.created"
-	EventTypeVerifyVerificationVerified      WebhookEventType = "verify.verification.verified"
-	EventTypeVoiceCallAnswered               WebhookEventType = "voice_call.answered"
-	EventTypeVoiceCallEnded                  WebhookEventType = "voice_call.ended"
-	EventTypeVoiceCallInitiated              WebhookEventType = "voice_call.initiated"
-	EventTypeWhatsappAccepted                WebhookEventType = "whatsapp.accepted"
-	EventTypeWhatsappDelivered               WebhookEventType = "whatsapp.delivered"
-	EventTypeWhatsappFailed                  WebhookEventType = "whatsapp.failed"
-	EventTypeWhatsappRead                    WebhookEventType = "whatsapp.read"
-	EventTypeWhatsappRejected                WebhookEventType = "whatsapp.rejected"
-	EventTypeWhatsappSent                    WebhookEventType = "whatsapp.sent"
+	EventTypeDomainFailed                 WebhookEventType = "domain.failed"
+	EventTypeDomainVerified               WebhookEventType = "domain.verified"
+	EventTypeEmailAccepted                WebhookEventType = "email.accepted"
+	EventTypeEmailBounced                 WebhookEventType = "email.bounced"
+	EventTypeEmailCanceled                WebhookEventType = "email.canceled"
+	EventTypeEmailClicked                 WebhookEventType = "email.clicked"
+	EventTypeEmailComplained              WebhookEventType = "email.complained"
+	EventTypeEmailDeferred                WebhookEventType = "email.deferred"
+	EventTypeEmailDelivered               WebhookEventType = "email.delivered"
+	EventTypeEmailListUnsubscribed        WebhookEventType = "email.list_unsubscribed"
+	EventTypeEmailMailboxMessageDelivered WebhookEventType = "email_mailbox.message_delivered"
+	EventTypeEmailMailboxMessageFailed    WebhookEventType = "email_mailbox.message_failed"
+	EventTypeEmailMailboxMessageReceived  WebhookEventType = "email_mailbox.message_received"
+	EventTypeEmailMailboxMessageSent      WebhookEventType = "email_mailbox.message_sent"
+	EventTypeEmailMailboxSuspended        WebhookEventType = "email_mailbox.suspended"
+	EventTypeEmailMailboxThreadCreated    WebhookEventType = "email_mailbox.thread_created"
+	EventTypeEmailOpened                  WebhookEventType = "email.opened"
+	EventTypeEmailOutOfBandBounce         WebhookEventType = "email.out_of_band_bounce"
+	EventTypeEmailProcessed               WebhookEventType = "email.processed"
+	EventTypeEmailReceived                WebhookEventType = "email.received"
+	EventTypeEmailRejected                WebhookEventType = "email.rejected"
+	EventTypeEmailScheduled               WebhookEventType = "email.scheduled"
+	EventTypeEmailSuppressionCreated      WebhookEventType = "email_suppression.created"
+	EventTypeEmailUnsubscribed            WebhookEventType = "email.unsubscribed"
+	EventTypeSmsAccepted                  WebhookEventType = "sms.accepted"
+	EventTypeSmsDelivered                 WebhookEventType = "sms.delivered"
+	EventTypeSmsExpired                   WebhookEventType = "sms.expired"
+	EventTypeSmsFailed                    WebhookEventType = "sms.failed"
+	EventTypeSmsRejected                  WebhookEventType = "sms.rejected"
+	EventTypeSmsSent                      WebhookEventType = "sms.sent"
+	EventTypeSmsUndelivered               WebhookEventType = "sms.undelivered"
+	EventTypeVerifyAttemptDelivered       WebhookEventType = "verify.attempt.delivered"
+	EventTypeVerifyAttemptSent            WebhookEventType = "verify.attempt.sent"
+	EventTypeVerifyAttemptUndelivered     WebhookEventType = "verify.attempt.undelivered"
+	EventTypeVerifyVerificationCreated    WebhookEventType = "verify.verification.created"
+	EventTypeVerifyVerificationVerified   WebhookEventType = "verify.verification.verified"
+	EventTypeVoiceCallAnswered            WebhookEventType = "voice_call.answered"
+	EventTypeVoiceCallEnded               WebhookEventType = "voice_call.ended"
+	EventTypeVoiceCallInitiated           WebhookEventType = "voice_call.initiated"
+	EventTypeWhatsappAccepted             WebhookEventType = "whatsapp.accepted"
+	EventTypeWhatsappDelivered            WebhookEventType = "whatsapp.delivered"
+	EventTypeWhatsappFailed               WebhookEventType = "whatsapp.failed"
+	EventTypeWhatsappRead                 WebhookEventType = "whatsapp.read"
+	EventTypeWhatsappRejected             WebhookEventType = "whatsapp.rejected"
+	EventTypeWhatsappSent                 WebhookEventType = "whatsapp.sent"
 )
 
 // Valid indicates whether the value is a known member of the WebhookEventType enum.
@@ -3115,14 +3081,6 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeSmsRejected:
 		return true
 	case EventTypeSmsSent:
-		return true
-	case EventTypeSmsTfnVerificationApproved:
-		return true
-	case EventTypeSmsTfnVerificationInfoRequested:
-		return true
-	case EventTypeSmsTfnVerificationRejected:
-		return true
-	case EventTypeSmsTfnVerificationSubmitted:
 		return true
 	case EventTypeSmsUndelivered:
 		return true
@@ -3699,15 +3657,13 @@ type AudienceUpdateRequest struct {
 
 // Contact defines model for Contact.
 type Contact struct {
-	// Channels Channels this contact can be reached on, derived from the identifiers it has. A contact with an email address includes `email`. More values are added as a contact gains identifiers for other channels.
-	Channels  *[]ContactChannel `json:"channels,omitempty"`
-	CreatedAt *time.Time        `json:"created_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email The contact's email address, stored trimmed and lowercased. Unique within the workspace.
-	Email openapi_types.Email `json:"email"`
+	// Email The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
+	Email *openapi_types.Email `json:"email"`
 
 	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalId *string `json:"external_id,omitempty"`
@@ -3717,20 +3673,20 @@ type Contact struct {
 	Id        ContactID `json:"id"`
 
 	// LastName The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
-	LastName  *string    `json:"last_name,omitempty"`
+	LastName *string `json:"last_name,omitempty"`
+
+	// Phone The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+	Phone     *string    `json:"phone"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
-
-// ContactChannel A channel a contact can be reached on. Open enum: `email` is present when the contact has an email address; more values (`sms`, `whatsapp`, `voice`) are added as contacts gain identifiers for other channels. Treat any unrecognized value as a future channel rather than an error. Slugs match `ChannelSlug`.
-type ContactChannel string
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
 	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace.
-	Email openapi_types.Email `json:"email"`
+	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
+	Email *openapi_types.Email `json:"email,omitempty"`
 
 	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalId *string `json:"external_id,omitempty"`
@@ -3740,6 +3696,9 @@ type ContactCreateRequest struct {
 
 	// LastName The contact's last name.
 	LastName *string `json:"last_name,omitempty"`
+
+	// Phone The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+	Phone *string `json:"phone,omitempty"`
 }
 
 // ContactID defines model for ContactID.
@@ -3762,6 +3721,12 @@ type ContactList struct {
 	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
 	Total *int64 `json:"total,omitempty"`
 }
+
+// ContactMatchKey A contact identifier a batch entry can be matched on.
+type ContactMatchKey string
+
+// ContactMatchedOn Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+type ContactMatchedOn string
 
 // ContactProperty defines model for ContactProperty.
 type ContactProperty struct {
@@ -3831,8 +3796,8 @@ type ContactUpdateRequest struct {
 	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; a contact's email cannot be removed.
-	Email *openapi_types.Email `json:"email,omitempty"`
+	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+	Email nullable.Nullable[string] `json:"email,omitempty"`
 
 	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
 	ExternalId nullable.Nullable[string] `json:"external_id,omitempty"`
@@ -3842,10 +3807,28 @@ type ContactUpdateRequest struct {
 
 	// LastName The contact's last name. Set to null to clear.
 	LastName nullable.Nullable[string] `json:"last_name,omitempty"`
+
+	// Phone New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+	Phone nullable.Nullable[string] `json:"phone,omitempty"`
+}
+
+// ContactUpsertEntry The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+type ContactUpsertEntry struct {
+	// Email Email address this entry carried, trimmed and lowercased. Null when the entry carried none.
+	Email *string `json:"email"`
+
+	// ExternalId Your own identifier for this entry, when the entry supplied one.
+	ExternalId *string `json:"external_id"`
+
+	// Phone Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+	Phone *string `json:"phone"`
 }
 
 // ContactUpsertError defines model for ContactUpsertError.
 type ContactUpsertError struct {
+	// Code The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+	Code string `json:"code"`
+
 	// Message Human-readable explanation of why this entry failed.
 	Message string `json:"message"`
 
@@ -3858,11 +3841,14 @@ type ContactUpsertRequest struct {
 	// AudienceIds Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
 	AudienceIds *[]AudienceID `json:"audience_ids,omitempty"`
 
-	// Contacts Contacts to create or update, matched by email address. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. New addresses create contacts.
+	// Contacts Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
 	Contacts []ContactCreateRequest `json:"contacts"`
 
 	// DataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
 	DataMode *ContactUpsertRequestDataMode `json:"data_mode,omitempty"`
+
+	// MatchOn A contact identifier a batch entry can be matched on.
+	MatchOn *ContactMatchKey `json:"match_on,omitempty"`
 }
 
 // ContactUpsertRequestDataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
@@ -3878,9 +3864,12 @@ type ContactUpsertResult struct {
 type ContactUpsertResultItem struct {
 	ContactId *ContactID `json:"contact_id,omitempty"`
 
-	// Email Email address this entry refers to, in the normalized (trimmed and lowercased) form it was matched and stored as.
-	Email openapi_types.Email `json:"email"`
+	// Entry The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+	Entry ContactUpsertEntry  `json:"entry"`
 	Error *ContactUpsertError `json:"error,omitempty"`
+
+	// MatchedOn Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+	MatchedOn *ContactMatchedOn `json:"matched_on"`
 
 	// Status What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
 	Status ContactUpsertResultItemStatus `json:"status"`
@@ -7006,100 +6995,6 @@ type EventSMSSentData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventSMSTfnVerificationApproved The carrier approved a toll-free number verification; the number can now send in its licensed countries.
-type EventSMSTfnVerificationApproved struct {
-	// Data Payload of the sms.tfn_verification.approved event.
-	Data EventSMSTfnVerificationApprovedData `json:"data"`
-
-	// Timestamp Time the approval was recorded.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventSMSTfnVerificationApprovedType `json:"type"`
-}
-
-// EventSMSTfnVerificationApprovedType Event type.
-type EventSMSTfnVerificationApprovedType string
-
-// EventSMSTfnVerificationApprovedData Identity fields shared by every toll-free verification event payload.
-type EventSMSTfnVerificationApprovedData = EventSMSTfnVerificationBase
-
-// EventSMSTfnVerificationBase Identity fields shared by every toll-free verification event payload.
-type EventSMSTfnVerificationBase struct {
-	SenderId SMSSenderID `json:"sender_id"`
-
-	// Status Lifecycle state of the verification at the time of the event.
-	Status         string            `json:"status"`
-	VerificationId TFNVerificationID `json:"verification_id"`
-	WorkspaceId    WorkspaceID       `json:"workspace_id"`
-}
-
-// EventSMSTfnVerificationInfoRequested The carrier requested more information before deciding a toll-free number verification.
-type EventSMSTfnVerificationInfoRequested struct {
-	// Data Payload of the sms.tfn_verification.info_requested event.
-	Data EventSMSTfnVerificationInfoRequestedData `json:"data"`
-
-	// Timestamp Time the information request was recorded.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventSMSTfnVerificationInfoRequestedType `json:"type"`
-}
-
-// EventSMSTfnVerificationInfoRequestedType Event type.
-type EventSMSTfnVerificationInfoRequestedType string
-
-// EventSMSTfnVerificationInfoRequestedData Identity fields shared by every toll-free verification event payload.
-type EventSMSTfnVerificationInfoRequestedData = EventSMSTfnVerificationBase
-
-// EventSMSTfnVerificationRejected The carrier rejected a toll-free number verification; the number cannot send until an accepted verification is approved.
-type EventSMSTfnVerificationRejected struct {
-	// Data Payload of the sms.tfn_verification.rejected event.
-	Data EventSMSTfnVerificationRejectedData `json:"data"`
-
-	// Timestamp Time the rejection was recorded.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventSMSTfnVerificationRejectedType `json:"type"`
-}
-
-// EventSMSTfnVerificationRejectedType Event type.
-type EventSMSTfnVerificationRejectedType string
-
-// EventSMSTfnVerificationRejectedData defines model for EventSMSTfnVerificationRejectedData.
-type EventSMSTfnVerificationRejectedData struct {
-	// DenialReasons Human-readable reasons the carrier gave for the rejection.
-	DenialReasons []string `json:"denial_reasons"`
-
-	// ResubmitAllowed Whether the verification may be corrected and resubmitted within the resubmission window.
-	ResubmitAllowed bool        `json:"resubmit_allowed"`
-	SenderId        SMSSenderID `json:"sender_id"`
-
-	// Status Lifecycle state of the verification at the time of the event.
-	Status         string            `json:"status"`
-	VerificationId TFNVerificationID `json:"verification_id"`
-	WorkspaceId    WorkspaceID       `json:"workspace_id"`
-}
-
-// EventSMSTfnVerificationSubmitted A toll-free number verification was submitted to the carrier for review.
-type EventSMSTfnVerificationSubmitted struct {
-	// Data Payload of the sms.tfn_verification.submitted event.
-	Data EventSMSTfnVerificationSubmittedData `json:"data"`
-
-	// Timestamp Time the verification was submitted.
-	Timestamp time.Time `json:"timestamp"`
-
-	// Type Event type.
-	Type EventSMSTfnVerificationSubmittedType `json:"type"`
-}
-
-// EventSMSTfnVerificationSubmittedType Event type.
-type EventSMSTfnVerificationSubmittedType string
-
-// EventSMSTfnVerificationSubmittedData Identity fields shared by every toll-free verification event payload.
-type EventSMSTfnVerificationSubmittedData = EventSMSTfnVerificationBase
-
 // EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message.
 type EventSMSUndelivered struct {
 	// Data Payload of the sms.undelivered event.
@@ -8673,9 +8568,6 @@ type SMSSegments struct {
 // SMSSegmentsEncoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
 type SMSSegmentsEncoding string
 
-// SMSSenderID defines model for SMSSenderID.
-type SMSSenderID = string
-
 // SMSTemplate defines model for SMSTemplate.
 type SMSTemplate struct {
 	// AvailableLanguages The languages this template is available in, as BCP-47 tags.
@@ -8828,9 +8720,6 @@ type SuppressionScope struct {
 
 // SuppressionScopeType The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
 type SuppressionScopeType string
-
-// TFNVerificationID defines model for TFNVerificationID.
-type TFNVerificationID = string
 
 // Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
 // Tag count and per-tag size are capped to keep per-send tag payloads small — see the send request for the array maximum. Tag names are unique within a send; supplying the same name twice is rejected.
@@ -9304,7 +9193,7 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
-	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
+	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -9319,7 +9208,7 @@ type WhatsAppEventList struct {
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
-	// Cost Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the template category and the recipient's country.
+	// Cost Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
 	Cost *Money `json:"cost,omitempty"`
 
 	// CreatedAt When the message was accepted for delivery.
@@ -9379,7 +9268,7 @@ type WhatsAppMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// WhatsAppMessageSendRequest defines model for WhatsAppMessageSendRequest.
+// WhatsAppMessageSendRequest A WhatsApp message to send. Carry exactly one kind of content: a request with none returns a `422` `WhatsAppContentRequired`, and one carrying more than one returns a `422` `WhatsAppContentAmbiguous`. The schema does not express that constraint, because which combinations are available depends on the content types your workspace can send.
 type WhatsAppMessageSendRequest struct {
 	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -9387,14 +9276,14 @@ type WhatsAppMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send. Bird selects the sender number from the template's category, so there is no sender field on this request. Templates are the only supported content type today: a request without one is rejected with a `422`.
+	// Template The template to send. For a Bird-managed template, Bird selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
 	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
 	To string `json:"to"`
 }
 
-// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (an inbound message, `direction: inbound`, sent to you by a contact).
+// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (a message a contact sent you).
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -9641,7 +9530,7 @@ type UpdateAudienceParams struct {
 
 // ListAudienceContactsParams defines parameters for ListAudienceContacts.
 type ListAudienceContactsParams struct {
-	// Q Case-insensitive substring match against the member's email address.
+	// Q Case-insensitive substring match against the member's email address or phone number (digits of the international form).
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -9766,13 +9655,16 @@ type UnarchiveContactPropertyParams struct {
 
 // ListContactsParams defines parameters for ListContacts.
 type ListContactsParams struct {
-	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact.
+	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email *string `form:"email,omitempty" json:"email,omitempty"`
 
-	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact.
+	// Phone Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	Phone *string `form:"phone,omitempty" json:"phone,omitempty"`
+
+	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
 
-	// Q Case-insensitive substring match against the contact's email address, first name, or last name.
+	// Q Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -10950,6 +10842,9 @@ type ListWhatsAppMessagesParams struct {
 
 	// Status Filter by status. Repeat the parameter to match any of several statuses.
 	Status *[]WhatsAppMessageStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Direction Filter by whether the business sent the message (`outbound`) or received it from the contact (`inbound`).
+	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
 	// PhoneNumber Filter by contact phone number (E.164 exact match).
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
@@ -12586,118 +12481,6 @@ func (t *WebhookEvent) MergeEventSMSSent(v EventSMSSent) error {
 	return err
 }
 
-// AsEventSMSTfnVerificationApproved returns the union data inside the WebhookEvent as a EventSMSTfnVerificationApproved
-func (t WebhookEvent) AsEventSMSTfnVerificationApproved() (EventSMSTfnVerificationApproved, error) {
-	var body EventSMSTfnVerificationApproved
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventSMSTfnVerificationApproved overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationApproved
-func (t *WebhookEvent) FromEventSMSTfnVerificationApproved(v EventSMSTfnVerificationApproved) error {
-	v.Type = "sms.tfn_verification.approved"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventSMSTfnVerificationApproved performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationApproved
-func (t *WebhookEvent) MergeEventSMSTfnVerificationApproved(v EventSMSTfnVerificationApproved) error {
-	v.Type = "sms.tfn_verification.approved"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsEventSMSTfnVerificationInfoRequested returns the union data inside the WebhookEvent as a EventSMSTfnVerificationInfoRequested
-func (t WebhookEvent) AsEventSMSTfnVerificationInfoRequested() (EventSMSTfnVerificationInfoRequested, error) {
-	var body EventSMSTfnVerificationInfoRequested
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventSMSTfnVerificationInfoRequested overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationInfoRequested
-func (t *WebhookEvent) FromEventSMSTfnVerificationInfoRequested(v EventSMSTfnVerificationInfoRequested) error {
-	v.Type = "sms.tfn_verification.info_requested"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventSMSTfnVerificationInfoRequested performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationInfoRequested
-func (t *WebhookEvent) MergeEventSMSTfnVerificationInfoRequested(v EventSMSTfnVerificationInfoRequested) error {
-	v.Type = "sms.tfn_verification.info_requested"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsEventSMSTfnVerificationRejected returns the union data inside the WebhookEvent as a EventSMSTfnVerificationRejected
-func (t WebhookEvent) AsEventSMSTfnVerificationRejected() (EventSMSTfnVerificationRejected, error) {
-	var body EventSMSTfnVerificationRejected
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventSMSTfnVerificationRejected overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationRejected
-func (t *WebhookEvent) FromEventSMSTfnVerificationRejected(v EventSMSTfnVerificationRejected) error {
-	v.Type = "sms.tfn_verification.rejected"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventSMSTfnVerificationRejected performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationRejected
-func (t *WebhookEvent) MergeEventSMSTfnVerificationRejected(v EventSMSTfnVerificationRejected) error {
-	v.Type = "sms.tfn_verification.rejected"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
-// AsEventSMSTfnVerificationSubmitted returns the union data inside the WebhookEvent as a EventSMSTfnVerificationSubmitted
-func (t WebhookEvent) AsEventSMSTfnVerificationSubmitted() (EventSMSTfnVerificationSubmitted, error) {
-	var body EventSMSTfnVerificationSubmitted
-	err := json.Unmarshal(t.union, &body)
-	return body, err
-}
-
-// FromEventSMSTfnVerificationSubmitted overwrites any union data inside the WebhookEvent as the provided EventSMSTfnVerificationSubmitted
-func (t *WebhookEvent) FromEventSMSTfnVerificationSubmitted(v EventSMSTfnVerificationSubmitted) error {
-	v.Type = "sms.tfn_verification.submitted"
-	b, err := json.Marshal(v)
-	t.union = b
-	return err
-}
-
-// MergeEventSMSTfnVerificationSubmitted performs a merge with any union data inside the WebhookEvent, using the provided EventSMSTfnVerificationSubmitted
-func (t *WebhookEvent) MergeEventSMSTfnVerificationSubmitted(v EventSMSTfnVerificationSubmitted) error {
-	v.Type = "sms.tfn_verification.submitted"
-	b, err := json.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	merged, err := runtime.JSONMerge(t.union, b)
-	t.union = merged
-	return err
-}
-
 // AsEventSMSUndelivered returns the union data inside the WebhookEvent as a EventSMSUndelivered
 func (t WebhookEvent) AsEventSMSUndelivered() (EventSMSUndelivered, error) {
 	var body EventSMSUndelivered
@@ -13192,14 +12975,6 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSRejected()
 	case "sms.sent":
 		return t.AsEventSMSSent()
-	case "sms.tfn_verification.approved":
-		return t.AsEventSMSTfnVerificationApproved()
-	case "sms.tfn_verification.info_requested":
-		return t.AsEventSMSTfnVerificationInfoRequested()
-	case "sms.tfn_verification.rejected":
-		return t.AsEventSMSTfnVerificationRejected()
-	case "sms.tfn_verification.submitted":
-		return t.AsEventSMSTfnVerificationSubmitted()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
 	case "verify.attempt.delivered":
@@ -16095,6 +15870,18 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 		if params.Email != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "email", *params.Email, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Phone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone", *params.Phone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -22026,6 +21813,18 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 		if params.Status != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

@@ -6,15 +6,6 @@ import (
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 )
 
-// ContactChannel is an open string on the wire: a value added by a newer server
-// deserializes unchanged, so compare against the ContactChannel* constants with a
-// default branch rather than treating the set as closed.
-type ContactChannel = oapi.ContactChannel
-
-const (
-	ContactChannelEmail = oapi.ContactChannelEmail
-)
-
 // EmailEventType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailEventType* constants with a
 // default branch rather than treating the set as closed.

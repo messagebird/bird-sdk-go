@@ -21,6 +21,8 @@ type WhatsappListParams struct {
 	CreatedBefore time.Time
 	// Filter by status. Repeat the parameter to match any of several statuses.
 	Status []WhatsAppMessageStatus
+	// Filter by whether the business sent the message (`outbound`) or received it from the contact (`inbound`).
+	Direction MessageDirection
 	// Filter by contact phone number (E.164 exact match).
 	PhoneNumber string
 	// Filter by business-scoped user ID (Meta identifier).
@@ -35,6 +37,7 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 		CreatedAfter:  optTime(p.CreatedAfter),
 		CreatedBefore: optTime(p.CreatedBefore),
 		Status:        optSlice(p.Status),
+		Direction:     optZero(p.Direction),
 		PhoneNumber:   optStr(p.PhoneNumber),
 		Bsuid:         optStr(p.Bsuid),
 		Tag:           optSlice(p.Tag),
@@ -85,7 +88,7 @@ func (s *WhatsappService) ListPage(ctx context.Context, params WhatsappListParam
 	return &out, nil
 }
 
-// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by status, contact phone number, bsuid, or tag. Use whatsapp_get for one message's current state.
+// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, or tag. Use whatsapp_get for one message's current state.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppMessage, error] {
