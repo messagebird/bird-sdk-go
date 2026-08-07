@@ -27,6 +27,8 @@ type WhatsappListParams struct {
 	PhoneNumber string
 	// Filter by business-scoped user ID (Meta identifier).
 	Bsuid string
+	// Filter by category.
+	Category WhatsAppTemplateCategory
 	// Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
 	Tag []string
 }
@@ -40,6 +42,7 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 		Direction:     optZero(p.Direction),
 		PhoneNumber:   optStr(p.PhoneNumber),
 		Bsuid:         optStr(p.Bsuid),
+		Category:      optZero(p.Category),
 		Tag:           optSlice(p.Tag),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -88,7 +91,7 @@ func (s *WhatsappService) ListPage(ctx context.Context, params WhatsappListParam
 	return &out, nil
 }
 
-// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, or tag. Use whatsapp_get for one message's current state.
+// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, template category, or tag. Use whatsapp_get for one message's current state.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppMessage, error] {

@@ -10877,6 +10877,9 @@ type ListWhatsAppMessagesParams struct {
 	// Bsuid Filter by business-scoped user ID (Meta identifier).
 	Bsuid *string `form:"bsuid,omitempty" json:"bsuid,omitempty"`
 
+	// Category Filter by category.
+	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
 	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
@@ -21874,6 +21877,18 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 		if params.Bsuid != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "bsuid", *params.Bsuid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

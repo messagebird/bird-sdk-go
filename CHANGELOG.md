@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.25.0
+
+- Listing WhatsApp messages gains a `category` filter, matching the equivalent filter on SMS and email messages.
+
 ## 0.24.1
 
 - The Realtime app list's `sort` filter is now a named type, `RealtimeAppSortField` (`created_at` | `name`), instead of a bare string, and the Realtime app `name` field carries a description. No method or signature changes.
