@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.24.1
+
+- The Realtime app list's `sort` filter is now a named type, `RealtimeAppSortField` (`created_at` | `name`), instead of a bare string, and the Realtime app `name` field carries a description. No method or signature changes.
+
 ## 0.24.0
 
 - Batch contact upserts now match each entry automatically on every identifier it carries (email, phone, or external_id), refusing entries whose identifiers belong to more than one contact; `match_on` (`email`, `phone`, or `external_id`) forces a single key. Result items echo what each entry supplied under a nested `entry` object (`email`, `phone`, `external_id`, null where absent, never the contact's current state), plus a top-level `matched_on` naming which identifier matched, null for created rows.

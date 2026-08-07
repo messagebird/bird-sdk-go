@@ -2364,6 +2364,24 @@ func (e RealtimeAppCreatedStatus) Valid() bool {
 	}
 }
 
+// Defines values for RealtimeAppSortField.
+const (
+	RealtimeAppSortFieldCreatedAt RealtimeAppSortField = "created_at"
+	RealtimeAppSortFieldName      RealtimeAppSortField = "name"
+)
+
+// Valid indicates whether the value is a known member of the RealtimeAppSortField enum.
+func (e RealtimeAppSortField) Valid() bool {
+	switch e {
+	case RealtimeAppSortFieldCreatedAt:
+		return true
+	case RealtimeAppSortFieldName:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeChannelInclude.
 const (
 	ConnectionCount RealtimeChannelInclude = "connection_count"
@@ -3278,16 +3296,16 @@ func (e OrderDesc) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	CreatedAt ListDomainsParamsSort = "created_at"
-	Name      ListDomainsParamsSort = "name"
+	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
+	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case CreatedAt:
+	case ListDomainsParamsSortCreatedAt:
 		return true
-	case Name:
+	case ListDomainsParamsSortName:
 		return true
 	default:
 		return false
@@ -8017,11 +8035,13 @@ type RealtimeAppConfig struct {
 
 // RealtimeAppCreate defines model for RealtimeAppCreate.
 type RealtimeAppCreate struct {
-	AuthorizedConnections *bool  `json:"authorized_connections,omitempty"`
-	ClientEvents          *bool  `json:"client_events,omitempty"`
-	ConnectionCountEvents *bool  `json:"connection_count_events,omitempty"`
-	ConnectionCounting    *bool  `json:"connection_counting,omitempty"`
-	Name                  string `json:"name"`
+	AuthorizedConnections *bool `json:"authorized_connections,omitempty"`
+	ClientEvents          *bool `json:"client_events,omitempty"`
+	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
+	ConnectionCounting    *bool `json:"connection_counting,omitempty"`
+
+	// Name A label for the app, shown wherever it is listed.
+	Name string `json:"name"`
 
 	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
 	Region Region `json:"region"`
@@ -8105,6 +8125,9 @@ type RealtimeAppList struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
+// RealtimeAppSortField Field to sort Realtime apps by.
+type RealtimeAppSortField string
+
 // RealtimeAppUpdate Mutable Realtime app fields. Omitted fields are left unchanged. Region is immutable and TLS is always enforced, so neither appears here.
 type RealtimeAppUpdate struct {
 	// AuthorizedConnections Require every connection to be authorized.
@@ -8117,8 +8140,10 @@ type RealtimeAppUpdate struct {
 	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
-	ConnectionCounting *bool   `json:"connection_counting,omitempty"`
-	Name               *string `json:"name,omitempty"`
+	ConnectionCounting *bool `json:"connection_counting,omitempty"`
+
+	// Name A label for the app, shown wherever it is listed.
+	Name *string `json:"name,omitempty"`
 }
 
 // RealtimeBatchEvent One item of a batch publish — a single event to a single channel.
