@@ -1,8 +1,9 @@
-// Package bird is the Go SDK for the Bird email platform.
+// Package bird is the official Go SDK for the Bird API.
 //
-// It offers a curated resource surface, a typed error hierarchy, context
-// cancellation, functional options, safe retries with reused idempotency keys,
-// range-over-func pagination, and webhook verification.
+// It covers email, SMS, WhatsApp, verification, and Realtime on one typed
+// client, and offers a curated resource surface, a typed error hierarchy,
+// context cancellation, functional options, safe retries with reused
+// idempotency keys, range-over-func pagination, and webhook verification.
 //
 //	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 //	if err != nil { ... }
@@ -33,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.25.0"
+	version = "0.26.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version

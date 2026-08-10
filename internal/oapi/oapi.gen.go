@@ -7975,6 +7975,21 @@ type MailboxUpdateReceivePolicy string
 // MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
 type MailboxUpdateRetentionTier string
 
+// MessageCost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+type MessageCost struct {
+	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+	Amount *string `json:"amount,omitempty"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+
+	// PassthroughAmount Third-party fees Bird passes on, as a decimal string, such as US 10DLC carrier surcharges. Null when this component was not priced; `"0.00000"` when it priced at zero.
+	PassthroughAmount *string `json:"passthrough_amount,omitempty"`
+
+	// TransactionAmount What Bird charged to carry the message, as a decimal string. Null when this component was not priced; `"0.00000"` when it priced at zero.
+	TransactionAmount *string `json:"transaction_amount,omitempty"`
+}
+
 // MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
 type MessageDirection string
 
@@ -8374,33 +8389,6 @@ type SMSBatchSummary struct {
 	AcceptedCount int `json:"accepted_count"`
 }
 
-// SMSCost Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
-type SMSCost struct {
-	// Amount Total cost as a decimal string: the per-segment rate multiplied by the segment count, plus any surcharges.
-	Amount *string `json:"amount,omitempty"`
-
-	// Breakdown Per-component cost breakdown. Returned on single-message reads; omitted from list rows.
-	Breakdown *SMSCostBreakdown `json:"breakdown,omitempty"`
-
-	// CurrencyCode ISO 4217 three-letter currency code.
-	CurrencyCode *CurrencyCode `json:"currency_code,omitempty"`
-}
-
-// SMSCostBreakdown Per-component cost breakdown. Returned on single-message reads; omitted from list rows.
-type SMSCostBreakdown struct {
-	// CarrierSurcharge Carrier surcharge component as a decimal string (for example US 10DLC fees). `0.0000` when none applies.
-	CarrierSurcharge string `json:"carrier_surcharge"`
-
-	// CountryCode ISO 3166-1 alpha-2 destination country the price was resolved for.
-	CountryCode string `json:"country_code"`
-
-	// PerSegment Per-segment price as a decimal string.
-	PerSegment string `json:"per_segment"`
-
-	// Segments Number of billable segments.
-	Segments int `json:"segments"`
-}
-
 // SMSError Failure detail for a message that could not be delivered or was rejected.
 type SMSError struct {
 	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
@@ -8427,8 +8415,8 @@ type SMSMessage struct {
 	// Category Content classification supplied on the send. Null for inbound messages.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
-	// Cost Cost of the message. Null until the message has been priced; the cost is populated as the message is processed, not at the moment it is accepted.
-	Cost *SMSCost `json:"cost,omitempty"`
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
 
 	// CreatedAt When the message was accepted (outbound) or received (inbound).
 	CreatedAt *time.Time `json:"created_at,omitempty"`

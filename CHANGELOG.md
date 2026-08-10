@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.26.0
+
+- An SMS message's `cost` now names its components: `transaction_amount` is what Bird charged to carry the message, and `passthrough_amount` is reserved for third-party fees such as US 10DLC carrier surcharges. `amount` remains the total.
+
 ## 0.25.0
 
 - Listing WhatsApp messages gains a `category` filter, matching the equivalent filter on SMS and email messages.
