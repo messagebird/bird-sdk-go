@@ -718,6 +718,23 @@ func ExampleVerifyVerificationsService_Check() {
 	fmt.Println(*result.Success)
 }
 
+// Send a fresh passcode on the next channel when the recipient never got the first.
+func ExampleVerifyVerificationsService_NextChannel() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	verification, err := client.Verify.Verifications.NextChannel(context.Background(), bird.VerifyVerificationsNextChannelParams{
+		To: bird.VerificationTo{PhoneNumber: bird.String("+15551234567")},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if verification.LastChannel != nil {
+		fmt.Println(*verification.LastChannel)
+	}
+}
+
 // Summary returns the delivery, engagement, and latency totals for a window.
 func ExampleEmailStatsService_Summary() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -1432,4 +1449,35 @@ func ExampleRealtimeMembersService_Disconnect() {
 	if err := client.Realtime.Members.Disconnect(context.Background(), "rap_123", "member:42"); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// List the workspace's calls. Filtering to the in-flight statuses gives the
+// calls happening right now; omit the filter for completed records.
+func ExampleVoiceService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for call, err := range client.Voice.List(context.Background(), bird.VoiceListParams{
+		Status: []bird.VoiceCallStatus{"ringing", "in_progress"},
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(call.Id, call.Status)
+	}
+}
+
+// Get returns one call at any point in its lifecycle, settled or still up.
+func ExampleVoiceService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	call, err := client.Voice.Get(context.Background(), "vcl_01k0p3v9wera3v6q6xw3e9y2mh")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A call still ringing or connected carries no economics yet.
+	fmt.Println(call.Status, call.DurationMs)
 }

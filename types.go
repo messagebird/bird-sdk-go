@@ -93,6 +93,8 @@ type (
 	EmailMessageStatus = oapi.EmailMessageStatus
 	// EmailMessageCategory is an alias of Category, used by the read filters.
 	EmailMessageCategory = oapi.EmailMessageCategory
+	// ContactIdentifierFilter is which identifier a contact has on file, used by the read filters.
+	ContactIdentifierFilter = oapi.ContactIdentifierFilter
 )
 
 // Email statistics responses, returned by the Client.Email.Stats methods. Each
@@ -207,6 +209,20 @@ type (
 type (
 	WhatsAppMessageTemplateComponent          = oapi.WhatsAppMessageTemplateComponent
 	WhatsAppMessageTemplateComponentParameter = oapi.WhatsAppMessageTemplateComponentParameter
+)
+
+// VoiceCall is one call-detail record, in flight or settled; VoiceCallList is a
+// page of them.
+type (
+	VoiceCall     = oapi.VoiceCall
+	VoiceCallList = oapi.VoiceCallList
+)
+
+// VoiceCallStatus is how a call ended, or that it is still ringing or connected.
+// VoiceCallDirection is which way the call was placed.
+type (
+	VoiceCallStatus    = oapi.VoiceCallStatus
+	VoiceCallDirection = oapi.VoiceCallDirection
 )
 
 // Verification is a verification's current state (id, status, channel plan);

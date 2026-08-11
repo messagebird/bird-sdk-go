@@ -69,6 +69,24 @@ func (e AudienceCreateRequestType) Valid() bool {
 	}
 }
 
+// Defines values for ContactIdentifierFilter.
+const (
+	ContactIdentifierFilterEmail ContactIdentifierFilter = "email"
+	ContactIdentifierFilterPhone ContactIdentifierFilter = "phone"
+)
+
+// Valid indicates whether the value is a known member of the ContactIdentifierFilter enum.
+func (e ContactIdentifierFilter) Valid() bool {
+	switch e {
+	case ContactIdentifierFilterEmail:
+		return true
+	case ContactIdentifierFilterPhone:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ContactMatchKey.
 const (
 	ContactMatchKeyEmail      ContactMatchKey = "email"
@@ -2868,6 +2886,51 @@ func (e VoiceCallDirection) Valid() bool {
 	}
 }
 
+// Defines values for VoiceCallRejectionReason.
+const (
+	VoiceCallRejectionReasonCallNotPermitted        VoiceCallRejectionReason = "call_not_permitted"
+	VoiceCallRejectionReasonCallerIDNotVerified     VoiceCallRejectionReason = "caller_id_not_verified"
+	VoiceCallRejectionReasonCallsPerSecondExceeded  VoiceCallRejectionReason = "calls_per_second_exceeded"
+	VoiceCallRejectionReasonConcurrentCallsExceeded VoiceCallRejectionReason = "concurrent_calls_exceeded"
+	VoiceCallRejectionReasonDailySpendExceeded      VoiceCallRejectionReason = "daily_spend_exceeded"
+	VoiceCallRejectionReasonDestinationBlocked      VoiceCallRejectionReason = "destination_blocked"
+	VoiceCallRejectionReasonDestinationNotEnabled   VoiceCallRejectionReason = "destination_not_enabled"
+	VoiceCallRejectionReasonInsufficientBalance     VoiceCallRejectionReason = "insufficient_balance"
+	VoiceCallRejectionReasonNoRouteFound            VoiceCallRejectionReason = "no_route_found"
+	VoiceCallRejectionReasonRoutingNotConfigured    VoiceCallRejectionReason = "routing_not_configured"
+	VoiceCallRejectionReasonSourceNotAllowed        VoiceCallRejectionReason = "source_not_allowed"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallRejectionReason enum.
+func (e VoiceCallRejectionReason) Valid() bool {
+	switch e {
+	case VoiceCallRejectionReasonCallNotPermitted:
+		return true
+	case VoiceCallRejectionReasonCallerIDNotVerified:
+		return true
+	case VoiceCallRejectionReasonCallsPerSecondExceeded:
+		return true
+	case VoiceCallRejectionReasonConcurrentCallsExceeded:
+		return true
+	case VoiceCallRejectionReasonDailySpendExceeded:
+		return true
+	case VoiceCallRejectionReasonDestinationBlocked:
+		return true
+	case VoiceCallRejectionReasonDestinationNotEnabled:
+		return true
+	case VoiceCallRejectionReasonInsufficientBalance:
+		return true
+	case VoiceCallRejectionReasonNoRouteFound:
+		return true
+	case VoiceCallRejectionReasonRoutingNotConfigured:
+		return true
+	case VoiceCallRejectionReasonSourceNotAllowed:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceCallStatus.
 const (
 	VoiceCallStatusAnswered   VoiceCallStatus = "answered"
@@ -3206,34 +3269,34 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
-	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
-	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
-	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
-	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
-	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
-	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
-	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
+	Accepted  WhatsAppMessageStatus = "accepted"
+	Canceled  WhatsAppMessageStatus = "canceled"
+	Delivered WhatsAppMessageStatus = "delivered"
+	Failed    WhatsAppMessageStatus = "failed"
+	Received  WhatsAppMessageStatus = "received"
+	Rejected  WhatsAppMessageStatus = "rejected"
+	Scheduled WhatsAppMessageStatus = "scheduled"
+	Sent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case WhatsAppMessageStatusAccepted:
+	case Accepted:
 		return true
-	case WhatsAppMessageStatusCanceled:
+	case Canceled:
 		return true
-	case WhatsAppMessageStatusDelivered:
+	case Delivered:
 		return true
-	case WhatsAppMessageStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppMessageStatusReceived:
+	case Received:
 		return true
-	case WhatsAppMessageStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppMessageStatusScheduled:
+	case Scheduled:
 		return true
-	case WhatsAppMessageStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -3673,9 +3736,23 @@ type AudienceUpdateRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// AuditLogActor defines model for AuditLogActor.
+type AuditLogActor struct {
+	// DisplayName Display name of the actor — the user's email address for user actors, or the API key's name for API-key actors. Absent when it could not be resolved.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Id Actor identifier.
+	Id string `json:"id"`
+
+	// Type Actor type (e.g. user, api_key, system).
+	Type string `json:"type"`
+}
+
 // Contact defines model for Contact.
 type Contact struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Audiences The audiences this contact belongs to, most-recently-joined first. Only present when listing contacts; omitted from every other contact operation.
+	Audiences *[]AudienceRef `json:"audiences,omitempty"`
+	CreatedAt *time.Time     `json:"created_at,omitempty"`
 
 	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
@@ -3721,6 +3798,9 @@ type ContactCreateRequest struct {
 
 // ContactID defines model for ContactID.
 type ContactID = string
+
+// ContactIdentifierFilter Which identifier a contact has on file, `email` for an email address or `phone` for a phone number.
+type ContactIdentifierFilter string
 
 // ContactList defines model for ContactList.
 type ContactList struct {
@@ -6834,7 +6914,10 @@ type EventSMSAcceptedData = EventSMSBase
 
 // EventSMSBase Identity fields shared by every SMS lifecycle event payload.
 type EventSMSBase struct {
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
@@ -6844,7 +6927,7 @@ type EventSMSBase struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -6869,7 +6952,10 @@ type EventSMSDeliveredData struct {
 	// Carrier Carrier that delivered the message, or null when not known.
 	Carrier *string `json:"carrier"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
@@ -6882,7 +6968,7 @@ type EventSMSDeliveredData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -6922,10 +7008,13 @@ type EventSMSFailedType string
 
 // EventSMSFailedData defines model for EventSMSFailedData.
 type EventSMSFailedData struct {
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
@@ -6935,7 +7024,7 @@ type EventSMSFailedData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -6957,10 +7046,13 @@ type EventSMSRejectedType string
 
 // EventSMSRejectedData defines model for EventSMSRejectedData.
 type EventSMSRejectedData struct {
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
@@ -6970,7 +7062,7 @@ type EventSMSRejectedData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -6995,7 +7087,10 @@ type EventSMSSentData struct {
 	// Carrier Carrier that handled the message, or null when not known.
 	Carrier *string `json:"carrier"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
@@ -7008,7 +7103,7 @@ type EventSMSSentData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -7030,10 +7125,13 @@ type EventSMSUndeliveredType string
 
 // EventSMSUndeliveredData defines model for EventSMSUndeliveredData.
 type EventSMSUndeliveredData struct {
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *SMSError `json:"error,omitempty"`
 
-	// From Sender the message was sent from — an E.164 number, an alphanumeric sender ID, or a short code.
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
@@ -7043,7 +7141,7 @@ type EventSMSUndeliveredData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
@@ -8383,6 +8481,9 @@ type RecipientRole string
 // Region Deployment region identifier.
 type Region string
 
+// SIPTrunkID defines model for SIPTrunkID.
+type SIPTrunkID = string
+
 // SMSBatchSummary Aggregate result for an SMS batch.
 type SMSBatchSummary struct {
 	// AcceptedCount Number of messages accepted in the batch. Acceptance is all-or-nothing, so this equals the number of messages submitted.
@@ -8409,7 +8510,7 @@ type SMSErrorCode string
 
 // SMSMessage defines model for SMSMessage.
 type SMSMessage struct {
-	// Carrier Carrier that handled the message, when known. Populated once a delivery receipt identifies it.
+	// Carrier Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
 	Carrier *string `json:"carrier,omitempty"`
 
 	// Category Content classification supplied on the send. Null for inbound messages.
@@ -8427,14 +8528,14 @@ type SMSMessage struct {
 	// Direction Whether the message was sent from a Bird sender (`outbound`) or received from a subscriber (`inbound`).
 	Direction *SMSMessageDirection `json:"direction,omitempty"`
 
-	// From Sender the message was sent from: an E.164 number, an alphanumeric sender ID, or a short code.
+	// From Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
 	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *SMSError `json:"last_error,omitempty"`
 
-	// MccMnc Mobile country code and mobile network code of the carrier, when known.
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent until the carrier is identified.
 	MccMnc *string `json:"mcc_mnc,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
@@ -8450,10 +8551,10 @@ type SMSMessage struct {
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Text The message body as sent. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
-	Text string `json:"text"`
+	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+	Text *string `json:"text,omitempty"`
 
-	// To Recipient phone number in E.164 format.
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To string `json:"to"`
 
 	// ValidityPeriod How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
@@ -8797,7 +8898,7 @@ type UnmetGate struct {
 
 // Verification defines model for Verification.
 type Verification struct {
-	// Channels The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over SMS.
+	// Channels The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over the phone channels enabled for its destination country, in the order that country's configuration sets.
 	Channels  *[]VerificationChannelEntry `json:"channels,omitempty"`
 	CreatedAt *time.Time                  `json:"created_at,omitempty"`
 
@@ -8877,6 +8978,12 @@ type VerificationCreateRequest struct {
 // VerificationID defines model for VerificationID.
 type VerificationID = string
 
+// VerificationNextChannelRequest defines model for VerificationNextChannelRequest.
+type VerificationNextChannelRequest struct {
+	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To VerificationTo `json:"to"`
+}
+
 // VerificationOptions Per-request overrides applied to this verification only.
 type VerificationOptions struct {
 	// Channels Reorder or narrow the delivery channels for this request. List channel names in the order to try them; a channel you omit is not used for this request, and a channel not already enabled for the recipient is ignored. A list that leaves no usable channel fails the request with `422`. Omit the field to use the configured order.
@@ -8898,11 +9005,106 @@ type VerificationTo struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
+// VoiceCall defines model for VoiceCall.
+type VoiceCall struct {
+	// Actor Who placed the call. Either the API key whose credentials it used, or the user who placed it from a browser or the Bird CLI. Absent when the call was admitted by its source IP address alone, since no credential identifies a caller there, and for calls placed before Bird started recording this.
+	Actor *AuditLogActor `json:"actor,omitempty"`
+
+	// AnsweredAt When the call was answered (200 OK received). Null for unanswered calls.
+	AnsweredAt *time.Time `json:"answered_at,omitempty"`
+
+	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and null while the call is still in progress.
+	BillableMs *int                `json:"billable_ms,omitempty"`
+	Cost       *Money              `json:"cost,omitempty"`
+	Direction  *VoiceCallDirection `json:"direction,omitempty"`
+
+	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. Null while the call is still in progress and has no final duration yet.
+	DurationMs *int `json:"duration_ms,omitempty"`
+
+	// EndedAt When the call ended (BYE or final non-2xx response). Null for calls that ended abnormally without a recorded end event.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// From Calling party number in E.164 format.
+	From         *string            `json:"from,omitempty"`
+	Id           VoiceCallID        `json:"id"`
+	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
+
+	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call "not going through". Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+	PddMs *int `json:"pdd_ms,omitempty"`
+
+	// RejectionReason Why Bird refused the call before dialing a carrier. Absent when Bird did not refuse it, meaning the call either connected or it failed at the carrier, where `sip_response_code` is the whole story.
+	RejectionReason *VoiceCallRejectionReason `json:"rejection_reason,omitempty"`
+
+	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+	SessionId *VoiceSessionID `json:"session_id,omitempty"`
+
+	// SipResponseCode Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+	SipResponseCode *int `json:"sip_response_code,omitempty"`
+
+	// SipTrunkId Identifier of the SIP trunk that originated this call. Null when no trunk is associated.
+	SipTrunkId *SIPTrunkID `json:"sip_trunk_id,omitempty"`
+
+	// StartedAt When the call was initiated.
+	StartedAt *time.Time       `json:"started_at,omitempty"`
+	Status    *VoiceCallStatus `json:"status,omitempty"`
+
+	// To Called party number in E.164 format.
+	To          *string     `json:"to,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
 // VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 type VoiceCallDirection string
 
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
+
+// VoiceCallList defines model for VoiceCallList.
+type VoiceCallList struct {
+	Data []VoiceCall `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceCallRejectionReason Why Bird refused the call before dialing a carrier. Every refusal is signalled
+// to your PBX as `503`, so `sip_response_code` alone cannot tell these causes
+// apart. This field is where the cause lives.
+//
+// Most of them you can fix yourself:
+//
+//   - `source_not_allowed`: the call came from an IP address that is not in the
+//     trunk's allowed-address list. Add the address your PBX sends from.
+//   - `caller_id_not_verified`: the number in the `From` header is not a verified
+//     caller ID for this workspace. Verify it, or present a number you have
+//     already verified.
+//   - `destination_not_enabled`: you have not turned on calling to this
+//     destination country. Enable it in your voice destination settings.
+//   - `insufficient_balance`: your wallet did not cover the call. Top up, or turn
+//     on automatic top-ups.
+//   - `daily_spend_exceeded`: the call would have passed your organization's daily
+//     voice spend limit. The limit resets at the start of the next UTC day.
+//   - `concurrent_calls_exceeded`: you already have as many calls in progress as
+//     your account allows. Wait for one to end, or ask support to raise the limit.
+//   - `calls_per_second_exceeded`: you placed calls faster than your account
+//     allows. Slow the rate you dial at, then retry.
+//
+// The rest need Bird to act, so contact support and quote the call `id`:
+//
+//   - `routing_not_configured`: no dial plan is attached to this trunk yet.
+//     Expected on a trunk that was just created.
+//   - `no_route_found`: a dial plan is attached, but no rule in it covers this
+//     destination.
+//   - `destination_blocked`: the destination is blocked by Bird's routing
+//     configuration.
+//   - `call_not_permitted`: the call could not be priced for your account.
+type VoiceCallRejectionReason string
 
 // VoiceCallStatus Call status.
 //
@@ -8910,6 +9112,21 @@ type VoiceCallID = string
 //
 // busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
 type VoiceCallStatus string
+
+// VoiceMediaQuality defines model for VoiceMediaQuality.
+type VoiceMediaQuality struct {
+	// JitterMs Variation in the arrival time of the audio packets, in milliseconds. Audio arriving unevenly is heard as choppiness even when no packets are lost at all.
+	JitterMs *int `json:"jitter_ms,omitempty"`
+
+	// Mos Mean opinion score, the single number for how the call sounded, from 1 (unintelligible) to 5 (as good as being in the same room). Anything at or above 4.0 is what most people would call a clear line, and below 3.5 is where callers start asking each other to repeat themselves. The three other fields are the impairments that move it.
+	Mos *float32 `json:"mos,omitempty"`
+
+	// PacketLossPct Percentage of audio packets that never arrived. Heard as brief gaps or clipped words, and the impairment that degrades a call fastest.
+	PacketLossPct *float32 `json:"packet_loss_pct,omitempty"`
+
+	// RoundTripTimeMs Round-trip time between the two ends, in milliseconds. It does not distort the audio, but above roughly 300 ms the two parties start talking over each other.
+	RoundTripTimeMs *int `json:"round_trip_time_ms,omitempty"`
+}
 
 // VoiceSessionID defines model for VoiceSessionID.
 type VoiceSessionID = string
@@ -9221,8 +9438,8 @@ type WhatsAppEventList struct {
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
-	// Cost Amount charged for this message, at full precision. Null until the message has been priced, and on messages that were rejected before pricing. The rate depends on the message category and the recipient's country.
-	Cost *Money `json:"cost,omitempty"`
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
 
 	// CreatedAt When the message was accepted for delivery.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -9679,6 +9896,9 @@ type ListContactsParams struct {
 
 	// Q Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Identifier Filter to contacts that have a specific identifier on file.
+	Identifier *ContactIdentifierFilter `form:"identifier,omitempty" json:"identifier,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -10836,6 +11056,62 @@ type CreateVerificationCheckParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// CreateVerificationNextChannelParams defines parameters for CreateVerificationNextChannel.
+type CreateVerificationNextChannelParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// Two distinct 409 errors signal misuse:
+	// - `request_in_progress` (E01004): the same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry; the lock
+	//   expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListVoiceCallsParams defines parameters for ListVoiceCalls.
+type ListVoiceCallsParams struct {
+	// Direction Return only calls in this direction.
+	Direction *VoiceCallDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// Status Return only calls with one of these statuses, comma-separated. The in-flight statuses (`ringing`, `in_progress`) cannot be combined with final ones in the same request.
+	Status *[]VoiceCallStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// SessionId Return only calls belonging to this session, which is how the legs of one multi-party or transferred call are correlated.
+	SessionId *VoiceSessionID `form:"session_id,omitempty" json:"session_id,omitempty"`
+
+	// SipTrunkId Return only calls carried by this SIP trunk.
+	SipTrunkId *SIPTrunkID `form:"sip_trunk_id,omitempty" json:"sip_trunk_id,omitempty"`
+
+	// From Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Number Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
+	Number *string `form:"number,omitempty" json:"number,omitempty"`
+
+	// StartedAfter Return only calls that started at or after this instant, inclusive. RFC 3339 timestamp.
+	StartedAfter *time.Time `form:"started_after,omitempty" json:"started_after,omitempty"`
+
+	// StartedBefore Return only calls that started at or before this instant, inclusive. RFC 3339 timestamp.
+	StartedBefore *time.Time `form:"started_before,omitempty" json:"started_before,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
 // ListWhatsAppMessagesParams defines parameters for ListWhatsAppMessages.
 type ListWhatsAppMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -10969,6 +11245,9 @@ type CreateVerificationJSONRequestBody = VerificationCreateRequest
 
 // CreateVerificationCheckJSONRequestBody defines body for CreateVerificationCheck for application/json ContentType.
 type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
+
+// CreateVerificationNextChannelJSONRequestBody defines body for CreateVerificationNextChannel for application/json ContentType.
+type CreateVerificationNextChannelJSONRequestBody = VerificationNextChannelRequest
 
 // CreateWhatsAppMessageJSONRequestBody defines body for CreateWhatsAppMessage for application/json ContentType.
 type CreateWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
@@ -13554,6 +13833,17 @@ type ClientInterface interface {
 
 	CreateVerificationCheck(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateVerificationNextChannelWithBody request with any body
+	CreateVerificationNextChannelWithBody(ctx context.Context, params *CreateVerificationNextChannelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceCalls request
+	ListVoiceCalls(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceCall request
+	GetVoiceCall(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListWhatsAppMessages request
 	ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -14901,6 +15191,54 @@ func (c *Client) CreateVerificationCheck(ctx context.Context, params *CreateVeri
 	return c.Client.Do(req)
 }
 
+func (c *Client) CreateVerificationNextChannelWithBody(ctx context.Context, params *CreateVerificationNextChannelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationNextChannelRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVerificationNextChannelRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceCalls(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceCallsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceCall(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceCallRequest(c.Server, callId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWhatsAppMessagesRequest(c.Server, params)
 	if err != nil {
@@ -15922,6 +16260,18 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 		if params.Q != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Identifier != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "identifier", *params.Identifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -21738,6 +22088,292 @@ func NewCreateVerificationCheckRequestWithBody(server string, params *CreateVeri
 	return req, nil
 }
 
+// NewCreateVerificationNextChannelRequest calls the generic CreateVerificationNextChannel builder with application/json body
+func NewCreateVerificationNextChannelRequest(server string, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVerificationNextChannelRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVerificationNextChannelRequestWithBody generates requests for CreateVerificationNextChannel with any type of body
+func NewCreateVerificationNextChannelRequestWithBody(server string, params *CreateVerificationNextChannelParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/verify/verifications/next-channel")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListVoiceCallsRequest generates requests for ListVoiceCalls
+func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/calls")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SessionId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "session_id", *params.SessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SipTrunkId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sip_trunk_id", *params.SipTrunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Number != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "started_after", *params.StartedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "started_before", *params.StartedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceCallRequest generates requests for GetVoiceCall
+func NewGetVoiceCallRequest(server string, callId VoiceCallID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "call_id", callId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/calls/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppMessagesRequest generates requests for ListWhatsAppMessages
 func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesParams) (*http.Request, error) {
 	var err error
@@ -22411,6 +23047,17 @@ type ClientWithResponsesInterface interface {
 	CreateVerificationCheckWithBodyWithResponse(ctx context.Context, params *CreateVerificationCheckParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error)
 
 	CreateVerificationCheckWithResponse(ctx context.Context, params *CreateVerificationCheckParams, body CreateVerificationCheckJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationCheckResponse, error)
+
+	// CreateVerificationNextChannelWithBodyWithResponse request with any body
+	CreateVerificationNextChannelWithBodyWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
+
+	CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
+
+	// ListVoiceCallsWithResponse request
+	ListVoiceCallsWithResponse(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallsResponse, error)
+
+	// GetVoiceCallWithResponse request
+	GetVoiceCallWithResponse(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceCallResponse, error)
 
 	// ListWhatsAppMessagesWithResponse request
 	ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error)
@@ -25503,6 +26150,114 @@ func (r CreateVerificationCheckResponse) ContentType() string {
 	return ""
 }
 
+type CreateVerificationNextChannelResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Verification
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVerificationNextChannelResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVerificationNextChannelResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVerificationNextChannelResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceCallsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCallList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceCallsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceCallsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceCallsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceCallResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCall
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceCallResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceCallResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceCallResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -26617,6 +27372,41 @@ func (c *ClientWithResponses) CreateVerificationCheckWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseCreateVerificationCheckResponse(rsp)
+}
+
+// CreateVerificationNextChannelWithBodyWithResponse request with arbitrary body returning *CreateVerificationNextChannelResponse
+func (c *ClientWithResponses) CreateVerificationNextChannelWithBodyWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error) {
+	rsp, err := c.CreateVerificationNextChannelWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationNextChannelResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error) {
+	rsp, err := c.CreateVerificationNextChannel(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVerificationNextChannelResponse(rsp)
+}
+
+// ListVoiceCallsWithResponse request returning *ListVoiceCallsResponse
+func (c *ClientWithResponses) ListVoiceCallsWithResponse(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallsResponse, error) {
+	rsp, err := c.ListVoiceCalls(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceCallsResponse(rsp)
+}
+
+// GetVoiceCallWithResponse request returning *GetVoiceCallResponse
+func (c *ClientWithResponses) GetVoiceCallWithResponse(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceCallResponse, error) {
+	rsp, err := c.GetVoiceCall(ctx, callId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceCallResponse(rsp)
 }
 
 // ListWhatsAppMessagesWithResponse request returning *ListWhatsAppMessagesResponse
@@ -32549,6 +33339,210 @@ func ParseCreateVerificationCheckResponse(rsp *http.Response) (*CreateVerificati
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVerificationNextChannelResponse parses an HTTP response from a CreateVerificationNextChannelWithResponse call
+func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVerificationNextChannelResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVerificationNextChannelResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Verification
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceCallsResponse parses an HTTP response from a ListVoiceCallsWithResponse call
+func ParseListVoiceCallsResponse(rsp *http.Response) (*ListVoiceCallsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceCallsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCallList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceCallResponse parses an HTTP response from a GetVoiceCallWithResponse call
+func ParseGetVoiceCallResponse(rsp *http.Response) (*GetVoiceCallResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceCallResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCall
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

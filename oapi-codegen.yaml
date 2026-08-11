@@ -48,8 +48,11 @@ output-options:
     - getWhatsAppMessage
     - listWhatsAppMessages
     - listWhatsAppMessageEvents
+    - listVoiceCalls
+    - getVoiceCall
     - createVerification
     - createVerificationCheck
+    - createVerificationNextChannel
     - listDomains
     - getDomain
     - createDomain

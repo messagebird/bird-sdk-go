@@ -51,7 +51,19 @@ func (p VerifyVerificationsCheckParams) toWire() oapi.VerificationCheckRequest {
 	return body
 }
 
-// Create Start a verification: generate a one-time passcode and send it to the recipient in `to` (a phone number over SMS, an email address over email, or both; with both, it is sent over one channel and fails over to the other, not to both at once). Calling again for the same recipient reuses the in-progress verification and sends a fresh code after the resend cooldown; it does not start a second one, so use this both to send and to resend. The passcode is never returned; submit what the recipient enters with verify_verifications_check. SMS delivery draws on the workspace's SMS balance.
+// VerifyVerificationsNextChannelParams is the request body for next_channel.
+type VerifyVerificationsNextChannelParams struct {
+	// The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To VerificationTo
+}
+
+func (p VerifyVerificationsNextChannelParams) toWire() oapi.VerificationNextChannelRequest {
+	body := oapi.VerificationNextChannelRequest{}
+	body.To = p.To
+	return body
+}
+
+// Create Start a verification: generate a one-time passcode and send it to the recipient in `to` (a phone number over the phone channels enabled for its destination country; an email address over email; or both). It is sent over one channel at a time and fails over to the next in the plan, never over two at once. Calling again for the same recipient reuses the in-progress verification and sends a fresh code after the resend cooldown; it does not start a second one, so use this both to send and to resend. The passcode is never returned; submit what the recipient enters with verify_verifications_check. SMS delivery draws on the workspace's SMS balance.
 func (s *VerifyVerificationsService) Create(ctx context.Context, params VerifyVerificationsCreateParams, opts ...option.RequestOption) (*Verification, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateVerificationParams{}
@@ -83,6 +95,25 @@ func (s *VerifyVerificationsService) Check(ctx context.Context, params VerifyVer
 		return nil, err
 	}
 	var out VerificationCheckResult
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// NextChannel Advance an in-progress verification to the next channel in its plan and send a fresh passcode there: the "I didn't receive my code" action. The verification is identified by the same `to` recipient used to start it, with no verification id needed. The send bypasses the resend cooldown, and earlier passcodes stay valid. Returns the verification with `last_channel` set to the channel the new code went to; when concurrent advances race for the same recipient, the response reflects committed state: `last_channel` names the most recent completed send, and the racing call that completed the newer send is authoritative. A plan with no further channel returns a 422 named NoNextChannel, after which only re-creating the verification will resend.
+func (s *VerifyVerificationsService) NextChannel(ctx context.Context, params VerifyVerificationsNextChannelParams, opts ...option.RequestOption) (*Verification, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateVerificationNextChannelParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateVerificationNextChannel(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out Verification
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

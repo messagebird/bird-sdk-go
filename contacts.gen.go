@@ -28,6 +28,8 @@ type ContactListParams struct {
 	ExternalID string
 	// Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
 	Q string
+	// Filter to contacts that have a specific identifier on file.
+	Identifier ContactIdentifierFilter
 	// Maximum number of items to return per page.
 	Limit int
 	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
@@ -40,6 +42,7 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 		Phone:         optStr(p.Phone),
 		ExternalId:    optStr(p.ExternalID),
 		Q:             optStr(p.Q),
+		Identifier:    optZero(p.Identifier),
 		Limit:         optInt(p.Limit),
 		IncludeTotal:  optBool(p.IncludeTotal),
 		StartingAfter: optStr(startingAfter),
