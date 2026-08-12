@@ -28,6 +28,25 @@ const (
 	EmailEventTypeEmailUnsubscribed     = oapi.EmailEventTypeEmailUnsubscribed
 )
 
+// SMSErrorCode is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSErrorCode* constants with a
+// default branch rather than treating the set as closed.
+type SMSErrorCode = oapi.SMSErrorCode
+
+const (
+	SMSErrorCodeBlockedByCarrier    = oapi.SMSErrorCodeBlockedByCarrier
+	SMSErrorCodeBlockedByRecipient  = oapi.SMSErrorCodeBlockedByRecipient
+	SMSErrorCodeContentRejected     = oapi.SMSErrorCodeContentRejected
+	SMSErrorCodeInsufficientBalance = oapi.SMSErrorCodeInsufficientBalance
+	SMSErrorCodeInvalidDestination  = oapi.SMSErrorCodeInvalidDestination
+	SMSErrorCodeLandlineUnreachable = oapi.SMSErrorCodeLandlineUnreachable
+	SMSErrorCodeProviderUnavailable = oapi.SMSErrorCodeProviderUnavailable
+	SMSErrorCodeRecipientOptedOut   = oapi.SMSErrorCodeRecipientOptedOut
+	SMSErrorCodeSenderUnregistered  = oapi.SMSErrorCodeSenderUnregistered
+	SMSErrorCodeUnknown             = oapi.SMSErrorCodeUnknown
+	SMSErrorCodeUnreachable         = oapi.SMSErrorCodeUnreachable
+)
+
 // VerificationAttemptFailureReason is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the VerificationAttemptFailureReason* constants with a
 // default branch rather than treating the set as closed.
@@ -95,5 +114,10 @@ const (
 type WhatsAppTemplateParameterType = oapi.WhatsAppTemplateParameterType
 
 const (
-	WhatsAppTemplateParameterTypeText = oapi.WhatsAppTemplateParameterTypeText
+	WhatsAppTemplateParameterTypeDocument = oapi.WhatsAppTemplateParameterTypeDocument
+	WhatsAppTemplateParameterTypeGif      = oapi.WhatsAppTemplateParameterTypeGif
+	WhatsAppTemplateParameterTypeImage    = oapi.WhatsAppTemplateParameterTypeImage
+	WhatsAppTemplateParameterTypeLocation = oapi.WhatsAppTemplateParameterTypeLocation
+	WhatsAppTemplateParameterTypeText     = oapi.WhatsAppTemplateParameterTypeText
+	WhatsAppTemplateParameterTypeVideo    = oapi.WhatsAppTemplateParameterTypeVideo
 )

@@ -3269,34 +3269,34 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	Accepted  WhatsAppMessageStatus = "accepted"
-	Canceled  WhatsAppMessageStatus = "canceled"
-	Delivered WhatsAppMessageStatus = "delivered"
-	Failed    WhatsAppMessageStatus = "failed"
-	Received  WhatsAppMessageStatus = "received"
-	Rejected  WhatsAppMessageStatus = "rejected"
-	Scheduled WhatsAppMessageStatus = "scheduled"
-	Sent      WhatsAppMessageStatus = "sent"
+	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
+	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
+	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
+	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
+	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
+	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
+	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
+	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case Accepted:
+	case WhatsAppMessageStatusAccepted:
 		return true
-	case Canceled:
+	case WhatsAppMessageStatusCanceled:
 		return true
-	case Delivered:
+	case WhatsAppMessageStatusDelivered:
 		return true
-	case Failed:
+	case WhatsAppMessageStatusFailed:
 		return true
-	case Received:
+	case WhatsAppMessageStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppMessageStatusRejected:
 		return true
-	case Scheduled:
+	case WhatsAppMessageStatusScheduled:
 		return true
-	case Sent:
+	case WhatsAppMessageStatusSent:
 		return true
 	default:
 		return false
@@ -3326,13 +3326,28 @@ func (e WhatsAppTemplateCategory) Valid() bool {
 
 // Defines values for WhatsAppTemplateParameterType.
 const (
-	WhatsAppTemplateParameterTypeText WhatsAppTemplateParameterType = "text"
+	WhatsAppTemplateParameterTypeDocument WhatsAppTemplateParameterType = "document"
+	WhatsAppTemplateParameterTypeGif      WhatsAppTemplateParameterType = "gif"
+	WhatsAppTemplateParameterTypeImage    WhatsAppTemplateParameterType = "image"
+	WhatsAppTemplateParameterTypeLocation WhatsAppTemplateParameterType = "location"
+	WhatsAppTemplateParameterTypeText     WhatsAppTemplateParameterType = "text"
+	WhatsAppTemplateParameterTypeVideo    WhatsAppTemplateParameterType = "video"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppTemplateParameterType enum.
 func (e WhatsAppTemplateParameterType) Valid() bool {
 	switch e {
+	case WhatsAppTemplateParameterTypeDocument:
+		return true
+	case WhatsAppTemplateParameterTypeGif:
+		return true
+	case WhatsAppTemplateParameterTypeImage:
+		return true
+	case WhatsAppTemplateParameterTypeLocation:
+		return true
 	case WhatsAppTemplateParameterTypeText:
+		return true
+	case WhatsAppTemplateParameterTypeVideo:
 		return true
 	default:
 		return false
@@ -3754,7 +3769,7 @@ type Contact struct {
 	Audiences *[]AudienceRef `json:"audiences,omitempty"`
 	CreatedAt *time.Time     `json:"created_at,omitempty"`
 
-	// Data Custom property values for this contact, available as template variables in broadcasts. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+	// Data Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
@@ -3763,11 +3778,11 @@ type Contact struct {
 	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalId *string `json:"external_id,omitempty"`
 
-	// FirstName The contact's first name. Available in broadcast templates as the `contact.first_name` variable.
+	// FirstName The contact's first name. Available in broadcast templates as `bird.contact.first_name`.
 	FirstName *string   `json:"first_name,omitempty"`
 	Id        ContactID `json:"id"`
 
-	// LastName The contact's last name. Available in broadcast templates as the `contact.last_name` variable.
+	// LastName The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
 	LastName *string `json:"last_name,omitempty"`
 
 	// Phone The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
@@ -3836,7 +3851,7 @@ type ContactProperty struct {
 	FallbackValue interface{}       `json:"fallback_value,omitempty"`
 	Id            ContactPropertyID `json:"id"`
 
-	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	// Key The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string `json:"key"`
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
@@ -3851,7 +3866,7 @@ type ContactPropertyCreateRequest struct {
 	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 
-	// Key The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	// Key The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string `json:"key"`
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
@@ -5123,7 +5138,7 @@ type EmailMessageSendRequest struct {
 	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Parameters Template variables used to personalize inline content. Tokens in the subject and body (e.g. `{{ first_name }}`) are replaced with these values at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
+	// Parameters Parameter values used to personalize inline content. A parameter is a single word, and a token in the subject or body (for example `{{ animal }}`) is replaced with the value of that name at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
@@ -5763,14 +5778,14 @@ type EmailTagStatsPoint struct {
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
 
-// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), and pass its variable values in `parameters`.
+// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), and pass its parameter values in `parameters`.
 type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. A token with no matching value renders empty. Nest values to fill dotted tokens: `{"contact": {"first_name": "Ada"}}` fills `{{ contact.first_name }}`. Send everything the template's `variables` lists rather than only what you expect the chosen language to use: languages need not reference the same variables, and a value no language uses is ignored. Cap: 16 KB serialized.
+	// Parameters Values for the template's parameters, keyed by parameter name. A parameter name is a single word, and every parameter the template's `variables` lists needs a value here: a send that omits one is rejected rather than delivered with a blank. Send everything `variables` lists rather than only what you expect the chosen language to use, since languages need not reference the same parameters and a value no language uses is ignored. Cap: 16 KB serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
@@ -6988,8 +7003,28 @@ type EventSMSExpired struct {
 // EventSMSExpiredType Event type.
 type EventSMSExpiredType string
 
-// EventSMSExpiredData Identity fields shared by every SMS lifecycle event payload.
-type EventSMSExpiredData = EventSMSBase
+// EventSMSExpiredData defines model for EventSMSExpiredData.
+type EventSMSExpiredData struct {
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// Error Failure detail for a message that could not be delivered or was rejected.
+	Error *SMSError `json:"error,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
 
 // EventSMSFailed The message terminally failed and will not be delivered.
 type EventSMSFailed struct {
@@ -8492,10 +8527,10 @@ type SMSBatchSummary struct {
 
 // SMSError Failure detail for a message that could not be delivered or was rejected.
 type SMSError struct {
-	// CarrierErrorCode Raw carrier-supplied error code, when available, for low-level debugging.
+	// CarrierErrorCode Raw provider-supplied error code, finer-grained than the `code` that normalizes it. Not a Bird-defined value, so quote it to support when asking why a message failed. Null when the provider sent none, including any failure decided before one was reached.
 	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
 
-	// Code Bird-stable failure reason. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+	// Code Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
 	Code SMSErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -8505,7 +8540,7 @@ type SMSError struct {
 	OccurredAt time.Time `json:"occurred_at"`
 }
 
-// SMSErrorCode Bird-stable failure reason. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+// SMSErrorCode Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
 type SMSErrorCode string
 
 // SMSMessage defines model for SMSMessage.
@@ -8859,10 +8894,10 @@ type TemplateVariable struct {
 	// Constraint A human-readable description of the accepted values.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The parameters key this slot is filled with.
+	// Key The parameter key this slot is filled with.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether the slot must be supplied when sending. Advisory for email templates, where a missing value renders as empty rather than rejecting the send.
+	// Required Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
 	Required *bool `json:"required,omitempty"`
 
 	// Sensitive Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
@@ -9513,7 +9548,7 @@ type WhatsAppMessageSendRequest struct {
 	To string `json:"to"`
 }
 
-// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time), `canceled` (a scheduled message canceled before sending), and `received` (a message a contact sent you).
+// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. `received` is the status of an inbound message, one a contact sent you. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time) and `canceled` (a scheduled message canceled before sending).
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -9531,12 +9566,30 @@ type WhatsAppMessageTemplate struct {
 	Slug *TemplateSlug `json:"slug,omitempty"`
 }
 
-// WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
-type WhatsAppMessageTemplateComponent struct {
-	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning.
+// WhatsAppMessageTemplateCard The values that fill one card of a carousel. Cards fill in the order the template was approved with, so send one entry per card and keep them in that order.
+type WhatsAppMessageTemplateCard struct {
+	// Components The values that fill this card's blocks.
+	Components []WhatsAppMessageTemplateCardComponent `json:"components"`
+}
+
+// WhatsAppMessageTemplateCardComponent The values that fill one block of one carousel card.
+type WhatsAppMessageTemplateCardComponent struct {
+	// Parameters The values that fill this part's placeholders, in placeholder order.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
-	// Type Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header. Bird manages header values itself, so a `header` entry supplied on a send is ignored.
+	// Type Which part of the card this fills in: `header` for the card's image or video, `body` for its text, `button` for a button's variable.
+	Type string `json:"type"`
+}
+
+// WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
+type WhatsAppMessageTemplateComponent struct {
+	// Cards The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
+	Cards *[]WhatsAppMessageTemplateCard `json:"cards,omitempty"`
+
+	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`.
+	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
+
+	// Type Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header's text, media or location, `carousel` for the cards.
 	Type string `json:"type"`
 }
 
@@ -9545,11 +9598,14 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	// Name Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Name *string `json:"name,omitempty"`
 
-	// Text The value substituted into the placeholder, as a plain string.
-	Text string `json:"text"`
+	// Text The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
+	Text *string `json:"text,omitempty"`
 
-	// Type The kind of value this parameter carries. `text` is the only kind today.
+	// Type The kind of value this parameter carries, which decides which of the fields below to send.
 	Type WhatsAppTemplateParameterType `json:"type"`
+
+	// Url Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+	Url *string `json:"url,omitempty"`
 }
 
 // WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
@@ -9558,7 +9614,7 @@ type WhatsAppTemplateCategory string
 // WhatsAppTemplateID defines model for WhatsAppTemplateID.
 type WhatsAppTemplateID = string
 
-// WhatsAppTemplateParameterType The kind of value a template parameter accepts. `text` (the only kind today) is a plain string substituted into the placeholder. Open enum: more kinds may be added over time.
+// WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. `text` is a plain string substituted into a placeholder, including a coupon button's code, which the recipient copies from the button. `image`, `video`, `gif` and `document` carry a media header's file in `url`, each matching its header's `format`. `location` fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType string
 
 // WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally pick a language, and pass its placeholder values in `components`.
@@ -9567,7 +9623,7 @@ type WhatsAppTemplateSend struct {
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted when the template has a single language; when it is stocked in several, omitting the language returns a `422` that names the available tags.
+	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted, in which case the template's default language is sent. A language the template is not stocked in returns a `422` that names the available tags.
 	Language *LanguageTag `json:"language,omitempty"`
 
 	// Slug The template to send, by its slug (for example `bird_otp`).
@@ -11078,7 +11134,7 @@ type ListVoiceCallsParams struct {
 	// Direction Return only calls in this direction.
 	Direction *VoiceCallDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Return only calls with one of these statuses, comma-separated. The in-flight statuses (`ringing`, `in_progress`) cannot be combined with final ones in the same request.
+	// Status Return only calls with one of these statuses, comma-separated. In-flight and final statuses may be combined freely.
 	Status *[]VoiceCallStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// SessionId Return only calls belonging to this session, which is how the legs of one multi-party or transferred call are correlated.

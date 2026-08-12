@@ -21,8 +21,8 @@ func main() {
 		Components: []bird.WhatsAppMessageTemplateComponent{{
 			Type: "body",
 			Parameters: &[]bird.WhatsAppMessageTemplateComponentParameter{
-				{Type: "text", Name: bird.String("ref"), Text: "A1B2C3D4"},
-				{Type: "text", Name: bird.String("date"), Text: "10 Jul 2026"},
+				{Type: "text", Name: bird.String("ref"), Text: bird.String("A1B2C3D4")},
+				{Type: "text", Name: bird.String("date"), Text: bird.String("10 Jul 2026")},
 			},
 		}},
 	})

@@ -27,7 +27,7 @@ func (p ContactPropertyListParams) toWire(startingAfter string) *oapi.ListContac
 
 // ContactPropertyCreateParams is the request body for create.
 type ContactPropertyCreateParams struct {
-	// The property key, used as the key in contact data and as the template variable name in broadcasts. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
+	// The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string
 	// The value type every contact must use for a property. Cannot be changed after creation. `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type ContactPropertyType

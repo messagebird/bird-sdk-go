@@ -15,7 +15,7 @@ import (
 type VoiceListParams struct {
 	// Return only calls in this direction.
 	Direction VoiceCallDirection
-	// Return only calls with one of these statuses, comma-separated. The in-flight statuses (`ringing`, `in_progress`) cannot be combined with final ones in the same request.
+	// Return only calls with one of these statuses, comma-separated. In-flight and final statuses may be combined freely.
 	Status []VoiceCallStatus
 	// Return only calls belonging to this session, which is how the legs of one multi-party or transferred call are correlated.
 	SessionID string
@@ -67,7 +67,7 @@ func (s *VoiceService) ListPage(ctx context.Context, params VoiceListParams, sta
 	return &out, nil
 }
 
-// List List the workspace's calls, newest first. Filter to `ringing`/`in_progress` for the calls in progress right now, or to final statuses for completed records. The two cannot be combined in one request. Use `from`/`to` for one known party number in international form, and `number` to search either side by fragment. These are per-call records: for rates and totals over a period use voice_stats_summary rather than summing them here, and voice_get to follow one call to settlement.
+// List List the workspace's calls, newest first. Filter to `ringing`/`in_progress` for the calls in progress right now, to final statuses for completed records, or to any mix of the two. Use `from`/`to` for one known party number in international form, and `number` to search either side by fragment. These are per-call records: for rates and totals over a period use voice_stats_summary rather than summing them here, and voice_get to follow one call to settlement.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *VoiceService) List(ctx context.Context, params VoiceListParams, opts ...option.RequestOption) iter.Seq2[*VoiceCall, error] {
