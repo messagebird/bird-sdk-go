@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.28.1
+
+- A verification attempt can now report `delivery_timeout` as its failure reason, meaning no delivery confirmation arrived before the channel's timeout and the verification failed over to the next channel.
+
 ## 0.28.0
 
 - The SMS error reasons known at this version are now exported as `SMSErrorCode*` constants, and the value is an open enum: a reason added by a newer server deserializes unchanged, so compare against them with a `default` branch rather than treating the set as closed.

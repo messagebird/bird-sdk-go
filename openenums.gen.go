@@ -56,6 +56,7 @@ const (
 	VerificationAttemptFailureReasonCarrierRejected    = oapi.VerificationAttemptFailureReasonCarrierRejected
 	VerificationAttemptFailureReasonChannelDisabled    = oapi.VerificationAttemptFailureReasonChannelDisabled
 	VerificationAttemptFailureReasonChannelUnavailable = oapi.VerificationAttemptFailureReasonChannelUnavailable
+	VerificationAttemptFailureReasonDeliveryTimeout    = oapi.VerificationAttemptFailureReasonDeliveryTimeout
 	VerificationAttemptFailureReasonHardBounce         = oapi.VerificationAttemptFailureReasonHardBounce
 	VerificationAttemptFailureReasonSoftBounce         = oapi.VerificationAttemptFailureReasonSoftBounce
 	VerificationAttemptFailureReasonUndelivered        = oapi.VerificationAttemptFailureReasonUndelivered

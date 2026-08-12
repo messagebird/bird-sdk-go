@@ -2640,6 +2640,21 @@ func (e SMSMessageStatus) Valid() bool {
 	}
 }
 
+// Defines values for SMSReceivedEventType.
+const (
+	SmsReceived SMSReceivedEventType = "sms.received"
+)
+
+// Valid indicates whether the value is a known member of the SMSReceivedEventType enum.
+func (e SMSReceivedEventType) Valid() bool {
+	switch e {
+	case SmsReceived:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSSegmentsEncoding.
 const (
 	GSM7BIT SMSSegmentsEncoding = "GSM_7BIT"
@@ -2804,6 +2819,7 @@ const (
 	VerificationAttemptFailureReasonCarrierRejected    VerificationAttemptFailureReason = "carrier_rejected"
 	VerificationAttemptFailureReasonChannelDisabled    VerificationAttemptFailureReason = "channel_disabled"
 	VerificationAttemptFailureReasonChannelUnavailable VerificationAttemptFailureReason = "channel_unavailable"
+	VerificationAttemptFailureReasonDeliveryTimeout    VerificationAttemptFailureReason = "delivery_timeout"
 	VerificationAttemptFailureReasonHardBounce         VerificationAttemptFailureReason = "hard_bounce"
 	VerificationAttemptFailureReasonSoftBounce         VerificationAttemptFailureReason = "soft_bounce"
 	VerificationAttemptFailureReasonUndelivered        VerificationAttemptFailureReason = "undelivered"
@@ -2817,6 +2833,8 @@ func (e VerificationAttemptFailureReason) Valid() bool {
 	case VerificationAttemptFailureReasonChannelDisabled:
 		return true
 	case VerificationAttemptFailureReasonChannelUnavailable:
+		return true
+	case VerificationAttemptFailureReasonDeliveryTimeout:
 		return true
 	case VerificationAttemptFailureReasonHardBounce:
 		return true
@@ -3081,6 +3099,7 @@ const (
 	EventTypeSmsDelivered                 WebhookEventType = "sms.delivered"
 	EventTypeSmsExpired                   WebhookEventType = "sms.expired"
 	EventTypeSmsFailed                    WebhookEventType = "sms.failed"
+	EventTypeSmsReceived                  WebhookEventType = "sms.received"
 	EventTypeSmsRejected                  WebhookEventType = "sms.rejected"
 	EventTypeSmsSent                      WebhookEventType = "sms.sent"
 	EventTypeSmsUndelivered               WebhookEventType = "sms.undelivered"
@@ -3158,6 +3177,8 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeSmsExpired:
 		return true
 	case EventTypeSmsFailed:
+		return true
+	case EventTypeSmsReceived:
 		return true
 	case EventTypeSmsRejected:
 		return true
@@ -6924,8 +6945,28 @@ type EventSMSAccepted struct {
 // EventSMSAcceptedType Event type.
 type EventSMSAcceptedType string
 
-// EventSMSAcceptedData Identity fields shared by every SMS lifecycle event payload.
-type EventSMSAcceptedData = EventSMSBase
+// EventSMSAcceptedData defines model for EventSMSAcceptedData.
+type EventSMSAcceptedData struct {
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	From string `json:"from"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
 
 // EventSMSBase Identity fields shared by every SMS lifecycle event payload.
 type EventSMSBase struct {
@@ -6964,8 +7005,8 @@ type EventSMSDeliveredType string
 
 // EventSMSDeliveredData defines model for EventSMSDeliveredData.
 type EventSMSDeliveredData struct {
-	// Carrier Carrier that delivered the message, or null when not known.
-	Carrier *string `json:"carrier"`
+	// Carrier Carrier that delivered the message. Absent when the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
@@ -6973,8 +7014,8 @@ type EventSMSDeliveredData struct {
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
-	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
-	MccMnc *string `json:"mcc_mnc"`
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -7064,6 +7105,53 @@ type EventSMSFailedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventSMSReceived A message was received on one of your numbers.
+type EventSMSReceived struct {
+	// Data Payload of the sms.received event.
+	Data EventSMSReceivedData `json:"data"`
+
+	// Timestamp Time the sender sent the message.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type SMSReceivedEventType `json:"type"`
+}
+
+// EventSMSReceivedData defines model for EventSMSReceivedData.
+type EventSMSReceivedData struct {
+	// Carrier Carrier the message came in over. Absent where the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
+
+	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	Cost *MessageCost `json:"cost,omitempty"`
+
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
+	From string `json:"from"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when not known.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Segments Segment breakdown for the message body. Segment count drives billing.
+	Segments SMSSegments  `json:"segments"`
+	SmsId    SMSMessageID `json:"sms_id"`
+
+	// Subject Subject line. Absent when the message carried none.
+	Subject *string `json:"subject,omitempty"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// Text The message body, so you can act on it without a follow-up read. Absent when the message carried only attachments and no text of its own.
+	Text *string `json:"text,omitempty"`
+
+	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
+	To          string      `json:"to"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
 // EventSMSRejected Bird rejected the message before sending it to the carrier (invalid destination, suppression, or a content/policy guard).
 type EventSMSRejected struct {
 	// Data Payload of the sms.rejected event.
@@ -7119,8 +7207,8 @@ type EventSMSSentType string
 
 // EventSMSSentData defines model for EventSMSSentData.
 type EventSMSSentData struct {
-	// Carrier Carrier that handled the message, or null when not known.
-	Carrier *string `json:"carrier"`
+	// Carrier Carrier that handled the message. Absent when the carrier does not report one.
+	Carrier *string `json:"carrier,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
@@ -7128,8 +7216,8 @@ type EventSMSSentData struct {
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
 	From string `json:"from"`
 
-	// MccMnc Mobile country code and mobile network code of the carrier, or null when not known.
-	MccMnc *string `json:"mcc_mnc"`
+	// MccMnc Mobile country code and mobile network code of the carrier. Absent when the carrier does not report one.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -7292,7 +7380,7 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), and `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one).
+	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one), and `delivery_timeout` (no delivery confirmation arrived before the channel's timeout, so the verification failed over).
 	Reason VerificationAttemptFailureReason `json:"reason"`
 
 	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -8702,6 +8790,9 @@ type SMSMessageSendRequest1 = interface{}
 // SMSMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is awaiting handoff to the carrier network. `sent` means it was handed to the carrier and is awaiting a delivery receipt. `delivered` is confirmed delivery. `undelivered` is a non-permanent non-delivery (handset off or unreachable). `failed` is a terminal permanent failure. `rejected` means Bird refused it before it reached the carrier (for example insufficient balance). `expired` means the validity period elapsed without a terminal receipt. `scheduled` means the message is queued to send at a future time and has not been dispatched yet, and `canceled` means a scheduled message was canceled before it was sent. `received` applies to inbound messages.
 type SMSMessageStatus string
 
+// SMSReceivedEventType Event type.
+type SMSReceivedEventType string
+
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
 type SMSSegments struct {
 	// Characters Character count of the body under the selected encoding.
@@ -8964,7 +9055,7 @@ type Verification struct {
 // VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 type VerificationStatus string
 
-// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), and `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one).
+// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one), and `delivery_timeout` (no delivery confirmation arrived before the channel's timeout, so the verification failed over).
 type VerificationAttemptFailureReason string
 
 // VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
@@ -12776,6 +12867,34 @@ func (t *WebhookEvent) MergeEventSMSFailed(v EventSMSFailed) error {
 	return err
 }
 
+// AsEventSMSReceived returns the union data inside the WebhookEvent as a EventSMSReceived
+func (t WebhookEvent) AsEventSMSReceived() (EventSMSReceived, error) {
+	var body EventSMSReceived
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSReceived overwrites any union data inside the WebhookEvent as the provided EventSMSReceived
+func (t *WebhookEvent) FromEventSMSReceived(v EventSMSReceived) error {
+	v.Type = "sms.received"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSReceived performs a merge with any union data inside the WebhookEvent, using the provided EventSMSReceived
+func (t *WebhookEvent) MergeEventSMSReceived(v EventSMSReceived) error {
+	v.Type = "sms.received"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventSMSRejected returns the union data inside the WebhookEvent as a EventSMSRejected
 func (t WebhookEvent) AsEventSMSRejected() (EventSMSRejected, error) {
 	var body EventSMSRejected
@@ -13322,6 +13441,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSExpired()
 	case "sms.failed":
 		return t.AsEventSMSFailed()
+	case "sms.received":
+		return t.AsEventSMSReceived()
 	case "sms.rejected":
 		return t.AsEventSMSRejected()
 	case "sms.sent":

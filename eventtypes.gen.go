@@ -38,6 +38,7 @@ const (
 	EventTypeSmsDelivered                 = oapi.EventTypeSmsDelivered
 	EventTypeSmsExpired                   = oapi.EventTypeSmsExpired
 	EventTypeSmsFailed                    = oapi.EventTypeSmsFailed
+	EventTypeSmsReceived                  = oapi.EventTypeSmsReceived
 	EventTypeSmsRejected                  = oapi.EventTypeSmsRejected
 	EventTypeSmsSent                      = oapi.EventTypeSmsSent
 	EventTypeSmsUndelivered               = oapi.EventTypeSmsUndelivered
