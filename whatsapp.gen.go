@@ -29,7 +29,7 @@ type WhatsappListParams struct {
 	Bsuid string
 	// Filter by category.
 	Category WhatsAppTemplateCategory
-	// Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	// Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
 	Tag []string
 }
 

@@ -34,7 +34,7 @@ type AudienceCreateParams struct {
 	Name string
 	// Longer description of who this audience is.
 	Description string
-	// How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+	// How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 	Type *AudienceCreateRequestType
 }
 
@@ -52,7 +52,7 @@ func (p AudienceCreateParams) toWire() oapi.AudienceCreateRequest {
 
 // AudienceUpdateParams is the request body for update.
 type AudienceUpdateParams struct {
-	// New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
+	// New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name string
 	// Longer description of who this audience is. Set to null to clear.
 	Description Nullable[string]
@@ -85,7 +85,7 @@ func (p AudienceListContactsParams) toWire(startingAfter string) *oapi.ListAudie
 
 // AudienceAddContactsParams is the request body for add_contacts.
 type AudienceAddContactsParams struct {
-	// Contacts to add to the audience. Adding a contact that is already a member has no effect and keeps its original join time; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no contacts are added.
+	// Contacts to add to the audience. Adding a contact that is already a member has no effect and keeps its original join time. Duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no contacts are added.
 	ContactIDs []string
 }
 
@@ -101,7 +101,7 @@ func (p AudienceAddContactsParams) toWire() oapi.AudienceContactsAddRequest {
 
 // AudienceRemoveContactsParams is the request body for remove_contacts.
 type AudienceRemoveContactsParams struct {
-	// Contacts to remove from the audience. Removing a contact that is not a member has no effect; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no memberships are removed.
+	// Contacts to remove from the audience. Removing a contact that is not a member has no effect. Duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no memberships are removed.
 	ContactIDs []string
 }
 
@@ -238,7 +238,7 @@ func (s *AudiencesService) ListContacts(ctx context.Context, audienceId string, 
 	})
 }
 
-// AddContacts Add up to 1,000 existing contacts to a static audience by ID. Fails entirely if any contact ID does not exist.
+// AddContacts Add up to 1,000 existing contacts to a static audience by ID. Fails entirely if any contact ID does not exist. To add contacts you have not created yet, use `contacts.batch` with `audience_ids` instead: it matches or creates each contact by email address and assigns it to the audience in one call.
 func (s *AudiencesService) AddContacts(ctx context.Context, audienceId string, params AudienceAddContactsParams, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.AssignAudienceContactsParams{}

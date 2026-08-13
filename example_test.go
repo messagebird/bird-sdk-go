@@ -1481,3 +1481,39 @@ func ExampleVoiceService_Get() {
 	// A call still ringing or connected carries no economics yet.
 	fmt.Println(call.Status, call.DurationMs)
 }
+
+// Email tells you whether an address is worth sending to before you send.
+func ExampleLookupService_Email() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	answer, err := client.Lookup.Email(context.Background(), bird.LookupEmailParams{
+		Email: "aisha.khan@example.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// result is an open vocabulary; delivery_confidence is always comparable.
+	fmt.Println(*answer.Result, *answer.DeliveryConfidence)
+}
+
+// PhoneNumber returns the free baseline plus whichever paid blocks you ask for.
+func ExampleLookupService_PhoneNumber() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	answer, err := client.Lookup.PhoneNumber(context.Background(), bird.LookupPhoneNumberParams{
+		PhoneNumber: "+31612345678",
+		Type:        []bird.LookupProperty{"classification", "score"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*answer.CountryCode, *answer.LineType)
+	// Only a block whose status is ok carries a value, and only that one is billed.
+	if answer.Score != nil && *answer.Score.Status == "ok" {
+		fmt.Println(*answer.Score.Value)
+	}
+}

@@ -166,7 +166,7 @@ func (s *ContactsService) ListPage(ctx context.Context, params ContactListParams
 	return &out, nil
 }
 
-// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email, phone, or external_id, or search by email, name, or phone substring. Pass include_total for a total count.
+// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email, phone_number, or external_id, or search by email, name, or phone substring. Pass include_total for a total count.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *ContactsService) List(ctx context.Context, params ContactListParams, opts ...option.RequestOption) iter.Seq2[*Contact, error] {
@@ -179,7 +179,7 @@ func (s *ContactsService) List(ctx context.Context, params ContactListParams, op
 	})
 }
 
-// Get Get a single contact by ID (`con_`-prefixed). Look up an ID by exact email, phone, or external_id with `contacts.list`.
+// Get Get a single contact by ID (`con_`-prefixed). Look up an ID by exact email, phone_number, or external_id with `contacts.list`.
 func (s *ContactsService) Get(ctx context.Context, contactId string, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetContact(ctx, oapi.ContactID(contactId), cfg...)
@@ -194,7 +194,7 @@ func (s *ContactsService) Get(ctx context.Context, contactId string, opts ...opt
 	return &out, nil
 }
 
-// Create Create a contact identified by an email address, an E.164 phone number, or both. Fails with a conflict if the email, phone, or external_id is already used by another contact. For bulk import or create-or-update semantics use `contacts.batch`.
+// Create Create a contact identified by an email address, an E.164 phone number, or both. Fails with a conflict if the email, phone_number, or external_id is already used by another contact. For bulk import or create-or-update semantics use `contacts.batch`.
 func (s *ContactsService) Create(ctx context.Context, params ContactCreateParams, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateContactParams{}
@@ -213,7 +213,7 @@ func (s *ContactsService) Create(ctx context.Context, params ContactCreateParams
 	return &out, nil
 }
 
-// Update Update a contact's name, external_id, email, phone, or custom data. Only supplied fields change; custom data keys are merged, with null removing a key. A contact keeps at least one identifier: clearing both email and phone is rejected.
+// Update Update a contact's name, external_id, email, phone_number, or custom data. Only supplied fields change; custom data keys are merged, with null removing a key. A contact keeps at least one identifier: clearing both email and phone_number is rejected.
 func (s *ContactsService) Update(ctx context.Context, contactId string, params ContactUpdateParams, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateContactParams{}
@@ -244,7 +244,7 @@ func (s *ContactsService) Delete(ctx context.Context, contactId string, opts ...
 	return err
 }
 
-// Batch Create or update up to 1,000 contacts in one request, each entry matched automatically against every identifier it supplies (email, phone, external_id) or, with match_on, by that one field only, and optionally add them all to one or more audiences. Per-contact results are returned in submission order.
+// Batch Create or update up to 1,000 contacts in one request, each entry matched automatically against every identifier it supplies (email, phone_number, external_id) or, with match_on, by that one field only, and optionally add them all to one or more audiences. Per-contact results are returned in submission order.
 func (s *ContactsService) Batch(ctx context.Context, params ContactBatchParams, opts ...option.RequestOption) (*ContactUpsertResult, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateContactBatchParams{}

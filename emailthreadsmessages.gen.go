@@ -16,7 +16,7 @@ type Tag = oapi.Tag
 type EmailThreadsMessagesListParams struct {
 	// Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction MessageDirection
-	// Filter to messages carrying this label. `trash` lists trashed messages; any other label — `archive`, `spam`, `blocked`, `unread`, or a custom label — lists its non-trashed carriers. When omitted, received messages in the inbox and all sent messages are returned.
+	// Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, received messages in the inbox and all sent messages are returned.
 	Label string
 	// Set to `extracted_text` to inline each message's extracted plain text.
 	Include string
@@ -46,9 +46,9 @@ type EmailThreadsMessagesReplyParams struct {
 	Tags []Tag
 	// Arbitrary JSON object stored on the send and echoed in webhook payloads. Cap: 2 KB serialized.
 	Metadata map[string]any
-	// Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	// Content classification, which controls suppression policy: - `marketing`: Blocks on all suppression reasons. - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory
-	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
 	Attachments []EmailAttachment
 }
 
@@ -95,7 +95,7 @@ func (s *EmailThreadsMessagesService) ListPage(ctx context.Context, threadId str
 	return &out, nil
 }
 
-// List List the messages in a conversation newest first, both directions. Page older messages with starting_after, and pass include=extracted_text to inline each message's durable plain text.
+// List List the messages in a conversation newest first, both directions. Page older messages with starting_after, and pass include=extracted_text to inline each message's extracted plain text.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string, params EmailThreadsMessagesListParams, opts ...option.RequestOption) iter.Seq2[*EmailThreadMessage, error] {
@@ -108,7 +108,7 @@ func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string,
 	})
 }
 
-// Get Get one conversation message with its extracted plain text, readable for the mailbox's full retention period without MIME parsing.
+// Get Get one conversation message with its extracted plain text, readable for the mailbox's full retention tier without MIME parsing.
 func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThreadMessage(ctx, oapi.ThreadID(threadId), messageId, cfg...)
@@ -123,7 +123,7 @@ func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, 
 	return &out, nil
 }
 
-// Body Get the original rendered HTML and plain-text body of a conversation message. Available 30 days; after that use the message's extracted_text.
+// Body Get the original rendered HTML and plain-text body of a conversation message. Available for 30 days. After that, use the message's extracted_text.
 func (s *EmailThreadsMessagesService) Body(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageBody, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailThreadMessageBody(ctx, oapi.ThreadID(threadId), messageId, cfg...)
@@ -157,7 +157,7 @@ func (s *EmailThreadsMessagesService) Reply(ctx context.Context, threadId string
 	return &out, nil
 }
 
-// Attachments List the attachments on a conversation message. Bytes are downloadable for 30 days; the metadata also rides the message's attachment_manifest durably.
+// Attachments List the attachments on a conversation message. Bytes are downloadable for 30 days, and the metadata stays readable afterward on the message's attachment_manifest.
 func (s *EmailThreadsMessagesService) Attachments(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageAttachmentList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListEmailThreadMessageAttachments(ctx, oapi.ThreadID(threadId), messageId, cfg...)

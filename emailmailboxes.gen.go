@@ -30,7 +30,7 @@ type EmailMailboxesListParams struct {
 	State string
 	// Filter to mailboxes whose address is on this domain.
 	Domain string
-	// Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. Deleted mailboxes carry a non-null `deleted_at`.
+	// Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has a non-null `deleted_at`.
 	IncludeDeleted bool
 	// Maximum number of items to return per page.
 	Limit int
@@ -50,19 +50,19 @@ func (p EmailMailboxesListParams) toWire(startingAfter string) *oapi.ListMailbox
 
 // EmailMailboxesCreateParams is the request body for create.
 type EmailMailboxesCreateParams struct {
-	// The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+	// The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
 	LocalPart string
-	// The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+	// The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
 	Domain string
 	// Display name used as the sender name on mail from this mailbox.
 	DisplayName string
 	// Default Reply-To address stamped on mail sent from this mailbox.
 	DefaultReplyTo string
-	// Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+	// Which inbound mail the mailbox accepts: - `open`: Accepts everything not blocked by a rule. - `replies_only`: Accepts only replies to messages this mailbox has sent. A reply must match a message the mailbox sent. Landing in an existing thread by itself does not count. - `allowlist`: Accepts only senders matching an allow rule. - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy
-	// How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+	// How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
 	RetentionTier *MailboxCreateRetentionTier
-	// Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+	// Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
 }
 
@@ -101,11 +101,11 @@ type EmailMailboxesUpdateParams struct {
 	DefaultReplyTo Nullable[string]
 	// Which inbound mail the mailbox accepts.
 	ReceivePolicy *MailboxUpdateReceivePolicy
-	// How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+	// How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 	RetentionTier *MailboxUpdateRetentionTier
-	// Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+	// Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
-	// Required as `true` when lowering `retention_tier`, acknowledging that remembered messages older than the new horizon are deleted.
+	// Set to `true` when lowering `retention_tier` would delete remembered messages older than the new cutoff. The request is rejected without it in that case.
 	Confirm bool
 }
 
@@ -140,7 +140,7 @@ type EmailMailboxesStatsParams struct {
 	To string
 	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone string
-	// Bucket grain of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
+	// Granularity of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
 	Granularity string
 }
 
@@ -182,7 +182,7 @@ func (s *EmailMailboxesService) List(ctx context.Context, params EmailMailboxesL
 	})
 }
 
-// Create Create a mailbox: a durable agent identity that owns an email address, groups mail into threads, and remembers conversations for its retention tier.
+// Create Create a mailbox: a durable agent identity that owns an email address, groups mail into conversations, and remembers conversations for its retention tier.
 func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxesCreateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateMailboxParams{}
@@ -201,7 +201,7 @@ func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxe
 	return &out, nil
 }
 
-// Get Read one mailbox by id. A mailbox deleted within its 30-day restore window is still returned, carrying a non-null `deleted_at`; once that window closes it is gone and this returns 404.
+// Get Read one mailbox by ID. A mailbox deleted within its 30-day restore window is still returned, with a non-null `deleted_at`. Once that window closes it is gone and this returns 404.
 func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), cfg...)
@@ -216,7 +216,7 @@ func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts 
 	return &out, nil
 }
 
-// Update Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier onto remembered messages older than the new horizon requires confirm=true.
+// Update Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier requires `confirm=true` when it would delete remembered messages older than the new cutoff.
 func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, params EmailMailboxesUpdateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWireParams()
@@ -235,7 +235,7 @@ func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, pa
 	return &out, nil
 }
 
-// Delete Delete a mailbox. The address stops receiving immediately and is quarantined; the mailbox and its remembered messages stay restorable for 30 days via the restore endpoint, then are permanently deleted.
+// Delete Delete a mailbox. The address stops receiving immediately and is quarantined. The mailbox and its remembered messages stay restorable for 30 days through the restore endpoint, then are permanently deleted.
 func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteMailboxParams{}
@@ -247,7 +247,7 @@ func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, op
 	return err
 }
 
-// Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and the remembered messages are back. Past the window the mailbox is permanently deleted and returns 404; a mailbox that is not deleted returns 409.
+// Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and the remembered messages are back. Past the window the mailbox is permanently deleted and returns 404. A mailbox that is not deleted returns 409.
 func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.RestoreMailboxParams{}
@@ -266,7 +266,7 @@ func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, o
 	return &out, nil
 }
 
-// Resume Reactivate a suspended mailbox so it can send and receive again and its threads become visible. Fails if your plan does not have room for another active mailbox (or another custom inbox.ai handle); delete an active mailbox or upgrade first. A mailbox that is not suspended returns 409.
+// Resume Resume a suspended mailbox so it can send and receive again and its conversations become visible. Fails if your plan does not have room for another active mailbox (or another custom inbox.ai handle). Delete an active mailbox or upgrade first. A mailbox that is not suspended returns 409.
 func (s *EmailMailboxesService) Resume(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ResumeMailboxParams{}

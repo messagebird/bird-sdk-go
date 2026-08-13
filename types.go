@@ -203,6 +203,14 @@ type (
 	WhatsAppEventList = oapi.WhatsAppEventList
 )
 
+// PhoneNumberLookup is what we know about a phone number; EmailLookup is the
+// verdict on an email address. Every block a phone lookup carries reports its
+// own status, so a partial answer is visible rather than silent.
+type (
+	PhoneNumberLookup = oapi.PhoneNumberLookup
+	EmailLookup       = oapi.EmailLookup
+)
+
 // WhatsAppMessageTemplateComponent is a filled-in template component — supplied
 // on a template send and echoed back on the sent message.
 // WhatsAppMessageTemplateComponentParameter is one of its placeholder values.

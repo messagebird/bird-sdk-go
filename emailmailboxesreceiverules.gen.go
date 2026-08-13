@@ -77,7 +77,7 @@ func (s *EmailMailboxesReceiveRulesService) List(ctx context.Context, mailboxId 
 	})
 }
 
-// Create Add an allow or block rule for a sender address or domain to a mailbox. Block always wins; up to 200 rules per mailbox.
+// Create Add an allow or block rule for a sender address or domain to a mailbox. Block always wins. Up to 200 rules per mailbox.
 func (s *EmailMailboxesReceiveRulesService) Create(ctx context.Context, mailboxId string, params EmailMailboxesReceiveRulesCreateParams, opts ...option.RequestOption) (*ReceiveRule, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateMailboxReceiveRuleParams{}

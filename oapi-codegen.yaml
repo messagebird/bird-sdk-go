@@ -53,6 +53,8 @@ output-options:
     - createVerification
     - createVerificationCheck
     - createVerificationNextChannel
+    - createPhoneNumberLookup
+    - createEmailLookup
     - listDomains
     - getDomain
     - createDomain

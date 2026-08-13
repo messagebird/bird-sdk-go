@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.30.0"
+	version = "0.31.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -71,6 +71,7 @@ type Client struct {
 	ContactProperties    *ContactPropertiesService
 	Domains              *DomainsService
 	Realtime             *RealtimeService
+	Lookup               *LookupService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -128,6 +129,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 		Channels: &RealtimeChannelsService{resource{client: c}},
 		Members:  &RealtimeMembersService{resource{client: c}},
 	}
+	c.Lookup = &LookupService{resource{client: c}}
 	return c, nil
 }
 

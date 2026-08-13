@@ -29,18 +29,12 @@ const (
 
 // Defines values for AudienceType.
 const (
-	AudienceTypeAudienceTypeDynamic  AudienceType = "dynamic"
-	AudienceTypeAudienceTypeExternal AudienceType = "external"
-	AudienceTypeAudienceTypeStatic   AudienceType = "static"
+	AudienceTypeAudienceTypeStatic AudienceType = "static"
 )
 
 // Valid indicates whether the value is a known member of the AudienceType enum.
 func (e AudienceType) Valid() bool {
 	switch e {
-	case AudienceTypeAudienceTypeDynamic:
-		return true
-	case AudienceTypeAudienceTypeExternal:
-		return true
 	case AudienceTypeAudienceTypeStatic:
 		return true
 	default:
@@ -50,18 +44,12 @@ func (e AudienceType) Valid() bool {
 
 // Defines values for AudienceCreateRequestType.
 const (
-	AudienceCreateRequestTypeAudienceTypeDynamic  AudienceCreateRequestType = "dynamic"
-	AudienceCreateRequestTypeAudienceTypeExternal AudienceCreateRequestType = "external"
-	AudienceCreateRequestTypeAudienceTypeStatic   AudienceCreateRequestType = "static"
+	AudienceCreateRequestTypeAudienceTypeStatic AudienceCreateRequestType = "static"
 )
 
 // Valid indicates whether the value is a known member of the AudienceCreateRequestType enum.
 func (e AudienceCreateRequestType) Valid() bool {
 	switch e {
-	case AudienceCreateRequestTypeAudienceTypeDynamic:
-		return true
-	case AudienceCreateRequestTypeAudienceTypeExternal:
-		return true
 	case AudienceCreateRequestTypeAudienceTypeStatic:
 		return true
 	default:
@@ -317,37 +305,37 @@ func (e DomainStatus) Valid() bool {
 
 // Defines values for DomainVendor.
 const (
-	Azure        DomainVendor = "azure"
-	Cloudflare   DomainVendor = "cloudflare"
-	Digitalocean DomainVendor = "digitalocean"
-	Godaddy      DomainVendor = "godaddy"
-	Google       DomainVendor = "google"
-	Namecheap    DomainVendor = "namecheap"
-	Other        DomainVendor = "other"
-	Route53      DomainVendor = "route53"
-	Squarespace  DomainVendor = "squarespace"
+	DomainVendorAzure        DomainVendor = "azure"
+	DomainVendorCloudflare   DomainVendor = "cloudflare"
+	DomainVendorDigitalocean DomainVendor = "digitalocean"
+	DomainVendorGodaddy      DomainVendor = "godaddy"
+	DomainVendorGoogle       DomainVendor = "google"
+	DomainVendorNamecheap    DomainVendor = "namecheap"
+	DomainVendorOther        DomainVendor = "other"
+	DomainVendorRoute53      DomainVendor = "route53"
+	DomainVendorSquarespace  DomainVendor = "squarespace"
 )
 
 // Valid indicates whether the value is a known member of the DomainVendor enum.
 func (e DomainVendor) Valid() bool {
 	switch e {
-	case Azure:
+	case DomainVendorAzure:
 		return true
-	case Cloudflare:
+	case DomainVendorCloudflare:
 		return true
-	case Digitalocean:
+	case DomainVendorDigitalocean:
 		return true
-	case Godaddy:
+	case DomainVendorGodaddy:
 		return true
-	case Google:
+	case DomainVendorGoogle:
 		return true
-	case Namecheap:
+	case DomainVendorNamecheap:
 		return true
-	case Other:
+	case DomainVendorOther:
 		return true
-	case Route53:
+	case DomainVendorRoute53:
 		return true
-	case Squarespace:
+	case DomainVendorSquarespace:
 		return true
 	default:
 		return false
@@ -612,6 +600,75 @@ func (e EmailEventType) Valid() bool {
 	case EmailEventTypeEmailScheduled:
 		return true
 	case EmailEventTypeEmailUnsubscribed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailLookupFlag.
+const (
+	EmailLookupFlagDisposable   EmailLookupFlag = "disposable"
+	EmailLookupFlagFreeProvider EmailLookupFlag = "free_provider"
+	EmailLookupFlagRole         EmailLookupFlag = "role"
+)
+
+// Valid indicates whether the value is a known member of the EmailLookupFlag enum.
+func (e EmailLookupFlag) Valid() bool {
+	switch e {
+	case EmailLookupFlagDisposable:
+		return true
+	case EmailLookupFlagFreeProvider:
+		return true
+	case EmailLookupFlagRole:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailLookupReason.
+const (
+	EmailLookupReasonInvalidDomain    EmailLookupReason = "invalid_domain"
+	EmailLookupReasonInvalidRecipient EmailLookupReason = "invalid_recipient"
+	EmailLookupReasonInvalidSyntax    EmailLookupReason = "invalid_syntax"
+)
+
+// Valid indicates whether the value is a known member of the EmailLookupReason enum.
+func (e EmailLookupReason) Valid() bool {
+	switch e {
+	case EmailLookupReasonInvalidDomain:
+		return true
+	case EmailLookupReasonInvalidRecipient:
+		return true
+	case EmailLookupReasonInvalidSyntax:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailLookupResult.
+const (
+	EmailLookupResultNeutral       EmailLookupResult = "neutral"
+	EmailLookupResultRisky         EmailLookupResult = "risky"
+	EmailLookupResultTypo          EmailLookupResult = "typo"
+	EmailLookupResultUndeliverable EmailLookupResult = "undeliverable"
+	EmailLookupResultValid         EmailLookupResult = "valid"
+)
+
+// Valid indicates whether the value is a known member of the EmailLookupResult enum.
+func (e EmailLookupResult) Valid() bool {
+	switch e {
+	case EmailLookupResultNeutral:
+		return true
+	case EmailLookupResultRisky:
+		return true
+	case EmailLookupResultTypo:
+		return true
+	case EmailLookupResultUndeliverable:
+		return true
+	case EmailLookupResultValid:
 		return true
 	default:
 		return false
@@ -2157,6 +2214,198 @@ func (e InboundRouteUpdateMatchType) Valid() bool {
 	}
 }
 
+// Defines values for LookupClassificationValue.
+const (
+	LookupClassificationValueCallingCards      LookupClassificationValue = "calling_cards"
+	LookupClassificationValueFixedLine         LookupClassificationValue = "fixed_line"
+	LookupClassificationValueFixedLineOrMobile LookupClassificationValue = "fixed_line_or_mobile"
+	LookupClassificationValueIsp               LookupClassificationValue = "isp"
+	LookupClassificationValueLocalRate         LookupClassificationValue = "local_rate"
+	LookupClassificationValueM2m               LookupClassificationValue = "m2m"
+	LookupClassificationValueMobile            LookupClassificationValue = "mobile"
+	LookupClassificationValueNationalRate      LookupClassificationValue = "national_rate"
+	LookupClassificationValueOther             LookupClassificationValue = "other"
+	LookupClassificationValuePager             LookupClassificationValue = "pager"
+	LookupClassificationValuePayphone          LookupClassificationValue = "payphone"
+	LookupClassificationValuePersonalNumber    LookupClassificationValue = "personal_number"
+	LookupClassificationValuePremiumRate       LookupClassificationValue = "premium_rate"
+	LookupClassificationValueSatellite         LookupClassificationValue = "satellite"
+	LookupClassificationValueService           LookupClassificationValue = "service"
+	LookupClassificationValueSharedCost        LookupClassificationValue = "shared_cost"
+	LookupClassificationValueShortCodes        LookupClassificationValue = "short_codes"
+	LookupClassificationValueTollFree          LookupClassificationValue = "toll_free"
+	LookupClassificationValueUniversalAccess   LookupClassificationValue = "universal_access"
+	LookupClassificationValueVoiceMail         LookupClassificationValue = "voice_mail"
+	LookupClassificationValueVoip              LookupClassificationValue = "voip"
+	LookupClassificationValueVpn               LookupClassificationValue = "vpn"
+)
+
+// Valid indicates whether the value is a known member of the LookupClassificationValue enum.
+func (e LookupClassificationValue) Valid() bool {
+	switch e {
+	case LookupClassificationValueCallingCards:
+		return true
+	case LookupClassificationValueFixedLine:
+		return true
+	case LookupClassificationValueFixedLineOrMobile:
+		return true
+	case LookupClassificationValueIsp:
+		return true
+	case LookupClassificationValueLocalRate:
+		return true
+	case LookupClassificationValueM2m:
+		return true
+	case LookupClassificationValueMobile:
+		return true
+	case LookupClassificationValueNationalRate:
+		return true
+	case LookupClassificationValueOther:
+		return true
+	case LookupClassificationValuePager:
+		return true
+	case LookupClassificationValuePayphone:
+		return true
+	case LookupClassificationValuePersonalNumber:
+		return true
+	case LookupClassificationValuePremiumRate:
+		return true
+	case LookupClassificationValueSatellite:
+		return true
+	case LookupClassificationValueService:
+		return true
+	case LookupClassificationValueSharedCost:
+		return true
+	case LookupClassificationValueShortCodes:
+		return true
+	case LookupClassificationValueTollFree:
+		return true
+	case LookupClassificationValueUniversalAccess:
+		return true
+	case LookupClassificationValueVoiceMail:
+		return true
+	case LookupClassificationValueVoip:
+		return true
+	case LookupClassificationValueVpn:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupFlag.
+const (
+	LookupFlagPorted LookupFlag = "ported"
+)
+
+// Valid indicates whether the value is a known member of the LookupFlag enum.
+func (e LookupFlag) Valid() bool {
+	switch e {
+	case LookupFlagPorted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupLineType.
+const (
+	LookupLineTypeFixedLine   LookupLineType = "fixed_line"
+	LookupLineTypeM2m         LookupLineType = "m2m"
+	LookupLineTypeMobile      LookupLineType = "mobile"
+	LookupLineTypeOther       LookupLineType = "other"
+	LookupLineTypePager       LookupLineType = "pager"
+	LookupLineTypePayphone    LookupLineType = "payphone"
+	LookupLineTypePremiumRate LookupLineType = "premium_rate"
+	LookupLineTypeSatellite   LookupLineType = "satellite"
+	LookupLineTypeService     LookupLineType = "service"
+	LookupLineTypeTollFree    LookupLineType = "toll_free"
+	LookupLineTypeUnknown     LookupLineType = "unknown"
+	LookupLineTypeVoip        LookupLineType = "voip"
+)
+
+// Valid indicates whether the value is a known member of the LookupLineType enum.
+func (e LookupLineType) Valid() bool {
+	switch e {
+	case LookupLineTypeFixedLine:
+		return true
+	case LookupLineTypeM2m:
+		return true
+	case LookupLineTypeMobile:
+		return true
+	case LookupLineTypeOther:
+		return true
+	case LookupLineTypePager:
+		return true
+	case LookupLineTypePayphone:
+		return true
+	case LookupLineTypePremiumRate:
+		return true
+	case LookupLineTypeSatellite:
+		return true
+	case LookupLineTypeService:
+		return true
+	case LookupLineTypeTollFree:
+		return true
+	case LookupLineTypeUnknown:
+		return true
+	case LookupLineTypeVoip:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupProperty.
+const (
+	Classification LookupProperty = "classification"
+	Porting        LookupProperty = "porting"
+	Presence       LookupProperty = "presence"
+	Roaming        LookupProperty = "roaming"
+	Score          LookupProperty = "score"
+	SimSwap        LookupProperty = "sim_swap"
+)
+
+// Valid indicates whether the value is a known member of the LookupProperty enum.
+func (e LookupProperty) Valid() bool {
+	switch e {
+	case Classification:
+		return true
+	case Porting:
+		return true
+	case Presence:
+		return true
+	case Roaming:
+		return true
+	case Score:
+		return true
+	case SimSwap:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupPropertyStatus.
+const (
+	LookupPropertyStatusInconclusive LookupPropertyStatus = "inconclusive"
+	LookupPropertyStatusOk           LookupPropertyStatus = "ok"
+	LookupPropertyStatusUnavailable  LookupPropertyStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the LookupPropertyStatus enum.
+func (e LookupPropertyStatus) Valid() bool {
+	switch e {
+	case LookupPropertyStatusInconclusive:
+		return true
+	case LookupPropertyStatusOk:
+		return true
+	case LookupPropertyStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for MailboxChannel.
 const (
 	Email MailboxChannel = "email"
@@ -2576,22 +2825,22 @@ func (e SMSMessageDirection) Valid() bool {
 
 // Defines values for SMSMessageCategory.
 const (
-	Authentication SMSMessageCategory = "authentication"
-	Marketing      SMSMessageCategory = "marketing"
-	Service        SMSMessageCategory = "service"
-	Transactional  SMSMessageCategory = "transactional"
+	SMSMessageCategoryAuthentication SMSMessageCategory = "authentication"
+	SMSMessageCategoryMarketing      SMSMessageCategory = "marketing"
+	SMSMessageCategoryService        SMSMessageCategory = "service"
+	SMSMessageCategoryTransactional  SMSMessageCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSMessageCategory enum.
 func (e SMSMessageCategory) Valid() bool {
 	switch e {
-	case Authentication:
+	case SMSMessageCategoryAuthentication:
 		return true
-	case Marketing:
+	case SMSMessageCategoryMarketing:
 		return true
-	case Service:
+	case SMSMessageCategoryService:
 		return true
-	case Transactional:
+	case SMSMessageCategoryTransactional:
 		return true
 	default:
 		return false
@@ -3677,23 +3926,23 @@ type Audience struct {
 	// Name Display name for the audience.
 	Name string `json:"name"`
 
-	// Type How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+	// Type How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 	Type      AudienceType `json:"type"`
 	UpdatedAt *time.Time   `json:"updated_at,omitempty"`
 }
 
-// AudienceType How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+// AudienceType How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 type AudienceType string
 
 // AudienceContactsAddRequest defines model for AudienceContactsAddRequest.
 type AudienceContactsAddRequest struct {
-	// ContactIds Contacts to add to the audience. Adding a contact that is already a member has no effect and keeps its original join time; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no contacts are added.
+	// ContactIds Contacts to add to the audience. Adding a contact that is already a member has no effect and keeps its original join time. Duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no contacts are added.
 	ContactIds []ContactID `json:"contact_ids"`
 }
 
 // AudienceContactsRemoveRequest defines model for AudienceContactsRemoveRequest.
 type AudienceContactsRemoveRequest struct {
-	// ContactIds Contacts to remove from the audience. Removing a contact that is not a member has no effect; duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no memberships are removed.
+	// ContactIds Contacts to remove from the audience. Removing a contact that is not a member has no effect. Duplicate IDs in the list are collapsed. If any ID does not exist in the workspace, the whole request fails with a validation error and no memberships are removed.
 	ContactIds []ContactID `json:"contact_ids"`
 }
 
@@ -3705,11 +3954,11 @@ type AudienceCreateRequest struct {
 	// Name Display name for the audience.
 	Name string `json:"name"`
 
-	// Type How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+	// Type How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 	Type *AudienceCreateRequestType `json:"type,omitempty"`
 }
 
-// AudienceCreateRequestType How the audience's recipients are determined. `static` (the default) is an explicit member list you manage via the API. `dynamic` and `external` are preview values and currently unavailable; creating an audience with either returns a validation error.
+// AudienceCreateRequestType How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 type AudienceCreateRequestType string
 
 // AudienceID defines model for AudienceID.
@@ -3768,7 +4017,7 @@ type AudienceUpdateRequest struct {
 	// Description Longer description of who this audience is. Set to null to clear.
 	Description nullable.Nullable[string] `json:"description,omitempty"`
 
-	// Name New display name for the audience. Omit to keep the current name; the name cannot be cleared, and a whitespace-only value returns a validation error.
+	// Name New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name *string `json:"name,omitempty"`
 }
 
@@ -4011,6 +4260,9 @@ type ContactUpsertResultItem struct {
 
 // ContactUpsertResultItemStatus What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
 type ContactUpsertResultItemStatus string
+
+// CountryCode ISO 3166-1 alpha-2 country code.
+type CountryCode = string
 
 // CurrencyCode ISO 4217 three-letter currency code.
 type CurrencyCode = string
@@ -4439,7 +4691,7 @@ type EmailAddress struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// EmailAddressInput A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
+// EmailAddressInput A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 type EmailAddressInput struct {
 	union json.RawMessage
 }
@@ -4447,32 +4699,33 @@ type EmailAddressInput struct {
 // EmailAddressInput0 Email address, optionally in RFC 5322 mailbox form with an embedded display name.
 type EmailAddressInput0 = string
 
-// EmailAttachment File attached to an email send. The attachment bytes are passed as base64-encoded `content` directly in the request body (required). The `path` field (provide a URL and Bird fetches the attachment for you) is a preview feature and currently unavailable. Requests are rejected with 422 if `content` is missing — `path` alone does not satisfy the schema. When `path` becomes generally available, the schema will be relaxed so that exactly one of `content` or `path` is required.
-// Inline images for `<img src="cid:..."/>` references in the HTML body use the `content_id` field together with `content`.
-// Bird enforces a **20 MB estimated generated message size** cap. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. This is not a raw file-size cap. As a rule of thumb, keep total raw attachment content at or below **15 MB** so the generated message has enough room after encoding and MIME wrapping.
-// Recipient-side delivery reality: downstream limits vary by product and tenant/server policy. Gmail personal and Outlook.com document 25 MB attachment limits. Exchange Online defaults to 35 MB send / 36 MB receive, but admins can configure limits; on-prem Exchange Server organizational defaults are 10 MB. Sends close to Bird's 20 MB generated-message cap may be accepted by Bird but bounce at the recipient's mail server.
-// Batch sends can include attachments on individual message objects. Each message still has the 20 MB estimated generated-size cap, and the serialized JSON request body for the whole batch has a hard 20 MB cap. Certain executable / script content types are rejected at validation time.
+// EmailAttachment A file attached to an email. Put the file's bytes in `content`, base64-encoded, and give it the `filename` the recipient will see.
+//
+// To show an image inline, so that `<img src="cid:..."/>` in your HTML body picks it up, set `content_id` alongside `content`.
+//
+// Each message can be at most **20 MB** once it has been generated. That figure covers the HTML body, the text body, and every attachment and inline image, all measured after base64 encoding rather than as raw files. Base64 and MIME wrapping add roughly a third, so keep the raw content of your attachments at or below **15 MB** to stay under the cap.
+//
+// A message we accept can still bounce at the other end, because every mail provider sets its own limit. Gmail and Outlook.com both publish a 25 MB limit. Exchange Online defaults to 35 MB for sending and 36 MB for receiving, though an administrator can change both, and on-premise Exchange Server defaults to 10 MB. So a message close to 20 MB is worth testing against the providers your recipients actually use.
+//
+// A batch send can attach files to each message in the batch. Every message is still held to the same 20 MB, and the whole request body is capped at 20 MB as well. Executable and script content types are refused when the request is validated.
 type EmailAttachment struct {
-	// Content Base64-encoded attachment bytes. Required. Counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
+	// Content The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
 	Content []byte `json:"content"`
 
-	// ContentId RFC 2392 Content-ID. When set, the attachment is rendered inline and can be referenced from the HTML body as `<img src="cid:{content_id}"/>`. When omitted, the attachment is rendered as a regular file attachment.
+	// ContentId An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
 	ContentId *string `json:"content_id,omitempty"`
 
-	// ContentType MIME type. Inferred from `filename` extension when omitted. Used to enforce the blocklist of disallowed executable / script types.
+	// ContentType The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
 	ContentType *string `json:"content_type,omitempty"`
 
-	// Filename Filename shown to the recipient. Required.
+	// Filename The name the recipient sees on the attachment.
 	Filename string `json:"filename"`
-
-	// Path Preview feature — provide a URL and Bird fetches the attachment for you. Currently unavailable. Use `content` instead. The schema currently requires `content`, so a request with only `path` is rejected with 422 for missing `content`; a request supplying both `content` and `path` is rejected with 422 `UnsupportedEmailFeature` until this preview ships. When generally available: HTTPS-only, single redirect followed and re-validated, private IP ranges blocked, request timeout enforced, fetched content counts toward the 20 MB estimated generated message-size cap after encoding and MIME wrapping.
-	Path *string `json:"path,omitempty"`
 }
 
 // EmailAttachmentID defines model for EmailAttachmentID.
 type EmailAttachmentID = string
 
-// EmailAttachmentRef Attachment metadata returned on API reads. The original content is not echoed back inline — only the metadata needed for display and audit. To download the raw attachment bytes (while content storage is enabled and within the retention window), use `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`, which returns the file with its own content type and a Content-Disposition filename.
+// EmailAttachmentRef Attachment metadata returned on API reads. The original content is not sent back inline, only the metadata you need to display and audit it. To download the raw attachment bytes (while content storage is enabled and within the retention window), use `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`, which returns the file with its own content type and a Content-Disposition filename.
 type EmailAttachmentRef struct {
 	// ContentId The Content-ID set at send time, when the attachment was inline.
 	ContentId *string `json:"content_id,omitempty"`
@@ -4491,9 +4744,9 @@ type EmailAttachmentRef struct {
 	Size int `json:"size"`
 }
 
-// EmailBounceCodeStatsPoint Bounce counts for a single SMTP status code over the requested period, with the per-type breakdown. This is a deliverability-debugging view keyed on what the receiving server returned, so it reports the failure side only (bounced recipients and their hard/soft/admin/block/undetermined split) and carries no delivered, open, or rate fields.
+// EmailBounceCodeStatsPoint Bounce counts for a single SMTP status code over the requested period, with the per-type breakdown. This is a deliverability-debugging view keyed on what the receiving mail server returned, so it only reports the failure side: bounced recipients, and their `hard`, `soft`, `admin`, `block`, and `undetermined` split. It has no delivered, open, or rate fields.
 type EmailBounceCodeStatsPoint struct {
-	// Bounced Distinct recipients whose delivery failed with this SMTP status code. Approximately the sum of the five `bounces.*` sub-counts; the totals are computed independently so they may differ slightly at the approximation error.
+	// Bounced Distinct recipients whose delivery failed with this SMTP status code, approximately equal to the sum of the five `bounces.*` sub-counts. The two are computed independently, so they can differ slightly because of approximation.
 	Bounced *int              `json:"bounced,omitempty"`
 	Bounces *EmailBounceStats `json:"bounces,omitempty"`
 
@@ -4503,7 +4756,7 @@ type EmailBounceCodeStatsPoint struct {
 
 // EmailBounceStats Breakdown of `bounced` by failure type. Each field counts distinct bounced recipients of that type in this row's scope; the five types approximately partition `bounced`.
 type EmailBounceStats struct {
-	// Admin Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain). Triage usually focuses on content or sender configuration rather than recipient cleanup.
+	// Admin Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
 	Admin *int `json:"admin,omitempty"`
 
 	// Block Distinct recipients bounced because the receiving mail server blocked the sending IP for reputation reasons (mail block, spam block, spam content). Triage usually focuses on IP reputation and sending volume.
@@ -4521,7 +4774,7 @@ type EmailBounceStats struct {
 
 // EmailBounceStatsWithRates Breakdown of `bounced` by failure type, with each rate as a fraction of `bounced`. Counts are distinct bounced recipients of that type; the five types approximately partition `bounced`, so the five rates sum to roughly 1.0 when `bounced` is non-zero.
 type EmailBounceStatsWithRates struct {
-	// Admin Distinct recipients bounced by an upstream policy block (relaying denied, blocklisted domain).
+	// Admin Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain.
 	Admin *int `json:"admin,omitempty"`
 
 	// AdminRate Fraction of bounced recipients that admin bounced, computed as `admin / bounced`. Null when `bounced` is zero.
@@ -4552,12 +4805,18 @@ type EmailBounceStatsWithRates struct {
 	UndeterminedRate *float32 `json:"undetermined_rate,omitempty"`
 }
 
-// EmailBounceType Bounce classification. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+// EmailBounceType Bounce classification.
+//
+// - `hard`: A permanent failure, such as an invalid address or a domain that does not exist.
+// - `soft`: A transient failure, such as a full mailbox or a server that is temporarily unavailable.
+// - `block`: The receiving mail server refused the sending IP on reputation grounds.
+// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
+// - `undetermined`: The receiving server's response was ambiguous.
 type EmailBounceType string
 
-// EmailBroadcastStatsPoint Aggregate delivery, engagement, and latency stats for the messages of a single broadcast over the requested period.
+// EmailBroadcastStatsPoint Delivery, engagement and latency figures for one broadcast's messages over the period you asked for.
 type EmailBroadcastStatsPoint struct {
-	// BroadcastId The broadcast this row aggregates, the same identifier returned by the broadcast endpoints. Only messages sent as part of a broadcast carry a broadcast identifier; one-off and transactional sends are not included in this breakdown.
+	// BroadcastId The broadcast this row covers, the same ID the broadcast endpoints return. Only mail sent as part of a broadcast has a broadcast ID, so one-off and transactional sends do not appear in this breakdown at all.
 	BroadcastId *string               `json:"broadcast_id,omitempty"`
 	Delivery    *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement  *EmailEngagementStats `json:"engagement,omitempty"`
@@ -4566,7 +4825,7 @@ type EmailBroadcastStatsPoint struct {
 
 // EmailCategoryStatsPoint Aggregate delivery and engagement stats for a single category over the requested period.
 type EmailCategoryStatsPoint struct {
-	// Category The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+	// Category The category this row aggregates, as set at send time. `transactional` is one-to-one mail triggered by a user action. `marketing` is bulk sending. New categories may be added over time.
 	Category   *string               `json:"category,omitempty"`
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
@@ -4576,20 +4835,20 @@ type EmailCategoryStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity (opens, clicks, and the recipients behind them); it carries no delivery counts and no open/click rates, because the receiving mail server reports delivery without a client or device, leaving no per-client delivered denominator to divide by. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`; the other two are null. Engagement environment is detected from the opening client and is subject to the same inbox-privacy prefetch effects as the open counts (the `opens_non_prefetched` figure excludes auto-fetched opens).
+// EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a client or device, so there is no per-client delivered denominator to divide by. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`. The other two are null. The detected client is also affected by inbox-privacy prefetching, the same way open counts are: `opens_non_prefetched` excludes opens that were auto-fetched by an inbox privacy feature rather than by a person actually opening the message.
 type EmailClientStatsPoint struct {
-	// DeviceType The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`; null otherwise.
+	// DeviceType The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
 	DeviceType *string `json:"device_type,omitempty"`
 
-	// EmailClient The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`; null otherwise.
+	// EmailClient The mail client this row aggregates (for example `Gmail`, `Apple Mail`, `Outlook`). Populated only when `group_by=email_client`. Null otherwise.
 	EmailClient *string                `json:"email_client,omitempty"`
 	Engagement  *EmailEngagementCounts `json:"engagement,omitempty"`
 
-	// Os The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`; null otherwise.
+	// Os The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`. Null otherwise.
 	Os *string `json:"os,omitempty"`
 }
 
-// EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else (a complaint event carries no delivery or engagement context to aggregate).
+// EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so there is nothing else here to count.
 type EmailComplaintTypeStatsPoint struct {
 	// Complained Distinct recipients who reported a message as spam with this complaint type at any point in the period.
 	Complained *int `json:"complained,omitempty"`
@@ -4600,10 +4859,10 @@ type EmailComplaintTypeStatsPoint struct {
 
 // EmailDeliveryLatencyStats Latency percentiles (p50, p95, p99) in milliseconds for the messages in this breakdown row, for breakdowns whose dimension is known only from delivery onward (sending IP, mailbox provider).
 //
-// - `delivery`: time from handing the message off to the receiving mail server accepting it. Null when no deliveries occurred for this row in the period.
-// - `total`: end-to-end time from accepting the send to delivery. Null when no deliveries occurred for this row in the period.
+// - `delivery`: Time from handing the message off to the receiving mail server accepting it. Null when no deliveries occurred for this row in the period.
+// - `total`: End-to-end time from accepting the send to delivery. Null when no deliveries occurred for this row in the period.
 //
-// These breakdowns have no `processing` latency family. Bird only learns a row's dimension (the sending IP or recipient mailbox provider) after the upstream mail-transfer system reports delivery, bounce, deferral, or late bounce; the accept-to-processed phase happens before that binding decision, so it cannot be attributed to the dimension. Use `GET /v1/email/stats/daily` for workspace-wide processing-latency percentiles.
+// These breakdowns have no `processing` latency family. Which row a message belongs to, meaning which sending IP carried it or which mailbox provider received it, is only known once the receiving mail server has reported back with a delivery, a bounce, a deferral or a late bounce. The accept-to-processed phase is over before then, so there is no way to attribute it to a row. Use `GET /v1/email/stats/daily` for processing-latency percentiles across the whole workspace.
 type EmailDeliveryLatencyStats struct {
 	// Delivery p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
 	Delivery *EmailLatencyQuantiles `json:"delivery,omitempty"`
@@ -4612,18 +4871,27 @@ type EmailDeliveryLatencyStats struct {
 	Total *EmailLatencyQuantiles `json:"total,omitempty"`
 }
 
-// EmailDeliveryStats Delivery pipeline counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope (on the period summary, the sum of the per-bucket distinct counts), attributed by event time (not send time): a recipient delivered on Monday counts in Monday's row, and a recipient who bounced then succeeded on a retry can appear in both `bounced` and `delivered`. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. These counts are successive lifecycle stages, not interchangeable categories: `rejected` happens before any send attempt (suppression, policy, generation failure); `deferred` is a temporary in-flight delay still being retried; `bounced` (with its hard/soft/admin/block/undetermined sub-types) is a delivery failure; and `complained` is post-delivery spam feedback. Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary); breakdown rows omit it.
+// EmailDeliveryStats Delivery counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope (on the period summary, the sum of the per-bucket distinct counts), attributed by event time (not send time): a recipient delivered on Monday counts in Monday's row, and a recipient who bounced then succeeded on a retry can appear in both `bounced` and `delivered`. Very large counts are close estimates rather than exact tallies.
+//
+// These counts are successive lifecycle stages, so a recipient can appear in more than one:
+//
+// - `rejected`: Happens before any send attempt, from suppression, policy, or a generation failure.
+// - `deferred`: A temporary in-flight delay that is still being retried.
+// - `bounced`: A delivery failure, with its own hard, soft, admin, block, and undetermined sub-types.
+// - `complained`: Post-delivery spam feedback.
+//
+// Each rate is a fraction in the range 0 to 1 and is null when its denominator is zero. `accepted` is reported only where it can be attributed (time buckets and the period summary). Breakdown rows omit it.
 type EmailDeliveryStats struct {
-	// Accepted Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary; omitted on breakdown rows, whose rollups do not carry it.
+	// Accepted Distinct recipients accepted for delivery after suppression filtering. Reported on time buckets and the period summary. Breakdown rows leave it out, because their rollups do not have it.
 	Accepted *int `json:"accepted,omitempty"`
 
 	// AllBounces Total recipients in this scope who did not receive the message, computed as `bounced + oob_bounces`.
 	AllBounces *int `json:"all_bounces,omitempty"`
 
-	// BounceRate Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count; the rate is clamped to 1. Null when there were no attempts.
+	// BounceRate Share of this scope's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Because `oob_bounces` counts events rather than recipients, `all_bounces` can exceed the attempt count. The rate is clamped to 1. Null when there were no attempts.
 	BounceRate *float32 `json:"bounce_rate,omitempty"`
 
-	// Bounced Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+	// Bounced Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two totals are worked out independently, so they can differ slightly.
 	Bounced *int                       `json:"bounced,omitempty"`
 	Bounces *EmailBounceStatsWithRates `json:"bounces,omitempty"`
 
@@ -4658,7 +4926,7 @@ type EmailDeliveryStats struct {
 	Rejected *int `json:"rejected,omitempty"`
 }
 
-// EmailEngagementCounts Open and click counts for a breakdown row whose dimension is resolved from engagement events only. `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences); the `unique_*` fields count distinct recipients. Rates and unsubscribe counts are not included: there is no per-dimension delivered denominator for a rate, and unsubscribe events do not carry the engagement context this breakdown is keyed on.
+// EmailEngagementCounts Open and click counts for a breakdown row whose dimension is resolved from engagement events only. `opens`, `opens_non_prefetched`, and `clicks` count events, not people: the same recipient opening or clicking more than once counts each time. The `unique_*` fields count distinct recipients instead, so a recipient who opened five times only counts once there. Rates and unsubscribe counts are not included here. There is no per-dimension delivered count to use as a rate's denominator, and an unsubscribe event has none of the information this breakdown is grouped by, so it cannot be placed on a row.
 type EmailEngagementCounts struct {
 	// Clicks Distinct click events, counting repeat clicks from the same recipient.
 	Clicks *int `json:"clicks,omitempty"`
@@ -4682,7 +4950,7 @@ type EmailEngagementCounts struct {
 // EmailEngagementSortMetric Metric to rank rows by, applied descending. Shared by the engagement-only breakdowns (locations, email clients), which report open and click counts but no rates (there is no per-dimension delivered denominator).
 type EmailEngagementSortMetric string
 
-// EmailEngagementStats Engagement counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences); the `unique_*` fields count distinct recipients; `unsubscribes` counts distinct unsubscribe events. Counts are attributed by event time (not send time), so an open recorded today for a message sent earlier counts in today's row. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. Each rate divides the counts in this scope and is null when its denominator is zero.
+// EmailEngagementStats Engagement counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences). The `unique_*` fields count distinct recipients. `unsubscribes` counts distinct unsubscribe events. Counts are attributed by event time (not send time), so an open recorded today for a message sent earlier counts in today's row. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. Each rate divides the counts in this scope and is null when its denominator is zero.
 type EmailEngagementStats struct {
 	// ClickRate Distinct clickers relative to effectively delivered recipients in the same scope, computed as `unique_clicks / delivery.effective_delivered` (`delivery.delivered` on rows without an `effective_delivered` field). Clicks are attributed by event time, so engagement earned by earlier deliveries can push the rate above 1. Null when the denominator is zero.
 	ClickRate *float32 `json:"click_rate,omitempty"`
@@ -4717,13 +4985,13 @@ type EmailEngagementStats struct {
 
 // EmailEvent defines model for EmailEvent.
 type EmailEvent struct {
-	// BounceClass Numeric bounce classification for fine-grained deliverability triage. Lets you distinguish, for example, a DNS failure from a spam block when both would be `bounce_type: soft` or `bounce_type: block`. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred`.
+	// BounceClass A more detailed numeric bounce code, useful for telling apart failures that share the same `bounce_type`. For example, a DNS failure and a spam block can both come through as `bounce_type: soft` or `bounce_type: block`; this field tells you which one actually happened. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
 	BounceClass *int `json:"bounce_class,omitempty"`
 
 	// BounceCode SMTP status code returned by the receiving mail server. Present on `email.bounced` and `email.deferred` events.
 	BounceCode *string `json:"bounce_code,omitempty"`
 
-	// BounceDescription Human-readable bounce reason. Present on `email.bounced` and `email.deferred` events.
+	// BounceDescription The bounce reason, in plain language, as reported by the mail server. Present on `email.bounced` and `email.deferred` events.
 	BounceDescription *string `json:"bounce_description,omitempty"`
 
 	// BounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
@@ -4738,20 +5006,45 @@ type EmailEvent struct {
 	// IpAddress Client IP address (IPv4 or IPv6). Present on `email.opened` and `email.clicked` events when available.
 	IpAddress *string `json:"ip_address,omitempty"`
 
-	// IsPrefetched True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, Gmail image proxy) rather than a real user action. Useful for accurate open-rate calculation. Present on `email.opened` only.
+	// IsPrefetched True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
 	IsPrefetched *bool `json:"is_prefetched,omitempty"`
 
 	// OccurredAt When this event occurred.
 	OccurredAt  time.Time   `json:"occurred_at"`
 	RecipientId RecipientID `json:"recipient_id"`
 
-	// RejectionReason Specific cause of rejection. Present on `email.rejected` events only. See `EmailRecipient.rejection_reason` for the meaning of each value.
+	// RejectionReason Specific cause of rejection. Present on `email.rejected` events only.
+	//
+	// - `recipient_suppressed`: The recipient is on the workspace suppression list.
+	// - `transmission_failed`: The message could not be transmitted for delivery.
+	// - `generation_failure`: The message could not be built for delivery, because of a template or content issue.
+	// - `policy_rejection`: The message was refused by sending policy.
+	// - `domain_unverified`: The sending domain was not verified.
+	// - `quota_exceeded`: The organization's send quota was reached.
+	// - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
 	RejectionReason *EmailEventRejectionReason `json:"rejection_reason,omitempty"`
 
-	// SendingIp The IP address Bird used to send this message. Useful when investigating deliverability issues that correlate with specific IPs. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
+	// SendingIp The IP address used to send this message. Useful for spotting a deliverability problem that is tied to one specific sending IP rather than affecting all of them. Present on `email.delivered`, `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events.
 	SendingIp *string `json:"sending_ip,omitempty"`
 
-	// Type Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	// Type Type of an event in a message's per-recipient delivery timeline.
+	//
+	// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+	// - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
+	// - `email.processed`: We queued the message for delivery to the recipient's mail server.
+	// - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+	// - `email.delivered`: The recipient's mail server accepted the message.
+	// - `email.bounced`: Delivery permanently failed at the recipient's mail server.
+	// - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
+	// - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
+	// - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+	// - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
+	// - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
+	// - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
+	// - `email.list_unsubscribed`: The recipient opted out through the one-click unsubscribe control in their mail client.
+	// - `email.complained`: The recipient reported the message as spam through their mailbox provider.
+	//
+	// We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
 	Type EmailEventType `json:"type"`
 
 	// Url The clicked URL. Present on `email.clicked` events.
@@ -4764,7 +5057,15 @@ type EmailEvent struct {
 // EmailEventBounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
 type EmailEventBounceType string
 
-// EmailEventRejectionReason Specific cause of rejection. Present on `email.rejected` events only. See `EmailRecipient.rejection_reason` for the meaning of each value.
+// EmailEventRejectionReason Specific cause of rejection. Present on `email.rejected` events only.
+//
+// - `recipient_suppressed`: The recipient is on the workspace suppression list.
+// - `transmission_failed`: The message could not be transmitted for delivery.
+// - `generation_failure`: The message could not be built for delivery, because of a template or content issue.
+// - `policy_rejection`: The message was refused by sending policy.
+// - `domain_unverified`: The sending domain was not verified.
+// - `quota_exceeded`: The organization's send quota was reached.
+// - `recipient_not_allowed`: This recipient was not allowed for this send. For a send from the shared onboarding domain, every recipient has to be a verified member of the workspace.
 type EmailEventRejectionReason string
 
 // EmailEventList defines model for EmailEventList.
@@ -4782,7 +5083,24 @@ type EmailEventList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// EmailEventType Type of an event in a message's per-recipient delivery timeline. Open enum — new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+// EmailEventType Type of an event in a message's per-recipient delivery timeline.
+//
+// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+// - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
+// - `email.processed`: We queued the message for delivery to the recipient's mail server.
+// - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+// - `email.delivered`: The recipient's mail server accepted the message.
+// - `email.bounced`: Delivery permanently failed at the recipient's mail server.
+// - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
+// - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
+// - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+// - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
+// - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
+// - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
+// - `email.list_unsubscribed`: The recipient opted out through the one-click unsubscribe control in their mail client.
+// - `email.complained`: The recipient reported the message as spam through their mailbox provider.
+//
+// We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
 type EmailEventType string
 
 // EmailID defines model for EmailID.
@@ -4791,7 +5109,7 @@ type EmailID = string
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
 
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 type EmailLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
@@ -4814,9 +5132,9 @@ type EmailLatencyQuantiles struct {
 
 // EmailLatencyStats Latency percentiles (p50, p95, p99) in milliseconds for the bucket. On the summary endpoint these are computed across the whole period rather than per bucket. Three families are reported:
 //
-// - `processing`: time from accepting the send to handing the message off for delivery, covering internal queue depth and handoff. Measured per processed recipient; null when no recipient in the bucket has reached the processed stage.
-// - `delivery`: time from handoff to the receiving mail server accepting the message, dominated by recipient-side delivery behaviour. Measured per delivered recipient; null when no deliveries occurred in the bucket.
-// - `total`: end-to-end time from accepting the send to delivery, the most useful tile for a customer SLO. Measured per delivered recipient; null when no deliveries occurred in the bucket.
+// - `processing`: Time from accepting the send to handing the message off for delivery. Measured per processed recipient; null when no recipient in the bucket has reached the processed stage.
+// - `delivery`: Time from handoff to the receiving mail server accepting the message, dominated by recipient-side delivery behavior. Measured per delivered recipient; null when no deliveries occurred in the bucket.
+// - `total`: End-to-end time from accepting the send to delivery, and the number most worth watching against your own delivery targets. Measured per delivered recipient; null when no deliveries occurred in the bucket.
 //
 // Each family is reported independently and is omitted entirely when no qualifying event contributed a latency measurement in the bucket (including when latency for that stage has not yet been recorded for the workspace), so `processing` can be present while `delivery` and `total` are absent. A client must handle a missing family, and a null p50/p95/p99 within a present family, by rendering a placeholder rather than assuming a number.
 type EmailLatencyStats struct {
@@ -4830,7 +5148,7 @@ type EmailLatencyStats struct {
 	Total *EmailLatencyQuantiles `json:"total,omitempty"`
 }
 
-// EmailLocationStatsPoint Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity (opens, clicks, and the recipients behind them); it carries no delivery counts and no open/click rates, because the receiving mail server reports delivery without a recipient location, leaving no per-location delivered denominator to divide by. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
+// EmailLocationStatsPoint Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a recipient location, so there is no per-location delivered denominator to divide by. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
 type EmailLocationStatsPoint struct {
 	// City The city within the region. Populated when `group_by` is `city`; null at coarser groupings.
 	City *string `json:"city,omitempty"`
@@ -4843,18 +5161,70 @@ type EmailLocationStatsPoint struct {
 	Region *string `json:"region,omitempty"`
 }
 
-// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request minus `from` — the mailbox is the sender identity — and minus `scheduled_at` (mailbox sends are immediate). Bird mints the RFC 5322 Message-ID so replies thread back to this conversation. At least one of `html` or `text` must be provided.
+// EmailLookup What we can tell you about an email address: whether it will accept mail, how confident that is, why not when it will not, and what the address looks like it was meant to be when it looks misspelled.
+//
+// `result` is the field to decide on; `delivery_confidence` grades it, and `flags` describes the address itself rather than its deliverability, so a perfectly valid address can still have `role` or `disposable`.
+//
+// Fields with nothing behind them are left out rather than sent as null, so anything you can read in the response is something we actually resolved.
+type EmailLookup struct {
+	// DeliveryConfidence How likely mail to this address is to be delivered, from 0 (certain not to be) to 100 (certain to be). Read it alongside `result` rather than instead of it, because the same score can sit under `neutral` or `risky` for different reasons.
+	DeliveryConfidence *int `json:"delivery_confidence,omitempty"`
+
+	// DidYouMean The address this one looks like a misspelling of. Absent unless a correction was found, which in practice means `result` is `typo`. Offer it to whoever typed the original rather than sending to it unasked, because it is a guess and the address they meant may be neither one.
+	DidYouMean *string `json:"did_you_mean,omitempty"`
+
+	// Email The address that was looked up, exactly as you sent it.
+	Email *string `json:"email,omitempty"`
+
+	// Flags Notable characteristics of the address. Empty when none apply.
+	Flags *[]EmailLookupFlag `json:"flags,omitempty"`
+
+	// Reason Why the address cannot receive mail. Absent unless `result` is `undeliverable`.
+	Reason *EmailLookupReason `json:"reason,omitempty"`
+	Result *EmailLookupResult `json:"result,omitempty"`
+
+	// Valid Whether the address is well-formed and its domain is set up to receive mail at all. It says nothing about the mailbox itself, so a `valid` domain with no such mailbox is `true` here and `undeliverable` in `result`.
+	Valid *bool `json:"valid,omitempty"`
+}
+
+// EmailLookupFlag A notable characteristic of an email address. `role` means it addresses a function rather than a person (`support@`, `info@`), so replies and consent are ambiguous and complaints are more likely. `disposable` means it belongs to a throwaway-address provider and will stop existing. `free_provider` means it belongs to a consumer mailbox provider such as Gmail or Outlook.com, which is ordinary for consumer mail and a signal when you expected a business address.
+//
+// Open enum: more flags may be added over time, so treat an unrecognized value as a future flag rather than an error.
+type EmailLookupFlag string
+
+// EmailLookupReason Why an address cannot receive mail. `invalid_syntax` means the address is not a well-formed address at all, `invalid_domain` means the domain does not accept mail anywhere, and `invalid_recipient` means the domain accepts mail but this mailbox does not exist.
+//
+// Open enum: further reasons may be added over time, so treat an unrecognized value as a future one rather than an error. `result` is what to branch on; this field explains it.
+type EmailLookupReason string
+
+// EmailLookupRequest defines model for EmailLookupRequest.
+type EmailLookupRequest struct {
+	// Email The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+	Email string `json:"email"`
+}
+
+// EmailLookupResult The verdict on the address, and the one field to decide on.
+//
+// `valid` means the address exists and accepts mail. `neutral` means it could not be confirmed either way, usually because the receiving domain answers every recipient the same. `risky` means it will probably accept the mail but is likelier than most to bounce or complain (a role, disposable, or low-reputation address). `undeliverable` means it will not accept mail, and `reason` says why. `typo` means the address looks like a misspelling of a real one, and `did_you_mean` has the correction.
+//
+// Open enum: further verdicts may be added over time, so treat an unrecognized value as a future one rather than an error. Branch on the values you know and fall back on `delivery_confidence`, which is always present and always comparable.
+type EmailLookupResult string
+
+// EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and without `scheduled_at`, because a mailbox sends immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
 type EmailMailboxComposeRequest struct {
-	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
-	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	// Category Content classification, which controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory `json:"category,omitempty"`
 
-	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Cc *[]EmailAddressInput `json:"cc,omitempty"`
 
 	// Html HTML body. At least one of html or text must be provided.
@@ -4875,7 +5245,7 @@ type EmailMailboxComposeRequest struct {
 	// Text Plain-text body. At least one of html or text must be provided.
 	Text *string `json:"text,omitempty"`
 
-	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	To []EmailAddressInput `json:"to"`
 }
 
@@ -4884,11 +5254,31 @@ type EmailMailboxLabel struct {
 	// Name The label name, as it appears on conversations and messages.
 	Name *string `json:"name,omitempty"`
 
-	// Type `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+	// Type `system` labels are the built-in placements a message can be in:
+	//
+	// - Inbox.
+	// - Archive.
+	// - Spam.
+	// - Blocked.
+	// - Sent.
+	// - Trash.
+	// - Unread.
+	//
+	// `custom` labels are the workspace's own tags.
 	Type *EmailMailboxLabelType `json:"type,omitempty"`
 }
 
-// EmailMailboxLabelType `system` labels are built in and carry state — the placements `inbox`, `archive`, `spam`, `blocked`, and `sent`, plus `trash` and `unread`. `custom` labels are the workspace's own tags.
+// EmailMailboxLabelType `system` labels are the built-in placements a message can be in:
+//
+// - Inbox.
+// - Archive.
+// - Spam.
+// - Blocked.
+// - Sent.
+// - Trash.
+// - Unread.
+//
+// `custom` labels are the workspace's own tags.
 type EmailMailboxLabelType string
 
 // EmailMailboxLabelList The labels available in a mailbox.
@@ -4896,7 +5286,7 @@ type EmailMailboxLabelList struct {
 	Data []EmailMailboxLabel `json:"data"`
 }
 
-// EmailMailboxProviderDeliveryStats Delivery counts and rates for messages attributed to a single recipient mailbox provider. Per-provider results do not include `accepted` or `processed` counts because Bird only learns the recipient's mailbox provider after the upstream mail transfer system reports delivery/bounce/deferral/late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific provider.
+// EmailMailboxProviderDeliveryStats Delivery counts and rates for messages attributed to a single recipient mailbox provider. Per-provider results do not include `accepted` or `processed` counts, because we only learn the recipient's mailbox provider once the receiving mail server reports delivery, a bounce, a deferral, or a late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific provider.
 type EmailMailboxProviderDeliveryStats struct {
 	// BounceRate Share of attempted recipients on this mailbox provider that bounced, computed as `bounced / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
 	BounceRate *float32 `json:"bounce_rate,omitempty"`
@@ -4937,16 +5327,16 @@ type EmailMailboxProviderRegionStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by the breakdowns whose attribution begins at delivery (mailbox providers, mailbox provider regions): `processed`, `rejected`, and `oob_bounces` are not part of those rows, so they are not sortable. Any count or rate the rows carry may be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types are addressed by their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
+// EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by the breakdowns whose attribution begins at delivery (mailbox providers, mailbox provider regions): `processed`, `rejected`, and `oob_bounces` are not part of those rows, so they are not sortable. Any count or rate on the row can be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types use their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
 type EmailMailboxProviderSortMetric string
 
-// EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. A recipient's mailbox provider is reported by the receiving mail system, so per-provider rows cover the delivery stage onward: they omit the `accepted` and `processed` counts and the `processing` latency family, which never appear (they are not returned as null). Engagement (opens, clicks, and their rates) is included because those events are post-delivery and carry the mailbox provider.
+// EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. We learn a recipient's mailbox provider from the receiving mail server, so per-provider rows cover the delivery stage onward: they omit the `accepted` and `processed` counts and the `processing` latency family, which never appear at all rather than appearing as null. Engagement (opens and clicks, and their rates) is included because those events happen after delivery, once the mailbox provider is already known.
 type EmailMailboxProviderStatsPoint struct {
 	Delivery   *EmailMailboxProviderDeliveryStats `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats              `json:"engagement,omitempty"`
 	Latency    *EmailDeliveryLatencyStats         `json:"latency,omitempty"`
 
-	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorised.
+	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorized.
 	MailboxProvider *string `json:"mailbox_provider,omitempty"`
 
 	// Trend Per-bucket rate series for this mailbox provider over the window. Present only when `include_trend=true`.
@@ -4955,10 +5345,10 @@ type EmailMailboxProviderStatsPoint struct {
 
 // EmailMessage defines model for EmailMessage.
 type EmailMessage struct {
-	// AcceptedCount Number of recipients currently in the `accepted` state — Bird has the send and is preparing to deliver.
+	// AcceptedCount How many recipients are in the `accepted` state, meaning we have the message and are getting ready to deliver it.
 	AcceptedCount *int `json:"accepted_count,omitempty"`
 
-	// Attachments Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed; when content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
+	// Attachments Attachment metadata for the send. Empty when no attachments were included. Raw content is not echoed. When content storage is enabled, download an attachment by its `id` via the message's attachment endpoint.
 	Attachments *[]EmailAttachmentRef `json:"attachments,omitempty"`
 
 	// Bcc BCC recipients.
@@ -4967,7 +5357,10 @@ type EmailMessage struct {
 	// BouncedCount Number of recipients that resulted in a permanent delivery failure.
 	BouncedCount *int `json:"bounced_count,omitempty"`
 
-	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	// Category Content classification, which controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category EmailMessageCategory `json:"category"`
 
 	// Cc CC recipients.
@@ -4982,13 +5375,13 @@ type EmailMessage struct {
 	// CreatedAt When the send request was accepted.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// DeferredCount Number of recipients in transient delivery deferral; the provider is retrying.
+	// DeferredCount Number of recipients in transient delivery deferral. Their mail server asked for a retry, and delivery attempts continue.
 	DeferredCount *int `json:"deferred_count,omitempty"`
 
 	// DeliveredAt When all recipients reached a terminal delivered state, or null if not yet fully delivered.
 	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
 
-	// DeliveredCount Number of recipients whose messages were accepted by the remote MTA.
+	// DeliveredCount How many recipients' messages were accepted by their mail server.
 	DeliveredCount *int `json:"delivered_count,omitempty"`
 
 	// DeliveryLatencyMs Time between the message being processed and the receiving mail server accepting it, in milliseconds, for the fastest delivered recipient. Null until the first recipient is delivered.
@@ -5001,7 +5394,7 @@ type EmailMessage struct {
 	// InReplyToMessageId The message this one is a reply to, if any.
 	InReplyToMessageId *EmailID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata Arbitrary JSON metadata stored on the message object and echoed in webhook payloads. See EmailMessageSendRequest for the tags vs metadata distinction.
+	// Metadata Any JSON you kept on the message. We store it and hand it back in webhook payloads, and that is all it does. If you want to search or filter by it, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// OpenCount Total open events across all recipients.
@@ -5010,13 +5403,13 @@ type EmailMessage struct {
 	// Parameters The substitution values this send supplied, whether inline or from a template, or null if none were supplied. They are the values applied to `subject` and to the bodies the content endpoint returns, kept so you can see what produced the delivered copy and not only the result.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
-	// ProcessedCount Number of recipients for whom Bird has processed the message and queued it for delivery.
+	// ProcessedCount How many recipients the message has been prepared for and queued for delivery.
 	ProcessedCount *int `json:"processed_count,omitempty"`
 
-	// ProcessingLatencyMs Time between Bird accepting the send and the message being processed for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
+	// ProcessingLatencyMs Time between the send being accepted and the message being prepared for delivery, in milliseconds, for the fastest recipient. Null until the first recipient reaches `processed`.
 	ProcessingLatencyMs *int `json:"processing_latency_ms,omitempty"`
 
-	// RejectedCount Number of recipients rejected before delivery. See the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause (suppression match, transmission failure, generation failure, or policy refusal).
+	// RejectedCount Number of recipients rejected before delivery. Read the per-recipient `rejection_reason` field on `GET /v1/email/messages/{message_id}/recipients` for the specific cause.
 	RejectedCount *int `json:"rejected_count,omitempty"`
 
 	// ReplyTo Reply-To addresses, if set on the send. Empty/null when no Reply-To was provided.
@@ -5029,15 +5422,13 @@ type EmailMessage struct {
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
 
 	// ScheduledAt When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
-	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
-
-	// Status Aggregate delivery status derived from recipient states. `scheduled` means the message is queued to send at a future time and has not been dispatched yet. `accepted` means Bird has the send and is preparing to deliver. `processed` means Bird has processed the message and queued it for delivery to the recipient's mail server. `canceled` means a scheduled message was canceled before it was sent.
-	Status *EmailMessageStatus `json:"status,omitempty"`
+	ScheduledAt *time.Time          `json:"scheduled_at,omitempty"`
+	Status      *EmailMessageStatus `json:"status,omitempty"`
 
 	// Subject The subject line as delivered. For a send that used a template, the stored subject is the template's, so this reports it with the send's `parameters` substituted in, which is what the recipient saw.
 	Subject string `json:"subject"`
 
-	// Tags Structured `{name, value}` filter labels applied to this send. See EmailMessageSendRequest for the tags vs metadata distinction.
+	// Tags Labels on this message, each one a `name` and a `value`, that you can filter and search messages by. Use tags for anything you want to find messages by later, and `metadata` for data you only want handed back to you.
 	Tags *[]Tag `json:"tags,omitempty"`
 
 	// TemplateId The template this send rendered from, or null for a send that supplied its content inline.
@@ -5046,10 +5437,10 @@ type EmailMessage struct {
 	// TemplateVersionId The exact template version this send rendered from, or null for an inline send. A template's live version changes every time you submit it, so this is what identifies the wording that was actually delivered, together with `resolved_language`.
 	TemplateVersionId *EmailTemplateVersionID `json:"template_version_id,omitempty"`
 
-	// ThreadId Thread this message belongs to. Null until threading is enabled.
+	// ThreadId Thread this message belongs to, or null when the message is not part of one.
 	ThreadId *string `json:"thread_id,omitempty"`
 
-	// To Primary recipients. Length is the recipient count; use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
+	// To Primary recipients. Length is the recipient count. Use the broadcasts endpoint for audience-targeted sends. Each entry's `name` is present when a display name was provided on the send.
 	To []EmailAddress `json:"to"`
 
 	// TotalLatencyMs End-to-end accept → delivered time for the fastest delivered recipient, in milliseconds. Null until the first recipient is delivered.
@@ -5071,7 +5462,7 @@ type EmailMessageBatchItem struct {
 	// RequestedLanguage The template language this item asked for, in canonical form. Null when the item named no language or used no template. Every item in a batch resolves its own template reference, so this and `resolved_language` can differ from item to item.
 	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
 
-	// ResolvedLanguage The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not carry the language asked for and its `on_missing_language` policy chose this one.
+	// ResolvedLanguage The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not have the language asked for and its `on_missing_language` policy chose this one.
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
 
 	// Status Initial status of this message in the batch.
@@ -5099,7 +5490,10 @@ type EmailMessageBatchResponse struct {
 	Data []EmailMessageBatchItem `json:"data"`
 }
 
-// EmailMessageCategory Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+// EmailMessageCategory Content classification, which controls suppression policy:
+//
+// - `marketing`: Blocks on all suppression reasons.
+// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 type EmailMessageCategory string
 
 // EmailMessageContent The body content of a sent email message, as delivered. A send that used a template stores the template's body, so these report it with the send's `parameters` substituted in.
@@ -5128,63 +5522,65 @@ type EmailMessageList struct {
 
 // EmailMessageSendRequest defines model for EmailMessageSendRequest.
 type EmailMessageSendRequest struct {
-	// Attachments File attachments. Bird rejects sends whose estimated generated message size exceeds 20 MB. The estimate is the HTML and text body plus all attachments and inline images measured after base64 encoding. Keep total raw attachment content at or below 15 MB for reliable headroom. In batch sends, this per-message cap still applies and the serialized JSON request body for the whole batch has a hard 20 MB cap. See the EmailAttachment schema for the full field contract.
+	// Attachments Files to attach, up to 20 per message. A message can be at most 20 MB once it has been generated, and we refuse a send that would go over. That figure covers the HTML body, the text body and every attachment and inline image, all measured after base64 encoding, which adds roughly a third. So 15 MB of raw files already accounts for most of the budget, and the body competes for the same space. A batch send is held to the same 20 MB per message, and the whole request body is capped at 20 MB as well.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
-	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Bcc *[]EmailAddressInput `json:"bcc,omitempty"`
 
-	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	// Category Content classification, which controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory `json:"category,omitempty"`
 
-	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// Cc CC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	Cc *[]EmailAddressInput `json:"cc,omitempty"`
 
-	// ContactId Preview feature — contact-targeted sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`.
-	ContactId *string `json:"contact_id,omitempty"`
-
-	// From A sender or recipient address. Accepts a plain email string (`jane@example.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@example.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request; responses always return the object form.
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From EmailAddressInput `json:"from"`
 
-	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`: set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and headers the platform generates for you — `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path` — cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends; on `marketing` sends the platform sets a compliant unsubscribe header for you, so supplying them there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters.
+	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
 	Headers *map[string]string `json:"headers,omitempty"`
 
 	// Html HTML body. At least one of html or text must be provided.
-	Html               *string  `json:"html,omitempty"`
-	InReplyToMessageId *EmailID `json:"in_reply_to_message_id,omitempty"`
+	Html *string `json:"html,omitempty"`
 
 	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
 	IpPoolId *string `json:"ip_pool_id,omitempty"`
 
-	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (e.g. filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// Parameters Parameter values used to personalize inline content. A parameter is a single word, and a token in the subject or body (for example `{{ animal }}`) is replaced with the value of that name at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
-	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical; the 25 cap exists to prevent runaway header sizes that some MTAs reject.
+	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
 
-	// ScheduledAt Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead — outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends; cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance; exceeding it is rejected with a `422`.
+	// ScheduledAt Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
-	// Subject Message subject line. Required for inline sends; omit it when sending a `template` (the template supplies the subject).
+	// Subject Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
 	Subject *string `json:"subject,omitempty"`
 
-	// Tags Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics rollups by tag, and surface in webhook payloads. Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
+	// Tags Structured `{name, value}` labels for **filtering and analytics**. Tags become first-class query dimensions:
+	//
+	// - Filter the list endpoint by tag name.
+	// - Slice analytics rollups by tag.
+	// - Surface in webhook payloads.
+	//
+	// Cap: 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`, `template_id`). For arbitrary structured context that you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template Send a stored template instead of inline content. When set, omit `subject`/`html`/`text` — the template supplies them; personalize with `template.parameters`.
+	// Template Send a stored template instead of inline content. When set, omit `subject`, `html` and `text`, because the template supplies them. Personalize with `template.parameters`. A template send goes out immediately: `template` and `scheduled_at` are mutually exclusive, and combining them is rejected with a `422`.
 	Template *EmailTemplateSend `json:"template,omitempty"`
 
 	// Text Plain-text body. At least one of html or text must be provided.
 	Text *string `json:"text,omitempty"`
 
-	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@example.com>`), or an object with an optional display name.
+	// To Primary recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
 	To []EmailAddressInput `json:"to"`
-
-	// TopicId Preview feature — topic-gated sends. Currently unavailable; supplying this field returns `422 UnsupportedEmailFeature`. When generally available, a non-empty `topic_id` gates delivery on the recipient's opt-in state for that topic — if the recipient is opt_out, the send is silently suppressed and an `email.suppressed` event fires with `reason: topic_opt_out`.
-	TopicId *string `json:"topic_id,omitempty"`
 
 	// TrackClicks Whether to track click events for this message.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
@@ -5195,19 +5591,20 @@ type EmailMessageSendRequest struct {
 
 // EmailMessageStatus Aggregate delivery status of an email, derived from its recipients' states.
 //
-// In flight: `scheduled` means the message is queued to send at a future time and has
-// not been dispatched yet; `accepted` (the initial status of an immediate send) means
-// Bird has queued the message for its recipients; `processed` means delivery is underway
-// (at least one recipient has been handed to the delivery pipeline and none has failed);
-// `deferred` means at least one recipient's mailbox provider asked Bird to retry and
-// delivery attempts continue.
+// In flight:
 //
-// Final: `delivered` means every recipient's mail server accepted the message; `bounced`
-// means every recipient permanently failed (bounced or was rejected); `rejected` means
-// every recipient was rejected before a delivery attempt (for example, all recipients
-// suppressed); `partial_failure` means some recipients permanently failed while others
-// were delivered or are still in flight; `canceled` means a scheduled message was
-// canceled before it was sent.
+// - `scheduled`: The message is queued to send at a future time and has not been dispatched yet.
+// - `accepted`: The initial status of an immediate send. The message is queued for its recipients.
+// - `processed`: Delivery is underway, so at least one recipient's message is on its way out and none has failed.
+// - `deferred`: At least one recipient's mailbox provider asked for a retry, and delivery attempts continue.
+//
+// Final:
+//
+// - `delivered`: Every recipient's mail server accepted the message.
+// - `bounced`: Every recipient permanently failed (bounced or was rejected).
+// - `rejected`: Every recipient was rejected before a delivery attempt (for example, all recipients were suppressed).
+// - `partial_failure`: Some recipients permanently failed while others were delivered or are still in flight.
+// - `canceled`: A scheduled message was canceled before it was sent.
 //
 // `complained` takes precedence over every other status: at least one recipient reported
 // the message as spam, regardless of what happened to the rest.
@@ -5230,7 +5627,7 @@ type EmailRecipient struct {
 	// DeliveredAt When the recipient's mail server accepted the message, or null if not yet delivered.
 	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
 
-	// DeliveryLatencyMs Time between Bird processing the message and the receiving mail server accepting it, in milliseconds. Null until delivered.
+	// DeliveryLatencyMs Time between the message being prepared and the receiving mail server accepting it, in milliseconds. Null until delivered.
 	DeliveryLatencyMs *int        `json:"delivery_latency_ms,omitempty"`
 	Id                RecipientID `json:"id"`
 
@@ -5243,10 +5640,10 @@ type EmailRecipient struct {
 	// ParentId ID of the parent message (em_ prefix) or broadcast (eb_ prefix) this recipient belongs to.
 	ParentId string `json:"parent_id"`
 
-	// ProcessedAt When Bird processed the message and queued it for delivery to the recipient's mail server, or null if not yet processed.
+	// ProcessedAt When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
 	ProcessedAt *time.Time `json:"processed_at,omitempty"`
 
-	// ProcessingLatencyMs Time between Bird accepting the send and processing the message for delivery, in milliseconds. Null until processed.
+	// ProcessingLatencyMs Time between the send being accepted and the message being prepared for delivery, in milliseconds. Null until processed.
 	ProcessingLatencyMs *int `json:"processing_latency_ms,omitempty"`
 
 	// Recipient Recipient email address.
@@ -5254,29 +5651,30 @@ type EmailRecipient struct {
 
 	// RejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
 	//
-	// - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
-	//   did not attempt delivery.
-	// - `transmission_failed`: the message could not be transmitted for delivery.
-	// - `generation_failure`: the message could not be built for delivery (template or
+	// - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+	//   delivery was never attempted.
+	// - `transmission_failed`: The message could not be transmitted for delivery.
+	// - `generation_failure`: The message could not be built for delivery (template or
 	//   content issue).
-	// - `policy_rejection`: the message was refused by sending policy.
-	// - `domain_unverified`: the sending domain was not verified.
-	// - `quota_exceeded`: the organization's send quota was reached.
-	// - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+	// - `policy_rejection`: The message was refused by sending policy.
+	// - `domain_unverified`: The sending domain was not verified.
+	// - `quota_exceeded`: The organization's send quota was reached.
+	// - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 	//   onboarding-domain sends, recipients must be verified workspace members).
 	RejectionReason *EmailRecipientRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Role Envelope position of a recipient on an outbound email event.
 	Role RecipientRole `json:"role"`
 
-	// Status Delivery status for this recipient. `accepted` means Bird has the send and is
-	// preparing to deliver; `processed` means the message was handed to the delivery
-	// pipeline for this recipient; `deferred` means the recipient's mailbox provider
-	// asked Bird to retry and delivery attempts continue; `delivered` means the
-	// recipient's mail server accepted the message; `bounced` means delivery permanently
-	// failed (see `bounce_type` for hard vs soft); `complained` means the recipient
-	// reported the message as spam; `rejected` means Bird did not attempt delivery (see
-	// `rejection_reason` for why).
+	// Status Delivery status for this recipient:
+	//
+	// - `accepted`: The send has been taken and is being prepared for delivery.
+	// - `processed`: This recipient's message is on its way out.
+	// - `deferred`: The recipient's mailbox provider asked for a retry, and delivery attempts continue.
+	// - `delivered`: The recipient's mail server accepted the message.
+	// - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
+	// - `complained`: The recipient reported the message as spam.
+	// - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
 	Status *EmailRecipientStatus `json:"status,omitempty"`
 
 	// TotalLatencyMs End-to-end accept → delivered time for this recipient, in milliseconds. Null until delivered.
@@ -5288,26 +5686,27 @@ type EmailRecipientBounceType string
 
 // EmailRecipientRejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
 //
-//   - `recipient_suppressed`: the recipient is on the workspace suppression list. Bird
-//     did not attempt delivery.
-//   - `transmission_failed`: the message could not be transmitted for delivery.
-//   - `generation_failure`: the message could not be built for delivery (template or
+//   - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+//     delivery was never attempted.
+//   - `transmission_failed`: The message could not be transmitted for delivery.
+//   - `generation_failure`: The message could not be built for delivery (template or
 //     content issue).
-//   - `policy_rejection`: the message was refused by sending policy.
-//   - `domain_unverified`: the sending domain was not verified.
-//   - `quota_exceeded`: the organization's send quota was reached.
-//   - `recipient_not_allowed`: a recipient was not permitted for this send (for shared
+//   - `policy_rejection`: The message was refused by sending policy.
+//   - `domain_unverified`: The sending domain was not verified.
+//   - `quota_exceeded`: The organization's send quota was reached.
+//   - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
 //     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRecipientRejectionReason string
 
-// EmailRecipientStatus Delivery status for this recipient. `accepted` means Bird has the send and is
-// preparing to deliver; `processed` means the message was handed to the delivery
-// pipeline for this recipient; `deferred` means the recipient's mailbox provider
-// asked Bird to retry and delivery attempts continue; `delivered` means the
-// recipient's mail server accepted the message; `bounced` means delivery permanently
-// failed (see `bounce_type` for hard vs soft); `complained` means the recipient
-// reported the message as spam; `rejected` means Bird did not attempt delivery (see
-// `rejection_reason` for why).
+// EmailRecipientStatus Delivery status for this recipient:
+//
+// - `accepted`: The send has been taken and is being prepared for delivery.
+// - `processed`: This recipient's message is on its way out.
+// - `deferred`: The recipient's mailbox provider asked for a retry, and delivery attempts continue.
+// - `delivered`: The recipient's mail server accepted the message.
+// - `bounced`: Delivery permanently failed (see `bounce_type` for hard vs soft).
+// - `complained`: The recipient reported the message as spam.
+// - `rejected`: Delivery was never attempted (see `rejection_reason` for why).
 type EmailRecipientStatus string
 
 // EmailRecipientDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent to a single recipient mailbox domain over the requested period.
@@ -5339,7 +5738,17 @@ type EmailRecipientList struct {
 }
 
 // EmailRejectionReason Why an email was rejected before delivery.
-// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
+//
+//   - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+//     delivery was never attempted.
+//   - `transmission_failed`: The message could not be transmitted for delivery.
+//   - `generation_failure`: The message could not be built for delivery (template or
+//     content issue).
+//   - `policy_rejection`: The message was refused by sending policy.
+//   - `domain_unverified`: The sending domain was not verified.
+//   - `quota_exceeded`: The organization's send quota was reached.
+//   - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
+//     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
 // EmailSendingDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent from a single sending domain over the requested period.
@@ -5355,7 +5764,7 @@ type EmailSendingDomainStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailSendingIpDeliveryStats Delivery counts and rates for messages attributed to a single sending IP. Per-IP results do not include `accepted` or `processed` counts because Bird only learns which sending IP a message used after the upstream mail transfer system reports delivery/bounce/deferral/late bounce. Earlier lifecycle states (accepted, processed) cannot be attributed to a specific IP. Spam complaints and out-of-band bounce notifications are also not attributed per IP on this breakdown, so `complained` and `oob_bounces` read 0 (their rates read 0 where the denominator is non-zero, null where it is zero), `effective_delivered` equals `delivered`, and `all_bounces` equals `bounced`.
+// EmailSendingIpDeliveryStats Delivery counts and rates for messages attributed to a single sending IP. Per-IP results do not include `accepted` or `processed` counts: we only learn which sending IP a message used once it has been delivered, bounced, deferred, or bounced late, so those earlier lifecycle states cannot be attributed to a specific IP. Spam complaints and out-of-band bounce notifications are also not attributed per IP on this breakdown, so `complained` and `oob_bounces` read 0 (their rates read 0 where the denominator is non-zero, null where it is zero), `effective_delivered` equals `delivered`, and `all_bounces` equals `bounced`.
 type EmailSendingIpDeliveryStats struct {
 	// AllBounces Total recipients on this IP who did not receive the message, computed as `bounced + oob_bounces`.
 	AllBounces *int `json:"all_bounces,omitempty"`
@@ -5363,11 +5772,11 @@ type EmailSendingIpDeliveryStats struct {
 	// BounceRate Share of this IP's delivery attempts that ultimately failed (inband or out-of-band), computed as `all_bounces / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
 	BounceRate *float32 `json:"bounce_rate,omitempty"`
 
-	// Bounced Distinct recipients whose delivery failed. Approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined); the totals are computed independently so they may differ slightly at the approximation error.
+	// Bounced Distinct recipients whose delivery failed. This is approximately the sum of the five `bounces.*` sub-counts (hard, soft, admin, block, undetermined). The two are computed independently, so they can differ slightly.
 	Bounced *int                       `json:"bounced,omitempty"`
 	Bounces *EmailBounceStatsWithRates `json:"bounces,omitempty"`
 
-	// Complained Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown; read complaint counts from the summary or time-series statistics instead.
+	// Complained Distinct recipients who reported the message as spam. Complaints are not attributed to a sending IP, so this reads 0 on this breakdown. Read complaint counts from the summary or time-series statistics instead.
 	Complained *int `json:"complained,omitempty"`
 
 	// ComplaintRate Share of effectively delivered recipients on this IP who reported the message as spam, computed as `complained / effective_delivered`. Null when `effective_delivered` is zero.
@@ -5385,14 +5794,14 @@ type EmailSendingIpDeliveryStats struct {
 	// EffectiveDelivered Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
 	EffectiveDelivered *int `json:"effective_delivered,omitempty"`
 
-	// OobBounces Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0; workspace-wide out-of-band counts are on the summary and time-series statistics.
+	// OobBounces Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0. Workspace-wide out-of-band counts are on the summary and time-series statistics.
 	OobBounces *int `json:"oob_bounces,omitempty"`
 
 	// OobRate Share of this IP's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
 	OobRate *float32 `json:"oob_rate,omitempty"`
 }
 
-// EmailSendingIpStatsPoint Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: the upstream mail-transfer system reports the IP it used on delivery, bounce, deferral, and late-bounce events, but not at acceptance or processing time. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family, which never appear (they are not returned as null).
+// EmailSendingIpStatsPoint Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: we learn which IP a message used only from its delivery, bounce, deferral, and late-bounce events, not from its acceptance or processing. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family. Those fields never appear on a per-IP row. They are not returned as null.
 type EmailSendingIpStatsPoint struct {
 	Delivery *EmailSendingIpDeliveryStats `json:"delivery,omitempty"`
 
@@ -5411,14 +5820,18 @@ type EmailSendingIpStatsPoint struct {
 type EmailSmtpConfig struct {
 	ApiKeyId APIKeyID `json:"api_key_id"`
 
-	// Category Content classification applied to messages submitted over SMTP with this key. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
+	// Category Content classification applied to messages submitted over SMTP with
+	// this key. Controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions.
 	Category  EmailSmtpConfigCategory `json:"category"`
 	CreatedAt *time.Time              `json:"created_at,omitempty"`
 
 	// IpPoolId ID of the IP pool that SMTP sends with this key use, or `ipp_shared` for the shared pool. `null` when this key uses your organization's default pool.
 	IpPoolId *string `json:"ip_pool_id,omitempty"`
 
-	// Tags Structured `{name, value}` labels applied to every message submitted over SMTP with this key — the same tags used by the email sending API. See EmailMessageSendRequest for how tags are used for filtering and analytics.
+	// Tags Structured `{name, value}` labels applied to every message submitted over SMTP with this key, the same tags used by the email sending API. Use tags to filter and break down your email statistics.
 	Tags []Tag `json:"tags"`
 
 	// TrackClicks Whether click events are tracked for messages submitted over SMTP with this key.
@@ -5429,7 +5842,11 @@ type EmailSmtpConfig struct {
 	UpdatedAt  *time.Time `json:"updated_at,omitempty"`
 }
 
-// EmailSmtpConfigCategory Content classification applied to messages submitted over SMTP with this key. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions.
+// EmailSmtpConfigCategory Content classification applied to messages submitted over SMTP with
+// this key. Controls suppression policy:
+//
+// - `marketing`: Blocks on all suppression reasons.
+// - `transactional`: Allows delivery through complaint and unsubscribe suppressions.
 type EmailSmtpConfigCategory string
 
 // EmailSmtpConfigList defines model for EmailSmtpConfigList.
@@ -5450,9 +5867,15 @@ type EmailSmtpConfigList struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
-// EmailSmtpConfigUpdate Desired changes to the SMTP config for the key. A field you omit is left unchanged; if no config exists yet for this key, omitted fields take their documented defaults instead.
+// EmailSmtpConfigUpdate Desired changes to the SMTP config for the key. A field you omit is left unchanged. If no config exists yet for this key, omitted fields take their documented defaults instead.
 type EmailSmtpConfigUpdate struct {
-	// Category Content classification — independent of which endpoint messages are submitted through. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Omit to leave unchanged.
+	// Category Content classification, independent of which endpoint messages are
+	// submitted through. Controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions.
+	//
+	// Omit to leave unchanged.
 	Category *EmailSmtpConfigUpdateCategory `json:"category,omitempty"`
 
 	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Send `null` to reset to your organization's default pool, or omit to leave unchanged. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
@@ -5468,7 +5891,13 @@ type EmailSmtpConfigUpdate struct {
 	TrackOpens *bool `json:"track_opens,omitempty"`
 }
 
-// EmailSmtpConfigUpdateCategory Content classification — independent of which endpoint messages are submitted through. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions. Omit to leave unchanged.
+// EmailSmtpConfigUpdateCategory Content classification, independent of which endpoint messages are
+// submitted through. Controls suppression policy:
+//
+// - `marketing`: Blocks on all suppression reasons.
+// - `transactional`: Allows delivery through complaint and unsubscribe suppressions.
+//
+// Omit to leave unchanged.
 type EmailSmtpConfigUpdateCategory string
 
 // EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and capped at the requested `limit` (default 50, max 200).
@@ -5476,10 +5905,10 @@ type EmailStatsByBounceCodeResponse struct {
 	// Data Bounce-code breakdown rows, ranked by the `sort` metric (default `bounced`) descending. Empty when no bounces occurred in the period.
 	Data *[]EmailBounceCodeStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5488,10 +5917,10 @@ type EmailStatsByBroadcastResponse struct {
 	// Data Broadcast breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no broadcast messages were active in the period.
 	Data *[]EmailBroadcastStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5500,10 +5929,10 @@ type EmailStatsByCategoryResponse struct {
 	// Data Category breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no sends occurred in the period.
 	Data *[]EmailCategoryStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5512,10 +5941,10 @@ type EmailStatsByClientResponse struct {
 	// Data Client breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a detected client occurred in the period.
 	Data *[]EmailClientStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5524,10 +5953,10 @@ type EmailStatsByComplaintTypeResponse struct {
 	// Data Complaint-type breakdown rows, ranked by `complained` descending. Empty when no complaints occurred in the period.
 	Data *[]EmailComplaintTypeStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5536,10 +5965,10 @@ type EmailStatsByLocationResponse struct {
 	// Data Location breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a resolved location occurred in the period.
 	Data *[]EmailLocationStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5548,10 +5977,10 @@ type EmailStatsByMailboxProviderRegionResponse struct {
 	// Data Provider-region breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no deliveries occurred in the period.
 	Data *[]EmailMailboxProviderRegionStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5560,10 +5989,10 @@ type EmailStatsByMailboxProviderResponse struct {
 	// Data Mailbox-provider breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailMailboxProviderStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5572,10 +6001,10 @@ type EmailStatsByRecipientDomainResponse struct {
 	// Data Recipient-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailRecipientDomainStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5584,10 +6013,10 @@ type EmailStatsBySendingDomainResponse struct {
 	// Data Sending-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailSendingDomainStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5596,22 +6025,22 @@ type EmailStatsBySendingIpResponse struct {
 	// Data Sending-IP breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no per-IP-attributable activity (delivery, bounce, deferral, or late bounce) occurred in the period.
 	Data *[]EmailSendingIpStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByTemplateResponse A breakdown of stats per template for the requested period. Rows are ranked by the `sort` metric (`processed` by default) descending, and capped at the requested `limit` (50 by default, 200 at most).
 type EmailStatsByTemplateResponse struct {
-	// Data Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no templated messages were active in the period.
+	// Data One row per template, ranked by the `sort` metric (`processed` by default) descending. Empty when no messages were sent with a template during the period.
 	Data *[]EmailTemplateStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total How many distinct templates had activity in the period, regardless of `limit`. When this is higher than the number of rows in `data`, the ranking got cut off. Raise `limit` (up to 200), or narrow the date range, to see the rest.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5622,14 +6051,14 @@ type EmailStatsComparison struct {
 	Engagement *EmailEngagementStats      `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats         `json:"latency,omitempty"`
 
-	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+	// Period The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 	Period EmailStatsSummaryPeriod `json:"period"`
 
 	// SendsAccepted Distinct email messages accepted in the preceding period, counted at the message level.
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// EmailStatsComparisonDelta The change in each headline metric from the preceding period to the requested one. A `*_pct_change` is a signed relative change in a count, computed as `(current - previous) / previous` (so `0.5` means 50% higher, `-0.2` means 20% lower), and is null when the previous period's count was zero. A `*_rate_pp` is the signed arithmetic difference between the two periods' rate values, where each rate is a fraction in `[0,1]` (so `0.012` means the rate rose by 0.012, i.e. 1.2 percentage points; `-0.003` means it fell by 0.3 points), and is null when either period's rate is undefined (its denominator was zero). A `*_rate_pp` value ranges from `-1` to `1`: the most a rate can move between periods is from 0 to 1, or 1 to 0.
+// EmailStatsComparisonDelta The change in each headline metric from the preceding period to the requested one. A `*_pct_change` field is a signed relative change in a count, computed as `(current - previous) / previous`, so `0.5` means 50% higher and `-0.2` means 20% lower. It is null when the previous period's count was zero, because there is nothing to compute a relative change from. A `*_rate_pp` field is the signed difference between the two periods' rate values, each expressed as a fraction, so `0.012` means the rate rose by 1.2 percentage points and `-0.003` means it fell by 0.3 points. It is null when either period's rate is undefined, because its denominator was zero. `delivery_rate_pp` and `bounce_rate_pp` range from `-1` to `1`, because the rates behind them cannot exceed 1. The engagement deltas have no fixed bound, because events are counted when they arrive rather than when the message was sent, which can push their rate above 1.
 type EmailStatsComparisonDelta struct {
 	// BounceRatePp Signed difference between this period's and the previous period's bounce rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's bounce rate is undefined.
 	BounceRatePp *float32 `json:"bounce_rate_pp,omitempty"`
@@ -5665,9 +6094,9 @@ type EmailStatsComparisonDelta struct {
 	UnsubscribeRatePp *float32 `json:"unsubscribe_rate_pp,omitempty"`
 }
 
-// EmailStatsPeriod The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+// EmailStatsPeriod The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 type EmailStatsPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
 	// From Inclusive start date the response covers (YYYY-MM-DD).
@@ -5679,7 +6108,7 @@ type EmailStatsPeriod struct {
 
 // EmailStatsPoint Aggregate stats for one time bucket (a calendar day or hour, per the requested grain, in the requested `timezone` or UTC by default), bucketed by event time. Buckets with no activity are included with zero counts and null latency percentiles, so the series charts continuously without client-side gap handling.
 type EmailStatsPoint struct {
-	// Bucket The day (YYYY-MM-DD, in the requested `timezone`) or hour this point covers, matching the period's grain. An hour bucket is an RFC 3339 UTC instant marking the start of the hour; it falls on a local hour boundary when `timezone` is set, which is on the UTC hour only for whole-hour offsets.
+	// Bucket The day (YYYY-MM-DD, in the requested `timezone`) or hour this point covers, matching the period's grain. An hour bucket is an RFC 3339 UTC instant marking the start of the hour. It falls on a local hour boundary when `timezone` is set, which is on the UTC hour only for whole-hour offsets.
 	Bucket     *string               `json:"bucket,omitempty"`
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
@@ -5689,7 +6118,7 @@ type EmailStatsPoint struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// EmailStatsResponse Time-series stats payload. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+// EmailStatsResponse Time-series stats payload. `period` echoes the range and bucket grain actually computed against. `data` is one row per bucket in chronological order.
 type EmailStatsResponse struct {
 	// Data One row per bucket (day or hour, per the grain) in the period, in chronological order. Buckets with no activity are included with zero counts.
 	Data *[]EmailStatsPoint `json:"data,omitempty"`
@@ -5700,20 +6129,20 @@ type EmailStatsResponse struct {
 
 // EmailStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
 type EmailStatsSeriesPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
-	// From Inclusive start of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain; on the hour grain, an RFC 3339 UTC instant marking the start of the first hour bucket, which falls on a local hour boundary when `timezone` is set.
+	// From Inclusive start of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain. On the hour grain, an RFC 3339 UTC instant marking the start of the first hour bucket, which falls on a local hour boundary when `timezone` is set.
 	From *string `json:"from,omitempty"`
 
 	// Grain The bucket grain of the series, either `day` or `hour`.
 	Grain *StatsGrain `json:"grain,omitempty"`
 
-	// To Inclusive end of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain; on the hour grain, an RFC 3339 UTC instant marking the start of the last hour bucket, which falls on a local hour boundary when `timezone` is set.
+	// To Inclusive end of the window. A calendar day (YYYY-MM-DD, in the requested `timezone`) on the day grain. On the hour grain, an RFC 3339 UTC instant marking the start of the last hour bucket, which falls on a local hour boundary when `timezone` is set.
 	To *string `json:"to,omitempty"`
 }
 
-// EmailStatsSeriesPoint One point in a breakdown row's trend series: the headline delivery and engagement rates for that row's dimension value over a single day or hour. Returned only when `include_trend=true`; the bucket grain (day or hour) follows the `trend_grain` parameter. Counts and rates are approximate at scale.
+// EmailStatsSeriesPoint One point in a breakdown row's trend series: the headline delivery and engagement rates for that row's dimension value over a single day or hour. Returned only when `include_trend=true`. The bucket grain (day or hour) follows the `trend_grain` parameter. Counts and rates are approximate at scale.
 type EmailStatsSeriesPoint struct {
 	// BounceRate Bounce rate for this bucket, as a fraction. Null when nothing was delivered or bounced.
 	BounceRate *float32 `json:"bounce_rate,omitempty"`
@@ -5724,10 +6153,10 @@ type EmailStatsSeriesPoint struct {
 	// Bucket The day (YYYY-MM-DD) or hour (ISO 8601, on the hour) this point covers, matching the requested `trend_grain`.
 	Bucket *string `json:"bucket,omitempty"`
 
-	// ClickRate Click rate for this bucket, as a fraction; event-time attribution can push it above 1 when clicks outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	// ClickRate Click rate for this bucket, as a fraction. Event-time attribution can push it above 1 when clicks outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
 	ClickRate *float32 `json:"click_rate,omitempty"`
 
-	// ComplaintRate Complaint rate for this bucket, as a fraction; event-time attribution can push it above 1 when complaints outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row complaints are not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	// ComplaintRate Complaint rate for this bucket, as a fraction. Event-time attribution can push it above 1 when complaints outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row complaints are not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
 	ComplaintRate *float32 `json:"complaint_rate,omitempty"`
 
 	// Delivered Delivered recipients in this bucket.
@@ -5736,38 +6165,50 @@ type EmailStatsSeriesPoint struct {
 	// DeliveryRate Delivery rate for this bucket, as a fraction. Null when nothing was delivered or bounced.
 	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
 
-	// OpenRate Open rate for this bucket, as a fraction; event-time attribution can push it above 1 when opens outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
+	// OpenRate Open rate for this bucket, as a fraction. Event-time attribution can push it above 1 when opens outrun the bucket's deliveries. Null when nothing was delivered in the bucket. On a sending-IP row engagement is not attributed to the IP, so this reads 0 in buckets that had deliveries and null in buckets that had none.
 	OpenRate *float32 `json:"open_rate,omitempty"`
 }
 
-// EmailStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows carry the full delivery, engagement, and latency block (tags, sending domains, categories, recipient domains, templates, broadcasts). Any count or rate may be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types are addressed by their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
+// EmailStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows have the full delivery, engagement, and latency block: tags, sending domains, categories, recipient domains, templates, and broadcasts. Any count or rate can be used. A row whose rate is undefined, because its denominator was zero, sorts last. A bounce sub-type is nested under `bounces` in each row, so its sort name reflects that, for example `bounces.hard` and `bounces.hard_rate`.
 type EmailStatsSortMetric string
 
-// EmailStatsSummary Single-row aggregate across the full requested period, including delivery and engagement counts plus derived rates. Use this endpoint for KPI tiles, campaign reporting, and any metric that needs a meaningful denominator; the daily and hourly endpoints carry the same rates per bucket, dividing each bucket's own counts.
+// EmailStatsSummary A single row that aggregates delivery and engagement counts, plus derived
+// rates, across the whole requested period. Use this endpoint for KPI
+// tiles, campaign reporting, and anywhere you need a rate with a meaningful
+// denominator. The daily and hourly endpoints report the same rates, but
+// per bucket, each one dividing that bucket's own counts.
 //
-// Every count is a sum of per-bucket counts across the window (per day for day windows, per hour for hour windows), so a recipient (or message) active in two buckets contributes one to each bucket and two to the period total. This matches common provider reporting and is not double-counting; it does not yield a period-distinct count. Latency percentiles, by contrast, are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+// Every count is a sum of per-bucket counts across the window (per day for
+// day windows, per hour for hour windows). A recipient, or a message, that
+// is active in two buckets contributes to each of them, so it is counted
+// twice in the period total. This matches how most mailbox providers report
+// their own numbers. The effect to plan for is that the total is a sum of
+// per-bucket activity rather than a count of distinct recipients or messages
+// across the whole period. Latency percentiles work differently: they are computed
+// once across the whole period rather than summed from the buckets. A rate
+// is null when its denominator is zero.
 type EmailStatsSummary struct {
 	Comparison *EmailStatsComparison `json:"comparison,omitempty"`
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
 
-	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+	// Period The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 	Period EmailStatsSummaryPeriod `json:"period"`
 
 	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// EmailStatsSummaryPeriod The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds; days and hour boundaries follow the requested `timezone` (UTC when omitted).
+// EmailStatsSummaryPeriod The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 type EmailStatsSummaryPeriod struct {
-	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response is near-real-time but not live; use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
+	// DataAsOf The instant the statistics in this response are current to: events recorded up to roughly this time are reflected, while more recent events may not be yet. Statistics are served from a rolling aggregation that refreshes every few seconds, so a response reflects data from up to a few seconds ago. Use this field to label data freshness (for example "as of 14:03") rather than assuming the numbers are to-the-second. Null when the freshness boundary is not being reported.
 	DataAsOf *time.Time `json:"data_as_of,omitempty"`
 
-	// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
+	// From Inclusive start of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows. For hour windows, an RFC 3339 UTC instant marking the start of the first hour, which falls on a local hour boundary when `timezone` is set.
 	From *string `json:"from,omitempty"`
 
-	// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows; for hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
+	// To Inclusive end of the window the response covers. A calendar day (YYYY-MM-DD, in the requested `timezone`) for day windows. For hour windows, an RFC 3339 UTC instant marking the start of the last hour, which falls on a local hour boundary when `timezone` is set.
 	To *string `json:"to,omitempty"`
 }
 
@@ -5776,10 +6217,10 @@ type EmailStatsTagsResponse struct {
 	// Data Tag breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no tagged sends occurred in the period.
 	Data *[]EmailTagStatsPoint `json:"data,omitempty"`
 
-	// Period The date range the server actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -5799,14 +6240,18 @@ type EmailTagStatsPoint struct {
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
 
-// EmailTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), and pass its parameter values in `parameters`.
+// EmailTemplateSend A reference to the template to send. Identify the template by its `id` or its `slug`, supplying exactly one of the two, and give the values for its variables in `parameters`.
 type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's parameters, keyed by parameter name. A parameter name is a single word, and every parameter the template's `variables` lists needs a value here: a send that omits one is rejected rather than delivered with a blank. Send everything `variables` lists rather than only what you expect the chosen language to use, since languages need not reference the same parameters and a value no language uses is ignored. Cap: 16 KB serialized.
+	// Parameters Values for the template's variables, keyed by the variable name. A variable name is a single word.
+	//
+	// Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+	//
+	// `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
@@ -5820,23 +6265,23 @@ type EmailTemplateSend0 = interface{}
 // EmailTemplateSend1 defines model for .
 type EmailTemplateSend1 = interface{}
 
-// EmailTemplateStatsPoint Aggregate delivery, engagement, and latency stats for the messages sent with a single template over the requested period.
+// EmailTemplateStatsPoint Delivery, engagement, and latency numbers for every message sent with one template over the requested period.
 type EmailTemplateStatsPoint struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
 
-	// TemplateId The template this row aggregates, the same identifier returned by the email-template endpoints. Only messages sent with a template appear in this breakdown; a template deleted after sending still appears by its ID.
+	// TemplateId The template this row is about, using the same `id` the email template endpoints return. Only messages sent with a template appear in this breakdown at all. If the template was deleted after it was used to send, this row still appears, keyed by that same `id`.
 	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
 
-	// Trend Per-bucket rate series for this template over the window. Present only when `include_trend=true`.
+	// Trend A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
 // EmailTemplateVersionID defines model for EmailTemplateVersionID.
 type EmailTemplateVersionID = string
 
-// EmailThread A conversation in a mailbox. Threads group related messages both directions — mail the mailbox received and replies it sent — and carry the conversation-level read state, labels, and participant list. Message counts reflect the messages currently retained under the mailbox's retention period.
+// EmailThread A conversation in a mailbox. It groups every message in both directions, the mail the mailbox received and the replies it sent, and it holds the conversation's read state, labels, and participant list. A message is retained until it is trashed or ages past the mailbox's retention tier. Only retained messages count toward the totals below.
 type EmailThread struct {
 	// Channel Channel this conversation lives on. Always `email`.
 	Channel *string `json:"channel,omitempty"`
@@ -5851,10 +6296,17 @@ type EmailThread struct {
 	Highlights *EmailThreadHighlights `json:"highlights,omitempty"`
 	Id         ThreadID               `json:"id"`
 
-	// Labels Labels on this conversation. Exactly one system placement label is always present — `inbox`, `archive` (filed away, done for now), `spam` (the opening message failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — set by the message that started the conversation. Move a conversation by updating its labels: add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox` — or remove `spam`, `blocked`, or `archive` — to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list; a conversation carries at most 20.
+	// Labels Labels on this conversation. Exactly one system placement label is always present, set by the message that started the conversation:
+	//
+	// - `inbox`: The conversation is in the inbox.
+	// - `archive`: The conversation was filed away and is done for now.
+	// - `spam`: The conversation's opening message failed sender authentication.
+	// - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
+	//
+	// Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
 	Labels []string `json:"labels"`
 
-	// LastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+	// LastDirection Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
 	LastDirection *EmailThreadLastDirection `json:"last_direction,omitempty"`
 
 	// LastMessageAt When the most recent retained message in this conversation was received or sent.
@@ -5877,7 +6329,7 @@ type EmailThread struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// EmailThreadLastDirection Direction of the most recent message — `inbound` for a received message, `outbound` for a sent one.
+// EmailThreadLastDirection Direction of the most recent message: `inbound` for a received message, `outbound` for a sent one.
 type EmailThreadLastDirection string
 
 // EmailThreadHighlights Matched search fragments for a thread, one array per field the query matched, with the matched terms wrapped in `**`. A field is present only when the query matched it, so the keys that are present tell you which fields produced the hit. Returned only on thread search results.
@@ -5903,21 +6355,21 @@ type EmailThreadList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata and extracted text remain readable for the mailbox's retention period; the original rendered source (HTML body, raw MIME, attachment bytes) is available through the body, raw, and attachment endpoints for 30 days after the message occurred.
+// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata and extracted text stay readable for the mailbox's retention tier. The original rendered source (HTML body, raw MIME, attachment bytes) is available through the body, raw, and attachment endpoints for 30 days after the message occurred.
 type EmailThreadMessage struct {
 	// AttachmentCount Number of attachments on the message.
 	AttachmentCount *int `json:"attachment_count,omitempty"`
 
-	// AttachmentManifest Attachment metadata (filename, content type, size). Remains readable for the mailbox's retention period even after the attachment bytes themselves have expired.
+	// AttachmentManifest Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
 	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
 
-	// Authentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+	// Authentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
 	Authentication *EmailThreadMessageAuthentication `json:"authentication,omitempty"`
 
 	// Cc Recipient addresses on the Cc line. Empty when the message had none.
 	Cc *[]openapi_types.Email `json:"cc,omitempty"`
 
-	// Channel Channel this message was carried on. Always `email`.
+	// Channel Channel this message lives on. Always `email`.
 	Channel *string `json:"channel,omitempty"`
 
 	// ContactId Contact linked to this message, or null when none is linked.
@@ -5926,25 +6378,32 @@ type EmailThreadMessage struct {
 	// DeliveredTo Address the message was actually delivered to, when it differs from the mailbox address (for example mail routed in from another address). Null for sent messages and for mail addressed directly to the mailbox.
 	DeliveredTo *openapi_types.Email `json:"delivered_to,omitempty"`
 
-	// Direction Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+	// Direction Which way the message went. `inbound` means you received it, `outbound` means you sent it.
 	Direction *EmailThreadMessageDirection `json:"direction,omitempty"`
 
-	// DkimPass Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	// DkimPass Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
-	// DmarcPass Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	// DmarcPass Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
-	// ExtractedText Plain-text content of the message with quoted history stripped — readable for the mailbox's full retention period, both directions. Always present when fetching a single message; on list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
+	// ExtractedText Plain-text content of the message with quoted history stripped. Readable for the mailbox's full retention tier, in both directions. Always present when fetching a single message. On list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
 	ExtractedText *string `json:"extracted_text,omitempty"`
 
 	// From Sender address.
 	From *openapi_types.Email `json:"from,omitempty"`
 
-	// Id Message ID. Received messages carry a `rem_` ID, sent messages an `em_` ID — the same IDs used by the received-message and sent-message logs.
+	// Id Message ID. Received messages have a `rem_` ID, sent messages an `em_` ID: the same IDs used by the received-message and sent-message logs.
 	Id *string `json:"id,omitempty"`
 
-	// Labels Labels on this message. System labels carry its state: a received message holds exactly one placement label — `inbox` for accepted mail, `archive` when its conversation was filed away, `spam` (failed sender authentication), or `blocked` (rejected by the mailbox's receive policy or rules) — plus `unread` until it is read. `trash` marks a message in the trash, either direction. Custom labels share the same list; a message carries at most 20.
+	// Labels Labels on this message. A received message always has exactly one placement label:
+	//
+	// - `inbox`: Accepted mail.
+	// - `archive`: The message's conversation was filed away.
+	// - `spam`: The message failed sender authentication.
+	// - `blocked`: The message was rejected by the mailbox's receive policy or rules.
+	//
+	// A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
 	Labels []string `json:"labels"`
 
 	// OccurredAt When the message was received or accepted for sending.
@@ -5953,22 +6412,29 @@ type EmailThreadMessage struct {
 	// Preview Short plain-text preview of the message body.
 	Preview *string `json:"preview,omitempty"`
 
-	// PurgeAt When the message will be permanently deleted: the end of the mailbox's retention period, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+	// PurgeAt When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
 	PurgeAt *time.Time `json:"purge_at,omitempty"`
 
-	// Recipients Terminal per-recipient delivery outcomes of a sent message, folded in as they become known — part of the message's durable memory. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
+	// Recipients Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
 	Recipients *[]EmailThreadMessageRecipient `json:"recipients,omitempty"`
 
 	// ReferenceIds RFC 5322 References header entries used to thread the conversation.
 	ReferenceIds *[]string `json:"reference_ids,omitempty"`
 
-	// Source Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+	// Source Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 	Source EmailThreadMessageSource `json:"source"`
 
-	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. Durable for the mailbox's retention period.
+	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
 	SpfPass *bool `json:"spf_pass,omitempty"`
 
-	// Status Folded delivery status of a sent message: `accepted`, `sent` (provider handoff), `delivered` (all attempted recipients delivered), or `failed` (terminal failure). Null for received messages.
+	// Status Folded delivery status of a sent message:
+	//
+	// - `accepted`: Accepted for sending.
+	// - `sent`: Handed off to the provider.
+	// - `delivered`: All attempted recipients delivered.
+	// - `failed`: Terminal failure.
+	//
+	// Null for received messages.
 	Status *string `json:"status,omitempty"`
 
 	// Subject Message subject. Null when the message had no subject.
@@ -5979,13 +6445,13 @@ type EmailThreadMessage struct {
 	To *[]openapi_types.Email `json:"to,omitempty"`
 }
 
-// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict could be determined and the sender should not be treated as verified. Null for sent messages. Part of the message's durable memory — readable for the mailbox's full retention period, so the verdict survives after the 30-day inbound log has expired.
+// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
 type EmailThreadMessageAuthentication string
 
-// EmailThreadMessageDirection Direction of the message — `inbound` for a received message, `outbound` for a sent one.
+// EmailThreadMessageDirection Which way the message went. `inbound` means you received it, `outbound` means you sent it.
 type EmailThreadMessageDirection string
 
-// EmailThreadMessageAttachment Attachment metadata on a conversation message. The metadata remains readable for the mailbox's retention period; the attachment bytes are downloadable for 30 days after the message occurred.
+// EmailThreadMessageAttachment Attachment metadata on a conversation message. The metadata stays readable for the mailbox's retention tier. The attachment bytes are downloadable for 30 days after the message occurred.
 type EmailThreadMessageAttachment struct {
 	// ContentType MIME content type, or null when it could not be determined.
 	ContentType *string `json:"content_type,omitempty"`
@@ -6005,7 +6471,7 @@ type EmailThreadMessageAttachmentList struct {
 	Data []EmailThreadMessageAttachment `json:"data"`
 }
 
-// EmailThreadMessageBody The original rendered body of a conversation message. Available for 30 days after the message occurred; after that the endpoint returns `410 Gone` while the message's extracted text remains readable on the message itself.
+// EmailThreadMessageBody The original rendered body of a conversation message. Available for 30 days after the message occurred. After that, the endpoint returns `410 Gone`, but the message's extracted text stays readable on the message itself.
 type EmailThreadMessageBody struct {
 	// Html The HTML body of the message, or null when the message had no HTML part.
 	Html *string `json:"html"`
@@ -6028,7 +6494,7 @@ type EmailThreadMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// EmailThreadMessageRecipient One recipient's terminal delivery outcome on a sent conversation message, folded into the message's durable memory when the outcome becomes known.
+// EmailThreadMessageRecipient One recipient's terminal delivery outcome on a sent conversation message, recorded once the outcome becomes known.
 type EmailThreadMessageRecipient struct {
 	// Address Recipient address.
 	Address *openapi_types.Email `json:"address,omitempty"`
@@ -6042,10 +6508,13 @@ type EmailThreadMessageRecipientStatus string
 
 // EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
 type EmailThreadMessageReplyRequest struct {
-	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata endures on the message's `attachment_manifest`; the bytes are downloadable for 30 days.
+	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
-	// Category Content classification. Controls suppression policy: `marketing` blocks on all suppression reasons; `transactional` allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
+	// Category Content classification, which controls suppression policy:
+	//
+	// - `marketing`: Blocks on all suppression reasons.
+	// - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory `json:"category,omitempty"`
 
 	// Html HTML body of the reply. At least one of html or text must be provided.
@@ -6064,7 +6533,7 @@ type EmailThreadMessageReplyRequest struct {
 	Text *string `json:"text,omitempty"`
 }
 
-// EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which carries delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
+// EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 type EmailThreadMessageSource struct {
 	// AvailableUntil When the log entry (and the message's original rendered source) expires.
 	AvailableUntil *time.Time `json:"available_until,omitempty"`
@@ -6078,7 +6547,7 @@ type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -6087,7 +6556,7 @@ type EmailThreadUpdateRequest struct {
 	// ContactId Contact to link this conversation to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam` or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message carries at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -6268,7 +6737,13 @@ type EventEmailBouncedData struct {
 	// BounceDescription Human-readable reason the receiving mail server gave for the bounce, or null when none was provided.
 	BounceDescription *string `json:"bounce_description"`
 
-	// BounceType Bounce classification. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	// BounceType Bounce classification.
+	//
+	// - `hard`: A permanent failure, such as an invalid address or a domain that does not exist.
+	// - `soft`: A transient failure, such as a full mailbox or a server that is temporarily unavailable.
+	// - `block`: The receiving mail server refused the sending IP on reputation grounds.
+	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
+	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 	EmailId    EmailID         `json:"email_id"`
 
@@ -6408,7 +6883,13 @@ type EventEmailDeferredData struct {
 	// BounceClass Numeric bounce classification for fine-grained deliverability triage, or null when the receiving server's response could not be classified. Distinguishes, for example, a greylisting deferral from a full mailbox.
 	BounceClass *int `json:"bounce_class"`
 
-	// BounceType Bounce classification. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	// BounceType Bounce classification.
+	//
+	// - `hard`: A permanent failure, such as an invalid address or a domain that does not exist.
+	// - `soft`: A transient failure, such as a full mailbox or a server that is temporarily unavailable.
+	// - `block`: The receiving mail server refused the sending IP on reputation grounds.
+	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
+	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 
 	// DeferReason Human-readable reason the receiving mail server gave for the deferral, or null when none was provided.
@@ -6725,7 +7206,13 @@ type EventEmailOutOfBandBounceData struct {
 	// BounceDescription Human-readable reason the receiving mail server gave for the bounce, or null when none was provided.
 	BounceDescription *string `json:"bounce_description"`
 
-	// BounceType Bounce classification. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	// BounceType Bounce classification.
+	//
+	// - `hard`: A permanent failure, such as an invalid address or a domain that does not exist.
+	// - `soft`: A transient failure, such as a full mailbox or a server that is temporarily unavailable.
+	// - `block`: The receiving mail server refused the sending IP on reputation grounds.
+	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
+	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
 	EmailId    EmailID         `json:"email_id"`
 
@@ -6765,7 +7252,7 @@ type EventEmailProcessedType string
 // EventEmailProcessedData Identity fields shared by every email lifecycle event payload.
 type EventEmailProcessedData = EventEmailBase
 
-// EventEmailReceived Bird received and parsed an inbound email. The payload carries the message's identifiers, sender and recipients, subject, threading reference, and authentication results — enough to route and triage without a fetch. Fetch the body, full headers, and attachments with GET /v1/email/inbound-messages/{id}.
+// EventEmailReceived Bird received and parsed an inbound email. The payload carries the message's identifiers, sender and recipients, subject, threading reference, and authentication results, which is enough to route and triage without a fetch. Content is fetched separately: the parsed body with `GET /v1/email/inbound-messages/{id}/body`, the original MIME with `GET /v1/email/inbound-messages/{id}/raw`, and attachment bytes with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
 type EventEmailReceived struct {
 	// Data Payload of the email.received event.
 	Data EventEmailReceivedData `json:"data"`
@@ -6801,7 +7288,7 @@ type EventEmailReceivedData struct {
 	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
-	// SpamScore Spam score for the message. Always null at present; reserved for a future content-scoring capability.
+	// SpamScore Spam score carried on the received message, or null when it carries no score.
 	SpamScore *float32 `json:"spam_score,omitempty"`
 
 	// SpfPass Whether SPF passed for the sender, or null when the result did not carry an SPF verdict.
@@ -6848,7 +7335,17 @@ type EventEmailRejectedData struct {
 	RecipientRole RecipientRole `json:"recipient_role"`
 
 	// RejectionReason Why an email was rejected before delivery.
-	// `recipient_suppressed` means the recipient is on the workspace suppression list, so Bird did not attempt delivery. `transmission_failed` means the message could not be transmitted for delivery. `generation_failure` means the message could not be built for delivery (a template or content issue). `policy_rejection` means the message was refused by sending policy. `domain_unverified` means the sending domain was not verified. `quota_exceeded` means the organization's send quota was reached. `recipient_not_allowed` means a recipient was not permitted for this send (for shared onboarding-domain sends, recipients must be verified workspace members).
+	//
+	// - `recipient_suppressed`: The recipient is on the workspace suppression list, so
+	//   delivery was never attempted.
+	// - `transmission_failed`: The message could not be transmitted for delivery.
+	// - `generation_failure`: The message could not be built for delivery (template or
+	//   content issue).
+	// - `policy_rejection`: The message was refused by sending policy.
+	// - `domain_unverified`: The sending domain was not verified.
+	// - `quota_exceeded`: The organization's send quota was reached.
+	// - `recipient_not_allowed`: A recipient was not permitted for this send (for shared
+	//   onboarding-domain sends, recipients must be verified workspace members).
 	RejectionReason EmailRejectionReason `json:"rejection_reason"`
 
 	// Tags Tags provided on the send request, echoed on every event for the send so you can route and correlate without an extra lookup. Null when the send carried no tags.
@@ -7752,9 +8249,9 @@ type EventWhatsAppSentData = EventWhatsAppBase
 // IPPoolID defines model for IPPoolID.
 type IPPoolID = string
 
-// InboundAddress A Bird-minted email address that receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address and Bird parses every message it receives into a received email.
+// InboundAddress An email address we create for you, which receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address, and every message that arrives there is parsed into a received email you can read back.
 type InboundAddress struct {
-	// Address The address to forward your mailbox to. Minted by Bird when the inbound address is created.
+	// Address The address to forward your mailbox to. We generate it when the inbound address is created.
 	Address *openapi_types.Email `json:"address,omitempty"`
 
 	// CreatedAt When the inbound address was created.
@@ -7794,11 +8291,11 @@ type InboundAddressList struct {
 
 // InboundAddressUpdate Fields to update on an inbound address.
 type InboundAddressUpdate struct {
-	// Label Your own label for this address, typically the source mailbox it maps to. Send `null` to clear it; omit the field to leave it unchanged.
+	// Label Your own label for this address, typically the source mailbox it maps to. Send `null` to clear it. Omit the field to leave it unchanged.
 	Label nullable.Nullable[string] `json:"label,omitempty"`
 }
 
-// InboundAttachment Metadata for a file attached to a received email. The raw bytes are fetched separately with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
+// InboundAttachment Metadata for a file attached to a received email. The raw bytes are fetched separately with `GET /v1/email/inbound-messages/{inbound_message_id}/attachments/{attachment_id}`.
 type InboundAttachment struct {
 	// ContentType MIME type parsed from the attachment part, or null when absent.
 	ContentType *string `json:"content_type"`
@@ -7814,62 +8311,70 @@ type InboundAttachment struct {
 // InboundAttachmentID defines model for InboundAttachmentID.
 type InboundAttachmentID = string
 
-// InboundAttachmentList The attachments on a received email. Not paginated — a message carries a small, bounded set of attachments, all returned at once.
+// InboundAttachmentList The attachments on a received email. There is no pagination here, because a message only has a small number of attachments and they all come back at once.
 type InboundAttachmentList struct {
 	// Data Metadata for every attachment on the message. Empty when the message had no attachments.
 	Data []InboundAttachment `json:"data"`
 }
 
-// InboundEmailMessage An email Bird received on your behalf, parsed from the original message. Fetch the body with `/body`, the original MIME with `/raw`, and attachment bytes with `/attachments/{attachment_id}`.
+// InboundEmailMessage An email received on your behalf, parsed from the original message. Fetch the body with `/body`, the original MIME with `/raw`, and attachment bytes with `/attachments/{attachment_id}`.
 type InboundEmailMessage struct {
 	// Attachments Metadata for each attachment found on the message. Empty when the message had no attachments.
 	Attachments []InboundAttachment `json:"attachments"`
 
-	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	// Authentication Whether the sender of the received message was authenticated:
+	//
+	// - `pass`: The sender's identity was verified.
+	// - `fail`: The sender's identity was checked and did not verify.
+	// - `unknown`: No verdict is available, so the sender should not be treated as verified.
 	Authentication *InboundEmailMessageAuthentication `json:"authentication"`
 
 	// Cc Recipients on the message's Cc header.
 	Cc []EmailAddress `json:"cc"`
 
-	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. Null when the result did not carry a DKIM verdict.
+	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include a DKIM verdict.
 	DkimPass *bool `json:"dkim_pass"`
 
-	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. Null when the result did not carry a DMARC verdict.
+	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include a DMARC verdict.
 	DmarcPass *bool `json:"dmarc_pass"`
 
 	// From An email address with an optional display name.
 	From EmailAddress          `json:"from"`
 	Id   InboundEmailMessageID `json:"id"`
 
-	// InReplyTo In-Reply-To header — the Message-ID this message replies to, or null when it is not a reply.
+	// InReplyTo The In-Reply-To header, which holds the Message-ID this message is replying to. Null when the message is not a reply.
 	InReplyTo *string `json:"in_reply_to"`
 
 	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
-	// ReceivedAt When Bird received the message.
+	// ReceivedAt When the message was received.
 	ReceivedAt *time.Time `json:"received_at,omitempty"`
 
-	// References References header — the chain of Message-IDs in this conversation, oldest first. Absent when the message had no References header.
+	// References The References header, which holds every Message-ID in this conversation, oldest first. Left out when the message arrived without one.
 	References *[]string `json:"references,omitempty"`
 
-	// SpamScore Spam score for the message. Always null at present; reserved for a future content-scoring capability.
+	// SpamScore Spam score on the received message, or null when there is no score.
 	SpamScore *float32 `json:"spam_score"`
 
-	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. Null when the result did not carry an SPF verdict.
+	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include an SPF verdict.
 	SpfPass *bool `json:"spf_pass"`
 
 	// Subject Subject line as received, or null when the message had no subject.
 	Subject *string `json:"subject"`
 
-	// ThreadId Conversation this message belongs to. Always null until threading is available.
+	// ThreadId Conversation this message belongs to, or null when it is not grouped into one.
 	ThreadId *string `json:"thread_id"`
 
 	// To Recipients on the message's To header.
 	To []EmailAddress `json:"to"`
 }
 
-// InboundEmailMessageAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+// InboundEmailMessageAuthentication Whether the sender of the received message was authenticated:
+//
+// - `pass`: The sender's identity was verified.
+// - `fail`: The sender's identity was checked and did not verify.
+// - `unknown`: No verdict is available, so the sender should not be treated as verified.
 type InboundEmailMessageAuthentication string
 
 // InboundEmailMessageBody The parsed body of a received email.
@@ -7899,9 +8404,9 @@ type InboundEmailMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// InboundRoute A routing rule that directs inbound mail on one of your domains into a mailbox, or drops it. Routes are evaluated in priority order — lowest number first. Each mailbox's own address is always matched at priority 10 and explicit routes accept 11–1000, so exact-address delivery always takes precedence.
+// InboundRoute A routing rule that directs inbound mail on one of your domains into a mailbox, or drops it. Routes are tried in priority order, lowest number first. Each mailbox's own address always matches at priority 10 and your own routes take a priority from 11 to 1000, so delivery to an exact address always takes precedence.
 type InboundRoute struct {
-	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`; `drop` discards it silently, with nothing stored and no webhook fired.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`. `drop` discards it silently, with nothing stored and no webhook fired.
 	Action InboundRouteAction `json:"action"`
 
 	// CreatedAt When the route was created.
@@ -7914,13 +8419,13 @@ type InboundRoute struct {
 	Enabled bool                `json:"enabled"`
 	Id      EmailInboundRouteID `json:"id"`
 
-	// MatchType How the route matches recipients. `address` matches one local part; `catch_all` matches every recipient on the domain that nothing else matched.
+	// MatchType How the route matches recipients. `address` matches one local part. `catch_all` matches every recipient on the domain that nothing else matched.
 	MatchType InboundRouteMatchType `json:"match_type"`
 
 	// MatchValue The local part an `address` route matches. Null for `catch_all` routes.
 	MatchValue *string `json:"match_value"`
 
-	// Priority Evaluation order — lowest number wins. Explicit routes accept 11–1000 (default 100); the mailbox's own address always matches at priority 10.
+	// Priority The order routes are tried in, lowest number first. Your own routes take a priority from 11 to 1000, and default to 100. A mailbox's own address always matches at priority 10.
 	Priority int `json:"priority"`
 
 	// TargetMailboxId The mailbox that receives matching mail. Null for `drop` routes.
@@ -7930,38 +8435,38 @@ type InboundRoute struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// InboundRouteAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`; `drop` discards it silently, with nothing stored and no webhook fired.
+// InboundRouteAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id`. `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteAction string
 
-// InboundRouteMatchType How the route matches recipients. `address` matches one local part; `catch_all` matches every recipient on the domain that nothing else matched.
+// InboundRouteMatchType How the route matches recipients. `address` matches one local part. `catch_all` matches every recipient on the domain that nothing else matched.
 type InboundRouteMatchType string
 
 // InboundRouteCreate Parameters for creating an inbound route.
 type InboundRouteCreate struct {
-	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required). `drop` discards it silently, with nothing stored and no webhook fired.
 	Action InboundRouteCreateAction `json:"action"`
 
-	// Domain The domain the route applies to — one of your inbound-enabled custom domains.
+	// Domain The domain the route applies to. It has to be one of your inbound-enabled custom domains.
 	Domain string `json:"domain"`
 
 	// Enabled Whether the route is evaluated.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// MatchType How the route matches recipients. `address` matches one local part and requires `match_value`; `catch_all` matches every recipient on the domain that nothing else matched.
+	// MatchType How the route matches recipients. `address` matches one local part and requires `match_value`. `catch_all` matches every recipient on the domain that nothing else matched.
 	MatchType InboundRouteCreateMatchType `json:"match_type"`
 
-	// MatchValue The local part an `address` route matches. Required for `address` routes; stored lowercase.
+	// MatchValue The local part an `address` route matches. Required for `address` routes. Stored lowercase.
 	MatchValue *string `json:"match_value,omitempty"`
 
-	// Priority Evaluation order — lowest number wins. Explicit routes accept 11–1000; the mailbox's own address always matches at priority 10, so a route can never pre-empt exact-address delivery.
+	// Priority The order routes are tried in, lowest number first. Your own routes take a priority from 11 to 1000. The mailbox's own address always matches at priority 10, so a route can never pre-empt exact-address delivery.
 	Priority        *int       `json:"priority,omitempty"`
 	TargetMailboxId *MailboxID `json:"target_mailbox_id,omitempty"`
 }
 
-// InboundRouteCreateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
+// InboundRouteCreateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required). `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteCreateAction string
 
-// InboundRouteCreateMatchType How the route matches recipients. `address` matches one local part and requires `match_value`; `catch_all` matches every recipient on the domain that nothing else matched.
+// InboundRouteCreateMatchType How the route matches recipients. `address` matches one local part and requires `match_value`. `catch_all` matches every recipient on the domain that nothing else matched.
 type InboundRouteCreateMatchType string
 
 // InboundRouteList defines model for InboundRouteList.
@@ -7981,7 +8486,7 @@ type InboundRouteList struct {
 
 // InboundRouteUpdate Fields to update on an inbound route. Omitted fields are unchanged. The domain is immutable.
 type InboundRouteUpdate struct {
-	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
+	// Action What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required). `drop` discards it silently, with nothing stored and no webhook fired.
 	Action *InboundRouteUpdateAction `json:"action,omitempty"`
 
 	// Enabled Whether the route is evaluated.
@@ -7993,14 +8498,14 @@ type InboundRouteUpdate struct {
 	// MatchValue The local part an `address` route matches. Null for `catch_all` routes.
 	MatchValue nullable.Nullable[string] `json:"match_value,omitempty"`
 
-	// Priority Evaluation order — lowest number wins. Explicit routes accept 11–1000; the mailbox's own address always matches at priority 10.
+	// Priority The order routes are tried in, lowest number first. Your own routes take a priority from 11 to 1000. The mailbox's own address always matches at priority 10.
 	Priority *int `json:"priority,omitempty"`
 
 	// TargetMailboxId The mailbox that receives matching mail. Null for `drop` routes.
 	TargetMailboxId nullable.Nullable[MailboxID] `json:"target_mailbox_id,omitempty"`
 }
 
-// InboundRouteUpdateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required); `drop` discards it silently, with nothing stored and no webhook fired.
+// InboundRouteUpdateAction What happens to matching mail. `deliver_to_mailbox` delivers it to `target_mailbox_id` (required). `drop` discards it silently, with nothing stored and no webhook fired.
 type InboundRouteUpdateAction string
 
 // InboundRouteUpdateMatchType How the route matches recipients.
@@ -8008,6 +8513,131 @@ type InboundRouteUpdateMatchType string
 
 // LanguageTag A language tag in BCP-47 form, for example `en` or `pt-BR`.
 type LanguageTag = string
+
+// LookupClassification The allocated service of the number's range. Returned when you request the `classification` property.
+//
+// This sits beside `line_type` rather than replacing it, so you can always see which source answered: `line_type` is what the carrier platform reports and costs nothing, `classification` is what the intelligence source reports and is what you paid for.
+type LookupClassification struct {
+	Status *LookupPropertyStatus `json:"status,omitempty"`
+
+	// Value The allocated service of the range. Present only when `status` is `ok`.
+	Value *LookupClassificationValue `json:"value,omitempty"`
+}
+
+// LookupClassificationValue The allocated service of the number's range, at the precision the intelligence source publishes it.
+//
+// This is a finer vocabulary than `line_type`, which reports what the carrier platform alone can tell. Eleven of these values have no carrier equivalent at all: a number the carrier can only call `service` may be `premium_rate`, `shared_cost`, `universal_access` or a voicemail platform, and those carry very different cost and fraud implications. Where the two fields do overlap, they are two independent opinions rather than one refining the other.
+type LookupClassificationValue string
+
+// LookupFlag A notable characteristic of a number. `ported` means the number has moved from the network that issued it to another one, so `network_info` and `original_network_info` name different carriers.
+//
+// Open enum: more flags may be added over time, so treat an unrecognized value as a future flag rather than an error.
+type LookupFlag string
+
+// LookupLineType What kind of line the number is, as reported by the carrier platform.
+//
+// This is part of the free baseline and is returned on every lookup, whatever you request. It never changes with what you buy. `unknown` means the carrier platform holds no classification for the range, and `other` means it holds one that has no equivalent here.
+//
+// For the allocated service of the range at finer precision, request the `classification` property. That answers from a different source, with its own wider vocabulary, and is reported separately so you can always tell the two apart.
+type LookupLineType string
+
+// LookupNetworkInfo The network a number belongs to.
+type LookupNetworkInfo struct {
+	// CarrierName The carrier's name, absent when the carrier could not be identified.
+	CarrierName *string `json:"carrier_name,omitempty"`
+
+	// Mcc The mobile country code, absent for a network that has none or could not be identified.
+	Mcc *string `json:"mcc,omitempty"`
+
+	// Mnc The mobile network code, absent for a network that has none or could not be identified.
+	Mnc *string `json:"mnc,omitempty"`
+}
+
+// LookupPorting Whether the number has ever moved network, when it last did, and its full porting record. Returned when you request the `porting` property; the baseline only reports whether a number has ever ported, through the `ported` flag.
+type LookupPorting struct {
+	// History Every move on record, oldest first. Absent when the number has never ported or when its registry publishes no history.
+	History *[]LookupPortingEvent `json:"history,omitempty"`
+
+	// LastPortedAt When the number last moved network. Absent when it has never ported or when no date is on record.
+	LastPortedAt *time.Time `json:"last_ported_at,omitempty"`
+
+	// LastPortedAtIsApproximate Whether `last_ported_at` is an approximation. Some registries record only the period a move happened in, not the day.
+	LastPortedAtIsApproximate *bool `json:"last_ported_at_is_approximate,omitempty"`
+
+	// Ported Whether the number has ever moved network. False is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
+	Ported *bool                 `json:"ported,omitempty"`
+	Status *LookupPropertyStatus `json:"status,omitempty"`
+}
+
+// LookupPortingEvent One recorded move of a number between networks.
+type LookupPortingEvent struct {
+	// Action What the record describes, as the number's registry reports it. Registries use their own short codes rather than a shared vocabulary, so treat this as a label to display rather than a value to branch on.
+	Action *string `json:"action,omitempty"`
+
+	// OccurredAt When the move was recorded, null when the record carries no date.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+}
+
+// LookupPresence Whether the number is live on its network right now. Returned when you request the `presence` property.
+//
+// This is the one property no database can answer: it is a real-time query to the network the number is registered on.
+type LookupPresence struct {
+	// Reachable Whether the number is registered on a network and able to receive traffic. False means the network answered and reported the number as not currently reachable, which is different from us being unable to find out. Present only when `status` is `ok`.
+	Reachable *bool                 `json:"reachable,omitempty"`
+	Status    *LookupPropertyStatus `json:"status,omitempty"`
+}
+
+// LookupProperty An intelligence property you can buy for a number, beyond the free baseline.
+//
+// `classification` resolves `line_type` to its precise allocated service (premium rate, satellite, machine-to-machine, payphone) where the baseline only distinguishes broad categories. `porting` returns when the number last moved network and its full porting record. `presence` reports whether the number is live on the network right now. `roaming` reports whether it is roaming and on which network. `sim_swap` returns when its SIM last changed. `score` returns a credibility score from 0 to 100.
+//
+// Each property you request is billed separately, and only when it is delivered.
+type LookupProperty string
+
+// LookupPropertyStatus How a requested property resolved.
+//
+// `ok` means the property was answered and its value is in the response.
+//
+// `unavailable` means no answer arrived, so the property adds nothing: its block is null, or for `classification`, `line_type` is left as the free baseline resolved it. The property is not billed.
+//
+// `inconclusive` means an answer arrived but does not resolve the property, either because the number is outside the coverage of the data behind it or because the answer is one we cannot yet place. It is a real answer rather than a missing one, and it is not billed either.
+//
+// Open enum: further statuses may be added over time, so treat an unrecognized value as a future one rather than an error. Only `ok` carries a value and only `ok` is billed, so branching on `ok` and treating everything else as "not answered" stays correct however the vocabulary grows.
+type LookupPropertyStatus string
+
+// LookupRoaming Whether the number is roaming, and on which network. Returned when you request the `roaming` property.
+type LookupRoaming struct {
+	// IsRoaming Whether the number is currently roaming outside its home network. Present only when `status` is `ok`.
+	IsRoaming *bool `json:"is_roaming,omitempty"`
+
+	// Mcc The mobile country code of the visited network. Absent when the number is not roaming or the visited network is not reported.
+	Mcc *string `json:"mcc,omitempty"`
+
+	// Mnc The mobile network code of the visited network. Absent when the number is not roaming or the visited network is not reported.
+	Mnc    *string               `json:"mnc,omitempty"`
+	Status *LookupPropertyStatus `json:"status,omitempty"`
+}
+
+// LookupScore A credibility score for the number. Returned when you request the `score` property.
+type LookupScore struct {
+	Status *LookupPropertyStatus `json:"status,omitempty"`
+
+	// Value Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range; it is a signal to weigh, not a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
+	Value *int `json:"value,omitempty"`
+}
+
+// LookupSimSwap When the number's SIM last changed. Returned when you request the `sim_swap` property.
+type LookupSimSwap struct {
+	// LastSwappedAt When the SIM was last changed. Absent when only a recency band is known.
+	LastSwappedAt *time.Time `json:"last_swapped_at,omitempty"`
+
+	// MaxDays The upper bound, in days, of how long ago the SIM was last changed. Absent when no upper bound is known; with a lower bound present, that means the change was at least `min_days` ago.
+	MaxDays *int `json:"max_days,omitempty"`
+
+	// MinDays The lower bound, in days, of how long ago the SIM was last changed. Networks that do not release an exact date report a band instead; absent when no lower bound is known.
+	MinDays *int                  `json:"min_days,omitempty"`
+	Status  *LookupPropertyStatus `json:"status,omitempty"`
+}
 
 // Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata and extracted text for its retention tier. The original rendered source of each message remains available for 30 days.
 type Mailbox struct {
@@ -8031,25 +8661,33 @@ type Mailbox struct {
 	Id               MailboxID        `json:"id"`
 	InboundAddressId InboundAddressID `json:"inbound_address_id"`
 
-	// LocalPartGenerated Whether Bird generated the local part of the address. `false` means a custom handle was chosen at creation; on the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
+	// LocalPartGenerated Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
 	LocalPartGenerated *bool `json:"local_part_generated,omitempty"`
 
 	// MessageCount Number of retained messages across all threads.
 	MessageCount *int64 `json:"message_count,omitempty"`
 
-	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]interface{} `json:"metadata"`
 
 	// Owner The principal that owns the mailbox. Always the workspace.
 	Owner MailboxOwner `json:"owner"`
 
-	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+	// ReceivePolicy Which inbound mail the mailbox accepts:
+	//
+	// - `open`: Accepts everything not blocked by a rule.
+	// - `replies_only`: Accepts only replies to messages this mailbox has
+	//   sent. A reply must match a message the mailbox sent. Landing in an
+	//   existing thread by itself does not count.
+	// - `allowlist`: Accepts only senders matching an allow rule. Replies to
+	//   prior outbound mail are always admitted unless blocked.
+	// - `drop`: Stores nothing.
 	ReceivePolicy MailboxReceivePolicy `json:"receive_policy"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
 	RetentionTier MailboxRetentionTier `json:"retention_tier"`
 
-	// State Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+	// State Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
 	State *MailboxState `json:"state,omitempty"`
 
 	// ThreadCount Number of retained threads.
@@ -8065,13 +8703,21 @@ type Mailbox struct {
 // MailboxChannel The channel this mailbox receives on. Always `email`.
 type MailboxChannel string
 
-// MailboxReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule (replies to prior outbound are always admitted unless blocked); `drop` stores nothing.
+// MailboxReceivePolicy Which inbound mail the mailbox accepts:
+//
+//   - `open`: Accepts everything not blocked by a rule.
+//   - `replies_only`: Accepts only replies to messages this mailbox has
+//     sent. A reply must match a message the mailbox sent. Landing in an
+//     existing thread by itself does not count.
+//   - `allowlist`: Accepts only senders matching an allow rule. Replies to
+//     prior outbound mail are always admitted unless blocked.
+//   - `drop`: Stores nothing.
 type MailboxReceivePolicy string
 
-// MailboxRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier. `3y` and `10y` are reserved future tiers.
+// MailboxRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
 type MailboxRetentionTier string
 
-// MailboxState Lifecycle state. Suspended mailboxes stop emitting events; inbound mail is retained as blocked.
+// MailboxState Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
 type MailboxState string
 
 // MailboxCreate Parameters for creating a mailbox.
@@ -8082,26 +8728,40 @@ type MailboxCreate struct {
 	// DisplayName Display name used as the sender name on mail from this mailbox.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Domain The domain the address lives under. Defaults to `inbox.ai`, Bird's shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
 	Domain *string `json:"domain,omitempty"`
 
-	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens; stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit to have Bird generate a random local part.
+	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
 	LocalPart *string `json:"local_part,omitempty"`
 
-	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB; keys starting with `__bird` are reserved.
+	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// ReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+	// ReceivePolicy Which inbound mail the mailbox accepts:
+	//
+	// - `open`: Accepts everything not blocked by a rule.
+	// - `replies_only`: Accepts only replies to messages this mailbox has
+	//   sent. A reply must match a message the mailbox sent. Landing in an
+	//   existing thread by itself does not count.
+	// - `allowlist`: Accepts only senders matching an allow rule.
+	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
 	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
 }
 
-// MailboxCreateReceivePolicy Which inbound mail the mailbox accepts. `open` accepts everything not blocked by a rule; `replies_only` accepts only replies to messages this mailbox has sent (a reply must match a message the mailbox sent, not merely land in an existing thread); `allowlist` accepts only senders matching an allow rule; `drop` stores nothing.
+// MailboxCreateReceivePolicy Which inbound mail the mailbox accepts:
+//
+//   - `open`: Accepts everything not blocked by a rule.
+//   - `replies_only`: Accepts only replies to messages this mailbox has
+//     sent. A reply must match a message the mailbox sent. Landing in an
+//     existing thread by itself does not count.
+//   - `allowlist`: Accepts only senders matching an allow rule.
+//   - `drop`: Stores nothing.
 type MailboxCreateReceivePolicy string
 
-// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier. Only `30d` is available today; additional tiers are planned.
+// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
 type MailboxCreateRetentionTier string
 
 // MailboxID defines model for MailboxID.
@@ -8132,7 +8792,7 @@ type MailboxOwner struct {
 // MailboxOwnerType Owner principal type.
 type MailboxOwnerType string
 
-// MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics carry the same delivery, engagement, and latency breakdowns as the email stats endpoints; `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and null latency percentiles.
+// MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics use the same delivery, engagement, and latency breakdowns as the email stats endpoints. `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and null latency percentiles.
 type MailboxStatsPoint struct {
 	// Bucket The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
 	Bucket     *string               `json:"bucket,omitempty"`
@@ -8147,7 +8807,7 @@ type MailboxStatsPoint struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// MailboxStatsResponse A mailbox's sent and received email statistics: a period-wide summary plus a bucketed time series. `period` echoes the range and grain the server computed against; `data` is one row per bucket in chronological order.
+// MailboxStatsResponse A mailbox's sent and received email statistics: a period-wide summary plus a bucketed time series. `period` echoes the range and grain actually used. `data` is one row per bucket in chronological order.
 type MailboxStatsResponse struct {
 	// Data One row per bucket in the period, in chronological order. Buckets with no activity are included with zero counts.
 	Data *[]MailboxStatsPoint `json:"data,omitempty"`
@@ -8155,11 +8815,11 @@ type MailboxStatsResponse struct {
 	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
 	Period EmailStatsSeriesPeriod `json:"period"`
 
-	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window; latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
 	Summary *MailboxStatsSummary `json:"summary,omitempty"`
 }
 
-// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window; latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
 type MailboxStatsSummary struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
@@ -8172,7 +8832,7 @@ type MailboxStatsSummary struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged; fields set to null are cleared. The address and domain are immutable.
+// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged. Fields set to null are cleared. The address and domain are immutable.
 type MailboxUpdate struct {
 	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
 	DefaultReplyTo nullable.Nullable[string] `json:"default_reply_to,omitempty"`
@@ -8180,20 +8840,20 @@ type MailboxUpdate struct {
 	// DisplayName Display name used as the sender name on mail from this mailbox. Null clears it.
 	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
 
-	// Metadata Replaces the mailbox's key/value data. Up to 2 KB; keys starting with `__bird` are reserved.
+	// Metadata Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// ReceivePolicy Which inbound mail the mailbox accepts.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
 // MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts.
 type MailboxUpdateReceivePolicy string
 
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes memory older than the new horizon and requires `confirm=true` when messages older than the new horizon would be deleted. Only `30d` is available today; additional tiers are planned.
+// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 type MailboxUpdateRetentionTier string
 
 // MessageCost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
@@ -8221,6 +8881,58 @@ type Money struct {
 
 	// CurrencyCode ISO 4217 three-letter currency code.
 	CurrencyCode CurrencyCode `json:"currency_code"`
+}
+
+// PhoneNumberLookup What Bird knows about a phone number.
+//
+// The number, its flags and its line type are the free baseline and are always present; the country and the two networks join them whenever they could be identified. Each property you request through `type` comes back as a block of the same name, carrying its own `status`. A property you did not request is absent altogether, and a property that could not be answered is present with its `status` alone. You are billed for exactly the properties whose status is `ok`.
+//
+// Fields with nothing behind them are left out rather than sent as null, so anything you can read in the response is something Bird actually resolved.
+type PhoneNumberLookup struct {
+	// Classification The allocated service of the number's range. Absent unless you requested the `classification` property.
+	Classification *LookupClassification `json:"classification,omitempty"`
+
+	// CountryCode The ISO 3166-1 alpha-2 country of the number. Absent when the number belongs to no single country, as a non-geographic range does.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// Flags Notable characteristics of the number. Empty when none apply.
+	Flags    *[]LookupFlag   `json:"flags,omitempty"`
+	LineType *LookupLineType `json:"line_type,omitempty"`
+
+	// NetworkInfo The network that serves the number today. Absent when no network could be identified.
+	NetworkInfo *LookupNetworkInfo `json:"network_info,omitempty"`
+
+	// OriginalNetworkInfo The network that issued the number's range. It differs from `network_info` when the number has been ported. Absent when the issuing network could not be identified.
+	OriginalNetworkInfo *LookupNetworkInfo `json:"original_network_info,omitempty"`
+
+	// PhoneNumber The number that was looked up, in E.164 format.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Porting The number's porting record. Absent unless you requested the `porting` property.
+	Porting *LookupPorting `json:"porting,omitempty"`
+
+	// Presence Whether the number is live on its network. Absent unless you requested the `presence` property.
+	Presence *LookupPresence `json:"presence,omitempty"`
+
+	// Roaming Whether the number is roaming. Absent unless you requested the `roaming` property.
+	Roaming *LookupRoaming `json:"roaming,omitempty"`
+
+	// Score The number's credibility score. Absent unless you requested the `score` property.
+	Score *LookupScore `json:"score,omitempty"`
+
+	// SimSwap When the number's SIM last changed. Absent unless you requested the `sim_swap` property.
+	SimSwap *LookupSimSwap `json:"sim_swap,omitempty"`
+}
+
+// PhoneNumberLookupRequest defines model for PhoneNumberLookupRequest.
+type PhoneNumberLookupRequest struct {
+	// PhoneNumber The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+	PhoneNumber string `json:"phone_number"`
+
+	// Type The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
+	//
+	// Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+	Type *[]LookupProperty `json:"type,omitempty"`
 }
 
 // RealtimeApp defines model for RealtimeApp.
@@ -8860,7 +9572,7 @@ type SMSTemplate struct {
 	// Revision The draft's revision counter. Always null today: SMS templates are not yet versioned; present for parity with email templates.
 	Revision *int `json:"revision,omitempty"`
 
-	// Scope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
 
 	// Status The template's lifecycle state. `active` means the template can be sent; every built-in Bird template is `active`. `draft` (being edited), `pending` (submitted for review), `approved` (passed review), and `rejected` (failed review) describe a workspace-authored template's authoring lifecycle; workspace-authored SMS templates are not available yet, so today every template is `active`.
@@ -8923,7 +9635,7 @@ type StatsTrendGrain string
 
 // Suppression defines model for Suppression.
 type Suppression struct {
-	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing and future non-transactional categories but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` is reserved for category-specific preferences. This list grows over time; treat an unknown value as blocking at least non-transactional mail.
+	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` scopes the block to a preference category and blocks every category until one is set. This list grows over time, and any value other than `non_transactional` blocks every category, so treat an unknown value as blocking the send.
 	AppliesTo string `json:"applies_to"`
 
 	// CreatedAt When the address was suppressed.
@@ -8933,10 +9645,28 @@ type Suppression struct {
 	Email openapi_types.Email `json:"email"`
 	Id    SuppressionID       `json:"id"`
 
-	// Origin How the suppression came to exist: `bounce_event` (created automatically from a hard bounce), `complaint_event` (from a spam complaint), `unsubscribe_event` (from an unsubscribe reported for a message, such as the recipient's mail client's unsubscribe action), `unsubscribe_link` (the recipient opted out through the unsubscribe page linked from a message), `api_key` (added through the API with an API key), or `user` (added by a user in the dashboard). This list grows over time; treat unknown values as informational rather than rejecting the record.
+	// Origin How the suppression came to exist:
+	//
+	// - `bounce_event`: Created automatically from a hard bounce.
+	// - `complaint_event`: Created from a spam complaint.
+	// - `unsubscribe_event`: Created from an unsubscribe reported for a
+	//   message, such as the recipient's mail client's unsubscribe action.
+	// - `unsubscribe_link`: The recipient opted out through the unsubscribe
+	//   page linked from a message.
+	// - `api_key`: Added through the API with an API key.
+	// - `user`: Added by a user in the dashboard.
+	//
+	// This list grows over time. Treat unknown values as informational rather than rejecting the record.
 	Origin string `json:"origin"`
 
-	// Reason Why the address is suppressed: `hard_bounce` (a delivery permanently failed), `complaint` (the recipient reported a message as spam), `unsubscribe` (the recipient opted out), or `manual` (added through the API or dashboard). An address can hold one record per reason. This list grows over time; treat unknown values as informational rather than rejecting the record.
+	// Reason Why the address is suppressed:
+	//
+	// - `hard_bounce`: A delivery permanently failed.
+	// - `complaint`: The recipient reported a message as spam.
+	// - `unsubscribe`: The recipient opted out.
+	// - `manual`: Added through the API or dashboard.
+	//
+	// An address can hold one record per reason. This list grows over time. Treat unknown values as informational rather than rejecting the record.
 	Reason string           `json:"reason"`
 	Scope  SuppressionScope `json:"scope"`
 
@@ -8976,11 +9706,31 @@ type SuppressionScope struct {
 	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID (`ws_`-prefixed).
 	Id string `json:"id"`
 
-	// Type The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
+	// Type How wide this suppression reaches. It is always `workspace`, which
+	// means the address is blocked for every email your workspace sends.
+	// The `id` beside it is then your workspace ID.
+	//
+	// This only affects email. Your WhatsApp suppressions are a separate
+	// list, and blocking an address here does nothing to them.
+	//
+	// The enum lists five narrower values as well: `category`, `audience`,
+	// `topic`, `contact` and `domain`. You will never get one of them back,
+	// because every suppression is workspace-wide. If you are writing code,
+	// you can treat this field as always reading `workspace`.
 	Type SuppressionScopeType `json:"type"`
 }
 
-// SuppressionScopeType The scope this suppression applies to. Suppressions are currently workspace-scoped; the other scope types are reserved for future use.
+// SuppressionScopeType How wide this suppression reaches. It is always `workspace`, which
+// means the address is blocked for every email your workspace sends.
+// The `id` beside it is then your workspace ID.
+//
+// This only affects email. Your WhatsApp suppressions are a separate
+// list, and blocking an address here does nothing to them.
+//
+// The enum lists five narrower values as well: `category`, `audience`,
+// `topic`, `contact` and `domain`. You will never get one of them back,
+// because every suppression is workspace-wide. If you are writing code,
+// you can treat this field as always reading `workspace`.
 type SuppressionScopeType string
 
 // Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
@@ -8993,30 +9743,30 @@ type Tag struct {
 	Value string `json:"value"`
 }
 
-// TemplateName A template's send-by handle — the stable reference used in place of the template id when sending. Lowercase letters, numbers, hyphens, and underscores; starts and ends with a letter or number.
+// TemplateName A template's name: the stable handle you send it by, used in place of the template id. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
 type TemplateName = string
 
-// TemplateScope Whether the template is a built-in Bird template (`system`) or one your workspace authored (`workspace`).
+// TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 type TemplateScope string
 
-// TemplateSlug A template's slug: its permanent, workspace-unique handle and API address. Lowercase letters, numbers, hyphens, and underscores. Fixed at creation, so anything that references it never breaks; the display name is the label to change freely.
+// TemplateSlug A template's slug: what you send it by, for example `welcome-email`. You choose it when you create the template, and it cannot be changed afterwards. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
 type TemplateSlug = string
 
-// TemplateVariable A single variable slot a template fills in from the values supplied when sending. Shared across channels (SMS, email) so template introspection reads the same everywhere.
+// TemplateVariable One variable a template's content uses, filled in from the values you give when you send. Templates on every channel report their variables this way, so this reads the same whether you are looking at an SMS template or an email one.
 type TemplateVariable struct {
-	// Constraint A human-readable description of the accepted values.
+	// Constraint A plain-language description of what values this variable accepts.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The parameter key this slot is filled with.
+	// Key The variable's name, the key you use for it in `parameters` when you send.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether the slot must be supplied when sending. A send that leaves a required slot unset is rejected.
+	// Required Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
 	Required *bool `json:"required,omitempty"`
 
-	// Sensitive Whether this slot's value is redacted before it reaches storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+	// Sensitive Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
 	Sensitive *bool `json:"sensitive,omitempty"`
 
-	// Type The value type this slot accepts. Open enum — treat any unrecognized value as a future type rather than an error. SMS templates use the typed slots (`code`, `amount`, …); email templates use `text`.
+	// Type The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -9227,31 +9977,31 @@ type VoiceCallList struct {
 //
 // Most of them you can fix yourself:
 //
-//   - `source_not_allowed`: the call came from an IP address that is not in the
+//   - `source_not_allowed`: The call came from an IP address that is not in the
 //     trunk's allowed-address list. Add the address your PBX sends from.
-//   - `caller_id_not_verified`: the number in the `From` header is not a verified
+//   - `caller_id_not_verified`: The number in the `From` header is not a verified
 //     caller ID for this workspace. Verify it, or present a number you have
 //     already verified.
-//   - `destination_not_enabled`: you have not turned on calling to this
+//   - `destination_not_enabled`: You have not turned on calling to this
 //     destination country. Enable it in your voice destination settings.
-//   - `insufficient_balance`: your wallet did not cover the call. Top up, or turn
+//   - `insufficient_balance`: Your wallet did not cover the call. Top up, or turn
 //     on automatic top-ups.
-//   - `daily_spend_exceeded`: the call would have passed your organization's daily
+//   - `daily_spend_exceeded`: The call would have passed your organization's daily
 //     voice spend limit. The limit resets at the start of the next UTC day.
-//   - `concurrent_calls_exceeded`: you already have as many calls in progress as
+//   - `concurrent_calls_exceeded`: You already have as many calls in progress as
 //     your account allows. Wait for one to end, or ask support to raise the limit.
-//   - `calls_per_second_exceeded`: you placed calls faster than your account
+//   - `calls_per_second_exceeded`: You placed calls faster than your account
 //     allows. Slow the rate you dial at, then retry.
 //
 // The rest need Bird to act, so contact support and quote the call `id`:
 //
-//   - `routing_not_configured`: no dial plan is attached to this trunk yet.
+//   - `routing_not_configured`: No dial plan is attached to this trunk yet.
 //     Expected on a trunk that was just created.
-//   - `no_route_found`: a dial plan is attached, but no rule in it covers this
+//   - `no_route_found`: A dial plan is attached, but no rule in it covers this
 //     destination.
-//   - `destination_blocked`: the destination is blocked by Bird's routing
+//   - `destination_blocked`: The destination is blocked by our routing
 //     configuration.
-//   - `call_not_permitted`: the call could not be priced for your account.
+//   - `call_not_permitted`: The call could not be priced for your account.
 type VoiceCallRejectionReason string
 
 // VoiceCallStatus Call status.
@@ -9331,11 +10081,11 @@ type WebhookEndpoint struct {
 
 	// Status Delivery state of the endpoint.
 	//
-	// - `active`: the initial state; events are being delivered normally.
-	// - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+	// - `active`: The initial state; events are being delivered normally.
+	// - `degraded`: Recent deliveries are failing. We keep delivering and retrying,
 	//   and the endpoint returns to `active` automatically once deliveries succeed
 	//   again.
-	// - `paused`: all delivery is stopped, either because an update set `status` to
+	// - `paused`: All delivery is stopped, either because an update set `status` to
 	//   `paused` or automatically after sustained delivery failures. A paused endpoint
 	//   never resumes on its own: re-enable it with
 	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
@@ -9350,11 +10100,11 @@ type WebhookEndpoint struct {
 
 // WebhookEndpointStatus Delivery state of the endpoint.
 //
-//   - `active`: the initial state; events are being delivered normally.
-//   - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+//   - `active`: The initial state; events are being delivered normally.
+//   - `degraded`: Recent deliveries are failing. We keep delivering and retrying,
 //     and the endpoint returns to `active` automatically once deliveries succeed
 //     again.
-//   - `paused`: all delivery is stopped, either because an update set `status` to
+//   - `paused`: All delivery is stopped, either because an update set `status` to
 //     `paused` or automatically after sustained delivery failures. A paused endpoint
 //     never resumes on its own: re-enable it with
 //     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
@@ -9390,11 +10140,11 @@ type WebhookEndpointCreated struct {
 
 	// Status Delivery state of the endpoint.
 	//
-	// - `active`: the initial state; events are being delivered normally.
-	// - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+	// - `active`: The initial state; events are being delivered normally.
+	// - `degraded`: Recent deliveries are failing. We keep delivering and retrying,
 	//   and the endpoint returns to `active` automatically once deliveries succeed
 	//   again.
-	// - `paused`: all delivery is stopped, either because an update set `status` to
+	// - `paused`: All delivery is stopped, either because an update set `status` to
 	//   `paused` or automatically after sustained delivery failures. A paused endpoint
 	//   never resumes on its own: re-enable it with
 	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
@@ -9409,11 +10159,11 @@ type WebhookEndpointCreated struct {
 
 // WebhookEndpointCreatedStatus Delivery state of the endpoint.
 //
-//   - `active`: the initial state; events are being delivered normally.
-//   - `degraded`: recent deliveries are failing. Bird keeps delivering and retrying,
+//   - `active`: The initial state; events are being delivered normally.
+//   - `degraded`: Recent deliveries are failing. We keep delivering and retrying,
 //     and the endpoint returns to `active` automatically once deliveries succeed
 //     again.
-//   - `paused`: all delivery is stopped, either because an update set `status` to
+//   - `paused`: All delivery is stopped, either because an update set `status` to
 //     `paused` or automatically after sustained delivery failures. A paused endpoint
 //     never resumes on its own: re-enable it with
 //     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
@@ -9887,43 +10637,46 @@ type ListAudiencesParams struct {
 
 // CreateAudienceParams defines parameters for CreateAudience.
 type CreateAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // DeleteAudienceParams defines parameters for DeleteAudience.
 type DeleteAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateAudienceParams defines parameters for UpdateAudience.
 type UpdateAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -9944,43 +10697,46 @@ type ListAudienceContactsParams struct {
 
 // AssignAudienceContactsParams defines parameters for AssignAudienceContacts.
 type AssignAudienceContactsParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UnassignAudienceContactsParams defines parameters for UnassignAudienceContacts.
 type UnassignAudienceContactsParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UnassignAudienceContactParams defines parameters for UnassignAudienceContact.
 type UnassignAudienceContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -9998,57 +10754,61 @@ type ListContactPropertiesParams struct {
 
 // CreateContactPropertyParams defines parameters for CreateContactProperty.
 type CreateContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateContactPropertyParams defines parameters for UpdateContactProperty.
 type UpdateContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ArchiveContactPropertyParams defines parameters for ArchiveContactProperty.
 type ArchiveContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UnarchiveContactPropertyParams defines parameters for UnarchiveContactProperty.
 type UnarchiveContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10084,71 +10844,76 @@ type ListContactsParams struct {
 
 // CreateContactParams defines parameters for CreateContact.
 type CreateContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // CreateContactBatchParams defines parameters for CreateContactBatch.
 type CreateContactBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // DeleteContactParams defines parameters for DeleteContact.
 type DeleteContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateContactParams defines parameters for UpdateContact.
 type UpdateContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
 type CreateEmailMessageBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10184,57 +10949,61 @@ type ListDomainsParamsOrder string
 
 // CreateDomainParams defines parameters for CreateDomain.
 type CreateDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // DeleteDomainParams defines parameters for DeleteDomain.
 type DeleteDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateDomainParams defines parameters for UpdateDomain.
 type UpdateDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // VerifyDomainParams defines parameters for VerifyDomain.
 type VerifyDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10252,7 +11021,7 @@ type ListMailboxesParams struct {
 	// Domain Filter to mailboxes whose address is on this domain.
 	Domain *string `form:"domain,omitempty" json:"domain,omitempty"`
 
-	// IncludeDeleted Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. Deleted mailboxes carry a non-null `deleted_at`.
+	// IncludeDeleted Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has a non-null `deleted_at`.
 	IncludeDeleted *bool `form:"include_deleted,omitempty" json:"include_deleted,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -10270,60 +11039,64 @@ type ListMailboxesParamsState string
 
 // CreateMailboxParams defines parameters for CreateMailbox.
 type CreateMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // DeleteMailboxParams defines parameters for DeleteMailbox.
 type DeleteMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateMailboxParams defines parameters for UpdateMailbox.
 type UpdateMailboxParams struct {
-	// Confirm Required as `true` when lowering `retention_tier`, acknowledging that remembered messages older than the new horizon are deleted.
+	// Confirm Set to `true` when lowering `retention_tier` would delete remembered messages older than the new cutoff. The request is rejected without it in that case.
 	Confirm *bool `form:"confirm,omitempty" json:"confirm,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // CreateMailboxMessageParams defines parameters for CreateMailboxMessage.
 type CreateMailboxMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10347,57 +11120,61 @@ type ListMailboxReceiveRulesParamsAction string
 
 // CreateMailboxReceiveRuleParams defines parameters for CreateMailboxReceiveRule.
 type CreateMailboxReceiveRuleParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // DeleteMailboxReceiveRuleParams defines parameters for DeleteMailboxReceiveRule.
 type DeleteMailboxReceiveRuleParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // RestoreMailboxParams defines parameters for RestoreMailbox.
 type RestoreMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ResumeMailboxParams defines parameters for ResumeMailbox.
 type ResumeMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10412,7 +11189,7 @@ type GetMailboxStatsParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Granularity Bucket grain of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
+	// Granularity Granularity of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
 	Granularity *GetMailboxStatsParamsGranularity `form:"granularity,omitempty" json:"granularity,omitempty"`
 }
 
@@ -10439,44 +11216,46 @@ type ListEmailMessagesParams struct {
 	// Status Filter by aggregate delivery status.
 	Status *EmailMessageStatus `form:"status,omitempty" json:"status,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Category Filter by category.
 	Category *EmailMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// To Filter by recipient address. Exact match against any `to`/`cc`/`bcc` recipient on the message; normalised to lowercase before comparison.
+	// To Filter by recipient address. Exact match against any `to`/`cc`/`bcc` recipient on the message. The address is normalized to lowercase before comparison.
 	To *openapi_types.Email `form:"to,omitempty" json:"to,omitempty"`
 
-	// From Filter by sender address. Exact match against the message `from` field; normalised to lowercase before comparison.
+	// From Filter by sender address. Exact match against the message `from` field. The address is normalized to lowercase before comparison.
 	From *openapi_types.Email `form:"from,omitempty" json:"from,omitempty"`
 }
 
 // CreateEmailMessageParams defines parameters for CreateEmailMessage.
 type CreateEmailMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // CancelEmailMessageParams defines parameters for CancelEmailMessage.
 type CancelEmailMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10491,10 +11270,10 @@ type GetEmailStatsByBounceCodeParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Defaults to `bounced`. Only bounce counts are sortable; this breakdown has no rates.
+	// Sort Metric to rank rows by, applied descending. It defaults to `bounced`. Only the bounce counts are sortable here, because this breakdown has no rate fields.
 	Sort *GetEmailStatsByBounceCodeParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of bounce-code rows to return, ranked by the `sort` field descending.
@@ -10512,7 +11291,7 @@ type GetEmailStatsByBroadcastParams struct {
 	// To End date (inclusive) in YYYY-MM-DD, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns a 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
@@ -10524,7 +11303,7 @@ type GetEmailStatsByBroadcastParams struct {
 
 // GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
 type GetEmailStatsByCategoryParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10533,13 +11312,13 @@ type GetEmailStatsByCategoryParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that category's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10563,7 +11342,7 @@ type GetEmailStatsByClientParams struct {
 	// GroupBy Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two null.
 	GroupBy *GetEmailStatsByClientParamsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
+	// Sort Metric to rank rows by, applied descending. It defaults to `unique_opens`. Only engagement counts are sortable. This breakdown has no rates.
 	Sort *EmailEngagementSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of client rows to return, ranked by the `sort` field descending.
@@ -10584,10 +11363,10 @@ type GetEmailStatsByComplaintTypeParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Defaults to `complained`, the only sortable metric for this breakdown.
+	// Sort Metric to rank rows by, applied descending. It defaults to `complained`, the only sortable metric for this breakdown.
 	Sort *GetEmailStatsByComplaintTypeParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of complaint-type rows to return, ranked by `complained` descending.
@@ -10674,7 +11453,7 @@ type GetEmailStatsByLocationParams struct {
 	// GroupBy Location granularity for each row. `country` (default) groups by country; `region` groups by region within country; `city` groups by city within region. Each row reports the location hierarchy down to the chosen level.
 	GroupBy *GetEmailStatsByLocationParamsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Defaults to `unique_opens`. Only engagement counts are sortable; this breakdown has no rates.
+	// Sort Metric to rank rows by, applied descending. It defaults to `unique_opens`. Only engagement counts are sortable. This breakdown has no rates.
 	Sort *EmailEngagementSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of location rows to return, ranked by the `sort` field descending.
@@ -10686,7 +11465,7 @@ type GetEmailStatsByLocationParamsGroupBy string
 
 // GetEmailStatsByMailboxProviderRegionParams defines parameters for GetEmailStatsByMailboxProviderRegion.
 type GetEmailStatsByMailboxProviderRegionParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10695,16 +11474,16 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
 	Sort *EmailMailboxProviderSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of provider-region rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that provider region's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10713,7 +11492,7 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 
 // GetEmailStatsByMailboxProviderParams defines parameters for GetEmailStatsByMailboxProvider.
 type GetEmailStatsByMailboxProviderParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10725,13 +11504,13 @@ type GetEmailStatsByMailboxProviderParams struct {
 	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
 	Sort *EmailMailboxProviderSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that provider's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10740,7 +11519,7 @@ type GetEmailStatsByMailboxProviderParams struct {
 
 // GetEmailStatsByRecipientDomainParams defines parameters for GetEmailStatsByRecipientDomain.
 type GetEmailStatsByRecipientDomainParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10749,16 +11528,16 @@ type GetEmailStatsByRecipientDomainParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that recipient domain's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10767,7 +11546,7 @@ type GetEmailStatsByRecipientDomainParams struct {
 
 // GetEmailStatsBySendingDomainParams defines parameters for GetEmailStatsBySendingDomain.
 type GetEmailStatsBySendingDomainParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10776,16 +11555,16 @@ type GetEmailStatsBySendingDomainParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of domain rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10794,7 +11573,7 @@ type GetEmailStatsBySendingDomainParams struct {
 
 // GetEmailStatsBySendingIpParams defines parameters for GetEmailStatsBySendingIp.
 type GetEmailStatsBySendingIpParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10803,16 +11582,16 @@ type GetEmailStatsBySendingIpParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank IPs by, applied descending. `bounces.block` surfaces the IPs whose reputation is most likely degraded. Rows whose rate is undefined (zero denominator) sort last. Defaults to `delivered`. Engagement metrics (a sending IP carries no engagement), `processed`, `rejected`, and `oob_bounces` are not sortable here.
+	// Sort Metric to rank IPs by, applied descending. Sorting by `bounces.block` puts the IPs whose reputation is most likely degraded at the top. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. A sending IP has no engagement, so engagement metrics aren't sortable here, and neither are `processed`, `rejected`, or `oob_bounces`.
 	Sort *GetEmailStatsBySendingIpParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of IP rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that IP's delivery rates over the window (per-IP rows have no engagement, so each trend point's open and click rates read 0 in buckets that had deliveries and null in buckets that had none). Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10860,7 +11639,7 @@ type GetEmailStatsSummaryParamsCompare string
 
 // GetEmailStatsByTagParams defines parameters for GetEmailStatsByTag.
 type GetEmailStatsByTagParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
 	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -10869,16 +11648,16 @@ type GetEmailStatsByTagParams struct {
 	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
+	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort *EmailStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Limit Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that row's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10905,7 +11684,7 @@ type GetEmailStatsByTemplateParams struct {
 	// Limit Maximum number of template rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default window is 30 days (720 hours), so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -10920,13 +11699,15 @@ type ListEmailThreadsParams struct {
 	// ContactId Filter to conversations linked to a specific contact.
 	ContactId *ContactID `form:"contact_id,omitempty" json:"contact_id,omitempty"`
 
-	// Label Filter to conversations carrying this label. Repeat the parameter to require several — only conversations carrying every listed label match. A placement label selects a folder (`inbox`, `archive`, `spam`, `blocked`); a custom label matches conversations in any folder. Defaults to `inbox` when omitted.
+	// Label Filter to conversations that have this label. Repeat the parameter to ask for more than one: only conversations that have every label you list are returned.
+	//
+	// A placement label picks a folder: `inbox`, `archive`, `spam`, or `blocked`. A custom label matches a conversation in any folder. Leave this out and you get the inbox.
 	Label *[]string `form:"label,omitempty" json:"label,omitempty"`
 
-	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so it combines with `label` — for example, unread conversations in the archive. (The `unread` label itself lives on messages, not conversations.)
+	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on messages, not conversations.
 	HasUnread *bool `form:"has_unread,omitempty" json:"has_unread,omitempty"`
 
-	// Participant Conversations involving this address — matches the sender or any recipient, as a case-insensitive contains-match, so a full address or any fragment of one works.
+	// Participant Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
 	Participant *string `form:"participant,omitempty" json:"participant,omitempty"`
 
 	// Subject Conversations whose subject contains this text (case-insensitive).
@@ -10953,29 +11734,31 @@ type DeleteEmailThreadParams struct {
 	// Permanent Permanently delete the conversation and its messages immediately instead of moving them to the trash.
 	Permanent *bool `form:"permanent,omitempty" json:"permanent,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // UpdateEmailThreadParams defines parameters for UpdateEmailThread.
 type UpdateEmailThreadParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -10984,7 +11767,7 @@ type ListEmailThreadMessagesParams struct {
 	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Label Filter to messages carrying this label. `trash` lists trashed messages; any other label — `archive`, `spam`, `blocked`, `unread`, or a custom label — lists its non-trashed carriers. When omitted, received messages in the inbox and all sent messages are returned.
+	// Label Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, received messages in the inbox and all sent messages are returned.
 	Label *string `form:"label,omitempty" json:"label,omitempty"`
 
 	// Include Set to `extracted_text` to inline each message's extracted plain text.
@@ -11005,15 +11788,52 @@ type ListEmailThreadMessagesParamsInclude string
 
 // ReplyEmailThreadMessageParams defines parameters for ReplyEmailThreadMessage.
 type ReplyEmailThreadMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateEmailLookupParams defines parameters for CreateEmailLookup.
+type CreateEmailLookupParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreatePhoneNumberLookupParams defines parameters for CreatePhoneNumberLookup.
+type CreatePhoneNumberLookupParams struct {
+	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11022,15 +11842,16 @@ type PublishRealtimeAppBatchParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11066,15 +11887,16 @@ type PublishRealtimeAppEventParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11083,15 +11905,16 @@ type DisconnectRealtimeAppMemberParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11100,29 +11923,31 @@ type SendRealtimeAppMemberEventParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
 type CreateSMSMessageBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11161,21 +11986,22 @@ type ListSMSMessagesParams struct {
 	// From Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // CreateSMSMessageParams defines parameters for CreateSMSMessage.
 type CreateSMSMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11196,15 +12022,16 @@ type CreateVerificationParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11213,15 +12040,16 @@ type CreateVerificationCheckParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11230,15 +12058,16 @@ type CreateVerificationNextChannelParams struct {
 	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11313,21 +12142,22 @@ type ListWhatsAppMessagesParams struct {
 	// Category Filter by category.
 	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (e.g. `category:welcome`). Repeat the parameter to AND-combine several tag filters.
+	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
 	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // CreateWhatsAppMessageParams defines parameters for CreateWhatsAppMessage.
 type CreateWhatsAppMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the server replays the original response for any duplicate request with the same key within the idempotency TTL window (3 hours by default).
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
 	// Two distinct 409 errors signal misuse:
-	// - `request_in_progress` (E01004): the same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry; the lock
-	//   expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): the same key has already completed
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
 	//   against a different request body or method. Generate a new key.
 	//
-	// Recommended key format is `<event-type>/<entity-id>` (e.g. `welcome-user/usr_abc123`).
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
@@ -11393,6 +12223,12 @@ type UpdateEmailThreadJSONRequestBody = EmailThreadUpdateRequest
 
 // ReplyEmailThreadMessageJSONRequestBody defines body for ReplyEmailThreadMessage for application/json ContentType.
 type ReplyEmailThreadMessageJSONRequestBody = EmailThreadMessageReplyRequest
+
+// CreateEmailLookupJSONRequestBody defines body for CreateEmailLookup for application/json ContentType.
+type CreateEmailLookupJSONRequestBody = EmailLookupRequest
+
+// CreatePhoneNumberLookupJSONRequestBody defines body for CreatePhoneNumberLookup for application/json ContentType.
+type CreatePhoneNumberLookupJSONRequestBody = PhoneNumberLookupRequest
 
 // PublishRealtimeAppBatchJSONRequestBody defines body for PublishRealtimeAppBatch for application/json ContentType.
 type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
@@ -13959,6 +14795,16 @@ type ClientInterface interface {
 
 	ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateEmailLookupWithBody request with any body
+	CreateEmailLookupWithBody(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailLookup(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreatePhoneNumberLookupWithBody request with any body
+	CreatePhoneNumberLookupWithBody(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreatePhoneNumberLookup(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PublishRealtimeAppBatchWithBody request with any body
 	PublishRealtimeAppBatchWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -15102,6 +15948,54 @@ func (c *Client) ReplyEmailThreadMessageWithBody(ctx context.Context, threadId T
 
 func (c *Client) ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewReplyEmailThreadMessageRequest(c.Server, threadId, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailLookupWithBody(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailLookupRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailLookup(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailLookupRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreatePhoneNumberLookupWithBody(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreatePhoneNumberLookupRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreatePhoneNumberLookup(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreatePhoneNumberLookupRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -21179,6 +22073,138 @@ func NewReplyEmailThreadMessageRequestWithBody(server string, threadId ThreadID,
 	return req, nil
 }
 
+// NewCreateEmailLookupRequest calls the generic CreateEmailLookup builder with application/json body
+func NewCreateEmailLookupRequest(server string, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailLookupRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailLookupRequestWithBody generates requests for CreateEmailLookup with any type of body
+func NewCreateEmailLookupRequestWithBody(server string, params *CreateEmailLookupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/lookup/email")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreatePhoneNumberLookupRequest calls the generic CreatePhoneNumberLookup builder with application/json body
+func NewCreatePhoneNumberLookupRequest(server string, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreatePhoneNumberLookupRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreatePhoneNumberLookupRequestWithBody generates requests for CreatePhoneNumberLookup with any type of body
+func NewCreatePhoneNumberLookupRequestWithBody(server string, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/lookup/phone-number")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewPublishRealtimeAppBatchRequest calls the generic PublishRealtimeAppBatch builder with application/json body
 func NewPublishRealtimeAppBatchRequest(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -23173,6 +24199,16 @@ type ClientWithResponsesInterface interface {
 	ReplyEmailThreadMessageWithBodyWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
 
 	ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
+
+	// CreateEmailLookupWithBodyWithResponse request with any body
+	CreateEmailLookupWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error)
+
+	CreateEmailLookupWithResponse(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error)
+
+	// CreatePhoneNumberLookupWithBodyWithResponse request with any body
+	CreatePhoneNumberLookupWithBodyWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error)
+
+	CreatePhoneNumberLookupWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error)
 
 	// PublishRealtimeAppBatchWithBodyWithResponse request with any body
 	PublishRealtimeAppBatchWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error)
@@ -25793,6 +26829,82 @@ func (r ReplyEmailThreadMessageResponse) ContentType() string {
 	return ""
 }
 
+type CreateEmailLookupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailLookup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailLookupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailLookupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailLookupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreatePhoneNumberLookupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PhoneNumberLookup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreatePhoneNumberLookupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreatePhoneNumberLookupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreatePhoneNumberLookupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type PublishRealtimeAppBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -27366,6 +28478,40 @@ func (c *ClientWithResponses) ReplyEmailThreadMessageWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseReplyEmailThreadMessageResponse(rsp)
+}
+
+// CreateEmailLookupWithBodyWithResponse request with arbitrary body returning *CreateEmailLookupResponse
+func (c *ClientWithResponses) CreateEmailLookupWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error) {
+	rsp, err := c.CreateEmailLookupWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailLookupResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailLookupWithResponse(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error) {
+	rsp, err := c.CreateEmailLookup(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailLookupResponse(rsp)
+}
+
+// CreatePhoneNumberLookupWithBodyWithResponse request with arbitrary body returning *CreatePhoneNumberLookupResponse
+func (c *ClientWithResponses) CreatePhoneNumberLookupWithBodyWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error) {
+	rsp, err := c.CreatePhoneNumberLookupWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePhoneNumberLookupResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreatePhoneNumberLookupWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error) {
+	rsp, err := c.CreatePhoneNumberLookup(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePhoneNumberLookupResponse(rsp)
 }
 
 // PublishRealtimeAppBatchWithBodyWithResponse request with arbitrary body returning *PublishRealtimeAppBatchResponse
@@ -32490,6 +33636,170 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailLookupResponse parses an HTTP response from a CreateEmailLookupWithResponse call
+func ParseCreateEmailLookupResponse(rsp *http.Response) (*CreateEmailLookupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailLookupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailLookup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreatePhoneNumberLookupResponse parses an HTTP response from a CreatePhoneNumberLookupWithResponse call
+func ParseCreatePhoneNumberLookupResponse(rsp *http.Response) (*CreatePhoneNumberLookupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreatePhoneNumberLookupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PhoneNumberLookup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

@@ -28,6 +28,61 @@ const (
 	EmailEventTypeEmailUnsubscribed     = oapi.EmailEventTypeEmailUnsubscribed
 )
 
+// EmailLookupFlag is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailLookupFlag* constants with a
+// default branch rather than treating the set as closed.
+type EmailLookupFlag = oapi.EmailLookupFlag
+
+const (
+	EmailLookupFlagDisposable   = oapi.EmailLookupFlagDisposable
+	EmailLookupFlagFreeProvider = oapi.EmailLookupFlagFreeProvider
+	EmailLookupFlagRole         = oapi.EmailLookupFlagRole
+)
+
+// EmailLookupReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailLookupReason* constants with a
+// default branch rather than treating the set as closed.
+type EmailLookupReason = oapi.EmailLookupReason
+
+const (
+	EmailLookupReasonInvalidDomain    = oapi.EmailLookupReasonInvalidDomain
+	EmailLookupReasonInvalidRecipient = oapi.EmailLookupReasonInvalidRecipient
+	EmailLookupReasonInvalidSyntax    = oapi.EmailLookupReasonInvalidSyntax
+)
+
+// EmailLookupResult is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailLookupResult* constants with a
+// default branch rather than treating the set as closed.
+type EmailLookupResult = oapi.EmailLookupResult
+
+const (
+	EmailLookupResultNeutral       = oapi.EmailLookupResultNeutral
+	EmailLookupResultRisky         = oapi.EmailLookupResultRisky
+	EmailLookupResultTypo          = oapi.EmailLookupResultTypo
+	EmailLookupResultUndeliverable = oapi.EmailLookupResultUndeliverable
+	EmailLookupResultValid         = oapi.EmailLookupResultValid
+)
+
+// LookupFlag is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the LookupFlag* constants with a
+// default branch rather than treating the set as closed.
+type LookupFlag = oapi.LookupFlag
+
+const (
+	LookupFlagPorted = oapi.LookupFlagPorted
+)
+
+// LookupPropertyStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the LookupPropertyStatus* constants with a
+// default branch rather than treating the set as closed.
+type LookupPropertyStatus = oapi.LookupPropertyStatus
+
+const (
+	LookupPropertyStatusInconclusive = oapi.LookupPropertyStatusInconclusive
+	LookupPropertyStatusOk           = oapi.LookupPropertyStatusOk
+	LookupPropertyStatusUnavailable  = oapi.LookupPropertyStatusUnavailable
+)
+
 // SMSErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSErrorCode* constants with a
 // default branch rather than treating the set as closed.
