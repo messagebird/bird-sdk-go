@@ -71,8 +71,8 @@ func (e AudienceCreateRequestType) Valid() bool {
 
 // Defines values for ContactIdentifierFilter.
 const (
-	ContactIdentifierFilterEmail ContactIdentifierFilter = "email"
-	ContactIdentifierFilterPhone ContactIdentifierFilter = "phone"
+	ContactIdentifierFilterEmail       ContactIdentifierFilter = "email"
+	ContactIdentifierFilterPhoneNumber ContactIdentifierFilter = "phone_number"
 )
 
 // Valid indicates whether the value is a known member of the ContactIdentifierFilter enum.
@@ -80,7 +80,7 @@ func (e ContactIdentifierFilter) Valid() bool {
 	switch e {
 	case ContactIdentifierFilterEmail:
 		return true
-	case ContactIdentifierFilterPhone:
+	case ContactIdentifierFilterPhoneNumber:
 		return true
 	default:
 		return false
@@ -89,9 +89,9 @@ func (e ContactIdentifierFilter) Valid() bool {
 
 // Defines values for ContactMatchKey.
 const (
-	ContactMatchKeyEmail      ContactMatchKey = "email"
-	ContactMatchKeyExternalId ContactMatchKey = "external_id"
-	ContactMatchKeyPhone      ContactMatchKey = "phone"
+	ContactMatchKeyEmail       ContactMatchKey = "email"
+	ContactMatchKeyExternalId  ContactMatchKey = "external_id"
+	ContactMatchKeyPhoneNumber ContactMatchKey = "phone_number"
 )
 
 // Valid indicates whether the value is a known member of the ContactMatchKey enum.
@@ -101,7 +101,7 @@ func (e ContactMatchKey) Valid() bool {
 		return true
 	case ContactMatchKeyExternalId:
 		return true
-	case ContactMatchKeyPhone:
+	case ContactMatchKeyPhoneNumber:
 		return true
 	default:
 		return false
@@ -113,7 +113,7 @@ const (
 	ContactMatchedOnEmail       ContactMatchedOn = "email"
 	ContactMatchedOnExternalId  ContactMatchedOn = "external_id"
 	ContactMatchedOnLessThannil ContactMatchedOn = "<nil>"
-	ContactMatchedOnPhone       ContactMatchedOn = "phone"
+	ContactMatchedOnPhoneNumber ContactMatchedOn = "phone_number"
 )
 
 // Valid indicates whether the value is a known member of the ContactMatchedOn enum.
@@ -125,7 +125,7 @@ func (e ContactMatchedOn) Valid() bool {
 		return true
 	case ContactMatchedOnLessThannil:
 		return true
-	case ContactMatchedOnPhone:
+	case ContactMatchedOnPhoneNumber:
 		return true
 	default:
 		return false
@@ -3806,9 +3806,9 @@ type Contact struct {
 	// LastName The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
 	LastName *string `json:"last_name,omitempty"`
 
-	// Phone The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
-	Phone     *string    `json:"phone"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// PhoneNumber The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+	PhoneNumber *string    `json:"phone_number"`
+	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 }
 
 // ContactCreateRequest defines model for ContactCreateRequest.
@@ -3828,14 +3828,14 @@ type ContactCreateRequest struct {
 	// LastName The contact's last name.
 	LastName *string `json:"last_name,omitempty"`
 
-	// Phone The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
-	Phone *string `json:"phone,omitempty"`
+	// PhoneNumber The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
+	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
 // ContactID defines model for ContactID.
 type ContactID = string
 
-// ContactIdentifierFilter Which identifier a contact has on file, `email` for an email address or `phone` for a phone number.
+// ContactIdentifierFilter Which identifier a contact has on file, `email` for an email address or `phone_number` for a phone number.
 type ContactIdentifierFilter string
 
 // ContactList defines model for ContactList.
@@ -3942,8 +3942,8 @@ type ContactUpdateRequest struct {
 	// LastName The contact's last name. Set to null to clear.
 	LastName nullable.Nullable[string] `json:"last_name,omitempty"`
 
-	// Phone New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
-	Phone nullable.Nullable[string] `json:"phone,omitempty"`
+	// PhoneNumber New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+	PhoneNumber nullable.Nullable[string] `json:"phone_number,omitempty"`
 }
 
 // ContactUpsertEntry The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
@@ -3954,8 +3954,8 @@ type ContactUpsertEntry struct {
 	// ExternalId Your own identifier for this entry, when the entry supplied one.
 	ExternalId *string `json:"external_id"`
 
-	// Phone Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
-	Phone *string `json:"phone"`
+	// PhoneNumber Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+	PhoneNumber *string `json:"phone_number"`
 }
 
 // ContactUpsertError defines model for ContactUpsertError.
@@ -7304,7 +7304,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
@@ -7342,7 +7342,7 @@ type EventVerifyAttemptSentData struct {
 	// SentAt Time the passcode was dispatched.
 	SentAt time.Time `json:"sent_at"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
@@ -7383,7 +7383,7 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one), and `delivery_timeout` (no delivery confirmation arrived before the channel's timeout, so the verification failed over).
 	Reason VerificationAttemptFailureReason `json:"reason"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
@@ -7394,7 +7394,7 @@ type EventVerifyBase struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
@@ -7429,7 +7429,7 @@ type EventVerifyVerificationCreatedData struct {
 	// Status The verification's state at creation, always `pending`. Open enum for forward compatibility.
 	Status string `json:"status"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 	WorkspaceId    WorkspaceID    `json:"workspace_id"`
@@ -7461,7 +7461,7 @@ type EventVerifyVerificationVerifiedData struct {
 	// Status The verification's state, always `verified`. Open enum for forward compatibility.
 	Status string `json:"status"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To             VerificationTo `json:"to"`
 	VerificationId VerificationID `json:"verification_id"`
 
@@ -8664,6 +8664,9 @@ type SMSMessage struct {
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
+	// Options Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+	Options *SMSMessageEffectiveOptions `json:"options,omitempty"`
+
 	// Segments Segment breakdown for the message body. Segment count drives billing.
 	Segments SMSSegments `json:"segments"`
 
@@ -8701,6 +8704,12 @@ type SMSMessageBatchResponse struct {
 
 // SMSMessageCategory Content classification. Tells Bird and carriers why you're sending; per-country compliance rules (opt-out policy, quiet hours) key on it as they roll out.
 type SMSMessageCategory string
+
+// SMSMessageEffectiveOptions The settings Bird applied to this message. Every option is reported, whether you set it on the send or took the default that was in force at the time.
+type SMSMessageEffectiveOptions struct {
+	// SmartEncoding Whether Bird replaced characters outside the GSM-7 alphabet in this message's body with their closest equivalent before sending it. When `true`, `text` is the body as sent and `segments` describes that body.
+	SmartEncoding bool `json:"smart_encoding"`
+}
 
 // SMSMessageID defines model for SMSMessageID.
 type SMSMessageID = string
@@ -8740,9 +8749,6 @@ type SMSMessageSendRequest struct {
 	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
 	From *string `json:"from,omitempty"`
 
-	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
-	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
-
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	MediaUrls *[]string `json:"media_urls,omitempty"`
 
@@ -8751,6 +8757,9 @@ type SMSMessageSendRequest struct {
 
 	// Metadata Arbitrary JSON object stored on the message, returned on API reads, and echoed in webhook payloads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Options What Bird does to this message on its way out, such as `smart_encoding`. The message being relayed stays at the top level: its recipient, sender, content, and the delivery instructions the carrier acts on.
+	Options *SMSSendOptions `json:"options,omitempty"`
 
 	// Personalization Preview feature: per-recipient substitution for batch sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	Personalization *map[string]interface{} `json:"personalization,omitempty"`
@@ -8772,9 +8781,6 @@ type SMSMessageSendRequest struct {
 
 	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
-
-	// TrackClicks Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
-	TrackClicks *bool `json:"track_clicks,omitempty"`
 
 	// ValidityPeriod Preview feature: how long, in seconds (60-172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
@@ -8807,6 +8813,22 @@ type SMSSegments struct {
 
 // SMSSegmentsEncoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
 type SMSSegmentsEncoding string
+
+// SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use its default.
+type SMSSendOptions struct {
+	// MaxPricePerSegment Preview feature: per-segment price ceiling. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	MaxPricePerSegment *float32 `json:"max_price_per_segment,omitempty"`
+
+	// SmartEncoding Replace characters outside the GSM-7 alphabet with their closest GSM-7 equivalent before sending: typically curly quotes, dashes, ellipses, fullwidth forms, and non-breaking spaces.
+	//
+	// One such character forces the whole body into `UCS2`, which more than halves the characters that fit in a segment, so replacing them often lowers the segment count and the cost.
+	//
+	// Disabled by default, because it alters the body you composed. The replacement is all-or-nothing: a body that still holds a character outside the alphabet afterwards, such as an emoji or a non-Latin script, is sent exactly as you supplied it. Read the message back to see what was applied: `text` is the body as sent.
+	SmartEncoding *bool `json:"smart_encoding,omitempty"`
+
+	// TrackClicks Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
+	TrackClicks *bool `json:"track_clicks,omitempty"`
+}
 
 // SMSTemplate defines model for SMSTemplate.
 type SMSTemplate struct {
@@ -9044,7 +9066,7 @@ type Verification struct {
 	// Status The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
 	Status *VerificationStatus `json:"status,omitempty"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To        VerificationTo `json:"to"`
 	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
 
@@ -9072,7 +9094,7 @@ type VerificationCheckRequest struct {
 	// Code The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
 	Code string `json:"code"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo `json:"to"`
 }
 
@@ -9097,7 +9119,7 @@ type VerificationCreateRequest struct {
 	// Options Per-request overrides applied to this verification only.
 	Options *VerificationOptions `json:"options,omitempty"`
 
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo `json:"to"`
 }
 
@@ -9106,7 +9128,7 @@ type VerificationID = string
 
 // VerificationNextChannelRequest defines model for VerificationNextChannelRequest.
 type VerificationNextChannelRequest struct {
-	// To The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo `json:"to"`
 }
 
@@ -9122,10 +9144,10 @@ type VerificationOptions struct {
 // VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
 type VerificationTerminalReason string
 
-// VerificationTo The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+// VerificationTo The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 type VerificationTo struct {
-	// EmailAddress The recipient's email address. Case does not matter; the address is lowercased before use.
-	EmailAddress *openapi_types.Email `json:"email_address,omitempty"`
+	// Email The recipient's email address. Case does not matter; the address is lowercased before use.
+	Email *openapi_types.Email `json:"email,omitempty"`
 
 	// PhoneNumber The recipient's phone number in E.164 format, with the leading `+` and country code (for example `+15551234567`). A number in any other format is rejected as an invalid recipient (`422`).
 	PhoneNumber *string `json:"phone_number,omitempty"`
@@ -10035,8 +10057,8 @@ type ListContactsParams struct {
 	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email *string `form:"email,omitempty" json:"email,omitempty"`
 
-	// Phone Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
-	Phone *string `form:"phone,omitempty" json:"phone,omitempty"`
+	// PhoneNumber Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
 
 	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
@@ -11706,13 +11728,6 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if t.MaxPricePerSegment != nil {
-		object["max_price_per_segment"], err = json.Marshal(t.MaxPricePerSegment)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'max_price_per_segment': %w", err)
-		}
-	}
-
 	if t.MediaUrls != nil {
 		object["media_urls"], err = json.Marshal(t.MediaUrls)
 		if err != nil {
@@ -11731,6 +11746,13 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		object["metadata"], err = json.Marshal(t.Metadata)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'metadata': %w", err)
+		}
+	}
+
+	if t.Options != nil {
+		object["options"], err = json.Marshal(t.Options)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'options': %w", err)
 		}
 	}
 
@@ -11778,13 +11800,6 @@ func (t SMSMessageSendRequest) MarshalJSON() ([]byte, error) {
 		object["topic_id"], err = json.Marshal(t.TopicId)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'topic_id': %w", err)
-		}
-	}
-
-	if t.TrackClicks != nil {
-		object["track_clicks"], err = json.Marshal(t.TrackClicks)
-		if err != nil {
-			return nil, fmt.Errorf("error marshaling 'track_clicks': %w", err)
 		}
 	}
 
@@ -11851,13 +11866,6 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
-	if raw, found := object["max_price_per_segment"]; found {
-		err = json.Unmarshal(raw, &t.MaxPricePerSegment)
-		if err != nil {
-			return fmt.Errorf("error reading 'max_price_per_segment': %w", err)
-		}
-	}
-
 	if raw, found := object["media_urls"]; found {
 		err = json.Unmarshal(raw, &t.MediaUrls)
 		if err != nil {
@@ -11876,6 +11884,13 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Metadata)
 		if err != nil {
 			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["options"]; found {
+		err = json.Unmarshal(raw, &t.Options)
+		if err != nil {
+			return fmt.Errorf("error reading 'options': %w", err)
 		}
 	}
 
@@ -11925,13 +11940,6 @@ func (t *SMSMessageSendRequest) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.TopicId)
 		if err != nil {
 			return fmt.Errorf("error reading 'topic_id': %w", err)
-		}
-	}
-
-	if raw, found := object["track_clicks"]; found {
-		err = json.Unmarshal(raw, &t.TrackClicks)
-		if err != nil {
-			return fmt.Errorf("error reading 'track_clicks': %w", err)
 		}
 	}
 
@@ -16410,9 +16418,9 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 
 		}
 
-		if params.Phone != nil {
+		if params.PhoneNumber != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone", *params.Phone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

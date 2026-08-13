@@ -16,7 +16,7 @@ func main() {
 	}
 
 	verification, err := client.Verify.Verifications.Create(context.Background(), bird.VerifyVerificationsCreateParams{
-		To: bird.VerificationTo{EmailAddress: bird.Email("user@example.com")},
+		To: bird.VerificationTo{Email: bird.Email("user@example.com")},
 	})
 	if err != nil {
 		log.Fatal(err)

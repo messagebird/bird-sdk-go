@@ -25,7 +25,7 @@ func Int(v int) *int { return &v }
 // property is its own type on the wire, so bird.String does not fit one and Ptr
 // needs the conversion spelled out:
 //
-//	bird.VerificationTo{EmailAddress: bird.Email("user@example.com")}
+//	bird.VerificationTo{Email: bird.Email("user@example.com")}
 func Email(v string) *openapi_types.Email {
 	e := openapi_types.Email(v)
 	return &e

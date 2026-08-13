@@ -15,7 +15,7 @@ type VerificationTo = oapi.VerificationTo
 
 // VerifyVerificationsCreateParams is the request body for create.
 type VerifyVerificationsCreateParams struct {
-	// The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo
 	// Per-request overrides applied to this verification only.
 	Options *VerificationOptions
@@ -38,7 +38,7 @@ func (p VerifyVerificationsCreateParams) toWire() oapi.VerificationCreateRequest
 
 // VerifyVerificationsCheckParams is the request body for check.
 type VerifyVerificationsCheckParams struct {
-	// The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo
 	// The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
 	Code string
@@ -53,7 +53,7 @@ func (p VerifyVerificationsCheckParams) toWire() oapi.VerificationCheckRequest {
 
 // VerifyVerificationsNextChannelParams is the request body for next_channel.
 type VerifyVerificationsNextChannelParams struct {
-	// The recipient to verify. Provide an `email_address`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	// The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To VerificationTo
 }
 

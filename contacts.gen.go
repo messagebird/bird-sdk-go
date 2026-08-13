@@ -23,7 +23,7 @@ type ContactListParams struct {
 	// Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email string
 	// Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
-	Phone string
+	PhoneNumber string
 	// Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalID string
 	// Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
@@ -39,7 +39,7 @@ type ContactListParams struct {
 func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams {
 	return &oapi.ListContactsParams{
 		Email:         optStr(p.Email),
-		Phone:         optStr(p.Phone),
+		PhoneNumber:   optStr(p.PhoneNumber),
 		ExternalId:    optStr(p.ExternalID),
 		Q:             optStr(p.Q),
 		Identifier:    optZero(p.Identifier),
@@ -54,7 +54,7 @@ type ContactCreateParams struct {
 	// The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
 	Email string
 	// The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
-	Phone string
+	PhoneNumber string
 	// The contact's first name.
 	FirstName string
 	// The contact's last name.
@@ -70,8 +70,8 @@ func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 	if p.Email != "" {
 		body.Email = Ptr(openapi_types.Email(p.Email))
 	}
-	if p.Phone != "" {
-		body.Phone = Ptr(p.Phone)
+	if p.PhoneNumber != "" {
+		body.PhoneNumber = Ptr(p.PhoneNumber)
 	}
 	if p.FirstName != "" {
 		body.FirstName = Ptr(p.FirstName)
@@ -94,7 +94,7 @@ type ContactUpdateParams struct {
 	// New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
 	Email Nullable[string]
 	// New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
-	Phone Nullable[string]
+	PhoneNumber Nullable[string]
 	// The contact's first name. Set to null to clear.
 	FirstName Nullable[string]
 	// The contact's last name. Set to null to clear.
@@ -108,7 +108,7 @@ type ContactUpdateParams struct {
 func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 	body := oapi.ContactUpdateRequest{}
 	body.Email = p.Email
-	body.Phone = p.Phone
+	body.PhoneNumber = p.PhoneNumber
 	body.FirstName = p.FirstName
 	body.LastName = p.LastName
 	body.ExternalId = p.ExternalID

@@ -16,7 +16,7 @@ func main() {
 	}
 
 	result, err := client.Verify.Verifications.Check(context.Background(), bird.VerifyVerificationsCheckParams{
-		To:   bird.VerificationTo{EmailAddress: bird.Email("user@example.com")},
+		To:   bird.VerificationTo{Email: bird.Email("user@example.com")},
 		Code: "123456",
 	})
 	if err != nil {

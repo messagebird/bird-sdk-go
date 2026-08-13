@@ -37,6 +37,11 @@ type SmsSendParams struct {
 	Parameters map[string]any // template variable values; template sends only
 	Tags       []SMSTag       // structured {name, value} labels for filtering and analytics
 	Metadata   map[string]any // arbitrary JSON stored on the message and echoed in webhooks
+	// SmartEncoding replaces characters outside the GSM-7 alphabet with their closest
+	// equivalent, which often lowers the segment count and the cost. A pointer because
+	// false is a real value the send carries: nil omits the option and takes Bird's
+	// default (off), &false records the choice explicitly.
+	SmartEncoding *bool
 }
 
 func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
@@ -84,6 +89,9 @@ func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
 	if len(p.Metadata) > 0 {
 		metadata := p.Metadata
 		body.Metadata = &metadata
+	}
+	if p.SmartEncoding != nil {
+		body.Options = &oapi.SMSSendOptions{SmartEncoding: p.SmartEncoding}
 	}
 	return body
 }
