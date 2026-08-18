@@ -268,6 +268,7 @@ const (
 )
 
 const (
+	EmailStatusScheduled      EmailStatus = "scheduled"
 	EmailStatusAccepted       EmailStatus = "accepted"
 	EmailStatusProcessed      EmailStatus = "processed"
 	EmailStatusDelivered      EmailStatus = "delivered"
@@ -276,6 +277,7 @@ const (
 	EmailStatusComplained     EmailStatus = "complained"
 	EmailStatusRejected       EmailStatus = "rejected"
 	EmailStatusPartialFailure EmailStatus = "partial_failure"
+	EmailStatusCanceled       EmailStatus = "canceled"
 )
 
 // Category classifies a send's suppression policy.

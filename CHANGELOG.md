@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.32.0
+
+- Add the `EmailStatusScheduled` and `EmailStatusCanceled` constants, so a scheduled or canceled email status compares against a named value rather than a string literal.
+- **Breaking:** an SMS template is referenced by its `slug`, not its `name`. On a send, `template.name` becomes `template.slug` (unchanged if you pass an id). On a template read, `slug` is the handle you send by and `name` is now the display label the old `description` carried, so `description` reads null for Bird's built-in templates.
+- An SMS template read now reports what a send will do with languages, the way email and WhatsApp already did: `default_language`, `languages`, `on_missing_language` and `language_source_required`. Its `published_version_id` is now `live_version_id`, and its status vocabulary drops `approved`, which was never returned, for `inactive`.
+- **Breaking:** the contacts list `phone_number` filter now takes a list of numbers rather than one, matching any of up to 50 in a single request; pass an existing single number as a one-element list, and set `limit` to at least the number of values you pass.
+- **Breaking:** the recovery steps on an error are `NextAction` rather than `ErrorNextAction`, and each one states a `kind` of `operation`, `external`, `wait` or `terminal`. Rename the type at your call site, and read `kind` before `operation`: only an `operation` step carries one. Treat a `kind` you do not recognise as display-only.
+- Listing WhatsApp message events now rejects an empty type filter instead of ignoring it, matching the email events filter; an unset `Type` is still omitted from the request, so it keeps returning the full timeline.
+- Schedule an email from the SDK instead of dropping to raw HTTP for that one call: `EmailSendParams.ScheduledAt` holds a send until a future instant.
+- Telegram is a known verification channel, so a verification can be created with `telegram` in `options.channels` and a passcode can be delivered over it.
+- **Breaking:** the `type` on a WhatsApp message event, and the `type` filter when listing them, are now a defined `WhatsAppEventType` carrying its known values rather than a plain string; assigning a string variable to either now needs an explicit conversion.
+- SMS sends normalize the recipient to canonical E.164 and echo that form back; an unroutable recipient returns the new SMSInvalidRecipient error.
+- Voice call filters now read a number given without a leading `+` as an international one, so `from` and `to` select the same calls whichever way the number is spelled.
+
 ## 0.31.0
 
 - Adds the lookup channel: client.Lookup.Email and client.Lookup.PhoneNumber.

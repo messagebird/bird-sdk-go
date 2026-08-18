@@ -11,7 +11,7 @@ import (
 
 // SMSTemplateListParams filters the list read.
 type SMSTemplateListParams struct {
-	// Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all. Workspace-authored SMS templates are not available yet, so `workspace` currently matches nothing.
+	// Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all.
 	Scope TemplateScope
 	// Keep only templates whose `category` matches. Omit for all categories.
 	Category SMSMessageCategory
@@ -23,7 +23,7 @@ func (p SMSTemplateListParams) toWire() *oapi.ListSMSTemplatesParams {
 	return &oapi.ListSMSTemplatesParams{
 		Scope:    optZero(p.Scope),
 		Category: optZero(p.Category),
-		Language: optStr(p.Language),
+		Language: optZero(p.Language),
 	}
 }
 
@@ -42,7 +42,7 @@ func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListPa
 	return &out, nil
 }
 
-// Get Get one SMS template by its name or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
+// Get Get one SMS template by its slug or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
 func (s *SmsTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*SMSTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetSMSTemplate(ctx, templateRef, cfg...)

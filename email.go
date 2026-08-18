@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/internal/requestconfig"
@@ -64,6 +65,11 @@ type EmailSendParams struct {
 	// Parameters holds template variables rendered into the subject and
 	// body at send time; works with both inline content and a Template.
 	Parameters map[string]any
+	// ScheduledAt holds the message until a future instant instead of sending
+	// it immediately: at least 30 seconds and at most 30 days ahead, and
+	// mutually exclusive with Template. Only a single send accepts it; a batch
+	// item that sets one is rejected with a 422.
+	ScheduledAt time.Time
 }
 
 func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
@@ -171,6 +177,10 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 	} else if len(p.Parameters) > 0 {
 		parameters := p.Parameters
 		body.Parameters = &parameters
+	}
+	if !p.ScheduledAt.IsZero() {
+		scheduledAt := p.ScheduledAt
+		body.ScheduledAt = &scheduledAt
 	}
 	body.TrackOpens = p.TrackOpens
 	body.TrackClicks = p.TrackClicks

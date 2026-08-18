@@ -21,9 +21,9 @@ type VoiceListParams struct {
 	SessionID string
 	// Return only calls carried by this SIP trunk.
 	SipTrunkID string
-	// Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	// Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
 	From string
-	// Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	// Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
 	To string
 	// Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
 	Number string

@@ -51,12 +51,12 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 // WhatsappListEventsParams filters the list_events read.
 type WhatsappListEventsParams struct {
 	// Keep only events of this exact type (for example `whatsapp.delivered` or `whatsapp.failed`). Omit for the full timeline.
-	Type string
+	Type WhatsAppEventType
 }
 
 func (p WhatsappListEventsParams) toWire() *oapi.ListWhatsAppMessageEventsParams {
 	return &oapi.ListWhatsAppMessageEventsParams{
-		Type: optStr(p.Type),
+		Type: optZero(p.Type),
 	}
 }
 

@@ -36,13 +36,30 @@ func TestWireErrorCoversErrorBody(t *testing.T) {
 	}
 }
 
-// FromResponse surfaces the wire recovery (remediation + next, ADR-0073) on the
-// typed error.
+// The same guard one level down: NextAction is hand-maintained beside the
+// generated oapi.NextAction, and the ErrorBody guard above only sees `next` as a
+// whole, so a field added inside a step passes it unnoticed. That is how `kind`,
+// `params` and `url` were dropped for a release.
+func TestNextActionCoversGenerated(t *testing.T) {
+	t.Parallel()
+	facade := jsonTags(reflect.TypeOf(NextAction{}))
+	for name := range jsonTags(reflect.TypeOf(oapi.NextAction{})) {
+		if !facade[name] {
+			t.Errorf("oapi.NextAction field %q is not read by NextAction — surface it in apierror.go", name)
+		}
+	}
+}
+
+// FromResponse surfaces the wire recovery (remediation + next, ADR-0073/0124) on
+// the typed error, across the step kinds: an operation step with the params that
+// address it, and a bare external step that carries no operation at all.
 func TestFromResponseSurfacesRecovery(t *testing.T) {
 	t.Parallel()
 	body := `{"error":{"type":"conflict_error","code":"E01028","message":"resource still in use",` +
 		`"remediation":"Remove or reassign the resources that still reference this one, then retry the delete.",` +
-		`"next":[{"operation":"assignDedicatedIp","description":"Assign a dedicated IP","scope":"email:write"}]}}`
+		`"next":[{"kind":"operation","operation":"assignDedicatedIp","description":"Assign a dedicated IP",` +
+		`"params":{"pool_id":"pool_123"}},` +
+		`{"kind":"external","description":"Publish the DKIM record at your DNS provider","url":"https://example.test/dns"}]}}`
 	err := FromResponse(http.StatusConflict, []byte(body), http.Header{})
 	apiErr, ok := err.(*APIError)
 	if !ok {
@@ -51,10 +68,21 @@ func TestFromResponseSurfacesRecovery(t *testing.T) {
 	if apiErr.Remediation != "Remove or reassign the resources that still reference this one, then retry the delete." {
 		t.Errorf("remediation not surfaced: %q", apiErr.Remediation)
 	}
-	if len(apiErr.Next) != 1 {
+	if len(apiErr.Next) != 2 {
 		t.Fatalf("next not surfaced: %+v", apiErr.Next)
 	}
-	if n := apiErr.Next[0]; n.Operation != "assignDedicatedIp" || n.Description != "Assign a dedicated IP" || n.Scope != "email:write" {
-		t.Errorf("next action wrong: %+v", n)
+	op := apiErr.Next[0]
+	if op.Kind != "operation" || op.Operation != "assignDedicatedIp" || op.Description != "Assign a dedicated IP" {
+		t.Errorf("operation step wrong: %+v", op)
+	}
+	if op.Params["pool_id"] != "pool_123" {
+		t.Errorf("operation step params wrong: %+v", op.Params)
+	}
+	ext := apiErr.Next[1]
+	if ext.Kind != "external" || ext.URL != "https://example.test/dns" {
+		t.Errorf("external step wrong: %+v", ext)
+	}
+	if ext.Operation != "" {
+		t.Errorf("external step invented an operation: %q", ext.Operation)
 	}
 }

@@ -52,8 +52,49 @@ func ExampleEmailService_Send() {
 	fmt.Println(msg.Id, *msg.Status)
 }
 
+// Sending to the sandbox bounce address, which hard-bounces every time. The
+// tag and metadata are what make the resulting event findable in the logs.
+func ExampleEmailService_Send_bounce() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+		From:     "onboarding@messagebird.dev",
+		To:       []string{"bounce+signup-flow@messagebird.dev"},
+		Subject:  "Sandbox bounce test",
+		HTML:     "<p>This message will hard-bounce.</p>",
+		Tags:     []bird.Tag{{Name: "flow", Value: "signup"}},
+		Metadata: map[string]any{"test_run": "docs-capture-1"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
 // A richer send: cc/bcc, reply-to, tags, metadata, opt-out of click tracking,
 // and an idempotency key (safe to retry — the server dedupes).
+// Send a published template in place of inline content. The template supplies
+// the subject and bodies; Parameters fills its variables.
+func ExampleEmailService_Send_template() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+		From:       "onboarding@messagebird.dev",
+		To:         []string{"delivered@messagebird.dev"},
+		Category:   "transactional",
+		Template:   "welcome-email",
+		Parameters: map[string]any{"first_name": "Jane"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
 func ExampleEmailService_Send_rich() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -165,6 +206,18 @@ func ExampleEmailService_Get() {
 	fmt.Println(*msg.Status, *msg.DeliveredCount)
 }
 
+// Cancel stops a message that has not left yet — a scheduled send before its
+// send time, or a queued one still awaiting delivery.
+func ExampleEmailService_Cancel() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Email.Cancel(context.Background(), "em_abc123"); err != nil {
+		log.Fatal(err)
+	}
+}
+
 // List auto-paginates: it lazily fetches each page and yields every matching
 // message across all of them.
 func ExampleEmailService_List() {
@@ -269,6 +322,27 @@ func ExampleSmsService_Send() {
 	fmt.Println(msg.Id, *msg.Status)
 }
 
+// Send up to 100 independent messages in one call. Acceptance is
+// all-or-nothing: every message is validated before any of them queue.
+func ExampleSmsService_SendBatch() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	batch, err := client.Sms.SendBatch(context.Background(), bird.SmsSendBatchParams{
+		Messages: []bird.SmsSendParams{
+			{To: "+15551111111", Text: "Hi Alice!", Category: bird.SMSCategoryMarketing},
+			{To: "+15552222222", Text: "Hi Bob!", Category: bird.SMSCategoryMarketing},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, msg := range batch.Data {
+		fmt.Println(msg.Id, *msg.Status)
+	}
+}
+
 // Send an SMS from a stored template, supplying its variables.
 func ExampleSmsService_Send_template() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
@@ -300,11 +374,11 @@ func ExampleSmsTemplatesService_List() {
 		log.Fatal(err)
 	}
 	for _, tpl := range list.Data {
-		fmt.Println(tpl.Id, *tpl.Name)
+		fmt.Println(tpl.Id, *tpl.Slug)
 	}
 }
 
-// Read one SMS template by its name (or id).
+// Read one SMS template by its slug (or id).
 func ExampleSmsTemplatesService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -372,7 +446,7 @@ func ExampleWhatsappService_ListEvents() {
 		log.Fatal(err)
 	}
 	for _, e := range events.Data {
-		fmt.Println(e.Id, *e.Type)
+		fmt.Println(e.Id, e.Type)
 	}
 }
 
@@ -1433,6 +1507,25 @@ func ExampleRealtimeChannelsService_Members() {
 	}
 	for _, m := range members.Members {
 		fmt.Println(m.MemberId)
+	}
+}
+
+// Send delivers one event to every connection a single member holds, without
+// putting it on a channel anyone else can subscribe to.
+func ExampleRealtimeMembersService_Send() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Realtime.Members.Send(context.Background(), "rap_01krdgeqcxet5s7t44vh8rt9mg", "user_42", bird.RealtimeMemberSendParams{
+		Event: "order-shipped",
+		Data:  map[string]any{"order_id": "ord_123"},
+	})
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 

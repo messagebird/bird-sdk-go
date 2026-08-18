@@ -2922,33 +2922,6 @@ func (e SMSSegmentsEncoding) Valid() bool {
 	}
 }
 
-// Defines values for SMSTemplateStatus.
-const (
-	SMSTemplateStatusActive   SMSTemplateStatus = "active"
-	SMSTemplateStatusApproved SMSTemplateStatus = "approved"
-	SMSTemplateStatusDraft    SMSTemplateStatus = "draft"
-	SMSTemplateStatusPending  SMSTemplateStatus = "pending"
-	SMSTemplateStatusRejected SMSTemplateStatus = "rejected"
-)
-
-// Valid indicates whether the value is a known member of the SMSTemplateStatus enum.
-func (e SMSTemplateStatus) Valid() bool {
-	switch e {
-	case SMSTemplateStatusActive:
-		return true
-	case SMSTemplateStatusApproved:
-		return true
-	case SMSTemplateStatusDraft:
-		return true
-	case SMSTemplateStatusPending:
-		return true
-	case SMSTemplateStatusRejected:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for StatsGrain.
 const (
 	StatsGrainDay  StatsGrain = "day"
@@ -3015,6 +2988,45 @@ func (e SuppressionScopeType) Valid() bool {
 	}
 }
 
+// Defines values for TemplateLanguageStatus.
+const (
+	TemplateLanguageStatusDraft      TemplateLanguageStatus = "draft"
+	TemplateLanguageStatusLive       TemplateLanguageStatus = "live"
+	TemplateLanguageStatusSuperseded TemplateLanguageStatus = "superseded"
+)
+
+// Valid indicates whether the value is a known member of the TemplateLanguageStatus enum.
+func (e TemplateLanguageStatus) Valid() bool {
+	switch e {
+	case TemplateLanguageStatusDraft:
+		return true
+	case TemplateLanguageStatusLive:
+		return true
+	case TemplateLanguageStatusSuperseded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TemplateOnMissingLanguage.
+const (
+	TemplateOnMissingLanguageFail     TemplateOnMissingLanguage = "fail"
+	TemplateOnMissingLanguageFallback TemplateOnMissingLanguage = "fallback"
+)
+
+// Valid indicates whether the value is a known member of the TemplateOnMissingLanguage enum.
+func (e TemplateOnMissingLanguage) Valid() bool {
+	switch e {
+	case TemplateOnMissingLanguageFail:
+		return true
+	case TemplateOnMissingLanguageFallback:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TemplateScope.
 const (
 	TemplateScopeSystem    TemplateScope = "system"
@@ -3027,6 +3039,33 @@ func (e TemplateScope) Valid() bool {
 	case TemplateScopeSystem:
 		return true
 	case TemplateScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TemplateStatus.
+const (
+	TemplateStatusActive   TemplateStatus = "active"
+	TemplateStatusDraft    TemplateStatus = "draft"
+	TemplateStatusInactive TemplateStatus = "inactive"
+	TemplateStatusPending  TemplateStatus = "pending"
+	TemplateStatusRejected TemplateStatus = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the TemplateStatus enum.
+func (e TemplateStatus) Valid() bool {
+	switch e {
+	case TemplateStatusActive:
+		return true
+	case TemplateStatusDraft:
+		return true
+	case TemplateStatusInactive:
+		return true
+	case TemplateStatusPending:
+		return true
+	case TemplateStatusRejected:
 		return true
 	default:
 		return false
@@ -3100,6 +3139,7 @@ func (e VerificationAttemptFailureReason) Valid() bool {
 const (
 	VerificationChannelEmail    VerificationChannel = "email"
 	VerificationChannelSms      VerificationChannel = "sms"
+	VerificationChannelTelegram VerificationChannel = "telegram"
 	VerificationChannelWhatsapp VerificationChannel = "whatsapp"
 )
 
@@ -3109,6 +3149,8 @@ func (e VerificationChannel) Valid() bool {
 	case VerificationChannelEmail:
 		return true
 	case VerificationChannelSms:
+		return true
+	case VerificationChannelTelegram:
 		return true
 	case VerificationChannelWhatsapp:
 		return true
@@ -3519,6 +3561,36 @@ func (e WhatsAppErrorCode) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppEventType.
+const (
+	WhatsAppEventTypeWhatsappAccepted  WhatsAppEventType = "whatsapp.accepted"
+	WhatsAppEventTypeWhatsappDelivered WhatsAppEventType = "whatsapp.delivered"
+	WhatsAppEventTypeWhatsappFailed    WhatsAppEventType = "whatsapp.failed"
+	WhatsAppEventTypeWhatsappRead      WhatsAppEventType = "whatsapp.read"
+	WhatsAppEventTypeWhatsappRejected  WhatsAppEventType = "whatsapp.rejected"
+	WhatsAppEventTypeWhatsappSent      WhatsAppEventType = "whatsapp.sent"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppEventType enum.
+func (e WhatsAppEventType) Valid() bool {
+	switch e {
+	case WhatsAppEventTypeWhatsappAccepted:
+		return true
+	case WhatsAppEventTypeWhatsappDelivered:
+		return true
+	case WhatsAppEventTypeWhatsappFailed:
+		return true
+	case WhatsAppEventTypeWhatsappRead:
+		return true
+	case WhatsAppEventTypeWhatsappRejected:
+		return true
+	case WhatsAppEventTypeWhatsappSent:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppMessageDirection.
 const (
 	WhatsAppMessageDirectionInbound  WhatsAppMessageDirection = "inbound"
@@ -3680,16 +3752,16 @@ func (e ListDomainsParamsOrder) Valid() bool {
 
 // Defines values for ListMailboxesParamsState.
 const (
-	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
-	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
+	Active    ListMailboxesParamsState = "active"
+	Suspended ListMailboxesParamsState = "suspended"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
 func (e ListMailboxesParamsState) Valid() bool {
 	switch e {
-	case ListMailboxesParamsStateActive:
+	case Active:
 		return true
-	case ListMailboxesParamsStateSuspended:
+	case Suspended:
 		return true
 	default:
 		return false
@@ -6582,8 +6654,8 @@ type ErrorBody struct {
 	// Name Human-readable slug for log readability. Paired with code, never replaces it.
 	Name string `json:"name"`
 
-	// Next Operations that resolve this error, in the order to try them. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
-	Next *[]ErrorNextAction `json:"next,omitempty"`
+	// Next The steps that resolve this error. Perform them in order, re-reading after each; a `wait` or `terminal` step is always last. Present for errors with a well-defined recovery, such as unmet preconditions and conflicts.
+	Next *[]NextAction `json:"next,omitempty"`
 
 	// Param Identifies the offending field. Omitted when not applicable.
 	Param *string `json:"param,omitempty"`
@@ -6614,15 +6686,6 @@ type ErrorDetail struct {
 
 	// Param Dotted field path (e.g. "to[0].email", "subject", ".").
 	Param string `json:"param"`
-}
-
-// ErrorNextAction defines model for ErrorNextAction.
-type ErrorNextAction struct {
-	// Description A short, human-readable label for the recovery step, suitable for display.
-	Description *string `json:"description,omitempty"`
-
-	// Operation The operationId of a follow-up operation that resolves this error. Call it, then retry the original request.
-	Operation string `json:"operation"`
 }
 
 // EventDomainFailed A sending domain failed DNS verification.
@@ -7786,7 +7849,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
 	Address string `json:"address"`
 
-	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email and WhatsApp.
+	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email, WhatsApp, and Telegram.
 	Carrier *string `json:"carrier"`
 
 	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
@@ -7795,7 +7858,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// DeliveredAt Time delivery was confirmed.
 	DeliveredAt time.Time `json:"delivered_at"`
 
-	// MccMnc Mobile country code and mobile network code of the delivering carrier, when reported. Always null for email and WhatsApp.
+	// MccMnc Mobile country code and mobile network code of the delivering carrier, when reported. Always null for email, WhatsApp, and Telegram.
 	MccMnc *string `json:"mcc_mnc"`
 
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
@@ -8883,6 +8946,24 @@ type Money struct {
 	CurrencyCode CurrencyCode `json:"currency_code"`
 }
 
+// NextAction defines model for NextAction.
+type NextAction struct {
+	// Description A short, human-readable label for the step, suitable for display.
+	Description string `json:"description"`
+
+	// Kind What you do about this step. `operation` means call the operation named in `operation`, then read again. `external` means act somewhere this API does not reach, then read again. `wait` means nothing is asked of you, so read again later. `terminal` means nothing you do resolves this, so stop retrying. Tolerate a value you do not recognize: show the `description` and offer no action.
+	Kind string `json:"kind"`
+
+	// Operation The operationId to call. Present only when `kind` is `operation`. The operation's own schema says how to call it; this says only which one, and what to address it with.
+	Operation *string `json:"operation,omitempty"`
+
+	// Params The parameters that address the operation, by name: `{"sender_id": "…"}` for an operation on `/v1/sms/senders/{sender_id}/requirements`. A parameter the operation takes in its query string is given the same way, so an operation addressed as `?subject_id=` carries `{"subject_id": "…"}`. Every parameter the call needs is here, whether its value came from the thing you were acting on or is fixed for this step, so you can make the call from this object alone. Present only when `kind` is `operation` and the operation names a subject. A request body, when the operation takes one, is described by the operation's own schema and never appears here.
+	Params *map[string]string `json:"params,omitempty"`
+
+	// Url A URL to open. Present only when `kind` is `external`, and only when the step has one. An external step whose `description` says to go and do something with no URL to open is normal.
+	Url *string `json:"url,omitempty"`
+}
+
 // PhoneNumberLookup What Bird knows about a phone number.
 //
 // The number, its flags and its line type are the free baseline and are always present; the country and the two networks join them whenever they could be identified. Each property you request through `type` comes back as a block of the same name, carrying its own `status`. A property you did not request is absent altogether, and a property that could not be answered is present with its `status` alone. You are billed for exactly the properties whose status is `ok`.
@@ -8926,7 +9007,7 @@ type PhoneNumberLookup struct {
 
 // PhoneNumberLookupRequest defines model for PhoneNumberLookupRequest.
 type PhoneNumberLookupRequest struct {
-	// PhoneNumber The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+	// PhoneNumber The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
 	PhoneNumber string `json:"phone_number"`
 
 	// Type The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
@@ -9488,7 +9569,7 @@ type SMSMessageSendRequest struct {
 	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
 	Text *string `json:"text,omitempty"`
 
-	// To Recipient phone number in E.164 format (for example `+15551234567`). One recipient per message.
+	// To Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
 	To string `json:"to"`
 
 	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -9542,54 +9623,97 @@ type SMSSendOptions struct {
 	TrackClicks *bool `json:"track_clicks,omitempty"`
 }
 
-// SMSTemplate defines model for SMSTemplate.
+// SMSTemplate A message template: one identity holding a copy of the message per language, resolved to one at send. It declares the variable slots a send fills in, so the parts that change travel with the request and the wording does not.
 type SMSTemplate struct {
-	// AvailableLanguages The languages this template is available in, as BCP-47 tags.
-	AvailableLanguages *[]string `json:"available_languages,omitempty"`
+	// AvailableLanguages The languages a send can resolve right now, as BCP-47 tags. The set may shrink for reasons other than editing, so read it rather than assuming it matches what you last saw.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
 
-	// Body The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`).
+	// Body The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`). Name a `language` on the send to have another one served.
 	Body *string `json:"body,omitempty"`
 
 	// Category Content classification applied to messages sent from this template.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
-	// CreatedAt When the template was created. Null for built-in templates.
+	// CreatedAt When the template was created. Null for a built-in `system` template, which Bird ships rather than stores.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// Description Human-readable description of what the template is for.
+	// DefaultLanguage The language a send uses when it names none, and the last resort when `on_missing_language` is `fallback` and the language asked for is not available.
+	DefaultLanguage *LanguageTag `json:"default_language,omitempty"`
+
+	// Description What the template is for. Null when unset.
 	Description *string `json:"description,omitempty"`
 
-	// DraftVersionId The current editable draft version. Always null today: SMS templates are not yet versioned; present for parity with email templates.
+	// DraftVersionId The current editable draft version, or null for a built-in `system` template, which has no draft.
 	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
 	Id             SMSTemplateID         `json:"id"`
 
-	// Name The template's stable handle. Pass it (or the id) as the template reference when sending.
-	Name *TemplateName `json:"name,omitempty"`
+	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language.
+	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
 
-	// PublishedVersionId The currently published version, or null if the template has never been published. Always null today: SMS templates are not yet versioned; present for parity with email templates.
+	// Languages Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
+	Languages *map[string]SMSTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When this template was last submitted. Null for a built-in `system` template: Bird ships it ready to send, so there is nothing submitted to date.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
+	LiveVersionId *SMSTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name The template's display name, shown wherever the template is listed. Nothing resolves through it, so it is safe to show wherever a human reads the template.
+	Name *string `json:"name,omitempty"`
+
+	// OnMissingLanguage What a send does when it asks for a language this template does not carry. Defaults to `fallback` on SMS.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// PublishedVersionId Deprecated: use `live_version_id` instead, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
 
-	// Revision The draft's revision counter. Always null today: SMS templates are not yet versioned; present for parity with email templates.
+	// Revision The draft's revision counter. Null for a built-in `system` template, which is unversioned.
 	Revision *int `json:"revision,omitempty"`
 
 	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
 
-	// Status The template's lifecycle state. `active` means the template can be sent; every built-in Bird template is `active`. `draft` (being edited), `pending` (submitted for review), `approved` (passed review), and `rejected` (failed review) describe a workspace-authored template's authoring lifecycle; workspace-authored SMS templates are not available yet, so today every template is `active`.
-	Status *SMSTemplateStatus `json:"status,omitempty"`
+	// Slug The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for Bird's built-in templates.
+	Slug *TemplateSlug `json:"slug,omitempty"`
 
-	// UpdatedAt When the template was last updated. Null for built-in templates.
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// This is a summary. It answers whether the template is usable at all, not
+	// whether every language is: a template with one language live is `active` even
+	// while another is still drafted or refused. Read `languages` for per-language
+	// state, which is what says which language is where and why.
+	//
+	// Which of the five a template can reach follows its channel's review model. A
+	// channel whose content a third party reviews reaches all five; one whose
+	// content goes live on publish moves between `draft`, `active` and `inactive`.
+	//
+	// Open enum: treat a value you do not recognize as a new one rather than as
+	// an error.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
-	// Variables The typed slots this template fills in from the values you supply when sending.
+	// Variables The typed slots this template fills in from the values you supply in `parameters` when sending. Every language of a template declares the same slots, so this list holds for whichever one a send resolves to.
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 }
 
-// SMSTemplateStatus The template's lifecycle state. `active` means the template can be sent; every built-in Bird template is `active`. `draft` (being edited), `pending` (submitted for review), `approved` (passed review), and `rejected` (failed review) describe a workspace-authored template's authoring lifecycle; workspace-authored SMS templates are not available yet, so today every template is `active`.
-type SMSTemplateStatus string
-
 // SMSTemplateID defines model for SMSTemplateID.
 type SMSTemplateID = string
+
+// SMSTemplateLanguageState One language's state on a template: whether it is live for sends. Content is not here; the template carries the body of its default language, and a send resolves the rest.
+type SMSTemplateLanguageState struct {
+	// Status Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+	Status *TemplateLanguageStatus `json:"status,omitempty"`
+}
 
 // SMSTemplateList defines model for SMSTemplateList.
 type SMSTemplateList struct {
@@ -9597,19 +9721,23 @@ type SMSTemplateList struct {
 	Data []SMSTemplate `json:"data"`
 }
 
-// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `name` (supply exactly one), optionally pick a language, and pass its variable values in `parameters`.
+// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and pass its variable values in `parameters`.
 type SMSTemplateSend struct {
 	Id *SMSTemplateID `json:"id,omitempty"`
 
-	// Language Which of the template's localized bodies to send, as a BCP-47 tag. Falls back to the closest available language, then English, when the exact tag is not stocked. Omit for English.
+	// Language Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Name The template to send, by its name handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
-	Name *TemplateName `json:"name,omitempty"`
+	// Name Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	Name *string `json:"name,omitempty"`
 
 	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
-	union      json.RawMessage
+
+	// Slug The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+	Slug  *TemplateSlug `json:"slug,omitempty"`
+	union json.RawMessage
 }
 
 // SMSTemplateSend0 defines model for .
@@ -9617,6 +9745,9 @@ type SMSTemplateSend0 = interface{}
 
 // SMSTemplateSend1 defines model for .
 type SMSTemplateSend1 = interface{}
+
+// SMSTemplateSend2 defines model for .
+type SMSTemplateSend2 = interface{}
 
 // SMSTemplateVersionID defines model for SMSTemplateVersionID.
 type SMSTemplateVersionID = string
@@ -9743,8 +9874,28 @@ type Tag struct {
 	Value string `json:"value"`
 }
 
-// TemplateName A template's name: the stable handle you send it by, used in place of the template id. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
-type TemplateName = string
+// TemplateLanguageStatus Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+type TemplateLanguageStatus string
+
+// TemplateOnMissingLanguage What a send or a preview does when it asks for a language the template
+// cannot serve.
+//
+// `fallback` serves the closest match instead. It tries a broader form of the
+// same language first, so a request for `pt-BR` can be served by a stocked
+// `pt`, and then the template's default language. A send never fails because a
+// language is missing.
+//
+// `fail` rejects the send rather than serving a different language, for content
+// where sending the wrong language is worse than not sending at all. It matches
+// the requested tag or a broader form of it and refuses a sibling variant, so
+// `pt-BR` is never served by `pt-PT`. A send that names no language still uses
+// the default language.
+//
+// The default is per channel and stated on each channel's own field, because
+// what a wrong-language send costs differs: where every language is separately
+// reviewed and separately priced, falling back silently would send content the
+// recipient did not expect at a rate the sender did not choose.
+type TemplateOnMissingLanguage string
 
 // TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 type TemplateScope string
@@ -9752,21 +9903,42 @@ type TemplateScope string
 // TemplateSlug A template's slug: what you send it by, for example `welcome-email`. You choose it when you create the template, and it cannot be changed afterwards. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
 type TemplateSlug = string
 
-// TemplateVariable One variable a template's content uses, filled in from the values you give when you send. Templates on every channel report their variables this way, so this reads the same whether you are looking at an SMS template or an email one.
+// TemplateStatus Where the template stands as a whole. The same five states on every channel.
+//
+// - `draft`: nothing has ever gone live.
+// - `pending`: nothing is live and at least one language is in review.
+// - `active`: at least one language is live, so something can be sent.
+// - `rejected`: it was reviewed and every language was refused.
+// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+//
+// This is a summary. It answers whether the template is usable at all, not
+// whether every language is: a template with one language live is `active` even
+// while another is still drafted or refused. Read `languages` for per-language
+// state, which is what says which language is where and why.
+//
+// Which of the five a template can reach follows its channel's review model. A
+// channel whose content a third party reviews reaches all five; one whose
+// content goes live on publish moves between `draft`, `active` and `inactive`.
+//
+// Open enum: treat a value you do not recognize as a new one rather than as
+// an error.
+type TemplateStatus string
+
+// TemplateVariable A single variable slot a template fills in from the values supplied when sending. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
 type TemplateVariable struct {
 	// Constraint A plain-language description of what values this variable accepts.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The variable's name, the key you use for it in `parameters` when you send.
+	// Key The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether a value has to be supplied when sending. A send that leaves a required variable unset is rejected.
+	// Required Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
 	Required *bool `json:"required,omitempty"`
 
-	// Sensitive Whether this variable's value gets redacted before it is stored. When it does, the rendered value never appears in message content you read back through the API: a placeholder is stored in its place instead.
+	// Sensitive Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
 	Sensitive *bool `json:"sensitive,omitempty"`
 
-	// Type The value type this variable accepts. We can add new types to this list over time, so treat a value you do not recognize as a new type rather than as an error. SMS templates use the typed values, such as `code` and `amount`. Email templates only use `text`.
+	// Type The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -10321,8 +10493,8 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
-	// Type Lifecycle event type. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error.
-	Type *string `json:"type,omitempty"`
+	// Type Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	Type WhatsAppEventType `json:"type"`
 }
 
 // WhatsAppEventID defines model for WhatsAppEventID.
@@ -10333,6 +10505,9 @@ type WhatsAppEventList struct {
 	// Data Timeline events for this WhatsApp message, in chronological order. The timeline is bounded and returned in full; this list is not paginated.
 	Data []WhatsAppEvent `json:"data"`
 }
+
+// WhatsAppEventType Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+type WhatsAppEventType string
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
@@ -10480,16 +10655,16 @@ type WhatsAppTemplateID = string
 // WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. `text` is a plain string substituted into a placeholder, including a coupon button's code, which the recipient copies from the button. `image`, `video`, `gif` and `document` carry a media header's file in `url`, each matching its header's `format`. `location` fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType string
 
-// WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally pick a language, and pass its placeholder values in `components`.
+// WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
 type WhatsAppTemplateSend struct {
 	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`). Meta's underscore form (`pt_BR`) is accepted and normalized; the accepted message echoes the canonical BCP-47 form. May be omitted, in which case the template's default language is sent. A language the template is not stocked in returns a `422` that names the available tags.
+	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Slug The template to send, by its slug (for example `bird_otp`).
+	// Slug The template to send, by its slug handle (for example `bird_otp`).
 	Slug  *TemplateSlug `json:"slug,omitempty"`
 	union json.RawMessage
 }
@@ -10817,8 +10992,8 @@ type ListContactsParams struct {
 	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email *string `form:"email,omitempty" json:"email,omitempty"`
 
-	// PhoneNumber Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
-	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+	// PhoneNumber Return the contacts with exactly this phone number in international E.164 form. Repeat the parameter to match any of up to 50 numbers, and set `limit` to at least the number of values you pass: `limit` defaults to 25, and a page cut short by it looks exactly like numbers that matched nothing. Different identifier parameters still combine with AND, so `phone_number=a&phone_number=b&email=c` asks for a contact whose phone number is `a` or `b` and whose email is `c`. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so each value matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	PhoneNumber *[]string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
 
 	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalId *string `form:"external_id,omitempty" json:"external_id,omitempty"`
@@ -12007,14 +12182,14 @@ type CreateSMSMessageParams struct {
 
 // ListSMSTemplatesParams defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParams struct {
-	// Scope Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all. Workspace-authored SMS templates are not available yet, so `workspace` currently matches nothing.
+	// Scope Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all.
 	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
 
 	// Category Keep only templates whose `category` matches. Omit for all categories.
 	Category *SMSMessageCategory `form:"category,omitempty" json:"category,omitempty"`
 
 	// Language Keep only templates available in this language, as a BCP-47 tag. Matches the template's `available_languages` entries exactly, with no fallback.
-	Language *string `form:"language,omitempty" json:"language,omitempty"`
+	Language *LanguageTag `form:"language,omitempty" json:"language,omitempty"`
 }
 
 // CreateVerificationParams defines parameters for CreateVerification.
@@ -12085,10 +12260,10 @@ type ListVoiceCallsParams struct {
 	// SipTrunkId Return only calls carried by this SIP trunk.
 	SipTrunkId *SIPTrunkID `form:"sip_trunk_id,omitempty" json:"sip_trunk_id,omitempty"`
 
-	// From Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	// From Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls, because a call record keeps the number exactly as the calling equipment presented it. A number given without a country code matches only calls recorded in that same form, since it names a different number in every country. Use `number` instead to match part of a number, or either side of the call.
+	// To Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
 	// Number Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
@@ -12164,7 +12339,7 @@ type CreateWhatsAppMessageParams struct {
 // ListWhatsAppMessageEventsParams defines parameters for ListWhatsAppMessageEvents.
 type ListWhatsAppMessageEventsParams struct {
 	// Type Keep only events of this exact type (for example `whatsapp.delivered` or `whatsapp.failed`). Omit for the full timeline.
-	Type *string `form:"type,omitempty" json:"type,omitempty"`
+	Type *WhatsAppEventType `form:"type,omitempty" json:"type,omitempty"`
 }
 
 // CreateAudienceJSONRequestBody defines body for CreateAudience for application/json ContentType.
@@ -12841,6 +13016,32 @@ func (t *SMSTemplateSend) MergeSMSTemplateSend1(v SMSTemplateSend1) error {
 	return err
 }
 
+// AsSMSTemplateSend2 returns the union data inside the SMSTemplateSend as a SMSTemplateSend2
+func (t SMSTemplateSend) AsSMSTemplateSend2() (SMSTemplateSend2, error) {
+	var body SMSTemplateSend2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromSMSTemplateSend2 overwrites any union data inside the SMSTemplateSend as the provided SMSTemplateSend2
+func (t *SMSTemplateSend) FromSMSTemplateSend2(v SMSTemplateSend2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeSMSTemplateSend2 performs a merge with any union data inside the SMSTemplateSend, using the provided SMSTemplateSend2
+func (t *SMSTemplateSend) MergeSMSTemplateSend2(v SMSTemplateSend2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t SMSTemplateSend) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -12879,6 +13080,13 @@ func (t SMSTemplateSend) MarshalJSON() ([]byte, error) {
 		object["parameters"], err = json.Marshal(t.Parameters)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+
+	if t.Slug != nil {
+		object["slug"], err = json.Marshal(t.Slug)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'slug': %w", err)
 		}
 	}
 	b, err = json.Marshal(object)
@@ -12921,6 +13129,13 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Parameters)
 		if err != nil {
 			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
+	if raw, found := object["slug"]; found {
+		err = json.Unmarshal(raw, &t.Slug)
+		if err != nil {
+			return fmt.Errorf("error reading 'slug': %w", err)
 		}
 	}
 
@@ -17314,7 +17529,7 @@ func NewListContactsRequest(server string, params *ListContactsParams) (*http.Re
 
 		if params.PhoneNumber != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

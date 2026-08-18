@@ -16,7 +16,7 @@ func main() {
 	}
 
 	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
-		To:         "+15551234567",
+		To:         "+14155550100",
 		Template:   "bird_otp_verification",
 		Parameters: map[string]any{"code": "493021"},
 	})

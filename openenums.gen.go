@@ -102,6 +102,30 @@ const (
 	SMSErrorCodeUnreachable         = oapi.SMSErrorCodeUnreachable
 )
 
+// TemplateLanguageStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the TemplateLanguageStatus* constants with a
+// default branch rather than treating the set as closed.
+type TemplateLanguageStatus = oapi.TemplateLanguageStatus
+
+const (
+	TemplateLanguageStatusDraft      = oapi.TemplateLanguageStatusDraft
+	TemplateLanguageStatusLive       = oapi.TemplateLanguageStatusLive
+	TemplateLanguageStatusSuperseded = oapi.TemplateLanguageStatusSuperseded
+)
+
+// TemplateStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the TemplateStatus* constants with a
+// default branch rather than treating the set as closed.
+type TemplateStatus = oapi.TemplateStatus
+
+const (
+	TemplateStatusActive   = oapi.TemplateStatusActive
+	TemplateStatusDraft    = oapi.TemplateStatusDraft
+	TemplateStatusInactive = oapi.TemplateStatusInactive
+	TemplateStatusPending  = oapi.TemplateStatusPending
+	TemplateStatusRejected = oapi.TemplateStatusRejected
+)
+
 // VerificationAttemptFailureReason is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the VerificationAttemptFailureReason* constants with a
 // default branch rather than treating the set as closed.
@@ -125,6 +149,7 @@ type VerificationChannel = oapi.VerificationChannel
 const (
 	VerificationChannelEmail    = oapi.VerificationChannelEmail
 	VerificationChannelSms      = oapi.VerificationChannelSms
+	VerificationChannelTelegram = oapi.VerificationChannelTelegram
 	VerificationChannelWhatsapp = oapi.VerificationChannelWhatsapp
 )
 
@@ -151,6 +176,20 @@ const (
 	WhatsAppErrorCodeRecipientSuppressed  = oapi.WhatsAppErrorCodeRecipientSuppressed
 	WhatsAppErrorCodeServiceWindowExpired = oapi.WhatsAppErrorCodeServiceWindowExpired
 	WhatsAppErrorCodeUndeliverable        = oapi.WhatsAppErrorCodeUndeliverable
+)
+
+// WhatsAppEventType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppEventType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppEventType = oapi.WhatsAppEventType
+
+const (
+	WhatsAppEventTypeWhatsappAccepted  = oapi.WhatsAppEventTypeWhatsappAccepted
+	WhatsAppEventTypeWhatsappDelivered = oapi.WhatsAppEventTypeWhatsappDelivered
+	WhatsAppEventTypeWhatsappFailed    = oapi.WhatsAppEventTypeWhatsappFailed
+	WhatsAppEventTypeWhatsappRead      = oapi.WhatsAppEventTypeWhatsappRead
+	WhatsAppEventTypeWhatsappRejected  = oapi.WhatsAppEventTypeWhatsappRejected
+	WhatsAppEventTypeWhatsappSent      = oapi.WhatsAppEventTypeWhatsappSent
 )
 
 // WhatsAppTemplateCategory is an open string on the wire: a value added by a newer server

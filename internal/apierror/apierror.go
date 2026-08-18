@@ -56,8 +56,8 @@ type APIError struct {
 	// Remediation is a human-readable next step to resolve this error, when a
 	// recovery is known (ADR-0073).
 	Remediation string
-	// Next lists the operations that resolve this error, in the order to try them.
-	Next []ErrorNextAction
+	// Next lists the recovery steps for this error, in the order to take them.
+	Next []NextAction
 	// UnmetGates lists the verification requirements blocking this action, each
 	// with the flow that resolves it. Present only when an action is blocked
 	// pending verification.
@@ -85,15 +85,26 @@ type ErrorDetail struct {
 	Message string `json:"message"`
 }
 
-// ErrorNextAction is one recovery operation the server suggests (ADR-0073): call
-// it to resolve the error, then retry the original request.
-type ErrorNextAction struct {
-	// Operation is the operationId of the follow-up operation that resolves this error.
-	Operation string `json:"operation"`
-	// Description is a short human-readable label for the recovery step.
-	Description string `json:"description,omitempty"`
-	// Scope is the permission scope the recovery operation requires, when it is scoped.
-	Scope string `json:"scope,omitempty"`
+// NextAction is one recovery step the server suggests (ADR-0124). Read Kind
+// before Operation: only an operation step carries one.
+type NextAction struct {
+	// Kind is what to do about this step: "operation" calls the operation named in
+	// Operation and reads again, "external" acts somewhere this API does not reach,
+	// "wait" reads again later, "terminal" means nothing resolves this so stop
+	// retrying. A value this SDK version does not know is display-only: show
+	// Description and offer no action.
+	Kind string `json:"kind"`
+	// Description is a short human-readable label for the step, suitable for display.
+	Description string `json:"description"`
+	// Operation is the operationId to call. Set only when Kind is "operation".
+	Operation string `json:"operation,omitempty"`
+	// Params are the parameters that address Operation, by name — every parameter
+	// the call needs, so it can be made from this step alone. A request body, when
+	// the operation takes one, is described by the operation and never appears here.
+	Params map[string]string `json:"params,omitempty"`
+	// URL is a URL to open. Set only when Kind is "external", and only when the
+	// step has one; an external step with nothing to open is normal.
+	URL string `json:"url,omitempty"`
 }
 
 // UnmetGate is one verification requirement blocking the action, with the flow
@@ -142,18 +153,18 @@ func (e *WebhookVerificationError) Error() string {
 
 // wireError is the on-the-wire error body (snake_case as sent).
 type wireError struct {
-	Type        string            `json:"type"`
-	Code        string            `json:"code"`
-	Name        string            `json:"name"`
-	Message     string            `json:"message"`
-	DocURL      string            `json:"doc_url"`
-	RequestID   string            `json:"request_id"`
-	Param       string            `json:"param"`
-	VendorCode  string            `json:"vendor_code"`
-	Details     []ErrorDetail     `json:"details"`
-	Remediation string            `json:"remediation"`
-	Next        []ErrorNextAction `json:"next"`
-	UnmetGates  []UnmetGate       `json:"unmet_gates"`
+	Type        string        `json:"type"`
+	Code        string        `json:"code"`
+	Name        string        `json:"name"`
+	Message     string        `json:"message"`
+	DocURL      string        `json:"doc_url"`
+	RequestID   string        `json:"request_id"`
+	Param       string        `json:"param"`
+	VendorCode  string        `json:"vendor_code"`
+	Details     []ErrorDetail `json:"details"`
+	Remediation string        `json:"remediation"`
+	Next        []NextAction  `json:"next"`
+	UnmetGates  []UnmetGate   `json:"unmet_gates"`
 }
 
 // errorEnvelope is the wire wrapper: the API sends every error as

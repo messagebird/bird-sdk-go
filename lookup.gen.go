@@ -13,7 +13,7 @@ type LookupProperty = oapi.LookupProperty
 
 // LookupPhoneNumberParams is the request body for phone_number.
 type LookupPhoneNumberParams struct {
-	// The phone number to look up, in E.164 format, which is a leading `+`, the country calling code, then the national number.
+	// The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
 	PhoneNumber string
 	// The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call. Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
 	Type []LookupProperty

@@ -22,8 +22,8 @@ type ContactUpsertRequestDataMode = oapi.ContactUpsertRequestDataMode
 type ContactListParams struct {
 	// Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email string
-	// Return the contact with exactly this phone number in international E.164 form. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so this matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
-	PhoneNumber string
+	// Return the contacts with exactly this phone number in international E.164 form. Repeat the parameter to match any of up to 50 numbers, and set `limit` to at least the number of values you pass: `limit` defaults to 25, and a page cut short by it looks exactly like numbers that matched nothing. Different identifier parameters still combine with AND, so `phone_number=a&phone_number=b&email=c` asks for a contact whose phone number is `a` or `b` and whose email is `c`. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so each value matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	PhoneNumber []string
 	// Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	ExternalID string
 	// Case-insensitive substring match against the contact's email address, first name, last name, or phone number. Phone matching is over the digits of the international form, so a full pasted number, a formatted number, or trailing digits all match; a national form with a leading trunk zero does not.
@@ -39,7 +39,7 @@ type ContactListParams struct {
 func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams {
 	return &oapi.ListContactsParams{
 		Email:         optStr(p.Email),
-		PhoneNumber:   optStr(p.PhoneNumber),
+		PhoneNumber:   optSlice(p.PhoneNumber),
 		ExternalId:    optStr(p.ExternalID),
 		Q:             optStr(p.Q),
 		Identifier:    optZero(p.Identifier),
@@ -166,7 +166,7 @@ func (s *ContactsService) ListPage(ctx context.Context, params ContactListParams
 	return &out, nil
 }
 
-// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email, phone_number, or external_id, or search by email, name, or phone substring. Pass include_total for a total count.
+// List List the workspace's contacts as a cursor page, newest first. Look one up by exact email, phone_number, or external_id, repeating phone_number to resolve up to 50 numbers in one call (raise limit to match), or search by email, name, or phone substring. Pass include_total for a total count.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *ContactsService) List(ctx context.Context, params ContactListParams, opts ...option.RequestOption) iter.Seq2[*Contact, error] {
