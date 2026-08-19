@@ -12,11 +12,11 @@ import (
 
 // EmailStatsSummaryParams filters the summary read.
 type EmailStatsSummaryParams struct {
-	// Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` for day windows, or 168 hours (7 days) before `to` for hour windows, when omitted.
+	// Inclusive start of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` for day windows, or 168 hours (7 days) before `to` for hour windows, when omitted.
 	From string
-	// Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	// Inclusive end of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
 	To string
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
 	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
@@ -24,11 +24,11 @@ type EmailStatsSummaryParams struct {
 	SendingDomain string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
 	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 	// Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare string
@@ -51,11 +51,11 @@ func (p EmailStatsSummaryParams) toWire() *oapi.GetEmailStatsSummaryParams {
 
 // EmailStatsDailyParams filters the daily read.
 type EmailStatsDailyParams struct {
-	// Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive), `YYYY-MM-DD`. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive), `YYYY-MM-DD`. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
 	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
@@ -63,11 +63,11 @@ type EmailStatsDailyParams struct {
 	SendingDomain string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
 	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 }
 
@@ -91,7 +91,7 @@ type EmailStatsHourlyParams struct {
 	From time.Time
 	// End of the window (ISO 8601 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included (both bounds inclusive). When `timezone` is set, a numeric UTC offset here is rejected; use a `Z` (UTC) instant. Defaults to the current hour when omitted. Window may not exceed 30 days (720 hours).
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
 	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
@@ -99,11 +99,11 @@ type EmailStatsHourlyParams struct {
 	SendingDomain string
 	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
 	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 }
 
@@ -123,19 +123,19 @@ func (p EmailStatsHourlyParams) toWire() *oapi.GetEmailStatsHourlyParams {
 
 // EmailStatsByTagParams filters the by_tag read.
 type EmailStatsByTagParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort EmailStatsSortMetric
 	// Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -156,17 +156,17 @@ func (p EmailStatsByTagParams) toWire() *oapi.GetEmailStatsByTagParams {
 
 // EmailStatsByCategoryParams filters the by_category read.
 type EmailStatsByCategoryParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort EmailStatsSortMetric
 	// Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -186,19 +186,19 @@ func (p EmailStatsByCategoryParams) toWire() *oapi.GetEmailStatsByCategoryParams
 
 // EmailStatsBySendingIPParams filters the by_sending_ip read.
 type EmailStatsBySendingIPParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank IPs by, applied descending. Sorting by `bounces.block` puts the IPs whose reputation is most likely degraded at the top. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. A sending IP has no engagement, so engagement metrics aren't sortable here, and neither are `processed`, `rejected`, or `oob_bounces`.
 	Sort string
 	// Maximum number of IP rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -219,19 +219,19 @@ func (p EmailStatsBySendingIPParams) toWire() *oapi.GetEmailStatsBySendingIpPara
 
 // EmailStatsBySendingDomainParams filters the by_sending_domain read.
 type EmailStatsBySendingDomainParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort EmailStatsSortMetric
 	// Maximum number of domain rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -252,19 +252,19 @@ func (p EmailStatsBySendingDomainParams) toWire() *oapi.GetEmailStatsBySendingDo
 
 // EmailStatsByRecipientDomainParams filters the by_recipient_domain read.
 type EmailStatsByRecipientDomainParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
 	Sort EmailStatsSortMetric
 	// Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -285,19 +285,19 @@ func (p EmailStatsByRecipientDomainParams) toWire() *oapi.GetEmailStatsByRecipie
 
 // EmailStatsByMailboxProviderParams filters the by_mailbox_provider read.
 type EmailStatsByMailboxProviderParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
 	Sort EmailMailboxProviderSortMetric
 	// Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -318,19 +318,19 @@ func (p EmailStatsByMailboxProviderParams) toWire() *oapi.GetEmailStatsByMailbox
 
 // EmailStatsByMailboxProviderRegionParams filters the by_mailbox_provider_region read.
 type EmailStatsByMailboxProviderRegionParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
 	Sort EmailMailboxProviderSortMetric
 	// Maximum number of provider-region rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -351,19 +351,19 @@ func (p EmailStatsByMailboxProviderRegionParams) toWire() *oapi.GetEmailStatsByM
 
 // EmailStatsByTemplateParams filters the by_template read.
 type EmailStatsByTemplateParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
 	Sort EmailStatsSortMetric
 	// Maximum number of template rows to return, ranked by the `sort` field descending.
 	Limit int
-	// When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
+	// When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns `422`. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
 	IncludeTrend bool
 	// Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain StatsTrendGrain
@@ -384,13 +384,13 @@ func (p EmailStatsByTemplateParams) toWire() *oapi.GetEmailStatsByTemplateParams
 
 // EmailStatsByLocationParams filters the by_location read.
 type EmailStatsByLocationParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Location granularity for each row. `country` (default) groups by country; `region` groups by region within country; `city` groups by city within region. Each row reports the location hierarchy down to the chosen level.
 	GroupBy string
@@ -414,15 +414,15 @@ func (p EmailStatsByLocationParams) toWire() *oapi.GetEmailStatsByLocationParams
 
 // EmailStatsByClientParams filters the by_client read.
 type EmailStatsByClientParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
-	// Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two null.
+	// Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two `null`.
 	GroupBy string
 	// Metric to rank rows by, applied descending. It defaults to `unique_opens`. Only engagement counts are sortable. This breakdown has no rates.
 	Sort EmailEngagementSortMetric
@@ -444,13 +444,13 @@ func (p EmailStatsByClientParams) toWire() *oapi.GetEmailStatsByClientParams {
 
 // EmailStatsByBounceCodeParams filters the by_bounce_code read.
 type EmailStatsByBounceCodeParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. It defaults to `bounced`. Only the bounce counts are sortable here, because this breakdown has no rate fields.
 	Sort string
@@ -471,13 +471,13 @@ func (p EmailStatsByBounceCodeParams) toWire() *oapi.GetEmailStatsByBounceCodePa
 
 // EmailStatsByComplaintTypeParams filters the by_complaint_type read.
 type EmailStatsByComplaintTypeParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
-	// IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. It defaults to `complained`, the only sortable metric for this breakdown.
 	Sort string
@@ -498,11 +498,11 @@ func (p EmailStatsByComplaintTypeParams) toWire() *oapi.GetEmailStatsByComplaint
 
 // EmailStatsByBroadcastParams filters the by_broadcast read.
 type EmailStatsByBroadcastParams struct {
-	// Start date (inclusive) in YYYY-MM-DD, UTC. Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in YYYY-MM-DD, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
 	To time.Time
-	// Not supported on breakdown endpoints. Supplying it returns a 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Not supported on breakdown endpoints. Supplying it returns a `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
 	Sort EmailStatsSortMetric
@@ -520,7 +520,7 @@ func (p EmailStatsByBroadcastParams) toWire() *oapi.GetEmailStatsByBroadcastPara
 	}
 }
 
-// Summary Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. `from`/`to` are both YYYY-MM-DD days or both RFC 3339 instants (hour grain); add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`.
+// Summary Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. The `from` and `to` values are both `YYYY-MM-DD` days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`.
 func (s *EmailStatsService) Summary(ctx context.Context, params EmailStatsSummaryParams, opts ...option.RequestOption) (*EmailStatsSummary, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsSummary(ctx, params.toWire(), cfg...)
@@ -595,7 +595,7 @@ func (s *EmailStatsService) ByCategory(ctx context.Context, params EmailStatsByC
 	return &out, nil
 }
 
-// BySendingIP Delivery and bounce stats grouped by sending IP, with deferral counts alongside them. `sort=bounces.block` surfaces reputation-damaged IPs first. Engagement, accepted, and processed counts aren't available per IP, and complaint and out-of-band bounce counts always read 0 here. For workspace-wide figures, use `email.stats.daily`.
+// BySendingIP Delivery and bounce stats grouped by sending IP, with deferral counts alongside them. `sort=bounces.block` surfaces reputation-damaged IPs first. Engagement, accepted, and processed counts aren't available per IP, and complaint and out-of-band bounce counts always read `0` here. For workspace-wide figures, use `email.stats.daily`.
 func (s *EmailStatsService) BySendingIP(ctx context.Context, params EmailStatsBySendingIPParams, opts ...option.RequestOption) (*EmailStatsBySendingIPResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsBySendingIp(ctx, params.toWire(), cfg...)
@@ -640,7 +640,7 @@ func (s *EmailStatsService) ByRecipientDomain(ctx context.Context, params EmailS
 	return &out, nil
 }
 
-// ByMailboxProvider Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward, so there are no accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
+// ByMailboxProvider Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward and omits accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
 func (s *EmailStatsService) ByMailboxProvider(ctx context.Context, params EmailStatsByMailboxProviderParams, opts ...option.RequestOption) (*EmailStatsByMailboxProviderResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByMailboxProvider(ctx, params.toWire(), cfg...)
@@ -655,7 +655,7 @@ func (s *EmailStatsService) ByMailboxProvider(ctx context.Context, params EmailS
 	return &out, nil
 }
 
-// ByMailboxProviderRegion Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward, so there are no accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
+// ByMailboxProviderRegion Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward and omits accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
 func (s *EmailStatsService) ByMailboxProviderRegion(ctx context.Context, params EmailStatsByMailboxProviderRegionParams, opts ...option.RequestOption) (*EmailStatsByMailboxProviderRegionResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByMailboxProviderRegion(ctx, params.toWire(), cfg...)
@@ -715,7 +715,7 @@ func (s *EmailStatsService) ByClient(ctx context.Context, params EmailStatsByCli
 	return &out, nil
 }
 
-// ByBounceCode Bounce counts grouped by the SMTP error code the receiving mail server returned. Each row also breaks the bounce down into its hard, soft, admin, block, and undetermined split. There are no delivered, open, or click counts here, because a bounce code only appears on a bounce event. For bounces broken down by destination instead, use `email.stats.by_recipient_domain` or `email.stats.by_mailbox_provider`.
+// ByBounceCode Bounce counts grouped by the SMTP error code the receiving mail server returned. Each row also breaks the bounce down into its hard, soft, admin, block, and undetermined split. It omits delivered, open, and click counts because a bounce code only appears on a bounce event. For bounces broken down by destination instead, use `email.stats.by_recipient_domain` or `email.stats.by_mailbox_provider`.
 func (s *EmailStatsService) ByBounceCode(ctx context.Context, params EmailStatsByBounceCodeParams, opts ...option.RequestOption) (*EmailStatsByBounceCodeResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByBounceCode(ctx, params.toWire(), cfg...)
@@ -730,7 +730,7 @@ func (s *EmailStatsService) ByBounceCode(ctx context.Context, params EmailStatsB
 	return &out, nil
 }
 
-// ByComplaintType Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. Complaint side only, so there are no delivery or engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
+// ByComplaintType Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. This complaint-only breakdown omits delivery and engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
 func (s *EmailStatsService) ByComplaintType(ctx context.Context, params EmailStatsByComplaintTypeParams, opts ...option.RequestOption) (*EmailStatsByComplaintTypeResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsByComplaintType(ctx, params.toWire(), cfg...)

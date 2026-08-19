@@ -15,7 +15,7 @@ type LookupProperty = oapi.LookupProperty
 type LookupPhoneNumberParams struct {
 	// The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
 	PhoneNumber string
-	// The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call. Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+	// Properties to add to the base lookup. Omit this field or send an empty array to request only the base lookup. Each delivered property is billed in addition to the base lookup. A property that could not be answered is returned with its status and is not billed.
 	Type []LookupProperty
 }
 
@@ -34,7 +34,7 @@ func (p LookupPhoneNumberParams) toWire() oapi.PhoneNumberLookupRequest {
 
 // LookupEmailParams is the request body for email.
 type LookupEmailParams struct {
-	// The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+	// The email address to look up. Send it exactly as you hold it. The part before the `@` is case-sensitive, so the API does not lowercase it. A display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
 	Email string
 }
 
@@ -44,7 +44,7 @@ func (p LookupEmailParams) toWire() oapi.EmailLookupRequest {
 	return body
 }
 
-// PhoneNumber Look up what a phone number is. Returns the serving network, the issuing network, whether the number was ported, its country, and its line type, free with every call. Pass `type` to buy extra blocks: `classification` (the allocated service of the range, from an intelligence source, reported beside the free `line_type` rather than replacing it), `porting` (whether the number ever moved network, when, and its full history), `presence` (reachable on the network right now), `roaming`, `sim_swap` (when the SIM last changed), and `score` (0-100 credibility). Every requested block reports its own status, and only the ones reading `ok` are billed on top of the lookup. Nothing is sent to the number.
+// PhoneNumber Create a lookup for a phone number's networks, porting state, country, and line type. Pass `type` to request separately billed `classification`, `porting`, `presence`, `roaming`, `sim_swap`, or `score` blocks. Each block reports its own status, and only blocks with an `ok` status add a charge; the lookup does not contact the number.
 func (s *LookupService) PhoneNumber(ctx context.Context, params LookupPhoneNumberParams, opts ...option.RequestOption) (*PhoneNumberLookup, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreatePhoneNumberLookupParams{}
@@ -63,7 +63,7 @@ func (s *LookupService) PhoneNumber(ctx context.Context, params LookupPhoneNumbe
 	return &out, nil
 }
 
-// Email Look up whether an email address is worth sending to. Returns `result` (the verdict: `valid`; `neutral`, meaning it could not be confirmed either way; `risky`, meaning it will probably accept mail but is likelier than most to bounce or complain; `undeliverable`; or `typo`), `delivery_confidence` (0-100), `flags` (`role`, `disposable`, `free_provider`), `reason` on an undeliverable address (`invalid_syntax`, `invalid_domain`, `invalid_recipient`), and `did_you_mean` when the address looks like a misspelling of a real one. `result` and `reason` are OPEN vocabularies: the values listed here are today's and more may be added, so treat an unrecognized value as a future one rather than an error, falling back on `delivery_confidence`. One address per call. Every answered lookup is billed the same flat amount whatever the verdict, so treat it as a paid call rather than a free check, and use an `Idempotency-Key` so a retry does not buy a second answer. Nothing is sent to the address.
+// Email Create a deliverability lookup for one email address. Returns `result`, `delivery_confidence`, address `flags`, an undeliverable `reason`, and `did_you_mean` when a correction is available. Treat unknown `result` and `reason` values as valid additions and use `delivery_confidence` as the fallback; each completed lookup incurs the same charge.
 func (s *LookupService) Email(ctx context.Context, params LookupEmailParams, opts ...option.RequestOption) (*EmailLookup, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateEmailLookupParams{}

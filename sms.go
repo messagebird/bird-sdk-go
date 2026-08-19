@@ -9,9 +9,14 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// SmsService sends SMS messages — free text or by stored template — and reads
-// them back. Reach it via Client.Sms.
-type SmsService struct{ resource }
+// SmsService sends free-text or stored-template SMS messages and reads them
+// back. Reach it through Client.Sms.
+type SmsService struct {
+	resource
+
+	// Stats reads aggregate statistics over the workspace's SMS traffic.
+	Stats *SmsStatsService
+}
 
 // SMSCategory classifies a send for opt-out (STOP) policy, quiet hours, and
 // per-country compliance.
@@ -24,12 +29,13 @@ const (
 	SMSCategoryService        SMSCategory = "service"
 )
 
-// SmsSendParams is a single SMS send. Provide either Text (with Category) or a
-// Template (by id or slug, with Parameters) — the two are mutually exclusive.
+// SmsSendParams is a single SMS send. Provide either Text (with Category and
+// From) or a Template (by id or slug, with Parameters). The two are mutually
+// exclusive.
 // Zero-value fields are omitted from the request.
 type SmsSendParams struct {
 	To         string         // required; recipient phone number in E.164 format
-	From       string         // optional sender; Bird selects one when empty
+	From       string         // required with Text; omit on a template send
 	Text       string         // free-text body (mutually exclusive with Template)
 	Category   SMSCategory    // required with Text; omit on a template send
 	Template   string         // stored template id (smt_…) or slug (mutually exclusive with Text)

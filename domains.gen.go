@@ -31,9 +31,9 @@ const (
 type DomainListParams struct {
 	// Substring match against the domain name (case-insensitive).
 	Name string
-	// Field to sort by.
+	// Field to sort by. Defaults to `created_at`.
 	Sort string
-	// Sort direction. Defaults to `desc` (newest/largest first).
+	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
 	Order string
 	// Maximum number of items to return per page.
 	Limit int
@@ -54,11 +54,11 @@ func (p DomainListParams) toWire(startingAfter string) *oapi.ListDomainsParams {
 
 // DomainCreateParams is the request body for create.
 type DomainCreateParams struct {
-	// The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+	// The domain you send from: the domain of your `from` addresses. Use a dedicated subdomain (for example, `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
 	Domain string
-	// Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+	// Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
 	ReturnPath *DomainReturnPathConfig
-	// Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+	// Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
 	Tracking *DomainTrackingConfig
 	// DKIM signing configuration.
 	Dkim *DomainDKIMConfig
@@ -88,13 +88,13 @@ func (p DomainCreateParams) toWire() oapi.DomainCreate {
 type DomainUpdateParams struct {
 	// Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings
-	// Change the return-path name part. Cannot be removed — the return-path is required for sending.
+	// Change the return-path name part. Cannot be removed: the return-path is required for sending.
 	ReturnPath *DomainReturnPathConfig
-	// Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+	// Set or change the tracking name part, or remove tracking by passing `null`. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
 	Tracking Nullable[DomainTrackingConfig]
 	// Change how the DKIM key is published. The current key keeps signing until the new configuration verifies, so mail is never sent unsigned during the transition.
 	Dkim *DomainDKIMConfig
-	// Enable or disable receiving on this domain. Enabling claims the domain for inbound and moves `capabilities.inbound.status` from `not_configured` to `pending`, then `verified` once the MX records resolve to Bird. The MX records to publish are always present under `dns_records` (`purpose: inbound_mx`) as a regional reference, so their presence does not mean receiving is on — a domain still needs enabling whenever `capabilities.inbound.status` is `not_configured`. Enabling requires the domain's DKIM to be verified first (ownership proof): a fresh enable on a domain whose DKIM is not verified returns `422` `E05019` and claims nothing. A domain already receiving inbound for another organization returns `422` `E05018`.
+	// Enable or disable receiving on this domain. Enabling claims the domain for inbound and moves `capabilities.inbound.status` from `not_configured` to `pending`, then `verified` once the MX records resolve to us. The MX records to publish are always present under `dns_records` (`purpose: inbound_mx`) as a regional reference. Their presence does not mean receiving is enabled; enable the domain whenever `capabilities.inbound.status` is `not_configured`. Enabling requires the domain's DKIM to be verified first. A fresh enable on a domain whose DKIM is not verified returns `422` with `E05019` and claims nothing. A domain already receiving inbound for another organization returns `422` with `E05018`.
 	Inbound *DomainInboundConfig
 }
 
@@ -217,7 +217,7 @@ func (s *DomainsService) Update(ctx context.Context, domainId string, params Dom
 	return &out, nil
 }
 
-// Delete Delete a sending domain by id. Revokes its sender authorization: new sends from the domain are rejected afterward, while historical statistics and events for past sends are preserved. Destructive.
+// Delete Delete a sending domain by ID. Revokes its sender authorization: new sends from the domain are rejected afterward, while historical statistics and events for past sends are preserved. Destructive.
 func (s *DomainsService) Delete(ctx context.Context, domainId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteDomainParams{}

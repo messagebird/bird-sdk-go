@@ -307,6 +307,10 @@ func applyEmailDefaults(wire *oapi.EmailMessageSendRequest, d requestconfig.Emai
 		metadata := d.Metadata
 		wire.Metadata = &metadata
 	}
+	if wire.IpPoolId == nil && d.IpPoolID != "" {
+		ipPool := d.IpPoolID
+		wire.IpPoolId = &ipPool
+	}
 }
 
 // parseAddressInput wraps an address string in the wire union's string arm

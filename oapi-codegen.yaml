@@ -44,6 +44,32 @@ output-options:
     - listSMSMessages
     - listSMSTemplates
     - getSMSTemplate
+    - listSMSMessageEvents
+    - getSMSStatsSummary
+    - getSMSStatsDaily
+    - getSMSStatsHourly
+    - getSMSStatsByCountry
+    - getSMSStatsByCarrier
+    - getSMSStatsByCategory
+    - getSMSStatsByOriginator
+    - getSMSStatsByStatus
+    - getSMSStatsByErrorCode
+    - getSMSStatsByTag
+    - getSMSInboundStatsSummary
+    - getSMSInboundStatsDaily
+    - getSMSInboundStatsHourly
+    - getSMSInboundStatsByCountry
+    - getSMSInboundStatsByOperator
+    - getSMSInboundStatsByNumber
+    - listSMSSuppressions
+    - getSMSSuppression
+    - createSMSSuppression
+    - deleteSMSSuppression
+    - listSMSKeywordRules
+    - getSMSKeywordRule
+    - createSMSKeywordRule
+    - updateSMSKeywordRule
+    - deleteSMSKeywordRule
     - createWhatsAppMessage
     - getWhatsAppMessage
     - listWhatsAppMessages

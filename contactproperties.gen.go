@@ -29,9 +29,9 @@ func (p ContactPropertyListParams) toWire(startingAfter string) *oapi.ListContac
 type ContactPropertyCreateParams struct {
 	// The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
 	Key string
-	// The value type every contact must use for a property. Cannot be changed after creation. `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+	// The value type every contact must use for a property. Cannot be changed after creation. `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type ContactPropertyType
-	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
 	FallbackValue any
 }
 
@@ -47,7 +47,7 @@ func (p ContactPropertyCreateParams) toWire() oapi.ContactPropertyCreateRequest 
 
 // ContactPropertyUpdateParams is the request body for update.
 type ContactPropertyUpdateParams struct {
-	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
+	// Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Set to `null` to remove the fallback.
 	FallbackValue any
 }
 

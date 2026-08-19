@@ -30,9 +30,13 @@ type Config struct {
 	// sent as X-Realtime-Key/X-Realtime-Secret on every Realtime call.
 	RealtimeKey    string
 	RealtimeSecret string
-	Header         http.Header
-	ResponseInto   *Response
-	EmailDefaults  EmailDefaults
+	// RealtimeEncryptionMasterKey is the base64 master key for
+	// private-encrypted- channels. It stays in this process: the SDK derives
+	// each channel's key from it locally and never sends it to Bird.
+	RealtimeEncryptionMasterKey string
+	Header                      http.Header
+	ResponseInto                *Response
+	EmailDefaults               EmailDefaults
 	// Sealed is set on the per-call config so construction-only options
 	// (WithBaseURL/WithAPIKey/WithHTTPClient) can reject being applied per call.
 	Sealed bool
@@ -49,6 +53,7 @@ type EmailDefaults struct {
 	Headers     map[string]string
 	Tags        []oapi.Tag
 	Metadata    map[string]interface{}
+	IpPoolID    string
 }
 
 // Response is the transport metadata for one call, populated when the caller

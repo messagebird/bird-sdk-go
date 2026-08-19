@@ -15,9 +15,9 @@ import (
 type EmailListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
-	// Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
-	// Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore time.Time
 	// Filter by aggregate delivery status.
 	Status EmailMessageStatus

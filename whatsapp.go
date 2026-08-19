@@ -9,23 +9,40 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// WhatsappService sends WhatsApp template messages and reads them back. Reach it
+// WhatsappService sends WhatsApp messages and reads them back. Reach it
 // via Client.Whatsapp.
 type WhatsappService struct{ resource }
 
-// WhatsappSendParams is a single WhatsApp message send. Templates are
-// currently the only supported content type, so Template is required; free-form
-// content will be added in a future release. Zero-value fields are omitted from
-// the request.
+// WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind
+// of content — a template, or one free-form arm. Which arms a send may use, and
+// whether From is required for it, are the server's to decide, so this type
+// enforces neither. Zero-value fields are omitted from the request.
 type WhatsappSendParams struct {
-	To         string                             // required; recipient phone number in E.164 format
-	Template   string                             // required; the template's id (wat_…) or its slug (e.g. bird_otp)
+	To   string // required; recipient phone number in E.164 format, or a business-scoped user ID
+	From string // the business number to send from; omit only for a Bird-managed template
+
+	Template   string                             // the template's id (wat_…) or its slug (e.g. bird_otp)
 	Language   string                             // template language as a BCP-47 tag; omit when the template has a single language
 	Components []WhatsAppMessageTemplateComponent // values that fill the template's placeholders
+
+	Text     *WhatsAppTextSend
+	Image    *WhatsAppImageSend
+	Video    *WhatsAppVideoSend
+	Audio    *WhatsAppAudioSend
+	Sticker  *WhatsAppStickerSend
+	Document *WhatsAppDocumentSend
+	Location *WhatsAppLocationSend
+
+	Tags     []WhatsAppTag  // structured {name, value} labels for filtering and analytics
+	Metadata map[string]any // arbitrary JSON stored on the message and echoed in webhooks
 }
 
 func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 	body := oapi.WhatsAppMessageSendRequest{To: p.To}
+	if p.From != "" {
+		from := p.From
+		body.From = &from
+	}
 	if p.Template != "" || p.Language != "" || len(p.Components) > 0 {
 		var tmpl oapi.WhatsAppTemplateSend
 		if p.Template != "" {
@@ -48,12 +65,26 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 		}
 		body.Template = &tmpl
 	}
+	body.Text = p.Text
+	body.Image = p.Image
+	body.Video = p.Video
+	body.Audio = p.Audio
+	body.Sticker = p.Sticker
+	body.Document = p.Document
+	body.Location = p.Location
+	if len(p.Tags) > 0 {
+		tags := p.Tags
+		body.Tags = &tags
+	}
+	if len(p.Metadata) > 0 {
+		metadata := p.Metadata
+		body.Metadata = &metadata
+	}
 	return body
 }
 
-// Send sends one WhatsApp template message. Retried safely: a single
-// idempotency key is reused across attempts. Provide your own key with
-// option.WithIdempotencyKey.
+// Send sends one WhatsApp message. Retried safely: a single idempotency key is
+// reused across attempts. Provide your own key with option.WithIdempotencyKey.
 func (s *WhatsappService) Send(ctx context.Context, params WhatsappSendParams, opts ...option.RequestOption) (*WhatsAppMessage, error) {
 	wire := params.toWire()
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {

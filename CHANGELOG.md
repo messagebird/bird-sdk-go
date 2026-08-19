@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.33.0
+
+- Add bird.Sms.Stats and bird.SmsSuppressions: SMS statistics (outbound, inbound breakdowns) and the suppression list, plus Sms.ListEvents for a message's timeline.
+- Add bird.SmsKeywordRules: read Bird's SMS keyword catalogue and manage a workspace's own overrides of it.
+- Add end-to-end encrypted channels: `Realtime.Publish` and `Realtime.PublishBatch` seal `private-encrypted-` payloads under `option.WithRealtimeEncryptionMasterKey`, and the new `Realtime.AuthorizeChannel` signs channel subscriptions, adding the channel's `shared_secret` on encrypted channels.
+- A sending domain read now says what to do next. `next` carries the steps that get the domain verified, in the order to take them: an `external` step for a DNS record only you can publish, then the operation that re-checks it. An empty list means nothing is asked of you on that axis, and `capabilities` still reports what each capability needs before the domain can send or receive.
+- Email defaults now cover `IpPoolID`, applied to every send that does not name a pool.
+- `Email.Mailboxes.Messages.Create` now honors the client's email defaults for the fields a compose accepts: `ReplyTo`, `Category`, `Tags`, and `Metadata`.
+- `EmailMailboxesMessagesCreateParams` gains `Tags`.
+- Optional fields on a WhatsApp message's content — a media caption, a location's name and address — are omitted when unset rather than returned as null.
+- Getting or listing a WhatsApp message now returns the free-form `text`, `image`, `video`, `audio`, `sticker`, `document` or `location` content it carried.
+- The `whatsapp.received` webhook event is now available, delivering an inbound WhatsApp message's content as it arrives.
+- `Whatsapp.Send` now accepts free-form `Text`, `Image`, `Video`, `Audio`, `Sticker`, `Document` and `Location` content, `From` for the business number every send but a Bird-managed template requires, and per-message `Tags` and `Metadata`.
+- Method, parameter and field documentation now states what each call does and what each value accepts, including its default, its units, and the fields it depends on.
+
 ## 0.32.0
 
 - Add the `EmailStatusScheduled` and `EmailStatusCanceled` constants, so a scheduled or canceled email status compares against a named value rather than a string literal.

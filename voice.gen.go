@@ -67,7 +67,7 @@ func (s *VoiceService) ListPage(ctx context.Context, params VoiceListParams, sta
 	return &out, nil
 }
 
-// List List the workspace's calls, newest first. Filter to `ringing`/`in_progress` for the calls in progress right now, to final statuses for completed records, or to any mix of the two. Use `from`/`to` for one known party number in international form, and `number` to search either side by fragment. These are per-call records: for rates and totals over a period use voice_stats_summary rather than summing them here, and voice_get to follow one call to settlement.
+// List List the workspace's calls, newest first. Filter to `ringing`/`in_progress` for the calls in progress right now, to final statuses for completed records, or to any mix of the two. Use `from`/`to` for one known party number in international form, and `number` to search either side by fragment. These are per-call records and do not include aggregate rates or totals. Use `voice.get` to follow one call to settlement.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *VoiceService) List(ctx context.Context, params VoiceListParams, opts ...option.RequestOption) iter.Seq2[*VoiceCall, error] {
@@ -80,7 +80,7 @@ func (s *VoiceService) List(ctx context.Context, params VoiceListParams, opts ..
 	})
 }
 
-// Get Fetch one call by id, at any point in its lifecycle. A call still ringing or connected carries no economics yet: `duration_ms`, `billable_ms`, `ended_at`, and `cost` are null until it ends, and this same id then answers with the settled record. Poll here to watch one known call; use voice_list to find calls in the first place. When a call was refused, `rejection_reason` names the gate that turned it away.
+// Get Fetch one call by ID, at any point in its lifecycle. A call still ringing or connected carries no economics yet: `duration_ms`, `billable_ms`, `ended_at`, and `cost` are null until it ends, and the same ID then returns the settled record. Poll here to watch one known call; use `voice.list` to find calls in the first place. When a call was refused, `rejection_reason` names the gate that turned it away.
 func (s *VoiceService) Get(ctx context.Context, callId string, opts ...option.RequestOption) (*VoiceCall, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetVoiceCall(ctx, oapi.VoiceCallID(callId), cfg...)

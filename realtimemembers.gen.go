@@ -13,7 +13,7 @@ import (
 type RealtimeMemberSendParams struct {
 	// The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
 	Event string
-	// Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	// Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
 	Data any
 }
 

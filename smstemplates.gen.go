@@ -11,7 +11,7 @@ import (
 
 // SMSTemplateListParams filters the list read.
 type SMSTemplateListParams struct {
-	// Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all.
+	// Keep only templates of this scope. Every SMS template is `system`, so `workspace` matches none. Omit for all.
 	Scope TemplateScope
 	// Keep only templates whose `category` matches. Omit for all categories.
 	Category SMSMessageCategory
@@ -27,7 +27,7 @@ func (p SMSTemplateListParams) toWire() *oapi.ListSMSTemplatesParams {
 	}
 }
 
-// List List the SMS templates available to your workspace, including Bird's built-in templates. Filter by scope, category, or language. The catalogue is small and returned in full; this list is not paginated. Use sms_templates_get to read one template's variables before sending with it.
+// List List the SMS templates available to your workspace, including our built-in templates. Filter by scope, category, or language. The catalog is small and returned in full; this list is not paginated. Use `sms_templates.get` to read one template's variables before sending with it.
 func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListParams, opts ...option.RequestOption) (*SMSTemplateList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListSMSTemplates(ctx, params.toWire(), cfg...)
@@ -42,7 +42,7 @@ func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListPa
 	return &out, nil
 }
 
-// Get Get one SMS template by its slug or id, including its body and the variables it expects. Fetch it before sms_send to see which parameter keys a template send requires.
+// Get Get one SMS template by its slug or ID, including its body and the variables it expects. Fetch it before `sms.send` to see which parameter keys a template send requires.
 func (s *SmsTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*SMSTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetSMSTemplate(ctx, templateRef, cfg...)

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
+	"github.com/messagebird/bird-sdk-go/internal/requestconfig"
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
@@ -22,6 +23,7 @@ type EmailMailboxesMessagesCreateParams struct {
 	BCC      []string
 	ReplyTo  []string
 	Category string // marketing | transactional
+	Tags     []EmailTag
 	Metadata map[string]any
 }
 
@@ -62,6 +64,10 @@ func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeReq
 		c := oapi.EmailMessageCategory(p.Category)
 		body.Category = &c
 	}
+	if len(p.Tags) > 0 {
+		t := p.Tags
+		body.Tags = &t
+	}
 	if len(p.Metadata) > 0 {
 		m := p.Metadata
 		body.Metadata = &m
@@ -69,16 +75,45 @@ func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeReq
 	return body
 }
 
+// applyComposeDefaults fills any field the compose params left unset from the
+// configured email defaults. Only four of them: a compose has no From (the
+// mailbox is the sender) and no sending-infrastructure fields, and the request
+// is rejected for one it does not accept.
+func applyComposeDefaults(wire *oapi.EmailMailboxComposeRequest, d requestconfig.EmailDefaults) {
+	if wire.ReplyTo == nil && len(d.ReplyTo) > 0 {
+		if replyTo, err := parseAddressInputs(d.ReplyTo); err == nil {
+			wire.ReplyTo = &replyTo
+		}
+	}
+	if wire.Category == nil && d.Category != "" {
+		category := oapi.EmailMessageCategory(d.Category)
+		wire.Category = &category
+	}
+	if wire.Tags == nil && len(d.Tags) > 0 {
+		tags := d.Tags
+		wire.Tags = &tags
+	}
+	if wire.Metadata == nil && len(d.Metadata) > 0 {
+		metadata := d.Metadata
+		wire.Metadata = &metadata
+	}
+}
+
 // Compose sends a new email from the mailbox's own address, starting a new
 // conversation. Retried safely with a reused idempotency key.
 func (s *EmailMailboxesMessagesService) Create(ctx context.Context, mailboxID string, params EmailMailboxesMessagesCreateParams, opts ...option.RequestOption) (*EmailThreadMessage, error) {
+	cfg, err := s.client.resolve(opts)
+	if err != nil {
+		return nil, err
+	}
 	wire := params.toWire()
-	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+	applyComposeDefaults(&wire, cfg.EmailDefaults)
+	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
 		op := &oapi.CreateMailboxMessageParams{}
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.CreateMailboxMessage(ctx, oapi.MailboxID(mailboxID), op, wire, cfg...)
+		return s.client.oapi.CreateMailboxMessage(ctx, oapi.MailboxID(mailboxID), op, wire, s.client.callEditors(cfg)...)
 	})
 	if err != nil {
 		return nil, err

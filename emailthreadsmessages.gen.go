@@ -16,7 +16,7 @@ type Tag = oapi.Tag
 type EmailThreadsMessagesListParams struct {
 	// Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction MessageDirection
-	// Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, received messages in the inbox and all sent messages are returned.
+	// Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in.
 	Label string
 	// Set to `extracted_text` to inline each message's extracted plain text.
 	Include string
@@ -95,7 +95,7 @@ func (s *EmailThreadsMessagesService) ListPage(ctx context.Context, threadId str
 	return &out, nil
 }
 
-// List List the messages in a conversation newest first, both directions. Page older messages with starting_after, and pass include=extracted_text to inline each message's extracted plain text.
+// List List the messages in a conversation newest first, both directions. Page older messages with `starting_after`, and pass `include=extracted_text` to inline each message's extracted plain text.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string, params EmailThreadsMessagesListParams, opts ...option.RequestOption) iter.Seq2[*EmailThreadMessage, error] {

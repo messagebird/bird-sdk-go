@@ -21,15 +21,15 @@ type EmailThreadsListParams struct {
 	ContactID string
 	// Filter to conversations that have this label. Repeat the parameter to ask for more than one: only conversations that have every label you list are returned. A placement label picks a folder: `inbox`, `archive`, `spam`, or `blocked`. A custom label matches a conversation in any folder. Leave this out and you get the inbox.
 	Label []string
-	// When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on messages, not conversations.
+	// When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on individual messages; this filter uses the conversation's aggregate unread state.
 	HasUnread bool
 	// Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
 	Participant string
 	// Conversations whose subject contains this text (case-insensitive).
 	Subject string
-	// Filter to conversations whose most recent message is at or after this time. This is a time filter, not a cursor.
+	// Filter to conversations whose most recent message is at or after this time. Use the response cursors for pagination.
 	After time.Time
-	// Filter to conversations whose most recent message is at or before this time. This is a time filter, not a cursor.
+	// Filter to conversations whose most recent message is at or before this time. Use the response cursors for pagination.
 	Before time.Time
 	// Maximum number of items to return per page.
 	Limit int
@@ -52,7 +52,7 @@ func (p EmailThreadsListParams) toWire(startingAfter string) *oapi.ListEmailThre
 
 // EmailThreadsUpdateParams is the request body for update.
 type EmailThreadsUpdateParams struct {
-	// Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+	// Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate
 	// Contact to link this conversation to, or null to unlink the current contact.
 	ContactID Nullable[string]
@@ -142,7 +142,7 @@ func (s *EmailThreadsService) Update(ctx context.Context, threadId string, param
 	return &out, nil
 }
 
-// Delete Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with ?permanent=true.
+// Delete Move a conversation and all its messages to trash (purged after 30 days), or delete permanently with `?permanent=true`.
 func (s *EmailThreadsService) Delete(ctx context.Context, threadId string, params EmailThreadsDeleteParams, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWire()

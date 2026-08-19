@@ -15,9 +15,9 @@ import (
 type SmsListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
-	// Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
-	// Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore time.Time
 	// Filter by direction. Omit for both.
 	Direction MessageDirection
@@ -51,7 +51,19 @@ func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams 
 	}
 }
 
-// Get Get one SMS message by id: its current delivery status, segment breakdown, cost, and failure detail if it failed.
+// SmsListEventsParams filters the list_events read.
+type SmsListEventsParams struct {
+	// Filter by event type, such as `sms.delivered` or `sms.failed`.
+	Type string
+}
+
+func (p SmsListEventsParams) toWire() *oapi.ListSMSMessageEventsParams {
+	return &oapi.ListSMSMessageEventsParams{
+		Type: optStr(p.Type),
+	}
+}
+
+// Get Get one SMS message by ID: its current delivery status, segment breakdown, cost, and failure detail if it failed.
 func (s *SmsService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*SMSMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetSMSMessage(ctx, oapi.SMSMessageID(messageId), cfg...)
@@ -82,7 +94,7 @@ func (s *SmsService) ListPage(ctx context.Context, params SmsListParams, startin
 	return &out, nil
 }
 
-// List List SMS messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
+// List List SMS messages, newest first, as a cursor page (`data`, `next_cursor`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by direction, status, category, recipient, sender, or tag.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *SmsService) List(ctx context.Context, params SmsListParams, opts ...option.RequestOption) iter.Seq2[*SMSMessage, error] {
@@ -93,4 +105,19 @@ func (s *SmsService) List(ctx context.Context, params SmsListParams, opts ...opt
 		}
 		return page.Data, page.NextCursor, nil
 	})
+}
+
+// ListEvents The lifecycle event timeline for one SMS, oldest first: what happened to it and when. Filter with `type` (for example `sms.delivered`) to keep one kind of event. Use `sms.get` for the message's current state and `sms.list` to find its ID.
+func (s *SmsService) ListEvents(ctx context.Context, messageId string, params SmsListEventsParams, opts ...option.RequestOption) (*SMSEventList, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.ListSMSMessageEvents(ctx, oapi.SMSMessageID(messageId), params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out SMSEventList
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

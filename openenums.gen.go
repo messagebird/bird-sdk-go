@@ -102,6 +102,63 @@ const (
 	SMSErrorCodeUnreachable         = oapi.SMSErrorCodeUnreachable
 )
 
+// SMSKeywordOperation is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSKeywordOperation* constants with a
+// default branch rather than treating the set as closed.
+type SMSKeywordOperation = oapi.SMSKeywordOperation
+
+const (
+	SMSKeywordOperationCustom = oapi.SMSKeywordOperationCustom
+	SMSKeywordOperationHelp   = oapi.SMSKeywordOperationHelp
+	SMSKeywordOperationStart  = oapi.SMSKeywordOperationStart
+	SMSKeywordOperationStop   = oapi.SMSKeywordOperationStop
+)
+
+// SMSSuppressionCoverage is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSuppressionCoverage* constants with a
+// default branch rather than treating the set as closed.
+type SMSSuppressionCoverage = oapi.SMSSuppressionCoverage
+
+const (
+	SMSSuppressionCoverageAll              = oapi.SMSSuppressionCoverageAll
+	SMSSuppressionCoverageNonTransactional = oapi.SMSSuppressionCoverageNonTransactional
+)
+
+// SMSSuppressionEndReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSuppressionEndReason* constants with a
+// default branch rather than treating the set as closed.
+type SMSSuppressionEndReason = oapi.SMSSuppressionEndReason
+
+const (
+	SMSSuppressionEndReasonApiKey         = oapi.SMSSuppressionEndReasonApiKey
+	SMSSuppressionEndReasonCarrierCleared = oapi.SMSSuppressionEndReasonCarrierCleared
+	SMSSuppressionEndReasonKeywordStart   = oapi.SMSSuppressionEndReasonKeywordStart
+	SMSSuppressionEndReasonUser           = oapi.SMSSuppressionEndReasonUser
+)
+
+// SMSSuppressionOrigin is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSuppressionOrigin* constants with a
+// default branch rather than treating the set as closed.
+type SMSSuppressionOrigin = oapi.SMSSuppressionOrigin
+
+const (
+	SMSSuppressionOriginApiKey   = oapi.SMSSuppressionOriginApiKey
+	SMSSuppressionOriginDlrEvent = oapi.SMSSuppressionOriginDlrEvent
+	SMSSuppressionOriginKeyword  = oapi.SMSSuppressionOriginKeyword
+	SMSSuppressionOriginUser     = oapi.SMSSuppressionOriginUser
+)
+
+// SMSSuppressionReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the SMSSuppressionReason* constants with a
+// default branch rather than treating the set as closed.
+type SMSSuppressionReason = oapi.SMSSuppressionReason
+
+const (
+	SMSSuppressionReasonCarrierOptedOut = oapi.SMSSuppressionReasonCarrierOptedOut
+	SMSSuppressionReasonKeywordStop     = oapi.SMSSuppressionReasonKeywordStop
+	SMSSuppressionReasonManual          = oapi.SMSSuppressionReasonManual
+)
+
 // TemplateLanguageStatus is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the TemplateLanguageStatus* constants with a
 // default branch rather than treating the set as closed.
@@ -188,6 +245,7 @@ const (
 	WhatsAppEventTypeWhatsappDelivered = oapi.WhatsAppEventTypeWhatsappDelivered
 	WhatsAppEventTypeWhatsappFailed    = oapi.WhatsAppEventTypeWhatsappFailed
 	WhatsAppEventTypeWhatsappRead      = oapi.WhatsAppEventTypeWhatsappRead
+	WhatsAppEventTypeWhatsappReceived  = oapi.WhatsAppEventTypeWhatsappReceived
 	WhatsAppEventTypeWhatsappRejected  = oapi.WhatsAppEventTypeWhatsappRejected
 	WhatsAppEventTypeWhatsappSent      = oapi.WhatsAppEventTypeWhatsappSent
 )

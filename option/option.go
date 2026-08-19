@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/messagebird/bird-sdk-go/internal/realtimecrypto"
 	"github.com/messagebird/bird-sdk-go/internal/requestconfig"
 )
 
@@ -84,6 +85,21 @@ func WithWebhookSecret(secret string) RequestOption {
 func WithRealtimeCredentials(key, secret string) RequestOption {
 	return func(c *requestconfig.Config) error {
 		c.RealtimeKey, c.RealtimeSecret = key, secret
+		return nil
+	}
+}
+
+// WithRealtimeEncryptionMasterKey sets the end-to-end encryption master key for
+// private-encrypted- channels: 32 random bytes, base64-encoded. It is yours
+// alone — the SDK uses it locally to seal publishes and to derive each channel's
+// shared_secret, and never sends it to Bird. Lose it and rotating to a new one
+// is the only recovery.
+func WithRealtimeEncryptionMasterKey(key string) RequestOption {
+	return func(c *requestconfig.Config) error {
+		if _, err := realtimecrypto.DecodeMasterKey(key); err != nil {
+			return fmt.Errorf("option.WithRealtimeEncryptionMasterKey: %w", err)
+		}
+		c.RealtimeEncryptionMasterKey = key
 		return nil
 	}
 }

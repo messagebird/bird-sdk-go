@@ -2034,6 +2034,24 @@ func (e EventWhatsAppReadType) Valid() bool {
 	}
 }
 
+// Defines values for EventWhatsAppReceivedDataDirection.
+const (
+	EventWhatsAppReceivedDataDirectionInbound  EventWhatsAppReceivedDataDirection = "inbound"
+	EventWhatsAppReceivedDataDirectionOutbound EventWhatsAppReceivedDataDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppReceivedDataDirection enum.
+func (e EventWhatsAppReceivedDataDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppReceivedDataDirectionInbound:
+		return true
+	case EventWhatsAppReceivedDataDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventWhatsAppRejectedType.
 const (
 	WhatsappRejected EventWhatsAppRejectedType = "whatsapp.rejected"
@@ -2805,6 +2823,48 @@ func (e SMSErrorCode) Valid() bool {
 	}
 }
 
+// Defines values for SMSKeywordOperation.
+const (
+	SMSKeywordOperationCustom SMSKeywordOperation = "custom"
+	SMSKeywordOperationHelp   SMSKeywordOperation = "help"
+	SMSKeywordOperationStart  SMSKeywordOperation = "start"
+	SMSKeywordOperationStop   SMSKeywordOperation = "stop"
+)
+
+// Valid indicates whether the value is a known member of the SMSKeywordOperation enum.
+func (e SMSKeywordOperation) Valid() bool {
+	switch e {
+	case SMSKeywordOperationCustom:
+		return true
+	case SMSKeywordOperationHelp:
+		return true
+	case SMSKeywordOperationStart:
+		return true
+	case SMSKeywordOperationStop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSKeywordRuleScope.
+const (
+	SMSKeywordRuleScopeSystem    SMSKeywordRuleScope = "system"
+	SMSKeywordRuleScopeWorkspace SMSKeywordRuleScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the SMSKeywordRuleScope enum.
+func (e SMSKeywordRuleScope) Valid() bool {
+	switch e {
+	case SMSKeywordRuleScopeSystem:
+		return true
+	case SMSKeywordRuleScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSMessageDirection.
 const (
 	SMSMessageDirectionInbound  SMSMessageDirection = "inbound"
@@ -2922,6 +2982,234 @@ func (e SMSSegmentsEncoding) Valid() bool {
 	}
 }
 
+// Defines values for SMSStatsLifecycleSortMetric.
+const (
+	SMSStatsLifecycleSortMetricAccepted    SMSStatsLifecycleSortMetric = "accepted"
+	SMSStatsLifecycleSortMetricDelivered   SMSStatsLifecycleSortMetric = "delivered"
+	SMSStatsLifecycleSortMetricExpired     SMSStatsLifecycleSortMetric = "expired"
+	SMSStatsLifecycleSortMetricFailed      SMSStatsLifecycleSortMetric = "failed"
+	SMSStatsLifecycleSortMetricRejected    SMSStatsLifecycleSortMetric = "rejected"
+	SMSStatsLifecycleSortMetricSent        SMSStatsLifecycleSortMetric = "sent"
+	SMSStatsLifecycleSortMetricUndelivered SMSStatsLifecycleSortMetric = "undelivered"
+)
+
+// Valid indicates whether the value is a known member of the SMSStatsLifecycleSortMetric enum.
+func (e SMSStatsLifecycleSortMetric) Valid() bool {
+	switch e {
+	case SMSStatsLifecycleSortMetricAccepted:
+		return true
+	case SMSStatsLifecycleSortMetricDelivered:
+		return true
+	case SMSStatsLifecycleSortMetricExpired:
+		return true
+	case SMSStatsLifecycleSortMetricFailed:
+		return true
+	case SMSStatsLifecycleSortMetricRejected:
+		return true
+	case SMSStatsLifecycleSortMetricSent:
+		return true
+	case SMSStatsLifecycleSortMetricUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSStatsSortMetric.
+const (
+	SMSStatsSortMetricAccepted     SMSStatsSortMetric = "accepted"
+	SMSStatsSortMetricDelivered    SMSStatsSortMetric = "delivered"
+	SMSStatsSortMetricDeliveryRate SMSStatsSortMetric = "delivery_rate"
+	SMSStatsSortMetricExpired      SMSStatsSortMetric = "expired"
+	SMSStatsSortMetricFailed       SMSStatsSortMetric = "failed"
+	SMSStatsSortMetricFailureRate  SMSStatsSortMetric = "failure_rate"
+	SMSStatsSortMetricRejected     SMSStatsSortMetric = "rejected"
+	SMSStatsSortMetricSent         SMSStatsSortMetric = "sent"
+	SMSStatsSortMetricUndelivered  SMSStatsSortMetric = "undelivered"
+)
+
+// Valid indicates whether the value is a known member of the SMSStatsSortMetric enum.
+func (e SMSStatsSortMetric) Valid() bool {
+	switch e {
+	case SMSStatsSortMetricAccepted:
+		return true
+	case SMSStatsSortMetricDelivered:
+		return true
+	case SMSStatsSortMetricDeliveryRate:
+		return true
+	case SMSStatsSortMetricExpired:
+		return true
+	case SMSStatsSortMetricFailed:
+		return true
+	case SMSStatsSortMetricFailureRate:
+		return true
+	case SMSStatsSortMetricRejected:
+		return true
+	case SMSStatsSortMetricSent:
+		return true
+	case SMSStatsSortMetricUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSStatusStatsPointStatus.
+const (
+	SMSStatusStatsPointStatusAccepted    SMSStatusStatsPointStatus = "accepted"
+	SMSStatusStatsPointStatusDelivered   SMSStatusStatsPointStatus = "delivered"
+	SMSStatusStatsPointStatusExpired     SMSStatusStatsPointStatus = "expired"
+	SMSStatusStatsPointStatusFailed      SMSStatusStatsPointStatus = "failed"
+	SMSStatusStatsPointStatusRejected    SMSStatusStatsPointStatus = "rejected"
+	SMSStatusStatsPointStatusSent        SMSStatusStatsPointStatus = "sent"
+	SMSStatusStatsPointStatusUndelivered SMSStatusStatsPointStatus = "undelivered"
+)
+
+// Valid indicates whether the value is a known member of the SMSStatusStatsPointStatus enum.
+func (e SMSStatusStatsPointStatus) Valid() bool {
+	switch e {
+	case SMSStatusStatsPointStatusAccepted:
+		return true
+	case SMSStatusStatsPointStatusDelivered:
+		return true
+	case SMSStatusStatsPointStatusExpired:
+		return true
+	case SMSStatusStatsPointStatusFailed:
+		return true
+	case SMSStatusStatsPointStatusRejected:
+		return true
+	case SMSStatusStatsPointStatusSent:
+		return true
+	case SMSStatusStatsPointStatusUndelivered:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSuppressionCoverage.
+const (
+	SMSSuppressionCoverageAll              SMSSuppressionCoverage = "all"
+	SMSSuppressionCoverageNonTransactional SMSSuppressionCoverage = "non_transactional"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionCoverage enum.
+func (e SMSSuppressionCoverage) Valid() bool {
+	switch e {
+	case SMSSuppressionCoverageAll:
+		return true
+	case SMSSuppressionCoverageNonTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSuppressionEndReason.
+const (
+	SMSSuppressionEndReasonApiKey         SMSSuppressionEndReason = "api_key"
+	SMSSuppressionEndReasonCarrierCleared SMSSuppressionEndReason = "carrier_cleared"
+	SMSSuppressionEndReasonKeywordStart   SMSSuppressionEndReason = "keyword_start"
+	SMSSuppressionEndReasonUser           SMSSuppressionEndReason = "user"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionEndReason enum.
+func (e SMSSuppressionEndReason) Valid() bool {
+	switch e {
+	case SMSSuppressionEndReasonApiKey:
+		return true
+	case SMSSuppressionEndReasonCarrierCleared:
+		return true
+	case SMSSuppressionEndReasonKeywordStart:
+		return true
+	case SMSSuppressionEndReasonUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSuppressionOrigin.
+const (
+	SMSSuppressionOriginApiKey   SMSSuppressionOrigin = "api_key"
+	SMSSuppressionOriginDlrEvent SMSSuppressionOrigin = "dlr_event"
+	SMSSuppressionOriginKeyword  SMSSuppressionOrigin = "keyword"
+	SMSSuppressionOriginUser     SMSSuppressionOrigin = "user"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionOrigin enum.
+func (e SMSSuppressionOrigin) Valid() bool {
+	switch e {
+	case SMSSuppressionOriginApiKey:
+		return true
+	case SMSSuppressionOriginDlrEvent:
+		return true
+	case SMSSuppressionOriginKeyword:
+		return true
+	case SMSSuppressionOriginUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSuppressionReason.
+const (
+	SMSSuppressionReasonCarrierOptedOut SMSSuppressionReason = "carrier_opted_out"
+	SMSSuppressionReasonKeywordStop     SMSSuppressionReason = "keyword_stop"
+	SMSSuppressionReasonManual          SMSSuppressionReason = "manual"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionReason enum.
+func (e SMSSuppressionReason) Valid() bool {
+	switch e {
+	case SMSSuppressionReasonCarrierOptedOut:
+		return true
+	case SMSSuppressionReasonKeywordStop:
+		return true
+	case SMSSuppressionReasonManual:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSSuppressionReasonFilter.
+const (
+	CarrierOptedOut SMSSuppressionReasonFilter = "carrier_opted_out"
+	KeywordStop     SMSSuppressionReasonFilter = "keyword_stop"
+	Manual          SMSSuppressionReasonFilter = "manual"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionReasonFilter enum.
+func (e SMSSuppressionReasonFilter) Valid() bool {
+	switch e {
+	case CarrierOptedOut:
+		return true
+	case KeywordStop:
+		return true
+	case Manual:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for StatsComparePeriod.
+const (
+	StatsComparePeriodPreviousPeriod StatsComparePeriod = "previous_period"
+)
+
+// Valid indicates whether the value is a known member of the StatsComparePeriod enum.
+func (e StatsComparePeriod) Valid() bool {
+	switch e {
+	case StatsComparePeriodPreviousPeriod:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for StatsGrain.
 const (
 	StatsGrainDay  StatsGrain = "day"
@@ -3029,16 +3317,16 @@ func (e TemplateOnMissingLanguage) Valid() bool {
 
 // Defines values for TemplateScope.
 const (
-	TemplateScopeSystem    TemplateScope = "system"
-	TemplateScopeWorkspace TemplateScope = "workspace"
+	System    TemplateScope = "system"
+	Workspace TemplateScope = "workspace"
 )
 
 // Valid indicates whether the value is a known member of the TemplateScope enum.
 func (e TemplateScope) Valid() bool {
 	switch e {
-	case TemplateScopeSystem:
+	case System:
 		return true
-	case TemplateScopeWorkspace:
+	case Workspace:
 		return true
 	default:
 		return false
@@ -3406,6 +3694,7 @@ const (
 	EventTypeWhatsappDelivered            WebhookEventType = "whatsapp.delivered"
 	EventTypeWhatsappFailed               WebhookEventType = "whatsapp.failed"
 	EventTypeWhatsappRead                 WebhookEventType = "whatsapp.read"
+	EventTypeWhatsappReceived             WebhookEventType = "whatsapp.received"
 	EventTypeWhatsappRejected             WebhookEventType = "whatsapp.rejected"
 	EventTypeWhatsappSent                 WebhookEventType = "whatsapp.sent"
 )
@@ -3501,6 +3790,8 @@ func (e WebhookEventType) Valid() bool {
 		return true
 	case EventTypeWhatsappRead:
 		return true
+	case EventTypeWhatsappReceived:
+		return true
 	case EventTypeWhatsappRejected:
 		return true
 	case EventTypeWhatsappSent:
@@ -3567,6 +3858,7 @@ const (
 	WhatsAppEventTypeWhatsappDelivered WhatsAppEventType = "whatsapp.delivered"
 	WhatsAppEventTypeWhatsappFailed    WhatsAppEventType = "whatsapp.failed"
 	WhatsAppEventTypeWhatsappRead      WhatsAppEventType = "whatsapp.read"
+	WhatsAppEventTypeWhatsappReceived  WhatsAppEventType = "whatsapp.received"
 	WhatsAppEventTypeWhatsappRejected  WhatsAppEventType = "whatsapp.rejected"
 	WhatsAppEventTypeWhatsappSent      WhatsAppEventType = "whatsapp.sent"
 )
@@ -3582,6 +3874,8 @@ func (e WhatsAppEventType) Valid() bool {
 		return true
 	case WhatsAppEventTypeWhatsappRead:
 		return true
+	case WhatsAppEventTypeWhatsappReceived:
+		return true
 	case WhatsAppEventTypeWhatsappRejected:
 		return true
 	case WhatsAppEventTypeWhatsappSent:
@@ -3593,16 +3887,16 @@ func (e WhatsAppEventType) Valid() bool {
 
 // Defines values for WhatsAppMessageDirection.
 const (
-	WhatsAppMessageDirectionInbound  WhatsAppMessageDirection = "inbound"
-	WhatsAppMessageDirectionOutbound WhatsAppMessageDirection = "outbound"
+	Inbound  WhatsAppMessageDirection = "inbound"
+	Outbound WhatsAppMessageDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageDirection enum.
 func (e WhatsAppMessageDirection) Valid() bool {
 	switch e {
-	case WhatsAppMessageDirectionInbound:
+	case Inbound:
 		return true
-	case WhatsAppMessageDirectionOutbound:
+	case Outbound:
 		return true
 	default:
 		return false
@@ -3611,34 +3905,49 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
-	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
-	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
-	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
-	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
-	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
-	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
-	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
+	Accepted  WhatsAppMessageStatus = "accepted"
+	Canceled  WhatsAppMessageStatus = "canceled"
+	Delivered WhatsAppMessageStatus = "delivered"
+	Failed    WhatsAppMessageStatus = "failed"
+	Received  WhatsAppMessageStatus = "received"
+	Rejected  WhatsAppMessageStatus = "rejected"
+	Scheduled WhatsAppMessageStatus = "scheduled"
+	Sent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case WhatsAppMessageStatusAccepted:
+	case Accepted:
 		return true
-	case WhatsAppMessageStatusCanceled:
+	case Canceled:
 		return true
-	case WhatsAppMessageStatusDelivered:
+	case Delivered:
 		return true
-	case WhatsAppMessageStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppMessageStatusReceived:
+	case Received:
 		return true
-	case WhatsAppMessageStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppMessageStatusScheduled:
+	case Scheduled:
 		return true
-	case WhatsAppMessageStatusSent:
+	case Sent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppReceivedEventType.
+const (
+	WhatsappReceived WhatsAppReceivedEventType = "whatsapp.received"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppReceivedEventType enum.
+func (e WhatsAppReceivedEventType) Valid() bool {
+	switch e {
+	case WhatsappReceived:
 		return true
 	default:
 		return false
@@ -3956,13 +4265,13 @@ func (e GetEmailStatsBySendingIpParamsSort) Valid() bool {
 
 // Defines values for GetEmailStatsSummaryParamsCompare.
 const (
-	PreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
+	GetEmailStatsSummaryParamsComparePreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
 )
 
 // Valid indicates whether the value is a known member of the GetEmailStatsSummaryParamsCompare enum.
 func (e GetEmailStatsSummaryParamsCompare) Valid() bool {
 	switch e {
-	case PreviousPeriod:
+	case GetEmailStatsSummaryParamsComparePreviousPeriod:
 		return true
 	default:
 		return false
@@ -4041,13 +4350,13 @@ type AudienceList struct {
 	// Data Page of audience objects.
 	Data []Audience `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -4066,13 +4375,13 @@ type AudienceMemberList struct {
 	// Data Page of audience members, each a contact paired with the time it joined the audience.
 	Data []AudienceMember `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -4095,13 +4404,13 @@ type AudienceUpdateRequest struct {
 
 // AuditLogActor defines model for AuditLogActor.
 type AuditLogActor struct {
-	// DisplayName Display name of the actor — the user's email address for user actors, or the API key's name for API-key actors. Absent when it could not be resolved.
+	// DisplayName Display name of the actor. This is the user's email address for a `user` actor or the API key name for an `api_key` actor. Absent when it could not be resolved.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Id Actor identifier.
+	// Id ID of the user, API key, or system process that performed the action.
 	Id string `json:"id"`
 
-	// Type Actor type (e.g. user, api_key, system).
+	// Type Type of actor, such as `user`, `api_key`, or `system`.
 	Type string `json:"type"`
 }
 
@@ -4111,10 +4420,10 @@ type Contact struct {
 	Audiences *[]AudienceRef `json:"audiences,omitempty"`
 	CreatedAt *time.Time     `json:"created_at,omitempty"`
 
-	// Data Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
+	// Data Custom property values for this contact, available in broadcast templates as `bird.contact.<key>`. Each key is a property created via the contact properties API, and each value is a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to `500` characters). Total size is capped at 2 KB serialized. Values stored under a property that was later archived remain readable here.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. Null when the contact has no email address.
+	// Email The contact's email address, in its stored form, trimmed and lowercased before uniqueness is checked. Unique within the workspace. `null` when the contact has no email address.
 	Email *openapi_types.Email `json:"email"`
 
 	// ExternalId Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
@@ -4127,14 +4436,14 @@ type Contact struct {
 	// LastName The contact's last name. Available in broadcast templates as `bird.contact.last_name`.
 	LastName *string `json:"last_name,omitempty"`
 
-	// PhoneNumber The contact's phone number in normalized international form (a leading `+` and four to 15 digits), which may differ from the form it was supplied in. Bird normalizes formatting but does not verify the number against numbering-plan metadata. Unique within the workspace. Carriers recycle disconnected numbers, so a long-stored number can come to belong to someone else; `external_id` is the durable key for your own records. Null when the contact has no phone number.
+	// PhoneNumber The contact's phone number in normalized international form: a leading `+` and four to 15 digits. We normalize formatting but do not verify the number against numbering-plan metadata. The number is unique within the workspace. Because carriers recycle disconnected numbers, use `external_id` as the durable key for your own records. `null` when the contact has no phone number.
 	PhoneNumber *string    `json:"phone_number"`
 	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 }
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
-	// Data Custom property values for this contact. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); a null value is ignored. Unregistered or archived keys are rejected with a validation error. Total size is capped at 2 KB serialized.
+	// Data Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
@@ -4164,23 +4473,23 @@ type ContactList struct {
 	// Data Page of contact objects.
 	Data []Contact `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
 // ContactMatchKey A contact identifier a batch entry can be matched on.
 type ContactMatchKey string
 
-// ContactMatchedOn Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+// ContactMatchedOn Which identifier matched a batch entry to an existing contact. `null` when the entry created a new contact.
 type ContactMatchedOn string
 
 // ContactProperty defines model for ContactProperty.
@@ -4189,7 +4498,7 @@ type ContactProperty struct {
 	Archived  *bool      `json:"archived,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null when no fallback is set.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` when no fallback is set.
 	FallbackValue interface{}       `json:"fallback_value,omitempty"`
 	Id            ContactPropertyID `json:"id"`
 
@@ -4198,14 +4507,14 @@ type ContactProperty struct {
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
 	//
-	// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+	// `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type      ContactPropertyType `json:"type"`
 	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
 }
 
 // ContactPropertyCreateRequest defines model for ContactPropertyCreateRequest.
 type ContactPropertyCreateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters), or null for no fallback; a value of another type returns a validation error.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters), or `null` for no fallback; a value of another type returns a validation error.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 
 	// Key The property key, used as the key in contact data and as the attribute in the `bird.contact.<key>` broadcast template variable. Lowercase letters, digits, and underscores, starting with a letter. Cannot be changed after creation.
@@ -4213,7 +4522,7 @@ type ContactPropertyCreateRequest struct {
 
 	// Type The value type every contact must use for a property. Cannot be changed after creation.
 	//
-	// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+	// `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 	Type ContactPropertyType `json:"type"`
 }
 
@@ -4225,63 +4534,63 @@ type ContactPropertyList struct {
 	// Data Page of contact property objects.
 	Data []ContactProperty `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // ContactPropertyType The value type every contact must use for a property. Cannot be changed after creation.
 //
-// `datetime` values are RFC 3339 timestamps with an explicit offset (for example `2024-01-15T09:30:00Z` or `2024-01-15T11:30:00+02:00`); a bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
+// `datetime` values are RFC 3339 timestamps with an explicit offset. Examples include `2024-01-15T09:30:00Z` and `2024-01-15T11:30:00+02:00`. A bare date or a time with no offset is rejected. The value is normalized to UTC with second precision on write, so `2024-01-15T11:30:00+02:00` is stored and returned as `2024-01-15T09:30:00Z`, and any fractional seconds are dropped.
 type ContactPropertyType string
 
 // ContactPropertyUpdateRequest defines model for ContactPropertyUpdateRequest.
 type ContactPropertyUpdateRequest struct {
-	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to 500 characters); a value of another type returns a validation error. Set to null to remove the fallback.
+	// FallbackValue Default used when a contact has no value for this property and the template does not supply an inline fallback. A string, number, boolean, or RFC 3339 datetime matching the declared type (strings up to `500` characters); a value of another type returns a validation error. Set to `null` to remove the fallback.
 	FallbackValue interface{} `json:"fallback_value,omitempty"`
 }
 
 // ContactUpdateRequest defines model for ContactUpdateRequest.
 type ContactUpdateRequest struct {
-	// Data Custom property values to change, merged into the contact's existing data. Keys you supply are set, keys set to null are removed, and keys you omit are left unchanged. Each key must be a property created via the contact properties API, and each value must be a string, number, boolean, or RFC 3339 datetime matching the property's declared type (strings up to 500 characters); writing an unregistered or archived key returns a validation error. The merged result is capped at 2 KB serialized.
+	// Data Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to null to remove it, as long as the contact keeps at least one identifier.
+	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to `null` to remove it, as long as the contact keeps at least one identifier.
 	Email nullable.Nullable[string] `json:"email,omitempty"`
 
-	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to null to clear.
+	// ExternalId Your own identifier for this contact. Unique within the workspace when set. Set to `null` to clear.
 	ExternalId nullable.Nullable[string] `json:"external_id,omitempty"`
 
-	// FirstName The contact's first name. Set to null to clear.
+	// FirstName The contact's first name. Set to `null` to clear.
 	FirstName nullable.Nullable[string] `json:"first_name,omitempty"`
 
-	// LastName The contact's last name. Set to null to clear.
+	// LastName The contact's last name. Set to `null` to clear.
 	LastName nullable.Nullable[string] `json:"last_name,omitempty"`
 
-	// PhoneNumber New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to null to remove it, as long as the contact keeps at least one identifier. An empty string behaves as null.
+	// PhoneNumber New phone number for the contact, in E.164 format with the leading `+` and country code. Spaces and punctuation are accepted and stripped. Stored in its canonical form, which may differ from what you send, and unique within the workspace. Omit to keep the current number; set to `null` to remove it, as long as the contact keeps at least one identifier. An empty string behaves as `null`.
 	PhoneNumber nullable.Nullable[string] `json:"phone_number,omitempty"`
 }
 
-// ContactUpsertEntry The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+// ContactUpsertEntry The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
 type ContactUpsertEntry struct {
-	// Email Email address this entry carried, trimmed and lowercased. Null when the entry carried none.
+	// Email Email address this entry carried, trimmed and lowercased. `null` when the entry carried none.
 	Email *string `json:"email"`
 
 	// ExternalId Your own identifier for this entry, when the entry supplied one.
 	ExternalId *string `json:"external_id"`
 
-	// PhoneNumber Phone number this entry carried, in its normalized international form. Null when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
+	// PhoneNumber Phone number this entry carried, in its normalized international form. `null` when the entry carried none. A row rejected for an invalid phone echoes the value as sent, trimmed, since no normalized form exists.
 	PhoneNumber *string `json:"phone_number"`
 }
 
 // ContactUpsertError defines model for ContactUpsertError.
 type ContactUpsertError struct {
-	// Code The specific error code for this entry, from the same catalog as the top-level error `code`: the discriminator within a category. `E04058` (the entry matched two different contacts, a human must decide) and `E04055` (the phone belongs to another contact, retry with different data) are both `conflict_error`; the code tells a sync which one it hit.
+	// Code Specific error code for this entry, from the same catalog as the top-level error `code`. `E04058` means the entry matched two contacts and requires review. `E04055` means the phone number belongs to another contact and you must retry with different data. Both are `conflict_error` errors; the code distinguishes them.
 	Code string `json:"code"`
 
 	// Message Human-readable explanation of why this entry failed.
@@ -4299,14 +4608,14 @@ type ContactUpsertRequest struct {
 	// Contacts Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
 	Contacts []ContactCreateRequest `json:"contacts"`
 
-	// DataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+	// DataMode How a supplied `data` object is applied to an existing contact. The default `merge` mode adds the supplied keys to the contact's stored custom values. A key with a `null` value deletes that key. The `replace` mode overwrites the whole stored `data` map with the supplied map. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
 	DataMode *ContactUpsertRequestDataMode `json:"data_mode,omitempty"`
 
 	// MatchOn A contact identifier a batch entry can be matched on.
 	MatchOn *ContactMatchKey `json:"match_on,omitempty"`
 }
 
-// ContactUpsertRequestDataMode How a supplied `data` object is applied to an existing contact. `merge` (the default) merges the supplied keys onto the contact's stored custom values, and a key with a `null` value deletes that one key. `replace` overwrites the whole stored `data` map with the supplied one. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
+// ContactUpsertRequestDataMode How a supplied `data` object is applied to an existing contact. The default `merge` mode adds the supplied keys to the contact's stored custom values. A key with a `null` value deletes that key. The `replace` mode overwrites the whole stored `data` map with the supplied map. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
 type ContactUpsertRequestDataMode string
 
 // ContactUpsertResult defines model for ContactUpsertResult.
@@ -4319,18 +4628,28 @@ type ContactUpsertResult struct {
 type ContactUpsertResultItem struct {
 	ContactId *ContactID `json:"contact_id,omitempty"`
 
-	// Entry The identifiers a batch entry supplied, in the normalized form they were matched with, null where the entry carried none. An echo of the request row for correlation, never the contact's current state.
+	// Entry The identifiers a batch entry supplied, in the normalized form used for matching. A field is `null` when the entry did not include it. These values identify the request entry and do not represent the contact's current state.
 	Entry ContactUpsertEntry  `json:"entry"`
 	Error *ContactUpsertError `json:"error,omitempty"`
 
-	// MatchedOn Which identifier matched a batch entry to an existing contact. Null when the entry created a new contact.
+	// MatchedOn Which identifier matched a batch entry to an existing contact. `null` when the entry created a new contact.
 	MatchedOn *ContactMatchedOn `json:"matched_on"`
 
-	// Status What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
+	// Status What happened to this contact.
+	//
+	// - `created`: a new contact was created for the address.
+	// - `updated`: an existing contact with the address was updated.
+	// - `failed`: the entry was rejected and `error` explains why. A failed entry
+	//   does not affect the other entries in the request.
 	Status ContactUpsertResultItemStatus `json:"status"`
 }
 
-// ContactUpsertResultItemStatus What happened to this contact. `created` means a new contact was created for the address; `updated` means an existing contact with the address was updated; `failed` means the entry was rejected and `error` explains why. A failed entry does not affect the other entries in the request.
+// ContactUpsertResultItemStatus What happened to this contact.
+//
+//   - `created`: a new contact was created for the address.
+//   - `updated`: an existing contact with the address was updated.
+//   - `failed`: the entry was rejected and `error` explains why. A failed entry
+//     does not affect the other entries in the request.
 type ContactUpsertResultItemStatus string
 
 // CountryCode ISO 3166-1 alpha-2 country code.
@@ -4341,81 +4660,109 @@ type CurrencyCode = string
 
 // DNSRecord defines model for DNSRecord.
 type DNSRecord struct {
-	// Error Human-readable detail for a failed check on this record — what was found in DNS and why it did not match. Null when the record is verified or not yet checked.
+	// Error Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
 	Error *string `json:"error,omitempty"`
 
-	// Host The fully qualified hostname for this record (e.g. `bird1._domainkey.mail.acme.com`).
+	// Host The fully qualified hostname for this record (for example, `bird1._domainkey.mail.acme.com`).
 	Host string `json:"host"`
 
-	// Name The record name — the part you enter in your DNS provider's "Name" or "Host" field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
+	// Name The record name: the part you enter in your DNS provider's `Name` or `Host` field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
 	Name string `json:"name"`
 
-	// Optional Whether this record can be skipped. Optional records enable extra functionality (e.g. tracking) but are not required for sending.
+	// Optional Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
 	Optional *bool `json:"optional,omitempty"`
 
 	// Purpose What this record is for.
-	// - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
-	//   present wherever inbound is available, as a regional reference,
+	//
+	// - `dkim`: signs outbound mail and proves domain ownership.
+	// - `return_path`: identifies the return-path (bounce) CNAME for sending.
+	// - `tracking`: identifies the optional branded open/click tracking CNAME.
+	// - `inbound_mx`: identifies the MX record routing mail to us for receiving.
+	//   Always present wherever inbound is available, as a regional reference,
 	//   regardless of whether receiving is enabled; publishing it does not
-	//   enable receiving on its own — see `DomainUpdate.inbound`.
+	//   enable receiving on its own: see `DomainUpdate.inbound`.
+	// - `dmarc`: identifies the advisory DMARC policy record.
 	Purpose DNSRecordPurpose `json:"purpose"`
 
-	// SafeToRemove Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. Null on `active` and `pending` records.
+	// SafeToRemove Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. `null` on `active` and `pending` records.
 	SafeToRemove *bool `json:"safe_to_remove,omitempty"`
 
 	// State Lifecycle state of this record.
-	// - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+	//
+	// - `active`: the record backs the domain's current configuration.
+	// - `pending`: the record belongs to a staged configuration change;
 	//   publish it to complete the change.
-	// - `deprecated` — the record belonged to a previous configuration.
+	// - `deprecated`: the record belonged to a previous configuration.
 	//   Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
 	//   previously sent tracked links may still resolve through it.
 	State *DNSRecordState `json:"state,omitempty"`
 
 	// Status Verification status of this record's most recent DNS check.
-	// - `pending` — the record has not verified yet; publish it (or correct it)
-	//   and it will verify on the next check.
-	// - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+	//
+	// - `pending`: the record has not verified yet; publish it (or correct it)
+	//   and it verifies on the next check.
+	// - `verified`: the most recent check matched the expected value.
+	// - `warning`: the record verified before and a recent check no longer
 	//   matched, but it is still within the grace period. Sending is not yet
 	//   affected; fix the record before the grace period ends to avoid it
 	//   being blocked.
-	// - `failed` — the record verified before but later checks kept failing
+	// - `failed`: the record verified before but later checks kept failing
 	//   past the grace period; the configuration has regressed and needs
 	//   attention.
 	Status *DNSRecordStatus `json:"status,omitempty"`
-	Type   DNSRecordType    `json:"type"`
 
-	// Value The value to publish, as entered in your DNS provider's "Value" or "Content" field: the full record content for `TXT`, the target hostname for `CNAME`, and the priority followed by the mail server hostname for `MX`.
+	// Type The DNS record type to publish, determined by `purpose`.
+	//
+	// - `TXT`: used for the `dkim` and `dmarc` purposes.
+	// - `CNAME`: used for the `return_path` and `tracking` purposes.
+	// - `MX`: used for the `inbound_mx` purpose.
+	Type DNSRecordType `json:"type"`
+
+	// Value The value to publish, as entered in your DNS provider's `Value` or `Content` field. For `TXT`, enter the full record content. For `CNAME`, enter the target hostname. For `MX`, enter the priority followed by the mail server hostname.
 	Value string `json:"value"`
 }
 
 // DNSRecordPurpose What this record is for.
-//   - `dkim` — signs outbound mail and proves domain ownership. - `return_path` — return-path (bounce) CNAME for sending. - `tracking` — branded open/click tracking CNAME (optional). - `dmarc` — advisory DMARC policy record. - `inbound_mx` — MX record routing mail to Bird for receiving. Always
-//     present wherever inbound is available, as a regional reference,
+//
+//   - `dkim`: signs outbound mail and proves domain ownership.
+//   - `return_path`: identifies the return-path (bounce) CNAME for sending.
+//   - `tracking`: identifies the optional branded open/click tracking CNAME.
+//   - `inbound_mx`: identifies the MX record routing mail to us for receiving.
+//     Always present wherever inbound is available, as a regional reference,
 //     regardless of whether receiving is enabled; publishing it does not
-//     enable receiving on its own — see `DomainUpdate.inbound`.
+//     enable receiving on its own: see `DomainUpdate.inbound`.
+//   - `dmarc`: identifies the advisory DMARC policy record.
 type DNSRecordPurpose string
 
 // DNSRecordState Lifecycle state of this record.
-//   - `active` — the record backs the domain's current configuration. - `pending` — the record belongs to a staged configuration change;
+//
+//   - `active`: the record backs the domain's current configuration.
+//   - `pending`: the record belongs to a staged configuration change;
 //     publish it to complete the change.
-//   - `deprecated` — the record belonged to a previous configuration.
+//   - `deprecated`: the record belonged to a previous configuration.
 //     Keep it in DNS until `safe_to_remove` is `true`; in-flight mail and
 //     previously sent tracked links may still resolve through it.
 type DNSRecordState string
 
 // DNSRecordStatus Verification status of this record's most recent DNS check.
-//   - `pending` — the record has not verified yet; publish it (or correct it)
-//     and it will verify on the next check.
-//   - `verified` — the most recent check matched the expected value. - `warning` — the record verified before and a recent check no longer
+//
+//   - `pending`: the record has not verified yet; publish it (or correct it)
+//     and it verifies on the next check.
+//   - `verified`: the most recent check matched the expected value.
+//   - `warning`: the record verified before and a recent check no longer
 //     matched, but it is still within the grace period. Sending is not yet
 //     affected; fix the record before the grace period ends to avoid it
 //     being blocked.
-//   - `failed` — the record verified before but later checks kept failing
+//   - `failed`: the record verified before but later checks kept failing
 //     past the grace period; the configuration has regressed and needs
 //     attention.
 type DNSRecordStatus string
 
-// DNSRecordType defines model for DNSRecord.Type.
+// DNSRecordType The DNS record type to publish, determined by `purpose`.
+//
+// - `TXT`: used for the `dkim` and `dmarc` purposes.
+// - `CNAME`: used for the `return_path` and `tracking` purposes.
+// - `MX`: used for the `inbound_mx` purpose.
 type DNSRecordType string
 
 // DocsPage defines model for DocsPage.
@@ -4488,55 +4835,75 @@ type Domain struct {
 	// Dkim Active DKIM signing configuration for the domain.
 	Dkim DomainDKIM `json:"dkim"`
 
-	// DnsRecords The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off (`capabilities.inbound.status` is `not_configured`) — their presence alone does not mean receiving is enabled (see `DomainUpdate.inbound`).
+	// DnsRecords The domain's DNS records and their individual verification state, returned in full on both the list and single-domain responses. This is the complete set to publish across DKIM, return-path, DMARC, tracking, and inbound; records for a staged change carry `state: pending`. Inbound MX records are always included as a regional reference, even while receiving is off and `capabilities.inbound.status` is `not_configured`. Their presence alone does not mean receiving is enabled; see `DomainUpdate.inbound`.
 	DnsRecords *[]DNSRecord `json:"dns_records,omitempty"`
 
 	// Domain The sending domain name. Set at creation and immutable.
 	Domain *string  `json:"domain,omitempty"`
 	Id     DomainID `json:"id"`
 
-	// LastCheckedAt When Bird last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification — your manual refresh and the periodic automatic re-checks alike. Null if the domain has never been checked.
+	// LastCheckedAt When we last checked this domain's DNS records, whether or not the outcome changed. Updated on every verification: your manual refresh and the periodic automatic re-checks alike. `null` if the domain has never been checked.
 	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
+
+	// Next What to do next about this domain, given the state it is in. Each entry names one action and says
+	// why it is worth taking, so you can act on this response without working out the order
+	// yourself. Present on reads that compute it: an empty list means there is nothing to do,
+	// and the field is absent entirely on responses that do not report next actions.
+	//
+	// This answers whether you own the domain, which is what `status` reports. What each
+	// capability still needs before it can send or receive is reported separately under
+	// `capabilities`, so an empty list here does not on its own mean the domain is ready.
+	Next *[]NextAction `json:"next,omitempty"`
 
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings DomainSettings `json:"settings"`
 
-	// Status Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
-	// - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+	// Status Domain ownership verification, proven by the DKIM record. Readiness to
+	// send or track is reported separately per capability under
+	// `capabilities.*.status`.
+	//
+	// - `pending`: the DKIM record has not been published yet.
+	// - `verified`: the DKIM record is in place; ownership is confirmed.
+	// - `failed`: a DKIM record exists but does not match the expected
 	//   value (for example a stale record from an earlier setup), or a
 	//   previously verified record was removed. Correct the record to
 	//   recover.
-	// - `temporary_failure` — DNS resolution failed transiently (timeout,
-	//   unreachable nameserver). Verification is queued for retry on a 72h
-	//   cadence; customer should not edit DNS records before the retry runs.
-	// - `rejected` — the domain was refused for policy reasons and cannot be
+	// - `temporary_failure`: DNS resolution failed transiently, such as from a
+	//   timeout or unreachable nameserver. Verification retries automatically;
+	//   do not change the DNS records unless they are incorrect.
+	// - `rejected`: the domain was refused for policy reasons and cannot be
 	//   used for sending. Contact support if you believe this is an error.
 	Status *DomainStatus `json:"status,omitempty"`
 
 	// UpdatedAt When the domain's configuration was last changed (such as a settings or return-path change). Verification re-checks do not change this; see `last_checked_at` and `verified_at` for verification timing.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
-	// Vendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+	// Vendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns `other` when the provider has not been detected or is not recognized.
 	Vendor *DomainVendor `json:"vendor,omitempty"`
 
-	// VerifiedAt When the domain's ownership was confirmed — the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. Null if the domain has never been verified.
+	// VerifiedAt When the domain's ownership was confirmed: the moment `status` became `verified` via the DKIM record. Unchanged by later re-checks while it stays verified. `null` if the domain has never been verified.
 	VerifiedAt  *time.Time  `json:"verified_at,omitempty"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// DomainStatus Domain ownership verification, proven by the DKIM record. Readiness to send or track is reported separately per capability under `capabilities.*.status`.
-//   - `pending` — the DKIM record has not been published yet. - `verified` — the DKIM record is in place; ownership is confirmed. - `failed` — a DKIM record exists but does not match the expected
+// DomainStatus Domain ownership verification, proven by the DKIM record. Readiness to
+// send or track is reported separately per capability under
+// `capabilities.*.status`.
+//
+//   - `pending`: the DKIM record has not been published yet.
+//   - `verified`: the DKIM record is in place; ownership is confirmed.
+//   - `failed`: a DKIM record exists but does not match the expected
 //     value (for example a stale record from an earlier setup), or a
 //     previously verified record was removed. Correct the record to
 //     recover.
-//   - `temporary_failure` — DNS resolution failed transiently (timeout,
-//     unreachable nameserver). Verification is queued for retry on a 72h
-//     cadence; customer should not edit DNS records before the retry runs.
-//   - `rejected` — the domain was refused for policy reasons and cannot be
+//   - `temporary_failure`: DNS resolution failed transiently, such as from a
+//     timeout or unreachable nameserver. Verification retries automatically;
+//     do not change the DNS records unless they are incorrect.
+//   - `rejected`: the domain was refused for policy reasons and cannot be
 //     used for sending. Contact support if you believe this is an error.
 type DomainStatus string
 
-// DomainVendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns "other" when the provider has not been detected or is not recognized.
+// DomainVendor The DNS provider hosting this domain's nameservers, so you know which provider's dashboard to manage the required DNS records in. Returns `other` when the provider has not been detected or is not recognized.
 type DomainVendor string
 
 // DomainCapabilities defines model for DomainCapabilities.
@@ -4550,56 +4917,75 @@ type DomainCapabilities struct {
 
 // DomainCapability defines model for DomainCapability.
 type DomainCapability struct {
-	// Domain Hostname this capability is configured with — the return-path domain, the tracking domain, or the domain where the DMARC policy was found. Null when not applicable or not configured.
+	// Domain Hostname this capability is configured with: the return-path domain, the tracking domain, or the domain where the DMARC policy was found. `null` when not applicable or not configured.
 	Domain *string `json:"domain,omitempty"`
 
 	// Pending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
 	Pending *DomainCapabilityPending `json:"pending,omitempty"`
 
-	// Reason Machine-readable reason code for a failed capability status. Only set when `status` is `failed`. Use this to display a specific message to users rather than a generic failure message.
-	// - `tracking_domain_in_use` — the link tracking subdomain is already claimed
+	// Reason Machine-readable reason code for a failed capability status. Only set when
+	// `status` is `failed`. Use this to display a specific message to users rather
+	// than a generic failure message.
+	//
+	// - `tracking_domain_in_use`: the link tracking subdomain is already claimed
 	//   by another organization.
 	Reason *string `json:"reason,omitempty"`
 
 	// Status Capability verification status.
-	// - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+	//
+	// - `pending`: verification has not run, or is currently running.
+	// - `verified`: all DNS records for this capability resolved with the
 	//   expected values.
-	// - `warning` — a record for this capability verified before and a recent
+	// - `warning`: a record for this capability verified before and a recent
 	//   check no longer matches, but it is still within the grace period.
 	//   Sending is not yet affected; fix it before the grace period ends.
-	// - `failed` — DNS records resolved but at least one value is wrong.
+	// - `failed`: DNS records resolved but at least one value is wrong.
 	//   Update your DNS to recover.
-	// - `temporary_failure` — DNS lookup failed transiently. Verification is
-	//   queued for retry; don't change DNS records yet.
-	// - `not_configured` — the capability is not set up on this domain
-	//   (e.g. no tracking domain configured).
+	// - `temporary_failure`: DNS lookup failed transiently. Verification retries
+	//   automatically; do not change DNS records unless they are incorrect.
+	// - `not_configured`: the capability is not set up on this domain
+	//   (for example, no tracking domain configured).
 	Status *DomainCapabilityStatus `json:"status,omitempty"`
 }
 
 // DomainCapabilityStatus Capability verification status.
-//   - `pending` — verification has not run, or is currently running. - `verified` — all DNS records for this capability resolved with the
+//
+//   - `pending`: verification has not run, or is currently running.
+//   - `verified`: all DNS records for this capability resolved with the
 //     expected values.
-//   - `warning` — a record for this capability verified before and a recent
+//   - `warning`: a record for this capability verified before and a recent
 //     check no longer matches, but it is still within the grace period.
 //     Sending is not yet affected; fix it before the grace period ends.
-//   - `failed` — DNS records resolved but at least one value is wrong.
+//   - `failed`: DNS records resolved but at least one value is wrong.
 //     Update your DNS to recover.
-//   - `temporary_failure` — DNS lookup failed transiently. Verification is
-//     queued for retry; don't change DNS records yet.
-//   - `not_configured` — the capability is not set up on this domain
-//     (e.g. no tracking domain configured).
+//   - `temporary_failure`: DNS lookup failed transiently. Verification retries
+//     automatically; do not change DNS records unless they are incorrect.
+//   - `not_configured`: the capability is not set up on this domain
+//     (for example, no tracking domain configured).
 type DomainCapabilityStatus string
 
 // DomainCapabilityPending A staged configuration change awaiting DNS verification. The currently active configuration keeps serving until the staged one verifies, at which point it is promoted automatically. Submitting another change for the same capability replaces the staged value.
 type DomainCapabilityPending struct {
-	// Domain Hostname the capability will use once the staged change verifies.
+	// Domain Hostname the capability uses after the staged change verifies.
 	Domain *string `json:"domain,omitempty"`
 
-	// Status Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+	// Status Verification status of the staged change.
+	//
+	// - `pending`: the DNS records have not been detected yet.
+	// - `failed`: the records resolved with wrong values; correct them
+	//   or submit a different change.
+	// - `temporary_failure`: the DNS lookup failed transiently and is
+	//   queued for retry.
 	Status *DomainCapabilityPendingStatus `json:"status,omitempty"`
 }
 
-// DomainCapabilityPendingStatus Verification status of the staged change. `pending` — waiting for the DNS records to be detected. `failed` — the records resolved with wrong values; correct them or submit a different change. `temporary_failure` — DNS lookup failed transiently and will be retried.
+// DomainCapabilityPendingStatus Verification status of the staged change.
+//
+//   - `pending`: the DNS records have not been detected yet.
+//   - `failed`: the records resolved with wrong values; correct them
+//     or submit a different change.
+//   - `temporary_failure`: the DNS lookup failed transiently and is
+//     queued for retry.
 type DomainCapabilityPendingStatus string
 
 // DomainCreate defines model for DomainCreate.
@@ -4607,16 +4993,16 @@ type DomainCreate struct {
 	// Dkim DKIM signing configuration.
 	Dkim *DomainDKIMConfig `json:"dkim,omitempty"`
 
-	// Domain The domain you will send from — the domain of your `from` addresses. Use a dedicated subdomain (e.g. `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
+	// Domain The domain you send from: the domain of your `from` addresses. Use a dedicated subdomain (for example, `mail.acme.com`) rather than your registered domain so sending reputation stays separate from other services on the domain.
 	Domain string `json:"domain"`
 
-	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
 	ReturnPath *DomainReturnPathConfig `json:"return_path,omitempty"`
 
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings `json:"settings,omitempty"`
 
-	// Tracking Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+	// Tracking Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
 	Tracking *DomainTrackingConfig `json:"tracking,omitempty"`
 }
 
@@ -4625,33 +5011,35 @@ type DomainDKIM struct {
 	// KeySize RSA key size in bits.
 	KeySize *int `json:"key_size,omitempty"`
 
-	// Mode How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+	// Mode How the DKIM public key is published in your DNS. `txt`: you publish the key as a TXT record. `delegated`: you publish a single CNAME and we host and rotate the key.
 	Mode *DomainDKIMMode `json:"mode,omitempty"`
 
 	// Selector DKIM selector used to sign mail from this domain.
 	Selector *string `json:"selector,omitempty"`
 }
 
-// DomainDKIMMode How the DKIM public key is published in your DNS. `txt` — you publish the key as a TXT record. `delegated` — you publish a single CNAME and Bird hosts and rotates the key.
+// DomainDKIMMode How the DKIM public key is published in your DNS. `txt`: you publish the key as a TXT record. `delegated`: you publish a single CNAME and we host and rotate the key.
 type DomainDKIMMode string
 
 // DomainDKIMConfig DKIM signing configuration.
 type DomainDKIMConfig struct {
 	// Mode How the DKIM public key is published in your DNS.
-	// - `txt` — you publish the DKIM public key as a TXT record. Key
+	//
+	// - `txt` (default): you publish the DKIM public key as a TXT record. Key
 	//   rotation requires updating the record.
-	// - `delegated` — preview, currently unavailable; supplying it returns
-	//   `422`. When available, you publish a single CNAME and Bird hosts
-	//   and rotates the key with no further DNS changes on your side.
+	// - `delegated`: you publish a CNAME that points to a DKIM key we host and
+	//   rotate. This mode is unavailable for new configurations; supplying it
+	//   returns `422`.
 	Mode *DomainDKIMConfigMode `json:"mode,omitempty"`
 }
 
 // DomainDKIMConfigMode How the DKIM public key is published in your DNS.
-//   - `txt` — you publish the DKIM public key as a TXT record. Key
+//
+//   - `txt` (default): you publish the DKIM public key as a TXT record. Key
 //     rotation requires updating the record.
-//   - `delegated` — preview, currently unavailable; supplying it returns
-//     `422`. When available, you publish a single CNAME and Bird hosts
-//     and rotates the key with no further DNS changes on your side.
+//   - `delegated`: you publish a CNAME that points to a DKIM key we host and
+//     rotate. This mode is unavailable for new configurations; supplying it
+//     returns `422`.
 type DomainDKIMConfigMode string
 
 // DomainEvent defines model for DomainEvent.
@@ -4666,7 +5054,7 @@ type DomainEvent struct {
 	// Summary Human-readable summary of what changed.
 	Summary string `json:"summary"`
 
-	// Type Type of domain event. `domain.status_changed` tracks ownership verification (the domain-level `status`); `domain.sending_status_changed` tracks readiness to send (`capabilities.sending`); the remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	// Type Type of domain event. `domain.status_changed` tracks ownership verification through the domain-level `status`. `domain.sending_status_changed` tracks readiness to send through `capabilities.sending`. The remaining `*_status_changed` types each track one DNS record's verification. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
 	Type string `json:"type"`
 }
 
@@ -4678,20 +5066,20 @@ type DomainEventList struct {
 	// Data Page of domain events, newest first by default.
 	Data []DomainEvent `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // DomainID defines model for DomainID.
 type DomainID = string
 
-// DomainInboundConfig Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+// DomainInboundConfig Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
 type DomainInboundConfig struct {
 	// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Disabling tears receiving down and removes the MX records from `dns_records`; this is immediate in the normal case, and if a step needs retrying the capability clears as soon as teardown finishes.
 	Enabled bool `json:"enabled"`
@@ -4702,20 +5090,20 @@ type DomainList struct {
 	// Data Page of sending domains, newest first by default.
 	Data []Domain `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
-// DomainReturnPathConfig Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+// DomainReturnPathConfig Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
 type DomainReturnPathConfig struct {
 	// Name Name part to use for the return-path domain. For example, `send` on `mail.acme.com` becomes `send.mail.acme.com`. Defaults to `send` when omitted at creation.
 	Name string `json:"name"`
@@ -4723,34 +5111,34 @@ type DomainReturnPathConfig struct {
 
 // DomainSettings Per-domain behavior toggles. Changes apply immediately to new sends.
 type DomainSettings struct {
-	// ClickTracking Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+	// ClickTracking Rewrite links in HTML email through your tracking domain to record clicks. You can enable this before your tracking domain has verified; it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
 	ClickTracking *bool `json:"click_tracking,omitempty"`
 
-	// OpenTracking Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified — it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
+	// OpenTracking Insert a tracking pixel in HTML email to record opens. You can enable this before your tracking domain has verified: it begins working once verification completes. A tracking domain must be configured; enabling it without one returns `409`.
 	OpenTracking *bool `json:"open_tracking,omitempty"`
 }
 
-// DomainTrackingConfig Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; Bird adds the sending domain automatically. A domain created with no tracking configuration defaults to the name `links`. Tracked links are served over HTTPS once the tracking record verifies.
+// DomainTrackingConfig Tracking domain configuration for branded open and click tracking URLs. Provide only the name part; we add the sending domain automatically. A domain created with no tracking configuration defaults to `links`. Tracked links are served over HTTPS after the tracking record verifies.
 type DomainTrackingConfig struct {
 	// Name Name part to use for branded open and click tracking URLs. For example, `links` on `mail.acme.com` becomes `links.mail.acme.com`.
 	Name string `json:"name"`
 }
 
-// DomainUpdate Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged: the current configuration keeps serving until the new one's DNS records verify, then the change is promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
+// DomainUpdate Partial update. `settings` changes apply immediately. Changes to `return_path`, `tracking`, or `dkim` on a verified capability are staged. The current configuration keeps serving until the new DNS records verify. The change is then promoted automatically and the old records are marked `deprecated`. The staged value is visible under `capabilities.*.pending` and can be replaced by submitting another change.
 type DomainUpdate struct {
 	// Dkim DKIM signing configuration.
 	Dkim *DomainDKIMConfig `json:"dkim,omitempty"`
 
-	// Inbound Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain: Bird returns MX records to publish, and once they verify, mail to any local-part at this domain is delivered as an inbound message and the `email.received` webhook fires. The capability is enabled on the domain's own registration, so use a dedicated subdomain (e.g. `inbound.acme.com`), never your apex — apex MX would capture your corporate mail.
+	// Inbound Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
 	Inbound *DomainInboundConfig `json:"inbound,omitempty"`
 
-	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; Bird adds the sending domain automatically.
+	// ReturnPath Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
 	ReturnPath *DomainReturnPathConfig `json:"return_path,omitempty"`
 
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings *DomainSettings `json:"settings,omitempty"`
 
-	// Tracking Set or change the tracking name part, or remove tracking by passing null. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
+	// Tracking Set or change the tracking name part, or remove tracking by passing `null`. Removal requires `click_tracking` and `open_tracking` to be disabled first, and returns `409` otherwise. After removal, links in previously sent email keep resolving while the tracking records are reported as `deprecated`.
 	Tracking nullable.Nullable[DomainTrackingConfig] `json:"tracking,omitempty"`
 }
 
@@ -4771,23 +5159,24 @@ type EmailAddressInput struct {
 // EmailAddressInput0 Email address, optionally in RFC 5322 mailbox form with an embedded display name.
 type EmailAddressInput0 = string
 
-// EmailAttachment A file attached to an email. Put the file's bytes in `content`, base64-encoded, and give it the `filename` the recipient will see.
+// EmailAttachment A file attached to an email. Put the base64-encoded bytes in `content` and the
+// recipient-facing name in `filename`. To show an image inline, set `content_id`
+// and reference it from the HTML body with `<img src="cid:..."/>`.
 //
-// To show an image inline, so that `<img src="cid:..."/>` in your HTML body picks it up, set `content_id` alongside `content`.
+// The generated message is limited to 20 MB across the HTML body, text body,
+// attachments, and inline images after base64 and MIME encoding. Keep raw
+// attachment content at or below 15 MB to leave room for encoding and the body.
 //
-// Each message can be at most **20 MB** once it has been generated. That figure covers the HTML body, the text body, and every attachment and inline image, all measured after base64 encoding rather than as raw files. Base64 and MIME wrapping add roughly a third, so keep the raw content of your attachments at or below **15 MB** to stay under the cap.
-//
-// A message we accept can still bounce at the other end, because every mail provider sets its own limit. Gmail and Outlook.com both publish a 25 MB limit. Exchange Online defaults to 35 MB for sending and 36 MB for receiving, though an administrator can change both, and on-premise Exchange Server defaults to 10 MB. So a message close to 20 MB is worth testing against the providers your recipients actually use.
-//
-// A batch send can attach files to each message in the batch. Every message is still held to the same 20 MB, and the whole request body is capped at 20 MB as well. Executable and script content types are refused when the request is validated.
+// Batch sends apply the same 20 MB limit to each message and to the full request
+// body. Executable and script content types are rejected.
 type EmailAttachment struct {
-	// Content The file's bytes, base64-encoded. What you send here counts toward the message's 20 MB limit after encoding and MIME wrapping, not at its raw size.
+	// Content Base64-encoded file bytes. The encoded value and MIME wrapping count toward the 20 MB message limit.
 	Content []byte `json:"content"`
 
-	// ContentId An RFC 2392 Content-ID for the file. Set it and the attachment is shown inline, so your HTML body can point at it with `<img src="cid:{content_id}"/>`. Leave it out and the file arrives as an ordinary attachment the recipient downloads.
+	// ContentId An RFC 2392 Content-ID for an inline file. Reference it from the HTML body with `<img src="cid:{content_id}"/>`. Omit it to send a downloadable attachment.
 	ContentId *string `json:"content_id,omitempty"`
 
-	// ContentType The file's MIME type. Leave it out and we work it out from the extension on `filename`. This is what we check against the list of executable and script types we refuse.
+	// ContentType The file's MIME type. If omitted, the API infers it from the extension in `filename`. The API rejects executable and script types based on this value.
 	ContentType *string `json:"content_type,omitempty"`
 
 	// Filename The name the recipient sees on the attachment.
@@ -4797,7 +5186,7 @@ type EmailAttachment struct {
 // EmailAttachmentID defines model for EmailAttachmentID.
 type EmailAttachmentID = string
 
-// EmailAttachmentRef Attachment metadata returned on API reads. The original content is not sent back inline, only the metadata you need to display and audit it. To download the raw attachment bytes (while content storage is enabled and within the retention window), use `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`, which returns the file with its own content type and a Content-Disposition filename.
+// EmailAttachmentRef Attachment metadata returned on API reads. Download the file during its retention window with `GET /v1/email/messages/{message_id}/attachments/{attachment_id}`.
 type EmailAttachmentRef struct {
 	// ContentId The Content-ID set at send time, when the attachment was inline.
 	ContentId *string `json:"content_id,omitempty"`
@@ -4828,7 +5217,7 @@ type EmailBounceCodeStatsPoint struct {
 
 // EmailBounceStats Breakdown of `bounced` by failure type. Each field counts distinct bounced recipients of that type in this row's scope; the five types approximately partition `bounced`.
 type EmailBounceStats struct {
-	// Admin Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fixing these usually means changing your content or your sender configuration, not cleaning up the recipient list.
+	// Admin Distinct recipients refused by a policy at the receiving end, such as relaying denied or a blocklisted domain. Fix these by changing your content or sender configuration. Cleaning the recipient list does not usually help.
 	Admin *int `json:"admin,omitempty"`
 
 	// Block Distinct recipients bounced because the receiving mail server blocked the sending IP for reputation reasons (mail block, spam block, spam content). Triage usually focuses on IP reputation and sending volume.
@@ -4907,7 +5296,7 @@ type EmailCategoryStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a client or device, so there is no per-client delivered denominator to divide by. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`. The other two are null. The detected client is also affected by inbox-privacy prefetching, the same way open counts are: `opens_non_prefetched` excludes opens that were auto-fetched by an inbox privacy feature rather than by a person actually opening the message.
+// EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a client or device, preventing a per-client delivered denominator and rates. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`. The other two are null. Inbox-privacy prefetching also affects the detected client. As with open counts, `opens_non_prefetched` excludes opens auto-fetched by an inbox privacy feature. It includes opens caused by a person opening the message.
 type EmailClientStatsPoint struct {
 	// DeviceType The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
 	DeviceType *string `json:"device_type,omitempty"`
@@ -4920,7 +5309,7 @@ type EmailClientStatsPoint struct {
 	Os *string `json:"os,omitempty"`
 }
 
-// EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so there is nothing else here to count.
+// EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so no other count applies.
 type EmailComplaintTypeStatsPoint struct {
 	// Complained Distinct recipients who reported a message as spam with this complaint type at any point in the period.
 	Complained *int `json:"complained,omitempty"`
@@ -4934,16 +5323,16 @@ type EmailComplaintTypeStatsPoint struct {
 // - `delivery`: Time from handing the message off to the receiving mail server accepting it. Null when no deliveries occurred for this row in the period.
 // - `total`: End-to-end time from accepting the send to delivery. Null when no deliveries occurred for this row in the period.
 //
-// These breakdowns have no `processing` latency family. Which row a message belongs to, meaning which sending IP carried it or which mailbox provider received it, is only known once the receiving mail server has reported back with a delivery, a bounce, a deferral or a late bounce. The accept-to-processed phase is over before then, so there is no way to attribute it to a row. Use `GET /v1/email/stats/daily` for processing-latency percentiles across the whole workspace.
+// These breakdowns have no `processing` latency family. A message's row identifies which sending IP carried it or which mailbox provider received it. This becomes known only after the receiving mail server reports a delivery, bounce, deferral, or late bounce. The accept-to-processed phase ends before that attribution is known, preventing row-level processing latency. Use `GET /v1/email/stats/daily` for processing-latency percentiles across the whole workspace.
 type EmailDeliveryLatencyStats struct {
-	// Delivery p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	// Delivery Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 	Delivery *EmailLatencyQuantiles `json:"delivery,omitempty"`
 
-	// Total p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	// Total Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 	Total *EmailLatencyQuantiles `json:"total,omitempty"`
 }
 
-// EmailDeliveryStats Delivery counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope (on the period summary, the sum of the per-bucket distinct counts), attributed by event time (not send time): a recipient delivered on Monday counts in Monday's row, and a recipient who bounced then succeeded on a retry can appear in both `bounced` and `delivered`. Very large counts are close estimates rather than exact tallies.
+// EmailDeliveryStats Delivery counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope. On the period summary, each count is the sum of the per-bucket distinct counts. Event time determines attribution; send time does not. A recipient delivered on Monday counts in Monday's row. A recipient who bounced and then succeeded on a retry can appear in both `bounced` and `delivered`. Very large counts are close estimates rather than exact tallies.
 //
 // These counts are successive lifecycle stages, so a recipient can appear in more than one:
 //
@@ -4979,13 +5368,13 @@ type EmailDeliveryStats struct {
 	// Delivered Distinct recipients whose message the receiving mail server accepted.
 	Delivered *int `json:"delivered,omitempty"`
 
-	// DeliveryRate Share of this scope's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
+	// DeliveryRate Share of this scope's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when there were no attempts.
 	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
 
-	// EffectiveDelivered Recipients who remain in-inbox in this scope after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+	// EffectiveDelivered Recipients who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Use this as the base for engagement-rate denominators. Clamped to 0 when `oob_bounces` exceeds `delivered`.
 	EffectiveDelivered *int `json:"effective_delivered,omitempty"`
 
-	// OobBounces Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. Counted as deduplicated events, not unique recipients.
+	// OobBounces Out-of-band bounce events: distinct failure notifications received after the receiving server had initially confirmed delivery. The count represents deduplicated events rather than unique recipients.
 	OobBounces *int `json:"oob_bounces,omitempty"`
 
 	// OobRate Share of this scope's delivery attempts that resulted in an out-of-band bounce, computed as `oob_bounces / (delivered + bounced)`. Null when there were no attempts.
@@ -4998,7 +5387,7 @@ type EmailDeliveryStats struct {
 	Rejected *int `json:"rejected,omitempty"`
 }
 
-// EmailEngagementCounts Open and click counts for a breakdown row whose dimension is resolved from engagement events only. `opens`, `opens_non_prefetched`, and `clicks` count events, not people: the same recipient opening or clicking more than once counts each time. The `unique_*` fields count distinct recipients instead, so a recipient who opened five times only counts once there. Rates and unsubscribe counts are not included here. There is no per-dimension delivered count to use as a rate's denominator, and an unsubscribe event has none of the information this breakdown is grouped by, so it cannot be placed on a row.
+// EmailEngagementCounts Open and click counts for a breakdown row whose dimension is resolved from engagement events only. `opens`, `opens_non_prefetched`, and `clicks` count each event. The same recipient opening or clicking more than once counts each time. The `unique_*` fields count distinct recipients instead, so a recipient who opened five times only counts once there. Rates and unsubscribe counts are not included here. A per-dimension delivered count is unavailable as a rate's denominator, and an unsubscribe event has none of the information this breakdown is grouped by, so it cannot be placed on a row.
 type EmailEngagementCounts struct {
 	// Clicks Distinct click events, counting repeat clicks from the same recipient.
 	Clicks *int `json:"clicks,omitempty"`
@@ -5019,10 +5408,10 @@ type EmailEngagementCounts struct {
 	UniqueOpensNonPrefetched *int `json:"unique_opens_non_prefetched,omitempty"`
 }
 
-// EmailEngagementSortMetric Metric to rank rows by, applied descending. Shared by the engagement-only breakdowns (locations, email clients), which report open and click counts but no rates (there is no per-dimension delivered denominator).
+// EmailEngagementSortMetric Metric to rank rows by, applied descending. Shared by the engagement-only breakdowns (locations, email clients), which report open and click counts but no rates because delivery events provide no per-dimension denominator.
 type EmailEngagementSortMetric string
 
-// EmailEngagementStats Engagement counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences). The `unique_*` fields count distinct recipients. `unsubscribes` counts distinct unsubscribe events. Counts are attributed by event time (not send time), so an open recorded today for a message sent earlier counts in today's row. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. Each rate divides the counts in this scope and is null when its denominator is zero.
+// EmailEngagementStats Engagement counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). `opens`, `opens_non_prefetched` and `clicks` count distinct engagement events (deduplicated occurrences). The `unique_*` fields count distinct recipients. `unsubscribes` counts distinct unsubscribe events. An event counts in the time bucket when it occurs, even if the message was sent in an earlier bucket. Counts are deduplicated with a scalable approximate counting method, so very large counts are close estimates rather than exact tallies. Each rate divides the counts in this scope and is null when its denominator is zero.
 type EmailEngagementStats struct {
 	// ClickRate Distinct clickers relative to effectively delivered recipients in the same scope, computed as `unique_clicks / delivery.effective_delivered` (`delivery.delivered` on rows without an `effective_delivered` field). Clicks are attributed by event time, so engagement earned by earlier deliveries can push the rate above 1. Null when the denominator is zero.
 	ClickRate *float32 `json:"click_rate,omitempty"`
@@ -5066,7 +5455,14 @@ type EmailEvent struct {
 	// BounceDescription The bounce reason, in plain language, as reported by the mail server. Present on `email.bounced` and `email.deferred` events.
 	BounceDescription *string `json:"bounce_description,omitempty"`
 
-	// BounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	// BounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and
+	// `email.deferred` events.
+	//
+	// - `hard`: a permanent failure (invalid address or non-existent domain).
+	// - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+	// - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+	// - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+	// - `undetermined`: the receiving server's response is ambiguous.
 	BounceType *EmailEventBounceType `json:"bounce_type,omitempty"`
 
 	// Country ISO 3166-1 alpha-2 country code derived from the client IP. Present on `email.opened` and `email.clicked` events when available.
@@ -5101,15 +5497,15 @@ type EmailEvent struct {
 
 	// Type Type of an event in a message's per-recipient delivery timeline.
 	//
-	// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+	// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once for each message regardless of its recipient count.
 	// - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
 	// - `email.processed`: We queued the message for delivery to the recipient's mail server.
-	// - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+	// - `email.deferred`: The recipient's mail server temporarily refused the message. Delivery remains pending and is retried. Can fire more than once per recipient.
 	// - `email.delivered`: The recipient's mail server accepted the message.
 	// - `email.bounced`: Delivery permanently failed at the recipient's mail server.
 	// - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
 	// - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
-	// - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+	// - `email.canceled`: A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
 	// - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
 	// - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
 	// - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
@@ -5126,7 +5522,14 @@ type EmailEvent struct {
 	UserAgent *string `json:"user_agent,omitempty"`
 }
 
-// EmailEventBounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and `email.deferred` events. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+// EmailEventBounceType Bounce classification. Present on `email.bounced`, `email.out_of_band_bounce`, and
+// `email.deferred` events.
+//
+// - `hard`: a permanent failure (invalid address or non-existent domain).
+// - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+// - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+// - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+// - `undetermined`: the receiving server's response is ambiguous.
 type EmailEventBounceType string
 
 // EmailEventRejectionReason Specific cause of rejection. Present on `email.rejected` events only.
@@ -5145,27 +5548,27 @@ type EmailEventList struct {
 	// Data Page of timeline events for this email send, in chronological order.
 	Data []EmailEvent `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // EmailEventType Type of an event in a message's per-recipient delivery timeline.
 //
-// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once per message, not per recipient.
+// - `email.scheduled`: We accepted a send scheduled for a future time. Fires once for each message regardless of its recipient count.
 // - `email.accepted`: We accepted the send and are getting ready to deliver it. Fires once per requested recipient.
 // - `email.processed`: We queued the message for delivery to the recipient's mail server.
-// - `email.deferred`: The recipient's mail server temporarily refused the message, and delivery will be retried. Can fire more than once per recipient.
+// - `email.deferred`: The recipient's mail server temporarily refused the message. Delivery remains pending and is retried. Can fire more than once per recipient.
 // - `email.delivered`: The recipient's mail server accepted the message.
 // - `email.bounced`: Delivery permanently failed at the recipient's mail server.
 // - `email.out_of_band_bounce`: A bounce notification arrived after the message had already been accepted for delivery.
 // - `email.rejected`: We rejected the message before attempting delivery, for example because the recipient is suppressed.
-// - `email.canceled`: A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+// - `email.canceled`: A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
 // - `email.opened`: The recipient opened the message. Can fire more than once per recipient.
 // - `email.clicked`: The recipient clicked a tracked link in the message. Can fire more than once per recipient.
 // - `email.unsubscribed`: The recipient opted out through a tracked unsubscribe link in the message.
@@ -5181,7 +5584,7 @@ type EmailID = string
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
 
-// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+// EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 type EmailLabelsUpdate struct {
 	// Add Labels to apply.
 	Add *[]string `json:"add,omitempty"`
@@ -5190,7 +5593,7 @@ type EmailLabelsUpdate struct {
 	Remove *[]string `json:"remove,omitempty"`
 }
 
-// EmailLatencyQuantiles p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+// EmailLatencyQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 type EmailLatencyQuantiles struct {
 	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
 	P50Ms *int `json:"p50_ms,omitempty"`
@@ -5208,19 +5611,24 @@ type EmailLatencyQuantiles struct {
 // - `delivery`: Time from handoff to the receiving mail server accepting the message, dominated by recipient-side delivery behavior. Measured per delivered recipient; null when no deliveries occurred in the bucket.
 // - `total`: End-to-end time from accepting the send to delivery, and the number most worth watching against your own delivery targets. Measured per delivered recipient; null when no deliveries occurred in the bucket.
 //
-// Each family is reported independently and is omitted entirely when no qualifying event contributed a latency measurement in the bucket (including when latency for that stage has not yet been recorded for the workspace), so `processing` can be present while `delivery` and `total` are absent. A client must handle a missing family, and a null p50/p95/p99 within a present family, by rendering a placeholder rather than assuming a number.
+// Each family is reported independently. A family is omitted when no qualifying
+// event contributed a latency measurement in the bucket. This also applies when
+// the workspace has not recorded latency for that stage yet. The `processing`
+// family can therefore be present while `delivery` and `total` are absent. A
+// client must handle a missing family, and a null p50/p95/p99 within a present
+// family, by rendering a placeholder rather than assuming a number.
 type EmailLatencyStats struct {
-	// Delivery p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	// Delivery Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 	Delivery *EmailLatencyQuantiles `json:"delivery,omitempty"`
 
-	// Processing p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	// Processing Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 	Processing *EmailLatencyQuantiles `json:"processing,omitempty"`
 
-	// Total p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. Percentiles are approximate (computed from a high-volume aggregation pipeline). All three are null together when no qualifying event contributed a latency measurement in the bucket.
+	// Total Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family over the bucket. All three are null when no qualifying event contributed a measurement.
 	Total *EmailLatencyQuantiles `json:"total,omitempty"`
 }
 
-// EmailLocationStatsPoint Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a recipient location, so there is no per-location delivered denominator to divide by. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
+// EmailLocationStatsPoint Open and click counts for messages engaged with from a single location over the requested period. Location is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a recipient location, preventing a per-location delivered denominator and rates. Each row always includes all three of `country`, `region`, and `city`; the levels below the requested `group_by` are null.
 type EmailLocationStatsPoint struct {
 	// City The city within the region. Populated when `group_by` is `city`; null at coarser groupings.
 	City *string `json:"city,omitempty"`
@@ -5233,11 +5641,15 @@ type EmailLocationStatsPoint struct {
 	Region *string `json:"region,omitempty"`
 }
 
-// EmailLookup What we can tell you about an email address: whether it will accept mail, how confident that is, why not when it will not, and what the address looks like it was meant to be when it looks misspelled.
+// EmailLookup Assessment of whether an email address accepts mail, the confidence and reason for that
+// assessment, and a suggested correction when the address appears misspelled.
 //
-// `result` is the field to decide on; `delivery_confidence` grades it, and `flags` describes the address itself rather than its deliverability, so a perfectly valid address can still have `role` or `disposable`.
+// `result` is the field to decide on; `delivery_confidence` grades it, and
+// `flags` describes the address itself rather than its deliverability, so a
+// perfectly valid address can still have `role` or `disposable`.
 //
-// Fields with nothing behind them are left out rather than sent as null, so anything you can read in the response is something we actually resolved.
+// Fields without resolved values are omitted rather than sent as null. Every
+// field present in the response was resolved.
 type EmailLookup struct {
 	// DeliveryConfidence How likely mail to this address is to be delivered, from 0 (certain not to be) to 100 (certain to be). Read it alongside `result` rather than instead of it, because the same score can sit under `neutral` or `risky` for different reasons.
 	DeliveryConfidence *int `json:"delivery_confidence,omitempty"`
@@ -5259,27 +5671,55 @@ type EmailLookup struct {
 	Valid *bool `json:"valid,omitempty"`
 }
 
-// EmailLookupFlag A notable characteristic of an email address. `role` means it addresses a function rather than a person (`support@`, `info@`), so replies and consent are ambiguous and complaints are more likely. `disposable` means it belongs to a throwaway-address provider and will stop existing. `free_provider` means it belongs to a consumer mailbox provider such as Gmail or Outlook.com, which is ordinary for consumer mail and a signal when you expected a business address.
+// EmailLookupFlag A notable characteristic of an email address.
 //
-// Open enum: more flags may be added over time, so treat an unrecognized value as a future flag rather than an error.
+//   - `role`: it addresses a function rather than a person (`support@`,
+//     `info@`). Replies and consent are therefore ambiguous, and complaints are
+//     more likely.
+//   - `disposable`: it belongs to a throwaway-address provider and
+//     typically stops existing.
+//   - `free_provider`: it belongs to a consumer mailbox provider such as
+//     Gmail or Outlook.com. This is ordinary for consumer mail and a signal when
+//     you expected a business address.
+//
+// Open enum: more flags may be added over time, so treat an unrecognized value
+// as a future flag rather than an error.
 type EmailLookupFlag string
 
-// EmailLookupReason Why an address cannot receive mail. `invalid_syntax` means the address is not a well-formed address at all, `invalid_domain` means the domain does not accept mail anywhere, and `invalid_recipient` means the domain accepts mail but this mailbox does not exist.
+// EmailLookupReason Why an address cannot receive mail.
 //
-// Open enum: further reasons may be added over time, so treat an unrecognized value as a future one rather than an error. `result` is what to branch on; this field explains it.
+//   - `invalid_syntax`: the address is malformed.
+//   - `invalid_domain`: the domain does not accept mail.
+//   - `invalid_recipient`: the domain accepts mail but this mailbox does
+//     not exist.
+//
+// Open enum: further reasons may be added over time, so treat an unrecognized
+// value as a future one rather than an error. `result` is what to branch on; this
+// field explains it.
 type EmailLookupReason string
 
 // EmailLookupRequest defines model for EmailLookupRequest.
 type EmailLookupRequest struct {
-	// Email The email address to look up. Send it exactly as you hold it: the part before the `@` is case-sensitive, so nothing is lowercased for you, and a display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
+	// Email The email address to look up. Send it exactly as you hold it. The part before the `@` is case-sensitive, so the API does not lowercase it. A display-name form such as `Aisha <aisha@example.com>` is rejected rather than unwrapped.
 	Email string `json:"email"`
 }
 
 // EmailLookupResult The verdict on the address, and the one field to decide on.
 //
-// `valid` means the address exists and accepts mail. `neutral` means it could not be confirmed either way, usually because the receiving domain answers every recipient the same. `risky` means it will probably accept the mail but is likelier than most to bounce or complain (a role, disposable, or low-reputation address). `undeliverable` means it will not accept mail, and `reason` says why. `typo` means the address looks like a misspelling of a real one, and `did_you_mean` has the correction.
+//   - `valid`: the address exists and accepts mail.
+//   - `neutral`: it could not be confirmed either way, usually because the
+//     receiving domain answers every recipient the same.
+//   - `risky`: it probably accepts mail but is likelier than most to
+//     bounce or complain. Examples include role, disposable, and low-reputation
+//     addresses.
+//   - `undeliverable`: it does not accept mail, and `reason` says why.
+//   - `typo`: the address looks misspelled, and `did_you_mean` contains
+//     the correction.
 //
-// Open enum: further verdicts may be added over time, so treat an unrecognized value as a future one rather than an error. Branch on the values you know and fall back on `delivery_confidence`, which is always present and always comparable.
+// Open enum: further verdicts may be added over time, so treat an unrecognized
+// value as a future one rather than an error. Branch on the values you know and
+// fall back on `delivery_confidence`, which is always present and always
+// comparable.
 type EmailLookupResult string
 
 // EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and without `scheduled_at`, because a mailbox sends immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
@@ -5389,7 +5829,7 @@ type EmailMailboxProviderRegionStatsPoint struct {
 	Engagement *EmailEngagementStats              `json:"engagement,omitempty"`
 	Latency    *EmailDeliveryLatencyStats         `json:"latency,omitempty"`
 
-	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`).
+	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercase classifier such as `gmail`, `yahoo`, `microsoft`, or `apple`.
 	MailboxProvider *string `json:"mailbox_provider,omitempty"`
 
 	// MailboxProviderRegion The provider region this row aggregates, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific.
@@ -5402,13 +5842,13 @@ type EmailMailboxProviderRegionStatsPoint struct {
 // EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by the breakdowns whose attribution begins at delivery (mailbox providers, mailbox provider regions): `processed`, `rejected`, and `oob_bounces` are not part of those rows, so they are not sortable. Any count or rate on the row can be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types use their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
 type EmailMailboxProviderSortMetric string
 
-// EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. We learn a recipient's mailbox provider from the receiving mail server, so per-provider rows cover the delivery stage onward: they omit the `accepted` and `processed` counts and the `processing` latency family, which never appear at all rather than appearing as null. Engagement (opens and clicks, and their rates) is included because those events happen after delivery, once the mailbox provider is already known.
+// EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. We learn a recipient's mailbox provider from the receiving mail server. Per-provider rows therefore cover the delivery stage onward. They omit the `accepted` and `processed` counts and the `processing` latency family. These fields are absent rather than null. Engagement (opens and clicks, and their rates) is included because those events happen after delivery, once the mailbox provider is already known.
 type EmailMailboxProviderStatsPoint struct {
 	Delivery   *EmailMailboxProviderDeliveryStats `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats              `json:"engagement,omitempty"`
 	Latency    *EmailDeliveryLatencyStats         `json:"latency,omitempty"`
 
-	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). The set is open and grows as new providers are categorized.
+	// MailboxProvider The recipient mailbox provider this row aggregates, as a lowercase classifier such as `gmail`, `yahoo`, `microsoft`, or `apple`. New classifiers may be added over time.
 	MailboxProvider *string `json:"mailbox_provider,omitempty"`
 
 	// Trend Per-bucket rate series for this mailbox provider over the window. Present only when `include_trend=true`.
@@ -5582,13 +6022,13 @@ type EmailMessageList struct {
 	// Data Page of message objects.
 	Data []EmailMessage `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -5612,7 +6052,7 @@ type EmailMessageSendRequest struct {
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From EmailAddressInput `json:"from"`
 
-	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields (`from`, `to`, `cc`, `bcc`, `reply_to`, `subject`) rather than here, and the headers generated for you automatically (`Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`) cannot be overridden. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. On a `marketing` send a compliant unsubscribe header is set for you, so supplying either one there is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
+	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields: `from`, `to`, `cc`, `bcc`, `reply_to`, and `subject`. The API automatically generates `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`. You cannot override these generated headers. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. Marketing sends receive a compliant unsubscribe header, so supplying either one is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
 	Headers *map[string]string `json:"headers,omitempty"`
 
 	// Html HTML body. At least one of html or text must be provided.
@@ -5621,7 +6061,7 @@ type EmailMessageSendRequest struct {
 	// IpPoolId ID of the IP pool to send from (`ipp_` prefix), or `ipp_shared` to route through the shared pool explicitly. Omit to use your organization's default pool. An unknown pool, or a pool with no dedicated IPs available to send from, is rejected with a `422`.
 	IpPoolId *string `json:"ip_pool_id,omitempty"`
 
-	// Metadata Arbitrary JSON object **stored, returned on API reads, and echoed in webhook payloads**. Path-queryable in analytics (for example, filter on `metadata.order_id`) but not surfaced as a first-class dashboard filter dimension. Cap: 2 KB serialized. Use metadata for per-send context like internal IDs, foreign keys, and structured payloads you want round-tripped through events. For low-cardinality filterable labels, use `tags` instead.
+	// Metadata Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
 	// Parameters Parameter values used to personalize inline content. A parameter is a single word, and a token in the subject or body (for example `{{ animal }}`) is replaced with the value of that name at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
@@ -5630,7 +6070,7 @@ type EmailMessageSendRequest struct {
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
 	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
 
-	// ScheduledAt Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is only accepted on a single send, not on a batch item.
+	// ScheduledAt Schedule the message to send at a future time instead of immediately. Must be at least 30 seconds and at most 30 days ahead. Outside that range the request is rejected with `422`. The message returns with status `accepted` and shows as `scheduled` on reads until it sends. Cancel it before then with the message cancel endpoint. Scheduled sends count against your plan's monthly scheduled-email allowance. Exceeding it is rejected with a `422`. A scheduled message has inline content: `scheduled_at` and `template` are mutually exclusive, and combining them is rejected with a `422`. This field is accepted only on a single send. Batch items reject it.
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Subject Message subject line. Required for inline sends. Omit it when sending a `template` (the template supplies the subject).
@@ -5690,7 +6130,14 @@ type EmailRecipient struct {
 	// BounceDescription Human-readable reason the receiving mail server gave for the bounce or deferral, or null when none was provided.
 	BounceDescription *string `json:"bounce_description,omitempty"`
 
-	// BounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+	// BounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient
+	// has not bounced or the receiving server's response has not been classified.
+	//
+	// - `hard`: a permanent failure (invalid address or non-existent domain).
+	// - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+	// - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+	// - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+	// - `undetermined`: the receiving server's response is ambiguous.
 	BounceType *EmailRecipientBounceType `json:"bounce_type,omitempty"`
 
 	// ClickCount Number of click events for this recipient.
@@ -5709,7 +6156,7 @@ type EmailRecipient struct {
 	// OpenCount Number of open events for this recipient.
 	OpenCount *int `json:"open_count,omitempty"`
 
-	// ParentId ID of the parent message (em_ prefix) or broadcast (eb_ prefix) this recipient belongs to.
+	// ParentId ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
 	ParentId string `json:"parent_id"`
 
 	// ProcessedAt When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
@@ -5753,7 +6200,14 @@ type EmailRecipient struct {
 	TotalLatencyMs *int `json:"total_latency_ms,omitempty"`
 }
 
-// EmailRecipientBounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient has not bounced or the receiving server's response has not been classified. `hard` is a permanent failure (invalid address or non-existent domain). `soft` is a transient failure (mailbox full, server temporarily unavailable). `block` indicates the receiving mail server blocked the sending IP for reputation reasons. `admin` indicates an administrative refusal (relaying denied, blocklisted domain). `undetermined` is used when the receiving server's response is ambiguous.
+// EmailRecipientBounceType Bounce classification for `bounced` and `deferred` rows, or null when the recipient
+// has not bounced or the receiving server's response has not been classified.
+//
+// - `hard`: a permanent failure (invalid address or non-existent domain).
+// - `soft`: a transient failure (mailbox full or server temporarily unavailable).
+// - `block`: the receiving mail server blocked the sending IP for reputation reasons.
+// - `admin`: an administrative refusal (relaying denied or blocklisted domain).
+// - `undetermined`: the receiving server's response is ambiguous.
 type EmailRecipientBounceType string
 
 // EmailRecipientRejectionReason Present on `status: rejected` rows. Specifies why the recipient was rejected:
@@ -5799,13 +6253,13 @@ type EmailRecipientList struct {
 	// Data Page of recipient objects for this email send.
 	Data []EmailRecipient `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -5836,7 +6290,7 @@ type EmailSendingDomainStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailSendingIpDeliveryStats Delivery counts and rates for messages attributed to a single sending IP. Per-IP results do not include `accepted` or `processed` counts: we only learn which sending IP a message used once it has been delivered, bounced, deferred, or bounced late, so those earlier lifecycle states cannot be attributed to a specific IP. Spam complaints and out-of-band bounce notifications are also not attributed per IP on this breakdown, so `complained` and `oob_bounces` read 0 (their rates read 0 where the denominator is non-zero, null where it is zero), `effective_delivered` equals `delivered`, and `all_bounces` equals `bounced`.
+// EmailSendingIpDeliveryStats Delivery counts and rates for messages attributed to a single sending IP. Per-IP results omit `accepted` and `processed` counts. The sending IP becomes known only after a message is delivered, bounced, deferred, or bounced late. Those earlier lifecycle states cannot be attributed to a specific IP. Spam complaints and out-of-band bounce notifications also lack per-IP attribution on this breakdown. The `complained` and `oob_bounces` fields therefore read 0. Their rates read 0 when the denominator is non-zero and null when it is zero. The `effective_delivered` field equals `delivered`, and `all_bounces` equals `bounced`.
 type EmailSendingIpDeliveryStats struct {
 	// AllBounces Total recipients on this IP who did not receive the message, computed as `bounced + oob_bounces`.
 	AllBounces *int `json:"all_bounces,omitempty"`
@@ -5860,10 +6314,10 @@ type EmailSendingIpDeliveryStats struct {
 	// Delivered Distinct recipients whose message the receiving mail server accepted.
 	Delivered *int `json:"delivered,omitempty"`
 
-	// DeliveryRate Share of this IP's delivery attempts that resulted in a message remaining in-inbox, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero (no attempts).
+	// DeliveryRate Share of this IP's delivery attempts that remained delivered after all bounce signals, computed as `effective_delivered / (delivered + bounced)`. Null when `delivered + bounced` is zero.
 	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
 
-	// EffectiveDelivered Recipients on this IP who remain in-inbox after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
+	// EffectiveDelivered Recipients on this IP who remain delivered after all bounce signals resolve, computed as `delivered - oob_bounces`. Clamped to 0 when `oob_bounces` exceeds `delivered`.
 	EffectiveDelivered *int `json:"effective_delivered,omitempty"`
 
 	// OobBounces Out-of-band bounce events: failure notifications received after the receiving server had initially confirmed delivery. Not attributed to a sending IP on this breakdown, so this reads 0. Workspace-wide out-of-band counts are on the summary and time-series statistics.
@@ -5873,7 +6327,7 @@ type EmailSendingIpDeliveryStats struct {
 	OobRate *float32 `json:"oob_rate,omitempty"`
 }
 
-// EmailSendingIpStatsPoint Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: we learn which IP a message used only from its delivery, bounce, deferral, and late-bounce events, not from its acceptance or processing. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family. Those fields never appear on a per-IP row. They are not returned as null.
+// EmailSendingIpStatsPoint Delivery and latency stats for messages sent from a single IP address over the requested period. Per-IP attribution begins only after a message is processed: we learn which IP a message used only from its delivery, bounce, deferral, and late-bounce events. Acceptance and processing events do not contribute to per-IP attribution. As a result, per-IP rows omit the `accepted` and `processed` counts and the `processing` latency family. Those fields never appear on a per-IP row. They are not returned as null.
 type EmailSendingIpStatsPoint struct {
 	Delivery *EmailSendingIpDeliveryStats `json:"delivery,omitempty"`
 
@@ -5926,16 +6380,16 @@ type EmailSmtpConfigList struct {
 	// Data Page of stored SMTP configs, newest first by default.
 	Data []EmailSmtpConfig `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -6104,15 +6558,15 @@ type EmailStatsBySendingIpResponse struct {
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByTemplateResponse A breakdown of stats per template for the requested period. Rows are ranked by the `sort` metric (`processed` by default) descending, and capped at the requested `limit` (50 by default, 200 at most).
+// EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
 type EmailStatsByTemplateResponse struct {
-	// Data One row per template, ranked by the `sort` metric (`processed` by default) descending. Empty when no messages were sent with a template during the period.
+	// Data Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no messages were sent with a template in the period.
 	Data *[]EmailTemplateStatsPoint `json:"data,omitempty"`
 
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total How many distinct templates had activity in the period, regardless of `limit`. When this is higher than the number of rows in `data`, the ranking got cut off. Raise `limit` (up to 200), or narrow the date range, to see the rest.
+	// Total Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -6130,7 +6584,7 @@ type EmailStatsComparison struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// EmailStatsComparisonDelta The change in each headline metric from the preceding period to the requested one. A `*_pct_change` field is a signed relative change in a count, computed as `(current - previous) / previous`, so `0.5` means 50% higher and `-0.2` means 20% lower. It is null when the previous period's count was zero, because there is nothing to compute a relative change from. A `*_rate_pp` field is the signed difference between the two periods' rate values, each expressed as a fraction, so `0.012` means the rate rose by 1.2 percentage points and `-0.003` means it fell by 0.3 points. It is null when either period's rate is undefined, because its denominator was zero. `delivery_rate_pp` and `bounce_rate_pp` range from `-1` to `1`, because the rates behind them cannot exceed 1. The engagement deltas have no fixed bound, because events are counted when they arrive rather than when the message was sent, which can push their rate above 1.
+// EmailStatsComparisonDelta The change in each headline metric from the preceding period to the requested one. A `*_pct_change` field is a signed relative change in a count, computed as `(current - previous) / previous`, so `0.5` means 50% higher and `-0.2` means 20% lower. It is null when the previous period's count was zero because a relative change cannot be computed. A `*_rate_pp` field is the signed difference between the two periods' rate values. Each value is expressed as a fraction. A value of `0.012` means the rate rose by 1.2 percentage points. A value of `-0.003` means it fell by 0.3 points. The field is null when either period's rate is undefined, because its denominator was zero. `delivery_rate_pp` and `bounce_rate_pp` range from `-1` to `1`, because the rates behind them cannot exceed 1. The engagement deltas have no fixed bound, because events are counted when they arrive rather than when the message was sent, which can push their rate above 1.
 type EmailStatsComparisonDelta struct {
 	// BounceRatePp Signed difference between this period's and the previous period's bounce rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's bounce rate is undefined.
 	BounceRatePp *float32 `json:"bounce_rate_pp,omitempty"`
@@ -6241,7 +6695,7 @@ type EmailStatsSeriesPoint struct {
 	OpenRate *float32 `json:"open_rate,omitempty"`
 }
 
-// EmailStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows have the full delivery, engagement, and latency block: tags, sending domains, categories, recipient domains, templates, and broadcasts. Any count or rate can be used. A row whose rate is undefined, because its denominator was zero, sorts last. A bounce sub-type is nested under `bounces` in each row, so its sort name reflects that, for example `bounces.hard` and `bounces.hard_rate`.
+// EmailStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows have the full delivery, engagement, and latency block: tags, sending domains, categories, recipient domains, templates, and broadcasts. Any count or rate can be used. A row whose rate is undefined, because its denominator was zero, sorts last. A bounce sub-type is nested under `bounces` in each row, so its sort name reflects that, for example `bounces.hard` and `bounces.hard_rate`. `oob_bounces` is distinct from `bounced`: it counts out-of-band bounces, failure notifications that arrive after delivery was already confirmed.
 type EmailStatsSortMetric string
 
 // EmailStatsSummary A single row that aggregates delivery and engagement counts, plus derived
@@ -6268,7 +6722,7 @@ type EmailStatsSummary struct {
 	// Period The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 	Period EmailStatsSummaryPeriod `json:"period"`
 
-	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This counts messages, not recipients, so it is not comparable to `delivery.accepted`, which counts recipients (a single message to 500 recipients is 1 here and up to 500 there).
+	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
@@ -6321,9 +6775,12 @@ type EmailTemplateSend struct {
 
 	// Parameters Values for the template's variables, keyed by the variable name. A variable name is a single word.
 	//
-	// Every variable the template's `variables` lists needs a value here. A send that leaves one out is rejected rather than delivered with a blank in it. Send values for everything in that list rather than only what you expect the language you are sending to use, because languages do not have to use the same variables and a value no language uses is simply ignored.
+	// Every variable in the template's `variables` list needs a value. A send
+	// that omits one is rejected. Languages can use different variables, and a
+	// value unused by the selected language is ignored.
 	//
-	// `bird` is reserved for the values we fill in ourselves, so a send that sets it is rejected. `parameters` is capped at 16 KB once serialized.
+	// The API supplies values under the reserved `bird` key, so a send that sets
+	// it is rejected. `parameters` is capped at 16 KB once serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
@@ -6417,13 +6874,13 @@ type EmailThreadHighlights struct {
 type EmailThreadList struct {
 	Data []EmailThread `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -6435,7 +6892,16 @@ type EmailThreadMessage struct {
 	// AttachmentManifest Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
 	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
 
-	// Authentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
+	// Authentication Whether the sender of a received message was authenticated.
+	//
+	// - `pass`: the sender's identity was verified.
+	// - `fail`: it was checked and did not verify.
+	// - `unknown`: no verdict could be determined, so do not treat the
+	//   sender as verified.
+	//
+	// Null for sent messages. This field is readable for the mailbox's full
+	// retention tier, so the verdict is still available after the 30-day
+	// received-message log has expired.
 	Authentication *EmailThreadMessageAuthentication `json:"authentication,omitempty"`
 
 	// Cc Recipient addresses on the Cc line. Empty when the message had none.
@@ -6484,7 +6950,7 @@ type EmailThreadMessage struct {
 	// Preview Short plain-text preview of the message body.
 	Preview *string `json:"preview,omitempty"`
 
-	// PurgeAt When the message will be permanently deleted: the end of the mailbox's retention tier, pulled nearer (at most 30 days out) while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
+	// PurgeAt Scheduled permanent-deletion time. This is the end of the mailbox's retention tier, moved to no more than 30 days in the future while the message is in the trash. Restore a trashed message before then with `PATCH {"labels": {"remove": ["trash"]}}`.
 	PurgeAt *time.Time `json:"purge_at,omitempty"`
 
 	// Recipients Terminal per-recipient delivery outcomes of a sent message, filled in as each one becomes known and kept for the mailbox's full retention tier. Null for received messages and before any recipient reaches a terminal state. Per-recipient event detail lives on the sent-message log (`source`) for 30 days.
@@ -6499,7 +6965,7 @@ type EmailThreadMessage struct {
 	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
 	SpfPass *bool `json:"spf_pass,omitempty"`
 
-	// Status Folded delivery status of a sent message:
+	// Status Aggregate delivery status of a sent message:
 	//
 	// - `accepted`: Accepted for sending.
 	// - `sent`: Handed off to the provider.
@@ -6517,7 +6983,16 @@ type EmailThreadMessage struct {
 	To *[]openapi_types.Email `json:"to,omitempty"`
 }
 
-// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated. `pass` means the sender's identity was verified. `fail` means it was checked and did not verify. `unknown` means no verdict could be determined, and the sender should not be treated as verified. Null for sent messages. This field is readable for the mailbox's full retention tier, so the verdict is still available after the 30-day received-message log has expired.
+// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated.
+//
+//   - `pass`: the sender's identity was verified.
+//   - `fail`: it was checked and did not verify.
+//   - `unknown`: no verdict could be determined, so do not treat the
+//     sender as verified.
+//
+// Null for sent messages. This field is readable for the mailbox's full
+// retention tier, so the verdict is still available after the 30-day
+// received-message log has expired.
 type EmailThreadMessageAuthentication string
 
 // EmailThreadMessageDirection Which way the message went. `inbound` means you received it, `outbound` means you sent it.
@@ -6556,13 +7031,13 @@ type EmailThreadMessageBody struct {
 type EmailThreadMessageList struct {
 	Data []EmailThreadMessage `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -6619,7 +7094,7 @@ type EmailThreadMessageUpdateRequest struct {
 	// ContactId Contact to link this message to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -6628,7 +7103,7 @@ type EmailThreadUpdateRequest struct {
 	// ContactId Contact to link this conversation to, or null to unlink the current contact.
 	ContactId nullable.Nullable[ContactID] `json:"contact_id,omitempty"`
 
-	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes: on a conversation, adding `spam` files it as spam, adding `archive` files it away without deleting it, adding `inbox` (or removing `spam`, `blocked`, or `archive`) returns it to the inbox, and removing `unread` marks all retained received messages as read in one call; on a message, adding or removing `unread` flips read state, and adding or removing `trash` moves it to or out of the trash. Changes that contradict this model are rejected: adding more than one placement label in one request, adding `blocked` (blocking a sender is a receive-rule decision), removing `inbox` without adding a destination, adding `trash` or `unread` to a conversation (removing `unread` is the mark-all-read shortcut; `trash` uses the DELETE verb), placement labels on a message (move its conversation instead), and `unread` on a sent message. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
+	// Labels Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 	Labels *EmailLabelsUpdate `json:"labels,omitempty"`
 }
 
@@ -6663,16 +7138,13 @@ type ErrorBody struct {
 	// Remediation A human-readable next step to resolve this error. Present when a recovery is known.
 	Remediation *string `json:"remediation,omitempty"`
 
-	// RequestId Request correlation ID. Also returned as the X-Request-Id response header.
+	// RequestId Request correlation ID for support and troubleshooting. Also returned in the `X-Request-Id` response header.
 	RequestId string `json:"request_id"`
 
 	// Type Broad category for coarse client branching.
 	Type ErrorBodyType `json:"type"`
 
-	// UnmetGates The verification requirements blocking this action, each with the flow that resolves it. Present only when an action is blocked pending verification.
-	UnmetGates *[]UnmetGate `json:"unmet_gates,omitempty"`
-
-	// VendorCode Verbatim error code returned by a downstream system (for example, an SMTP response code from a recipient's mail server, or a payment-provider decline code). Present only when Bird is surfacing a code from an external system that the caller may want to act on directly.
+	// VendorCode Verbatim error code from an external system, such as an SMTP response code or a payment decline code. Present only when the code may help you resolve the error.
 	VendorCode *string `json:"vendor_code,omitempty"`
 }
 
@@ -6684,7 +7156,7 @@ type ErrorDetail struct {
 	// Message What is wrong with this field.
 	Message string `json:"message"`
 
-	// Param Dotted field path (e.g. "to[0].email", "subject", ".").
+	// Param Dotted field path, such as `to[0].email`, `subject`, or `.`.
 	Param string `json:"param"`
 }
 
@@ -6737,12 +7209,12 @@ type EventDomainVerifiedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailAccepted Bird accepted the email send and is preparing to deliver. Fires once per requested recipient at acceptance time.
+// EventEmailAccepted The API accepted the email send and is preparing it for delivery. Fires once per requested recipient.
 type EventEmailAccepted struct {
 	// Data Payload of the email.accepted event.
 	Data EventEmailAcceptedData `json:"data"`
 
-	// Timestamp Time Bird accepted the send.
+	// Timestamp Time the API accepted the send.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -6828,7 +7300,7 @@ type EventEmailBouncedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailCanceled A scheduled send was canceled before it fired. Fires once per message, not per recipient.
+// EventEmailCanceled A scheduled send was canceled before it fired. Fires once for each message regardless of its recipient count.
 type EventEmailCanceled struct {
 	// Data Payload of the email.canceled event.
 	Data EventEmailCanceledData `json:"data"`
@@ -6926,7 +7398,7 @@ type EventEmailComplainedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailDeferred The recipient's mail server temporarily refused the email; delivery will be retried. May fire more than once per recipient.
+// EventEmailDeferred The recipient's mail server temporarily refused the email. Delivery remains pending and is retried. May fire more than once per recipient.
 type EventEmailDeferred struct {
 	// Data Payload of the email.deferred event.
 	Data EventEmailDeferredData `json:"data"`
@@ -7013,7 +7485,7 @@ type EventEmailListUnsubscribedType string
 // EventEmailListUnsubscribedData Identity fields shared by every email lifecycle event payload.
 type EventEmailListUnsubscribedData = EventEmailBase
 
-// EventEmailMailboxMessageDelivered A mailbox send folded to delivered — every recipient reached a terminal delivered outcome. Status events are per-message folds, not per-recipient telemetry: one event per message, distinct in cardinality from the shipped per-recipient email.delivered (one event per recipient), which the same send also fires. Pick one family per automation and dedupe by message_id.
+// EventEmailMailboxMessageDelivered Every recipient of a mailbox message reached a delivered state. This event fires once per message. The same send also emits one `email.delivered` event for each recipient. Choose one event family for each automation and deduplicate mailbox events by `message_id`.
 type EventEmailMailboxMessageDelivered struct {
 	// Data Payload of the email_mailbox.message_delivered event.
 	Data EventEmailMailboxMessageDeliveredData `json:"data"`
@@ -7035,7 +7507,7 @@ type EventEmailMailboxMessageDeliveredData struct {
 	ThreadId  ThreadID  `json:"thread_id"`
 }
 
-// EventEmailMailboxMessageFailed A mailbox send folded to a terminal failure. Status events are per-message folds, not per-recipient telemetry: one event per message, distinct in cardinality from the shipped per-recipient email.* lifecycle events, which the same send also fires. Pick one family per automation and dedupe by message_id.
+// EventEmailMailboxMessageFailed A mailbox message reached a terminal delivery failure. This event fires once per message. The same send also emits per-recipient `email.*` events. Choose one event family for each automation and deduplicate mailbox events by `message_id`.
 type EventEmailMailboxMessageFailed struct {
 	// Data Payload of the email_mailbox.message_failed event.
 	Data EventEmailMailboxMessageFailedData `json:"data"`
@@ -7055,14 +7527,14 @@ type EventEmailMailboxMessageFailedData struct {
 	MailboxId MailboxID `json:"mailbox_id"`
 	MessageId EmailID   `json:"message_id"`
 
-	// Reason Why the send folded to failed.
+	// Reason Why the message reached a terminal delivery failure.
 	Reason   string   `json:"reason"`
 	ThreadId ThreadID `json:"thread_id"`
 }
 
-// EventEmailMailboxMessageReceived An email arrived in a mailbox and was filed to its inbox, threaded and stored. The payload carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Dual-fire rule: the same message ALSO fires the unchanged email.received event; the streams are unordered relative to each other, so pick one family per automation and dedupe by message_id.
+// EventEmailMailboxMessageReceived An email arrived in a mailbox. The same message also emits an `email.received` event. The two events can arrive in either order. Choose one event family for each automation and deduplicate mailbox events by `message_id`.
 type EventEmailMailboxMessageReceived struct {
-	// Data Payload for the email_mailbox.message_received event. Carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
+	// Data Identifiers, threading details, authentication results, and extracted text for a received mailbox message. The thread-message endpoints provide the original source during its 30-day retention window.
 	Data EventEmailMailboxMessageReceivedData `json:"data"`
 
 	// Timestamp When the event occurred.
@@ -7075,12 +7547,17 @@ type EventEmailMailboxMessageReceived struct {
 // EventEmailMailboxMessageReceivedType Event type.
 type EventEmailMailboxMessageReceivedType string
 
-// EventEmailMailboxMessageReceivedData Payload for the email_mailbox.message_received event. Carries identifiers, threading, authentication results, and the extracted text — enough for an agent to act without a fetch. Fetch original source (while within its 30-day window) via the thread-member endpoints.
+// EventEmailMailboxMessageReceivedData Identifiers, threading details, authentication results, and extracted text for a received mailbox message. The thread-message endpoints provide the original source during its 30-day retention window.
 type EventEmailMailboxMessageReceivedData struct {
-	// AttachmentCount Number of attachments on the message. Metadata is durable; bytes are fetchable while within the 30-day original-source window.
+	// AttachmentCount Number of attachments on the message. Attachment content remains available during the 30-day original-source retention window.
 	AttachmentCount int `json:"attachment_count"`
 
-	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	// Authentication Whether the sender of the received message was authenticated.
+	//
+	// - `pass`: the sender's identity was verified.
+	// - `fail`: it was checked and did not verify.
+	// - `unknown`: no verdict is available, so do not treat the sender
+	//   as verified.
 	Authentication *EventEmailMailboxMessageReceivedDataAuthentication `json:"authentication,omitempty"`
 
 	// DkimPass Whether DKIM passed for the sender, or null when no verdict was computable.
@@ -7089,7 +7566,7 @@ type EventEmailMailboxMessageReceivedData struct {
 	// DmarcPass Whether DMARC passed for the sender, or null when no verdict was computable.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
-	// ExtractedText Plain-text body with quoted history stripped, capped at 64 KB (see truncated_text). Null when extraction produced nothing. This copy is what the mailbox durably retains.
+	// ExtractedText Plain-text body with quoted history removed, capped at 64 KB. See `truncated_text` to check whether the value was truncated. Null when extraction produces no text.
 	ExtractedText *string `json:"extracted_text,omitempty"`
 
 	// From Envelope-from address.
@@ -7110,14 +7587,19 @@ type EventEmailMailboxMessageReceivedData struct {
 	// To Recipient addresses the message was sent to.
 	To []openapi_types.Email `json:"to"`
 
-	// TruncatedText True when extracted_text was truncated to the 64 KB cap; fetch the full text via the thread-member endpoint.
+	// TruncatedText True when `extracted_text` was truncated to the 64 KB cap. Fetch the full text through the thread-member endpoint.
 	TruncatedText *bool `json:"truncated_text,omitempty"`
 }
 
-// EventEmailMailboxMessageReceivedDataAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+// EventEmailMailboxMessageReceivedDataAuthentication Whether the sender of the received message was authenticated.
+//
+//   - `pass`: the sender's identity was verified.
+//   - `fail`: it was checked and did not verify.
+//   - `unknown`: no verdict is available, so do not treat the sender
+//     as verified.
 type EventEmailMailboxMessageReceivedDataAuthentication string
 
-// EventEmailMailboxMessageSent A mailbox send reached provider handoff — the per-message status folded to sent. Status events are per-message folds, not per-recipient telemetry; the same send also fires the shipped per-recipient email.* lifecycle events. Pick one family per automation and dedupe by message_id.
+// EventEmailMailboxMessageSent A mailbox message was handed off for delivery. This event fires once per message. The same send also emits per-recipient `email.*` events. Choose one event family for each automation and deduplicate mailbox events by `message_id`.
 type EventEmailMailboxMessageSent struct {
 	// Data Payload of the email_mailbox.message_sent event.
 	Data EventEmailMailboxMessageSentData `json:"data"`
@@ -7139,7 +7621,7 @@ type EventEmailMailboxMessageSentData struct {
 	ThreadId  ThreadID  `json:"thread_id"`
 }
 
-// EventEmailMailboxSuspended Platform abuse controls suspended a mailbox. Sends are rejected and inbound is quarantined until it is reinstated.
+// EventEmailMailboxSuspended This mailbox-suspension event is reserved and is not currently emitted.
 type EventEmailMailboxSuspended struct {
 	// Data Payload of the email_mailbox.suspended event.
 	Data EventEmailMailboxSuspendedData `json:"data"`
@@ -7297,12 +7779,12 @@ type EventEmailOutOfBandBounceData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailProcessed Bird processed the message and queued it for delivery to the recipient's mail server. Fires once per recipient when the message enters the SMTP delivery queue.
+// EventEmailProcessed The API prepared the message for delivery to the recipient's mail server. Fires once per recipient.
 type EventEmailProcessed struct {
 	// Data Payload of the email.processed event.
 	Data EventEmailProcessedData `json:"data"`
 
-	// Timestamp Time Bird processed the message and queued it for SMTP delivery.
+	// Timestamp Time the message was prepared for delivery.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -7315,12 +7797,12 @@ type EventEmailProcessedType string
 // EventEmailProcessedData Identity fields shared by every email lifecycle event payload.
 type EventEmailProcessedData = EventEmailBase
 
-// EventEmailReceived Bird received and parsed an inbound email. The payload carries the message's identifiers, sender and recipients, subject, threading reference, and authentication results, which is enough to route and triage without a fetch. Content is fetched separately: the parsed body with `GET /v1/email/inbound-messages/{id}/body`, the original MIME with `GET /v1/email/inbound-messages/{id}/raw`, and attachment bytes with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
+// EventEmailReceived The API received and parsed an inbound email. The payload carries the message's identifiers, sender and recipients, subject, threading reference, and authentication results, which is enough to route and triage without a fetch. Fetch content separately. Get the parsed body with `GET /v1/email/inbound-messages/{id}/body`. Get the original MIME with `GET /v1/email/inbound-messages/{id}/raw`. Get attachment bytes with `GET /v1/email/inbound-messages/{id}/attachments/{attachment_id}`.
 type EventEmailReceived struct {
 	// Data Payload of the email.received event.
 	Data EventEmailReceivedData `json:"data"`
 
-	// Timestamp When Bird received the message.
+	// Timestamp When the API received the message.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -7332,7 +7814,12 @@ type EventEmailReceivedType string
 
 // EventEmailReceivedData Payload of the email.received event.
 type EventEmailReceivedData struct {
-	// Authentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+	// Authentication Whether the sender of the received message was authenticated.
+	//
+	// - `pass`: the sender's identity was verified.
+	// - `fail`: it was checked and did not verify.
+	// - `unknown`: no verdict is available, so do not treat the sender
+	//   as verified.
 	Authentication *EventEmailReceivedDataAuthentication `json:"authentication,omitempty"`
 
 	// DkimPass Whether DKIM passed for the sender, or null when the result did not carry a DKIM verdict.
@@ -7344,7 +7831,7 @@ type EventEmailReceivedData struct {
 	// From Envelope-from address.
 	From openapi_types.Email `json:"from"`
 
-	// InReplyTo In-Reply-To header — the Message-ID this message replies to, or null when it is not a reply.
+	// InReplyTo `In-Reply-To` header containing the `Message-ID` this message replies to, or null when it is not a reply.
 	InReplyTo        *string               `json:"in_reply_to,omitempty"`
 	InboundMessageId InboundEmailMessageID `json:"inbound_message_id"`
 
@@ -7365,10 +7852,15 @@ type EventEmailReceivedData struct {
 	WorkspaceId WorkspaceID           `json:"workspace_id"`
 }
 
-// EventEmailReceivedDataAuthentication Whether the sender of the received message was authenticated. `pass` means the sender's identity was verified; `fail` means it was checked and did not verify; `unknown` means no verdict is available and the sender should not be treated as verified.
+// EventEmailReceivedDataAuthentication Whether the sender of the received message was authenticated.
+//
+//   - `pass`: the sender's identity was verified.
+//   - `fail`: it was checked and did not verify.
+//   - `unknown`: no verdict is available, so do not treat the sender
+//     as verified.
 type EventEmailReceivedDataAuthentication string
 
-// EventEmailRejected Bird rejected the email before sending it (suppression list hit, transmission failure, or a content/policy guard). Fires once per recipient.
+// EventEmailRejected The API rejected the email before delivery because of suppression, transmission failure, content, or policy. Fires once per recipient.
 type EventEmailRejected struct {
 	// Data Payload of the email.rejected event.
 	Data EventEmailRejectedData `json:"data"`
@@ -7416,7 +7908,7 @@ type EventEmailRejectedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventEmailScheduled Bird accepted a send scheduled for a future time. Fires once per message when the schedule is created, not per recipient.
+// EventEmailScheduled The API accepted an email scheduled for a future time. Fires once per message when the schedule is created.
 type EventEmailScheduled struct {
 	// Data Payload of the email.scheduled event.
 	Data EventEmailScheduledData `json:"data"`
@@ -7466,7 +7958,7 @@ type EventEmailSuppressionCreatedData struct {
 	// Email The recipient address that was added to the suppression list.
 	Email openapi_types.Email `json:"email"`
 
-	// Reason Why the address was suppressed. This list grows over time — treat unknown values as informational rather than rejecting the event.
+	// Reason Why the address was suppressed. New values may be added over time; treat unknown values as informational.
 	Reason        string        `json:"reason"`
 	SuppressionId SuppressionID `json:"suppression_id"`
 	WorkspaceId   WorkspaceID   `json:"workspace_id"`
@@ -7490,12 +7982,12 @@ type EventEmailUnsubscribedType string
 // EventEmailUnsubscribedData Identity fields shared by every email lifecycle event payload.
 type EventEmailUnsubscribedData = EventEmailBase
 
-// EventSMSAccepted Bird accepted the SMS send request and queued it for processing.
+// EventSMSAccepted The API accepted the SMS send request and queued it for processing.
 type EventSMSAccepted struct {
 	// Data Payload of the sms.accepted event.
 	Data EventSMSAcceptedData `json:"data"`
 
-	// Timestamp Time Bird accepted the request.
+	// Timestamp Time the API accepted the request.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -7507,7 +7999,7 @@ type EventSMSAcceptedType string
 
 // EventSMSAcceptedData defines model for EventSMSAcceptedData.
 type EventSMSAcceptedData struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
@@ -7530,7 +8022,7 @@ type EventSMSAcceptedData struct {
 
 // EventSMSBase Identity fields shared by every SMS lifecycle event payload.
 type EventSMSBase struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
@@ -7568,7 +8060,7 @@ type EventSMSDeliveredData struct {
 	// Carrier Carrier that delivered the message. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
@@ -7606,7 +8098,7 @@ type EventSMSExpiredType string
 
 // EventSMSExpiredData defines model for EventSMSExpiredData.
 type EventSMSExpiredData struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
@@ -7627,7 +8119,7 @@ type EventSMSExpiredData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventSMSFailed The message terminally failed and will not be delivered.
+// EventSMSFailed Message delivery failed permanently.
 type EventSMSFailed struct {
 	// Data Payload of the sms.failed event.
 	Data EventSMSFailedData `json:"data"`
@@ -7644,7 +8136,7 @@ type EventSMSFailedType string
 
 // EventSMSFailedData defines model for EventSMSFailedData.
 type EventSMSFailedData struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
@@ -7673,7 +8165,7 @@ type EventSMSReceived struct {
 	// Timestamp Time the sender sent the message.
 	Timestamp time.Time `json:"timestamp"`
 
-	// Type Event type.
+	// Type Always `sms.received` for this event.
 	Type SMSReceivedEventType `json:"type"`
 }
 
@@ -7682,7 +8174,7 @@ type EventSMSReceivedData struct {
 	// Carrier Carrier the message came in over. Absent where the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
@@ -7712,7 +8204,7 @@ type EventSMSReceivedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventSMSRejected Bird rejected the message before sending it to the carrier (invalid destination, suppression, or a content/policy guard).
+// EventSMSRejected The API rejected the message before sending it to the carrier because of an invalid destination, suppression, or content or policy restriction.
 type EventSMSRejected struct {
 	// Data Payload of the sms.rejected event.
 	Data EventSMSRejectedData `json:"data"`
@@ -7729,7 +8221,7 @@ type EventSMSRejectedType string
 
 // EventSMSRejectedData defines model for EventSMSRejectedData.
 type EventSMSRejectedData struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
@@ -7750,7 +8242,7 @@ type EventSMSRejectedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventSMSSent Bird handed the message to the carrier for delivery.
+// EventSMSSent The API handed the message to the carrier for delivery.
 type EventSMSSent struct {
 	// Data Payload of the sms.sent event.
 	Data EventSMSSentData `json:"data"`
@@ -7770,7 +8262,7 @@ type EventSMSSentData struct {
 	// Carrier Carrier that handled the message. Absent when the carrier does not report one.
 	Carrier *string `json:"carrier,omitempty"`
 
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound one it is the phone number that sent it to you.
@@ -7808,7 +8300,7 @@ type EventSMSUndeliveredType string
 
 // EventSMSUndeliveredData defines model for EventSMSUndeliveredData.
 type EventSMSUndeliveredData struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// Error Failure detail for a message that could not be delivered or was rejected.
@@ -7852,7 +8344,7 @@ type EventVerifyAttemptDeliveredData struct {
 	// Carrier Carrier that delivered the message, when the carrier network reports it. Always null for email, WhatsApp, and Telegram.
 	Carrier *string `json:"carrier"`
 
-	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	Channel VerificationChannel `json:"channel"`
 
 	// DeliveredAt Time delivery was confirmed.
@@ -7890,7 +8382,7 @@ type EventVerifyAttemptSentData struct {
 	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
 	Address string `json:"address"`
 
-	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	Channel VerificationChannel `json:"channel"`
 
 	// From The sender the passcode was sent from: a phone number, alphanumeric sender ID, short code, or email address. Null when the channel exposes no sender.
@@ -7928,7 +8420,7 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Address The single address this attempt was dispatched to, an E.164 phone number or an email address.
 	Address string `json:"address"`
 
-	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	Channel VerificationChannel `json:"channel"`
 
 	// Error Diagnostic text describing the failure, for display only. Null when none was reported.
@@ -7940,7 +8432,21 @@ type EventVerifyAttemptUndeliveredData struct {
 	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Reason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one), and `delivery_timeout` (no delivery confirmation arrived before the channel's timeout, so the verification failed over).
+	// Reason Why a passcode send did not deliver:
+	//
+	// - `carrier_rejected`: The SMS carrier rejected the send.
+	// - `hard_bounce`: The email permanently bounced.
+	// - `soft_bounce`: The email temporarily bounced, such as when a mailbox is full.
+	// - `undelivered`: The channel reported a generic delivery failure.
+	// - `channel_unavailable`: The channel could not be used, so the verification
+	//   moved to the next channel.
+	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
+	//   verification moved to the next channel.
+	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
+	//   timeout, so the verification moved to the next channel.
+	//
+	// New reasons may be added over time. Treat unrecognized values as reasons added
+	// later rather than errors.
 	Reason VerificationAttemptFailureReason `json:"reason"`
 
 	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -7977,7 +8483,7 @@ type EventVerifyVerificationCreatedType string
 
 // EventVerifyVerificationCreatedData defines model for EventVerifyVerificationCreatedData.
 type EventVerifyVerificationCreatedData struct {
-	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	Channel VerificationChannel `json:"channel"`
 
 	// CreatedAt Time the verification session was created.
@@ -8048,7 +8554,7 @@ type EventVoiceBase struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventVoiceCallAnswered The called party answered — the carrier returned a 200 OK and media is flowing.
+// EventVoiceCallAnswered The called party answered and media began flowing.
 type EventVoiceCallAnswered struct {
 	// Data Payload of the voice_call.answered event.
 	Data EventVoiceCallAnsweredData `json:"data"`
@@ -8066,12 +8572,12 @@ type EventVoiceCallAnsweredType string
 // EventVoiceCallAnsweredData Identity fields shared by every voice call lifecycle event payload.
 type EventVoiceCallAnsweredData = EventVoiceBase
 
-// EventVoiceCallEnded The call ended — a BYE or final non-2xx response was received and the call record was written.
+// EventVoiceCallEnded The call ended after either party hung up or call setup failed.
 type EventVoiceCallEnded struct {
 	// Data Payload of the voice_call.ended event.
 	Data EventVoiceCallEndedData `json:"data"`
 
-	// Timestamp When the call ended (BYE or final non-2xx response).
+	// Timestamp Time either party hung up or call setup failed.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -8090,7 +8596,7 @@ type EventVoiceCallEndedData struct {
 	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
-	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response.
+	// DurationMs Total call duration in milliseconds, measured from the first SIP `INVITE` to the `BYE` or final response.
 	DurationMs int `json:"duration_ms"`
 
 	// From Calling party number in E.164 format.
@@ -8104,9 +8610,13 @@ type EventVoiceCallEndedData struct {
 
 	// Status Call status.
 	//
-	// A call that has ended carries answered, no_answer, failed, rejected, or unknown. A call that is still up carries ringing before it is picked up and in_progress once it is; both are what the `status` filter on the call list selects on to show calls happening right now.
+	// A call that has ended carries `answered`, `no_answer`, `failed`, `rejected`, or
+	// `unknown`. An active call carries `ringing` before it is picked up and
+	// `in_progress` afterward. The call list's `status` filter uses both values to
+	// select calls happening now.
 	//
-	// busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
+	// `busy` and `canceled` are reserved and are not currently emitted. Both
+	// outcomes are currently reported as `failed`.
 	Status VoiceCallStatus `json:"status"`
 
 	// To Called party number in E.164 format.
@@ -8114,7 +8624,7 @@ type EventVoiceCallEndedData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// EventVoiceCallInitiated A call was initiated — Bird received the INVITE and began routing it.
+// EventVoiceCallInitiated Call routing began.
 type EventVoiceCallInitiated struct {
 	// Data Payload of the voice_call.initiated event.
 	Data EventVoiceCallInitiatedData `json:"data"`
@@ -8132,12 +8642,12 @@ type EventVoiceCallInitiatedType string
 // EventVoiceCallInitiatedData Identity fields shared by every voice call lifecycle event payload.
 type EventVoiceCallInitiatedData = EventVoiceBase
 
-// EventWhatsAppAccepted Bird accepted and charged the send request.
+// EventWhatsAppAccepted The API accepted and charged the send request.
 type EventWhatsAppAccepted struct {
 	// Data Payload of the whatsapp.accepted event.
 	Data EventWhatsAppAcceptedData `json:"data"`
 
-	// Timestamp Time Bird accepted and charged the send request.
+	// Timestamp Time the API accepted and charged the send request.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -8191,7 +8701,7 @@ type EventWhatsAppDeliveredType string
 // EventWhatsAppDeliveredData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppDeliveredData = EventWhatsAppBase
 
-// EventWhatsAppFailed The message terminally failed and will not be delivered.
+// EventWhatsAppFailed Message delivery failed permanently.
 type EventWhatsAppFailed struct {
 	// Data Payload of the whatsapp.failed event.
 	Data EventWhatsAppFailedData `json:"data"`
@@ -8250,7 +8760,66 @@ type EventWhatsAppReadType string
 // EventWhatsAppReadData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppReadData = EventWhatsAppBase
 
-// EventWhatsAppRejected Bird rejected the message before sending it to WhatsApp (the recipient is on the workspace suppression list, the wallet had insufficient balance, or the destination is unpriced). It was not sent and not charged.
+// EventWhatsAppReceived A contact sent the business a WhatsApp message.
+type EventWhatsAppReceived struct {
+	// Data Payload of the whatsapp.received event. Carries the message's content so a subscriber can act on it without reading the message back.
+	Data EventWhatsAppReceivedData `json:"data"`
+
+	// Timestamp Time the contact sent the message, as reported by WhatsApp.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Event type.
+	Type WhatsAppReceivedEventType `json:"type"`
+}
+
+// EventWhatsAppReceivedData defines model for EventWhatsAppReceivedData.
+type EventWhatsAppReceivedData struct {
+	// Audio Audio the contact sent.
+	Audio *WhatsAppAudio `json:"audio,omitempty"`
+
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppReceivedDataDirection `json:"direction"`
+
+	// Document Document the contact sent.
+	Document *WhatsAppDocument `json:"document,omitempty"`
+
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	From WhatsAppAddress `json:"from"`
+
+	// Image Image the contact sent.
+	Image *WhatsAppImage `json:"image,omitempty"`
+
+	// Location Location the contact sent.
+	Location *WhatsAppLocation `json:"location,omitempty"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Sticker Sticker the contact sent.
+	Sticker *WhatsAppSticker `json:"sticker,omitempty"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// Text Text the contact sent.
+	Text *WhatsAppText `json:"text,omitempty"`
+
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	To WhatsAppAddress `json:"to"`
+
+	// Unsupported Set when the contact sent content the API does not model, naming the WhatsApp content type.
+	Unsupported *WhatsAppUnsupported `json:"unsupported,omitempty"`
+
+	// Video Video the contact sent.
+	Video       *WhatsAppVideo    `json:"video,omitempty"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppReceivedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppReceivedDataDirection string
+
+// EventWhatsAppRejected The API rejected the message before sending it to WhatsApp because the recipient is on the workspace suppression list, the wallet has insufficient balance, or the destination is unpriced. The message is not sent or charged.
 type EventWhatsAppRejected struct {
 	// Data Payload of the whatsapp.rejected event.
 	Data EventWhatsAppRejectedData `json:"data"`
@@ -8291,12 +8860,12 @@ type EventWhatsAppRejectedData struct {
 // EventWhatsAppRejectedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type EventWhatsAppRejectedDataDirection string
 
-// EventWhatsAppSent Bird handed the message to Meta for delivery.
+// EventWhatsAppSent The API handed the message to Meta for delivery.
 type EventWhatsAppSent struct {
 	// Data Payload of the whatsapp.sent event.
 	Data EventWhatsAppSentData `json:"data"`
 
-	// Timestamp Time Bird handed the message to Meta for delivery.
+	// Timestamp Time the API handed the message to Meta for delivery.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -8312,7 +8881,7 @@ type EventWhatsAppSentData = EventWhatsAppBase
 // IPPoolID defines model for IPPoolID.
 type IPPoolID = string
 
-// InboundAddress An email address we create for you, which receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address, and every message that arrives there is parsed into a received email you can read back.
+// InboundAddress An email address we create for you, which receives mail on your behalf. Forward a real mailbox (for example, a support inbox) to this address. Every message sent to it becomes a received email you can retrieve.
 type InboundAddress struct {
 	// Address The address to forward your mailbox to. We generate it when the inbound address is created.
 	Address *openapi_types.Email `json:"address,omitempty"`
@@ -8321,7 +8890,7 @@ type InboundAddress struct {
 	CreatedAt *time.Time       `json:"created_at,omitempty"`
 	Id        InboundAddressID `json:"id"`
 
-	// Label Your own label for this address, typically the source mailbox it maps to. Null when unset.
+	// Label Your own label for this address, typically the source mailbox it maps to. `null` when unset.
 	Label *string `json:"label"`
 
 	// UpdatedAt When the inbound address was last updated.
@@ -8342,13 +8911,13 @@ type InboundAddressList struct {
 	// Data Page of inbound addresses, newest first.
 	Data []InboundAddress `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -8360,10 +8929,10 @@ type InboundAddressUpdate struct {
 
 // InboundAttachment Metadata for a file attached to a received email. The raw bytes are fetched separately with `GET /v1/email/inbound-messages/{inbound_message_id}/attachments/{attachment_id}`.
 type InboundAttachment struct {
-	// ContentType MIME type parsed from the attachment part, or null when absent.
+	// ContentType MIME type parsed from the attachment part, or `null` when absent.
 	ContentType *string `json:"content_type"`
 
-	// Filename Filename from the attachment's Content-Disposition, or null when the sender did not name the part.
+	// Filename Filename from the attachment's Content-Disposition, or `null` when the sender did not name the part.
 	Filename *string             `json:"filename"`
 	Id       InboundAttachmentID `json:"id"`
 
@@ -8374,7 +8943,7 @@ type InboundAttachment struct {
 // InboundAttachmentID defines model for InboundAttachmentID.
 type InboundAttachmentID = string
 
-// InboundAttachmentList The attachments on a received email. There is no pagination here, because a message only has a small number of attachments and they all come back at once.
+// InboundAttachmentList The attachments on a received email. The response returns every attachment without pagination.
 type InboundAttachmentList struct {
 	// Data Metadata for every attachment on the message. Empty when the message had no attachments.
 	Data []InboundAttachment `json:"data"`
@@ -8395,20 +8964,20 @@ type InboundEmailMessage struct {
 	// Cc Recipients on the message's Cc header.
 	Cc []EmailAddress `json:"cc"`
 
-	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include a DKIM verdict.
+	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include a DKIM verdict.
 	DkimPass *bool `json:"dkim_pass"`
 
-	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include a DMARC verdict.
+	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include a DMARC verdict.
 	DmarcPass *bool `json:"dmarc_pass"`
 
 	// From An email address with an optional display name.
 	From EmailAddress          `json:"from"`
 	Id   InboundEmailMessageID `json:"id"`
 
-	// InReplyTo The In-Reply-To header, which holds the Message-ID this message is replying to. Null when the message is not a reply.
+	// InReplyTo The `In-Reply-To` header, which holds the Message-ID this message is replying to. `null` when the message is not a reply.
 	InReplyTo *string `json:"in_reply_to"`
 
-	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
+	// MessageId RFC 5322 Message-ID header from the sender, or `null` when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
 	// ReceivedAt When the message was received.
@@ -8417,16 +8986,16 @@ type InboundEmailMessage struct {
 	// References The References header, which holds every Message-ID in this conversation, oldest first. Left out when the message arrived without one.
 	References *[]string `json:"references,omitempty"`
 
-	// SpamScore Spam score on the received message, or null when there is no score.
+	// SpamScore Spam score on the received message, or `null` when no score is available.
 	SpamScore *float32 `json:"spam_score"`
 
-	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. Null when the authentication results did not include an SPF verdict.
+	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include an SPF verdict.
 	SpfPass *bool `json:"spf_pass"`
 
-	// Subject Subject line as received, or null when the message had no subject.
+	// Subject Subject line as received, or `null` when the message had no subject.
 	Subject *string `json:"subject"`
 
-	// ThreadId Conversation this message belongs to, or null when it is not grouped into one.
+	// ThreadId Conversation this message belongs to, or `null` when it is not grouped into one.
 	ThreadId *string `json:"thread_id"`
 
 	// To Recipients on the message's To header.
@@ -8442,10 +9011,10 @@ type InboundEmailMessageAuthentication string
 
 // InboundEmailMessageBody The parsed body of a received email.
 type InboundEmailMessageBody struct {
-	// Html The HTML body of the message, or null when the message had no HTML part.
+	// Html The HTML body of the message, or `null` when the message had no HTML part.
 	Html *string `json:"html"`
 
-	// Text The plain-text body of the message, or null when the message had no text part.
+	// Text The plain-text body of the message, or `null` when the message had no text part.
 	Text *string `json:"text"`
 }
 
@@ -8457,13 +9026,13 @@ type InboundEmailMessageList struct {
 	// Data Page of received emails, newest first.
 	Data []InboundEmailMessage `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -8485,13 +9054,13 @@ type InboundRoute struct {
 	// MatchType How the route matches recipients. `address` matches one local part. `catch_all` matches every recipient on the domain that nothing else matched.
 	MatchType InboundRouteMatchType `json:"match_type"`
 
-	// MatchValue The local part an `address` route matches. Null for `catch_all` routes.
+	// MatchValue The local part an `address` route matches. `null` for `catch_all` routes.
 	MatchValue *string `json:"match_value"`
 
 	// Priority The order routes are tried in, lowest number first. Your own routes take a priority from 11 to 1000, and default to 100. A mailbox's own address always matches at priority 10.
 	Priority int `json:"priority"`
 
-	// TargetMailboxId The mailbox that receives matching mail. Null for `drop` routes.
+	// TargetMailboxId The mailbox that receives matching mail. `null` for `drop` routes.
 	TargetMailboxId *MailboxID `json:"target_mailbox_id"`
 
 	// UpdatedAt When the route was last updated.
@@ -8534,16 +9103,16 @@ type InboundRouteCreateMatchType string
 
 // InboundRouteList defines model for InboundRouteList.
 type InboundRouteList struct {
-	// Data Page of inbound routes in evaluation order: lowest priority number first.
+	// Data Page of inbound routes in evaluation order, with the lowest priority number first.
 	Data []InboundRoute `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -8558,13 +9127,13 @@ type InboundRouteUpdate struct {
 	// MatchType How the route matches recipients.
 	MatchType *InboundRouteUpdateMatchType `json:"match_type,omitempty"`
 
-	// MatchValue The local part an `address` route matches. Null for `catch_all` routes.
+	// MatchValue The local part an `address` route matches. `null` for `catch_all` routes.
 	MatchValue nullable.Nullable[string] `json:"match_value,omitempty"`
 
 	// Priority The order routes are tried in, lowest number first. Your own routes take a priority from 11 to 1000. The mailbox's own address always matches at priority 10.
 	Priority *int `json:"priority,omitempty"`
 
-	// TargetMailboxId The mailbox that receives matching mail. Null for `drop` routes.
+	// TargetMailboxId The mailbox that receives matching mail. `null` for `drop` routes.
 	TargetMailboxId nullable.Nullable[MailboxID] `json:"target_mailbox_id,omitempty"`
 }
 
@@ -8577,9 +9146,13 @@ type InboundRouteUpdateMatchType string
 // LanguageTag A language tag in BCP-47 form, for example `en` or `pt-BR`.
 type LanguageTag = string
 
-// LookupClassification The allocated service of the number's range. Returned when you request the `classification` property.
+// LookupClassification The allocated service of the number's range. Returned when you request the
+// `classification` property.
 //
-// This sits beside `line_type` rather than replacing it, so you can always see which source answered: `line_type` is what the carrier platform reports and costs nothing, `classification` is what the intelligence source reports and is what you paid for.
+// This sits beside `line_type` rather than replacing it, so you can always see
+// which source answered. The `line_type` property is included in the base lookup
+// and comes from the carrier platform. The `classification` property is
+// separately billed and comes from an intelligence source.
 type LookupClassification struct {
 	Status *LookupPropertyStatus `json:"status,omitempty"`
 
@@ -8587,21 +9160,48 @@ type LookupClassification struct {
 	Value *LookupClassificationValue `json:"value,omitempty"`
 }
 
-// LookupClassificationValue The allocated service of the number's range, at the precision the intelligence source publishes it.
+// LookupClassificationValue The allocated service of the number's range, at the precision the
+// intelligence source publishes it.
 //
-// This is a finer vocabulary than `line_type`, which reports what the carrier platform alone can tell. Eleven of these values have no carrier equivalent at all: a number the carrier can only call `service` may be `premium_rate`, `shared_cost`, `universal_access` or a voicemail platform, and those carry very different cost and fraud implications. Where the two fields do overlap, they are two independent opinions rather than one refining the other.
+// This is a finer vocabulary than `line_type`, which reports what the carrier
+// platform alone can tell. Some values have no carrier equivalent. For example,
+// a number the carrier calls `service` may be classified as `premium_rate`,
+// `shared_cost`, `universal_access`, or a voicemail platform. Where the fields
+// overlap, they remain independent results rather than one refining the other.
+//
+// Three values in particular have no carrier-side concept at all:
+//
+//   - `m2m` is a range reserved for machine-to-machine traffic, belonging to no
+//     individual subscriber.
+//   - `national_rate` is a non-geographic landline number charged above the
+//     local rate.
+//   - `fixed_line_or_mobile` is a range a country allocates so a number can port
+//     between the two.
 type LookupClassificationValue string
 
-// LookupFlag A notable characteristic of a number. `ported` means the number has moved from the network that issued it to another one, so `network_info` and `original_network_info` name different carriers.
+// LookupFlag A notable characteristic of a number. `ported` means the number has moved
+// from the network that issued it to another one, so `network_info` and
+// `original_network_info` name different carriers.
 //
-// Open enum: more flags may be added over time, so treat an unrecognized value as a future flag rather than an error.
+// Open enum: more flags may be added over time, so treat an unrecognized value
+// as a future flag rather than an error.
 type LookupFlag string
 
 // LookupLineType What kind of line the number is, as reported by the carrier platform.
 //
-// This is part of the free baseline and is returned on every lookup, whatever you request. It never changes with what you buy. `unknown` means the carrier platform holds no classification for the range, and `other` means it holds one that has no equivalent here.
+// This is included in every base lookup, regardless of which properties you
+// request.
 //
-// For the allocated service of the range at finer precision, request the `classification` property. That answers from a different source, with its own wider vocabulary, and is reported separately so you can always tell the two apart.
+//   - `unknown`: the carrier platform holds no classification for the
+//     range.
+//   - `other`: it holds a classification with no equivalent here.
+//   - `m2m`: a range reserved for machine-to-machine traffic, belonging to no
+//     individual subscriber.
+//
+// For the allocated service of the range at finer precision, request the
+// `classification` property. That answers from a different source, with its own
+// wider vocabulary, and is reported separately so you can always tell the two
+// apart.
 type LookupLineType string
 
 // LookupNetworkInfo The network a number belongs to.
@@ -8616,7 +9216,7 @@ type LookupNetworkInfo struct {
 	Mnc *string `json:"mnc,omitempty"`
 }
 
-// LookupPorting Whether the number has ever moved network, when it last did, and its full porting record. Returned when you request the `porting` property; the baseline only reports whether a number has ever ported, through the `ported` flag.
+// LookupPorting Whether the number has ever moved network, when it last did, and its full porting record. Returned when you request the `porting` property. The base lookup only reports whether the number has ever ported, through the `ported` flag.
 type LookupPorting struct {
 	// History Every move on record, oldest first. Absent when the number has never ported or when its registry publishes no history.
 	History *[]LookupPortingEvent `json:"history,omitempty"`
@@ -8624,10 +9224,10 @@ type LookupPorting struct {
 	// LastPortedAt When the number last moved network. Absent when it has never ported or when no date is on record.
 	LastPortedAt *time.Time `json:"last_ported_at,omitempty"`
 
-	// LastPortedAtIsApproximate Whether `last_ported_at` is an approximation. Some registries record only the period a move happened in, not the day.
+	// LastPortedAtIsApproximate Whether `last_ported_at` is an approximation. Some registries record the period of a move without its exact day.
 	LastPortedAtIsApproximate *bool `json:"last_ported_at_is_approximate,omitempty"`
 
-	// Ported Whether the number has ever moved network. False is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
+	// Ported Whether the number has ever moved network. `false` is a positive finding rather than a lack of one: the registry was consulted and holds no move for this number. Present only when `status` is `ok`.
 	Ported *bool                 `json:"ported,omitempty"`
 	Status *LookupPropertyStatus `json:"status,omitempty"`
 }
@@ -8637,35 +9237,54 @@ type LookupPortingEvent struct {
 	// Action What the record describes, as the number's registry reports it. Registries use their own short codes rather than a shared vocabulary, so treat this as a label to display rather than a value to branch on.
 	Action *string `json:"action,omitempty"`
 
-	// OccurredAt When the move was recorded, null when the record carries no date.
+	// OccurredAt When the move was recorded, `null` when the record carries no date.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 }
 
-// LookupPresence Whether the number is live on its network right now. Returned when you request the `presence` property.
+// LookupPresence Whether the number is live on its network right now. Returned when you
+// request the `presence` property.
 //
-// This is the one property no database can answer: it is a real-time query to the network the number is registered on.
+// The result reflects a real-time query to the network where the number is
+// registered.
 type LookupPresence struct {
-	// Reachable Whether the number is registered on a network and able to receive traffic. False means the network answered and reported the number as not currently reachable, which is different from us being unable to find out. Present only when `status` is `ok`.
+	// Reachable Whether the number is registered on a network and able to receive traffic. A `false` value means the network answered and reported the number as currently unreachable. This differs from the API being unable to find out. Present only when `status` is `ok`.
 	Reachable *bool                 `json:"reachable,omitempty"`
 	Status    *LookupPropertyStatus `json:"status,omitempty"`
 }
 
-// LookupProperty An intelligence property you can buy for a number, beyond the free baseline.
+// LookupProperty An intelligence property you can add to a base phone number lookup.
 //
-// `classification` resolves `line_type` to its precise allocated service (premium rate, satellite, machine-to-machine, payphone) where the baseline only distinguishes broad categories. `porting` returns when the number last moved network and its full porting record. `presence` reports whether the number is live on the network right now. `roaming` reports whether it is roaming and on which network. `sim_swap` returns when its SIM last changed. `score` returns a credibility score from 0 to 100.
+//   - `classification`: the property resolves `line_type` to its precise
+//     allocated service (premium rate, satellite, machine-to-machine,
+//     payphone) where the base lookup only distinguishes broad categories.
+//   - `porting`: the property returns when the number last moved network and
+//     its full porting record.
+//   - `presence`: the property reports whether the number is currently live
+//     on the network.
+//   - `roaming`: the property reports whether it is roaming and on which
+//     network.
+//   - `sim_swap`: the property returns when its SIM last changed.
+//   - `score`: the property returns a credibility score from 0 to 100.
 //
-// Each property you request is billed separately, and only when it is delivered.
+// Each property you request is billed separately, and only when it is
+// delivered.
 type LookupProperty string
 
 // LookupPropertyStatus How a requested property resolved.
 //
-// `ok` means the property was answered and its value is in the response.
+//   - `ok`: the property was answered and its value is in the response.
+//   - `unavailable`: no answer arrived, so the property adds nothing: its
+//     block is `null`, or for `classification`, `line_type` retains the value
+//     from the base lookup. The property is not billed.
+//   - `inconclusive`: an answer arrived but does not resolve the
+//     property, either because the number is outside the coverage of the data
+//     behind it or because the answer is one we cannot yet place. It is a real
+//     answer rather than a missing one, and it is not billed either.
 //
-// `unavailable` means no answer arrived, so the property adds nothing: its block is null, or for `classification`, `line_type` is left as the free baseline resolved it. The property is not billed.
-//
-// `inconclusive` means an answer arrived but does not resolve the property, either because the number is outside the coverage of the data behind it or because the answer is one we cannot yet place. It is a real answer rather than a missing one, and it is not billed either.
-//
-// Open enum: further statuses may be added over time, so treat an unrecognized value as a future one rather than an error. Only `ok` carries a value and only `ok` is billed, so branching on `ok` and treating everything else as "not answered" stays correct however the vocabulary grows.
+// Open enum: further statuses may be added over time, so treat an unrecognized
+// value as a future one rather than an error. Only `ok` carries a value and only
+// `ok` is billed, so branching on `ok` and treating everything else as "not
+// answered" stays correct however the vocabulary grows.
 type LookupPropertyStatus string
 
 // LookupRoaming Whether the number is roaming, and on which network. Returned when you request the `roaming` property.
@@ -8685,7 +9304,7 @@ type LookupRoaming struct {
 type LookupScore struct {
 	Status *LookupPropertyStatus `json:"status,omitempty"`
 
-	// Value Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range; it is a signal to weigh, not a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
+	// Value Credibility from 0 (low) to 100 (high). A low score means the number looks less credible than a typical subscriber line in the same range. Treat it as one signal instead of a verdict. It is a composite and is not derivable from the other properties. Present only when `status` is `ok`.
 	Value *int `json:"value,omitempty"`
 }
 
@@ -8713,13 +9332,13 @@ type Mailbox struct {
 	// CreatedAt When the mailbox was created.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null when unset.
+	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to"`
 
-	// DeletedAt When the mailbox was deleted, or null if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+	// DeletedAt When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
-	// DisplayName Display name used as the sender name on mail from this mailbox. Null when unset.
+	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
 	DisplayName      *string          `json:"display_name"`
 	Id               MailboxID        `json:"id"`
 	InboundAddressId InboundAddressID `json:"inbound_address_id"`
@@ -8756,7 +9375,7 @@ type Mailbox struct {
 	// ThreadCount Number of retained threads.
 	ThreadCount *int64 `json:"thread_count,omitempty"`
 
-	// UnreadThreadCount Number of threads with unread messages in this mailbox, excluding trash. Null on create/update responses.
+	// UnreadThreadCount Number of threads with unread messages in this mailbox, excluding trash. `null` on create/update responses.
 	UnreadThreadCount *int64 `json:"unread_thread_count,omitempty"`
 
 	// UpdatedAt When the mailbox was last updated.
@@ -8785,16 +9404,16 @@ type MailboxState string
 
 // MailboxCreate Parameters for creating a mailbox.
 type MailboxCreate struct {
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox.
+	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to,omitempty"`
 
 	// DisplayName Display name used as the sender name on mail from this mailbox.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain, where creating the mailbox claims the address for your organization: first come, first served, and permanently reserved to your organization even after the mailbox is deleted. May instead name one of your own domains that is enabled for receiving email.
+	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
 	Domain *string `json:"domain,omitempty"`
 
-	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits (no leading, trailing, or repeated separators), reserved names such as `postmaster` or `abuse` are unavailable, and choosing your own local part uses one of your plan's custom-handle allowance slots (generated addresses are always available). Omit it and we generate a random local part.
+	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
 	LocalPart *string `json:"local_part,omitempty"`
 
 	// Metadata Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
@@ -8834,13 +9453,13 @@ type MailboxID = string
 type MailboxList struct {
 	Data []Mailbox `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -8855,9 +9474,9 @@ type MailboxOwner struct {
 // MailboxOwnerType Owner principal type.
 type MailboxOwnerType string
 
-// MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics use the same delivery, engagement, and latency breakdowns as the email stats endpoints. `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and null latency percentiles.
+// MailboxStatsPoint Per-mailbox email activity for one time bucket, bucketed by event time. Sent-mail metrics use the same delivery, engagement, and latency breakdowns as the email stats endpoints. `received` counts mail that arrived at the mailbox. Buckets with no activity are included with zero counts and `null` latency percentiles.
 type MailboxStatsPoint struct {
-	// Bucket The day (YYYY-MM-DD) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
+	// Bucket The day (`YYYY-MM-DD`) or instant (RFC 3339, on the bucket boundary) this point covers, matching the period's grain.
 	Bucket     *string               `json:"bucket,omitempty"`
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
@@ -8878,11 +9497,11 @@ type MailboxStatsResponse struct {
 	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
 	Period EmailStatsSeriesPeriod `json:"period"`
 
-	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
 	Summary *MailboxStatsSummary `json:"summary,omitempty"`
 }
 
-// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
 type MailboxStatsSummary struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
@@ -8895,31 +9514,45 @@ type MailboxStatsSummary struct {
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
-// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged. Fields set to null are cleared. The address and domain are immutable.
+// MailboxUpdate Fields to update on a mailbox. Omitted fields are unchanged. Fields set to `null` are cleared. The address and domain are immutable.
 type MailboxUpdate struct {
-	// DefaultReplyTo Default Reply-To address stamped on mail sent from this mailbox. Null clears it.
+	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` clears it.
 	DefaultReplyTo nullable.Nullable[string] `json:"default_reply_to,omitempty"`
 
-	// DisplayName Display name used as the sender name on mail from this mailbox. Null clears it.
+	// DisplayName Display name used as the sender name on mail from this mailbox. `null` clears it.
 	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
 
 	// Metadata Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// ReceivePolicy Which inbound mail the mailbox accepts.
+	// ReceivePolicy Which inbound mail the mailbox accepts:
+	//
+	// - `open`: Accepts everything not blocked by a rule.
+	// - `replies_only`: Accepts only replies to messages this mailbox has
+	//   sent. A reply must match a message the mailbox sent. Landing in an
+	//   existing thread by itself does not count.
+	// - `allowlist`: Accepts only senders matching an allow rule.
+	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
 	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
-// MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts.
+// MailboxUpdateReceivePolicy Which inbound mail the mailbox accepts:
+//
+//   - `open`: Accepts everything not blocked by a rule.
+//   - `replies_only`: Accepts only replies to messages this mailbox has
+//     sent. A reply must match a message the mailbox sent. Landing in an
+//     existing thread by itself does not count.
+//   - `allowlist`: Accepts only senders matching an allow rule.
+//   - `drop`: Stores nothing.
 type MailboxUpdateReceivePolicy string
 
 // MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 type MailboxUpdateRetentionTier string
 
-// MessageCost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+// MessageCost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 type MessageCost struct {
 	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
 	Amount *string `json:"amount,omitempty"`
@@ -8927,10 +9560,10 @@ type MessageCost struct {
 	// CurrencyCode ISO 4217 three-letter currency code.
 	CurrencyCode CurrencyCode `json:"currency_code"`
 
-	// PassthroughAmount Third-party fees Bird passes on, as a decimal string, such as US 10DLC carrier surcharges. Null when this component was not priced; `"0.00000"` when it priced at zero.
+	// PassthroughAmount Third-party fees we pass on, as a decimal string, such as US 10DLC carrier surcharges. `null` when this component was not priced; `"0.00000"` when it priced at zero.
 	PassthroughAmount *string `json:"passthrough_amount,omitempty"`
 
-	// TransactionAmount What Bird charged to carry the message, as a decimal string. Null when this component was not priced; `"0.00000"` when it priced at zero.
+	// TransactionAmount What we charged to carry the message, as a decimal string. `null` when this component was not priced; `"0.00000"` when it priced at zero.
 	TransactionAmount *string `json:"transaction_amount,omitempty"`
 }
 
@@ -8951,7 +9584,17 @@ type NextAction struct {
 	// Description A short, human-readable label for the step, suitable for display.
 	Description string `json:"description"`
 
-	// Kind What you do about this step. `operation` means call the operation named in `operation`, then read again. `external` means act somewhere this API does not reach, then read again. `wait` means nothing is asked of you, so read again later. `terminal` means nothing you do resolves this, so stop retrying. Tolerate a value you do not recognize: show the `description` and offer no action.
+	// Kind What you do about this step.
+	//
+	// - `operation`: call the operation named in `operation`, then
+	//   read again.
+	// - `external`: act somewhere this API does not reach, then read
+	//   again.
+	// - `wait`: nothing is asked of you, so read again later.
+	// - `terminal`: nothing you do resolves this, so stop retrying.
+	//
+	// Tolerate a value you do not recognize: show the `description` and
+	// offer no action.
 	Kind string `json:"kind"`
 
 	// Operation The operationId to call. Present only when `kind` is `operation`. The operation's own schema says how to call it; this says only which one, and what to address it with.
@@ -8964,11 +9607,16 @@ type NextAction struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// PhoneNumberLookup What Bird knows about a phone number.
+// PhoneNumberLookup Information about a phone number.
 //
-// The number, its flags and its line type are the free baseline and are always present; the country and the two networks join them whenever they could be identified. Each property you request through `type` comes back as a block of the same name, carrying its own `status`. A property you did not request is absent altogether, and a property that could not be answered is present with its `status` alone. You are billed for exactly the properties whose status is `ok`.
+// The number, its flags, and its line type are included in the base lookup and
+// are always present. The country and two networks are present when identified.
+// Each property you request through `type` is returned in a block with the same
+// name and its own `status`. A property you did not request is absent. A
+// property that could not be answered is present with only its `status`. Each
+// requested property is billed only when its status is `ok`.
 //
-// Fields with nothing behind them are left out rather than sent as null, so anything you can read in the response is something Bird actually resolved.
+// Fields with no value are omitted rather than returned as `null`.
 type PhoneNumberLookup struct {
 	// Classification The allocated service of the number's range. Absent unless you requested the `classification` property.
 	Classification *LookupClassification `json:"classification,omitempty"`
@@ -9010,9 +9658,12 @@ type PhoneNumberLookupRequest struct {
 	// PhoneNumber The phone number to look up, in international format: the country calling code, then the national number. The leading `+` is optional, and `00` works in its place, so `+31612345678`, `31612345678` and `0031612345678` are all the same number. A number written for dialling inside one country, with no country code, is rejected rather than guessed at.
 	PhoneNumber string `json:"phone_number"`
 
-	// Type The paid properties to enrich the answer with. Omit it, or send an empty array, to get the free baseline and make no vendor call.
+	// Type Properties to add to the base lookup. Omit this field or send an empty
+	// array to request only the base lookup.
 	//
-	// Each delivered property is billed on top of the lookup itself. A property that could not be answered is reported in `properties` and is not billed.
+	// Each delivered property is billed in addition to the base lookup. A
+	// property that could not be answered is returned with its status and is
+	// not billed.
 	Type *[]LookupProperty `json:"type,omitempty"`
 }
 
@@ -9034,14 +9685,19 @@ type RealtimeApp struct {
 	ConnectionCounting bool          `json:"connection_counting"`
 	CreatedAt          *time.Time    `json:"created_at,omitempty"`
 	Id                 RealtimeAppID `json:"id"`
-	Name               string        `json:"name"`
 
-	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	// Name A label for the app, shown wherever it is listed.
+	Name string `json:"name"`
+
+	// Region The region this app runs in. Unlike other products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
 	Region Region `json:"region"`
 
 	// Status Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
 	Status    *RealtimeAppStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time         `json:"updated_at,omitempty"`
+
+	// WatchlistEvents Tell a signed-in member when the members on their watchlist come online or go offline. The watchlist is part of the identity your backend signs at signin.
+	WatchlistEvents bool `json:"watchlist_events"`
 }
 
 // RealtimeAppStatus Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
@@ -9060,20 +9716,33 @@ type RealtimeAppConfig struct {
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
 	ConnectionCounting *bool `json:"connection_counting,omitempty"`
+
+	// WatchlistEvents Tell a signed-in member when the members on their watchlist come online or go offline. The watchlist is part of the identity your backend signs at signin.
+	WatchlistEvents *bool `json:"watchlist_events,omitempty"`
 }
 
 // RealtimeAppCreate defines model for RealtimeAppCreate.
 type RealtimeAppCreate struct {
+	// AuthorizedConnections Require every connection to be authorized.
 	AuthorizedConnections *bool `json:"authorized_connections,omitempty"`
-	ClientEvents          *bool `json:"client_events,omitempty"`
+
+	// ClientEvents Allow clients to trigger events directly (client events).
+	ClientEvents *bool `json:"client_events,omitempty"`
+
+	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
 	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
-	ConnectionCounting    *bool `json:"connection_counting,omitempty"`
+
+	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
+	ConnectionCounting *bool `json:"connection_counting,omitempty"`
 
 	// Name A label for the app, shown wherever it is listed.
 	Name string `json:"name"`
 
-	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	// Region The region this app runs in. Unlike other products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
 	Region Region `json:"region"`
+
+	// WatchlistEvents Tell a signed-in member when the members on their watchlist come online or go offline. The watchlist is part of the identity your backend signs at signin.
+	WatchlistEvents *bool `json:"watchlist_events,omitempty"`
 }
 
 // RealtimeAppCreated defines model for RealtimeAppCreated.
@@ -9096,15 +9765,20 @@ type RealtimeAppCreated struct {
 	Id                 RealtimeAppID `json:"id"`
 
 	// Key The app's initial key, including its one-time secret. Present in this create response only; the secret is never returned again.
-	Key  *RealtimeAppKey `json:"key,omitempty"`
-	Name string          `json:"name"`
+	Key *RealtimeAppKey `json:"key,omitempty"`
 
-	// Region The region this app runs in. Unlike other Bird products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
+	// Name A label for the app, shown wherever it is listed.
+	Name string `json:"name"`
+
+	// Region The region this app runs in. Unlike other products, a Realtime app can be placed in a region other than the workspace's home region. Immutable after creation.
 	Region Region `json:"region"`
 
 	// Status Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
 	Status    *RealtimeAppCreatedStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time                `json:"updated_at,omitempty"`
+
+	// WatchlistEvents Tell a signed-in member when the members on their watchlist come online or go offline. The watchlist is part of the identity your backend signs at signin.
+	WatchlistEvents bool `json:"watchlist_events"`
 }
 
 // RealtimeAppCreatedStatus Lifecycle state of the app. `active` apps serve connections; `suspended` apps are provisioned but reject connections.
@@ -9121,10 +9795,10 @@ type RealtimeAppKey struct {
 	// Key The public app key clients use to connect.
 	Key *string `json:"key,omitempty"`
 
-	// RevokedAt When the key was revoked, or null if still active.
+	// RevokedAt When the key was revoked, or `null` if still active.
 	RevokedAt *time.Time `json:"revoked_at,omitempty"`
 
-	// Secret The key secret, used for server-side request signing. Returned only when the key is created, and never shown again — store it securely. If lost, create a new key and revoke this one.
+	// Secret The key secret, used for server-side request signing. Returned only when the key is created, and never shown again: store it securely. If lost, create a new key and revoke this one.
 	Secret *string `json:"secret,omitempty" pii:"true"`
 }
 
@@ -9133,7 +9807,7 @@ type RealtimeAppKeyID = string
 
 // RealtimeAppKeyList defines model for RealtimeAppKeyList.
 type RealtimeAppKeyList struct {
-	// Data The app's keys, oldest first. Revoked keys are excluded unless include_revoked=true.
+	// Data The app's keys, oldest first. Revoked keys are excluded unless `include_revoked`=`true`.
 	Data []RealtimeAppKey `json:"data"`
 }
 
@@ -9141,16 +9815,16 @@ type RealtimeAppKeyList struct {
 type RealtimeAppList struct {
 	Data []RealtimeApp `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -9173,14 +9847,17 @@ type RealtimeAppUpdate struct {
 
 	// Name A label for the app, shown wherever it is listed.
 	Name *string `json:"name,omitempty"`
+
+	// WatchlistEvents Tell a signed-in member when the members on their watchlist come online or go offline. The watchlist is part of the identity your backend signs at signin.
+	WatchlistEvents *bool `json:"watchlist_events,omitempty"`
 }
 
-// RealtimeBatchEvent One item of a batch publish — a single event to a single channel.
+// RealtimeBatchEvent A single event published to one channel as part of a batch.
 type RealtimeBatchEvent struct {
-	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
 	Channel RealtimeChannelName `json:"channel"`
 
-	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
 	Data *RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
@@ -9207,22 +9884,22 @@ type RealtimeBatchPublishResult struct {
 
 // RealtimeBatchPublishResultItem defines model for RealtimeBatchPublishResultItem.
 type RealtimeBatchPublishResultItem struct {
-	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	// Channel A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
 	Channel RealtimeChannelName `json:"channel"`
 
-	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	// ConnectionCount Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
 	ConnectionCount *int64 `json:"connection_count,omitempty"`
 
-	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	// MemberCount Distinct members (presence channels only; requires `include=member_count`).
 	MemberCount *int64 `json:"member_count,omitempty"`
 }
 
 // RealtimeChannelCounts Per-channel counts, present only when requested via `include` and applicable.
 type RealtimeChannelCounts struct {
-	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	// ConnectionCount Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
 	ConnectionCount *int64 `json:"connection_count,omitempty"`
 
-	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	// MemberCount Distinct members (presence channels only; requires `include=member_count`).
 	MemberCount *int64 `json:"member_count,omitempty"`
 }
 
@@ -9231,10 +9908,10 @@ type RealtimeChannelInclude string
 
 // RealtimeChannelInfo defines model for RealtimeChannelInfo.
 type RealtimeChannelInfo struct {
-	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	// ConnectionCount Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
 	ConnectionCount *int64 `json:"connection_count,omitempty"`
 
-	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	// MemberCount Distinct members (presence channels only; requires `include=member_count`).
 	MemberCount *int64 `json:"member_count,omitempty"`
 
 	// Occupied Whether at least one client is subscribed.
@@ -9243,19 +9920,19 @@ type RealtimeChannelInfo struct {
 
 // RealtimeChannelListItem defines model for RealtimeChannelListItem.
 type RealtimeChannelListItem struct {
-	// ConnectionCount Connections currently subscribed to this channel (requires include=connection_count and the app's connection-counting flag). Channel-scoped — distinct from the app-wide peak connections metric.
+	// ConnectionCount Connections currently subscribed to this channel (requires `include=connection_count` and the app's connection-counting flag). Channel-scoped: distinct from the app-wide peak connections metric.
 	ConnectionCount *int64 `json:"connection_count,omitempty"`
 
-	// MemberCount Distinct members (presence channels only; requires include=member_count).
+	// MemberCount Distinct members (presence channels only; requires `include=member_count`).
 	MemberCount *int64 `json:"member_count,omitempty"`
 
-	// Name A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+	// Name A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
 	Name RealtimeChannelName `json:"name"`
 }
 
 // RealtimeChannelMember A member present on a presence channel.
 type RealtimeChannelMember struct {
-	// MemberId An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+	// MemberId An app-defined member ID for your application's end user, assigned when your auth server authorizes them. Use up to 128 URL-safe characters because member IDs appear directly in API request paths. The value can include `+ : @ . _ -`, but not `/ ? # %` or whitespace.
 	MemberId RealtimeMemberID `json:"member_id"`
 }
 
@@ -9264,7 +9941,7 @@ type RealtimeChannelMembers struct {
 	Members []RealtimeChannelMember `json:"members"`
 }
 
-// RealtimeChannelName A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels.
+// RealtimeChannelName A Realtime channel name. Only letters, digits, and _ - = @ , . ; Prefix with `private-` or `presence-` for authenticated channels, or `private-encrypted-` for channels whose payloads are end-to-end encrypted with a key only you hold.
 type RealtimeChannelName = string
 
 // RealtimeChannelsList The app's occupied channels. The Realtime service does not paginate this listing, so all occupied channels are returned in one response.
@@ -9273,7 +9950,7 @@ type RealtimeChannelsList struct {
 	Data []RealtimeChannelListItem `json:"data"`
 }
 
-// RealtimeEventData Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+// RealtimeEventData Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
 type RealtimeEventData = interface{}
 
 // RealtimeEventName The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
@@ -9282,12 +9959,12 @@ type RealtimeEventName = string
 // RealtimeExcludeConnectionId Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
 type RealtimeExcludeConnectionId = string
 
-// RealtimeMemberID An app-defined member id — the identity of your application's end user ("member"), assigned when your auth server authorizes them. Never a Bird user. Max 128 characters, restricted to URL-safe characters because member ids appear directly in API request paths. Broader than a channel name — allows `+ : @ . _ -` etc. for real identifiers (phone numbers, emails, `member:42`), but excludes `/ ? # %` and whitespace.
+// RealtimeMemberID An app-defined member ID for your application's end user, assigned when your auth server authorizes them. Use up to 128 URL-safe characters because member IDs appear directly in API request paths. The value can include `+ : @ . _ -`, but not `/ ? # %` or whitespace.
 type RealtimeMemberID = string
 
 // RealtimeMemberPublish An event addressed to one member rather than to a channel. Every connection that member currently holds receives it; if they hold none, the event is dropped.
 type RealtimeMemberPublish struct {
-	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
 	Data *RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
@@ -9296,10 +9973,10 @@ type RealtimeMemberPublish struct {
 
 // RealtimePublish A Realtime publish: delivers one event to one or more channels of the app. Listing several channels fans the event out to all of them (broadcast) in a single call.
 type RealtimePublish struct {
-	// Channels The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels.
+	// Channels The channels to deliver the event to (up to 100 per call). Prefix with `private-` or `presence-` for authenticated channels. A `private-encrypted-` channel must be the only channel in its publish: each encrypted channel has its own key, so a fan-out would hand the other channels unreadable ciphertext.
 	Channels []RealtimeChannelName `json:"channels"`
 
-	// Data Arbitrary JSON payload delivered as the event data — an object, array, or scalar. Cap: 10 KB serialized.
+	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
 	Data *RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
@@ -9308,7 +9985,7 @@ type RealtimePublish struct {
 	// ExcludeConnectionId Exclude this connection from delivery, to avoid echoing a change back to the client that triggered it. The value is the client's connection id, assigned when its connection is established.
 	ExcludeConnectionId *RealtimeExcludeConnectionId `json:"exclude_connection_id,omitempty"`
 
-	// Include Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time (same semantics and validation errors as on the channel endpoints: `member_count` is presence-channels only, `connection_count` requires the app's connection-counting flag). Requesting attributes counts as one additional message toward usage.
+	// Include Per-channel attributes to return alongside the publish, reflecting each channel's state at publish time. `member_count` is available only for presence channels. `connection_count` requires the app's connection-counting flag. Requesting attributes counts as one additional message toward usage.
 	Include *[]RealtimeChannelInclude `json:"include,omitempty"`
 }
 
@@ -9332,7 +10009,7 @@ type RealtimeRegionList struct {
 
 // ReceiveRule An allow or block entry on a mailbox, evaluated when inbound mail arrives. Matching is against the message's envelope sender; domain entries also match subdomains. A given entry can be allow or block, never both.
 type ReceiveRule struct {
-	// Action What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+	// Action What the rule does when it matches. Block rules always win: over allow rules and over the reply admission on allowlist mailboxes.
 	Action *ReceiveRuleAction `json:"action,omitempty"`
 
 	// CreatedAt When the rule was created.
@@ -9346,11 +10023,11 @@ type ReceiveRule struct {
 	Id        ReceiveRuleID         `json:"id"`
 	MailboxId MailboxID             `json:"mailbox_id"`
 
-	// Note Your own note about why the rule exists. Null when unset.
+	// Note Your own note about why the rule exists. `null` when unset.
 	Note *string `json:"note,omitempty"`
 }
 
-// ReceiveRuleAction What the rule does when it matches. Block rules always win — over allow rules and over the reply admission on allowlist mailboxes.
+// ReceiveRuleAction What the rule does when it matches. Block rules always win: over allow rules and over the reply admission on allowlist mailboxes.
 type ReceiveRuleAction string
 
 // ReceiveRuleEntryType Whether the entry is a full address or a domain.
@@ -9378,13 +10055,13 @@ type ReceiveRuleID = string
 type ReceiveRuleList struct {
 	Data []ReceiveRule `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -9406,12 +10083,113 @@ type SMSBatchSummary struct {
 	AcceptedCount int `json:"accepted_count"`
 }
 
+// SMSCarrierStatsPoint Aggregate delivery and latency stats for a single delivery carrier over the requested period.
+type SMSCarrierStatsPoint struct {
+	// Carrier The delivery carrier this row aggregates, as resolved for the destination handset.
+	Carrier  *string           `json:"carrier,omitempty"`
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency  *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this carrier, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
+// SMSCategoryStatsPoint Aggregate delivery and latency stats for a single message category over the requested period.
+type SMSCategoryStatsPoint struct {
+	// Category The category this row aggregates, as set at send time. `transactional` is one-to-one messaging triggered by a user action; `marketing` is bulk sending. New categories may be added over time.
+	Category *string           `json:"category,omitempty"`
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency  *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this category, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
+// SMSCountryStatsPoint Aggregate delivery and latency stats for a single destination country over the requested period.
+type SMSCountryStatsPoint struct {
+	// Country The destination country this row aggregates, as an ISO 3166-1 alpha-2 code.
+	Country  *string           `json:"country,omitempty"`
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency  *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this country, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
+// SMSDeliveryCounts SMS lifecycle counts for a time bucket. Counts use the message send time, so a message accepted on Monday and delivered on Tuesday counts in Monday's bucket. Rates are available only for whole periods and breakdowns.
+type SMSDeliveryCounts struct {
+	// Accepted Distinct messages accepted for sending after admission checks.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// Delivered Distinct messages the carrier confirmed as delivered to the handset.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// Expired Distinct messages that could not be delivered within their validity window and expired.
+	Expired *int `json:"expired,omitempty"`
+
+	// Failed Distinct messages that failed during sending.
+	Failed *int `json:"failed,omitempty"`
+
+	// Rejected Distinct messages rejected before any send attempt, for example by sending policy or a message-generation failure.
+	Rejected *int `json:"rejected,omitempty"`
+
+	// Sent Distinct messages handed off to the carrier for delivery.
+	Sent *int `json:"sent,omitempty"`
+
+	// Undelivered Distinct messages the carrier reported as not delivered.
+	Undelivered *int `json:"undelivered,omitempty"`
+}
+
+// SMSDeliveryStats SMS lifecycle counts and rates for a whole period or breakdown. Counts use the message send time, so a later delivery stays attributed to the bucket in which the message was sent. Rates are null when their denominator is zero.
+type SMSDeliveryStats struct {
+	// Accepted Distinct messages accepted for sending after admission checks. This is the denominator for `delivery_rate` and `failure_rate`.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// Delivered Distinct messages the carrier confirmed as delivered to the handset.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Share of accepted messages that were delivered, computed as `delivered / accepted`. Null when no messages were accepted in scope.
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+
+	// Expired Distinct messages that could not be delivered within their validity window and expired.
+	Expired *int `json:"expired,omitempty"`
+
+	// Failed Distinct messages that failed during sending.
+	Failed *int `json:"failed,omitempty"`
+
+	// FailureRate Share of accepted messages that ultimately failed, computed as `(undelivered + failed + expired) / accepted`. Null when no messages were accepted in scope.
+	FailureRate *float32 `json:"failure_rate,omitempty"`
+
+	// Rejected Distinct messages rejected before any send attempt, for example by sending policy or a message-generation failure.
+	Rejected *int `json:"rejected,omitempty"`
+
+	// Sent Distinct messages handed off to the carrier for delivery.
+	Sent *int `json:"sent,omitempty"`
+
+	// Undelivered Distinct messages the carrier reported as not delivered.
+	Undelivered *int `json:"undelivered,omitempty"`
+}
+
 // SMSError Failure detail for a message that could not be delivered or was rejected.
 type SMSError struct {
 	// CarrierErrorCode Raw provider-supplied error code, finer-grained than the `code` that normalizes it. Not a Bird-defined value, so quote it to support when asking why a message failed. Null when the provider sent none, including any failure decided before one was reached.
 	CarrierErrorCode *string `json:"carrier_error_code,omitempty"`
 
-	// Code Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+	// Code Standardized failure reason:
+	//
+	// - `invalid_destination`: The number is unassigned, ported out, or malformed.
+	// - `unreachable`: The handset is off or outside coverage.
+	// - `blocked_by_carrier`: The carrier filtered the message.
+	// - `blocked_by_recipient`: The recipient device blocked the sender.
+	// - `landline_unreachable`: The destination is a landline that does not accept SMS.
+	// - `content_rejected`: The carrier rejected the content.
+	// - `sender_unregistered`: The sender is not registered for the destination.
+	// - `recipient_opted_out`: The recipient is on a suppression list.
+	// - `provider_unavailable`: The provider remained unavailable after retries.
+	// - `insufficient_balance`: The workspace wallet could not fund the send.
+	// - `unknown`: The failure could not be classified.
+	//
+	// This is an open enum. Accept unrecognized values.
 	Code SMSErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -9421,8 +10199,297 @@ type SMSError struct {
 	OccurredAt time.Time `json:"occurred_at"`
 }
 
-// SMSErrorCode Bird-stable failure reason. Open enum: Bird adds reasons as the carrier platform's own buckets are covered, so treat an unrecognized value as a future reason rather than an error. `invalid_destination`: the number is not assigned, ported out, or malformed. `unreachable`: handset off or out of coverage. `blocked_by_carrier`: the carrier filtered the message. `blocked_by_recipient`: the recipient device blocked the sender. `landline_unreachable`: the destination is a landline that does not accept SMS. `content_rejected`: the carrier rejected the content. `sender_unregistered`: the sender is not registered for the destination. `recipient_opted_out`: the recipient is on a suppression list. `provider_unavailable`: an upstream failure after retries. `insufficient_balance`: the workspace wallet had insufficient balance to send the message. `unknown`: an unmapped failure.
+// SMSErrorCode Standardized failure reason:
+//
+// - `invalid_destination`: The number is unassigned, ported out, or malformed.
+// - `unreachable`: The handset is off or outside coverage.
+// - `blocked_by_carrier`: The carrier filtered the message.
+// - `blocked_by_recipient`: The recipient device blocked the sender.
+// - `landline_unreachable`: The destination is a landline that does not accept SMS.
+// - `content_rejected`: The carrier rejected the content.
+// - `sender_unregistered`: The sender is not registered for the destination.
+// - `recipient_opted_out`: The recipient is on a suppression list.
+// - `provider_unavailable`: The provider remained unavailable after retries.
+// - `insufficient_balance`: The workspace wallet could not fund the send.
+// - `unknown`: The failure could not be classified.
+//
+// This is an open enum. Accept unrecognized values.
 type SMSErrorCode string
+
+// SMSErrorCodeStatsPoint Delivery and latency statistics for one standardized failure reason over the requested period.
+type SMSErrorCodeStatsPoint struct {
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+
+	// ErrorCode Standardized failure reason this row aggregates. Matches the `error_code` message-list filter.
+	ErrorCode *SMSErrorCode    `json:"error_code,omitempty"`
+	Latency   *SMSLatencyStats `json:"latency,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this error code, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
+// SMSEvent defines model for SMSEvent.
+type SMSEvent struct {
+	// Carrier Carrier that handled the message. Present on `sms.sent` and `sms.delivered` once identified, absent otherwise.
+	Carrier *string `json:"carrier,omitempty"`
+
+	// Error Failure detail for a message that could not be delivered or was rejected.
+	Error *SMSError `json:"error,omitempty"`
+
+	// Id Unique identifier for this event, stable across repeated fetches of the message.
+	Id *string `json:"id,omitempty"`
+
+	// MccMnc Mobile country code and mobile network code of the carrier. Present on `sms.sent` and `sms.delivered` once identified, absent otherwise.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// OccurredAt When this event occurred.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+
+	// Type Lifecycle event type. The `sms.accepted` event means the API accepted the request. The `sms.sent` event means the message reached the carrier. The `sms.delivered` event confirms delivery. The `sms.undelivered`, `sms.failed`, and `sms.expired` events describe delivery failures. The `sms.rejected` event means the message was refused before carrier handoff. This is an open enum. Accept unrecognized values.
+	Type *string `json:"type,omitempty"`
+}
+
+// SMSEventList defines model for SMSEventList.
+type SMSEventList struct {
+	// Data Timeline events for this SMS message, in chronological order. The bounded timeline is returned in full and is not paginated.
+	Data []SMSEvent `json:"data"`
+}
+
+// SMSInboundCountryStatsPoint Received-message volume for one country.
+type SMSInboundCountryStatsPoint struct {
+	// Country The country of the Bird number the messages arrived on, as an ISO 3166-1 alpha-2 code. This identifies where the message was received. It does not identify the sender's country.
+	Country *string `json:"country,omitempty"`
+
+	// Received Distinct messages received on numbers in this country during the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundNumberStatsPoint Received-message volume for one of your numbers.
+type SMSInboundNumberStatsPoint struct {
+	// Number The Bird number the messages arrived on, in E.164, or the short code they were sent to. This is the same value the message resource exposes as `to`.
+	Number *string `json:"number,omitempty"`
+
+	// Received Distinct messages received on this number during the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundOperatorStatsPoint Received-message volume for one mobile operator.
+type SMSInboundOperatorStatsPoint struct {
+	// MccMnc Mobile country code and mobile network code of the network the sending subscriber is on. The breakdown keys on this rather than on an operator name because the carrier reports a name only where a surcharge applies, which would leave most of the world in one unnamed bucket.
+	MccMnc *string `json:"mcc_mnc,omitempty"`
+
+	// Received Distinct messages received from senders on this operator during the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundStatsByCountryResponse Received-message volume broken down by country, ranked by volume.
+type SMSInboundStatsByCountryResponse struct {
+	// Data One row per country with activity in the period, most messages first, capped at the requested `limit`. A country with no messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]SMSInboundCountryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct countries the messages arrived in with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSInboundStatsByNumberResponse Received-message volume broken down by number, ranked by volume.
+type SMSInboundStatsByNumberResponse struct {
+	// Data One row per number with activity in the period, most messages first, capped at the requested `limit`. A number with no messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]SMSInboundNumberStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct numbers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSInboundStatsByOperatorResponse Received-message volume broken down by operator, ranked by volume.
+type SMSInboundStatsByOperatorResponse struct {
+	// Data One row per operator with activity in the period, most messages first, capped at the requested `limit`. An operator with no messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]SMSInboundOperatorStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct sending operators with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSInboundStatsComparison The received-message count for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type SMSInboundStatsComparison struct {
+	Delta *SMSInboundStatsComparisonDelta `json:"delta,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the preceding period.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundStatsComparisonDelta The change from the preceding period to the requested one. The `received_pct_change` field is a signed relative change, computed as `(current - previous) / previous`. A value of `0.5` means 50% higher, and `-0.2` means 20% lower. The field is null when the previous period received none.
+type SMSInboundStatsComparisonDelta struct {
+	// ReceivedPctChange Relative change in received messages versus the previous period, as a signed fraction. Null when the previous period received none.
+	ReceivedPctChange *float32 `json:"received_pct_change,omitempty"`
+}
+
+// SMSInboundStatsPoint One time bucket of received-message counts, attributed by arrival time.
+type SMSInboundStatsPoint struct {
+	// Bucket Start of the bucket this row covers, as a calendar day (YYYY-MM-DD) for the daily series or an hour boundary (RFC 3339) for the hourly one.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Received Distinct messages received in this bucket, counted by the time the carrier received them.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSInboundStatsResponse Received-message time series. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type SMSInboundStatsResponse struct {
+	// Data One row per bucket (day or hour, per the grain) in the period, in chronological order. Buckets with no activity are included with a count of zero, so the series charts continuously without client-side gap handling.
+	Data *[]SMSInboundStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period SMSStatsSeriesPeriod `json:"period"`
+}
+
+// SMSInboundStatsSummaryResponse Total received messages over the requested period.
+type SMSInboundStatsSummaryResponse struct {
+	Comparison *SMSInboundStatsComparison `json:"comparison,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the period, counted by the time the carrier received them.
+	Received *int `json:"received,omitempty"`
+}
+
+// SMSKeywordOperation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+type SMSKeywordOperation string
+
+// SMSKeywordRule defines model for SMSKeywordRule.
+type SMSKeywordRule struct {
+	// Country The country the rule applies in, as an ISO 3166-1 alpha-2 code. A rule for `NL` covers messages received on your Dutch numbers, and messages from a subscriber whose own number is Dutch whichever of your numbers they text. Rules for the country a message arrives in always outrank rules for the country its sender is in; within each, your rule wins over Bird's keywords for that country. `number` confines a rule to one number. Null means the rule applies worldwide, which is allowed for `custom` operations only.
+	Country *string `json:"country,omitempty"`
+
+	// CreatedAt When the rule was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation, country and language, plus the ones you added. This is what an inbound message is compared against. Keywords Bird adds later join it without you changing anything.
+	EffectiveKeywords *[]string `json:"effective_keywords,omitempty"`
+
+	// Id Identifier of a keyword rule. An `sks_` id is one of Bird's defaults, which you can read but not change; an `skw_` id is a rule your workspace created.
+	Id SMSKeywordRuleID `json:"id"`
+
+	// Keywords The keywords this rule adds. For one of Bird's defaults this is the full set Bird ships. For a rule you created it is only what you added on top. It never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+	Keywords []string `json:"keywords"`
+
+	// Language The language this rule covers, in countries where Bird ships keywords in more than one. Canada has separate English and French rules, so a Canadian rule names which one it replaces and the other keeps Bird's reply. Null in countries with a single set.
+	Language *string `json:"language,omitempty"`
+
+	// Mandatory Whether what this operation does is fixed. When true you can change the reply but not the behavior. An opt-out keyword always unsubscribes the sender, whichever rule matched it, because carriers and regulators require it.
+	Mandatory *bool `json:"mandatory,omitempty"`
+
+	// Number Narrows the rule to one of your numbers in E.164 format, instead of every number you hold in the country. Null means it applies to all of them.
+	Number *string `json:"number,omitempty"`
+
+	// Operation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+	Operation SMSKeywordOperation `json:"operation"`
+
+	// Reply The message sent back when one of the keywords matches, except on a `confirm` rule, which never sends one. Null when the auto-reply is switched off, which `reply_disabled_at` distinguishes from a rule that has not been given one.
+	Reply *string `json:"reply,omitempty"`
+
+	// ReplyDisabledAt When the auto-reply for this rule was switched off, or null if it is on. Switching it off records that you send this reply from your own system, which is what Bird points to if a carrier asks why no reply went out.
+	ReplyDisabledAt *time.Time `json:"reply_disabled_at,omitempty"`
+
+	// ReplySuffix Text appended to your reply that you cannot change: the rates and opt-out wording carriers require on a help response. Your reply is sent in front of it, and both count against the length a single message allows. Null when the operation carries none.
+	ReplySuffix *string `json:"reply_suffix,omitempty"`
+
+	// Scope Whether the rule is one of Bird's defaults (`system`) or one your workspace created (`workspace`). A `workspace` rule takes precedence over Bird's default for the same country, so it is how you replace a reply without losing the keywords Bird ships.
+	Scope *SMSKeywordRuleScope `json:"scope,omitempty"`
+
+	// UpdatedAt When the rule was last changed. On one of Bird's defaults this is when Bird last changed the keywords or the reply for that country.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// SMSKeywordRuleCreate defines model for SMSKeywordRuleCreate.
+type SMSKeywordRuleCreate struct {
+	// ConfirmedSelfManaged Set this with `reply: null` to confirm you send this reply from your own system, which switches Bird's auto-reply off for the rule. Required to send no reply, and rejected when a reply is given, so the two can never disagree.
+	ConfirmedSelfManaged *bool `json:"confirmed_self_managed,omitempty"`
+
+	// Country The country this rule applies in, as an ISO 3166-1 alpha-2 code. It matches a message two ways: one received on any of your numbers in this country, and one sent by a subscriber whose own number is in it, wherever they text you. Rules for the country a message arrives in always outrank rules for the country its sender is in; within each, your rule wins over Bird's keywords for that country. To confine a rule to one of your numbers, set `number` instead. Required for `stop`, `start` and `help`, because those replace what Bird ships for one country and a worldwide rule would replace every country's. Omit it only for `custom`, which then applies everywhere you send. Derived from `number` when you supply an E.164 number and leave this out; a short code carries no country, so a rule for one must name it.
+	Country nullable.Nullable[string] `json:"country,omitempty"`
+
+	// Keywords Extra keywords to match, on top of the ones Bird already ships for this operation and country. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to another operation cannot be reused here. Required for `custom`, which inherits none.
+	Keywords *[]string `json:"keywords,omitempty"`
+
+	// Language Which language this rule replaces, in countries where Bird ships keywords in more than one. Required there and rejected elsewhere. Listing the country's rules shows whether it applies and which languages are available.
+	Language nullable.Nullable[string] `json:"language,omitempty"`
+
+	// Number Narrows the rule to one number you hold, in E.164 format or as a short code. Omit to cover every number you hold in the country. The number must be one of yours and able to receive messages.
+	Number nullable.Nullable[string] `json:"number,omitempty"`
+
+	// Operation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+	Operation SMSKeywordOperation `json:"operation"`
+
+	// Reply The message to send back when a keyword matches, except on a `confirm` rule, which never sends one whatever this is set to. Set it to null together with `confirmed_self_managed` to send nothing at all.
+	Reply nullable.Nullable[string] `json:"reply,omitempty"`
+}
+
+// SMSKeywordRuleID Identifier of a keyword rule. An `sks_` id is one of Bird's defaults, which you can read but not change; an `skw_` id is a rule your workspace created.
+type SMSKeywordRuleID = string
+
+// SMSKeywordRuleList defines model for SMSKeywordRuleList.
+type SMSKeywordRuleList struct {
+	// Data The keyword rules that apply to your workspace, Bird's defaults included. Ordered most specific first, so the first rule whose keywords match an inbound message is the one that runs. The set is small and returned in full; this list is not paginated.
+	Data []SMSKeywordRule `json:"data"`
+}
+
+// SMSKeywordRuleScope Whether the rule is one of Bird's defaults (`system`) or one your workspace created (`workspace`). A `workspace` rule takes precedence over Bird's default for the same country, so it is how you replace a reply without losing the keywords Bird ships.
+type SMSKeywordRuleScope string
+
+// SMSKeywordRuleUpdate Changes the reply and the added keywords. What a rule applies to (its operation, country, language and number) is fixed once created: those decide which inbound messages reach it, so changing one would make it a different rule. Delete it and create the one you want.
+type SMSKeywordRuleUpdate struct {
+	// ConfirmedSelfManaged Set this with `reply: null` to confirm you send this reply from your own system. Required to switch the auto-reply off, and rejected when a reply is given.
+	ConfirmedSelfManaged *bool `json:"confirmed_self_managed,omitempty"`
+
+	// Keywords Replaces the extra keywords this rule matches, on top of the ones Bird ships. Send an empty array to keep Bird's keywords only. Omit to leave the current ones unchanged.
+	Keywords *[]string `json:"keywords,omitempty"`
+
+	// Reply Replaces the message sent back when a keyword matches, except on a `confirm` rule, which never sends one whatever this is set to. Set it to null together with `confirmed_self_managed` to switch the auto-reply off. Omit to leave it unchanged.
+	Reply nullable.Nullable[string] `json:"reply,omitempty"`
+}
+
+// SMSLatencyQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+type SMSLatencyQuantiles struct {
+	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P50Ms *int `json:"p50_ms,omitempty"`
+
+	// P95Ms 95th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P95Ms *int `json:"p95_ms,omitempty"`
+
+	// P99Ms 99th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P99Ms *int `json:"p99_ms,omitempty"`
+}
+
+// SMSLatencyStats Latency percentiles in milliseconds for the requested scope:
+//
+// - `processing`: From acceptance to carrier handoff.
+// - `delivery`: From carrier handoff to delivery confirmation.
+// - `total`: From acceptance to delivery confirmation.
+//
+// Each family is omitted when no qualifying event contributes a measurement.
+// Individual percentiles can also be null.
+type SMSLatencyStats struct {
+	// Delivery Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Delivery *SMSLatencyQuantiles `json:"delivery,omitempty"`
+
+	// Processing Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Processing *SMSLatencyQuantiles `json:"processing,omitempty"`
+
+	// Total Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Total *SMSLatencyQuantiles `json:"total,omitempty"`
+}
 
 // SMSMessage defines model for SMSMessage.
 type SMSMessage struct {
@@ -9432,7 +10499,7 @@ type SMSMessage struct {
 	// Category Content classification supplied on the send. Null for inbound messages.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// CreatedAt When the message was accepted (outbound) or received (inbound).
@@ -9444,7 +10511,7 @@ type SMSMessage struct {
 	// Direction Whether the message was sent from a Bird sender (`outbound`) or received from a subscriber (`inbound`).
 	Direction *SMSMessageDirection `json:"direction,omitempty"`
 
-	// From Where the message came from. On an outbound message this is the sender you sent it from (an E.164 number, an alphanumeric sender ID, or a short code); on an inbound one it is the phone number that sent it to you.
+	// From Where the message came from. On an outbound message this is the sender you sent it from: an E.164 number, an alphanumeric sender ID, or a short code. On an inbound message, this is the phone number that sent it to you.
 	From string       `json:"from"`
 	Id   SMSMessageID `json:"id"`
 
@@ -9470,7 +10537,7 @@ type SMSMessage struct {
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, Bird just does not persist it for later reads.
+	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
 	Text *string `json:"text,omitempty"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
@@ -9512,13 +10579,13 @@ type SMSMessageList struct {
 	// Data Page of SMS messages, newest first.
 	Data []SMSMessage `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
@@ -9539,7 +10606,7 @@ type SMSMessageSendRequest struct {
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from: an E.164 number (`+15557654321`), an alphanumeric sender ID (1-11 letters, digits, spaces, dashes, or underscores, at least one of them a letter, for example `MyBrand`), or a short code (5-6 digits). A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+	// From Sender to send from. Use an E.164 number such as `+15557654321`, or a short code of 5-6 digits. You can also use an alphanumeric sender ID of 1-11 letters, digits, spaces, dashes, or underscores. It must contain at least one letter, for example `MyBrand`. A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
 	From *string `json:"from,omitempty"`
 
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -9566,7 +10633,7 @@ type SMSMessageSendRequest struct {
 	// Template Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
 	Template *SMSTemplateSend `json:"template,omitempty"`
 
-	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The limit is on segment count, not characters, because GSM-7 and UCS-2 encodings differ in characters per segment.
+	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
 	Text *string `json:"text,omitempty"`
 
 	// To Recipient phone number in E.164 format (for example `+14155550100`). One recipient per message. The number is stored and returned in canonical E.164; a recipient that cannot be routed returns a `422` `SMSInvalidRecipient`.
@@ -9586,10 +10653,33 @@ type SMSMessageSendRequest0 = interface{}
 // SMSMessageSendRequest1 defines model for .
 type SMSMessageSendRequest1 = interface{}
 
-// SMSMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is awaiting handoff to the carrier network. `sent` means it was handed to the carrier and is awaiting a delivery receipt. `delivered` is confirmed delivery. `undelivered` is a non-permanent non-delivery (handset off or unreachable). `failed` is a terminal permanent failure. `rejected` means Bird refused it before it reached the carrier (for example insufficient balance). `expired` means the validity period elapsed without a terminal receipt. `scheduled` means the message is queued to send at a future time and has not been dispatched yet, and `canceled` means a scheduled message was canceled before it was sent. `received` applies to inbound messages.
+// SMSMessageStatus Delivery status:
+//
+// - `scheduled`: Queued for a future send time.
+// - `accepted`: Accepted and awaiting carrier handoff.
+// - `sent`: Handed to the carrier and awaiting a delivery receipt.
+// - `delivered`: Confirmed as delivered.
+// - `undelivered`: Temporarily unreachable.
+// - `failed`: Permanently failed.
+// - `rejected`: Refused before carrier handoff.
+// - `canceled`: Canceled before a scheduled send.
+// - `expired`: Reached its validity limit without a final receipt.
+// - `received`: Received as an inbound message.
 type SMSMessageStatus string
 
-// SMSReceivedEventType Event type.
+// SMSOriginatorStatsPoint Aggregate delivery and latency stats for a single originator (the sender address messages were sent from) over the requested period.
+type SMSOriginatorStatsPoint struct {
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency  *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Originator Sender address this row aggregates, either an alphanumeric sender ID or a phone number. Matches the message `from` value.
+	Originator *string `json:"originator,omitempty"`
+
+	// Trend Per-bucket lifecycle counts for this originator, using `trend_grain`. Includes only buckets with activity. Present when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
+}
+
+// SMSReceivedEventType Always `sms.received` for this event.
 type SMSReceivedEventType string
 
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
@@ -9600,11 +10690,11 @@ type SMSSegments struct {
 	// Count Number of segments the body is split into. Each segment is a billable unit.
 	Count *int `json:"count,omitempty"`
 
-	// Encoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+	// Encoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
 	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
 }
 
-// SMSSegmentsEncoding Encoding used for the body. `GSM_7BIT` fits 160 characters in a single segment (153 per part when multi-segment); `UCS2` is used when the body contains any character outside the GSM 03.38 alphabet (emoji, CJK, some accented characters) and fits 70 characters in a single segment (67 per part when multi-segment).
+// SMSSegmentsEncoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
 type SMSSegmentsEncoding string
 
 // SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use its default.
@@ -9621,6 +10711,322 @@ type SMSSendOptions struct {
 
 	// TrackClicks Preview feature: link click tracking. Defaults to `false`. Currently unavailable; setting this to `true` returns `422 SMSUnsupportedFeature`.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
+}
+
+// SMSStatsByCarrierResponse Per-carrier breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByCarrierResponse struct {
+	// Data Carrier breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages were sent in the period.
+	Data *[]SMSCarrierStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct carriers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByCategoryResponse Per-category breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByCategoryResponse struct {
+	// Data Category breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages were sent in the period.
+	Data *[]SMSCategoryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByCountryResponse Per-country breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByCountryResponse struct {
+	// Data Country breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages were sent in the period.
+	Data *[]SMSCountryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct destination countries with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByErrorCodeResponse Per-error-code breakdown for the requested period, ranked by the `sort` metric (default `failed`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByErrorCodeResponse struct {
+	// Data Error-code breakdown rows, ranked by the `sort` metric (default `failed`) descending. Empty when no delivery failures occurred in the period.
+	Data *[]SMSErrorCodeStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByOriginatorResponse Per-originator breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByOriginatorResponse struct {
+	// Data Originator breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no messages were sent in the period.
+	Data *[]SMSOriginatorStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct originators with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByStatusResponse Lifecycle-status breakdown for the requested period, ordered by message count descending. Statuses with no activity are omitted.
+type SMSStatsByStatusResponse struct {
+	// Data Status breakdown rows, one per lifecycle status with activity, ordered by count descending. Empty when no messages had activity in the period.
+	Data *[]SMSStatusStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Number of distinct lifecycle statuses with activity in the period (at most seven). Equal to the number of rows returned, since this breakdown is never capped.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsByTagResponse Per-tag breakdown for the requested period, ranked by the `sort` metric (default `accepted`) descending and capped at the requested `limit` (default 50, max 200).
+type SMSStatsByTagResponse struct {
+	// Data Tag breakdown rows, ranked by the `sort` metric (default `accepted`) descending. Empty when no tagged messages were sent in the period.
+	Data *[]SMSTagStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+
+	// Total Total number of distinct tags with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// SMSStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type SMSStatsComparison struct {
+	Delivery *SMSDeliveryStats        `json:"delivery,omitempty"`
+	Delta    *SMSStatsComparisonDelta `json:"delta,omitempty"`
+	Latency  *SMSLatencyStats         `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+}
+
+// SMSStatsComparisonDelta Changes from the previous period. A `*_pct_change` value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero. A `*_rate_pp` value is the signed difference between rate fractions and is null when either rate is undefined.
+type SMSStatsComparisonDelta struct {
+	// AcceptedPctChange Relative change in accepted messages (`delivery.accepted`) versus the previous period, as a signed fraction. Null when the previous period accepted none.
+	AcceptedPctChange *float32 `json:"accepted_pct_change,omitempty"`
+
+	// DeliveredPctChange Relative change in delivered messages (`delivery.delivered`) versus the previous period, as a signed fraction. Null when the previous period delivered none.
+	DeliveredPctChange *float32 `json:"delivered_pct_change,omitempty"`
+
+	// DeliveryRatePp Signed difference between this period's and the previous period's delivery rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's delivery rate is undefined.
+	DeliveryRatePp *float32 `json:"delivery_rate_pp,omitempty"`
+
+	// ExpiredPctChange Relative change in expired messages (`delivery.expired`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ExpiredPctChange *float32 `json:"expired_pct_change,omitempty"`
+
+	// FailedPctChange Relative change in failed messages (`delivery.failed`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	FailedPctChange *float32 `json:"failed_pct_change,omitempty"`
+
+	// FailureRatePp Signed difference between the current and previous failure-rate fractions. Multiply by 100 for percentage points. The value can fall outside `[-1, 1]` because a message can contribute to more than one failure outcome and high-volume counts are approximate. Null when either rate is undefined.
+	FailureRatePp *float32 `json:"failure_rate_pp,omitempty"`
+
+	// RejectedPctChange Relative change in rejected messages (`delivery.rejected`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	RejectedPctChange *float32 `json:"rejected_pct_change,omitempty"`
+
+	// SentPctChange Relative change in sent messages (`delivery.sent`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	SentPctChange *float32 `json:"sent_pct_change,omitempty"`
+
+	// UndeliveredPctChange Relative change in undelivered messages (`delivery.undelivered`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	UndeliveredPctChange *float32 `json:"undelivered_pct_change,omitempty"`
+}
+
+// SMSStatsLifecycleSortMetric Metric to rank breakdown rows by, applied descending. Shared by the breakdowns whose rows carry lifecycle counts only, with no derived rates to sort on.
+type SMSStatsLifecycleSortMetric string
+
+// SMSStatsPoint SMS lifecycle counts for one time bucket (a calendar day or hour), bucketed by send time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. Per-bucket values include counts only. The summary and breakdown endpoints report rates and latency as whole-window aggregates.
+type SMSStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the period's grain.
+	Bucket   *string            `json:"bucket,omitempty"`
+	Delivery *SMSDeliveryCounts `json:"delivery,omitempty"`
+}
+
+// SMSStatsResponse Time-series stats payload. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type SMSStatsResponse struct {
+	// Data One row per day or hour in chronological order. Buckets with no activity contain zero counts.
+	Data *[]SMSStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period SMSStatsSeriesPeriod `json:"period"`
+}
+
+// SMSStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+type SMSStatsSeriesPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant rounded to the hour on the hour grain.
+	From *string `json:"from,omitempty"`
+
+	// Grain The bucket grain of the series, either `day` or `hour`.
+	Grain *StatsGrain `json:"grain,omitempty"`
+
+	// To Inclusive end of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant rounded to the hour on the hour grain.
+	To *string `json:"to,omitempty"`
+}
+
+// SMSStatsSortMetric Metric to rank breakdown rows by, applied descending. Shared by the volume breakdowns whose rows carry the full delivery and latency block (originators, countries, categories, carriers). Any lifecycle count or derived rate may be used; rows whose rate is undefined (zero denominator) sort last.
+type SMSStatsSortMetric string
+
+// SMSStatsSummary Single-row aggregate across the full requested period, covering SMS lifecycle counts plus the derived delivery and failure rates, and latency percentiles. Use this endpoint for KPI tiles and reporting; the daily and hourly endpoints carry the same counts per bucket.
+//
+// Every count is a sum of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are null when their denominator is zero.
+type SMSStatsSummary struct {
+	Comparison *SMSStatsComparison `json:"comparison,omitempty"`
+	Delivery   *SMSDeliveryStats   `json:"delivery,omitempty"`
+	Latency    *SMSLatencyStats    `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period SMSStatsSummaryPeriod `json:"period"`
+}
+
+// SMSStatsSummaryPeriod The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+type SMSStatsSummaryPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary.
+	From *string `json:"from,omitempty"`
+
+	// To Inclusive end of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary.
+	To *string `json:"to,omitempty"`
+}
+
+// SMSStatusStatsPoint The number of messages that ended the requested period in a single lifecycle status. This transposes the lifecycle counts into one row per status, so it carries no rates or latency.
+type SMSStatusStatsPoint struct {
+	// Count Distinct messages that reached this lifecycle status in the period, attributed to the message's send time rather than the event's own.
+	Count *int `json:"count,omitempty"`
+
+	// Status The lifecycle status this row counts. These are successive lifecycle stages. The `accepted` status was admitted for sending, `sent` was handed to the carrier, and `delivered` was confirmed by the carrier. The `undelivered`, `failed`, and `expired` statuses are failure outcomes. The `rejected` status was refused before a send attempt. Counted outcomes are a subset of the full message status vocabulary. The pre-send `scheduled`, cancellation `canceled`, and inbound-only `received` statuses are not send outcomes, so they never appear here.
+	Status *SMSStatusStatsPointStatus `json:"status,omitempty"`
+}
+
+// SMSStatusStatsPointStatus The lifecycle status this row counts. These are successive lifecycle stages. The `accepted` status was admitted for sending, `sent` was handed to the carrier, and `delivered` was confirmed by the carrier. The `undelivered`, `failed`, and `expired` statuses are failure outcomes. The `rejected` status was refused before a send attempt. Counted outcomes are a subset of the full message status vocabulary. The pre-send `scheduled`, cancellation `canceled`, and inbound-only `received` statuses are not send outcomes, so they never appear here.
+type SMSStatusStatsPointStatus string
+
+// SMSSuppression One period during which a sender's messages to a subscriber are stopped: when it started, what started it, and what ended it. A subscriber who opts out, opts back in, and opts out again has three of these on record rather than one current state, and each keeps its own dates once it ends. The list returns the periods in force; fetch one by ID to read an ended one.
+type SMSSuppression struct {
+	AppliesTo *SMSSuppressionCoverage `json:"applies_to,omitempty"`
+
+	// Blocking Whether this is stopping messages right now. Always true in a list, which carries only the suppressions in force; false when you fetch one by ID that has since ended, which is also when `ended_at` is set.
+	Blocking *bool `json:"blocking,omitempty"`
+
+	// CreatedAt When we recorded it.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Destination The subscriber, in E.164 format.
+	Destination string `json:"destination"`
+
+	// EffectiveAt When the subscriber opted out, as reported by whoever reported it. This is what orders one subscriber's history, and it can be earlier than `created_at` when a message reached us late.
+	EffectiveAt *time.Time `json:"effective_at,omitempty"`
+
+	// EndedAt When this stopped applying. Null while it is still stopping messages.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// EndedEffectiveAt When the subscriber opted back in, as reported. Null while it is still stopping messages.
+	EndedEffectiveAt *time.Time `json:"ended_effective_at,omitempty"`
+
+	// EndedReason What ended it. Null while it is still stopping messages.
+	EndedReason *SMSSuppressionEndReason `json:"ended_reason,omitempty"`
+	Id          SMSSuppressionID         `json:"id"`
+
+	// LastAssertedAt When we last recorded the subscriber opting out of this sender. Later than `created_at` when they texted a stop keyword again while already suppressed, which adds no new record but does earn another confirmation reply.
+	LastAssertedAt *time.Time            `json:"last_asserted_at,omitempty"`
+	Origin         *SMSSuppressionOrigin `json:"origin,omitempty"`
+
+	// Originator The sender this stops. A suppression covers one sender, so your other senders still reach this subscriber. Opting out of one of your programs does not opt out of the others.
+	Originator string                `json:"originator"`
+	Reason     *SMSSuppressionReason `json:"reason,omitempty"`
+
+	// SourceEndSmsId The inbound message the subscriber opted back in with, when there was one. Null while it is still stopping messages, and when something other than a start keyword ended it.
+	SourceEndSmsId *SMSMessageID `json:"source_end_sms_id,omitempty"`
+
+	// SourceSmsId The inbound message the subscriber opted out with, or the outbound message whose delivery report reported the opt-out. Null when neither applies.
+	SourceSmsId *SMSMessageID `json:"source_sms_id,omitempty"`
+}
+
+// SMSSuppressionCoverage Message categories blocked for this sender and subscriber. `all` blocks every category, including authentication and transactional messages. `non_transactional` blocks marketing messages only. Responses currently use `all`. Treat unrecognized values as blocking every category.
+type SMSSuppressionCoverage string
+
+// SMSSuppressionCreate Stops one sender's messages to one subscriber. Both ends are required, because a suppression covers a sender-and-subscriber pair rather than a subscriber alone.
+type SMSSuppressionCreate struct {
+	// Destination The subscriber to stop messaging, in E.164 format.
+	Destination string `json:"destination"`
+
+	// Originator The sender to stop. Your other senders keep reaching this subscriber, so stopping every one of them means one call per sender.
+	Originator string `json:"originator"`
+}
+
+// SMSSuppressionEndReason What ended it:
+//
+// - `keyword_start`: the subscriber texting a start keyword to the same sender.
+// - `api_key`: an API call.
+// - `user`: someone acting in the dashboard.
+// - `carrier_cleared`: the carrier reporting its own opt-out cleared.
+//
+// This list grows over time, so treat an unknown value as informational rather than rejecting the
+// record.
+type SMSSuppressionEndReason string
+
+// SMSSuppressionID defines model for SMSSuppressionID.
+type SMSSuppressionID = string
+
+// SMSSuppressionList defines model for SMSSuppressionList.
+type SMSSuppressionList struct {
+	// Data Page of suppressions, most recent opt-out first.
+	Data []SMSSuppression `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// SMSSuppressionOrigin How the opt-out reached us:
+//
+// - `keyword`: an inbound message from the subscriber.
+// - `dlr_event`: a carrier delivery report.
+// - `api_key`: an API call.
+// - `user`: someone acting in the dashboard.
+//
+// Kept beside the reason because one reason can arrive by more than one route.
+//
+// This list grows over time, so treat an unknown value as informational rather than rejecting the
+// record.
+type SMSSuppressionOrigin string
+
+// SMSSuppressionReason Reason this sender cannot message the subscriber:
+//
+// - `keyword_stop`: The subscriber sent a stop keyword. A start keyword clears it.
+// - `carrier_opted_out`: The carrier reported the opt-out.
+// - `manual`: Your workspace added the suppression through the API or dashboard.
+//
+// This is an open enum. Accept unrecognized values.
+type SMSSuppressionReason string
+
+// SMSSuppressionReasonFilter defines model for SMSSuppressionReasonFilter.
+type SMSSuppressionReasonFilter string
+
+// SMSTagStatsPoint Aggregate delivery and latency stats for a single tag (`name:value`) over the requested period.
+type SMSTagStatsPoint struct {
+	Delivery *SMSDeliveryStats `json:"delivery,omitempty"`
+	Latency  *SMSLatencyStats  `json:"latency,omitempty"`
+
+	// Tag The tag this row aggregates, in `name:value` form. Each distinct name-and-value pair is its own row, and a message carrying several tags is counted once under each of them, so rows do not sum to the period total.
+	Tag *string `json:"tag,omitempty"`
+
+	// Trend Per-bucket lifecycle-count series for this tag over the window, bucketed by `trend_grain`. Sparse, so only buckets with activity are present rather than zero-filled, unlike the daily and hourly series. Present only when `include_trend=true`.
+	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
 }
 
 // SMSTemplate A message template: one identity holding a copy of the message per language, resolved to one at send. It declares the variable slots a send fills in, so the parts that change travel with the request and the wording does not.
@@ -9653,7 +11059,7 @@ type SMSTemplate struct {
 	// Languages Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
 	Languages *map[string]SMSTemplateLanguageState `json:"languages,omitempty"`
 
-	// LastSubmittedAt When this template was last submitted. Null for a built-in `system` template: Bird ships it ready to send, so there is nothing submitted to date.
+	// LastSubmittedAt When this template was last submitted. Null for a built-in `system` template, which is already available to send.
 	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
 
 	// LiveVersionId The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
@@ -9672,10 +11078,10 @@ type SMSTemplate struct {
 	// Revision The draft's revision counter. Null for a built-in `system` template, which is unversioned.
 	Revision *int `json:"revision,omitempty"`
 
-	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
 	Scope *TemplateScope `json:"scope,omitempty"`
 
-	// Slug The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for Bird's built-in templates.
+	// Slug The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
 	Slug *TemplateSlug `json:"slug,omitempty"`
 
 	// Status Where the template stands as a whole. The same five states on every channel.
@@ -9686,10 +11092,9 @@ type SMSTemplate struct {
 	// - `rejected`: it was reviewed and every language was refused.
 	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
 	//
-	// This is a summary. It answers whether the template is usable at all, not
-	// whether every language is: a template with one language live is `active` even
-	// while another is still drafted or refused. Read `languages` for per-language
-	// state, which is what says which language is where and why.
+	// This summary answers whether the template is usable at all. A template with
+	// one language live is `active` even while another is still drafted or refused.
+	// Read `languages` to determine the state of each language and its reason.
 	//
 	// Which of the five a template can reach follows its channel's review model. A
 	// channel whose content a third party reviews reaches all five; one whose
@@ -9711,13 +11116,19 @@ type SMSTemplateID = string
 
 // SMSTemplateLanguageState One language's state on a template: whether it is live for sends. Content is not here; the template carries the body of its default language, and a send resolves the rest.
 type SMSTemplateLanguageState struct {
-	// Status Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+	// Status Status of one template language on channels without third-party review.
+	//
+	// - `draft`: it has never been published.
+	// - `live`: it is available to sends.
+	// - `superseded`: a later version replaced it.
+	//
+	// Treat an unknown value as not sendable.
 	Status *TemplateLanguageStatus `json:"status,omitempty"`
 }
 
 // SMSTemplateList defines model for SMSTemplateList.
 type SMSTemplateList struct {
-	// Data The templates available to your workspace. The catalogue is small and returned in full; this list is not paginated.
+	// Data The templates available to your workspace. The catalog is returned in full and is not paginated.
 	Data []SMSTemplate `json:"data"`
 }
 
@@ -9758,6 +11169,9 @@ type ShareDomainDnsRequest struct {
 	Emails []openapi_types.Email `json:"emails"`
 }
 
+// StatsComparePeriod Set to `previous_period` to also return the same figures for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
+type StatsComparePeriod string
+
 // StatsGrain The bucket grain of the series, either `day` or `hour`.
 type StatsGrain string
 
@@ -9766,7 +11180,17 @@ type StatsTrendGrain string
 
 // Suppression defines model for Suppression.
 type Suppression struct {
-	// AppliesTo Which sends the suppression blocks. `all` blocks every message category, including transactional. `non_transactional` blocks marketing but allows transactional, so a recipient who complained or unsubscribed can still receive mail like password resets. `category` scopes the block to a preference category and blocks every category until one is set. This list grows over time, and any value other than `non_transactional` blocks every category, so treat an unknown value as blocking the send.
+	// AppliesTo Which sends the suppression blocks.
+	//
+	// - `all`: blocks every message category, including transactional.
+	// - `non_transactional`: blocks marketing but allows transactional messages.
+	//   A recipient who complained or unsubscribed can therefore still receive
+	//   mail such as password resets.
+	// - `category`: scopes the block to a preference category and blocks every
+	//   category until one is set.
+	//
+	// This list grows over time, and any value other than `non_transactional`
+	// blocks every category, so treat an unknown value as blocking the send.
 	AppliesTo string `json:"applies_to"`
 
 	// CreatedAt When the address was suppressed.
@@ -9822,50 +11246,31 @@ type SuppressionList struct {
 	// Data Page of suppression records.
 	Data []Suppression `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // SuppressionScope defines model for SuppressionScope.
 type SuppressionScope struct {
-	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID (`ws_`-prefixed).
+	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID.
 	Id string `json:"id"`
 
-	// Type How wide this suppression reaches. It is always `workspace`, which
-	// means the address is blocked for every email your workspace sends.
-	// The `id` beside it is then your workspace ID.
-	//
-	// This only affects email. Your WhatsApp suppressions are a separate
-	// list, and blocking an address here does nothing to them.
-	//
-	// The enum lists five narrower values as well: `category`, `audience`,
-	// `topic`, `contact` and `domain`. You will never get one of them back,
-	// because every suppression is workspace-wide. If you are writing code,
-	// you can treat this field as always reading `workspace`.
+	// Type How widely the email suppression applies. Responses currently use `workspace`, which blocks the address for every email sent by the workspace. WhatsApp suppressions use a separate list.
 	Type SuppressionScopeType `json:"type"`
 }
 
-// SuppressionScopeType How wide this suppression reaches. It is always `workspace`, which
-// means the address is blocked for every email your workspace sends.
-// The `id` beside it is then your workspace ID.
-//
-// This only affects email. Your WhatsApp suppressions are a separate
-// list, and blocking an address here does nothing to them.
-//
-// The enum lists five narrower values as well: `category`, `audience`,
-// `topic`, `contact` and `domain`. You will never get one of them back,
-// because every suppression is workspace-wide. If you are writing code,
-// you can treat this field as always reading `workspace`.
+// SuppressionScopeType How widely the email suppression applies. Responses currently use `workspace`, which blocks the address for every email sent by the workspace. WhatsApp suppressions use a separate list.
 type SuppressionScopeType string
 
 // Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
-// Tag count and per-tag size are capped to keep per-send tag payloads small — see the send request for the array maximum. Tag names are unique within a send; supplying the same name twice is rejected.
+//
+// The send request defines the tag-count limit. Tag names are unique within a send; supplying the same name twice is rejected.
 type Tag struct {
 	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
 	Name string `json:"name"`
@@ -9874,7 +11279,13 @@ type Tag struct {
 	Value string `json:"value"`
 }
 
-// TemplateLanguageStatus Where one language of a template stands, on a channel whose content Bird publishes directly. `live` is what sends serve today. `draft` is a language the draft carries that has never been published. `superseded` is a language a later version replaced. Open enum: treat an unrecognised value as not sendable.
+// TemplateLanguageStatus Status of one template language on channels without third-party review.
+//
+// - `draft`: it has never been published.
+// - `live`: it is available to sends.
+// - `superseded`: a later version replaced it.
+//
+// Treat an unknown value as not sendable.
 type TemplateLanguageStatus string
 
 // TemplateOnMissingLanguage What a send or a preview does when it asks for a language the template
@@ -9892,12 +11303,12 @@ type TemplateLanguageStatus string
 // the default language.
 //
 // The default is per channel and stated on each channel's own field, because
-// what a wrong-language send costs differs: where every language is separately
+// what a wrong-language send costs differs. Where every language is separately
 // reviewed and separately priced, falling back silently would send content the
 // recipient did not expect at a rate the sender did not choose.
 type TemplateOnMissingLanguage string
 
-// TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+// TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
 type TemplateScope string
 
 // TemplateSlug A template's slug: what you send it by, for example `welcome-email`. You choose it when you create the template, and it cannot be changed afterwards. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
@@ -9911,10 +11322,9 @@ type TemplateSlug = string
 // - `rejected`: it was reviewed and every language was refused.
 // - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
 //
-// This is a summary. It answers whether the template is usable at all, not
-// whether every language is: a template with one language live is `active` even
-// while another is still drafted or refused. Read `languages` for per-language
-// state, which is what says which language is where and why.
+// This summary answers whether the template is usable at all. A template with
+// one language live is `active` even while another is still drafted or refused.
+// Read `languages` to determine the state of each language and its reason.
 //
 // Which of the five a template can reach follows its channel's review model. A
 // channel whose content a third party reviews reaches all five; one whose
@@ -9932,7 +11342,7 @@ type TemplateVariable struct {
 	// Key The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether the slot must be supplied when sending. On SMS and WhatsApp a missing required value is rejected with a `422`. On email it is advisory: a missing value renders as empty rather than rejecting the send.
+	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
 	Required *bool `json:"required,omitempty"`
 
 	// Sensitive Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
@@ -9951,21 +11361,6 @@ type Timestamps struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// UnmetGate A verification requirement that is not yet satisfied, blocking the requested action. Complete the corresponding verification flow, then retry.
-type UnmetGate struct {
-	// Name Human-readable name of the verification requirement.
-	Name *string `json:"name,omitempty"`
-
-	// RemediationKind How to resolve this requirement.
-	RemediationKind *string `json:"remediation_kind,omitempty"`
-
-	// Slug Stable identifier for the verification requirement.
-	Slug *string `json:"slug,omitempty"`
-
-	// Status The requirement's current state — for example, not yet started, in review, or previously revoked.
-	Status *string `json:"status,omitempty"`
-}
-
 // Verification defines model for Verification.
 type Verification struct {
 	// Channels The channels this verification uses to deliver the passcode, in attempt order: the first entry is tried first and later entries are fallbacks. An email recipient is verified over email; a phone recipient is verified over the phone channels enabled for its destination country, in the order that country's configuration sets.
@@ -9976,44 +11371,72 @@ type Verification struct {
 	ExpiresAt *time.Time     `json:"expires_at,omitempty"`
 	Id        VerificationID `json:"id"`
 
-	// LastChannel The channel the most recent passcode was sent on, or null before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// LastChannel The channel the most recent passcode was sent on, or `null` before the first send. Open enum; new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	LastChannel *string `json:"last_channel,omitempty"`
 
 	// Metadata The key/value pairs attached when the verification was created.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Reason Why the verification reached its final state, or null while `pending` and once `verified`. See the enum for the values it can take.
+	// Reason Why the verification reached its final state, or `null` while `pending` and once `verified`. See the enum for the values it can take.
 	Reason *VerificationTerminalReason `json:"reason,omitempty"`
 
-	// Status The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
+	// Status The verification's current state:
+	//
+	// - `pending`: Awaiting a correct passcode.
+	// - `verified`: A correct passcode was submitted.
+	// - `failed`: Too many incorrect attempts were submitted.
+	// - `expired`: The validity window elapsed before a correct passcode.
+	// - `canceled`: The verification was canceled before completion.
+	// - `blocked`: A fraud or abuse control stopped the verification.
 	Status *VerificationStatus `json:"status,omitempty"`
 
 	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
 	To        VerificationTo `json:"to"`
 	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
 
-	// VerifiedAt When the verification was completed, or null if it is not yet verified.
+	// VerifiedAt When the verification was completed, or `null` if it is not yet verified.
 	VerifiedAt *time.Time `json:"verified_at,omitempty"`
 }
 
-// VerificationStatus The verification's current state: `pending` (the initial state, awaiting a correct passcode), `verified` (a correct passcode was submitted), `failed` (too many incorrect attempts), `expired` (the time window elapsed before a correct passcode), `canceled` (the verification was canceled before completing), or `blocked` (it was stopped by a fraud or abuse control).
+// VerificationStatus The verification's current state:
+//
+// - `pending`: Awaiting a correct passcode.
+// - `verified`: A correct passcode was submitted.
+// - `failed`: Too many incorrect attempts were submitted.
+// - `expired`: The validity window elapsed before a correct passcode.
+// - `canceled`: The verification was canceled before completion.
+// - `blocked`: A fraud or abuse control stopped the verification.
 type VerificationStatus string
 
-// VerificationAttemptFailureReason Why a passcode send did not deliver. Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error. Emitted reasons are `carrier_rejected` (SMS), `hard_bounce` (email, permanent bounce), `soft_bounce` (email, transient bounce such as a full mailbox), `undelivered` (a generic delivery failure), `channel_unavailable` (the channel could not be used and the verification failed over), `channel_disabled` (Bird has temporarily stopped sending over that channel, so the verification moved on to the next one), and `delivery_timeout` (no delivery confirmation arrived before the channel's timeout, so the verification failed over).
+// VerificationAttemptFailureReason Why a passcode send did not deliver:
+//
+//   - `carrier_rejected`: The SMS carrier rejected the send.
+//   - `hard_bounce`: The email permanently bounced.
+//   - `soft_bounce`: The email temporarily bounced, such as when a mailbox is full.
+//   - `undelivered`: The channel reported a generic delivery failure.
+//   - `channel_unavailable`: The channel could not be used, so the verification
+//     moved to the next channel.
+//   - `channel_disabled`: Sending on the channel is temporarily disabled, so the
+//     verification moved to the next channel.
+//   - `delivery_timeout`: No delivery confirmation arrived before the channel's
+//     timeout, so the verification moved to the next channel.
+//
+// New reasons may be added over time. Treat unrecognized values as reasons added
+// later rather than errors.
 type VerificationAttemptFailureReason string
 
-// VerificationChannel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+// VerificationChannel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 type VerificationChannel string
 
 // VerificationChannelEntry defines model for VerificationChannelEntry.
 type VerificationChannelEntry struct {
-	// Channel The channel a passcode is delivered over. Open enum — new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
+	// Channel The channel a passcode is delivered over. Open enum: new channels may be added over time, so treat any unrecognized value as a future channel rather than an error.
 	Channel VerificationChannel `json:"channel"`
 }
 
 // VerificationCheckRequest defines model for VerificationCheckRequest.
 type VerificationCheckRequest struct {
-	// Code The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`, not an error.
+	// Code The passcode the recipient received. Passcodes are numeric; submit the digits exactly as delivered. An incorrect value is a normal `200` outcome with `success: false`. It does not return an error.
 	Code string `json:"code"`
 
 	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -10022,10 +11445,17 @@ type VerificationCheckRequest struct {
 
 // VerificationCheckResult defines model for VerificationCheckResult.
 type VerificationCheckResult struct {
-	// AttemptsRemaining The number of check attempts left while the verification is still pending, or null once it has reached a final state.
+	// AttemptsRemaining The number of check attempts left while the verification is still pending, or `null` once it has reached a final state.
 	AttemptsRemaining *int `json:"attempts_remaining,omitempty"`
 
-	// Reason Why the check did not succeed, or null when `success` is true: `incorrect_code` means the passcode was wrong and attempts remain; `expired` means the time window elapsed; `attempts_exhausted` means too many incorrect attempts. Open enum; treat any unrecognized value as a future reason.
+	// Reason Why the check did not succeed:
+	//
+	// - `incorrect_code`: The passcode was wrong and attempts remain.
+	// - `expired`: The validity window elapsed.
+	// - `attempts_exhausted`: Too many incorrect attempts were submitted.
+	//
+	// `null` when `success` is `true`. Treat unrecognized values as reasons added
+	// later.
 	Reason *string `json:"reason,omitempty"`
 
 	// Success Whether the submitted passcode verified this verification. `true` means the passcode was correct and the verification is now complete; `false` means it did not verify, and `reason` says why. A verification that has already reached a final state is no longer checkable and returns `404`.
@@ -10063,7 +11493,7 @@ type VerificationOptions struct {
 	CodeLength *int `json:"code_length,omitempty"`
 }
 
-// VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum — new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
+// VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum: new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
 type VerificationTerminalReason string
 
 // VerificationTo The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -10077,21 +11507,21 @@ type VerificationTo struct {
 
 // VoiceCall defines model for VoiceCall.
 type VoiceCall struct {
-	// Actor Who placed the call. Either the API key whose credentials it used, or the user who placed it from a browser or the Bird CLI. Absent when the call was admitted by its source IP address alone, since no credential identifies a caller there, and for calls placed before Bird started recording this.
+	// Actor Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
 	Actor *AuditLogActor `json:"actor,omitempty"`
 
-	// AnsweredAt When the call was answered (200 OK received). Null for unanswered calls.
+	// AnsweredAt When the call was answered (`200` OK received). `null` for unanswered calls.
 	AnsweredAt *time.Time `json:"answered_at,omitempty"`
 
-	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and null while the call is still in progress.
+	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
 	BillableMs *int                `json:"billable_ms,omitempty"`
 	Cost       *Money              `json:"cost,omitempty"`
 	Direction  *VoiceCallDirection `json:"direction,omitempty"`
 
-	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. Null while the call is still in progress and has no final duration yet.
+	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
 	DurationMs *int `json:"duration_ms,omitempty"`
 
-	// EndedAt When the call ended (BYE or final non-2xx response). Null for calls that ended abnormally without a recorded end event.
+	// EndedAt When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
 	EndedAt *time.Time `json:"ended_at,omitempty"`
 
 	// From Calling party number in E.164 format.
@@ -10099,19 +11529,19 @@ type VoiceCall struct {
 	Id           VoiceCallID        `json:"id"`
 	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
 
-	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call "not going through". Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
+	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
 	PddMs *int `json:"pdd_ms,omitempty"`
 
-	// RejectionReason Why Bird refused the call before dialing a carrier. Absent when Bird did not refuse it, meaning the call either connected or it failed at the carrier, where `sip_response_code` is the whole story.
+	// RejectionReason Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
 	RejectionReason *VoiceCallRejectionReason `json:"rejection_reason,omitempty"`
 
-	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. Null when session correlation is not available for the call.
+	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
 
-	// SipResponseCode Final SIP response code received from the carrier. Null when no SIP response was received, for example on timeout or DNS failure.
+	// SipResponseCode Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
 	SipResponseCode *int `json:"sip_response_code,omitempty"`
 
-	// SipTrunkId Identifier of the SIP trunk that originated this call. Null when no trunk is associated.
+	// SipTrunkId Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
 	SipTrunkId *SIPTrunkID `json:"sip_trunk_id,omitempty"`
 
 	// StartedAt When the call was initiated.
@@ -10133,17 +11563,17 @@ type VoiceCallID = string
 type VoiceCallList struct {
 	Data []VoiceCall `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// VoiceCallRejectionReason Why Bird refused the call before dialing a carrier. Every refusal is signalled
+// VoiceCallRejectionReason Why we refused the call before dialing a carrier. Every refusal is signalled
 // to your PBX as `503`, so `sip_response_code` alone cannot tell these causes
 // apart. This field is where the cause lives.
 //
@@ -10165,10 +11595,10 @@ type VoiceCallList struct {
 //   - `calls_per_second_exceeded`: You placed calls faster than your account
 //     allows. Slow the rate you dial at, then retry.
 //
-// The rest need Bird to act, so contact support and quote the call `id`:
+// For all other reasons, contact support and provide the call `id`:
 //
 //   - `routing_not_configured`: No dial plan is attached to this trunk yet.
-//     Expected on a trunk that was just created.
+//     Expected on a new trunk.
 //   - `no_route_found`: A dial plan is attached, but no rule in it covers this
 //     destination.
 //   - `destination_blocked`: The destination is blocked by our routing
@@ -10178,9 +11608,13 @@ type VoiceCallRejectionReason string
 
 // VoiceCallStatus Call status.
 //
-// A call that has ended carries answered, no_answer, failed, rejected, or unknown. A call that is still up carries ringing before it is picked up and in_progress once it is; both are what the `status` filter on the call list selects on to show calls happening right now.
+// A call that has ended carries `answered`, `no_answer`, `failed`, `rejected`, or
+// `unknown`. An active call carries `ringing` before it is picked up and
+// `in_progress` afterward. The call list's `status` filter uses both values to
+// select calls happening now.
 //
-// busy and canceled are declared ahead of the feature that produces them, so their arrival is not a breaking contract change: they come with inbound termination, and today both outcomes are folded into failed.
+// `busy` and `canceled` are reserved and are not currently emitted. Both
+// outcomes are currently reported as `failed`.
 type VoiceCallStatus string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
@@ -10194,7 +11628,7 @@ type VoiceMediaQuality struct {
 	// PacketLossPct Percentage of audio packets that never arrived. Heard as brief gaps or clipped words, and the impairment that degrades a call fastest.
 	PacketLossPct *float32 `json:"packet_loss_pct,omitempty"`
 
-	// RoundTripTimeMs Round-trip time between the two ends, in milliseconds. It does not distort the audio, but above roughly 300 ms the two parties start talking over each other.
+	// RoundTripTimeMs Round-trip time between the two ends, in milliseconds. It does not distort the audio. Above roughly 300 ms, the two parties start talking over each other.
 	RoundTripTimeMs *int `json:"round_trip_time_ms,omitempty"`
 }
 
@@ -10209,7 +11643,7 @@ type WebhookAttempt struct {
 	// EventId Bird's source event ID, stable across retries of the same event. Null only for older attempts recorded before event IDs were available.
 	EventId *WebhookEventID `json:"event_id,omitempty"`
 
-	// EventType Webhook event type. Open enum: new event types may be added over time, so treat any unrecognized value in a delivery as a future event rather than an error. Subscribing to a type that is not in the catalog returns a `422`. The values below are the types known at this version.
+	// EventType Webhook event type. This is an open enum, so accept unrecognized values in deliveries. Subscribing to a type outside the event catalog returns a `422`.
 	EventType WebhookEventType `json:"event_type"`
 
 	// Id Identifier of this individual delivery attempt. Each retry is a separate attempt with its own id; use `event_id` to group the attempts for one event.
@@ -10224,14 +11658,26 @@ type WebhookAttempt struct {
 	// ResponseStatusCode HTTP status returned by the receiver. Null when no response was received (timeout, connection error, DNS failure).
 	ResponseStatusCode *int `json:"response_status_code"`
 
-	// Status Outcome of this attempt. `delivered` means your endpoint accepted it with a `2xx` response; `pending` means the attempt is still in flight; `failed` means it returned a non-`2xx` response or no response at all. A `failed` attempt is not final for the event: automatic retries appear as further attempts with the same `event_id`.
+	// Status Outcome of this attempt.
+	//
+	// - `delivered`: your endpoint accepted it with a `2xx` response.
+	// - `pending`: the attempt is still in flight.
+	// - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
+	//   attempt is not final for the event: automatic retries appear as further
+	//   attempts with the same `event_id`.
 	Status WebhookAttemptStatus `json:"status"`
 
 	// Url URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
 	Url string `json:"url"`
 }
 
-// WebhookAttemptStatus Outcome of this attempt. `delivered` means your endpoint accepted it with a `2xx` response; `pending` means the attempt is still in flight; `failed` means it returned a non-`2xx` response or no response at all. A `failed` attempt is not final for the event: automatic retries appear as further attempts with the same `event_id`.
+// WebhookAttemptStatus Outcome of this attempt.
+//
+//   - `delivered`: your endpoint accepted it with a `2xx` response.
+//   - `pending`: the attempt is still in flight.
+//   - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
+//     attempt is not final for the event: automatic retries appear as further
+//     attempts with the same `event_id`.
 type WebhookAttemptStatus string
 
 // WebhookAttemptList defines model for WebhookAttemptList.
@@ -10266,7 +11712,7 @@ type WebhookEndpoint struct {
 	Status    *WebhookEndpointStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time             `json:"updated_at,omitempty"`
 
-	// Url HTTPS URL Bird delivers this endpoint's events to.
+	// Url HTTPS URL where the API delivers events for this endpoint.
 	Url string `json:"url"`
 }
 
@@ -10307,7 +11753,7 @@ type WebhookEndpointCreated struct {
 	Events []WebhookEventType `json:"events"`
 	Id     WebhookEndpointID  `json:"id"`
 
-	// Secret Signing secret for this endpoint (`whsec_` prefix), used to verify the `webhook-signature` header on every delivery. Present in this response only: store it immediately, it cannot be retrieved again. If you lose it, mint a new one with [Rotate webhook signing secret](/docs/api/reference/rotate-webhook-secret).
+	// Secret Signing secret for this endpoint (`whsec_` prefix), used to verify every delivery signature. Present in this response only: store it immediately, it cannot be retrieved again. If you lose it, mint a new one with [Rotate webhook signing secret](/docs/api/reference/rotate-webhook-secret).
 	Secret string `json:"secret" pii:"true"`
 
 	// Status Delivery state of the endpoint.
@@ -10325,7 +11771,7 @@ type WebhookEndpointCreated struct {
 	Status    *WebhookEndpointCreatedStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time                    `json:"updated_at,omitempty"`
 
-	// Url HTTPS URL Bird delivers this endpoint's events to.
+	// Url HTTPS URL where the API delivers events for this endpoint.
 	Url string `json:"url"`
 }
 
@@ -10350,16 +11796,16 @@ type WebhookEndpointID = string
 type WebhookEndpointList struct {
 	Data []WebhookEndpoint `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -10368,7 +11814,7 @@ type WebhookEndpointUpdate struct {
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
-	// Events Replacement set of event type subscriptions: the endpoint's subscriptions become exactly this list (there is no partial add or remove). Omit to keep the current set. Types outside the event catalog return a `422`.
+	// Events Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events *[]WebhookEventType `json:"events,omitempty"`
 
 	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
@@ -10381,17 +11827,7 @@ type WebhookEndpointUpdate struct {
 // WebhookEndpointUpdateStatus `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 type WebhookEndpointUpdateStatus string
 
-// WebhookEvent Discriminated union of every webhook event the Bird platform emits.
-//
-// Each variant is the full delivery body: `type` names the event, `timestamp` is when the
-// event occurred, and `data` carries the event-specific payload. The `type` property
-// selects the variant, and the generated SDK types narrow on it, so your code can switch
-// on the event id and read the variant-specific payload fields without casting.
-//
-// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers
-// per Standard Webhooks and is handled by the SDK's webhook verification helper, which
-// returns one of these variants. See the [webhooks guide](/docs/guides/webhooks) for
-// header names and the verification recipe.
+// WebhookEvent Webhook delivery body. `type` identifies the event variant, `timestamp` is when the event occurred, and `data` contains the event-specific payload. See the [webhooks guide](/docs/guides/webhooks) for signature verification.
 type WebhookEvent struct {
 	union json.RawMessage
 }
@@ -10399,7 +11835,7 @@ type WebhookEvent struct {
 // WebhookEventID defines model for WebhookEventID.
 type WebhookEventID = string
 
-// WebhookEventType Webhook event type. Open enum: new event types may be added over time, so treat any unrecognized value in a delivery as a future event rather than an error. Subscribing to a type that is not in the catalog returns a `422`. The values below are the types known at this version.
+// WebhookEventType Webhook event type. This is an open enum, so accept unrecognized values in deliveries. Subscribing to a type outside the event catalog returns a `422`.
 type WebhookEventType string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
@@ -10428,17 +11864,7 @@ type WebhookTestResponse struct {
 	// Error A short explanation of why the event could not be delivered. Present only when your endpoint could not be reached.
 	Error *string `json:"error,omitempty"`
 
-	// EventPayload Discriminated union of every webhook event the Bird platform emits.
-	//
-	// Each variant is the full delivery body: `type` names the event, `timestamp` is when the
-	// event occurred, and `data` carries the event-specific payload. The `type` property
-	// selects the variant, and the generated SDK types narrow on it, so your code can switch
-	// on the event id and read the variant-specific payload fields without casting.
-	//
-	// Delivery metadata (the event id and per-attempt signature headers) rides in HTTP headers
-	// per Standard Webhooks and is handled by the SDK's webhook verification helper, which
-	// returns one of these variants. See the [webhooks guide](/docs/guides/webhooks) for
-	// header names and the verification recipe.
+	// EventPayload Webhook delivery body. `type` identifies the event variant, `timestamp` is when the event occurred, and `data` contains the event-specific payload. See the [webhooks guide](/docs/guides/webhooks) for signature verification.
 	EventPayload *WebhookEvent `json:"event_payload,omitempty"`
 
 	// ResponseBody Response body returned by your endpoint, truncated to the first 1024 bytes. Omitted when your endpoint returned no body or could not be reached.
@@ -10466,9 +11892,73 @@ type WhatsAppAddress struct {
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
 
+// WhatsAppAudio defines model for WhatsAppAudio.
+type WhatsAppAudio struct {
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+
+	// Voice Whether this is a voice note rather than an attached audio file. A voice note auto-downloads in the WhatsApp client and can be transcribed for the recipient.
+	Voice *bool `json:"voice,omitempty"`
+}
+
+// WhatsAppAudioSend Free-form audio to send, either as a voice note or as a basic audio file. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppAudioSend struct {
+	// Url Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. AAC, AMR, MP3, M4A and OGG (OPUS codec, mono) are supported, up to 16 MB.
+	Url string `json:"url"`
+
+	// Voice Whether to send this as a voice note rather than a basic audio message. A voice note auto-downloads, shows the sender's profile picture, and can be transcribed for the recipient. It requires an `.ogg` file encoded with the OPUS codec; any other format makes transcription fail. Leave it false for an ordinary audio attachment.
+	Voice *bool `json:"voice,omitempty"`
+}
+
+// WhatsAppDocument defines model for WhatsAppDocument.
+type WhatsAppDocument struct {
+	// Caption Text shown beneath the document. Absent when the sender wrote none.
+	Caption *string `json:"caption,omitempty"`
+
+	// Filename The sender's own name for the file.
+	Filename *string `json:"filename,omitempty"`
+
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppDocumentSend A free-form document to send, with an optional caption and filename. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppDocumentSend struct {
+	// Caption Text shown beneath the document.
+	Caption *string `json:"caption,omitempty"`
+
+	// Filename Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
+	Filename *string `json:"filename,omitempty"`
+
+	// Url Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
+	Url string `json:"url"`
+}
+
 // WhatsAppError Failure detail for a message that could not be delivered or was rejected.
 type WhatsAppError struct {
-	// Code Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+	// Code Standardized failure reason:
+	//
+	// - `insufficient_balance`: The workspace wallet could not fund the send.
+	// - `price_not_found`: No price was configured for the destination and template.
+	// - `internal_error`: An unexpected service failure occurred.
+	// - `undeliverable`: The recipient could not be reached.
+	// - `service_window_expired`: The 24-hour service window closed; send a template.
+	// - `rate_limited`: The send was throttled.
+	// - `recipient_suppressed`: The recipient is on the workspace suppression list.
+	//
+	// This is an open enum. Accept unrecognized values.
 	Code WhatsAppErrorCode `json:"code"`
 
 	// Description Human-readable explanation of the failure.
@@ -10481,7 +11971,17 @@ type WhatsAppError struct {
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 }
 
-// WhatsAppErrorCode Failure reason, uniform whether the failure happened internally or was reported by the WhatsApp network. `insufficient_balance`: the workspace could not afford the send. `price_not_found`: no price was configured for this destination/template combination. `internal_error`: an unexpected Bird-side failure. `undeliverable`: the recipient could not be reached (for example not on WhatsApp, or the number is invalid). `service_window_expired`: the 24-hour customer care window has closed and a free-form message cannot be sent; send a template instead. `rate_limited`: the send was throttled. `recipient_suppressed`: the recipient is on the workspace's suppression list; the message was rejected before sending. Open enum: new codes may be added over time, so treat any unrecognized value as a future code rather than an error.
+// WhatsAppErrorCode Standardized failure reason:
+//
+// - `insufficient_balance`: The workspace wallet could not fund the send.
+// - `price_not_found`: No price was configured for the destination and template.
+// - `internal_error`: An unexpected service failure occurred.
+// - `undeliverable`: The recipient could not be reached.
+// - `service_window_expired`: The 24-hour service window closed; send a template.
+// - `rate_limited`: The send was throttled.
+// - `recipient_suppressed`: The recipient is on the workspace suppression list.
+//
+// This is an open enum. Accept unrecognized values.
 type WhatsAppErrorCode string
 
 // WhatsAppEvent defines model for WhatsAppEvent.
@@ -10493,7 +11993,17 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
-	// Type Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	// Type Message timeline event type:
+	//
+	// - `whatsapp.accepted`: The API accepted the request.
+	// - `whatsapp.sent`: The message reached the WhatsApp network.
+	// - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
+	// - `whatsapp.read`: The recipient opened the message.
+	// - `whatsapp.failed`: Delivery failed permanently.
+	// - `whatsapp.rejected`: The message was refused before sending and not charged.
+	// - `whatsapp.received`: An inbound message arrived from the contact.
+	//
+	// This is an open enum. Accept unrecognized values.
 	Type WhatsAppEventType `json:"type"`
 }
 
@@ -10506,12 +12016,97 @@ type WhatsAppEventList struct {
 	Data []WhatsAppEvent `json:"data"`
 }
 
-// WhatsAppEventType Type of an event in a WhatsApp message's delivery timeline. `whatsapp.accepted`: Bird accepted the request. `whatsapp.sent`: handed to the WhatsApp network. `whatsapp.delivered`: delivery confirmed to the recipient's device. `whatsapp.read`: the recipient opened the message (this does not change the message `status`, which never becomes `read`). `whatsapp.failed`: terminal permanent failure. `whatsapp.rejected`: Bird refused the message before sending it, so it was never charged. `whatsapp.received`: an inbound message arrived from the contact. Open enum, new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+// WhatsAppEventType Message timeline event type:
+//
+// - `whatsapp.accepted`: The API accepted the request.
+// - `whatsapp.sent`: The message reached the WhatsApp network.
+// - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
+// - `whatsapp.read`: The recipient opened the message.
+// - `whatsapp.failed`: Delivery failed permanently.
+// - `whatsapp.rejected`: The message was refused before sending and not charged.
+// - `whatsapp.received`: An inbound message arrived from the contact.
+//
+// This is an open enum. Accept unrecognized values.
 type WhatsAppEventType string
+
+// WhatsAppFileID defines model for WhatsAppFileID.
+type WhatsAppFileID = string
+
+// WhatsAppImage defines model for WhatsAppImage.
+type WhatsAppImage struct {
+	// Caption Text shown beneath the image. Absent when the sender wrote none.
+	Caption *string `json:"caption,omitempty"`
+
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppImageSend A free-form image to send, with an optional caption. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppImageSend struct {
+	// Caption Text shown beneath the image.
+	Caption *string `json:"caption,omitempty"`
+
+	// Url Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
+	Url string `json:"url"`
+}
+
+// WhatsAppLocation Location content of a WhatsApp message: a point on the map the recipient can open in their maps app.
+type WhatsAppLocation struct {
+	// Address Street address of the place. Shown only when `name` is also set.
+	Address *string `json:"address,omitempty"`
+
+	// Latitude Latitude in decimal degrees.
+	Latitude *float64 `json:"latitude,omitempty"`
+
+	// Longitude Longitude in decimal degrees.
+	Longitude *float64 `json:"longitude,omitempty"`
+
+	// Name Name of the place. Absent when the sender shared a plain pin.
+	Name *string `json:"name,omitempty"`
+
+	// Url Link to the place, which WhatsApp includes mainly for business locations. Present on an inbound message when the sender's client supplied one, and absent on a message you sent, since sending a location does not support this field.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppLocationSend A free-form location to send: a point on the map the recipient can open in their maps app. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppLocationSend struct {
+	// Address Street address of the place. Shown only when `name` is also set.
+	Address *string `json:"address,omitempty"`
+
+	// Latitude Latitude in decimal degrees.
+	Latitude float64 `json:"latitude"`
+
+	// Longitude Longitude in decimal degrees.
+	Longitude float64 `json:"longitude"`
+
+	// Name Name of the place, shown above the address.
+	Name *string `json:"name,omitempty"`
+}
+
+// WhatsAppMedia Fields shared by every media content object on a WhatsApp message.
+type WhatsAppMedia struct {
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+}
 
 // WhatsAppMessage defines model for WhatsAppMessage.
 type WhatsAppMessage struct {
-	// Cost What was charged for a message, split into the components that make it up. Null until at least one component has been priced.
+	// Audio Audio the message carried.
+	Audio *WhatsAppAudio `json:"audio,omitempty"`
+
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
 
 	// CreatedAt When the message was accepted for delivery.
@@ -10523,12 +12118,21 @@ type WhatsAppMessage struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction *WhatsAppMessageDirection `json:"direction,omitempty"`
 
+	// Document Document the message carried.
+	Document *WhatsAppDocument `json:"document,omitempty"`
+
 	// From Sender of the message. On outbound messages, the business number it was sent from; on inbound, the WhatsApp contact.
 	From *WhatsAppAddress  `json:"from,omitempty"`
 	Id   WhatsAppMessageID `json:"id"`
 
+	// Image Image the message carried.
+	Image *WhatsAppImage `json:"image,omitempty"`
+
 	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *WhatsAppError `json:"last_error,omitempty"`
+
+	// Location Location the message carried.
+	Location *WhatsAppLocation `json:"location,omitempty"`
 
 	// Metadata Arbitrary JSON metadata stored on the message.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
@@ -10540,14 +12144,26 @@ type WhatsAppMessage struct {
 	SentAt *time.Time             `json:"sent_at,omitempty"`
 	Status *WhatsAppMessageStatus `json:"status,omitempty"`
 
+	// Sticker Sticker the message carried.
+	Sticker *WhatsAppSticker `json:"sticker,omitempty"`
+
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
 
 	// Template The template the message was sent from. For authentication templates the filled-in values are not returned.
 	Template *WhatsAppMessageTemplate `json:"template,omitempty"`
 
+	// Text Text the message carried.
+	Text *WhatsAppText `json:"text,omitempty"`
+
 	// To Recipient of the message. On outbound messages, the WhatsApp contact; on inbound, the business number.
 	To *WhatsAppAddress `json:"to,omitempty"`
+
+	// Unsupported Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+	Unsupported *WhatsAppUnsupported `json:"unsupported,omitempty"`
+
+	// Video Video the message carried.
+	Video *WhatsAppVideo `json:"video,omitempty"`
 }
 
 // WhatsAppMessageDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
@@ -10561,32 +12177,67 @@ type WhatsAppMessageList struct {
 	// Data Page of WhatsApp messages, newest first.
 	Data []WhatsAppMessage `json:"data"`
 
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // WhatsAppMessageSendRequest A WhatsApp message to send. Carry exactly one kind of content: a request with none returns a `422` `WhatsAppContentRequired`, and one carrying more than one returns a `422` `WhatsAppContentAmbiguous`. The schema does not express that constraint, because which combinations are available depends on the content types your workspace can send.
 type WhatsAppMessageSendRequest struct {
+	// Audio Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Audio *WhatsAppAudioSend `json:"audio,omitempty"`
+
+	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Document *WhatsAppDocumentSend `json:"document,omitempty"`
+
+	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`.
+	From *string `json:"from,omitempty"`
+
+	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Image *WhatsAppImageSend `json:"image,omitempty"`
+
+	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Location *WhatsAppLocationSend `json:"location,omitempty"`
+
 	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Sticker A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Sticker *WhatsAppStickerSend `json:"sticker,omitempty"`
 
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send. For a Bird-managed template, Bird selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
+	// Template The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
+
+	// Text Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Text *WhatsAppTextSend `json:"text,omitempty"`
 
 	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
 	To string `json:"to"`
+
+	// Video A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	Video *WhatsAppVideoSend `json:"video,omitempty"`
 }
 
-// WhatsAppMessageStatus Delivery status. `accepted` (the initial status of an outbound send) means Bird accepted the request and it is queued for sending. `sent` means it was handed to the WhatsApp network. `delivered` is confirmed delivery to the recipient's device. `failed` is a terminal permanent failure. `rejected` means Bird refused the message before sending it to WhatsApp, because the recipient is on the workspace's suppression list, the wallet had insufficient balance, or the destination is unpriced. A rejected message was not sent and not charged. There is no `read` status: a read receipt is reported as `read_at` and a `whatsapp.read` event, not a status value. `received` is the status of an inbound message, one a contact sent you. The remaining values are reserved and not returned today: `scheduled` (queued to send at a future time) and `canceled` (a scheduled message canceled before sending).
+// WhatsAppMessageStatus Delivery status:
+//
+// - `accepted`: Accepted and queued for sending.
+// - `sent`: Handed to the WhatsApp network.
+// - `delivered`: Confirmed as delivered to the recipient's device.
+// - `failed`: Permanently failed.
+// - `rejected`: Refused before sending and not charged.
+// - `received`: Received as an inbound message.
+// - `scheduled`: Reserved and not returned.
+// - `canceled`: Reserved and not returned.
+//
+// Read receipts appear in `read_at` and `whatsapp.read` events.
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -10615,7 +12266,11 @@ type WhatsAppMessageTemplateCardComponent struct {
 	// Parameters The values that fill this part's placeholders, in placeholder order.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
-	// Type Which part of the card this fills in: `header` for the card's image or video, `body` for its text, `button` for a button's variable.
+	// Type Which part of the card this fills in.
+	//
+	// - `header`: the card's image or video.
+	// - `body`: its text.
+	// - `button`: a button's variable.
 	Type string `json:"type"`
 }
 
@@ -10627,12 +12282,20 @@ type WhatsAppMessageTemplateComponent struct {
 	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
-	// Type Which part of the template this fills in: `body` for the main text, `button` for a button's variable, `header` for the header's text, media or location, `carousel` for the cards.
+	// Type Which part of the template this fills in.
+	//
+	// - `body`: the main text.
+	// - `button`: a button's variable.
+	// - `header`: the header's text, media or location.
+	// - `carousel`: the cards.
 	Type string `json:"type"`
 }
 
 // WhatsAppMessageTemplateComponentParameter defines model for WhatsAppMessageTemplateComponentParameter.
 type WhatsAppMessageTemplateComponentParameter struct {
+	// Location The point on the map a location header opens. Send it on a `location` parameter.
+	Location *WhatsAppLocationSend `json:"location,omitempty"`
+
 	// Name Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
 	Name *string `json:"name,omitempty"`
 
@@ -10646,13 +12309,44 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// WhatsAppTemplateCategory Meta's content classification for a template. `authentication` templates deliver one-time passcodes, `utility` templates deliver transaction-triggered updates (receipts, order status), and `marketing` templates carry promotional content. The category drives which sender number Bird selects and how the send is priced. Open enum: Meta may add new categories over time, so treat any unrecognized value as a future category rather than an error.
+// WhatsAppReceivedEventType Event type.
+type WhatsAppReceivedEventType string
+
+// WhatsAppSticker defines model for WhatsAppSticker.
+type WhatsAppSticker struct {
+	// Animated Whether the sticker is animated. Absent on an outbound message.
+	Animated *bool `json:"animated,omitempty"`
+
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppStickerSend A free-form sticker to send. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppStickerSend struct {
+	// Url Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. WebP only: up to 100 KB for a static sticker and 500 KB for an animated one. A sticker carries no caption.
+	Url string `json:"url"`
+}
+
+// WhatsAppTemplateCategory Meta's content classification for a template.
+//
+// - `authentication`: delivers one-time passcodes.
+// - `utility`: delivers transaction-triggered updates (receipts, order status).
+// - `marketing`: carries promotional content.
+//
+// The category determines the sender number and price. This is an open enum.
+// Accept unrecognized values.
 type WhatsAppTemplateCategory string
 
 // WhatsAppTemplateID defines model for WhatsAppTemplateID.
 type WhatsAppTemplateID = string
 
-// WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. `text` is a plain string substituted into a placeholder, including a coupon button's code, which the recipient copies from the button. `image`, `video`, `gif` and `document` carry a media header's file in `url`, each matching its header's `format`. `location` fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
+// WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. The `text` type is a plain string substituted into a placeholder. This includes a coupon button's code, which the recipient copies from the button. The `image`, `video`, `gif`, and `document` types carry a media header's file in `url`. Each matches its header's `format`. The `location` type fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType string
 
 // WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
@@ -10675,33 +12369,78 @@ type WhatsAppTemplateSend0 = interface{}
 // WhatsAppTemplateSend1 defines model for .
 type WhatsAppTemplateSend1 = interface{}
 
+// WhatsAppText Text content of a WhatsApp message.
+type WhatsAppText struct {
+	// Body The message text.
+	Body string `json:"body"`
+}
+
+// WhatsAppTextSend Free-form text to send. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppTextSend struct {
+	// Body The message text. The WhatsApp client turns any URL it contains into a clickable link.
+	Body string `json:"body"`
+
+	// PreviewUrl Whether the WhatsApp client renders a preview of the first URL in `body`. A URL must begin with `http://` or `https://`, only the first one is previewed, and the client falls back to a plain link when it cannot fetch a preview. Not returned when the message is read back, because WhatsApp does not report whether a preview rendered.
+	PreviewUrl *bool `json:"preview_url,omitempty"`
+}
+
+// WhatsAppUnsupported A message whose content we do not model, named so it is visible in the message log rather than arriving empty. Inbound only.
+type WhatsAppUnsupported struct {
+	// Type The WhatsApp content type we did not model. `unsupported` is not a placeholder here: WhatsApp reports its own `unsupported` type for a message its own clients cannot render, and that arrives as this value. Open enum: WhatsApp adds content types over time, so treat an unrecognized value as a future type rather than an error.
+	Type string `json:"type"`
+}
+
+// WhatsAppVideo defines model for WhatsAppVideo.
+type WhatsAppVideo struct {
+	// Caption Text shown beneath the video. Absent when the sender wrote none.
+	Caption *string `json:"caption,omitempty"`
+
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	Id *WhatsAppFileID `json:"id,omitempty"`
+
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppVideoSend A free-form video to send, with an optional caption. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppVideoSend struct {
+	// Caption Text shown beneath the video.
+	Caption *string `json:"caption,omitempty"`
+
+	// Url Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. MP4 with H.264 video and AAC audio, up to 16 MB.
+	Url string `json:"url"`
+}
+
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
 
 // UnderscoreListEnvelope defines model for _ListEnvelope.
 type UnderscoreListEnvelope struct {
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // UnderscoreListEnvelopeWithTotal defines model for _ListEnvelopeWithTotal.
 type UnderscoreListEnvelopeWithTotal struct {
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. Null when no next page exists.
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. Null when no previous page exists.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-null whenever `data` is non-empty; null only on an empty page. Distinct from `prev_cursor`.
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 
-	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise null.
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
 
@@ -10857,7 +12596,7 @@ type UpdateAudienceParams struct {
 
 // ListAudienceContactsParams defines parameters for ListAudienceContacts.
 type ListAudienceContactsParams struct {
-	// Q Case-insensitive substring match against the member's email address or phone number (digits of the international form).
+	// Q Case-insensitive substring match against a contact's email address or the digits in its international phone number.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -10992,7 +12731,7 @@ type ListContactsParams struct {
 	// Email Return the contact with exactly this email address (case-insensitive). Email is unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
 	Email *string `form:"email,omitempty" json:"email,omitempty"`
 
-	// PhoneNumber Return the contacts with exactly this phone number in international E.164 form. Repeat the parameter to match any of up to 50 numbers, and set `limit` to at least the number of values you pass: `limit` defaults to 25, and a page cut short by it looks exactly like numbers that matched nothing. Different identifier parameters still combine with AND, so `phone_number=a&phone_number=b&email=c` asks for a contact whose phone number is `a` or `b` and whose email is `c`. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so each value matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
+	// PhoneNumber Return the contacts with exactly this phone number in international E.164 form. Repeat the parameter to match any of up to 50 numbers. Set `limit` to at least the number of values you pass. The default `limit` is 25, and a page cut short by it looks exactly like numbers that matched nothing. Different identifier parameters still combine with AND, so `phone_number=a&phone_number=b&email=c` asks for a contact whose phone number is `a` or `b` and whose email is `c`. Encode the leading plus sign as `%2B` (an unencoded `+` arrives as a space and is rejected). Phone numbers are unique within a workspace, so each value matches at most one contact. Non-canonical forms of the same number match the contact they canonicalize to; a value that is not a phone number shape, or an empty value, is a validation error, never an unfiltered page.
 	PhoneNumber *[]string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
 
 	// ExternalId Return the contact with exactly this external_id (your own identifier for the contact). Unique within a workspace, so this matches at most one contact. An empty value is a validation error, never an unfiltered page.
@@ -11097,10 +12836,10 @@ type ListDomainsParams struct {
 	// Name Substring match against the domain name (case-insensitive).
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
-	// Sort Field to sort by.
+	// Sort Field to sort by. Defaults to `created_at`.
 	Sort *ListDomainsParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
-	// Order Sort direction. Defaults to `desc` (newest/largest first).
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
 	Order *ListDomainsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -11190,13 +12929,13 @@ type ListMailboxesParams struct {
 	// Q Case-insensitive search matching the mailbox's address or display name (substring).
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
 
-	// State Filter by lifecycle state.
+	// State Return only `active` or `suspended` mailboxes. Use `include_deleted` for restorable deleted mailboxes.
 	State *ListMailboxesParamsState `form:"state,omitempty" json:"state,omitempty"`
 
 	// Domain Filter to mailboxes whose address is on this domain.
 	Domain *string `form:"domain,omitempty" json:"domain,omitempty"`
 
-	// IncludeDeleted Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has a non-null `deleted_at`.
+	// IncludeDeleted Include mailboxes deleted within their 30-day restore window. Defaults to false, so only active and suspended mailboxes are returned. A deleted mailbox has `deleted_at` set.
 	IncludeDeleted *bool `form:"include_deleted,omitempty" json:"include_deleted,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -11277,7 +13016,7 @@ type CreateMailboxMessageParams struct {
 
 // ListMailboxReceiveRulesParams defines parameters for ListMailboxReceiveRules.
 type ListMailboxReceiveRulesParams struct {
-	// Action Filter by rule action.
+	// Action Return only `allow` or `block` rules; omit to return both actions.
 	Action *ListMailboxReceiveRulesParamsAction `form:"action,omitempty" json:"action,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -11355,13 +13094,13 @@ type ResumeMailboxParams struct {
 
 // GetMailboxStatsParams defines parameters for GetMailboxStats.
 type GetMailboxStatsParams struct {
-	// From Inclusive start of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` at `day` granularity and 7 days before `to` at `hour`, when omitted.
+	// From Inclusive start of the window: a calendar day (`YYYY-MM-DD`, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` at `day` granularity and 7 days before `to` at `hour`, when omitted.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Inclusive end of the window: a calendar day (YYYY-MM-DD, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
+	// To Inclusive end of the window: a calendar day (`YYYY-MM-DD`, `day` granularity only) or an RFC 3339 instant rounded down to the hour (`hour` granularity only). Interpreted in `timezone`, or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today (day) or the current hour (hour) in that timezone when omitted. Window may not exceed 365 days at `day` or 30 days at `hour` granularity.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Granularity Granularity of the series: `day` (default) or `hour`. Echoed back as `period.grain`.
@@ -11382,10 +13121,10 @@ type ListEmailMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Status Filter by aggregate delivery status.
@@ -11436,16 +13175,16 @@ type CancelEmailMessageParams struct {
 
 // GetEmailStatsByBounceCodeParams defines parameters for GetEmailStatsByBounceCode.
 type GetEmailStatsByBounceCodeParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. It defaults to `bounced`. Only the bounce counts are sortable here, because this breakdown has no rate fields.
@@ -11460,13 +13199,13 @@ type GetEmailStatsByBounceCodeParamsSort string
 
 // GetEmailStatsByBroadcastParams defines parameters for GetEmailStatsByBroadcast.
 type GetEmailStatsByBroadcastParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, UTC. Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns a 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns a `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
@@ -11478,13 +13217,13 @@ type GetEmailStatsByBroadcastParams struct {
 
 // GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
 type GetEmailStatsByCategoryParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
@@ -11493,7 +13232,7 @@ type GetEmailStatsByCategoryParams struct {
 	// Limit Maximum number of category rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that category's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11502,19 +13241,19 @@ type GetEmailStatsByCategoryParams struct {
 
 // GetEmailStatsByClientParams defines parameters for GetEmailStatsByClient.
 type GetEmailStatsByClientParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// GroupBy Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two null.
+	// GroupBy Which reading-environment facet to group rows by. `email_client` (default) groups by mail client; `os` groups by operating system; `device_type` groups by device type. Each row populates the chosen facet and leaves the other two `null`.
 	GroupBy *GetEmailStatsByClientParamsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. It defaults to `unique_opens`. Only engagement counts are sortable. This breakdown has no rates.
@@ -11529,16 +13268,16 @@ type GetEmailStatsByClientParamsGroupBy string
 
 // GetEmailStatsByComplaintTypeParams defines parameters for GetEmailStatsByComplaintType.
 type GetEmailStatsByComplaintTypeParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. It defaults to `complained`, the only sortable metric for this breakdown.
@@ -11553,13 +13292,13 @@ type GetEmailStatsByComplaintTypeParamsSort string
 
 // GetEmailStatsDailyParams defines parameters for GetEmailStatsDaily.
 type GetEmailStatsDailyParams struct {
-	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive), `YYYY-MM-DD`. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive), `YYYY-MM-DD`. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -11571,13 +13310,13 @@ type GetEmailStatsDailyParams struct {
 	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
 	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 }
 
@@ -11589,7 +13328,7 @@ type GetEmailStatsHourlyParams struct {
 	// To End of the window (ISO 8601 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included (both bounds inclusive). When `timezone` is set, a numeric UTC offset here is rejected; use a `Z` (UTC) instant. Defaults to the current hour when omitted. Window may not exceed 30 days (720 hours).
 	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -11601,28 +13340,28 @@ type GetEmailStatsHourlyParams struct {
 	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
 	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 }
 
 // GetEmailStatsByLocationParams defines parameters for GetEmailStatsByLocation.
 type GetEmailStatsByLocationParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// GroupBy Location granularity for each row. `country` (default) groups by country; `region` groups by region within country; `city` groups by city within region. Each row reports the location hierarchy down to the chosen level.
@@ -11640,16 +13379,16 @@ type GetEmailStatsByLocationParamsGroupBy string
 
 // GetEmailStatsByMailboxProviderRegionParams defines parameters for GetEmailStatsByMailboxProviderRegion.
 type GetEmailStatsByMailboxProviderRegionParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
@@ -11658,7 +13397,7 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 	// Limit Maximum number of provider-region rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider region's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11667,16 +13406,16 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 
 // GetEmailStatsByMailboxProviderParams defines parameters for GetEmailStatsByMailboxProvider.
 type GetEmailStatsByMailboxProviderParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. `processed`, `rejected`, and `oob_bounces` are not part of this breakdown's rows, so they are not sortable here.
@@ -11685,7 +13424,7 @@ type GetEmailStatsByMailboxProviderParams struct {
 	// Limit Maximum number of mailbox-provider rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that provider's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11694,16 +13433,16 @@ type GetEmailStatsByMailboxProviderParams struct {
 
 // GetEmailStatsByRecipientDomainParams defines parameters for GetEmailStatsByRecipientDomain.
 type GetEmailStatsByRecipientDomainParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
@@ -11712,7 +13451,7 @@ type GetEmailStatsByRecipientDomainParams struct {
 	// Limit Maximum number of recipient-domain rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that recipient domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11721,16 +13460,16 @@ type GetEmailStatsByRecipientDomainParams struct {
 
 // GetEmailStatsBySendingDomainParams defines parameters for GetEmailStatsBySendingDomain.
 type GetEmailStatsBySendingDomainParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
@@ -11739,7 +13478,7 @@ type GetEmailStatsBySendingDomainParams struct {
 	// Limit Maximum number of domain rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that domain's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11748,16 +13487,16 @@ type GetEmailStatsBySendingDomainParams struct {
 
 // GetEmailStatsBySendingIpParams defines parameters for GetEmailStatsBySendingIp.
 type GetEmailStatsBySendingIpParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank IPs by, applied descending. Sorting by `bounces.block` puts the IPs whose reputation is most likely degraded at the top. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `delivered`. A sending IP has no engagement, so engagement metrics aren't sortable here, and neither are `processed`, `rejected`, or `oob_bounces`.
@@ -11766,7 +13505,7 @@ type GetEmailStatsBySendingIpParams struct {
 	// Limit Maximum number of IP rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that IP's delivery rates over the window. A trend point's open and click rates read `0` in a bucket that had deliveries and `null` in one that had none, because a sending IP has no engagement data. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11778,13 +13517,13 @@ type GetEmailStatsBySendingIpParamsSort string
 
 // GetEmailStatsSummaryParams defines parameters for GetEmailStatsSummary.
 type GetEmailStatsSummaryParams struct {
-	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` for day windows, or 168 hours (7 days) before `to` for hour windows, when omitted.
+	// From Inclusive start of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `to`. Defaults to 30 days before `to` for day windows, or 168 hours (7 days) before `to` for hour windows, when omitted.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	// To Inclusive end of the window: a calendar day (`YYYY-MM-DD`) or an RFC 3339 instant (rounded down to the hour). Interpreted in `timezone` (a calendar day names a local day; an instant is rounded down to the local hour), or in UTC when `timezone` is omitted. A numeric UTC offset is rejected when `timezone` is set; use a calendar day or a `Z` (UTC) instant. Must use the same form as `from`. Defaults to today for day windows, or the current hour for hour windows, in that timezone, when omitted. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
@@ -11796,13 +13535,13 @@ type GetEmailStatsSummaryParams struct {
 	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is only assigned once a message reaches delivery, so an IP-filtered result reports delivery-side metrics only: accepted, processed, rejected, complaint, and engagement counts are 0 and the processing latency is null; complaint, open, and click rates read 0 when there were deliveries and null when there were none.
+	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
 	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restrict the statistics to a single template, by its ID (`emt_…`) or its name. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 
 	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
@@ -11814,16 +13553,16 @@ type GetEmailStatsSummaryParamsCompare string
 
 // GetEmailStatsByTagParams defines parameters for GetEmailStatsByTag.
 type GetEmailStatsByTagParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints. Supplying it returns 422. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints. Supplying it returns `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response can be used. A row whose rate is undefined because its denominator is zero sorts last. It defaults to `processed`.
@@ -11832,7 +13571,7 @@ type GetEmailStatsByTagParams struct {
 	// Limit Maximum number of tag rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a 422. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
+	// IncludeTrend When true, each row also gets a `trend` array: a short per-bucket series showing that tag's delivery and engagement rates over the window. This only works when `limit` is 50 or fewer and the window is at most 90 days for `trend_grain=daily` or 720 hours for `trend_grain=hourly`. Ask for more and you get a `422`. When you leave `from` out and use `trend_grain=hourly`, the default window tightens to 29 days before `to` (720 hours total), so a request built entirely from defaults always fits inside the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11841,16 +13580,16 @@ type GetEmailStatsByTagParams struct {
 
 // GetEmailStatsByTemplateParams defines parameters for GetEmailStatsByTemplate.
 type GetEmailStatsByTemplateParams struct {
-	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
 
-	// Timezone IANA timezone identifier (for example `Asia/Kathmandu`) to report in; defaults to UTC. Day and hour boundaries and the default window when `from` and `to` are omitted both follow it, so a calendar-day `from` or `to` names a local day. A `from` or `to` carrying its own UTC offset is rejected while this is set: pass a calendar day or a `Z` instant.
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Not supported on breakdown endpoints; supplying it returns 422. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
+	// Category Not supported on breakdown endpoints; supplying it returns `422`. To compare categories use `GET /v1/email/stats/categories`; the summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
 	// Sort Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
@@ -11859,7 +13598,7 @@ type GetEmailStatsByTemplateParams struct {
 	// Limit Maximum number of template rows to return, ranked by the `sort` field descending.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
-	// IncludeTrend When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
+	// IncludeTrend When true, each row also has a `trend` array: a short per-bucket series of that template's delivery and engagement rates over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns `422`. When `from` is omitted and `trend_grain=hourly`, the default start tightens to 29 days before `to`, keeping the window inside 720 hours, so a request built entirely from defaults always fits the cap.
 	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
@@ -11879,7 +13618,7 @@ type ListEmailThreadsParams struct {
 	// A placement label picks a folder: `inbox`, `archive`, `spam`, or `blocked`. A custom label matches a conversation in any folder. Leave this out and you get the inbox.
 	Label *[]string `form:"label,omitempty" json:"label,omitempty"`
 
-	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on messages, not conversations.
+	// HasUnread When `true`, only conversations with unread messages are returned. This filters on the conversation's unread state, so you can combine it with `label`, for example to get unread conversations in the archive. The `unread` label itself lives on individual messages; this filter uses the conversation's aggregate unread state.
 	HasUnread *bool `form:"has_unread,omitempty" json:"has_unread,omitempty"`
 
 	// Participant Conversations involving this address, matching the sender or any recipient. The match is case-insensitive and matches on any part of the address, so a fragment works as well as the whole address.
@@ -11888,10 +13627,10 @@ type ListEmailThreadsParams struct {
 	// Subject Conversations whose subject contains this text (case-insensitive).
 	Subject *string `form:"subject,omitempty" json:"subject,omitempty"`
 
-	// After Filter to conversations whose most recent message is at or after this time. This is a time filter, not a cursor.
+	// After Filter to conversations whose most recent message is at or after this time. Use the response cursors for pagination.
 	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
 
-	// Before Filter to conversations whose most recent message is at or before this time. This is a time filter, not a cursor.
+	// Before Filter to conversations whose most recent message is at or before this time. Use the response cursors for pagination.
 	Before *time.Time `form:"before,omitempty" json:"before,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -11942,7 +13681,7 @@ type ListEmailThreadMessagesParams struct {
 	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Label Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, received messages in the inbox and all sent messages are returned.
+	// Label Filter to messages that have this label. `trash` lists trashed messages. Any other label, whether that is `archive`, `spam`, `blocked`, `unread` or one of your own, lists the messages that have it and are not in the trash. When omitted, every message that is not trashed is returned, whichever folder the conversation is in.
 	Label *string `form:"label,omitempty" json:"label,omitempty"`
 
 	// Include Set to `extracted_text` to inline each message's extracted plain text.
@@ -11978,7 +13717,7 @@ type ReplyEmailThreadMessageParams struct {
 
 // CreateEmailLookupParams defines parameters for CreateEmailLookup.
 type CreateEmailLookupParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -11996,7 +13735,7 @@ type CreateEmailLookupParams struct {
 
 // CreatePhoneNumberLookupParams defines parameters for CreatePhoneNumberLookup.
 type CreatePhoneNumberLookupParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12014,7 +13753,7 @@ type CreatePhoneNumberLookupParams struct {
 
 // PublishRealtimeAppBatchParams defines parameters for PublishRealtimeAppBatch.
 type PublishRealtimeAppBatchParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12032,13 +13771,13 @@ type PublishRealtimeAppBatchParams struct {
 
 // ListRealtimeAppChannelsParams defines parameters for ListRealtimeAppChannels.
 type ListRealtimeAppChannelsParams struct {
-	// Prefix Only channels whose name starts with this prefix (e.g. "presence-").
+	// Prefix Only channels whose name starts with this prefix (for example, `presence-`).
 	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
 
 	// Include Per-channel attributes to include. Repeatable. Requesting `member_count` without a presence-channel `prefix`, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
 	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
 
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
@@ -12047,19 +13786,19 @@ type GetRealtimeAppChannelParams struct {
 	// Include Attributes to include. Repeatable. Requesting `member_count` for a non-presence channel, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
 	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
 
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // ListRealtimeAppChannelMembersParams defines parameters for ListRealtimeAppChannelMembers.
 type ListRealtimeAppChannelMembersParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // PublishRealtimeAppEventParams defines parameters for PublishRealtimeAppEvent.
 type PublishRealtimeAppEventParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12077,7 +13816,7 @@ type PublishRealtimeAppEventParams struct {
 
 // DisconnectRealtimeAppMemberParams defines parameters for DisconnectRealtimeAppMember.
 type DisconnectRealtimeAppMemberParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12095,7 +13834,7 @@ type DisconnectRealtimeAppMemberParams struct {
 
 // SendRealtimeAppMemberEventParams defines parameters for SendRealtimeAppMemberEvent.
 type SendRealtimeAppMemberEventParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12126,6 +13865,87 @@ type CreateSMSMessageBatchParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListSMSKeywordRulesParams defines parameters for ListSMSKeywordRules.
+type ListSMSKeywordRulesParams struct {
+	// Country Keep only rules that apply in this country, as an ISO 3166-1 alpha-2 code. Omit for every country the default catalog covers, plus your own rules.
+	Country *string `form:"country,omitempty" json:"country,omitempty"`
+
+	// Number Keep only the rules that apply to this number of yours, in E.164 format or as a short code, ordered the way they are applied to an inbound message.
+	Number *string `form:"number,omitempty" json:"number,omitempty"`
+
+	// FromCountry The country a sender is messaging from, as an ISO 3166-1 alpha-2 code. Use it with `number` to see what someone in that country gets, which can differ from what a local sender gets. Ignored without `number`.
+	FromCountry *string `form:"from_country,omitempty" json:"from_country,omitempty"`
+
+	// Operation Keep only rules for this operation. Omit for all of them.
+	Operation *SMSKeywordOperation `form:"operation,omitempty" json:"operation,omitempty"`
+
+	// Scope Keep only default rules (`system`) or only the rules you created (`workspace`). Omit for both.
+	Scope *SMSKeywordRuleScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateSMSKeywordRuleParams defines parameters for CreateSMSKeywordRule.
+type CreateSMSKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteSMSKeywordRuleParams defines parameters for DeleteSMSKeywordRule.
+type DeleteSMSKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetSMSKeywordRuleParams defines parameters for GetSMSKeywordRule.
+type GetSMSKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateSMSKeywordRuleParams defines parameters for UpdateSMSKeywordRule.
+type UpdateSMSKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListSMSMessagesParams defines parameters for ListSMSMessages.
 type ListSMSMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -12137,10 +13957,10 @@ type ListSMSMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Direction Filter by direction. Omit for both.
@@ -12180,9 +14000,385 @@ type CreateSMSMessageParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListSMSMessageEventsParams defines parameters for ListSMSMessageEvents.
+type ListSMSMessageEventsParams struct {
+	// Type Filter by event type, such as `sms.delivered` or `sms.failed`.
+	Type *string `form:"type,omitempty" json:"type,omitempty"`
+}
+
+// GetSMSStatsByCarrierParams defines parameters for GetSMSStatsByCarrier.
+type GetSMSStatsByCarrierParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of carrier rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetSMSStatsByCategoryParams defines parameters for GetSMSStatsByCategory.
+type GetSMSStatsByCategoryParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of category rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetSMSStatsByCountryParams defines parameters for GetSMSStatsByCountry.
+type GetSMSStatsByCountryParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of country rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetSMSStatsDailyParams defines parameters for GetSMSStatsDaily.
+type GetSMSStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
+
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	Country *string `form:"country,omitempty" json:"country,omitempty"`
+
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+}
+
+// GetSMSStatsByErrorCodeParams defines parameters for GetSMSStatsByErrorCode.
+type GetSMSStatsByErrorCodeParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Defaults to `failed`. Only lifecycle counts are sortable; this breakdown has no rates.
+	Sort *SMSStatsLifecycleSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of error-code rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetSMSStatsHourlyParams defines parameters for GetSMSStatsHourly.
+type GetSMSStatsHourlyParams struct {
+	// From Start of the window (ISO 8601 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a `Z` (UTC) instant. Defaults to 7 days before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (ISO 8601 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise, so both bounds are inclusive. When `timezone` is set, a numeric UTC offset is rejected; use a `Z` (UTC) instant. Defaults to the current hour when omitted. The window may not exceed 30 days (720 hours).
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
+
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	Country *string `form:"country,omitempty" json:"country,omitempty"`
+
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+}
+
+// GetSMSInboundStatsByCountryParams defines parameters for GetSMSInboundStatsByCountry.
+type GetSMSInboundStatsByCountryParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetSMSInboundStatsDailyParams defines parameters for GetSMSInboundStatsDaily.
+type GetSMSInboundStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetSMSInboundStatsHourlyParams defines parameters for GetSMSInboundStatsHourly.
+type GetSMSInboundStatsHourlyParams struct {
+	// From Start of the window (inclusive), an RFC 3339 instant truncated to the hour. Defaults to 7 days (168 hours) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (inclusive), an RFC 3339 instant truncated to the hour. Defaults to the current hour when omitted. Window may not exceed 720 hours. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; pass a calendar day or a `Z` instant instead.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetSMSInboundStatsByNumberParams defines parameters for GetSMSInboundStatsByNumber.
+type GetSMSInboundStatsByNumberParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetSMSInboundStatsByOperatorParams defines parameters for GetSMSInboundStatsByOperator.
+type GetSMSInboundStatsByOperatorParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum rows to return, ranked by volume. Defaults to 50; the maximum is 200, and asking for more returns 422 rather than silently returning fewer.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetSMSInboundStatsSummaryParams defines parameters for GetSMSInboundStatsSummary.
+type GetSMSInboundStatsSummaryParams struct {
+	// From Inclusive start of the window, either a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The form you use selects the grain the total is resolved at. Interpreted in `timezone`, or in UTC when `timezone` is omitted. Must use the same form as `to`. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; pass a calendar day or a `Z` instant instead. Defaults to 30 days before `to` for day windows, or 168 hours before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, in the same form as `from`. Defaults to today, or the current hour for an hour window. A day window may not exceed 365 days and an hour window 720 hours.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Compare Set to `previous_period` to include the received-message count for the immediately preceding window of equal length. The response also includes the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetSMSStatsByOriginatorParams defines parameters for GetSMSStatsByOriginator.
+type GetSMSStatsByOriginatorParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of originator rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// GetSMSStatsByStatusParams defines parameters for GetSMSStatsByStatus.
+type GetSMSStatsByStatusParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetSMSStatsSummaryParams defines parameters for GetSMSStatsSummary.
+type GetSMSStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `to`. When omitted, it defaults to 30 days before `to` for day windows or 168 hours (7 days) before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `from`. When omitted, it defaults to today for day windows or the current hour for hour windows in that timezone. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Originator Restrict the statistics to a single originator (the sender address messages were sent from). Mutually exclusive with the other dimension filters (`country`, `category`, `carrier`); only one may be set per request. Matches the message `from`.
+	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
+
+	// Country Restrict the statistics to a single destination country, as an ISO 3166-1 alpha-2 code. Mutually exclusive with the other dimension filters (`originator`, `category`, `carrier`); only one may be set per request.
+	Country *string `form:"country,omitempty" json:"country,omitempty"`
+
+	// Category Restrict the statistics to a single category. Mutually exclusive with the other dimension filters (`originator`, `country`, `carrier`); only one may be set per request.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Carrier Restrict the statistics to a single delivery carrier. Mutually exclusive with the other dimension filters (`originator`, `country`, `category`); only one may be set per request.
+	Carrier *string `form:"carrier,omitempty" json:"carrier,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetSMSStatsByTagParams defines parameters for GetSMSStatsByTag.
+type GetSMSStatsByTagParams struct {
+	// From Start date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to keep the window within the 720-hour trend cap.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in YYYY-MM-DD, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Sort Metric to rank rows by, applied descending. Any lifecycle count or derived rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `accepted`.
+	Sort *SMSStatsSortMetric `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Limit Maximum number of tag rows to return, ranked by the `sort` field descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// IncludeTrend When true, each row also carries a `trend` array: a short per-bucket lifecycle-count series for that row over the window. Returned only when `limit` is 50 or fewer and the window is at most 90 days (trend_grain=daily) or 720 hours (trend_grain=hourly); a larger request returns 422.
+	IncludeTrend *bool `form:"include_trend,omitempty" json:"include_trend,omitempty"`
+
+	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
+	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// ListSMSSuppressionsParams defines parameters for ListSMSSuppressions.
+type ListSMSSuppressionsParams struct {
+	// Destination Return only suppressions for this exact subscriber number in E.164 form. Prefix matching is unsupported.
+	Destination *string `form:"destination,omitempty" json:"destination,omitempty"`
+
+	// Originator Return only suppressions covering this sender.
+	Originator *string `form:"originator,omitempty" json:"originator,omitempty"`
+
+	// Reason Return only suppressions with this reason:
+	//
+	// - `keyword_stop`: The subscriber texted a stop keyword to the sender.
+	// - `carrier_opted_out`: Their carrier reported the opt-out.
+	// - `manual`: Added through the API or dashboard.
+	Reason *SMSSuppressionReasonFilter `form:"reason,omitempty" json:"reason,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateSMSSuppressionParams defines parameters for CreateSMSSuppression.
+type CreateSMSSuppressionParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteSMSSuppressionParams defines parameters for DeleteSMSSuppression.
+type DeleteSMSSuppressionParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListSMSTemplatesParams defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParams struct {
-	// Scope Keep only templates of this scope: `system` for Bird's built-in templates, `workspace` for templates authored in your workspace. Omit for all.
+	// Scope Keep only templates of this scope. Every SMS template is `system`, so `workspace` matches none. Omit for all.
 	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
 
 	// Category Keep only templates whose `category` matches. Omit for all categories.
@@ -12194,7 +14390,7 @@ type ListSMSTemplatesParams struct {
 
 // CreateVerificationParams defines parameters for CreateVerification.
 type CreateVerificationParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12212,7 +14408,7 @@ type CreateVerificationParams struct {
 
 // CreateVerificationCheckParams defines parameters for CreateVerificationCheck.
 type CreateVerificationCheckParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12230,7 +14426,7 @@ type CreateVerificationCheckParams struct {
 
 // CreateVerificationNextChannelParams defines parameters for CreateVerificationNextChannel.
 type CreateVerificationNextChannelParams struct {
-	// XWorkspaceId Workspace context. Required for session auth; derived from API key otherwise.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -12251,7 +14447,8 @@ type ListVoiceCallsParams struct {
 	// Direction Return only calls in this direction.
 	Direction *VoiceCallDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Return only calls with one of these statuses, comma-separated. In-flight and final statuses may be combined freely.
+	// Status Return only calls with one of these statuses, comma-separated.
+	// In-flight and final statuses may be combined freely.
 	Status *[]VoiceCallStatus `form:"status,omitempty" json:"status,omitempty"`
 
 	// SessionId Return only calls belonging to this session, which is how the legs of one multi-party or transferred call are correlated.
@@ -12296,10 +14493,10 @@ type ListWhatsAppMessagesParams struct {
 	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// CreatedAfter Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
 
-	// CreatedBefore Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
 
 	// Status Filter by status. Repeat the parameter to match any of several statuses.
@@ -12417,8 +14614,17 @@ type SendRealtimeAppMemberEventJSONRequestBody = RealtimeMemberPublish
 // CreateSMSMessageBatchJSONRequestBody defines body for CreateSMSMessageBatch for application/json ContentType.
 type CreateSMSMessageBatchJSONRequestBody = SMSMessageBatchRequest
 
+// CreateSMSKeywordRuleJSONRequestBody defines body for CreateSMSKeywordRule for application/json ContentType.
+type CreateSMSKeywordRuleJSONRequestBody = SMSKeywordRuleCreate
+
+// UpdateSMSKeywordRuleJSONRequestBody defines body for UpdateSMSKeywordRule for application/json ContentType.
+type UpdateSMSKeywordRuleJSONRequestBody = SMSKeywordRuleUpdate
+
 // CreateSMSMessageJSONRequestBody defines body for CreateSMSMessage for application/json ContentType.
 type CreateSMSMessageJSONRequestBody = SMSMessageSendRequest
+
+// CreateSMSSuppressionJSONRequestBody defines body for CreateSMSSuppression for application/json ContentType.
+type CreateSMSSuppressionJSONRequestBody = SMSSuppressionCreate
 
 // CreateVerificationJSONRequestBody defines body for CreateVerification for application/json ContentType.
 type CreateVerificationJSONRequestBody = VerificationCreateRequest
@@ -14374,6 +16580,34 @@ func (t *WebhookEvent) MergeEventWhatsAppRead(v EventWhatsAppRead) error {
 	return err
 }
 
+// AsEventWhatsAppReceived returns the union data inside the WebhookEvent as a EventWhatsAppReceived
+func (t WebhookEvent) AsEventWhatsAppReceived() (EventWhatsAppReceived, error) {
+	var body EventWhatsAppReceived
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppReceived overwrites any union data inside the WebhookEvent as the provided EventWhatsAppReceived
+func (t *WebhookEvent) FromEventWhatsAppReceived(v EventWhatsAppReceived) error {
+	v.Type = "whatsapp.received"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppReceived performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppReceived
+func (t *WebhookEvent) MergeEventWhatsAppReceived(v EventWhatsAppReceived) error {
+	v.Type = "whatsapp.received"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventWhatsAppRejected returns the union data inside the WebhookEvent as a EventWhatsAppRejected
 func (t WebhookEvent) AsEventWhatsAppRejected() (EventWhatsAppRejected, error) {
 	var body EventWhatsAppRejected
@@ -14532,6 +16766,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventWhatsAppFailed()
 	case "whatsapp.read":
 		return t.AsEventWhatsAppRead()
+	case "whatsapp.received":
+		return t.AsEventWhatsAppReceived()
 	case "whatsapp.rejected":
 		return t.AsEventWhatsAppRejected()
 	case "whatsapp.sent":
@@ -15052,6 +17288,25 @@ type ClientInterface interface {
 
 	CreateSMSMessageBatch(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListSMSKeywordRules request
+	ListSMSKeywordRules(ctx context.Context, params *ListSMSKeywordRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateSMSKeywordRuleWithBody request with any body
+	CreateSMSKeywordRuleWithBody(ctx context.Context, params *CreateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateSMSKeywordRule(ctx context.Context, params *CreateSMSKeywordRuleParams, body CreateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSMSKeywordRule request
+	DeleteSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *DeleteSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSKeywordRule request
+	GetSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *GetSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateSMSKeywordRuleWithBody request with any body
+	UpdateSMSKeywordRuleWithBody(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, body UpdateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListSMSMessages request
 	ListSMSMessages(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -15062,6 +17317,71 @@ type ClientInterface interface {
 
 	// GetSMSMessage request
 	GetSMSMessage(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSMessageEvents request
+	ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByCarrier request
+	GetSMSStatsByCarrier(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByCategory request
+	GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByCountry request
+	GetSMSStatsByCountry(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsDaily request
+	GetSMSStatsDaily(ctx context.Context, params *GetSMSStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByErrorCode request
+	GetSMSStatsByErrorCode(ctx context.Context, params *GetSMSStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsHourly request
+	GetSMSStatsHourly(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsByCountry request
+	GetSMSInboundStatsByCountry(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsDaily request
+	GetSMSInboundStatsDaily(ctx context.Context, params *GetSMSInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsHourly request
+	GetSMSInboundStatsHourly(ctx context.Context, params *GetSMSInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsByNumber request
+	GetSMSInboundStatsByNumber(ctx context.Context, params *GetSMSInboundStatsByNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsByOperator request
+	GetSMSInboundStatsByOperator(ctx context.Context, params *GetSMSInboundStatsByOperatorParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSInboundStatsSummary request
+	GetSMSInboundStatsSummary(ctx context.Context, params *GetSMSInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByOriginator request
+	GetSMSStatsByOriginator(ctx context.Context, params *GetSMSStatsByOriginatorParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByStatus request
+	GetSMSStatsByStatus(ctx context.Context, params *GetSMSStatsByStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsSummary request
+	GetSMSStatsSummary(ctx context.Context, params *GetSMSStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSStatsByTag request
+	GetSMSStatsByTag(ctx context.Context, params *GetSMSStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSSuppressions request
+	ListSMSSuppressions(ctx context.Context, params *ListSMSSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateSMSSuppressionWithBody request with any body
+	CreateSMSSuppressionWithBody(ctx context.Context, params *CreateSMSSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateSMSSuppression(ctx context.Context, params *CreateSMSSuppressionParams, body CreateSMSSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSMSSuppression request
+	DeleteSMSSuppression(ctx context.Context, suppressionId SMSSuppressionID, params *DeleteSMSSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSSuppression request
+	GetSMSSuppression(ctx context.Context, suppressionId SMSSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListSMSTemplates request
 	ListSMSTemplates(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -16365,6 +18685,90 @@ func (c *Client) CreateSMSMessageBatch(ctx context.Context, params *CreateSMSMes
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListSMSKeywordRules(ctx context.Context, params *ListSMSKeywordRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSKeywordRulesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSKeywordRuleWithBody(ctx context.Context, params *CreateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSKeywordRuleRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSKeywordRule(ctx context.Context, params *CreateSMSKeywordRuleParams, body CreateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSKeywordRuleRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *DeleteSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSMSKeywordRuleRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *GetSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSKeywordRuleRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateSMSKeywordRuleWithBody(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateSMSKeywordRuleRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateSMSKeywordRule(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, body UpdateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateSMSKeywordRuleRequest(c.Server, id, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListSMSMessages(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListSMSMessagesRequest(c.Server, params)
 	if err != nil {
@@ -16403,6 +18807,270 @@ func (c *Client) CreateSMSMessage(ctx context.Context, params *CreateSMSMessageP
 
 func (c *Client) GetSMSMessage(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSMessageRequest(c.Server, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSMessageEvents(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByCarrier(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByCarrierRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByCategory(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByCategoryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByCountry(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByCountryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsDaily(ctx context.Context, params *GetSMSStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByErrorCode(ctx context.Context, params *GetSMSStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByErrorCodeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsHourly(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsByCountry(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsByCountryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsDaily(ctx context.Context, params *GetSMSInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsHourly(ctx context.Context, params *GetSMSInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsByNumber(ctx context.Context, params *GetSMSInboundStatsByNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsByNumberRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsByOperator(ctx context.Context, params *GetSMSInboundStatsByOperatorParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsByOperatorRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSInboundStatsSummary(ctx context.Context, params *GetSMSInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSInboundStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByOriginator(ctx context.Context, params *GetSMSStatsByOriginatorParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByOriginatorRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByStatus(ctx context.Context, params *GetSMSStatsByStatusParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByStatusRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsSummary(ctx context.Context, params *GetSMSStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSStatsByTag(ctx context.Context, params *GetSMSStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSStatsByTagRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSSuppressions(ctx context.Context, params *ListSMSSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSSuppressionsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSSuppressionWithBody(ctx context.Context, params *CreateSMSSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSSuppressionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSMSSuppression(ctx context.Context, params *CreateSMSSuppressionParams, body CreateSMSSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSMSSuppressionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSMSSuppression(ctx context.Context, suppressionId SMSSuppressionID, params *DeleteSMSSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSMSSuppressionRequest(c.Server, suppressionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSSuppression(ctx context.Context, suppressionId SMSSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSSuppressionRequest(c.Server, suppressionId)
 	if err != nil {
 		return nil, err
 	}
@@ -22995,6 +25663,371 @@ func NewCreateSMSMessageBatchRequestWithBody(server string, params *CreateSMSMes
 	return req, nil
 }
 
+// NewListSMSKeywordRulesRequest generates requests for ListSMSKeywordRules
+func NewListSMSKeywordRulesRequest(server string, params *ListSMSKeywordRulesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/keyword-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Number != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FromCountry != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from_country", *params.FromCountry, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Operation != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "operation", *params.Operation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateSMSKeywordRuleRequest calls the generic CreateSMSKeywordRule builder with application/json body
+func NewCreateSMSKeywordRuleRequest(server string, params *CreateSMSKeywordRuleParams, body CreateSMSKeywordRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateSMSKeywordRuleRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateSMSKeywordRuleRequestWithBody generates requests for CreateSMSKeywordRule with any type of body
+func NewCreateSMSKeywordRuleRequestWithBody(server string, params *CreateSMSKeywordRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/keyword-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteSMSKeywordRuleRequest generates requests for DeleteSMSKeywordRule
+func NewDeleteSMSKeywordRuleRequest(server string, id SMSKeywordRuleID, params *DeleteSMSKeywordRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSKeywordRuleRequest generates requests for GetSMSKeywordRule
+func NewGetSMSKeywordRuleRequest(server string, id SMSKeywordRuleID, params *GetSMSKeywordRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateSMSKeywordRuleRequest calls the generic UpdateSMSKeywordRule builder with application/json body
+func NewUpdateSMSKeywordRuleRequest(server string, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, body UpdateSMSKeywordRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateSMSKeywordRuleRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewUpdateSMSKeywordRuleRequestWithBody generates requests for UpdateSMSKeywordRule with any type of body
+func NewUpdateSMSKeywordRuleRequestWithBody(server string, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListSMSMessagesRequest generates requests for ListSMSMessages
 func NewListSMSMessagesRequest(server string, params *ListSMSMessagesParams) (*http.Request, error) {
 	var err error
@@ -23253,6 +26286,2059 @@ func NewGetSMSMessageRequest(server string, messageId SMSMessageID) (*http.Reque
 	}
 
 	operationPath := fmt.Sprintf("/v1/sms/messages/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSMSMessageEventsRequest generates requests for ListSMSMessageEvents
+func NewListSMSMessageEventsRequest(server string, messageId SMSMessageID, params *ListSMSMessageEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/messages/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Type != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByCarrierRequest generates requests for GetSMSStatsByCarrier
+func NewGetSMSStatsByCarrierRequest(server string, params *GetSMSStatsByCarrierParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/carriers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByCategoryRequest generates requests for GetSMSStatsByCategory
+func NewGetSMSStatsByCategoryRequest(server string, params *GetSMSStatsByCategoryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/categories")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByCountryRequest generates requests for GetSMSStatsByCountry
+func NewGetSMSStatsByCountryRequest(server string, params *GetSMSStatsByCountryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/countries")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsDailyRequest generates requests for GetSMSStatsDaily
+func NewGetSMSStatsDailyRequest(server string, params *GetSMSStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Originator != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "originator", *params.Originator, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Carrier != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByErrorCodeRequest generates requests for GetSMSStatsByErrorCode
+func NewGetSMSStatsByErrorCodeRequest(server string, params *GetSMSStatsByErrorCodeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/error-codes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsHourlyRequest generates requests for GetSMSStatsHourly
+func NewGetSMSStatsHourlyRequest(server string, params *GetSMSStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Originator != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "originator", *params.Originator, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Carrier != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsByCountryRequest generates requests for GetSMSInboundStatsByCountry
+func NewGetSMSInboundStatsByCountryRequest(server string, params *GetSMSInboundStatsByCountryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/countries")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsDailyRequest generates requests for GetSMSInboundStatsDaily
+func NewGetSMSInboundStatsDailyRequest(server string, params *GetSMSInboundStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsHourlyRequest generates requests for GetSMSInboundStatsHourly
+func NewGetSMSInboundStatsHourlyRequest(server string, params *GetSMSInboundStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsByNumberRequest generates requests for GetSMSInboundStatsByNumber
+func NewGetSMSInboundStatsByNumberRequest(server string, params *GetSMSInboundStatsByNumberParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsByOperatorRequest generates requests for GetSMSInboundStatsByOperator
+func NewGetSMSInboundStatsByOperatorRequest(server string, params *GetSMSInboundStatsByOperatorParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/operators")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSInboundStatsSummaryRequest generates requests for GetSMSInboundStatsSummary
+func NewGetSMSInboundStatsSummaryRequest(server string, params *GetSMSInboundStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/inbound/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByOriginatorRequest generates requests for GetSMSStatsByOriginator
+func NewGetSMSStatsByOriginatorRequest(server string, params *GetSMSStatsByOriginatorParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/originators")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByStatusRequest generates requests for GetSMSStatsByStatus
+func NewGetSMSStatsByStatusRequest(server string, params *GetSMSStatsByStatusParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/statuses")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsSummaryRequest generates requests for GetSMSStatsSummary
+func NewGetSMSStatsSummaryRequest(server string, params *GetSMSStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Originator != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "originator", *params.Originator, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Carrier != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "carrier", *params.Carrier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSStatsByTagRequest generates requests for GetSMSStatsByTag
+func NewGetSMSStatsByTagRequest(server string, params *GetSMSStatsByTagParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/stats/tags")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTrend != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_trend", *params.IncludeTrend, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.TrendGrain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSMSSuppressionsRequest generates requests for ListSMSSuppressions
+func NewListSMSSuppressionsRequest(server string, params *ListSMSSuppressionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Destination != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "destination", *params.Destination, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Originator != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "originator", *params.Originator, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reason != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reason", *params.Reason, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateSMSSuppressionRequest calls the generic CreateSMSSuppression builder with application/json body
+func NewCreateSMSSuppressionRequest(server string, params *CreateSMSSuppressionParams, body CreateSMSSuppressionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateSMSSuppressionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateSMSSuppressionRequestWithBody generates requests for CreateSMSSuppression with any type of body
+func NewCreateSMSSuppressionRequestWithBody(server string, params *CreateSMSSuppressionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteSMSSuppressionRequest generates requests for DeleteSMSSuppression
+func NewDeleteSMSSuppressionRequest(server string, suppressionId SMSSuppressionID, params *DeleteSMSSuppressionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSMSSuppressionRequest generates requests for GetSMSSuppression
+func NewGetSMSSuppressionRequest(server string, suppressionId SMSSuppressionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/suppressions/%s", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -24457,6 +29543,25 @@ type ClientWithResponsesInterface interface {
 
 	CreateSMSMessageBatchWithResponse(ctx context.Context, params *CreateSMSMessageBatchParams, body CreateSMSMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSMessageBatchResponse, error)
 
+	// ListSMSKeywordRulesWithResponse request
+	ListSMSKeywordRulesWithResponse(ctx context.Context, params *ListSMSKeywordRulesParams, reqEditors ...RequestEditorFn) (*ListSMSKeywordRulesResponse, error)
+
+	// CreateSMSKeywordRuleWithBodyWithResponse request with any body
+	CreateSMSKeywordRuleWithBodyWithResponse(ctx context.Context, params *CreateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSKeywordRuleResponse, error)
+
+	CreateSMSKeywordRuleWithResponse(ctx context.Context, params *CreateSMSKeywordRuleParams, body CreateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSKeywordRuleResponse, error)
+
+	// DeleteSMSKeywordRuleWithResponse request
+	DeleteSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *DeleteSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*DeleteSMSKeywordRuleResponse, error)
+
+	// GetSMSKeywordRuleWithResponse request
+	GetSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *GetSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*GetSMSKeywordRuleResponse, error)
+
+	// UpdateSMSKeywordRuleWithBodyWithResponse request with any body
+	UpdateSMSKeywordRuleWithBodyWithResponse(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSMSKeywordRuleResponse, error)
+
+	UpdateSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, body UpdateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSMSKeywordRuleResponse, error)
+
 	// ListSMSMessagesWithResponse request
 	ListSMSMessagesWithResponse(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*ListSMSMessagesResponse, error)
 
@@ -24467,6 +29572,71 @@ type ClientWithResponsesInterface interface {
 
 	// GetSMSMessageWithResponse request
 	GetSMSMessageWithResponse(ctx context.Context, messageId SMSMessageID, reqEditors ...RequestEditorFn) (*GetSMSMessageResponse, error)
+
+	// ListSMSMessageEventsWithResponse request
+	ListSMSMessageEventsWithResponse(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*ListSMSMessageEventsResponse, error)
+
+	// GetSMSStatsByCarrierWithResponse request
+	GetSMSStatsByCarrierWithResponse(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCarrierResponse, error)
+
+	// GetSMSStatsByCategoryWithResponse request
+	GetSMSStatsByCategoryWithResponse(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCategoryResponse, error)
+
+	// GetSMSStatsByCountryWithResponse request
+	GetSMSStatsByCountryWithResponse(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCountryResponse, error)
+
+	// GetSMSStatsDailyWithResponse request
+	GetSMSStatsDailyWithResponse(ctx context.Context, params *GetSMSStatsDailyParams, reqEditors ...RequestEditorFn) (*GetSMSStatsDailyResponse, error)
+
+	// GetSMSStatsByErrorCodeWithResponse request
+	GetSMSStatsByErrorCodeWithResponse(ctx context.Context, params *GetSMSStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByErrorCodeResponse, error)
+
+	// GetSMSStatsHourlyWithResponse request
+	GetSMSStatsHourlyWithResponse(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetSMSStatsHourlyResponse, error)
+
+	// GetSMSInboundStatsByCountryWithResponse request
+	GetSMSInboundStatsByCountryWithResponse(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByCountryResponse, error)
+
+	// GetSMSInboundStatsDailyWithResponse request
+	GetSMSInboundStatsDailyWithResponse(ctx context.Context, params *GetSMSInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsDailyResponse, error)
+
+	// GetSMSInboundStatsHourlyWithResponse request
+	GetSMSInboundStatsHourlyWithResponse(ctx context.Context, params *GetSMSInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsHourlyResponse, error)
+
+	// GetSMSInboundStatsByNumberWithResponse request
+	GetSMSInboundStatsByNumberWithResponse(ctx context.Context, params *GetSMSInboundStatsByNumberParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByNumberResponse, error)
+
+	// GetSMSInboundStatsByOperatorWithResponse request
+	GetSMSInboundStatsByOperatorWithResponse(ctx context.Context, params *GetSMSInboundStatsByOperatorParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByOperatorResponse, error)
+
+	// GetSMSInboundStatsSummaryWithResponse request
+	GetSMSInboundStatsSummaryWithResponse(ctx context.Context, params *GetSMSInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsSummaryResponse, error)
+
+	// GetSMSStatsByOriginatorWithResponse request
+	GetSMSStatsByOriginatorWithResponse(ctx context.Context, params *GetSMSStatsByOriginatorParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByOriginatorResponse, error)
+
+	// GetSMSStatsByStatusWithResponse request
+	GetSMSStatsByStatusWithResponse(ctx context.Context, params *GetSMSStatsByStatusParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByStatusResponse, error)
+
+	// GetSMSStatsSummaryWithResponse request
+	GetSMSStatsSummaryWithResponse(ctx context.Context, params *GetSMSStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsSummaryResponse, error)
+
+	// GetSMSStatsByTagWithResponse request
+	GetSMSStatsByTagWithResponse(ctx context.Context, params *GetSMSStatsByTagParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByTagResponse, error)
+
+	// ListSMSSuppressionsWithResponse request
+	ListSMSSuppressionsWithResponse(ctx context.Context, params *ListSMSSuppressionsParams, reqEditors ...RequestEditorFn) (*ListSMSSuppressionsResponse, error)
+
+	// CreateSMSSuppressionWithBodyWithResponse request with any body
+	CreateSMSSuppressionWithBodyWithResponse(ctx context.Context, params *CreateSMSSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSSuppressionResponse, error)
+
+	CreateSMSSuppressionWithResponse(ctx context.Context, params *CreateSMSSuppressionParams, body CreateSMSSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSSuppressionResponse, error)
+
+	// DeleteSMSSuppressionWithResponse request
+	DeleteSMSSuppressionWithResponse(ctx context.Context, suppressionId SMSSuppressionID, params *DeleteSMSSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteSMSSuppressionResponse, error)
+
+	// GetSMSSuppressionWithResponse request
+	GetSMSSuppressionWithResponse(ctx context.Context, suppressionId SMSSuppressionID, reqEditors ...RequestEditorFn) (*GetSMSSuppressionResponse, error)
 
 	// ListSMSTemplatesWithResponse request
 	ListSMSTemplatesWithResponse(ctx context.Context, params *ListSMSTemplatesParams, reqEditors ...RequestEditorFn) (*ListSMSTemplatesResponse, error)
@@ -27410,6 +32580,185 @@ func (r CreateSMSMessageBatchResponse) ContentType() string {
 	return ""
 }
 
+type ListSMSKeywordRulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSKeywordRuleList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSKeywordRulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSKeywordRulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSKeywordRulesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateSMSKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *SMSKeywordRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateSMSKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateSMSKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateSMSKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteSMSKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSMSKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSMSKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteSMSKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSKeywordRule
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateSMSKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSKeywordRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateSMSKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateSMSKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateSMSKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListSMSMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -27512,6 +32861,776 @@ func (r GetSMSMessageResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetSMSMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSMSMessageEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSEventList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSMessageEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSMessageEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSMessageEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByCarrierResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByCarrierResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByCarrierResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByCarrierResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByCarrierResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByCategoryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByCategoryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByCategoryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByCategoryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByCategoryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByCountryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByCountryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByCountryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByCountryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByCountryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByErrorCodeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByErrorCodeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByErrorCodeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByErrorCodeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByErrorCodeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsByCountryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsByCountryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsByCountryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsByCountryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsByCountryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsByNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsByNumberResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsByNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsByNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsByNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsByOperatorResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsByOperatorResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsByOperatorResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsByOperatorResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsByOperatorResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSInboundStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSInboundStatsSummaryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSInboundStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSInboundStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSInboundStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByOriginatorResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByOriginatorResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByOriginatorResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByOriginatorResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByOriginatorResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByStatusResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByStatusResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByStatusResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByStatusResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByStatusResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSStatsByTagResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSStatsByTagResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSStatsByTagResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSStatsByTagResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSStatsByTagResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSMSSuppressionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSuppressionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSSuppressionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSSuppressionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSSuppressionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateSMSSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSuppression
+	JSON201      *SMSSuppression
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateSMSSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateSMSSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateSMSSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteSMSSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSMSSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSMSSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteSMSSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSSuppression
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSSuppressionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -28833,6 +34952,67 @@ func (c *ClientWithResponses) CreateSMSMessageBatchWithResponse(ctx context.Cont
 	return ParseCreateSMSMessageBatchResponse(rsp)
 }
 
+// ListSMSKeywordRulesWithResponse request returning *ListSMSKeywordRulesResponse
+func (c *ClientWithResponses) ListSMSKeywordRulesWithResponse(ctx context.Context, params *ListSMSKeywordRulesParams, reqEditors ...RequestEditorFn) (*ListSMSKeywordRulesResponse, error) {
+	rsp, err := c.ListSMSKeywordRules(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSKeywordRulesResponse(rsp)
+}
+
+// CreateSMSKeywordRuleWithBodyWithResponse request with arbitrary body returning *CreateSMSKeywordRuleResponse
+func (c *ClientWithResponses) CreateSMSKeywordRuleWithBodyWithResponse(ctx context.Context, params *CreateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSKeywordRuleResponse, error) {
+	rsp, err := c.CreateSMSKeywordRuleWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSKeywordRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateSMSKeywordRuleWithResponse(ctx context.Context, params *CreateSMSKeywordRuleParams, body CreateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSKeywordRuleResponse, error) {
+	rsp, err := c.CreateSMSKeywordRule(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSKeywordRuleResponse(rsp)
+}
+
+// DeleteSMSKeywordRuleWithResponse request returning *DeleteSMSKeywordRuleResponse
+func (c *ClientWithResponses) DeleteSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *DeleteSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*DeleteSMSKeywordRuleResponse, error) {
+	rsp, err := c.DeleteSMSKeywordRule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSMSKeywordRuleResponse(rsp)
+}
+
+// GetSMSKeywordRuleWithResponse request returning *GetSMSKeywordRuleResponse
+func (c *ClientWithResponses) GetSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *GetSMSKeywordRuleParams, reqEditors ...RequestEditorFn) (*GetSMSKeywordRuleResponse, error) {
+	rsp, err := c.GetSMSKeywordRule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSKeywordRuleResponse(rsp)
+}
+
+// UpdateSMSKeywordRuleWithBodyWithResponse request with arbitrary body returning *UpdateSMSKeywordRuleResponse
+func (c *ClientWithResponses) UpdateSMSKeywordRuleWithBodyWithResponse(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateSMSKeywordRuleResponse, error) {
+	rsp, err := c.UpdateSMSKeywordRuleWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateSMSKeywordRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateSMSKeywordRuleWithResponse(ctx context.Context, id SMSKeywordRuleID, params *UpdateSMSKeywordRuleParams, body UpdateSMSKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSMSKeywordRuleResponse, error) {
+	rsp, err := c.UpdateSMSKeywordRule(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateSMSKeywordRuleResponse(rsp)
+}
+
 // ListSMSMessagesWithResponse request returning *ListSMSMessagesResponse
 func (c *ClientWithResponses) ListSMSMessagesWithResponse(ctx context.Context, params *ListSMSMessagesParams, reqEditors ...RequestEditorFn) (*ListSMSMessagesResponse, error) {
 	rsp, err := c.ListSMSMessages(ctx, params, reqEditors...)
@@ -28866,6 +35046,203 @@ func (c *ClientWithResponses) GetSMSMessageWithResponse(ctx context.Context, mes
 		return nil, err
 	}
 	return ParseGetSMSMessageResponse(rsp)
+}
+
+// ListSMSMessageEventsWithResponse request returning *ListSMSMessageEventsResponse
+func (c *ClientWithResponses) ListSMSMessageEventsWithResponse(ctx context.Context, messageId SMSMessageID, params *ListSMSMessageEventsParams, reqEditors ...RequestEditorFn) (*ListSMSMessageEventsResponse, error) {
+	rsp, err := c.ListSMSMessageEvents(ctx, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSMessageEventsResponse(rsp)
+}
+
+// GetSMSStatsByCarrierWithResponse request returning *GetSMSStatsByCarrierResponse
+func (c *ClientWithResponses) GetSMSStatsByCarrierWithResponse(ctx context.Context, params *GetSMSStatsByCarrierParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCarrierResponse, error) {
+	rsp, err := c.GetSMSStatsByCarrier(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByCarrierResponse(rsp)
+}
+
+// GetSMSStatsByCategoryWithResponse request returning *GetSMSStatsByCategoryResponse
+func (c *ClientWithResponses) GetSMSStatsByCategoryWithResponse(ctx context.Context, params *GetSMSStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCategoryResponse, error) {
+	rsp, err := c.GetSMSStatsByCategory(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByCategoryResponse(rsp)
+}
+
+// GetSMSStatsByCountryWithResponse request returning *GetSMSStatsByCountryResponse
+func (c *ClientWithResponses) GetSMSStatsByCountryWithResponse(ctx context.Context, params *GetSMSStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByCountryResponse, error) {
+	rsp, err := c.GetSMSStatsByCountry(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByCountryResponse(rsp)
+}
+
+// GetSMSStatsDailyWithResponse request returning *GetSMSStatsDailyResponse
+func (c *ClientWithResponses) GetSMSStatsDailyWithResponse(ctx context.Context, params *GetSMSStatsDailyParams, reqEditors ...RequestEditorFn) (*GetSMSStatsDailyResponse, error) {
+	rsp, err := c.GetSMSStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsDailyResponse(rsp)
+}
+
+// GetSMSStatsByErrorCodeWithResponse request returning *GetSMSStatsByErrorCodeResponse
+func (c *ClientWithResponses) GetSMSStatsByErrorCodeWithResponse(ctx context.Context, params *GetSMSStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByErrorCodeResponse, error) {
+	rsp, err := c.GetSMSStatsByErrorCode(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByErrorCodeResponse(rsp)
+}
+
+// GetSMSStatsHourlyWithResponse request returning *GetSMSStatsHourlyResponse
+func (c *ClientWithResponses) GetSMSStatsHourlyWithResponse(ctx context.Context, params *GetSMSStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetSMSStatsHourlyResponse, error) {
+	rsp, err := c.GetSMSStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsHourlyResponse(rsp)
+}
+
+// GetSMSInboundStatsByCountryWithResponse request returning *GetSMSInboundStatsByCountryResponse
+func (c *ClientWithResponses) GetSMSInboundStatsByCountryWithResponse(ctx context.Context, params *GetSMSInboundStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByCountryResponse, error) {
+	rsp, err := c.GetSMSInboundStatsByCountry(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsByCountryResponse(rsp)
+}
+
+// GetSMSInboundStatsDailyWithResponse request returning *GetSMSInboundStatsDailyResponse
+func (c *ClientWithResponses) GetSMSInboundStatsDailyWithResponse(ctx context.Context, params *GetSMSInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsDailyResponse, error) {
+	rsp, err := c.GetSMSInboundStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsDailyResponse(rsp)
+}
+
+// GetSMSInboundStatsHourlyWithResponse request returning *GetSMSInboundStatsHourlyResponse
+func (c *ClientWithResponses) GetSMSInboundStatsHourlyWithResponse(ctx context.Context, params *GetSMSInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsHourlyResponse, error) {
+	rsp, err := c.GetSMSInboundStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsHourlyResponse(rsp)
+}
+
+// GetSMSInboundStatsByNumberWithResponse request returning *GetSMSInboundStatsByNumberResponse
+func (c *ClientWithResponses) GetSMSInboundStatsByNumberWithResponse(ctx context.Context, params *GetSMSInboundStatsByNumberParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByNumberResponse, error) {
+	rsp, err := c.GetSMSInboundStatsByNumber(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsByNumberResponse(rsp)
+}
+
+// GetSMSInboundStatsByOperatorWithResponse request returning *GetSMSInboundStatsByOperatorResponse
+func (c *ClientWithResponses) GetSMSInboundStatsByOperatorWithResponse(ctx context.Context, params *GetSMSInboundStatsByOperatorParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsByOperatorResponse, error) {
+	rsp, err := c.GetSMSInboundStatsByOperator(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsByOperatorResponse(rsp)
+}
+
+// GetSMSInboundStatsSummaryWithResponse request returning *GetSMSInboundStatsSummaryResponse
+func (c *ClientWithResponses) GetSMSInboundStatsSummaryWithResponse(ctx context.Context, params *GetSMSInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetSMSInboundStatsSummaryResponse, error) {
+	rsp, err := c.GetSMSInboundStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSInboundStatsSummaryResponse(rsp)
+}
+
+// GetSMSStatsByOriginatorWithResponse request returning *GetSMSStatsByOriginatorResponse
+func (c *ClientWithResponses) GetSMSStatsByOriginatorWithResponse(ctx context.Context, params *GetSMSStatsByOriginatorParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByOriginatorResponse, error) {
+	rsp, err := c.GetSMSStatsByOriginator(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByOriginatorResponse(rsp)
+}
+
+// GetSMSStatsByStatusWithResponse request returning *GetSMSStatsByStatusResponse
+func (c *ClientWithResponses) GetSMSStatsByStatusWithResponse(ctx context.Context, params *GetSMSStatsByStatusParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByStatusResponse, error) {
+	rsp, err := c.GetSMSStatsByStatus(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByStatusResponse(rsp)
+}
+
+// GetSMSStatsSummaryWithResponse request returning *GetSMSStatsSummaryResponse
+func (c *ClientWithResponses) GetSMSStatsSummaryWithResponse(ctx context.Context, params *GetSMSStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetSMSStatsSummaryResponse, error) {
+	rsp, err := c.GetSMSStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsSummaryResponse(rsp)
+}
+
+// GetSMSStatsByTagWithResponse request returning *GetSMSStatsByTagResponse
+func (c *ClientWithResponses) GetSMSStatsByTagWithResponse(ctx context.Context, params *GetSMSStatsByTagParams, reqEditors ...RequestEditorFn) (*GetSMSStatsByTagResponse, error) {
+	rsp, err := c.GetSMSStatsByTag(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSStatsByTagResponse(rsp)
+}
+
+// ListSMSSuppressionsWithResponse request returning *ListSMSSuppressionsResponse
+func (c *ClientWithResponses) ListSMSSuppressionsWithResponse(ctx context.Context, params *ListSMSSuppressionsParams, reqEditors ...RequestEditorFn) (*ListSMSSuppressionsResponse, error) {
+	rsp, err := c.ListSMSSuppressions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSSuppressionsResponse(rsp)
+}
+
+// CreateSMSSuppressionWithBodyWithResponse request with arbitrary body returning *CreateSMSSuppressionResponse
+func (c *ClientWithResponses) CreateSMSSuppressionWithBodyWithResponse(ctx context.Context, params *CreateSMSSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSMSSuppressionResponse, error) {
+	rsp, err := c.CreateSMSSuppressionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSSuppressionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateSMSSuppressionWithResponse(ctx context.Context, params *CreateSMSSuppressionParams, body CreateSMSSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSMSSuppressionResponse, error) {
+	rsp, err := c.CreateSMSSuppression(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSMSSuppressionResponse(rsp)
+}
+
+// DeleteSMSSuppressionWithResponse request returning *DeleteSMSSuppressionResponse
+func (c *ClientWithResponses) DeleteSMSSuppressionWithResponse(ctx context.Context, suppressionId SMSSuppressionID, params *DeleteSMSSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteSMSSuppressionResponse, error) {
+	rsp, err := c.DeleteSMSSuppression(ctx, suppressionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSMSSuppressionResponse(rsp)
+}
+
+// GetSMSSuppressionWithResponse request returning *GetSMSSuppressionResponse
+func (c *ClientWithResponses) GetSMSSuppressionWithResponse(ctx context.Context, suppressionId SMSSuppressionID, reqEditors ...RequestEditorFn) (*GetSMSSuppressionResponse, error) {
+	rsp, err := c.GetSMSSuppression(ctx, suppressionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSSuppressionResponse(rsp)
 }
 
 // ListSMSTemplatesWithResponse request returning *ListSMSTemplatesResponse
@@ -34579,6 +40956,339 @@ func ParseCreateSMSMessageBatchResponse(rsp *http.Response) (*CreateSMSMessageBa
 	return response, nil
 }
 
+// ParseListSMSKeywordRulesResponse parses an HTTP response from a ListSMSKeywordRulesWithResponse call
+func ParseListSMSKeywordRulesResponse(rsp *http.Response) (*ListSMSKeywordRulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSKeywordRulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSKeywordRuleList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateSMSKeywordRuleResponse parses an HTTP response from a CreateSMSKeywordRuleWithResponse call
+func ParseCreateSMSKeywordRuleResponse(rsp *http.Response) (*CreateSMSKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateSMSKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest SMSKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSMSKeywordRuleResponse parses an HTTP response from a DeleteSMSKeywordRuleWithResponse call
+func ParseDeleteSMSKeywordRuleResponse(rsp *http.Response) (*DeleteSMSKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSMSKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSKeywordRuleResponse parses an HTTP response from a GetSMSKeywordRuleWithResponse call
+func ParseGetSMSKeywordRuleResponse(rsp *http.Response) (*GetSMSKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateSMSKeywordRuleResponse parses an HTTP response from a UpdateSMSKeywordRuleWithResponse call
+func ParseUpdateSMSKeywordRuleResponse(rsp *http.Response) (*UpdateSMSKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateSMSKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListSMSMessagesResponse parses an HTTP response from a ListSMSMessagesWithResponse call
 func ParseListSMSMessagesResponse(rsp *http.Response) (*ListSMSMessagesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -34777,6 +41487,1532 @@ func ParseGetSMSMessageResponse(rsp *http.Response) (*GetSMSMessageResponse, err
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSMessageEventsResponse parses an HTTP response from a ListSMSMessageEventsWithResponse call
+func ParseListSMSMessageEventsResponse(rsp *http.Response) (*ListSMSMessageEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSMessageEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByCarrierResponse parses an HTTP response from a GetSMSStatsByCarrierWithResponse call
+func ParseGetSMSStatsByCarrierResponse(rsp *http.Response) (*GetSMSStatsByCarrierResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByCarrierResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByCarrierResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByCategoryResponse parses an HTTP response from a GetSMSStatsByCategoryWithResponse call
+func ParseGetSMSStatsByCategoryResponse(rsp *http.Response) (*GetSMSStatsByCategoryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByCategoryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByCategoryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByCountryResponse parses an HTTP response from a GetSMSStatsByCountryWithResponse call
+func ParseGetSMSStatsByCountryResponse(rsp *http.Response) (*GetSMSStatsByCountryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByCountryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByCountryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsDailyResponse parses an HTTP response from a GetSMSStatsDailyWithResponse call
+func ParseGetSMSStatsDailyResponse(rsp *http.Response) (*GetSMSStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByErrorCodeResponse parses an HTTP response from a GetSMSStatsByErrorCodeWithResponse call
+func ParseGetSMSStatsByErrorCodeResponse(rsp *http.Response) (*GetSMSStatsByErrorCodeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByErrorCodeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByErrorCodeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsHourlyResponse parses an HTTP response from a GetSMSStatsHourlyWithResponse call
+func ParseGetSMSStatsHourlyResponse(rsp *http.Response) (*GetSMSStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsByCountryResponse parses an HTTP response from a GetSMSInboundStatsByCountryWithResponse call
+func ParseGetSMSInboundStatsByCountryResponse(rsp *http.Response) (*GetSMSInboundStatsByCountryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsByCountryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsByCountryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsDailyResponse parses an HTTP response from a GetSMSInboundStatsDailyWithResponse call
+func ParseGetSMSInboundStatsDailyResponse(rsp *http.Response) (*GetSMSInboundStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsHourlyResponse parses an HTTP response from a GetSMSInboundStatsHourlyWithResponse call
+func ParseGetSMSInboundStatsHourlyResponse(rsp *http.Response) (*GetSMSInboundStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsByNumberResponse parses an HTTP response from a GetSMSInboundStatsByNumberWithResponse call
+func ParseGetSMSInboundStatsByNumberResponse(rsp *http.Response) (*GetSMSInboundStatsByNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsByNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsByNumberResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsByOperatorResponse parses an HTTP response from a GetSMSInboundStatsByOperatorWithResponse call
+func ParseGetSMSInboundStatsByOperatorResponse(rsp *http.Response) (*GetSMSInboundStatsByOperatorResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsByOperatorResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsByOperatorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSInboundStatsSummaryResponse parses an HTTP response from a GetSMSInboundStatsSummaryWithResponse call
+func ParseGetSMSInboundStatsSummaryResponse(rsp *http.Response) (*GetSMSInboundStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSInboundStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSInboundStatsSummaryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByOriginatorResponse parses an HTTP response from a GetSMSStatsByOriginatorWithResponse call
+func ParseGetSMSStatsByOriginatorResponse(rsp *http.Response) (*GetSMSStatsByOriginatorResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByOriginatorResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByOriginatorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByStatusResponse parses an HTTP response from a GetSMSStatsByStatusWithResponse call
+func ParseGetSMSStatsByStatusResponse(rsp *http.Response) (*GetSMSStatsByStatusResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByStatusResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByStatusResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsSummaryResponse parses an HTTP response from a GetSMSStatsSummaryWithResponse call
+func ParseGetSMSStatsSummaryResponse(rsp *http.Response) (*GetSMSStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSStatsByTagResponse parses an HTTP response from a GetSMSStatsByTagWithResponse call
+func ParseGetSMSStatsByTagResponse(rsp *http.Response) (*GetSMSStatsByTagResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSStatsByTagResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSStatsByTagResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSSuppressionsResponse parses an HTTP response from a ListSMSSuppressionsWithResponse call
+func ParseListSMSSuppressionsResponse(rsp *http.Response) (*ListSMSSuppressionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSSuppressionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSuppressionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateSMSSuppressionResponse parses an HTTP response from a CreateSMSSuppressionWithResponse call
+func ParseCreateSMSSuppressionResponse(rsp *http.Response) (*CreateSMSSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateSMSSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest SMSSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSMSSuppressionResponse parses an HTTP response from a DeleteSMSSuppressionWithResponse call
+func ParseDeleteSMSSuppressionResponse(rsp *http.Response) (*DeleteSMSSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSMSSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSSuppressionResponse parses an HTTP response from a GetSMSSuppressionWithResponse call
+func ParseGetSMSSuppressionResponse(rsp *http.Response) (*GetSMSSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

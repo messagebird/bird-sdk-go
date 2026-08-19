@@ -69,7 +69,7 @@ func (p AudienceUpdateParams) toWire() oapi.AudienceUpdateRequest {
 
 // AudienceListContactsParams filters the list. Zero-value fields are omitted.
 type AudienceListContactsParams struct {
-	// Case-insensitive substring match against the member's email address or phone number (digits of the international form).
+	// Case-insensitive substring match against a contact's email address or the digits in its international phone number.
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
@@ -178,7 +178,7 @@ func (s *AudiencesService) Create(ctx context.Context, params AudienceCreatePara
 	return &out, nil
 }
 
-// Update Update an audience's name or description. Omitted fields are unchanged; a null description clears it.
+// Update Update an audience's name or description. Omitted fields are unchanged; a `null` description clears it.
 func (s *AudiencesService) Update(ctx context.Context, audienceId string, params AudienceUpdateParams, opts ...option.RequestOption) (*Audience, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateAudienceParams{}

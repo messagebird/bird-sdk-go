@@ -11,7 +11,7 @@ import (
 
 // RealtimeChannelListParams filters the list read.
 type RealtimeChannelListParams struct {
-	// Only channels whose name starts with this prefix (e.g. "presence-").
+	// Only channels whose name starts with this prefix (for example, `presence-`).
 	Prefix string
 	// Per-channel attributes to include. Repeatable. Requesting `member_count` without a presence-channel `prefix`, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
 	Include []RealtimeChannelInclude

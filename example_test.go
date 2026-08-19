@@ -2,6 +2,7 @@ package bird_test
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -74,7 +75,7 @@ func ExampleEmailService_Send_bounce() {
 }
 
 // A richer send: cc/bcc, reply-to, tags, metadata, opt-out of click tracking,
-// and an idempotency key (safe to retry — the server dedupes).
+// and an idempotency key. The server deduplicates the request, so it is safe to retry.
 // Send a published template in place of inline content. The template supplies
 // the subject and bodies; Parameters fills its variables.
 func ExampleEmailService_Send_template() {
@@ -165,8 +166,8 @@ func ExampleEmailService_SendBatch() {
 }
 
 // Branch on the typed error hierarchy. The SDK already retries transient
-// failures (timeouts, 429, 5xx), so a returned error is terminal — most callers
-// just propagate it; branch only to act on a category.
+// failures (timeouts, 429, 5xx), so a returned error is terminal. Propagate it
+// unless you need to act on a category.
 func ExampleEmailService_Send_errors() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -206,8 +207,8 @@ func ExampleEmailService_Get() {
 	fmt.Println(*msg.Status, *msg.DeliveredCount)
 }
 
-// Cancel stops a message that has not left yet — a scheduled send before its
-// send time, or a queued one still awaiting delivery.
+// Cancel stops a message that has not left yet, including a scheduled send
+// before its send time or a queued message still awaiting delivery.
 func ExampleEmailService_Cancel() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -312,6 +313,7 @@ func ExampleSmsService_Send() {
 		log.Fatal(err)
 	}
 	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
+		From:     "+15557654321",
 		To:       "+15551234567",
 		Text:     "Your verification code is 123456.",
 		Category: bird.SMSCategoryAuthentication,
@@ -331,8 +333,14 @@ func ExampleSmsService_SendBatch() {
 	}
 	batch, err := client.Sms.SendBatch(context.Background(), bird.SmsSendBatchParams{
 		Messages: []bird.SmsSendParams{
-			{To: "+15551111111", Text: "Hi Alice!", Category: bird.SMSCategoryMarketing},
-			{To: "+15552222222", Text: "Hi Bob!", Category: bird.SMSCategoryMarketing},
+			{
+				From: "+15557654321", To: "+15551111111",
+				Text: "Hi Alice!", Category: bird.SMSCategoryMarketing,
+			},
+			{
+				From: "+15557654321", To: "+15552222222",
+				Text: "Hi Bob!", Category: bird.SMSCategoryMarketing,
+			},
 		},
 	})
 	if err != nil {
@@ -360,8 +368,8 @@ func ExampleSmsService_Send_template() {
 	fmt.Println(msg.Id)
 }
 
-// List the SMS templates available to the workspace. The catalogue is small and
-// returned in full — this list is not paginated.
+// List the SMS templates available to the workspace. The catalogue is small,
+// returned in full, and not paginated.
 func ExampleSmsTemplatesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -391,8 +399,7 @@ func ExampleSmsTemplatesService_Get() {
 	fmt.Println(tpl.Id, *tpl.Body)
 }
 
-// Send a WhatsApp template message. Templates are currently the only supported
-// content type.
+// Send a WhatsApp template message.
 func ExampleWhatsappService_Send() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -401,6 +408,23 @@ func ExampleWhatsappService_Send() {
 	msg, err := client.Whatsapp.Send(context.Background(), bird.WhatsappSendParams{
 		To:       "+15551234567",
 		Template: "bird_otp",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(msg.Id, *msg.Status)
+}
+
+// Send free-form WhatsApp text, inside an open 24-hour customer service window.
+func ExampleWhatsappService_Send_freeForm() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	msg, err := client.Whatsapp.Send(context.Background(), bird.WhatsappSendParams{
+		To:   "+15551234567",
+		From: "+15557654321",
+		Text: &bird.WhatsAppTextSend{Body: "Your order has shipped!"},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1452,6 +1476,41 @@ func ExampleRealtimeService_PublishBatch() {
 	fmt.Println(result.Data)
 }
 
+// AuthorizeChannel signs a subscription for a browser client locally. Authorize
+// only after checking that the user may join the channel. The signature is the
+// edge's only evidence that they may. On a private-encrypted channel, the
+// response also carries that channel's shared_secret, so the client can decrypt.
+func ExampleRealtimeService_AuthorizeChannel() {
+	client, err := bird.NewClient(
+		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
+		option.WithRealtimeCredentials(os.Getenv("BIRD_REALTIME_KEY"), os.Getenv("BIRD_REALTIME_SECRET")),
+		option.WithRealtimeEncryptionMasterKey(os.Getenv("BIRD_REALTIME_ENCRYPTION_MASTER_KEY")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	http.HandleFunc("/bird/auth", func(w http.ResponseWriter, r *http.Request) {
+		var req struct {
+			ConnectionID string `json:"connection_id"`
+			ChannelName  string `json:"channel_name"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, "bad request", http.StatusBadRequest)
+			return
+		}
+		auth, err := client.Realtime.AuthorizeChannel(bird.RealtimeChannelAuthorizationParams{
+			ConnectionID: req.ConnectionID,
+			ChannelName:  req.ChannelName,
+		})
+		if err != nil {
+			http.Error(w, "server error", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(auth)
+	})
+}
+
 // List returns the app's occupied channels. The Realtime service does not
 // paginate this listing, so one response holds every occupied channel.
 func ExampleRealtimeChannelsService_List() {
@@ -1529,8 +1588,8 @@ func ExampleRealtimeMembersService_Send() {
 	}
 }
 
-// Disconnect closes every connection belonging to one member — the sign-out or
-// ban path.
+// Disconnect closes every connection belonging to one member. Use it for a
+// sign-out or ban flow.
 func ExampleRealtimeMembersService_Disconnect() {
 	client, err := bird.NewClient(
 		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
@@ -1608,5 +1667,444 @@ func ExampleLookupService_PhoneNumber() {
 	// Only a block whose status is ok carries a value, and only that one is billed.
 	if answer.Score != nil && *answer.Score.Status == "ok" {
 		fmt.Println(*answer.Score.Value)
+	}
+}
+
+// ListEvents returns the lifecycle timeline for one message.
+func ExampleSmsService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	events, err := client.Sms.ListEvents(context.Background(), "sms_01j9x2k3m4n5p6q7r8s9t0v1w2", bird.SmsListEventsParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, e := range events.Data {
+		fmt.Println(*e.Type, *e.OccurredAt)
+	}
+}
+
+// Summary returns the delivery and latency totals for a window.
+func ExampleSmsStatsService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	summary, err := client.Sms.Stats.Summary(context.Background(), bird.SmsStatsSummaryParams{
+		From: "2026-05-01", // a calendar day for a day-grain window (up to 365 days), or
+		To:   "2026-05-31", // an RFC 3339 instant (e.g. "2026-05-01T00:00:00Z") for hour-grain (up to 720 hours)
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*summary.Delivery.Accepted, *summary.Delivery.DeliveryRate)
+}
+
+// Daily returns one row per calendar day in the window.
+func ExampleSmsStatsService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Sms.Stats.Daily(context.Background(), bird.SmsStatsDailyParams{
+		From: time.Now().AddDate(0, 0, -7),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Delivery.Accepted)
+	}
+}
+
+// Hourly returns one row per hour, for a window of at most 30 days.
+func ExampleSmsStatsService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Sms.Stats.Hourly(context.Background(), bird.SmsStatsHourlyParams{
+		From: time.Now().Add(-24 * time.Hour),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Delivery.Accepted)
+	}
+}
+
+// ByCountry ranks destination countries by the sort metric.
+func ExampleSmsStatsService_ByCountry() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByCountry(context.Background(), bird.SmsStatsByCountryParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+		Sort: "delivery_rate", // worst delivery first is Sort plus a read of the tail
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Country, *row.Delivery.Accepted, *row.Delivery.DeliveryRate)
+	}
+}
+
+// ByCarrier compares delivery across the carriers that handled the traffic.
+func ExampleSmsStatsService_ByCarrier() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByCarrier(context.Background(), bird.SmsStatsByCarrierParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Carrier, *row.Delivery.Delivered)
+	}
+}
+
+// ByCategory splits the window by the category messages were sent under.
+func ExampleSmsStatsService_ByCategory() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByCategory(context.Background(), bird.SmsStatsByCategoryParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Category, *row.Delivery.Accepted)
+	}
+}
+
+// ByOriginator compares how each sender address performs.
+func ExampleSmsStatsService_ByOriginator() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByOriginator(context.Background(), bird.SmsStatsByOriginatorParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Originator, *row.Delivery.DeliveryRate)
+	}
+}
+
+// ByStatus shows where the window's messages ended up.
+func ExampleSmsStatsService_ByStatus() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByStatus(context.Background(), bird.SmsStatsByStatusParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Status, *row.Count)
+	}
+}
+
+// ByErrorCode ranks the failure reasons behind undelivered traffic.
+func ExampleSmsStatsService_ByErrorCode() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByErrorCode(context.Background(), bird.SmsStatsByErrorCodeParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		// The same value as the error_code filter on Sms.List, so a row joins to its messages.
+		fmt.Println(*row.ErrorCode, *row.Delivery.Failed)
+	}
+}
+
+// ByTag ranks the campaigns and segments sends are tagged with.
+func ExampleSmsStatsService_ByTag() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.ByTag(context.Background(), bird.SmsStatsByTagParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		// A message carrying several tags counts once under each, so rows do not
+		// sum to the period total.
+		fmt.Println(*row.Tag, *row.Delivery.Accepted)
+	}
+}
+
+// Summary returns how many messages the workspace's numbers received.
+func ExampleSmsStatsInboundService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	summary, err := client.Sms.Stats.Inbound.Summary(context.Background(), bird.SmsStatsInboundSummaryParams{
+		From: "2026-05-01",
+		To:   "2026-05-31",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*summary.Received)
+}
+
+// Daily returns received-message counts, one row per calendar day.
+func ExampleSmsStatsInboundService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Sms.Stats.Inbound.Daily(context.Background(), bird.SmsStatsInboundDailyParams{
+		From: time.Now().AddDate(0, 0, -7),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Received)
+	}
+}
+
+// Hourly returns received-message counts, one row per hour.
+func ExampleSmsStatsInboundService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Sms.Stats.Inbound.Hourly(context.Background(), bird.SmsStatsInboundHourlyParams{
+		From: time.Now().Add(-24 * time.Hour),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Received)
+	}
+}
+
+// ByCountry groups received messages by where the sender messaged from.
+func ExampleSmsStatsInboundService_ByCountry() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.Inbound.ByCountry(context.Background(), bird.SmsStatsInboundByCountryParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Country, *row.Received)
+	}
+}
+
+// ByOperator groups received messages by the sender's mobile operator.
+func ExampleSmsStatsInboundService_ByOperator() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.Inbound.ByOperator(context.Background(), bird.SmsStatsInboundByOperatorParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		// Messages whose operator the carrier did not report are excluded, so
+		// these rows can sum to less than the inbound summary for the same period.
+		fmt.Println(*row.MccMnc, *row.Received)
+	}
+}
+
+// ByNumber shows which of the workspace's numbers took the traffic.
+func ExampleSmsStatsInboundService_ByNumber() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Sms.Stats.Inbound.ByNumber(context.Background(), bird.SmsStatsInboundByNumberParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Number, *row.Received)
+	}
+}
+
+// List iterates every suppression currently stopping the workspace's messages.
+func ExampleSmsSuppressionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for suppression, err := range client.SmsSuppressions.List(context.Background(), bird.SmsSuppressionsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(suppression.Originator, suppression.Destination, *suppression.Reason)
+	}
+}
+
+// Get reads one suppression by id.
+func ExampleSmsSuppressionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	suppression, err := client.SmsSuppressions.Get(context.Background(), "sup_01j9x2k3m4n5p6q7r8s9t0v1w2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Originator, suppression.Destination, *suppression.Blocking)
+}
+
+// Add stops one sender from messaging one subscriber.
+func ExampleSmsSuppressionsService_Add() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A suppression covers one sender and one subscriber, so stopping every
+	// sender means one call per sender.
+	suppression, err := client.SmsSuppressions.Add(context.Background(), bird.SmsSuppressionsAddParams{
+		Destination: "+15550001234",
+		Originator:  "+15557654321",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Id)
+}
+
+// Remove ends a manual suppression.
+func ExampleSmsSuppressionsService_Remove() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Only a `manual` suppression can be ended: a subscriber's own stop keyword
+	// and a carrier's opt-out are refused.
+	if err := client.SmsSuppressions.Remove(context.Background(), "sup_01j9x2k3m4n5p6q7r8s9t0v1w2"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// List shows what a reply to the workspace's numbers does.
+func ExampleSmsKeywordRulesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rules, err := client.SmsKeywordRules.List(context.Background(), bird.SmsKeywordRulesListParams{
+		Country: "NL", // omit for every country Bird's catalogue covers, plus your own rules
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, rule := range rules.Data {
+		fmt.Println(rule.Operation, rule.Keywords)
+	}
+}
+
+// Get reads one rule, Bird's or the workspace's own.
+func ExampleSmsKeywordRulesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rule, err := client.SmsKeywordRules.Get(context.Background(), "skr_01j9x2k3m4n5p6q7r8s9t0v1w2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(rule.Operation, *rule.Reply)
+}
+
+// Create overrides Bird's default reply for one country.
+func ExampleSmsKeywordRulesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rule, err := client.SmsKeywordRules.Create(context.Background(), bird.SmsKeywordRulesCreateParams{
+		Operation: bird.SMSKeywordOperationStop,
+		Country:   bird.Value("NL"),
+		Reply:     bird.Value("You are unsubscribed from MyBrand. Reply START to resume."),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// EffectiveKeywords is Bird's set plus any of your own.
+	fmt.Println(rule.Id, *rule.EffectiveKeywords)
+}
+
+// Update changes a rule the workspace created.
+func ExampleSmsKeywordRulesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Omitting Keywords leaves the set alone; an empty slice clears your
+	// additions back to Bird's.
+	rule, err := client.SmsKeywordRules.Update(context.Background(), "skr_01j9x2k3m4n5p6q7r8s9t0v1w2", bird.SmsKeywordRulesUpdateParams{
+		Reply: bird.Value("You are unsubscribed. Reply START to resume."),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*rule.Reply)
+}
+
+// Delete restores Bird's default for that country and operation.
+func ExampleSmsKeywordRulesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.SmsKeywordRules.Delete(context.Background(), "skr_01j9x2k3m4n5p6q7r8s9t0v1w2"); err != nil {
+		log.Fatal(err)
 	}
 }

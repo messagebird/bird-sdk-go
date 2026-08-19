@@ -15,9 +15,9 @@ import (
 type WhatsappListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
-	// Return only resources created at or after this timestamp (inclusive lower bound). Combine with `created_before` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
-	// Return only resources created strictly before this timestamp (exclusive upper bound). Combine with `created_after` to filter to a time window. RFC 3339 / ISO 8601 with timezone.
+	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore time.Time
 	// Filter by status. Repeat the parameter to match any of several statuses.
 	Status []WhatsAppMessageStatus
@@ -60,7 +60,7 @@ func (p WhatsappListEventsParams) toWire() *oapi.ListWhatsAppMessageEventsParams
 	}
 }
 
-// Get Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the template it was sent from, and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
+// Get Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the one content it was built from (a template, or free-form text, image, video, audio, sticker, document or location), and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
 func (s *WhatsappService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*WhatsAppMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWhatsAppMessage(ctx, oapi.WhatsAppMessageID(messageId), cfg...)
@@ -91,7 +91,7 @@ func (s *WhatsappService) ListPage(ctx context.Context, params WhatsappListParam
 	return &out, nil
 }
 
-// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, template category, or tag. Use whatsapp_get for one message's current state.
+// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document or location. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, template category, or tag. Use whatsapp_get for one message's current state.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppMessage, error] {
@@ -104,7 +104,7 @@ func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, o
 	})
 }
 
-// ListEvents Get one WhatsApp message's delivery timeline, oldest first: whatsapp.accepted, whatsapp.sent, whatsapp.delivered, whatsapp.read, and whatsapp.failed events, with failure detail on failed events. Not paginated; an unknown message id is a 404. Use whatsapp_get for the condensed current status.
+// ListEvents Get one WhatsApp message's delivery timeline, oldest first: whatsapp.accepted, whatsapp.sent, whatsapp.delivered, whatsapp.read, and whatsapp.failed events, with failure detail on failed events. Not paginated; an unknown message ID returns `404`. Use `whatsapp.get` for the condensed current status.
 func (s *WhatsappService) ListEvents(ctx context.Context, messageId string, params WhatsappListEventsParams, opts ...option.RequestOption) (*WhatsAppEventList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListWhatsAppMessageEvents(ctx, oapi.WhatsAppMessageID(messageId), params.toWire(), cfg...)

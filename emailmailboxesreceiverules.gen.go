@@ -14,7 +14,7 @@ type ReceiveRuleCreateAction = oapi.ReceiveRuleCreateAction
 
 // EmailMailboxesReceiveRulesListParams filters the list. Zero-value fields are omitted.
 type EmailMailboxesReceiveRulesListParams struct {
-	// Filter by rule action.
+	// Return only `allow` or `block` rules; omit to return both actions.
 	Action string
 	// Maximum number of items to return per page.
 	Limit int

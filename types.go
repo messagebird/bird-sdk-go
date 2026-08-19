@@ -95,6 +95,21 @@ type (
 	EmailMessageCategory = oapi.EmailMessageCategory
 	// ContactIdentifierFilter is which identifier a contact has on file, used by the read filters.
 	ContactIdentifierFilter = oapi.ContactIdentifierFilter
+	// SMSStatsSortMetric is the metric an SMS-stats breakdown sorts by, for the
+	// breakdowns whose rows carry rates as well as counts.
+	SMSStatsSortMetric = oapi.SMSStatsSortMetric
+	// SMSStatsLifecycleSortMetric is the reduced sort vocabulary of a breakdown
+	// whose rows carry lifecycle counts only.
+	SMSStatsLifecycleSortMetric = oapi.SMSStatsLifecycleSortMetric
+	// StatsComparePeriod asks a stats summary for the preceding window too. Not
+	// SMS-specific: every channel's summary read takes the same one value, so the
+	// four still declaring it inline can $ref this instead.
+	StatsComparePeriod = oapi.StatsComparePeriod
+	// SMSSuppressionReasonFilter is why a suppression exists, used by the read filters.
+	SMSSuppressionReasonFilter = oapi.SMSSuppressionReasonFilter
+	// SMSKeywordRuleScope distinguishes Bird's default keyword rules from a
+	// workspace's own.
+	SMSKeywordRuleScope = oapi.SMSKeywordRuleScope
 )
 
 // Email statistics responses, returned by the Client.Email.Stats methods. Each
@@ -125,6 +140,50 @@ type (
 // SMSTemplate is an SMS template with its body, variables, and available
 // languages; SMSTemplateList is the (unpaginated) set of templates available to
 // the workspace.
+
+// SMS statistics responses, returned by the Client.Sms.Stats methods. Each is
+// the read-side body for one breakdown; the Inbound set counts messages the
+// workspace's own numbers received rather than what it sent.
+type (
+	// SMSStatsSummary is the delivery and latency totals for a window,
+	// optionally with a previous-period comparison. Returned by Stats.Summary.
+	SMSStatsSummary = oapi.SMSStatsSummary
+	// SMSStatsResponse is a time series of per-bucket points. Returned by
+	// Stats.Daily and Stats.Hourly.
+	SMSStatsResponse             = oapi.SMSStatsResponse
+	SMSStatsByCountryResponse    = oapi.SMSStatsByCountryResponse
+	SMSStatsByCarrierResponse    = oapi.SMSStatsByCarrierResponse
+	SMSStatsByCategoryResponse   = oapi.SMSStatsByCategoryResponse
+	SMSStatsByOriginatorResponse = oapi.SMSStatsByOriginatorResponse
+	SMSStatsByStatusResponse     = oapi.SMSStatsByStatusResponse
+	SMSStatsByErrorCodeResponse  = oapi.SMSStatsByErrorCodeResponse
+	SMSStatsByTagResponse        = oapi.SMSStatsByTagResponse
+
+	SMSInboundStatsSummaryResponse    = oapi.SMSInboundStatsSummaryResponse
+	SMSInboundStatsResponse           = oapi.SMSInboundStatsResponse
+	SMSInboundStatsByCountryResponse  = oapi.SMSInboundStatsByCountryResponse
+	SMSInboundStatsByOperatorResponse = oapi.SMSInboundStatsByOperatorResponse
+	SMSInboundStatsByNumberResponse   = oapi.SMSInboundStatsByNumberResponse
+)
+
+// SMSEventList is the lifecycle timeline of one SMS, oldest first. Returned by
+// Sms.ListEvents.
+type SMSEventList = oapi.SMSEventList
+
+// SMSKeywordRule is what one keyword does when a subscriber texts it, Bird's or
+// the workspace's own; SMSKeywordRuleList is the (unpaginated) set of them.
+type (
+	SMSKeywordRule     = oapi.SMSKeywordRule
+	SMSKeywordRuleList = oapi.SMSKeywordRuleList
+)
+
+// SMSSuppression is one sender-and-subscriber pair Bird will not deliver to;
+// SMSSuppressionList is a page of them.
+type (
+	SMSSuppression     = oapi.SMSSuppression
+	SMSSuppressionList = oapi.SMSSuppressionList
+)
+
 type (
 	SMSTemplate     = oapi.SMSTemplate
 	SMSTemplateList = oapi.SMSTemplateList
@@ -218,6 +277,22 @@ type (
 	WhatsAppMessageTemplateComponent          = oapi.WhatsAppMessageTemplateComponent
 	WhatsAppMessageTemplateComponentParameter = oapi.WhatsAppMessageTemplateComponentParameter
 )
+
+// The free-form content arms a send carries in place of a template. Each is the
+// wire object verbatim: the SDK sugars only the template handle, because the
+// server decides which single arm a send may carry and reports the verdict.
+type (
+	WhatsAppTextSend     = oapi.WhatsAppTextSend
+	WhatsAppImageSend    = oapi.WhatsAppImageSend
+	WhatsAppVideoSend    = oapi.WhatsAppVideoSend
+	WhatsAppAudioSend    = oapi.WhatsAppAudioSend
+	WhatsAppStickerSend  = oapi.WhatsAppStickerSend
+	WhatsAppDocumentSend = oapi.WhatsAppDocumentSend
+	WhatsAppLocationSend = oapi.WhatsAppLocationSend
+)
+
+// WhatsAppTag is a structured {name, value} label on a WhatsApp send.
+type WhatsAppTag = oapi.Tag
 
 // VoiceCall is one call-detail record, in flight or settled; VoiceCallList is a
 // page of them.

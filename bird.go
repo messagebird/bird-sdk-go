@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.32.0"
+	version = "0.33.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -59,19 +59,21 @@ type Client struct {
 	cfg  requestconfig.Config
 	oapi *oapi.Client
 
-	Email                *EmailService
-	Sms                  *SmsService
-	SmsTemplates         *SmsTemplatesService
-	Whatsapp             *WhatsappService
-	Voice                *VoiceService
-	Verify               *VerifyService
-	Webhooks             *WebhookService
-	Contacts             *ContactsService
-	Audiences            *AudiencesService
-	ContactProperties    *ContactPropertiesService
-	Domains              *DomainsService
-	Realtime             *RealtimeService
-	Lookup               *LookupService
+	Email             *EmailService
+	Sms               *SmsService
+	SmsTemplates      *SmsTemplatesService
+	SmsSuppressions   *SmsSuppressionsService
+	SmsKeywordRules   *SmsKeywordRulesService
+	Whatsapp          *WhatsappService
+	Voice             *VoiceService
+	Verify            *VerifyService
+	Webhooks          *WebhookService
+	Contacts          *ContactsService
+	Audiences         *AudiencesService
+	ContactProperties *ContactPropertiesService
+	Domains           *DomainsService
+	Realtime          *RealtimeService
+	Lookup            *LookupService
 }
 
 // NewClient builds a Client. An API key is required (option.WithAPIKey); the
@@ -109,8 +111,12 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c := &Client{cfg: cfg, oapi: oc}
 	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
-	c.Sms = &SmsService{resource{client: c}}
+	c.Sms = &SmsService{resource: resource{client: c}}
+	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
+	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}
 	c.SmsTemplates = &SmsTemplatesService{resource{client: c}}
+	c.SmsSuppressions = &SmsSuppressionsService{resource{client: c}}
+	c.SmsKeywordRules = &SmsKeywordRulesService{resource{client: c}}
 	c.Whatsapp = &WhatsappService{resource{client: c}}
 	c.Voice = &VoiceService{resource{client: c}}
 	c.Verify = &VerifyService{Verifications: &VerifyVerificationsService{resource{client: c}}}
