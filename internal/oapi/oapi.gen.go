@@ -2613,6 +2613,123 @@ func (e MessageDirection) Valid() bool {
 	}
 }
 
+// Defines values for NumberKind.
+const (
+	Dedicated NumberKind = "dedicated"
+	Shared    NumberKind = "shared"
+)
+
+// Valid indicates whether the value is a known member of the NumberKind enum.
+func (e NumberKind) Valid() bool {
+	switch e {
+	case Dedicated:
+		return true
+	case Shared:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NumberStatus.
+const (
+	NumberStatusActive            NumberStatus = "active"
+	NumberStatusPendingCompliance NumberStatus = "pending_compliance"
+	NumberStatusReleased          NumberStatus = "released"
+)
+
+// Valid indicates whether the value is a known member of the NumberStatus enum.
+func (e NumberStatus) Valid() bool {
+	switch e {
+	case NumberStatusActive:
+		return true
+	case NumberStatusPendingCompliance:
+		return true
+	case NumberStatusReleased:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NumberCapability.
+const (
+	NumberCapabilityMms   NumberCapability = "mms"
+	NumberCapabilitySms   NumberCapability = "sms"
+	NumberCapabilityVoice NumberCapability = "voice"
+)
+
+// Valid indicates whether the value is a known member of the NumberCapability enum.
+func (e NumberCapability) Valid() bool {
+	switch e {
+	case NumberCapabilityMms:
+		return true
+	case NumberCapabilitySms:
+		return true
+	case NumberCapabilityVoice:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NumberType.
+const (
+	NumberTypeLocal         NumberType = "local"
+	NumberTypeMobile        NumberType = "mobile"
+	NumberTypeNational      NumberType = "national"
+	NumberTypeShortCode     NumberType = "short_code"
+	NumberTypeShortCodeFteu NumberType = "short_code_fteu"
+	NumberTypeTollFree      NumberType = "toll_free"
+)
+
+// Valid indicates whether the value is a known member of the NumberType enum.
+func (e NumberType) Valid() bool {
+	switch e {
+	case NumberTypeLocal:
+		return true
+	case NumberTypeMobile:
+		return true
+	case NumberTypeNational:
+		return true
+	case NumberTypeShortCode:
+		return true
+	case NumberTypeShortCodeFteu:
+		return true
+	case NumberTypeTollFree:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NumbersOrderStatus.
+const (
+	NumbersOrderStatusCharging  NumbersOrderStatus = "charging"
+	NumbersOrderStatusCompleted NumbersOrderStatus = "completed"
+	NumbersOrderStatusFailed    NumbersOrderStatus = "failed"
+	NumbersOrderStatusOrdering  NumbersOrderStatus = "ordering"
+	NumbersOrderStatusPending   NumbersOrderStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the NumbersOrderStatus enum.
+func (e NumbersOrderStatus) Valid() bool {
+	switch e {
+	case NumbersOrderStatusCharging:
+		return true
+	case NumbersOrderStatusCompleted:
+		return true
+	case NumbersOrderStatusFailed:
+		return true
+	case NumbersOrderStatusOrdering:
+		return true
+	case NumbersOrderStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeAppStatus.
 const (
 	RealtimeAppStatusActive    RealtimeAppStatus = "active"
@@ -3823,6 +3940,7 @@ func (e WebhookTestResponseStatus) Valid() bool {
 const (
 	WhatsAppErrorCodeInsufficientBalance  WhatsAppErrorCode = "insufficient_balance"
 	WhatsAppErrorCodeInternalError        WhatsAppErrorCode = "internal_error"
+	WhatsAppErrorCodeMediaRejected        WhatsAppErrorCode = "media_rejected"
 	WhatsAppErrorCodePriceNotFound        WhatsAppErrorCode = "price_not_found"
 	WhatsAppErrorCodeRateLimited          WhatsAppErrorCode = "rate_limited"
 	WhatsAppErrorCodeRecipientSuppressed  WhatsAppErrorCode = "recipient_suppressed"
@@ -3836,6 +3954,8 @@ func (e WhatsAppErrorCode) Valid() bool {
 	case WhatsAppErrorCodeInsufficientBalance:
 		return true
 	case WhatsAppErrorCodeInternalError:
+		return true
+	case WhatsAppErrorCodeMediaRejected:
 		return true
 	case WhatsAppErrorCodePriceNotFound:
 		return true
@@ -4061,16 +4181,16 @@ func (e ListDomainsParamsOrder) Valid() bool {
 
 // Defines values for ListMailboxesParamsState.
 const (
-	Active    ListMailboxesParamsState = "active"
-	Suspended ListMailboxesParamsState = "suspended"
+	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
+	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
 func (e ListMailboxesParamsState) Valid() bool {
 	switch e {
-	case Active:
+	case ListMailboxesParamsStateActive:
 		return true
-	case Suspended:
+	case ListMailboxesParamsStateSuspended:
 		return true
 	default:
 		return false
@@ -4296,6 +4416,9 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 // APIKeyID defines model for APIKeyID.
 type APIKeyID = string
 
+// AllocatedNumberID Identifier of a number allocated to your workspace, as returned in the id field of `GET /v1/numbers`.
+type AllocatedNumberID = string
+
 // Audience defines model for Audience.
 type Audience struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -4404,14 +4527,43 @@ type AudienceUpdateRequest struct {
 
 // AuditLogActor defines model for AuditLogActor.
 type AuditLogActor struct {
-	// DisplayName Display name of the actor. This is the user's email address for a `user` actor or the API key name for an `api_key` actor. Absent when it could not be resolved.
+	// DisplayName Display name of the actor. This is the user's email address for a `user` actor, or the name of the API key or integration that acted. Absent when it could not be resolved.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Id ID of the user, API key, or system process that performed the action.
+	// Id ID of the user, API key, integration, or system process that performed the action.
 	Id string `json:"id"`
 
-	// Type Type of actor, such as `user`, `api_key`, or `system`.
+	// Type Type of actor, such as `user`, `api_key`, `service_account`, or `system`.
 	Type string `json:"type"`
+}
+
+// AvailableNumber defines model for AvailableNumber.
+type AvailableNumber struct {
+	// Capabilities Channel capabilities supported by this number.
+	Capabilities []NumberCapability `json:"capabilities"`
+
+	// CountryCode ISO 3166-1 alpha-2 country code.
+	CountryCode CountryCode `json:"country_code"`
+
+	// Number Phone number in E.164 format.
+	Number string `json:"number"`
+
+	// NumberType Physical type of this phone number.
+	NumberType NumberType `json:"number_type"`
+}
+
+// AvailableNumberList defines model for AvailableNumberList.
+type AvailableNumberList struct {
+	Data []AvailableNumber `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
 }
 
 // Contact defines model for Contact.
@@ -4669,7 +4821,7 @@ type DNSRecord struct {
 	// Name The record name: the part you enter in your DNS provider's `Name` or `Host` field, relative to the DNS zone the record belongs in (your registered domain). For a sending domain `mail.acme.com` the DKIM record name is `bird1._domainkey.mail`, entered in the `acme.com` zone. `@` for records at the zone apex.
 	Name string `json:"name"`
 
-	// Optional Whether this record can be skipped. Optional records enable extra functionality (for example, tracking) but are not required for sending.
+	// Optional Whether this record can be skipped. An optional record enables extra functionality (branded tracking, or receiving) rather than sending, so publish one only when you want what it enables. The `inbound_mx` records are optional until you enable receiving on the domain, and publishing one before then changes where mail to the domain is delivered.
 	Optional *bool `json:"optional,omitempty"`
 
 	// Purpose What this record is for.
@@ -4680,7 +4832,10 @@ type DNSRecord struct {
 	// - `inbound_mx`: identifies the MX record routing mail to us for receiving.
 	//   Always present wherever inbound is available, as a regional reference,
 	//   regardless of whether receiving is enabled; publishing it does not
-	//   enable receiving on its own: see `DomainUpdate.inbound`.
+	//   enable receiving on its own: see `DomainUpdate.inbound`. It is
+	//   `optional` until receiving is enabled, and publishing it before then
+	//   is destructive: on a domain at the zone apex it replaces the MX
+	//   records that carry the domain's existing mail.
 	// - `dmarc`: identifies the advisory DMARC policy record.
 	Purpose DNSRecordPurpose `json:"purpose"`
 
@@ -4730,7 +4885,10 @@ type DNSRecord struct {
 //   - `inbound_mx`: identifies the MX record routing mail to us for receiving.
 //     Always present wherever inbound is available, as a regional reference,
 //     regardless of whether receiving is enabled; publishing it does not
-//     enable receiving on its own: see `DomainUpdate.inbound`.
+//     enable receiving on its own: see `DomainUpdate.inbound`. It is
+//     `optional` until receiving is enabled, and publishing it before then
+//     is destructive: on a domain at the zone apex it replaces the MX
+//     records that carry the domain's existing mail.
 //   - `dmarc`: identifies the advisory DMARC policy record.
 type DNSRecordPurpose string
 
@@ -5477,6 +5635,15 @@ type EmailEvent struct {
 	// IsPrefetched True when the open was auto-fetched by an inbox privacy feature (Apple Mail Privacy Protection, the Gmail image proxy) rather than a person actually opening the message. Use it to calculate open rate accurately. Present on `email.opened` events only.
 	IsPrefetched *bool `json:"is_prefetched,omitempty"`
 
+	// LinkName The clicked link's own name, when the link in the message carried one, so a click can be reported by what the link said rather than where it pointed. Absent when the link had no name. Appears alongside `url` on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link.
+	LinkName *string `json:"link_name,omitempty"`
+
+	// MailboxProvider The recipient mailbox provider, as a lowercased classifier bucket (e.g. `gmail`, `yahoo`, `microsoft`, `apple`). Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when the receiving mail system could be classified; null when it could not.
+	MailboxProvider *string `json:"mailbox_provider,omitempty"`
+
+	// MailboxProviderRegion The provider region, as reported by the receiving mail system (for example `NA`, `EU`, `APAC`). The set is open and provider-specific. Present on `email.processed`, `email.delivered`, `email.complained`, `email.bounced`, `email.out_of_band_bounce`, `email.deferred`, `email.rejected`, `email.unsubscribed`, `email.list_unsubscribed`, `email.opened`, and `email.clicked` events when reported; null otherwise.
+	MailboxProviderRegion *string `json:"mailbox_provider_region,omitempty"`
+
 	// OccurredAt When this event occurred.
 	OccurredAt  time.Time   `json:"occurred_at"`
 	RecipientId RecipientID `json:"recipient_id"`
@@ -5515,7 +5682,7 @@ type EmailEvent struct {
 	// We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
 	Type EmailEventType `json:"type"`
 
-	// Url The clicked URL. Present on `email.clicked` events.
+	// Url The clicked URL. Present on `email.clicked` events, and on `email.unsubscribed` events when the recipient unsubscribed through a link in the message.
 	Url *string `json:"url,omitempty"`
 
 	// UserAgent Client user-agent string. Present on `email.opened` and `email.clicked` events when available.
@@ -5839,7 +6006,7 @@ type EmailMailboxProviderRegionStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by the breakdowns whose attribution begins at delivery (mailbox providers, mailbox provider regions): `processed`, `rejected`, and `oob_bounces` are not part of those rows, so they are not sortable. Any count or rate on the row can be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types use their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
+// EmailMailboxProviderSortMetric Metric to rank rows by, applied descending. Shared by every breakdown whose attribution begins at delivery, so `processed`, `rejected`, and `oob_bounces` are not part of those rows and are not sortable. Any count or rate on the row can be used; rows whose rate is undefined (zero denominator) sort last. Bounce sub-types use their nested location in each row, for example `bounces.hard` and `bounces.hard_rate`.
 type EmailMailboxProviderSortMetric string
 
 // EmailMailboxProviderStatsPoint Delivery, engagement, and deliverability stats for messages grouped by a single recipient mailbox provider (`gmail`, `microsoft`, `yahoo`, `apple`, ...) over the requested period. We learn a recipient's mailbox provider from the receiving mail server. Per-provider rows therefore cover the delivery stage onward. They omit the `accepted` and `processed` counts and the `processing` latency family. These fields are absent rather than null. Engagement (opens and clicks, and their rates) is included because those events happen after delivery, once the mailbox provider is already known.
@@ -8610,13 +8777,25 @@ type EventVoiceCallEndedData struct {
 
 	// Status Call status.
 	//
-	// A call that has ended carries `answered`, `no_answer`, `failed`, `rejected`, or
-	// `unknown`. An active call carries `ringing` before it is picked up and
-	// `in_progress` afterward. The call list's `status` filter uses both values to
-	// select calls happening now.
+	// A call that has ended carries one of:
 	//
-	// `busy` and `canceled` are reserved and are not currently emitted. Both
-	// outcomes are currently reported as `failed`.
+	// - `answered` means it connected and the far end picked up.
+	// - `no_answer` means nobody picked up before the call timed out.
+	// - `rejected` means it was refused rather than attempted. Either we turned it
+	//   away before dialing a carrier, in which case `rejection_reason` names the
+	//   check it failed where there was one, or the far end declined it.
+	// - `failed` means it was attempted and did not work, and `sip_response_code`
+	//   is what came back.
+	// - `unknown` means the outcome could not be determined. Contact support with
+	//   the call `id` if you see one.
+	//
+	// An active call carries `ringing` before it is picked up and `in_progress`
+	// afterward. The call list's `status` filter takes any mix of the two sets.
+	//
+	// `busy` and `canceled` are reserved for incoming calls delivered to your own
+	// numbers: `busy` for a called party that rejected the call as busy, `canceled`
+	// for a caller who hung up before it was picked up. Neither is emitted yet and
+	// both outcomes are reported as `failed` today.
 	Status VoiceCallStatus `json:"status"`
 
 	// To Called party number in E.164 format.
@@ -9278,8 +9457,9 @@ type LookupProperty string
 //     from the base lookup. The property is not billed.
 //   - `inconclusive`: an answer arrived but does not resolve the
 //     property, either because the number is outside the coverage of the data
-//     behind it or because the answer is one we cannot yet place. It is a real
-//     answer rather than a missing one, and it is not billed either.
+//     behind it or because the source returned a value this property does not
+//     report. It is a real answer rather than a missing one, and it is not
+//     billed either.
 //
 // Open enum: further statuses may be added over time, so treat an unrecognized
 // value as a future one rather than an error. Only `ok` carries a value and only
@@ -9570,15 +9750,6 @@ type MessageCost struct {
 // MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
 type MessageDirection string
 
-// Money defines model for Money.
-type Money struct {
-	// Amount Decimal amount as a string, in major currency units.
-	Amount string `json:"amount"`
-
-	// CurrencyCode ISO 4217 three-letter currency code.
-	CurrencyCode CurrencyCode `json:"currency_code"`
-}
-
 // NextAction defines model for NextAction.
 type NextAction struct {
 	// Description A short, human-readable label for the step, suitable for display.
@@ -9606,6 +9777,158 @@ type NextAction struct {
 	// Url A URL to open. Present only when `kind` is `external`, and only when the step has one. An external step whose `description` says to go and do something with no URL to open is normal.
 	Url *string `json:"url,omitempty"`
 }
+
+// Number defines model for Number.
+type Number struct {
+	// AllocatedAt When this number was allocated to your workspace.
+	AllocatedAt *time.Time `json:"allocated_at,omitempty"`
+
+	// Capabilities Channel capabilities supported by this number.
+	Capabilities *[]NumberCapability `json:"capabilities,omitempty"`
+	CountryCode  *CountryCode        `json:"country_code,omitempty"`
+
+	// Id Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
+	Id *AllocatedNumberID `json:"id,omitempty"`
+
+	// Kind How this number is allocated. `dedicated` is allocated to this workspace alone and billed as a subscription. `shared` is a shortcode allocated to several workspaces at once and managed by us.
+	Kind *NumberKind `json:"kind,omitempty"`
+
+	// Number Phone number in E.164 format.
+	Number *string `json:"number,omitempty"`
+
+	// NumberType Physical type of this phone number.
+	NumberType *NumberType `json:"number_type,omitempty"`
+
+	// Ownership Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_compliance` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+	Ownership *NumberOwnership `json:"ownership,omitempty"`
+
+	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
+	ReleasedAt *time.Time `json:"released_at,omitempty"`
+
+	// Status Whether this number can carry traffic.
+	//
+	// - `active` means this number is allocated to your workspace and usable.
+	// - `pending_compliance` means this number is allocated to your workspace and billed,
+	//   but it cannot carry traffic until the ownership paperwork its country requires is
+	//   accepted. Read `ownership.next` for what advances it, and re-read later if
+	//   `ownership` is momentarily `null`.
+	// - `released` means this number is no longer allocated to your workspace.
+	//
+	// An allocated number is not always enough to send from it: some destination
+	// countries also require an approved registration for the sender.
+	Status *NumberStatus `json:"status,omitempty"`
+}
+
+// NumberKind How this number is allocated. `dedicated` is allocated to this workspace alone and billed as a subscription. `shared` is a shortcode allocated to several workspaces at once and managed by us.
+type NumberKind string
+
+// NumberStatus Whether this number can carry traffic.
+//
+//   - `active` means this number is allocated to your workspace and usable.
+//   - `pending_compliance` means this number is allocated to your workspace and billed,
+//     but it cannot carry traffic until the ownership paperwork its country requires is
+//     accepted. Read `ownership.next` for what advances it, and re-read later if
+//     `ownership` is momentarily `null`.
+//   - `released` means this number is no longer allocated to your workspace.
+//
+// An allocated number is not always enough to send from it: some destination
+// countries also require an approved registration for the sender.
+type NumberStatus string
+
+// NumberCapability Channel capability supported by a phone number. New capabilities may be added over time, so treat unrecognized values as supported capabilities rather than errors.
+type NumberCapability string
+
+// NumberList defines model for NumberList.
+type NumberList struct {
+	Data []Number `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// NumberOwnership Where this number stands with the ownership paperwork its country requires before it may carry traffic. Present only for a number whose country requires any, so its absence means no paperwork was ever asked for and this number is unconditionally usable. Absent as well when the requirement cannot be established right now, since reporting either answer would state something about your paperwork that has not been checked.
+type NumberOwnership struct {
+	// BlockedAt When the number stopped being able to carry traffic, and null while it can. Always null when `satisfied` is true, but null does not imply it: a number whose country began asking after you bought it is usable with its paperwork still outstanding. A number can also arrive blocked, and one that was usable can be blocked again if its approval is withdrawn.
+	BlockedAt *time.Time `json:"blocked_at,omitempty"`
+
+	// Next What you do about it, in the order to do it. Empty only when `satisfied` is true, so while anything is outstanding there is always at least one step. When what you already sent is being reviewed and nothing is needed from you, that step has kind `wait` and says so. Re-read it after each call rather than caching the first list you saw.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Satisfied Whether the paperwork is accepted. Read `next` for what advances it while this is false. Whether sending is currently refused is reported by `blocked_at` instead: a number bought before its country asked for anything is unsatisfied and still usable until a review says otherwise.
+	Satisfied *bool `json:"satisfied,omitempty"`
+}
+
+// NumberType Physical type of a phone number. New number types may be added over time, so treat unrecognized values as supported types rather than errors.
+type NumberType string
+
+// NumbersDedicatedAllocationID defines model for NumbersDedicatedAllocationID.
+type NumbersDedicatedAllocationID = string
+
+// NumbersOrder defines model for NumbersOrder.
+type NumbersOrder struct {
+	// CompletedAt When the purchase completed and the number became owned (status completed). `null` for orders still in progress or failed.
+	CompletedAt *time.Time   `json:"completed_at,omitempty"`
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+	CreatedAt   *time.Time   `json:"created_at,omitempty"`
+
+	// FailureReason Human-readable reason the purchase failed. `null` unless status is failed. An order can fail some time after it was created, so `updated_at` tells you when the failure was recorded rather than when the order was placed.
+	FailureReason *string `json:"failure_reason,omitempty"`
+
+	// Id Identifier of this purchase order.
+	Id *NumbersOrderID `json:"id,omitempty"`
+
+	// Number The number being acquired, in E.164 format.
+	Number *string `json:"number,omitempty"`
+
+	// NumberId Identifier of the number this order produced, set when `status` is `completed`. Pass it as `number_id` to `GET /v1/numbers/{number_id}` or `DELETE /v1/numbers/{number_id}`. `null` until the order completes.
+	NumberId *NumbersDedicatedAllocationID `json:"number_id,omitempty"`
+
+	// NumberType Physical type of the number being acquired.
+	NumberType *NumberType         `json:"number_type,omitempty"`
+	Status     *NumbersOrderStatus `json:"status,omitempty"`
+	UpdatedAt  *time.Time          `json:"updated_at,omitempty"`
+}
+
+// NumbersOrderCreate defines model for NumbersOrderCreate.
+type NumbersOrderCreate struct {
+	// Number The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
+	Number string `json:"number"`
+}
+
+// NumbersOrderID defines model for NumbersOrderID.
+type NumbersOrderID = string
+
+// NumbersOrderList defines model for NumbersOrderList.
+type NumbersOrderList struct {
+	Data []NumbersOrder `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor. Pass back as `ending_before` later to fetch items that have appeared since this response. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// NumbersOrderStatus Lifecycle state of a number purchase order:
+//
+// - `charging`: Securing funds.
+// - `ordering`: Placing the order with the carrier.
+// - `pending`: The carrier accepted the order and is provisioning the number.
+// - `completed`: Your workspace owns the number.
+// - `failed`: The purchase did not complete.
+//
+// A setup fee already charged is non-refundable. Contact support about a failed
+// order.
+type NumbersOrderStatus string
 
 // PhoneNumberLookup Information about a phone number.
 //
@@ -11507,16 +11830,18 @@ type VerificationTo struct {
 
 // VoiceCall defines model for VoiceCall.
 type VoiceCall struct {
-	// Actor Who placed the call: either the API key whose credentials it used or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
+	// Actor Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
 	Actor *AuditLogActor `json:"actor,omitempty"`
 
 	// AnsweredAt When the call was answered (`200` OK received). `null` for unanswered calls.
 	AnsweredAt *time.Time `json:"answered_at,omitempty"`
 
 	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
-	BillableMs *int                `json:"billable_ms,omitempty"`
-	Cost       *Money              `json:"cost,omitempty"`
-	Direction  *VoiceCallDirection `json:"direction,omitempty"`
+	BillableMs *int `json:"billable_ms,omitempty"`
+
+	// Cost What was charged for a call, split into the components that make it up.
+	Cost      *VoiceCallCost      `json:"cost,omitempty"`
+	Direction *VoiceCallDirection `json:"direction,omitempty"`
 
 	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
 	DurationMs *int `json:"duration_ms,omitempty"`
@@ -11551,6 +11876,24 @@ type VoiceCall struct {
 	// To Called party number in E.164 format.
 	To          *string     `json:"to,omitempty"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceCallCost What was charged for a call, split into the components that make it up.
+type VoiceCallCost struct {
+	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+	Amount *string `json:"amount,omitempty"`
+
+	// CallHandlingAmount What we charged for handling the call itself, as a decimal string. A call is charged for handling once, however many legs it has, so only one leg's record carries it. `null` until this component is priced.
+	CallHandlingAmount *string `json:"call_handling_amount,omitempty"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+
+	// InboundAmount What we charged to receive the call from the originating network, as a decimal string. Only a call that arrived at your number can carry it. `null` until this component is priced.
+	InboundAmount *string `json:"inbound_amount,omitempty"`
+
+	// OutboundAmount What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
+	OutboundAmount *string `json:"outbound_amount,omitempty"`
 }
 
 // VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
@@ -11608,13 +11951,25 @@ type VoiceCallRejectionReason string
 
 // VoiceCallStatus Call status.
 //
-// A call that has ended carries `answered`, `no_answer`, `failed`, `rejected`, or
-// `unknown`. An active call carries `ringing` before it is picked up and
-// `in_progress` afterward. The call list's `status` filter uses both values to
-// select calls happening now.
+// A call that has ended carries one of:
 //
-// `busy` and `canceled` are reserved and are not currently emitted. Both
-// outcomes are currently reported as `failed`.
+//   - `answered` means it connected and the far end picked up.
+//   - `no_answer` means nobody picked up before the call timed out.
+//   - `rejected` means it was refused rather than attempted. Either we turned it
+//     away before dialing a carrier, in which case `rejection_reason` names the
+//     check it failed where there was one, or the far end declined it.
+//   - `failed` means it was attempted and did not work, and `sip_response_code`
+//     is what came back.
+//   - `unknown` means the outcome could not be determined. Contact support with
+//     the call `id` if you see one.
+//
+// An active call carries `ringing` before it is picked up and `in_progress`
+// afterward. The call list's `status` filter takes any mix of the two sets.
+//
+// `busy` and `canceled` are reserved for incoming calls delivered to your own
+// numbers: `busy` for a called party that rejected the call as busy, `canceled`
+// for a caller who hung up before it was picked up. Neither is emitted yet and
+// both outcomes are reported as `failed` today.
 type VoiceCallStatus string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
@@ -11957,6 +12312,7 @@ type WhatsAppError struct {
 	// - `service_window_expired`: The 24-hour service window closed; send a template.
 	// - `rate_limited`: The send was throttled.
 	// - `recipient_suppressed`: The recipient is on the workspace suppression list.
+	// - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
 	//
 	// This is an open enum. Accept unrecognized values.
 	Code WhatsAppErrorCode `json:"code"`
@@ -11980,6 +12336,7 @@ type WhatsAppError struct {
 // - `service_window_expired`: The 24-hour service window closed; send a template.
 // - `rate_limited`: The send was throttled.
 // - `recipient_suppressed`: The recipient is on the workspace suppression list.
+// - `media_rejected`: WhatsApp could not fetch the media URL, or refused the file it found there; `description` carries its reason.
 //
 // This is an open enum. Accept unrecognized values.
 type WhatsAppErrorCode string
@@ -12195,7 +12552,7 @@ type WhatsAppMessageSendRequest struct {
 	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
 
-	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`.
+	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`.
 	From *string `json:"from,omitempty"`
 
 	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
@@ -13751,6 +14108,135 @@ type CreatePhoneNumberLookupParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListWorkspaceNumbersParams defines parameters for ListWorkspaceNumbers.
+type ListWorkspaceNumbersParams struct {
+	// Number Return only the number matching these digits. Give a full number with its country code, however your own records spell it: `+12025550188`, `12025550188`, `0012025550188`, and `+1 202 555 0188` all resolve to the same number. Spacing and punctuation are fine once a leading `+` or `00` marks the country code, or when `country_code` names the country; a grouped spelling without either is refused rather than guessed at, and a national spelling (bare digits without the country code) matches only when `country_code` names the country. A short code is matched on its bare digits instead, and since the same short code can be allocated in more than one country, pass `country_code` alongside it to name which one. This filter narrows the list like the others rather than replacing them, so a country or capability filter still applies. To match a range of numbers rather than one, use `prefix`.
+	Number *string `form:"number,omitempty" json:"number,omitempty"`
+
+	// CountryCode Filter by the country a number belongs to, as an ISO 3166-1 alpha-2 code.
+	CountryCode *string `form:"country_code,omitempty" json:"country_code,omitempty"`
+
+	// NumberType Return only allocated numbers of this physical type after applying the country and prefix filters.
+	NumberType *NumberType `form:"number_type,omitempty" json:"number_type,omitempty"`
+
+	// Prefix Return only numbers that start with these digits, matched right after the country dial code: with `country_code=US`, `prefix=212` returns the +1 212 area-code numbers allocated to you. Digits only, and `country_code` is required alongside it, since the digits are national ones. Leave out the country dial code and any national dialing prefix such as a leading 0. Short codes never match a prefix search.
+	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
+
+	// Capabilities Filter by channel capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
+	Capabilities *[]string `form:"capabilities,omitempty" json:"capabilities,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// ListAvailableNumbersParams defines parameters for ListAvailableNumbers.
+type ListAvailableNumbersParams struct {
+	// CountryCode ISO 3166-1 alpha-2 country code to search in.
+	CountryCode string `form:"country_code" json:"country_code"`
+
+	// NumberType Return only numbers of this physical type after applying the country and prefix filters.
+	NumberType *NumberType `form:"number_type,omitempty" json:"number_type,omitempty"`
+
+	// Prefix Return only numbers that start with these digits, matched right after the country dial code: with `country_code=US`, `prefix=212` matches +1 212 area-code numbers and `prefix=833` matches 833 toll-free numbers. Digits only. Leave out the country dial code and any national dialing prefix such as a leading 0. Short codes never match a prefix search.
+	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
+
+	// Capabilities Filter by channel capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
+	Capabilities *[]string `form:"capabilities,omitempty" json:"capabilities,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAvailableNumberParams defines parameters for GetAvailableNumber.
+type GetAvailableNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// ListNumbersOrdersParams defines parameters for ListNumbersOrders.
+type ListNumbersOrdersParams struct {
+	// Status Return only orders with status `charging`, `ordering`, `pending`, `completed`, or `failed`.
+	Status *NumbersOrderStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateNumbersOrderParams defines parameters for CreateNumbersOrder.
+type CreateNumbersOrderParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetNumbersOrderParams defines parameters for GetNumbersOrder.
+type GetNumbersOrderParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// ReleaseWorkspaceNumberParams defines parameters for ReleaseWorkspaceNumber.
+type ReleaseWorkspaceNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetWorkspaceNumberParams defines parameters for GetWorkspaceNumber.
+type GetWorkspaceNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
 // PublishRealtimeAppBatchParams defines parameters for PublishRealtimeAppBatch.
 type PublishRealtimeAppBatchParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
@@ -14601,6 +15087,9 @@ type CreateEmailLookupJSONRequestBody = EmailLookupRequest
 
 // CreatePhoneNumberLookupJSONRequestBody defines body for CreatePhoneNumberLookup for application/json ContentType.
 type CreatePhoneNumberLookupJSONRequestBody = PhoneNumberLookupRequest
+
+// CreateNumbersOrderJSONRequestBody defines body for CreateNumbersOrder for application/json ContentType.
+type CreateNumbersOrderJSONRequestBody = NumbersOrderCreate
 
 // PublishRealtimeAppBatchJSONRequestBody defines body for PublishRealtimeAppBatch for application/json ContentType.
 type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
@@ -17256,6 +17745,32 @@ type ClientInterface interface {
 
 	CreatePhoneNumberLookup(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWorkspaceNumbers request
+	ListWorkspaceNumbers(ctx context.Context, params *ListWorkspaceNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAvailableNumbers request
+	ListAvailableNumbers(ctx context.Context, params *ListAvailableNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAvailableNumber request
+	GetAvailableNumber(ctx context.Context, number string, params *GetAvailableNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListNumbersOrders request
+	ListNumbersOrders(ctx context.Context, params *ListNumbersOrdersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateNumbersOrderWithBody request with any body
+	CreateNumbersOrderWithBody(ctx context.Context, params *CreateNumbersOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateNumbersOrder(ctx context.Context, params *CreateNumbersOrderParams, body CreateNumbersOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetNumbersOrder request
+	GetNumbersOrder(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReleaseWorkspaceNumber request
+	ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWorkspaceNumber request
+	GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PublishRealtimeAppBatchWithBody request with any body
 	PublishRealtimeAppBatchWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -18531,6 +19046,114 @@ func (c *Client) CreatePhoneNumberLookupWithBody(ctx context.Context, params *Cr
 
 func (c *Client) CreatePhoneNumberLookup(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreatePhoneNumberLookupRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkspaceNumbers(ctx context.Context, params *ListWorkspaceNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspaceNumbersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAvailableNumbers(ctx context.Context, params *ListAvailableNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAvailableNumbersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAvailableNumber(ctx context.Context, number string, params *GetAvailableNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAvailableNumberRequest(c.Server, number, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListNumbersOrders(ctx context.Context, params *ListNumbersOrdersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListNumbersOrdersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateNumbersOrderWithBody(ctx context.Context, params *CreateNumbersOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNumbersOrderRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateNumbersOrder(ctx context.Context, params *CreateNumbersOrderParams, body CreateNumbersOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNumbersOrderRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetNumbersOrder(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetNumbersOrderRequest(c.Server, orderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReleaseWorkspaceNumberRequest(c.Server, numberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWorkspaceNumberRequest(c.Server, numberId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -25088,6 +25711,674 @@ func NewCreatePhoneNumberLookupRequestWithBody(server string, params *CreatePhon
 	return req, nil
 }
 
+// NewListWorkspaceNumbersRequest generates requests for ListWorkspaceNumbers
+func NewListWorkspaceNumbersRequest(server string, params *ListWorkspaceNumbersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Number != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CountryCode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country_code", *params.CountryCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.NumberType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number_type", *params.NumberType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Prefix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "prefix", *params.Prefix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Capabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "capabilities", *params.Capabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAvailableNumbersRequest generates requests for ListAvailableNumbers
+func NewListAvailableNumbersRequest(server string, params *ListAvailableNumbersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/available")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country_code", params.CountryCode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.NumberType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number_type", *params.NumberType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Prefix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "prefix", *params.Prefix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Capabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "capabilities", *params.Capabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAvailableNumberRequest generates requests for GetAvailableNumber
+func NewGetAvailableNumberRequest(server string, number string, params *GetAvailableNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number", number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/available/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListNumbersOrdersRequest generates requests for ListNumbersOrders
+func NewListNumbersOrdersRequest(server string, params *ListNumbersOrdersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/orders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateNumbersOrderRequest calls the generic CreateNumbersOrder builder with application/json body
+func NewCreateNumbersOrderRequest(server string, params *CreateNumbersOrderParams, body CreateNumbersOrderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateNumbersOrderRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateNumbersOrderRequestWithBody generates requests for CreateNumbersOrder with any type of body
+func NewCreateNumbersOrderRequestWithBody(server string, params *CreateNumbersOrderParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/orders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetNumbersOrderRequest generates requests for GetNumbersOrder
+func NewGetNumbersOrderRequest(server string, orderId NumbersOrderID, params *GetNumbersOrderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "order_id", orderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/orders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewReleaseWorkspaceNumberRequest generates requests for ReleaseWorkspaceNumber
+func NewReleaseWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWorkspaceNumberRequest generates requests for GetWorkspaceNumber
+func NewGetWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *GetWorkspaceNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewPublishRealtimeAppBatchRequest calls the generic PublishRealtimeAppBatch builder with application/json body
 func NewPublishRealtimeAppBatchRequest(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -29511,6 +30802,32 @@ type ClientWithResponsesInterface interface {
 
 	CreatePhoneNumberLookupWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error)
 
+	// ListWorkspaceNumbersWithResponse request
+	ListWorkspaceNumbersWithResponse(ctx context.Context, params *ListWorkspaceNumbersParams, reqEditors ...RequestEditorFn) (*ListWorkspaceNumbersResponse, error)
+
+	// ListAvailableNumbersWithResponse request
+	ListAvailableNumbersWithResponse(ctx context.Context, params *ListAvailableNumbersParams, reqEditors ...RequestEditorFn) (*ListAvailableNumbersResponse, error)
+
+	// GetAvailableNumberWithResponse request
+	GetAvailableNumberWithResponse(ctx context.Context, number string, params *GetAvailableNumberParams, reqEditors ...RequestEditorFn) (*GetAvailableNumberResponse, error)
+
+	// ListNumbersOrdersWithResponse request
+	ListNumbersOrdersWithResponse(ctx context.Context, params *ListNumbersOrdersParams, reqEditors ...RequestEditorFn) (*ListNumbersOrdersResponse, error)
+
+	// CreateNumbersOrderWithBodyWithResponse request with any body
+	CreateNumbersOrderWithBodyWithResponse(ctx context.Context, params *CreateNumbersOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNumbersOrderResponse, error)
+
+	CreateNumbersOrderWithResponse(ctx context.Context, params *CreateNumbersOrderParams, body CreateNumbersOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNumbersOrderResponse, error)
+
+	// GetNumbersOrderWithResponse request
+	GetNumbersOrderWithResponse(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*GetNumbersOrderResponse, error)
+
+	// ReleaseWorkspaceNumberWithResponse request
+	ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error)
+
+	// GetWorkspaceNumberWithResponse request
+	GetWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*GetWorkspaceNumberResponse, error)
+
 	// PublishRealtimeAppBatchWithBodyWithResponse request with any body
 	PublishRealtimeAppBatchWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error)
 
@@ -32290,6 +33607,290 @@ func (r CreatePhoneNumberLookupResponse) ContentType() string {
 	return ""
 }
 
+type ListWorkspaceNumbersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *NumberList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspaceNumbersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspaceNumbersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspaceNumbersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAvailableNumbersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AvailableNumberList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAvailableNumbersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAvailableNumbersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAvailableNumbersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAvailableNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AvailableNumber
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAvailableNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAvailableNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAvailableNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListNumbersOrdersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *NumbersOrderList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListNumbersOrdersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListNumbersOrdersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListNumbersOrdersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateNumbersOrderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *NumbersOrder
+	JSON202      *NumbersOrder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateNumbersOrderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateNumbersOrderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateNumbersOrderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetNumbersOrderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *NumbersOrder
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetNumbersOrderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetNumbersOrderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetNumbersOrderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReleaseWorkspaceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ReleaseWorkspaceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReleaseWorkspaceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReleaseWorkspaceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWorkspaceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Number
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWorkspaceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWorkspaceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWorkspaceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type PublishRealtimeAppBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -33930,6 +35531,7 @@ type CreateWhatsAppMessageResponse struct {
 	JSON202      *WhatsAppMessage
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -34846,6 +36448,86 @@ func (c *ClientWithResponses) CreatePhoneNumberLookupWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseCreatePhoneNumberLookupResponse(rsp)
+}
+
+// ListWorkspaceNumbersWithResponse request returning *ListWorkspaceNumbersResponse
+func (c *ClientWithResponses) ListWorkspaceNumbersWithResponse(ctx context.Context, params *ListWorkspaceNumbersParams, reqEditors ...RequestEditorFn) (*ListWorkspaceNumbersResponse, error) {
+	rsp, err := c.ListWorkspaceNumbers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspaceNumbersResponse(rsp)
+}
+
+// ListAvailableNumbersWithResponse request returning *ListAvailableNumbersResponse
+func (c *ClientWithResponses) ListAvailableNumbersWithResponse(ctx context.Context, params *ListAvailableNumbersParams, reqEditors ...RequestEditorFn) (*ListAvailableNumbersResponse, error) {
+	rsp, err := c.ListAvailableNumbers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAvailableNumbersResponse(rsp)
+}
+
+// GetAvailableNumberWithResponse request returning *GetAvailableNumberResponse
+func (c *ClientWithResponses) GetAvailableNumberWithResponse(ctx context.Context, number string, params *GetAvailableNumberParams, reqEditors ...RequestEditorFn) (*GetAvailableNumberResponse, error) {
+	rsp, err := c.GetAvailableNumber(ctx, number, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAvailableNumberResponse(rsp)
+}
+
+// ListNumbersOrdersWithResponse request returning *ListNumbersOrdersResponse
+func (c *ClientWithResponses) ListNumbersOrdersWithResponse(ctx context.Context, params *ListNumbersOrdersParams, reqEditors ...RequestEditorFn) (*ListNumbersOrdersResponse, error) {
+	rsp, err := c.ListNumbersOrders(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListNumbersOrdersResponse(rsp)
+}
+
+// CreateNumbersOrderWithBodyWithResponse request with arbitrary body returning *CreateNumbersOrderResponse
+func (c *ClientWithResponses) CreateNumbersOrderWithBodyWithResponse(ctx context.Context, params *CreateNumbersOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNumbersOrderResponse, error) {
+	rsp, err := c.CreateNumbersOrderWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNumbersOrderResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateNumbersOrderWithResponse(ctx context.Context, params *CreateNumbersOrderParams, body CreateNumbersOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNumbersOrderResponse, error) {
+	rsp, err := c.CreateNumbersOrder(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNumbersOrderResponse(rsp)
+}
+
+// GetNumbersOrderWithResponse request returning *GetNumbersOrderResponse
+func (c *ClientWithResponses) GetNumbersOrderWithResponse(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*GetNumbersOrderResponse, error) {
+	rsp, err := c.GetNumbersOrder(ctx, orderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetNumbersOrderResponse(rsp)
+}
+
+// ReleaseWorkspaceNumberWithResponse request returning *ReleaseWorkspaceNumberResponse
+func (c *ClientWithResponses) ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error) {
+	rsp, err := c.ReleaseWorkspaceNumber(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReleaseWorkspaceNumberResponse(rsp)
+}
+
+// GetWorkspaceNumberWithResponse request returning *GetWorkspaceNumberResponse
+func (c *ClientWithResponses) GetWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*GetWorkspaceNumberResponse, error) {
+	rsp, err := c.GetWorkspaceNumber(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWorkspaceNumberResponse(rsp)
 }
 
 // PublishRealtimeAppBatchWithBodyWithResponse request with arbitrary body returning *PublishRealtimeAppBatchResponse
@@ -40398,6 +42080,522 @@ func ParseCreatePhoneNumberLookupResponse(rsp *http.Response) (*CreatePhoneNumbe
 	return response, nil
 }
 
+// ParseListWorkspaceNumbersResponse parses an HTTP response from a ListWorkspaceNumbersWithResponse call
+func ParseListWorkspaceNumbersResponse(rsp *http.Response) (*ListWorkspaceNumbersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspaceNumbersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NumberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAvailableNumbersResponse parses an HTTP response from a ListAvailableNumbersWithResponse call
+func ParseListAvailableNumbersResponse(rsp *http.Response) (*ListAvailableNumbersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAvailableNumbersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AvailableNumberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAvailableNumberResponse parses an HTTP response from a GetAvailableNumberWithResponse call
+func ParseGetAvailableNumberResponse(rsp *http.Response) (*GetAvailableNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAvailableNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AvailableNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListNumbersOrdersResponse parses an HTTP response from a ListNumbersOrdersWithResponse call
+func ParseListNumbersOrdersResponse(rsp *http.Response) (*ListNumbersOrdersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListNumbersOrdersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NumbersOrderList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateNumbersOrderResponse parses an HTTP response from a CreateNumbersOrderWithResponse call
+func ParseCreateNumbersOrderResponse(rsp *http.Response) (*CreateNumbersOrderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateNumbersOrderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest NumbersOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest NumbersOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetNumbersOrderResponse parses an HTTP response from a GetNumbersOrderWithResponse call
+func ParseGetNumbersOrderResponse(rsp *http.Response) (*GetNumbersOrderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetNumbersOrderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NumbersOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReleaseWorkspaceNumberResponse parses an HTTP response from a ReleaseWorkspaceNumberWithResponse call
+func ParseReleaseWorkspaceNumberResponse(rsp *http.Response) (*ReleaseWorkspaceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReleaseWorkspaceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWorkspaceNumberResponse parses an HTTP response from a GetWorkspaceNumberWithResponse call
+func ParseGetWorkspaceNumberResponse(rsp *http.Response) (*GetWorkspaceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWorkspaceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Number
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParsePublishRealtimeAppBatchResponse parses an HTTP response from a PublishRealtimeAppBatchWithResponse call
 func ParsePublishRealtimeAppBatchResponse(rsp *http.Response) (*PublishRealtimeAppBatchResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -43590,6 +45788,13 @@ func ParseCreateWhatsAppMessageResponse(rsp *http.Response) (*CreateWhatsAppMess
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden

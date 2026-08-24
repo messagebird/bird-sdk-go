@@ -83,6 +83,44 @@ const (
 	LookupPropertyStatusUnavailable  = oapi.LookupPropertyStatusUnavailable
 )
 
+// NumberCapability is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the NumberCapability* constants with a
+// default branch rather than treating the set as closed.
+type NumberCapability = oapi.NumberCapability
+
+const (
+	NumberCapabilityMms   = oapi.NumberCapabilityMms
+	NumberCapabilitySms   = oapi.NumberCapabilitySms
+	NumberCapabilityVoice = oapi.NumberCapabilityVoice
+)
+
+// NumberType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the NumberType* constants with a
+// default branch rather than treating the set as closed.
+type NumberType = oapi.NumberType
+
+const (
+	NumberTypeLocal         = oapi.NumberTypeLocal
+	NumberTypeMobile        = oapi.NumberTypeMobile
+	NumberTypeNational      = oapi.NumberTypeNational
+	NumberTypeShortCode     = oapi.NumberTypeShortCode
+	NumberTypeShortCodeFteu = oapi.NumberTypeShortCodeFteu
+	NumberTypeTollFree      = oapi.NumberTypeTollFree
+)
+
+// NumbersOrderStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the NumbersOrderStatus* constants with a
+// default branch rather than treating the set as closed.
+type NumbersOrderStatus = oapi.NumbersOrderStatus
+
+const (
+	NumbersOrderStatusCharging  = oapi.NumbersOrderStatusCharging
+	NumbersOrderStatusCompleted = oapi.NumbersOrderStatusCompleted
+	NumbersOrderStatusFailed    = oapi.NumbersOrderStatusFailed
+	NumbersOrderStatusOrdering  = oapi.NumbersOrderStatusOrdering
+	NumbersOrderStatusPending   = oapi.NumbersOrderStatusPending
+)
+
 // SMSErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSErrorCode* constants with a
 // default branch rather than treating the set as closed.
@@ -228,6 +266,7 @@ type WhatsAppErrorCode = oapi.WhatsAppErrorCode
 const (
 	WhatsAppErrorCodeInsufficientBalance  = oapi.WhatsAppErrorCodeInsufficientBalance
 	WhatsAppErrorCodeInternalError        = oapi.WhatsAppErrorCodeInternalError
+	WhatsAppErrorCodeMediaRejected        = oapi.WhatsAppErrorCodeMediaRejected
 	WhatsAppErrorCodePriceNotFound        = oapi.WhatsAppErrorCodePriceNotFound
 	WhatsAppErrorCodeRateLimited          = oapi.WhatsAppErrorCodeRateLimited
 	WhatsAppErrorCodeRecipientSuppressed  = oapi.WhatsAppErrorCodeRecipientSuppressed

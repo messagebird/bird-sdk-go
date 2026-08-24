@@ -238,6 +238,16 @@ type (
 type (
 	Domain             = oapi.Domain
 	DomainList         = oapi.DomainList
+
+	// Number is a number the workspace holds; NumberList is a page of them.
+	// AvailableNumber is one on sale and AvailableNumberList a page of those.
+	// NumbersOrder is a purchase and NumbersOrderList a page of purchases.
+	Number              = oapi.Number
+	NumberList          = oapi.NumberList
+	AvailableNumber     = oapi.AvailableNumber
+	AvailableNumberList = oapi.AvailableNumberList
+	NumbersOrder        = oapi.NumbersOrder
+	NumbersOrderList    = oapi.NumbersOrderList
 	DNSRecord          = oapi.DNSRecord
 	DomainDKIM         = oapi.DomainDKIM
 	DomainCapabilities = oapi.DomainCapabilities

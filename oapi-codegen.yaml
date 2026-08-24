@@ -81,6 +81,14 @@ output-options:
     - createVerificationNextChannel
     - createPhoneNumberLookup
     - createEmailLookup
+    - listWorkspaceNumbers
+    - getWorkspaceNumber
+    - releaseWorkspaceNumber
+    - listAvailableNumbers
+    - getAvailableNumber
+    - createNumbersOrder
+    - listNumbersOrders
+    - getNumbersOrder
     - listDomains
     - getDomain
     - createDomain

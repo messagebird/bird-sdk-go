@@ -405,9 +405,15 @@ func ExampleWhatsappService_Send() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	code := "123456"
 	msg, err := client.Whatsapp.Send(context.Background(), bird.WhatsappSendParams{
 		To:       "+15551234567",
 		Template: "bird_otp",
+		Language: "en",
+		Components: []bird.WhatsAppMessageTemplateComponent{{
+			Type:       "body",
+			Parameters: &[]bird.WhatsAppMessageTemplateComponentParameter{{Type: "text", Text: &code}},
+		}},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -2105,6 +2111,129 @@ func ExampleSmsKeywordRulesService_Delete() {
 		log.Fatal(err)
 	}
 	if err := client.SmsKeywordRules.Delete(context.Background(), "skr_01j9x2k3m4n5p6q7r8s9t0v1w2"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// AvailableList finds numbers on sale in one country. The search is always
+// country-scoped, so CountryCode is required.
+func ExampleNumbersAvailableService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for candidate, err := range client.Numbers.Available.List(context.Background(), bird.NumbersAvailableListParams{
+		CountryCode:  "GB",
+		Capabilities: []string{"sms", "voice"},
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(candidate.Number, candidate.NumberType)
+	}
+}
+
+// Get checks one number is still for sale. A number a carrier supplies is only
+// on sale while the carrier still has it, so a 404 means someone else took it.
+func ExampleNumbersAvailableService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	candidate, err := client.Numbers.Available.Get(context.Background(), "+447700900201")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(candidate.CountryCode)
+}
+
+// Create buys a number. Most orders finish inside the request.
+func ExampleNumbersOrdersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	order, err := client.Numbers.Orders.Create(context.Background(), bird.NumbersOrdersCreateParams{
+		Number: "+447700900201",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// An order that has to wait on a carrier comes back without a NumberId.
+	// Poll it until it is completed or failed.
+	fmt.Println(order.Status, order.Id)
+}
+
+// Get polls an order that did not finish inline.
+func ExampleNumbersOrdersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	order, err := client.Numbers.Orders.Get(context.Background(), "nor_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// FailureReason says what went wrong, and only ever on a failed order.
+	fmt.Println(order.Status)
+}
+
+// List finds the purchases that did not complete.
+func ExampleNumbersOrdersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for order, err := range client.Numbers.Orders.List(context.Background(), bird.NumbersOrdersListParams{
+		Status: "failed",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(order.Number)
+	}
+}
+
+// List walks the numbers allocated to the workspace.
+func ExampleNumbersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for allocated, err := range client.Numbers.List(context.Background(), bird.NumbersListParams{
+		CountryCode: "GB",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		// Kind tells a number you bought from one Bird manages for several workspaces.
+		fmt.Println(allocated.Number, allocated.Kind, allocated.Status)
+	}
+}
+
+// Get reads one number allocated to the workspace.
+func ExampleNumbersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	allocated, err := client.Numbers.Get(context.Background(), "nda_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A country that asks for ownership paperwork answers on Ownership; most
+	// answer nil.
+	fmt.Println(allocated.Status)
+}
+
+// Release gives a dedicated number back, stopping its monthly charge.
+func ExampleNumbersService_Release() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Only a dedicated number can be released; a shared one answers E14002.
+	if err := client.Numbers.Release(context.Background(), "nda_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.34.0
+
+- Email click events now carry `link_name`, the name of the clicked link when the message named it.
+- Numbers are now available on the public API. Search a country's available numbers, order one, list and read the numbers your workspace holds, and release a dedicated number you no longer want.
+- **Breaking:** a voice call's `cost` is its own call-cost type rather than the shared money type, so a caller that names the money type for that field changes it to the call-cost type — reading `cost.amount` and `cost.currency_code` needs no change. The money type is gone from the package, having been reachable only through that field.
+- A voice call's `cost` gains `outbound_amount`, `inbound_amount` and `call_handling_amount`, naming the components behind the total so a call charged for more than one thing can report which amount is which. Each reads `null` until that component is priced. Every amount on a voice call's cost now renders at six decimal places, the scale the reference documents.
+- A WhatsApp message that failed because WhatsApp could not fetch the media URL, or refused the file it found there, now reports `media_rejected` on `last_error.code` instead of `undeliverable`, with WhatsApp's own reason in `last_error.description`.
+- Email events now report the recipient's mailbox provider and provider region (for example `gmail`, `NA`), when the receiving mail system could be classified.
+- A sending domain's inbound MX records now report `optional` as `true` until you enable receiving on that domain, so the records you must publish to send are no longer listed alongside ones that would reroute the domain's existing mail.
+- The numbers reference and examples describe a number as allocated to a workspace, the same word the API reference and the dashboard use.
+- The numbers methods document what each one does to a carrier and to your balance — that a search can go stale before an order lands, that an order may settle after the call returns, and that a release is irreversible.
+- A paid property's `status` now documents `inconclusive` as what it is: an answer arrived that does not resolve the property, either because the number is outside the coverage of the data behind it or because the source returned a value the property does not report. It previously read as though such a value was awaiting a fix rather than being a real answer. Only `ok` ever carries a value, and only `ok` is billed.
+- The WhatsApp send examples now fill the template body placeholder that bird_otp declares, so the example they show is one the API accepts rather than a 422 WhatsAppTemplateParameterMismatch.
+- A voice call's `actor.type` can be `service_account`, meaning the call was placed by an integration acting for the workspace rather than by a user or an API key. Documented on the actor's `id` and `type`, and on the call's own `actor` field, which previously described only users and API keys.
+- A voice call's `status` now says what `rejected` and `failed` each mean: `rejected` is a call refused rather than attempted, and `failed` is one that was attempted and did not work, with `sip_response_code` carrying what came back. `busy` and `canceled` are reserved for incoming calls and are not emitted yet, so both arrive as `failed`.
+- Sending a WhatsApp message from a number whose setup has not finished now returns a `422` `WhatsAppSenderNotConnected`, rather than an unknown-number error or an accepted send that later fails.
+
 ## 0.33.0
 
 - Add bird.Sms.Stats and bird.SmsSuppressions: SMS statistics (outbound, inbound breakdowns) and the suppression list, plus Sms.ListEvents for a message's timeline.

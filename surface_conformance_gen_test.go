@@ -81,6 +81,14 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Verify.Verifications.NextChannel
 	_ = c.Lookup.PhoneNumber
 	_ = c.Lookup.Email
+	_ = c.Numbers.List
+	_ = c.Numbers.Get
+	_ = c.Numbers.Release
+	_ = c.Numbers.Available.List
+	_ = c.Numbers.Available.Get
+	_ = c.Numbers.Orders.Create
+	_ = c.Numbers.Orders.List
+	_ = c.Numbers.Orders.Get
 	_ = c.Domains.List
 	_ = c.Domains.Get
 	_ = c.Domains.Create

@@ -27,29 +27,21 @@ type EmailMailboxesMessagesCreateParams struct {
 	Metadata map[string]any
 }
 
-func parseAddresses(addrs []string) []oapi.EmailAddressInput {
-	out := make([]oapi.EmailAddressInput, len(addrs))
-	for i, a := range addrs {
-		_ = out[i].FromEmailAddressInput0(a)
-	}
-	return out
-}
-
 func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeRequest {
 	body := oapi.EmailMailboxComposeRequest{
 		Subject: p.Subject,
-		To:      parseAddresses(p.To),
+		To:      addressInputs(p.To),
 	}
 	if len(p.CC) > 0 {
-		cc := parseAddresses(p.CC)
+		cc := addressInputs(p.CC)
 		body.Cc = &cc
 	}
 	if len(p.BCC) > 0 {
-		bcc := parseAddresses(p.BCC)
+		bcc := addressInputs(p.BCC)
 		body.Bcc = &bcc
 	}
 	if len(p.ReplyTo) > 0 {
-		rt := parseAddresses(p.ReplyTo)
+		rt := addressInputs(p.ReplyTo)
 		body.ReplyTo = &rt
 	}
 	if p.HTML != "" {
@@ -81,9 +73,8 @@ func (p EmailMailboxesMessagesCreateParams) toWire() oapi.EmailMailboxComposeReq
 // is rejected for one it does not accept.
 func applyComposeDefaults(wire *oapi.EmailMailboxComposeRequest, d requestconfig.EmailDefaults) {
 	if wire.ReplyTo == nil && len(d.ReplyTo) > 0 {
-		if replyTo, err := parseAddressInputs(d.ReplyTo); err == nil {
-			wire.ReplyTo = &replyTo
-		}
+		replyTo := addressInputs(d.ReplyTo)
+		wire.ReplyTo = &replyTo
 	}
 	if wire.Category == nil && d.Category != "" {
 		category := oapi.EmailMessageCategory(d.Category)

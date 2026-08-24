@@ -72,22 +72,14 @@ type EmailSendParams struct {
 	ScheduledAt time.Time
 }
 
-func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
+func (p EmailSendParams) toWire() oapi.EmailMessageSendRequest {
 	var from oapi.EmailAddressInput
 	if p.From != "" {
-		var err error
-		from, err = parseAddressInput(p.From)
-		if err != nil {
-			return oapi.EmailMessageSendRequest{}, fmt.Errorf("bird: invalid from address %q: %w", p.From, err)
-		}
-	}
-	to, err := parseAddressInputs(p.To)
-	if err != nil {
-		return oapi.EmailMessageSendRequest{}, fmt.Errorf("bird: invalid to address: %w", err)
+		from = addressInput(p.From)
 	}
 	body := oapi.EmailMessageSendRequest{
 		From: from,
-		To:   to,
+		To:   addressInputs(p.To),
 	}
 	// Subject is optional on the wire (a template supplies it); omit it when
 	// empty so a send-by-template doesn't trip subject/template exclusivity.
@@ -96,24 +88,15 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 		body.Subject = &subject
 	}
 	if len(p.Cc) > 0 {
-		cc, err := parseAddressInputs(p.Cc)
-		if err != nil {
-			return body, fmt.Errorf("bird: invalid cc address: %w", err)
-		}
+		cc := addressInputs(p.Cc)
 		body.Cc = &cc
 	}
 	if len(p.Bcc) > 0 {
-		bcc, err := parseAddressInputs(p.Bcc)
-		if err != nil {
-			return body, fmt.Errorf("bird: invalid bcc address: %w", err)
-		}
+		bcc := addressInputs(p.Bcc)
 		body.Bcc = &bcc
 	}
 	if len(p.ReplyTo) > 0 {
-		replyTo, err := parseAddressInputs(p.ReplyTo)
-		if err != nil {
-			return body, fmt.Errorf("bird: invalid reply_to address: %w", err)
-		}
+		replyTo := addressInputs(p.ReplyTo)
 		body.ReplyTo = &replyTo
 	}
 	if p.HTML != "" {
@@ -184,7 +167,7 @@ func (p EmailSendParams) toWire() (oapi.EmailMessageSendRequest, error) {
 	}
 	body.TrackOpens = p.TrackOpens
 	body.TrackClicks = p.TrackClicks
-	return body, nil
+	return body
 }
 
 // Send delivers an email and returns the created message. Sends are retried
@@ -195,10 +178,7 @@ func (s *EmailService) Send(ctx context.Context, params EmailSendParams, opts ..
 	if err != nil {
 		return nil, err
 	}
-	wire, err := params.toWire()
-	if err != nil {
-		return nil, err
-	}
+	wire := params.toWire()
 	applyEmailDefaults(&wire, cfg.EmailDefaults)
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
 		params := &oapi.CreateEmailMessageParams{}
@@ -224,16 +204,12 @@ type EmailSendBatchParams struct {
 	Messages []EmailSendParams
 }
 
-func (p EmailSendBatchParams) toWire() (oapi.EmailMessageBatchRequest, error) {
+func (p EmailSendBatchParams) toWire() oapi.EmailMessageBatchRequest {
 	wire := make(oapi.EmailMessageBatchRequest, len(p.Messages))
 	for i, m := range p.Messages {
-		item, err := m.toWire()
-		if err != nil {
-			return nil, fmt.Errorf("bird: batch message %d: %w", i, err)
-		}
-		wire[i] = item
+		wire[i] = m.toWire()
 	}
-	return wire, nil
+	return wire
 }
 
 // SendBatch queues multiple emails in one request and returns one result item
@@ -246,10 +222,7 @@ func (s *EmailService) SendBatch(ctx context.Context, params EmailSendBatchParam
 	if err != nil {
 		return nil, err
 	}
-	wire, err := params.toWire()
-	if err != nil {
-		return nil, err
-	}
+	wire := params.toWire()
 	for i := range wire {
 		applyEmailDefaults(&wire[i], cfg.EmailDefaults)
 	}
@@ -274,16 +247,11 @@ func (s *EmailService) SendBatch(ctx context.Context, params EmailSendBatchParam
 // wire body) from the configured defaults. The per-send value always wins.
 func applyEmailDefaults(wire *oapi.EmailMessageSendRequest, d requestconfig.EmailDefaults) {
 	if isZeroAddressInput(wire.From) && d.From != "" {
-		// Best-effort: malformed defaults are silently dropped rather than
-		// failing here — Send already validated the per-send From above.
-		if from, err := parseAddressInput(d.From); err == nil {
-			wire.From = from
-		}
+		wire.From = addressInput(d.From)
 	}
 	if wire.ReplyTo == nil && len(d.ReplyTo) > 0 {
-		if replyTo, err := parseAddressInputs(d.ReplyTo); err == nil {
-			wire.ReplyTo = &replyTo
-		}
+		replyTo := addressInputs(d.ReplyTo)
+		wire.ReplyTo = &replyTo
 	}
 	if wire.Category == nil && d.Category != "" {
 		category := oapi.EmailMessageCategory(d.Category)
@@ -313,26 +281,29 @@ func applyEmailDefaults(wire *oapi.EmailMessageSendRequest, d requestconfig.Emai
 	}
 }
 
-// parseAddressInput wraps an address string in the wire union's string arm
-// verbatim — no client-side parsing. The wire's string form accepts both a plain
-// address and an RFC 5322 mailbox with a display name ("Jane <jane@x.com>"), so
-// the server parses; the SDK passes the string straight through.
-func parseAddressInput(s string) (oapi.EmailAddressInput, error) {
+// addressInput wraps an address string in the wire union's string arm verbatim —
+// no client-side parsing. The wire's string form accepts both a plain address and
+// an RFC 5322 mailbox with a display name ("Jane <jane@x.com>"), so the server
+// parses; the SDK passes the string straight through.
+//
+// Non-fallible, and that is a property of the generated union rather than an
+// assumption about today's data: EmailAddressInput0 is an alias for string, and the
+// setter's only failure path is json.Marshal of that string, which cannot fail.
+// Returning an error let three call sites describe the same unreachable failure
+// three different ways — propagated, dropped, and ignored.
+func addressInput(s string) oapi.EmailAddressInput {
 	var inp oapi.EmailAddressInput
-	err := inp.FromEmailAddressInput0(s)
-	return inp, err
+	// Unreachable by construction; see above. Validation is the server's.
+	_ = inp.FromEmailAddressInput0(s)
+	return inp
 }
 
-func parseAddressInputs(addresses []string) ([]oapi.EmailAddressInput, error) {
+func addressInputs(addresses []string) []oapi.EmailAddressInput {
 	out := make([]oapi.EmailAddressInput, len(addresses))
 	for i, a := range addresses {
-		inp, err := parseAddressInput(a)
-		if err != nil {
-			return nil, fmt.Errorf("%q: %w", a, err)
-		}
-		out[i] = inp
+		out[i] = addressInput(a)
 	}
-	return out, nil
+	return out
 }
 
 // isZeroAddressInput reports whether an EmailAddressInput is at its zero value
