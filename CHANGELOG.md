@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.36.1
+
+- A voice call's `actor` now documents the values its `type` can take: `user`, `oauth_token`, `api_key`, `system`, `sso`, and `service_account`. The enum stays open, so treat an unrecognized value as a newer type rather than an error.
+
 ## 0.36.0
 
 - Add the `verify.verification.failed` webhook event, which fires when no planned channel could deliver a verification's passcode, plus the `undeliverable` session reason and the `not_billable` attempt reason that say why it could not.

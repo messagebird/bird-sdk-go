@@ -4440,6 +4440,18 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 // APIKeyID defines model for APIKeyID.
 type APIKeyID = string
 
+// Actor defines model for Actor.
+type Actor struct {
+	// DisplayName The label the actor is shown under: typically a member's name or email address, or the API key's name. Null when it could not be resolved.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Id Actor identifier.
+	Id string `json:"id"`
+
+	// Type Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
+	Type string `json:"type"`
+}
+
 // AllocatedNumberID Identifier of a number allocated to your workspace, as returned in the id field of `GET /v1/numbers`.
 type AllocatedNumberID = string
 
@@ -4547,18 +4559,6 @@ type AudienceUpdateRequest struct {
 
 	// Name New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
 	Name *string `json:"name,omitempty"`
-}
-
-// AuditLogActor defines model for AuditLogActor.
-type AuditLogActor struct {
-	// DisplayName Display name of the actor. This is the user's email address for a `user` actor, or the name of the API key or integration that acted. Absent when it could not be resolved.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// Id ID of the user, API key, integration, or system process that performed the action.
-	Id string `json:"id"`
-
-	// Type Type of actor, such as `user`, `api_key`, `service_account`, or `system`.
-	Type string `json:"type"`
 }
 
 // AvailableNumber defines model for AvailableNumber.
@@ -11933,7 +11933,7 @@ type VerifyVerificationFailedEventType string
 // VoiceCall defines model for VoiceCall.
 type VoiceCall struct {
 	// Actor Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
-	Actor *AuditLogActor `json:"actor,omitempty"`
+	Actor *Actor `json:"actor,omitempty"`
 
 	// AnsweredAt When the call was answered (`200` OK received). `null` for unanswered calls.
 	AnsweredAt *time.Time `json:"answered_at,omitempty"`
