@@ -232,6 +232,7 @@ const (
 	VerificationAttemptFailureReasonChannelUnavailable = oapi.VerificationAttemptFailureReasonChannelUnavailable
 	VerificationAttemptFailureReasonDeliveryTimeout    = oapi.VerificationAttemptFailureReasonDeliveryTimeout
 	VerificationAttemptFailureReasonHardBounce         = oapi.VerificationAttemptFailureReasonHardBounce
+	VerificationAttemptFailureReasonNotBillable        = oapi.VerificationAttemptFailureReasonNotBillable
 	VerificationAttemptFailureReasonSoftBounce         = oapi.VerificationAttemptFailureReasonSoftBounce
 	VerificationAttemptFailureReasonUndelivered        = oapi.VerificationAttemptFailureReasonUndelivered
 )
@@ -256,6 +257,7 @@ type VerificationTerminalReason = oapi.VerificationTerminalReason
 const (
 	VerificationTerminalReasonAttemptsExhausted = oapi.VerificationTerminalReasonAttemptsExhausted
 	VerificationTerminalReasonTtlElapsed        = oapi.VerificationTerminalReasonTtlElapsed
+	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
 )
 
 // WhatsAppErrorCode is an open string on the wire: a value added by a newer server

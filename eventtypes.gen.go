@@ -46,6 +46,7 @@ const (
 	EventTypeVerifyAttemptSent            = oapi.EventTypeVerifyAttemptSent
 	EventTypeVerifyAttemptUndelivered     = oapi.EventTypeVerifyAttemptUndelivered
 	EventTypeVerifyVerificationCreated    = oapi.EventTypeVerifyVerificationCreated
+	EventTypeVerifyVerificationFailed     = oapi.EventTypeVerifyVerificationFailed
 	EventTypeVerifyVerificationVerified   = oapi.EventTypeVerifyVerificationVerified
 	EventTypeVoiceCallAnswered            = oapi.EventTypeVoiceCallAnswered
 	EventTypeVoiceCallEnded               = oapi.EventTypeVoiceCallEnded

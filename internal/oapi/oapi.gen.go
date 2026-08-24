@@ -3514,6 +3514,7 @@ const (
 	VerificationAttemptFailureReasonChannelUnavailable VerificationAttemptFailureReason = "channel_unavailable"
 	VerificationAttemptFailureReasonDeliveryTimeout    VerificationAttemptFailureReason = "delivery_timeout"
 	VerificationAttemptFailureReasonHardBounce         VerificationAttemptFailureReason = "hard_bounce"
+	VerificationAttemptFailureReasonNotBillable        VerificationAttemptFailureReason = "not_billable"
 	VerificationAttemptFailureReasonSoftBounce         VerificationAttemptFailureReason = "soft_bounce"
 	VerificationAttemptFailureReasonUndelivered        VerificationAttemptFailureReason = "undelivered"
 )
@@ -3530,6 +3531,8 @@ func (e VerificationAttemptFailureReason) Valid() bool {
 	case VerificationAttemptFailureReasonDeliveryTimeout:
 		return true
 	case VerificationAttemptFailureReasonHardBounce:
+		return true
+	case VerificationAttemptFailureReasonNotBillable:
 		return true
 	case VerificationAttemptFailureReasonSoftBounce:
 		return true
@@ -3568,6 +3571,7 @@ func (e VerificationChannel) Valid() bool {
 const (
 	VerificationTerminalReasonAttemptsExhausted VerificationTerminalReason = "attempts_exhausted"
 	VerificationTerminalReasonTtlElapsed        VerificationTerminalReason = "ttl_elapsed"
+	VerificationTerminalReasonUndeliverable     VerificationTerminalReason = "undeliverable"
 )
 
 // Valid indicates whether the value is a known member of the VerificationTerminalReason enum.
@@ -3576,6 +3580,23 @@ func (e VerificationTerminalReason) Valid() bool {
 	case VerificationTerminalReasonAttemptsExhausted:
 		return true
 	case VerificationTerminalReasonTtlElapsed:
+		return true
+	case VerificationTerminalReasonUndeliverable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VerifyVerificationFailedEventType.
+const (
+	VerifyVerificationFailed VerifyVerificationFailedEventType = "verify.verification.failed"
+)
+
+// Valid indicates whether the value is a known member of the VerifyVerificationFailedEventType enum.
+func (e VerifyVerificationFailedEventType) Valid() bool {
+	switch e {
+	case VerifyVerificationFailed:
 		return true
 	default:
 		return false
@@ -3803,6 +3824,7 @@ const (
 	EventTypeVerifyAttemptSent            WebhookEventType = "verify.attempt.sent"
 	EventTypeVerifyAttemptUndelivered     WebhookEventType = "verify.attempt.undelivered"
 	EventTypeVerifyVerificationCreated    WebhookEventType = "verify.verification.created"
+	EventTypeVerifyVerificationFailed     WebhookEventType = "verify.verification.failed"
 	EventTypeVerifyVerificationVerified   WebhookEventType = "verify.verification.verified"
 	EventTypeVoiceCallAnswered            WebhookEventType = "voice_call.answered"
 	EventTypeVoiceCallEnded               WebhookEventType = "voice_call.ended"
@@ -3890,6 +3912,8 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeVerifyAttemptUndelivered:
 		return true
 	case EventTypeVerifyVerificationCreated:
+		return true
+	case EventTypeVerifyVerificationFailed:
 		return true
 	case EventTypeVerifyVerificationVerified:
 		return true
@@ -5715,6 +5739,11 @@ type EmailEventList struct {
 	// Data Page of timeline events for this email send, in chronological order.
 	Data []EmailEvent `json:"data"`
 
+	// Next What to do next, given what this page reports. Present only where the read computes it: an
+	// empty list means the answer you were looking for is here and there is nothing further to
+	// do. Absent entirely on reads that do not report next actions.
+	Next *[]NextAction `json:"next,omitempty"`
+
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
 
@@ -6419,6 +6448,11 @@ type EmailRecipientDomainStatsPoint struct {
 type EmailRecipientList struct {
 	// Data Page of recipient objects for this email send.
 	Data []EmailRecipient `json:"data"`
+
+	// Next What to do next, given what this page reports. Present only where the read computes it: an
+	// empty list means the answer you were looking for is here and there is nothing further to
+	// do. Absent entirely on reads that do not report next actions.
+	Next *[]NextAction `json:"next,omitempty"`
 
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
 	NextCursor *string `json:"next_cursor"`
@@ -8611,6 +8645,9 @@ type EventVerifyAttemptUndeliveredData struct {
 	//   verification moved to the next channel.
 	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
 	//   timeout, so the verification moved to the next channel.
+	// - `not_billable`: The send could not be charged, so it was never handed to the
+	//   channel. Usually the workspace balance is too low to cover it. Topping up
+	//   the balance is what clears this.
 	//
 	// New reasons may be added over time. Treat unrecognized values as reasons added
 	// later rather than errors.
@@ -8660,6 +8697,61 @@ type EventVerifyVerificationCreatedData struct {
 	Metadata *map[string]interface{} `json:"metadata"`
 
 	// Status The verification's state at creation, always `pending`. Open enum for forward compatibility.
+	Status string `json:"status"`
+
+	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
+	To             VerificationTo `json:"to"`
+	VerificationId VerificationID `json:"verification_id"`
+	WorkspaceId    WorkspaceID    `json:"workspace_id"`
+}
+
+// EventVerifyVerificationFailed The verification ended without the recipient receiving a passcode: every planned channel reported that its send would not arrive.
+type EventVerifyVerificationFailed struct {
+	// Data Payload of the verify.verification.failed event.
+	Data EventVerifyVerificationFailedData `json:"data"`
+
+	// Timestamp Time the verification was resolved.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `verify.verification.failed` for this event.
+	Type VerifyVerificationFailedEventType `json:"type"`
+}
+
+// EventVerifyVerificationFailedData defines model for EventVerifyVerificationFailedData.
+type EventVerifyVerificationFailedData struct {
+	// Channel The last channel the verification tried, the one whose failure left it with nowhere else to go. Null when no channel was attributed.
+	Channel *VerificationChannel `json:"channel"`
+
+	// FailedAt Time the verification was resolved.
+	FailedAt time.Time `json:"failed_at"`
+
+	// LastAttemptReason Why a passcode send did not deliver:
+	//
+	// - `carrier_rejected`: The SMS carrier rejected the send.
+	// - `hard_bounce`: The email permanently bounced.
+	// - `soft_bounce`: The email temporarily bounced, such as when a mailbox is full.
+	// - `undelivered`: The channel reported a generic delivery failure.
+	// - `channel_unavailable`: The channel could not be used, so the verification
+	//   moved to the next channel.
+	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
+	//   verification moved to the next channel.
+	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
+	//   timeout, so the verification moved to the next channel.
+	// - `not_billable`: The send could not be charged, so it was never handed to the
+	//   channel. Usually the workspace balance is too low to cover it. Topping up
+	//   the balance is what clears this.
+	//
+	// New reasons may be added over time. Treat unrecognized values as reasons added
+	// later rather than errors.
+	LastAttemptReason VerificationAttemptFailureReason `json:"last_attempt_reason"`
+
+	// Metadata The metadata object provided when the verification was created, echoed on every event for the session so you can correlate events with your own records. Null when the verification carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Reason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes), `ttl_elapsed` (the time window elapsed before a correct passcode), or `undeliverable` (no planned channel could deliver a passcode, so the recipient never had one to submit). Open enum: new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
+	Reason VerificationTerminalReason `json:"reason"`
+
+	// Status The verification's state, always `failed`. Open enum for forward compatibility.
 	Status string `json:"status"`
 
 	// To The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -11707,7 +11799,9 @@ type Verification struct {
 	//
 	// - `pending`: Awaiting a correct passcode.
 	// - `verified`: A correct passcode was submitted.
-	// - `failed`: Too many incorrect attempts were submitted.
+	// - `failed`: The verification cannot be completed. Either too many
+	//   incorrect passcodes were submitted, or no planned channel could
+	//   deliver one. Read `reason` to tell those apart.
 	// - `expired`: The validity window elapsed before a correct passcode.
 	// - `canceled`: The verification was canceled before completion.
 	// - `blocked`: A fraud or abuse control stopped the verification.
@@ -11723,12 +11817,14 @@ type Verification struct {
 
 // VerificationStatus The verification's current state:
 //
-// - `pending`: Awaiting a correct passcode.
-// - `verified`: A correct passcode was submitted.
-// - `failed`: Too many incorrect attempts were submitted.
-// - `expired`: The validity window elapsed before a correct passcode.
-// - `canceled`: The verification was canceled before completion.
-// - `blocked`: A fraud or abuse control stopped the verification.
+//   - `pending`: Awaiting a correct passcode.
+//   - `verified`: A correct passcode was submitted.
+//   - `failed`: The verification cannot be completed. Either too many
+//     incorrect passcodes were submitted, or no planned channel could
+//     deliver one. Read `reason` to tell those apart.
+//   - `expired`: The validity window elapsed before a correct passcode.
+//   - `canceled`: The verification was canceled before completion.
+//   - `blocked`: A fraud or abuse control stopped the verification.
 type VerificationStatus string
 
 // VerificationAttemptFailureReason Why a passcode send did not deliver:
@@ -11743,6 +11839,9 @@ type VerificationStatus string
 //     verification moved to the next channel.
 //   - `delivery_timeout`: No delivery confirmation arrived before the channel's
 //     timeout, so the verification moved to the next channel.
+//   - `not_billable`: The send could not be charged, so it was never handed to the
+//     channel. Usually the workspace balance is too low to cover it. Topping up
+//     the balance is what clears this.
 //
 // New reasons may be added over time. Treat unrecognized values as reasons added
 // later rather than errors.
@@ -11816,7 +11915,7 @@ type VerificationOptions struct {
 	CodeLength *int `json:"code_length,omitempty"`
 }
 
-// VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes) or `ttl_elapsed` (the time window elapsed before a correct passcode). Open enum: new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
+// VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes), `ttl_elapsed` (the time window elapsed before a correct passcode), or `undeliverable` (no planned channel could deliver a passcode, so the recipient never had one to submit). Open enum: new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.
 type VerificationTerminalReason string
 
 // VerificationTo The recipient to verify. Provide an `email`, a `phone_number`, or both; at least one is required. The addresses also identify the verification: a check must supply exactly the set used on the create call, so a verification created with both addresses is not found by either one alone.
@@ -11827,6 +11926,9 @@ type VerificationTo struct {
 	// PhoneNumber The recipient's phone number in E.164 format, with the leading `+` and country code (for example `+15551234567`). A number in any other format is rejected as an invalid recipient (`422`).
 	PhoneNumber *string `json:"phone_number,omitempty"`
 }
+
+// VerifyVerificationFailedEventType Always `verify.verification.failed` for this event.
+type VerifyVerificationFailedEventType string
 
 // VoiceCall defines model for VoiceCall.
 type VoiceCall struct {
@@ -16845,6 +16947,34 @@ func (t *WebhookEvent) MergeEventVerifyVerificationCreated(v EventVerifyVerifica
 	return err
 }
 
+// AsEventVerifyVerificationFailed returns the union data inside the WebhookEvent as a EventVerifyVerificationFailed
+func (t WebhookEvent) AsEventVerifyVerificationFailed() (EventVerifyVerificationFailed, error) {
+	var body EventVerifyVerificationFailed
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventVerifyVerificationFailed overwrites any union data inside the WebhookEvent as the provided EventVerifyVerificationFailed
+func (t *WebhookEvent) FromEventVerifyVerificationFailed(v EventVerifyVerificationFailed) error {
+	v.Type = "verify.verification.failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventVerifyVerificationFailed performs a merge with any union data inside the WebhookEvent, using the provided EventVerifyVerificationFailed
+func (t *WebhookEvent) MergeEventVerifyVerificationFailed(v EventVerifyVerificationFailed) error {
+	v.Type = "verify.verification.failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventVerifyVerificationVerified returns the union data inside the WebhookEvent as a EventVerifyVerificationVerified
 func (t WebhookEvent) AsEventVerifyVerificationVerified() (EventVerifyVerificationVerified, error) {
 	var body EventVerifyVerificationVerified
@@ -17239,6 +17369,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventVerifyAttemptUndelivered()
 	case "verify.verification.created":
 		return t.AsEventVerifyVerificationCreated()
+	case "verify.verification.failed":
+		return t.AsEventVerifyVerificationFailed()
 	case "verify.verification.verified":
 		return t.AsEventVerifyVerificationVerified()
 	case "voice_call.answered":
@@ -35313,6 +35445,7 @@ type CreateVerificationResponse struct {
 	JSON200      *Verification
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -35388,6 +35521,7 @@ type CreateVerificationNextChannelResponse struct {
 	JSON200      *Verification
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON422      *Unprocessable
@@ -45367,6 +45501,13 @@ func ParseCreateVerificationResponse(rsp *http.Response) (*CreateVerificationRes
 		}
 		response.JSON401 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -45523,6 +45664,13 @@ func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVeri
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden
