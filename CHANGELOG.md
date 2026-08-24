@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.35.0
+
+- Email broadcasts report `started_at` and `canceled_at`: when sending began, and when cancellation was requested.
+
 ## 0.34.0
 
 - Email click events now carry `link_name`, the name of the clicked link when the message named it.
