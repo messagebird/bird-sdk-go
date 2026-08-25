@@ -45,8 +45,12 @@ type EmailSendParams struct {
 	Metadata    map[string]any    // arbitrary JSON, echoed on reads and in webhook payloads
 	Headers     map[string]string // custom email headers
 	Attachments []EmailAttachment // file attachments
-	Category    Category          // transactional (default) or marketing
-	IpPoolId    string            // IP pool ID (ipp_…); workspace default when empty
+	// Category sets suppression policy. Unset sends as marketing, which every
+	// suppression reason holds back; transactional delivers through complaint and
+	// unsubscribe suppressions, so operational mail (password resets, receipts) has
+	// to say so. A Template send with no Category takes the template's own.
+	Category Category
+	IpPoolId string // IP pool ID (ipp_…); workspace default when empty
 	// TrackOpens and TrackClicks are pointers because the server default is
 	// true — a nil leaves the default, false explicitly disables tracking.
 	TrackOpens  *bool

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.36.2
+
+- `EmailSendParams.Category` now documents the real default: a send that leaves it unset is `marketing`, which every suppression reason holds back, so operational mail (password resets, receipts) has to set `transactional` to deliver through complaint and unsubscribe suppressions. Sends written against the previously documented `transactional` default are worth re-checking.
+
 ## 0.36.1
 
 - A voice call's `actor` now documents the values its `type` can take: `user`, `oauth_token`, `api_key`, `system`, `sso`, and `service_account`. The enum stays open, so treat an unrecognized value as a newer type rather than an error.
