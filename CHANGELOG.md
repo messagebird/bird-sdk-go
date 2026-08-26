@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.39.0
+
+- Add the `info` SMS keyword operation, and the previously undocumented `confirm`, to the SMSKeywordOperation open enum.
+
 ## 0.38.0
 
 - Add the `sms_suppression.created` webhook event type.

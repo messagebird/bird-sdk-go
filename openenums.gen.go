@@ -146,10 +146,12 @@ const (
 type SMSKeywordOperation = oapi.SMSKeywordOperation
 
 const (
-	SMSKeywordOperationCustom = oapi.SMSKeywordOperationCustom
-	SMSKeywordOperationHelp   = oapi.SMSKeywordOperationHelp
-	SMSKeywordOperationStart  = oapi.SMSKeywordOperationStart
-	SMSKeywordOperationStop   = oapi.SMSKeywordOperationStop
+	SMSKeywordOperationConfirm = oapi.SMSKeywordOperationConfirm
+	SMSKeywordOperationCustom  = oapi.SMSKeywordOperationCustom
+	SMSKeywordOperationHelp    = oapi.SMSKeywordOperationHelp
+	SMSKeywordOperationInfo    = oapi.SMSKeywordOperationInfo
+	SMSKeywordOperationStart   = oapi.SMSKeywordOperationStart
+	SMSKeywordOperationStop    = oapi.SMSKeywordOperationStop
 )
 
 // SMSSuppressionCoverage is an open string on the wire: a value added by a newer server

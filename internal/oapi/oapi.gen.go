@@ -2942,18 +2942,24 @@ func (e SMSErrorCode) Valid() bool {
 
 // Defines values for SMSKeywordOperation.
 const (
-	SMSKeywordOperationCustom SMSKeywordOperation = "custom"
-	SMSKeywordOperationHelp   SMSKeywordOperation = "help"
-	SMSKeywordOperationStart  SMSKeywordOperation = "start"
-	SMSKeywordOperationStop   SMSKeywordOperation = "stop"
+	SMSKeywordOperationConfirm SMSKeywordOperation = "confirm"
+	SMSKeywordOperationCustom  SMSKeywordOperation = "custom"
+	SMSKeywordOperationHelp    SMSKeywordOperation = "help"
+	SMSKeywordOperationInfo    SMSKeywordOperation = "info"
+	SMSKeywordOperationStart   SMSKeywordOperation = "start"
+	SMSKeywordOperationStop    SMSKeywordOperation = "stop"
 )
 
 // Valid indicates whether the value is a known member of the SMSKeywordOperation enum.
 func (e SMSKeywordOperation) Valid() bool {
 	switch e {
+	case SMSKeywordOperationConfirm:
+		return true
 	case SMSKeywordOperationCustom:
 		return true
 	case SMSKeywordOperationHelp:
+		return true
+	case SMSKeywordOperationInfo:
 		return true
 	case SMSKeywordOperationStart:
 		return true
@@ -10824,7 +10830,22 @@ type SMSInboundStatsSummaryResponse struct {
 	Received *int `json:"received,omitempty"`
 }
 
-// SMSKeywordOperation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+// SMSKeywordOperation What Bird does when an inbound message matches the rule.
+//
+//   - `stop` unsubscribes the sender from further messages.
+//   - `start` resubscribes them.
+//   - `help` replies with your support information.
+//   - `info` replies with your program information. It behaves exactly as `help` does and is
+//     separate so a country whose INFO answer must differ from its HELP answer can carry both.
+//     Where Bird ships no `info` rule for a country, INFO is one of that country's `help`
+//     keywords and answers with the `help` reply.
+//   - `confirm` marks a double opt-in reply. It sends nothing today, so answer it from your own
+//     handler.
+//   - `custom` replies with the text you configured and has no other effect.
+//
+// Bird's built-in rules fix the operation for `stop`, `start` and `help`; you can change their
+// reply but not what they do. The same holds for `info` in any country where Bird ships an
+// `info` rule. This is an open enum. Accept unrecognized values.
 type SMSKeywordOperation string
 
 // SMSKeywordRule defines model for SMSKeywordRule.
@@ -10853,7 +10874,22 @@ type SMSKeywordRule struct {
 	// Number Narrows the rule to one of your numbers in E.164 format, instead of every number you hold in the country. Null means it applies to all of them.
 	Number *string `json:"number,omitempty"`
 
-	// Operation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+	// Operation What Bird does when an inbound message matches the rule.
+	//
+	// - `stop` unsubscribes the sender from further messages.
+	// - `start` resubscribes them.
+	// - `help` replies with your support information.
+	// - `info` replies with your program information. It behaves exactly as `help` does and is
+	//   separate so a country whose INFO answer must differ from its HELP answer can carry both.
+	//   Where Bird ships no `info` rule for a country, INFO is one of that country's `help`
+	//   keywords and answers with the `help` reply.
+	// - `confirm` marks a double opt-in reply. It sends nothing today, so answer it from your own
+	//   handler.
+	// - `custom` replies with the text you configured and has no other effect.
+	//
+	// Bird's built-in rules fix the operation for `stop`, `start` and `help`; you can change their
+	// reply but not what they do. The same holds for `info` in any country where Bird ships an
+	// `info` rule. This is an open enum. Accept unrecognized values.
 	Operation SMSKeywordOperation `json:"operation"`
 
 	// Reply The message sent back when one of the keywords matches, except on a `confirm` rule, which never sends one. Null when the auto-reply is switched off, which `reply_disabled_at` distinguishes from a rule that has not been given one.
@@ -10889,7 +10925,22 @@ type SMSKeywordRuleCreate struct {
 	// Number Narrows the rule to one number you hold, in E.164 format or as a short code. Omit to cover every number you hold in the country. The number must be one of yours and able to receive messages.
 	Number nullable.Nullable[string] `json:"number,omitempty"`
 
-	// Operation Action taken when an inbound message matches the rule. `stop` unsubscribes the sender, `start` resubscribes them, `help` sends your support information, and `custom` sends the reply you configured. Built-in compliance rules fix the operation for `stop`, `start`, and `help`. This is an open enum. Accept unrecognized values.
+	// Operation What Bird does when an inbound message matches the rule.
+	//
+	// - `stop` unsubscribes the sender from further messages.
+	// - `start` resubscribes them.
+	// - `help` replies with your support information.
+	// - `info` replies with your program information. It behaves exactly as `help` does and is
+	//   separate so a country whose INFO answer must differ from its HELP answer can carry both.
+	//   Where Bird ships no `info` rule for a country, INFO is one of that country's `help`
+	//   keywords and answers with the `help` reply.
+	// - `confirm` marks a double opt-in reply. It sends nothing today, so answer it from your own
+	//   handler.
+	// - `custom` replies with the text you configured and has no other effect.
+	//
+	// Bird's built-in rules fix the operation for `stop`, `start` and `help`; you can change their
+	// reply but not what they do. The same holds for `info` in any country where Bird ships an
+	// `info` rule. This is an open enum. Accept unrecognized values.
 	Operation SMSKeywordOperation `json:"operation"`
 
 	// Reply The message to send back when a keyword matches, except on a `confirm` rule, which never sends one whatever this is set to. Set it to null together with `confirmed_self_managed` to send nothing at all.
