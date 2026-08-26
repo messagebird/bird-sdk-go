@@ -3434,16 +3434,16 @@ func (e TemplateOnMissingLanguage) Valid() bool {
 
 // Defines values for TemplateScope.
 const (
-	System    TemplateScope = "system"
-	Workspace TemplateScope = "workspace"
+	TemplateScopeSystem    TemplateScope = "system"
+	TemplateScopeWorkspace TemplateScope = "workspace"
 )
 
 // Valid indicates whether the value is a known member of the TemplateScope enum.
 func (e TemplateScope) Valid() bool {
 	switch e {
-	case System:
+	case TemplateScopeSystem:
 		return true
-	case Workspace:
+	case TemplateScopeWorkspace:
 		return true
 	default:
 		return false
@@ -7357,7 +7357,7 @@ type ErrorDetail struct {
 	// Message What is wrong with this field.
 	Message string `json:"message"`
 
-	// Param Dotted field path, such as `to[0].email`, `subject`, or `.`.
+	// Param Dotted field path, such as `to[0].email`, `subject`, or `.`. When the request was rejected for a query parameter the endpoint does not declare, this carries that parameter's name instead of a field path.
 	Param string `json:"param"`
 }
 
@@ -10021,6 +10021,9 @@ type NumbersOrderList struct {
 // A setup fee already charged is non-refundable. Contact support about a failed
 // order.
 type NumbersOrderStatus string
+
+// OrganizationID defines model for OrganizationID.
+type OrganizationID = string
 
 // PhoneNumberLookup Information about a phone number.
 //
@@ -12873,8 +12876,27 @@ type WhatsAppVideoSend struct {
 	Url string `json:"url"`
 }
 
+// Workspace defines model for Workspace.
+type Workspace struct {
+	CreatedAt *time.Time  `json:"created_at,omitempty"`
+	Id        WorkspaceID `json:"id"`
+
+	// LogoUrl HTTPS URL to the current workspace logo. `null` when unset.
+	LogoUrl            *string                     `json:"logo_url,omitempty"`
+	Name               string                      `json:"name"`
+	NotificationEmails WorkspaceNotificationEmails `json:"notification_emails"`
+	OrganizationId     OrganizationID              `json:"organization_id"`
+	UpdatedAt          *time.Time                  `json:"updated_at,omitempty"`
+}
+
 // WorkspaceID defines model for WorkspaceID.
 type WorkspaceID = string
+
+// WorkspaceNotificationEmails defines model for WorkspaceNotificationEmails.
+type WorkspaceNotificationEmails struct {
+	// Operational Addresses for operational notifications about this workspace (sending domain authentication failures, webhook endpoint degradation). When empty, these notifications go to the organization owners. Maximum 10 addresses.
+	Operational *[]openapi_types.Email `json:"operational,omitempty"`
+}
 
 // UnderscoreListEnvelope defines model for _ListEnvelope.
 type UnderscoreListEnvelope struct {
@@ -15093,10 +15115,16 @@ type ListWhatsAppMessagesParams struct {
 	// Direction Filter by whether the business sent the message (`outbound`) or received it from the contact (`inbound`).
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// PhoneNumber Filter by contact phone number (E.164 exact match).
+	// To Filter by recipient, exact match. The recipient is the contact on an outbound message and your business number on an inbound one, matching the `to` each message returns. Accepts an E.164 phone number, or a business-scoped user ID to name the contact. Only a contact is ever identified by a business-scoped user ID, so `to=<business-scoped user ID>` matches outbound messages only.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// From Filter by sender, exact match. The sender is your business number on an outbound message and the contact on an inbound one, matching the `from` each message returns. Accepts an E.164 phone number, or a business-scoped user ID to name the contact. Only a contact is ever identified by a business-scoped user ID, so `from=<business-scoped user ID>` matches inbound messages only.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// PhoneNumber Deprecated: use `to` or `from` instead, which also match a business-scoped user ID. Filters by contact phone number (E.164 exact match), in either direction.
 	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
 
-	// Bsuid Filter by business-scoped user ID (Meta identifier).
+	// Bsuid Filter by business-scoped user ID (Meta identifier), matching the contact in either direction. `to` and `from` also accept one, but each matches a single end of the message.
 	Bsuid *string `form:"bsuid,omitempty" json:"bsuid,omitempty"`
 
 	// Category Filter by category.
@@ -30421,6 +30449,30 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 
 		}
 
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.PhoneNumber != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -31135,6 +31187,7 @@ type ListAudiencesResponse struct {
 	JSON200      *AudienceList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31206,6 +31259,7 @@ type DeleteAudienceResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31241,6 +31295,7 @@ type GetAudienceResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31313,6 +31368,7 @@ type ListAudienceContactsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31419,6 +31475,7 @@ type UnassignAudienceContactResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31453,6 +31510,7 @@ type ListContactPropertiesResponse struct {
 	JSON200      *ContactPropertyList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31525,6 +31583,7 @@ type GetContactPropertyResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31598,6 +31657,7 @@ type ArchiveContactPropertyResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31634,6 +31694,7 @@ type UnarchiveContactPropertyResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31776,6 +31837,7 @@ type DeleteContactResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31811,6 +31873,7 @@ type GetContactResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -31994,6 +32057,7 @@ type DeleteDomainResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32029,6 +32093,7 @@ type GetDomainResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32102,6 +32167,7 @@ type VerifyDomainResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32244,6 +32310,7 @@ type GetMailboxResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32316,6 +32383,7 @@ type ListMailboxLabelsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32462,6 +32530,7 @@ type DeleteMailboxReceiveRuleResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32498,6 +32567,7 @@ type RestoreMailboxResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32607,6 +32677,7 @@ type ListEmailMessagesResponse struct {
 	JSON200      *EmailMessageList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32680,6 +32751,7 @@ type GetEmailMessageResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -32715,6 +32787,7 @@ type CancelEmailMessageResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33377,6 +33450,7 @@ type DeleteEmailThreadResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON410      *Gone
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33413,6 +33487,7 @@ type GetEmailThreadResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON410      *Gone
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33524,6 +33599,7 @@ type GetEmailThreadMessageResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON410      *Gone
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33560,6 +33636,7 @@ type ListEmailThreadMessageAttachmentsResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON410      *Gone
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33596,6 +33673,7 @@ type GetEmailThreadMessageBodyResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON410      *Gone
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33780,6 +33858,7 @@ type ListAvailableNumbersResponse struct {
 	JSON200      *AvailableNumberList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33815,6 +33894,7 @@ type GetAvailableNumberResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33849,6 +33929,7 @@ type ListNumbersOrdersResponse struct {
 	JSON200      *NumbersOrderList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33924,6 +34005,7 @@ type GetNumbersOrderResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -33995,6 +34077,7 @@ type GetWorkspaceNumberResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34068,6 +34151,7 @@ type ListRealtimeAppChannelsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34104,6 +34188,7 @@ type GetRealtimeAppChannelResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34140,6 +34225,7 @@ type ListRealtimeAppChannelMembersResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34212,6 +34298,7 @@ type DisconnectRealtimeAppMemberResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34319,6 +34406,7 @@ type ListSMSKeywordRulesResponse struct {
 	JSON200      *SMSKeywordRuleList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34426,6 +34514,7 @@ type GetSMSKeywordRuleResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -34498,6 +34587,7 @@ type ListSMSMessagesResponse struct {
 	JSON200      *SMSMessageList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -34571,6 +34661,7 @@ type GetSMSMessageResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -34607,6 +34698,7 @@ type ListSMSMessageEventsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -35342,6 +35434,7 @@ type GetSMSSuppressionResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -35376,6 +35469,7 @@ type ListSMSTemplatesResponse struct {
 	JSON200      *SMSTemplateList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -35411,6 +35505,7 @@ type GetSMSTemplateResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -35596,6 +35691,7 @@ type GetVoiceCallResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 }
@@ -35630,6 +35726,7 @@ type ListWhatsAppMessagesResponse struct {
 	JSON200      *WhatsAppMessageList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -35703,6 +35800,7 @@ type GetWhatsAppMessageResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -35739,6 +35837,7 @@ type ListWhatsAppMessageEventsResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
 	JSON503      *ServiceUnavailable
@@ -37227,6 +37326,13 @@ func ParseListAudiencesResponse(rsp *http.Response) (*ListAudiencesResponse, err
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -37356,6 +37462,13 @@ func ParseDeleteAudienceResponse(rsp *http.Response) (*DeleteAudienceResponse, e
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -37416,6 +37529,13 @@ func ParseGetAudienceResponse(rsp *http.Response) (*GetAudienceResponse, error) 
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -37552,6 +37672,13 @@ func ParseListAudienceContactsResponse(rsp *http.Response) (*ListAudienceContact
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -37743,6 +37870,13 @@ func ParseUnassignAudienceContactResponse(rsp *http.Response) (*UnassignAudience
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -37796,6 +37930,13 @@ func ParseListContactPropertiesResponse(rsp *http.Response) (*ListContactPropert
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -37932,6 +38073,13 @@ func ParseGetContactPropertyResponse(rsp *http.Response) (*GetContactPropertyRes
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -38076,6 +38224,13 @@ func ParseArchiveContactPropertyResponse(rsp *http.Response) (*ArchiveContactPro
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -38143,6 +38298,13 @@ func ParseUnarchiveContactPropertyResponse(rsp *http.Response) (*UnarchiveContac
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -38402,6 +38564,13 @@ func ParseDeleteContactResponse(rsp *http.Response) (*DeleteContactResponse, err
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -38462,6 +38631,13 @@ func ParseGetContactResponse(rsp *http.Response) (*GetContactResponse, error) {
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -38824,6 +39000,13 @@ func ParseDeleteDomainResponse(rsp *http.Response) (*DeleteDomainResponse, error
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -38884,6 +39067,13 @@ func ParseGetDomainResponse(rsp *http.Response) (*GetDomainResponse, error) {
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -39027,6 +39217,13 @@ func ParseVerifyDomainResponse(rsp *http.Response) (*VerifyDomainResponse, error
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -39286,6 +39483,13 @@ func ParseGetMailboxResponse(rsp *http.Response) (*GetMailboxResponse, error) {
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -39421,6 +39625,13 @@ func ParseListMailboxLabelsResponse(rsp *http.Response) (*ListMailboxLabelsRespo
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -39708,6 +39919,13 @@ func ParseDeleteMailboxReceiveRuleResponse(rsp *http.Response) (*DeleteMailboxRe
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -39775,6 +39993,13 @@ func ParseRestoreMailboxResponse(rsp *http.Response) (*RestoreMailboxResponse, e
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -39987,6 +40212,13 @@ func ParseListEmailMessagesResponse(rsp *http.Response) (*ListEmailMessagesRespo
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -40130,6 +40362,13 @@ func ParseGetEmailMessageResponse(rsp *http.Response) (*GetEmailMessageResponse,
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -40190,6 +40429,13 @@ func ParseCancelEmailMessageResponse(rsp *http.Response) (*CancelEmailMessageRes
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -41513,6 +41759,13 @@ func ParseDeleteEmailThreadResponse(rsp *http.Response) (*DeleteEmailThreadRespo
 		}
 		response.JSON410 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -41580,6 +41833,13 @@ func ParseGetEmailThreadResponse(rsp *http.Response) (*GetEmailThreadResponse, e
 			return nil, err
 		}
 		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -41806,6 +42066,13 @@ func ParseGetEmailThreadMessageResponse(rsp *http.Response) (*GetEmailThreadMess
 		}
 		response.JSON410 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -41874,6 +42141,13 @@ func ParseListEmailThreadMessageAttachmentsResponse(rsp *http.Response) (*ListEm
 		}
 		response.JSON410 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -41941,6 +42215,13 @@ func ParseGetEmailThreadMessageBodyResponse(rsp *http.Response) (*GetEmailThread
 			return nil, err
 		}
 		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -42310,6 +42591,13 @@ func ParseListAvailableNumbersResponse(rsp *http.Response) (*ListAvailableNumber
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42371,6 +42659,13 @@ func ParseGetAvailableNumberResponse(rsp *http.Response) (*GetAvailableNumberRes
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42424,6 +42719,13 @@ func ParseListNumbersOrdersResponse(rsp *http.Response) (*ListNumbersOrdersRespo
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -42582,6 +42884,13 @@ func ParseGetNumbersOrderResponse(rsp *http.Response) (*GetNumbersOrderResponse,
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42710,6 +43019,13 @@ func ParseGetWorkspaceNumberResponse(rsp *http.Response) (*GetWorkspaceNumberRes
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -42854,6 +43170,13 @@ func ParseListRealtimeAppChannelsResponse(rsp *http.Response) (*ListRealtimeAppC
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42922,6 +43245,13 @@ func ParseGetRealtimeAppChannelResponse(rsp *http.Response) (*GetRealtimeAppChan
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42989,6 +43319,13 @@ func ParseListRealtimeAppChannelMembersResponse(rsp *http.Response) (*ListRealti
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -43125,6 +43462,13 @@ func ParseDisconnectRealtimeAppMemberResponse(rsp *http.Response) (*DisconnectRe
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -43323,6 +43667,13 @@ func ParseListSMSKeywordRulesResponse(rsp *http.Response) (*ListSMSKeywordRulesR
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -43520,6 +43871,13 @@ func ParseGetSMSKeywordRuleResponse(rsp *http.Response) (*GetSMSKeywordRuleRespo
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -43655,6 +44013,13 @@ func ParseListSMSMessagesResponse(rsp *http.Response) (*ListSMSMessagesResponse,
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -43799,6 +44164,13 @@ func ParseGetSMSMessageResponse(rsp *http.Response) (*GetSMSMessageResponse, err
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -43866,6 +44238,13 @@ func ParseListSMSMessageEventsResponse(rsp *http.Response) (*ListSMSMessageEvent
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -45332,6 +45711,13 @@ func ParseGetSMSSuppressionResponse(rsp *http.Response) (*GetSMSSuppressionRespo
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -45385,6 +45771,13 @@ func ParseListSMSTemplatesResponse(rsp *http.Response) (*ListSMSTemplatesRespons
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -45446,6 +45839,13 @@ func ParseGetSMSTemplateResponse(rsp *http.Response) (*GetSMSTemplateResponse, e
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -45822,6 +46222,13 @@ func ParseGetVoiceCallResponse(rsp *http.Response) (*GetVoiceCallResponse, error
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -45875,6 +46282,13 @@ func ParseListWhatsAppMessagesResponse(rsp *http.Response) (*ListWhatsAppMessage
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
@@ -46019,6 +46433,13 @@ func ParseGetWhatsAppMessageResponse(rsp *http.Response) (*GetWhatsAppMessageRes
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -46086,6 +46507,13 @@ func ParseListWhatsAppMessageEventsResponse(rsp *http.Response) (*ListWhatsAppMe
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest RateLimited

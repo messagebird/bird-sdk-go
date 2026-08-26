@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.37.0
+
+- **Breaking:** the API now rejects a request that carries a query parameter an operation does not declare, with a 422 `E01029`, instead of silently ignoring it. This affects `extra_query`/`default_query` on `bird.Client`/`bird.AsyncClient` (Python), the `query` option on `bird.request` (Node), the `$query` argument on generated resource methods (PHP), and a query string written into the path passed to `Client.Get` and its sibling verb methods (Go): an unrecognized key that previously had no effect now fails the call. Check any code passing one of these against the operation's documented query parameters.
+- Listing WhatsApp messages now takes `to` and `from` filters (`from_` in Python, where `from` is reserved), each matching an E.164 phone number or a business-scoped user ID. The `phone_number` filter is deprecated; use the new pair instead.
+
 ## 0.36.2
 
 - `EmailSendParams.Category` now documents the real default: a send that leaves it unset is `marketing`, which every suppression reason holds back, so operational mail (password resets, receipts) has to set `transactional` to deliver through complaint and unsubscribe suppressions. Sends written against the previously documented `transactional` default are worth re-checking.

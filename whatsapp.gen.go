@@ -23,9 +23,13 @@ type WhatsappListParams struct {
 	Status []WhatsAppMessageStatus
 	// Filter by whether the business sent the message (`outbound`) or received it from the contact (`inbound`).
 	Direction MessageDirection
-	// Filter by contact phone number (E.164 exact match).
+	// Filter by recipient, exact match. The recipient is the contact on an outbound message and your business number on an inbound one, matching the `to` each message returns. Accepts an E.164 phone number, or a business-scoped user ID to name the contact. Only a contact is ever identified by a business-scoped user ID, so `to=<business-scoped user ID>` matches outbound messages only.
+	To string
+	// Filter by sender, exact match. The sender is your business number on an outbound message and the contact on an inbound one, matching the `from` each message returns. Accepts an E.164 phone number, or a business-scoped user ID to name the contact. Only a contact is ever identified by a business-scoped user ID, so `from=<business-scoped user ID>` matches inbound messages only.
+	From string
+	// Deprecated: use `to` or `from` instead, which also match a business-scoped user ID. Filters by contact phone number (E.164 exact match), in either direction.
 	PhoneNumber string
-	// Filter by business-scoped user ID (Meta identifier).
+	// Filter by business-scoped user ID (Meta identifier), matching the contact in either direction. `to` and `from` also accept one, but each matches a single end of the message.
 	Bsuid string
 	// Filter by category.
 	Category WhatsAppTemplateCategory
@@ -40,6 +44,8 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 		CreatedBefore: optTime(p.CreatedBefore),
 		Status:        optSlice(p.Status),
 		Direction:     optZero(p.Direction),
+		To:            optStr(p.To),
+		From:          optStr(p.From),
 		PhoneNumber:   optStr(p.PhoneNumber),
 		Bsuid:         optStr(p.Bsuid),
 		Category:      optZero(p.Category),
@@ -91,7 +97,7 @@ func (s *WhatsappService) ListPage(ctx context.Context, params WhatsappListParam
 	return &out, nil
 }
 
-// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document or location. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, contact phone number, bsuid, template category, or tag. Use whatsapp_get for one message's current state.
+// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document or location. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, recipient (to), sender (from), business-scoped user ID (bsuid), template category, or tag. to and from each accept a phone number or a business-scoped user ID; pair either with direction to search a single side of the message. Use whatsapp_get for one message's current state.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppMessage, error] {
