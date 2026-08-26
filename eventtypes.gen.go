@@ -41,6 +41,7 @@ const (
 	EventTypeSmsReceived                  = oapi.EventTypeSmsReceived
 	EventTypeSmsRejected                  = oapi.EventTypeSmsRejected
 	EventTypeSmsSent                      = oapi.EventTypeSmsSent
+	EventTypeSmsSuppressionCreated        = oapi.EventTypeSmsSuppressionCreated
 	EventTypeSmsUndelivered               = oapi.EventTypeSmsUndelivered
 	EventTypeVerifyAttemptDelivered       = oapi.EventTypeVerifyAttemptDelivered
 	EventTypeVerifyAttemptSent            = oapi.EventTypeVerifyAttemptSent

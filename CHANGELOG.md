@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.38.0
+
+- Add the `sms_suppression.created` webhook event type.
+
 ## 0.37.0
 
 - **Breaking:** the API now rejects a request that carries a query parameter an operation does not declare, with a 422 `E01029`, instead of silently ignoring it. This affects `extra_query`/`default_query` on `bird.Client`/`bird.AsyncClient` (Python), the `query` option on `bird.request` (Node), the `$query` argument on generated resource methods (PHP), and a query string written into the path passed to `Client.Get` and its sibling verb methods (Go): an unrecognized key that previously had no effect now fails the call. Check any code passing one of these against the operation's documented query parameters.

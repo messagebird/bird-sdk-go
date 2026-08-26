@@ -3222,6 +3222,21 @@ func (e SMSSuppressionCoverage) Valid() bool {
 	}
 }
 
+// Defines values for SMSSuppressionCreatedEventType.
+const (
+	SmsSuppressionCreated SMSSuppressionCreatedEventType = "sms_suppression.created"
+)
+
+// Valid indicates whether the value is a known member of the SMSSuppressionCreatedEventType enum.
+func (e SMSSuppressionCreatedEventType) Valid() bool {
+	switch e {
+	case SmsSuppressionCreated:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SMSSuppressionEndReason.
 const (
 	SMSSuppressionEndReasonApiKey         SMSSuppressionEndReason = "api_key"
@@ -3819,6 +3834,7 @@ const (
 	EventTypeSmsReceived                  WebhookEventType = "sms.received"
 	EventTypeSmsRejected                  WebhookEventType = "sms.rejected"
 	EventTypeSmsSent                      WebhookEventType = "sms.sent"
+	EventTypeSmsSuppressionCreated        WebhookEventType = "sms_suppression.created"
 	EventTypeSmsUndelivered               WebhookEventType = "sms.undelivered"
 	EventTypeVerifyAttemptDelivered       WebhookEventType = "verify.attempt.delivered"
 	EventTypeVerifyAttemptSent            WebhookEventType = "verify.attempt.sent"
@@ -3902,6 +3918,8 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeSmsRejected:
 		return true
 	case EventTypeSmsSent:
+		return true
+	case EventTypeSmsSuppressionCreated:
 		return true
 	case EventTypeSmsUndelivered:
 		return true
@@ -8484,6 +8502,30 @@ type EventSMSSentData struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
+// EventSMSSuppressionCreated A destination was added to the workspace's SMS suppression ledger: a subscriber's STOP, a carrier opt-out, or a manual add.
+type EventSMSSuppressionCreated struct {
+	// Data Payload of the sms_suppression.created event.
+	Data EventSMSSuppressionCreatedData `json:"data"`
+
+	// Timestamp When the episode's opening statement took effect (`effective_at`).
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `sms_suppression.created` for this event.
+	Type SMSSuppressionCreatedEventType `json:"type"`
+}
+
+// EventSMSSuppressionCreatedData Payload of the sms_suppression.created event.
+type EventSMSSuppressionCreatedData struct {
+	// Destination The subscriber, in E.164 format.
+	Destination string `json:"destination"`
+
+	// Originator The sender this stops. An SMS suppression is the exact (sender, recipient) pair, so your other senders still reach this subscriber.
+	Originator    string               `json:"originator"`
+	Reason        SMSSuppressionReason `json:"reason"`
+	SuppressionId SMSSuppressionID     `json:"suppression_id"`
+	WorkspaceId   WorkspaceID          `json:"workspace_id"`
+}
+
 // EventSMSUndelivered The carrier reported a non-permanent failure to deliver the message.
 type EventSMSUndelivered struct {
 	// Data Payload of the sms.undelivered event.
@@ -11381,6 +11423,9 @@ type SMSSuppressionCreate struct {
 	Originator string `json:"originator"`
 }
 
+// SMSSuppressionCreatedEventType Always `sms_suppression.created` for this event.
+type SMSSuppressionCreatedEventType string
+
 // SMSSuppressionEndReason What ended it:
 //
 // - `keyword_start`: the subscriber texting a start keyword to the same sender.
@@ -11602,7 +11647,7 @@ type Suppression struct {
 	//
 	// - `all`: blocks every message category, including transactional.
 	// - `non_transactional`: blocks marketing but allows transactional messages.
-	//   A recipient who complained or unsubscribed can therefore still receive
+	//   A recipient who complained can therefore still receive
 	//   mail such as password resets.
 	// - `category`: scopes the block to a preference category and blocks every
 	//   category until one is set.
@@ -11622,10 +11667,6 @@ type Suppression struct {
 	//
 	// - `bounce_event`: Created automatically from a hard bounce.
 	// - `complaint_event`: Created from a spam complaint.
-	// - `unsubscribe_event`: Created from an unsubscribe reported for a
-	//   message, such as the recipient's mail client's unsubscribe action.
-	// - `unsubscribe_link`: The recipient opted out through the unsubscribe
-	//   page linked from a message.
 	// - `api_key`: Added through the API with an API key.
 	// - `user`: Added by a user in the dashboard.
 	//
@@ -11636,7 +11677,6 @@ type Suppression struct {
 	//
 	// - `hard_bounce`: A delivery permanently failed.
 	// - `complaint`: The recipient reported a message as spam.
-	// - `unsubscribe`: The recipient opted out.
 	// - `manual`: Added through the API or dashboard.
 	//
 	// An address can hold one record per reason. This list grows over time. Treat unknown values as informational rather than rejecting the record.
@@ -16863,6 +16903,34 @@ func (t *WebhookEvent) MergeEventSMSUndelivered(v EventSMSUndelivered) error {
 	return err
 }
 
+// AsEventSMSSuppressionCreated returns the union data inside the WebhookEvent as a EventSMSSuppressionCreated
+func (t WebhookEvent) AsEventSMSSuppressionCreated() (EventSMSSuppressionCreated, error) {
+	var body EventSMSSuppressionCreated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventSMSSuppressionCreated overwrites any union data inside the WebhookEvent as the provided EventSMSSuppressionCreated
+func (t *WebhookEvent) FromEventSMSSuppressionCreated(v EventSMSSuppressionCreated) error {
+	v.Type = "sms_suppression.created"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventSMSSuppressionCreated performs a merge with any union data inside the WebhookEvent, using the provided EventSMSSuppressionCreated
+func (t *WebhookEvent) MergeEventSMSSuppressionCreated(v EventSMSSuppressionCreated) error {
+	v.Type = "sms_suppression.created"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventVerifyAttemptDelivered returns the union data inside the WebhookEvent as a EventVerifyAttemptDelivered
 func (t WebhookEvent) AsEventVerifyAttemptDelivered() (EventVerifyAttemptDelivered, error) {
 	var body EventVerifyAttemptDelivered
@@ -17389,6 +17457,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventSMSSent()
 	case "sms.undelivered":
 		return t.AsEventSMSUndelivered()
+	case "sms_suppression.created":
+		return t.AsEventSMSSuppressionCreated()
 	case "verify.attempt.delivered":
 		return t.AsEventVerifyAttemptDelivered()
 	case "verify.attempt.sent":
