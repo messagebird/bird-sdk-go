@@ -18,7 +18,7 @@ type NumbersAvailableListParams struct {
 	NumberType NumberType
 	// Return only numbers that start with these digits, matched right after the country dial code: with `country_code=US`, `prefix=212` matches +1 212 area-code numbers and `prefix=833` matches 833 toll-free numbers. Digits only. Leave out the country dial code and any national dialing prefix such as a leading 0. Short codes never match a prefix search.
 	Prefix string
-	// Filter by channel capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
+	// Filter by capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
 	Capabilities []string
 	// Maximum number of items to return per page.
 	Limit int

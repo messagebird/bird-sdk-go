@@ -4587,7 +4587,7 @@ type AudienceUpdateRequest struct {
 
 // AvailableNumber defines model for AvailableNumber.
 type AvailableNumber struct {
-	// Capabilities Channel capabilities supported by this number.
+	// Capabilities Capabilities supported by this number.
 	Capabilities []NumberCapability `json:"capabilities"`
 
 	// CountryCode ISO 3166-1 alpha-2 country code.
@@ -9923,7 +9923,7 @@ type Number struct {
 	// AllocatedAt When this number was allocated to your workspace.
 	AllocatedAt *time.Time `json:"allocated_at,omitempty"`
 
-	// Capabilities Channel capabilities supported by this number.
+	// Capabilities Capabilities supported by this number.
 	Capabilities *[]NumberCapability `json:"capabilities,omitempty"`
 	CountryCode  *CountryCode        `json:"country_code,omitempty"`
 
@@ -9975,7 +9975,7 @@ type NumberKind string
 // countries also require an approved registration for the sender.
 type NumberStatus string
 
-// NumberCapability Channel capability supported by a phone number. New capabilities may be added over time, so treat unrecognized values as supported capabilities rather than errors.
+// NumberCapability A capability supported by a phone number. New capabilities may be added over time, so treat unrecognized values as supported capabilities rather than errors.
 type NumberCapability string
 
 // NumberList defines model for NumberList.
@@ -11777,9 +11777,11 @@ type SuppressionScope struct {
 // SuppressionScopeType How widely the email suppression applies. Responses currently use `workspace`, which blocks the address for every email sent by the workspace. WhatsApp suppressions use a separate list.
 type SuppressionScopeType string
 
-// Tag Structured key/value label attached to a message. Surfaces in list filters, the event log, and webhook payloads. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID). For arbitrary per-send context that does not need to be filterable, use `metadata`.
+// Tag Structured key/value label attached to a message or a call. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID); they surface in the list filter of whatever carries them.
 //
-// The send request defines the tag-count limit. Tag names are unique within a send; supplying the same name twice is rejected.
+// On a message they also surface in the event log and in webhook payloads, and a message can carry `metadata` beside them for arbitrary per-send context that does not need to be filterable. A call has none of those three: its tags are set on the wire when the call is placed, and the call record is the one place you read them back.
+//
+// Whatever carries the tags defines how many it may have. Tag names are unique: a send that repeats one is rejected, and on a call the first instance of a name wins.
 type Tag struct {
 	// Name Tag name. ASCII letters, digits, underscore, and hyphen only. Case-sensitive. Maximum 32 characters.
 	Name string `json:"name"`
@@ -12068,6 +12070,9 @@ type VoiceCall struct {
 	// StartedAt When the call was initiated.
 	StartedAt *time.Time       `json:"started_at,omitempty"`
 	Status    *VoiceCallStatus `json:"status,omitempty"`
+
+	// Tags Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
+	Tags *[]Tag `json:"tags,omitempty"`
 
 	// To Called party number in E.164 format.
 	To          *string     `json:"to,omitempty"`
@@ -13034,9 +13039,6 @@ type IdempotencyKey = string
 // IncludeTotal defines model for IncludeTotal.
 type IncludeTotal = bool
 
-// MessageTagFilter defines model for MessageTagFilter.
-type MessageTagFilter = []string
-
 // OrderDesc defines model for OrderDesc.
 type OrderDesc string
 
@@ -13048,6 +13050,9 @@ type StartingAfter = string
 
 // StatsTimezone defines model for StatsTimezone.
 type StatsTimezone = string
+
+// TagFilter defines model for TagFilter.
+type TagFilter = []string
 
 // XWorkspaceId defines model for XWorkspaceId.
 type XWorkspaceId = string
@@ -13117,7 +13122,7 @@ type ListAudiencesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -13177,7 +13182,7 @@ type ListAudienceContactsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -13234,7 +13239,7 @@ type ListContactPropertiesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -13321,7 +13326,7 @@ type ListContactsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
@@ -13420,7 +13425,7 @@ type ListDomainsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
@@ -13516,7 +13521,7 @@ type ListMailboxesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -13597,7 +13602,7 @@ type ListMailboxReceiveRulesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -13690,7 +13695,7 @@ type ListEmailMessagesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -13702,8 +13707,8 @@ type ListEmailMessagesParams struct {
 	// Status Filter by aggregate delivery status.
 	Status *EmailMessageStatus `form:"status,omitempty" json:"status,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
-	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
 	// Category Filter by category.
 	Category *EmailMessageCategory `form:"category,omitempty" json:"category,omitempty"`
@@ -14211,7 +14216,7 @@ type ListEmailThreadsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -14265,7 +14270,7 @@ type ListEmailThreadMessagesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -14337,7 +14342,7 @@ type ListWorkspaceNumbersParams struct {
 	// Prefix Return only numbers that start with these digits, matched right after the country dial code: with `country_code=US`, `prefix=212` returns the +1 212 area-code numbers allocated to you. Digits only, and `country_code` is required alongside it, since the digits are national ones. Leave out the country dial code and any national dialing prefix such as a leading 0. Short codes never match a prefix search.
 	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
 
-	// Capabilities Filter by channel capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
+	// Capabilities Filter by capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
 	Capabilities *[]string `form:"capabilities,omitempty" json:"capabilities,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -14346,7 +14351,7 @@ type ListWorkspaceNumbersParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
@@ -14364,7 +14369,7 @@ type ListAvailableNumbersParams struct {
 	// Prefix Return only numbers that start with these digits, matched right after the country dial code: with `country_code=US`, `prefix=212` matches +1 212 area-code numbers and `prefix=833` matches 833 toll-free numbers. Digits only. Leave out the country dial code and any national dialing prefix such as a leading 0. Short codes never match a prefix search.
 	Prefix *string `form:"prefix,omitempty" json:"prefix,omitempty"`
 
-	// Capabilities Filter by channel capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
+	// Capabilities Filter by capability. Repeat the parameter to require several at once: `capabilities=sms&capabilities=voice` returns only numbers that support both.
 	Capabilities *[]string `form:"capabilities,omitempty" json:"capabilities,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -14373,7 +14378,7 @@ type ListAvailableNumbersParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
@@ -14397,7 +14402,7 @@ type ListNumbersOrdersParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
@@ -14655,7 +14660,7 @@ type ListSMSMessagesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -14682,8 +14687,8 @@ type ListSMSMessagesParams struct {
 	// From Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
-	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // CreateSMSMessageParams defines parameters for CreateSMSMessage.
@@ -15043,7 +15048,7 @@ type ListSMSSuppressionsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -15167,6 +15172,9 @@ type ListVoiceCallsParams struct {
 	// Number Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
 	Number *string `form:"number,omitempty" json:"number,omitempty"`
 
+	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+
 	// StartedAfter Return only calls that started at or after this instant, inclusive. RFC 3339 timestamp.
 	StartedAfter *time.Time `form:"started_after,omitempty" json:"started_after,omitempty"`
 
@@ -15179,7 +15187,7 @@ type ListVoiceCallsParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
@@ -15191,7 +15199,7 @@ type ListWhatsAppMessagesParams struct {
 	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
 	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
 
-	// EndingBefore Cursor from the `prev_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order.
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
 	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -15221,8 +15229,8 @@ type ListWhatsAppMessagesParams struct {
 	// Category Filter by category.
 	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// Tag Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
-	Tag *MessageTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 }
 
 // CreateWhatsAppMessageParams defines parameters for CreateWhatsAppMessage.
@@ -30341,6 +30349,18 @@ func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*htt
 		if params.Number != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

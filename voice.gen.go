@@ -27,6 +27,8 @@ type VoiceListParams struct {
 	To string
 	// Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
 	Number string
+	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag []string
 	// Return only calls that started at or after this instant, inclusive. RFC 3339 timestamp.
 	StartedAfter time.Time
 	// Return only calls that started at or before this instant, inclusive. RFC 3339 timestamp.
@@ -44,6 +46,7 @@ func (p VoiceListParams) toWire(startingAfter string) *oapi.ListVoiceCallsParams
 		From:          optStr(p.From),
 		To:            optStr(p.To),
 		Number:        optStr(p.Number),
+		Tag:           optSlice(p.Tag),
 		StartedAfter:  optTime(p.StartedAfter),
 		StartedBefore: optTime(p.StartedBefore),
 		Limit:         optInt(p.Limit),

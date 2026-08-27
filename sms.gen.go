@@ -31,7 +31,7 @@ type SmsListParams struct {
 	To string
 	// Filter by sender (E.164, alphanumeric, or short code; exact match).
 	From string
-	// Filter by tag. Accepts `name` to match any message carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A message must match every tag listed to be returned.
+	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
 }
 
