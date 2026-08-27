@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.40.1
+
+- Backward paging now documents `refresh_cursor` alongside `prev_cursor` as an accepted anchor, so the cursor that re-reads a list from its leading edge is discoverable without cross-referencing the response schema.
+
 ## 0.40.0
 
 - Voice call records carry a `tags` array, and the voice call list takes a repeatable `tag` filter (`name` or `name:value`). On the CLI that is `bird voice list --tag campaign:spring --tag queue`.
