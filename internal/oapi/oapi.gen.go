@@ -9930,7 +9930,7 @@ type Number struct {
 	// Id Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
 	Id *AllocatedNumberID `json:"id,omitempty"`
 
-	// Kind How this number is allocated. `dedicated` is allocated to this workspace alone and billed as a subscription. `shared` is a shortcode allocated to several workspaces at once and managed by us.
+	// Kind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
 	Kind *NumberKind `json:"kind,omitempty"`
 
 	// Number Phone number in E.164 format.
@@ -9959,7 +9959,7 @@ type Number struct {
 	Status *NumberStatus `json:"status,omitempty"`
 }
 
-// NumberKind How this number is allocated. `dedicated` is allocated to this workspace alone and billed as a subscription. `shared` is a shortcode allocated to several workspaces at once and managed by us.
+// NumberKind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
 type NumberKind string
 
 // NumberStatus Whether this number can carry traffic.

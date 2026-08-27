@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.40.2
+
+- `Number.kind` documentation now distinguishes workspace-owned subscriptions from Bird-managed shared numbers.
+
 ## 0.40.1
 
 - Backward paging now documents `refresh_cursor` alongside `prev_cursor` as an accepted anchor, so the cursor that re-reads a list from its leading edge is discoverable without cross-referencing the response schema.

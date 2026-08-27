@@ -2206,7 +2206,7 @@ func ExampleNumbersService_List() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		// Kind tells a number you bought from one Bird manages for several workspaces.
+		// Kind distinguishes a number you bought from one Bird manages.
 		fmt.Println(allocated.Number, allocated.Kind, allocated.Status)
 	}
 }
