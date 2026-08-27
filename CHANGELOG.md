@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.40.3
+
+- `refresh_cursor` fetches the items that sort before a response's first row in the current sort order. Those are the items added since the response only when new items sort first, so a list sorted another way is refreshed by re-fetching it.
+
 ## 0.40.2
 
 - `Number.kind` documentation now distinguishes workspace-owned subscriptions from Bird-managed shared numbers.
