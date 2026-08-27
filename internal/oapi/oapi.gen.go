@@ -13131,25 +13131,25 @@ type WhatsAppMessageList struct {
 
 // WhatsAppMessageSendRequest A WhatsApp message to send. Carry exactly one kind of content: a request with none returns a `422` `WhatsAppContentRequired`, and one carrying more than one returns a `422` `WhatsAppContentAmbiguous`. The schema does not express that constraint, because which combinations are available depends on the content types your workspace can send.
 type WhatsAppMessageSendRequest struct {
-	// Audio Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Audio Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Audio *WhatsAppAudioSend `json:"audio,omitempty"`
 
-	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
 
 	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`.
 	From *string `json:"from,omitempty"`
 
-	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Image *WhatsAppImageSend `json:"image,omitempty"`
 
-	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Sticker A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Sticker A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Sticker *WhatsAppStickerSend `json:"sticker,omitempty"`
 
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
@@ -13158,13 +13158,13 @@ type WhatsAppMessageSendRequest struct {
 	// Template The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
-	// Text Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Text Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Text *WhatsAppTextSend `json:"text,omitempty"`
 
 	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
 	To string `json:"to"`
 
-	// Video A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. We do not track the window, so a send outside one is accepted and then fails, with `service_window_expired` on the message's `last_error`.
+	// Video A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Video *WhatsAppVideoSend `json:"video,omitempty"`
 }
 
@@ -13221,7 +13221,7 @@ type WhatsAppMessageTemplateComponent struct {
 	// Cards The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
 	Cards *[]WhatsAppMessageTemplateCard `json:"cards,omitempty"`
 
-	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`.
+	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`. Send no `button` part at all for a button that takes no value, such as a `quick_reply` or `request_contact_info` button, or a `url` button whose address has no placeholder: a part the template has no slot for is refused here, before the message is sent and charged.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
 	// Type Which part of the template this fills in.

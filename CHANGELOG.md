@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.41.1
+
+- Sending a WhatsApp template: the `parameters` field now documents which button types take no value, so no component is sent for them.
+
 ## 0.41.0
 
 - Add the `preferences` resource — list, get, create, and delete stated messaging preferences (consent grants and opt-outs) across email, SMS, and WhatsApp — plus `contacts.preferences.list` for the rows keyed to a contact's own handles, and typed webhook events for `preference.granted`, `preference.revoked`, `preference.deleted`, and `whatsapp_suppression.created`.

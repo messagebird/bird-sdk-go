@@ -34,6 +34,6 @@ generate:
 		--strip-go-type --nullable-request-types --open-enum-types \
 		../../backend/openapi/.generated/openapi.public.bundle.yaml \
 		../../backend/openapi/.generated/openapi.compat.sdkgo.yaml
-	go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.7.0 \
+	oapi-codegen \
 		-config oapi-codegen.yaml \
 		../../backend/openapi/.generated/openapi.compat.sdkgo.yaml
