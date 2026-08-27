@@ -95,12 +95,17 @@ output-options:
     - verifyDomain
     - updateDomain
     - deleteDomain
+    - listPreferences
+    - getPreference
+    - createPreference
+    - deletePreference
     - listContacts
     - getContact
     - createContact
     - updateContact
     - deleteContact
     - createContactBatch
+    - listContactPreferences
     - listContactProperties
     - getContactProperty
     - createContactProperty

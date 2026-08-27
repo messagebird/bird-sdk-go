@@ -2730,6 +2730,141 @@ func (e NumbersOrderStatus) Valid() bool {
 	}
 }
 
+// Defines values for PreferenceChannel.
+const (
+	PreferenceChannelEmail    PreferenceChannel = "email"
+	PreferenceChannelSms      PreferenceChannel = "sms"
+	PreferenceChannelWhatsapp PreferenceChannel = "whatsapp"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceChannel enum.
+func (e PreferenceChannel) Valid() bool {
+	switch e {
+	case PreferenceChannelEmail:
+		return true
+	case PreferenceChannelSms:
+		return true
+	case PreferenceChannelWhatsapp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceCoverage.
+const (
+	All              PreferenceCoverage = "all"
+	NonTransactional PreferenceCoverage = "non_transactional"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceCoverage enum.
+func (e PreferenceCoverage) Valid() bool {
+	switch e {
+	case All:
+		return true
+	case NonTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceDeletedEventType.
+const (
+	PreferenceDeleted PreferenceDeletedEventType = "preference.deleted"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceDeletedEventType enum.
+func (e PreferenceDeletedEventType) Valid() bool {
+	switch e {
+	case PreferenceDeleted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceGrantedEventType.
+const (
+	PreferenceGranted PreferenceGrantedEventType = "preference.granted"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceGrantedEventType enum.
+func (e PreferenceGrantedEventType) Valid() bool {
+	switch e {
+	case PreferenceGranted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceOrigin.
+const (
+	PreferenceOriginApiKey           PreferenceOrigin = "api_key"
+	PreferenceOriginImport           PreferenceOrigin = "import"
+	PreferenceOriginKeyword          PreferenceOrigin = "keyword"
+	PreferenceOriginPreferencePage   PreferenceOrigin = "preference_page"
+	PreferenceOriginUnsubscribeEvent PreferenceOrigin = "unsubscribe_event"
+	PreferenceOriginUnsubscribeLink  PreferenceOrigin = "unsubscribe_link"
+	PreferenceOriginUser             PreferenceOrigin = "user"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceOrigin enum.
+func (e PreferenceOrigin) Valid() bool {
+	switch e {
+	case PreferenceOriginApiKey:
+		return true
+	case PreferenceOriginImport:
+		return true
+	case PreferenceOriginKeyword:
+		return true
+	case PreferenceOriginPreferencePage:
+		return true
+	case PreferenceOriginUnsubscribeEvent:
+		return true
+	case PreferenceOriginUnsubscribeLink:
+		return true
+	case PreferenceOriginUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceRevokedEventType.
+const (
+	PreferenceRevoked PreferenceRevokedEventType = "preference.revoked"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceRevokedEventType enum.
+func (e PreferenceRevokedEventType) Valid() bool {
+	switch e {
+	case PreferenceRevoked:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for PreferenceStatus.
+const (
+	Granted PreferenceStatus = "granted"
+	Revoked PreferenceStatus = "revoked"
+)
+
+// Valid indicates whether the value is a known member of the PreferenceStatus enum.
+func (e PreferenceStatus) Valid() bool {
+	switch e {
+	case Granted:
+		return true
+	case Revoked:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeAppStatus.
 const (
 	RealtimeAppStatusActive    RealtimeAppStatus = "active"
@@ -3833,6 +3968,9 @@ const (
 	EventTypeEmailScheduled               WebhookEventType = "email.scheduled"
 	EventTypeEmailSuppressionCreated      WebhookEventType = "email_suppression.created"
 	EventTypeEmailUnsubscribed            WebhookEventType = "email.unsubscribed"
+	EventTypePreferenceDeleted            WebhookEventType = "preference.deleted"
+	EventTypePreferenceGranted            WebhookEventType = "preference.granted"
+	EventTypePreferenceRevoked            WebhookEventType = "preference.revoked"
 	EventTypeSmsAccepted                  WebhookEventType = "sms.accepted"
 	EventTypeSmsDelivered                 WebhookEventType = "sms.delivered"
 	EventTypeSmsExpired                   WebhookEventType = "sms.expired"
@@ -3858,6 +3996,7 @@ const (
 	EventTypeWhatsappReceived             WebhookEventType = "whatsapp.received"
 	EventTypeWhatsappRejected             WebhookEventType = "whatsapp.rejected"
 	EventTypeWhatsappSent                 WebhookEventType = "whatsapp.sent"
+	EventTypeWhatsappSuppressionCreated   WebhookEventType = "whatsapp_suppression.created"
 )
 
 // Valid indicates whether the value is a known member of the WebhookEventType enum.
@@ -3911,6 +4050,12 @@ func (e WebhookEventType) Valid() bool {
 		return true
 	case EventTypeEmailUnsubscribed:
 		return true
+	case EventTypePreferenceDeleted:
+		return true
+	case EventTypePreferenceGranted:
+		return true
+	case EventTypePreferenceRevoked:
+		return true
 	case EventTypeSmsAccepted:
 		return true
 	case EventTypeSmsDelivered:
@@ -3960,6 +4105,8 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeWhatsappRejected:
 		return true
 	case EventTypeWhatsappSent:
+		return true
+	case EventTypeWhatsappSuppressionCreated:
 		return true
 	default:
 		return false
@@ -4116,6 +4263,21 @@ const (
 func (e WhatsAppReceivedEventType) Valid() bool {
 	switch e {
 	case WhatsappReceived:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppSuppressionCreatedEventType.
+const (
+	WhatsappSuppressionCreated WhatsAppSuppressionCreatedEventType = "whatsapp_suppression.created"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppSuppressionCreatedEventType enum.
+func (e WhatsAppSuppressionCreatedEventType) Valid() bool {
+	switch e {
+	case WhatsappSuppressionCreated:
 		return true
 	default:
 		return false
@@ -8207,6 +8369,71 @@ type EventEmailUnsubscribedType string
 // EventEmailUnsubscribedData Identity fields shared by every email lifecycle event payload.
 type EventEmailUnsubscribedData = EventEmailBase
 
+// EventPreferenceBase Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
+type EventPreferenceBase struct {
+	Channel PreferenceChannel `json:"channel"`
+
+	// ContactId The contact whose handle matched when the statement was recorded. Null when no contact matched at that moment.
+	ContactId *ContactID         `json:"contact_id"`
+	Coverage  PreferenceCoverage `json:"coverage"`
+
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	Handle       string       `json:"handle"`
+	PreferenceId PreferenceID `json:"preference_id"`
+
+	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. Present-with-null on every payload of this type: it is part of the key alongside `topic_id`, and pinning its presence keeps a subscriber from ever learning `(handle, channel)` as the unique key.
+	SenderScope *string `json:"sender_scope"`
+
+	// TopicId The topic the statement is limited to, or null when it covers every topic. Reserved: always null in v1. Present-with-null for the same reason as `sender_scope`.
+	TopicId      *string                `json:"topic_id"`
+	TransitionId PreferenceTransitionID `json:"transition_id"`
+}
+
+// EventPreferenceDeleted A stated preference was deleted, superseding it in the ledger without erasing its history.
+type EventPreferenceDeleted struct {
+	// Data Payload of the preference.deleted event.
+	Data EventPreferenceDeletedData `json:"data"`
+
+	// Timestamp When the delete took effect (`effective_at`), not when it was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `preference.deleted` for this event.
+	Type PreferenceDeletedEventType `json:"type"`
+}
+
+// EventPreferenceDeletedData Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
+type EventPreferenceDeletedData = EventPreferenceBase
+
+// EventPreferenceGranted A stated preference was granted (a person consented, or a customer wrote a grant) and became the key's live statement.
+type EventPreferenceGranted struct {
+	// Data Payload of the preference.granted event.
+	Data EventPreferenceGrantedData `json:"data"`
+
+	// Timestamp When the statement took effect (`effective_at`), not when it was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `preference.granted` for this event.
+	Type PreferenceGrantedEventType `json:"type"`
+}
+
+// EventPreferenceGrantedData Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
+type EventPreferenceGrantedData = EventPreferenceBase
+
+// EventPreferenceRevoked A stated preference was revoked (a person opted out, or a customer wrote a revoke) and became the key's live statement.
+type EventPreferenceRevoked struct {
+	// Data Payload of the preference.revoked event.
+	Data EventPreferenceRevokedData `json:"data"`
+
+	// Timestamp When the statement took effect (`effective_at`), not when it was recorded.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `preference.revoked` for this event.
+	Type PreferenceRevokedEventType `json:"type"`
+}
+
+// EventPreferenceRevokedData Identity fields shared by every preference lifecycle event: the key plus the ledger entry the write appended. `effective_at` is not repeated here: it is the envelope `timestamp`.
+type EventPreferenceRevokedData = EventPreferenceBase
+
 // EventSMSAccepted The API accepted the SMS send request and queued it for processing.
 type EventSMSAccepted struct {
 	// Data Payload of the sms.accepted event.
@@ -9197,6 +9424,32 @@ type EventWhatsAppSentType string
 // EventWhatsAppSentData Identity fields shared by every WhatsApp lifecycle event payload.
 type EventWhatsAppSentData = EventWhatsAppBase
 
+// EventWhatsAppSuppressionCreated An address was added to the workspace's WhatsApp suppression ledger.
+type EventWhatsAppSuppressionCreated struct {
+	// Data Payload of the whatsapp_suppression.created event.
+	Data EventWhatsAppSuppressionCreatedData `json:"data"`
+
+	// Timestamp When the episode's opening statement took effect (`effective_at`).
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `whatsapp_suppression.created` for this event.
+	Type WhatsAppSuppressionCreatedEventType `json:"type"`
+}
+
+// EventWhatsAppSuppressionCreatedData Payload of the whatsapp_suppression.created event.
+type EventWhatsAppSuppressionCreatedData struct {
+	// Address The suppressed WhatsApp address. For a phone number this is canonical E.164 with a leading plus sign, such as `+5511977670804`.
+	Address string `json:"address"`
+
+	// Reason Why the address is suppressed. `manual` means it was added directly rather than created automatically from a delivery outcome. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	Reason        string                `json:"reason"`
+	SuppressionId WhatsAppSuppressionID `json:"suppression_id"`
+
+	// Waba The WhatsApp Business Account the suppression is limited to, identified by its WhatsApp-issued account ID, or null when it covers the whole workspace.
+	Waba        *string     `json:"waba"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
 // IPPoolID defines model for IPPoolID.
 type IPPoolID = string
 
@@ -10131,6 +10384,137 @@ type PhoneNumberLookupRequest struct {
 	// property that could not be answered is returned with its status and is
 	// not billed.
 	Type *[]LookupProperty `json:"type,omitempty"`
+}
+
+// Preference defines model for Preference.
+type Preference struct {
+	Channel *PreferenceChannel `json:"channel,omitempty"`
+
+	// ConsentedAt When the person consented, as evidenced by whoever asserted the grant. Null on statements that carry no consent evidence, including every opt-out.
+	ConsentedAt *time.Time `json:"consented_at,omitempty"`
+
+	// ContactId The contact whose handle matched when the statement was recorded. Null when no contact matched at that moment; it is not updated when contacts change later.
+	ContactId *ContactID          `json:"contact_id,omitempty"`
+	Coverage  *PreferenceCoverage `json:"coverage,omitempty"`
+	CreatedAt *time.Time          `json:"created_at,omitempty"`
+
+	// EffectiveAt When the statement was made, as reported by whoever made it. This is what orders one key's statements: a write dated before this moment is refused rather than applied.
+	EffectiveAt *time.Time `json:"effective_at,omitempty"`
+
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	Handle *string           `json:"handle,omitempty"`
+	Id     PreferenceID      `json:"id"`
+	Origin *PreferenceOrigin `json:"origin,omitempty"`
+
+	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them. Email preferences are always channel-wide, so it is always null there.
+	SenderScope *string `json:"sender_scope,omitempty"`
+
+	// Source Free-form note on where the statement came from, as supplied when it was recorded: a form name, an import batch, a campaign. Null when none was given.
+	Source *string           `json:"source,omitempty"`
+	Status *PreferenceStatus `json:"status,omitempty"`
+
+	// TopicId The topic the statement is limited to, or null when it covers every topic. Part of the key that identifies a statement, alongside `sender_scope`.
+	TopicId   *string    `json:"topic_id,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// PreferenceChannel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
+type PreferenceChannel string
+
+// PreferenceCoverage How much traffic the statement covers. `non_transactional` covers marketing and other non-essential messages while transactional messages such as receipts and verification codes keep flowing; `all` covers every message including transactional ones.
+type PreferenceCoverage string
+
+// PreferenceCreate defines model for PreferenceCreate.
+type PreferenceCreate struct {
+	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
+	Channel PreferenceChannel `json:"channel"`
+
+	// ConsentedAt When the person consented, on a `granted` statement. Required evidence when granting over a stored opt-out: the grant applies only if this is later than the opt-out it reverses. May not be in the future.
+	ConsentedAt *time.Time `json:"consented_at,omitempty"`
+
+	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+	Coverage *PreferenceCoverage `json:"coverage,omitempty"`
+
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	Handle string `json:"handle"`
+
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+	SenderScope *string `json:"sender_scope,omitempty"`
+
+	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+	Source *string `json:"source,omitempty"`
+
+	// Status What the statement says: `granted` records consent to receive messages, `revoked` records an opt-out. There is no third state: a person who never stated anything simply has no preference on record.
+	Status PreferenceStatus `json:"status"`
+}
+
+// PreferenceDeletedEventType Always `preference.deleted` for this event.
+type PreferenceDeletedEventType string
+
+// PreferenceGrantedEventType Always `preference.granted` for this event.
+type PreferenceGrantedEventType string
+
+// PreferenceID defines model for PreferenceID.
+type PreferenceID = string
+
+// PreferenceList defines model for PreferenceList.
+type PreferenceList struct {
+	// Data Page of preferences, most recently created first.
+	Data []Preference `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// PreferenceOrigin How the statement was made. Statements the person made themselves (`unsubscribe_link`, `unsubscribe_event`, `keyword`, `preference_page`) carry more weight than ones asserted on their behalf (`api_key`, `user`, `import`): a person's own opt-out cannot be overridden or deleted through this API. New origins can be added over time, so a value outside this list can be returned.
+type PreferenceOrigin string
+
+// PreferenceRevokedEventType Always `preference.revoked` for this event.
+type PreferenceRevokedEventType string
+
+// PreferenceStatement defines model for PreferenceStatement.
+type PreferenceStatement struct {
+	// Channel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
+	Channel PreferenceChannel `json:"channel"`
+
+	// ConsentedAt When the person consented, on a `granted` statement. Required evidence when granting over a stored opt-out: the grant applies only if this is later than the opt-out it reverses. May not be in the future.
+	ConsentedAt *time.Time `json:"consented_at,omitempty"`
+
+	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+	Coverage *PreferenceCoverage `json:"coverage,omitempty"`
+
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+	SenderScope *string `json:"sender_scope,omitempty"`
+
+	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
+	Source *string `json:"source,omitempty"`
+
+	// Status What the statement says: `granted` records consent to receive messages, `revoked` records an opt-out. There is no third state: a person who never stated anything simply has no preference on record.
+	Status PreferenceStatus `json:"status"`
+}
+
+// PreferenceStatus What the statement says: `granted` records consent to receive messages, `revoked` records an opt-out. There is no third state: a person who never stated anything simply has no preference on record.
+type PreferenceStatus string
+
+// PreferenceTransitionID defines model for PreferenceTransitionID.
+type PreferenceTransitionID = string
+
+// PreferenceWriteResult The outcome of one preference write or delete. `applied: true` means the request took effect: either it changed the record, or an identical statement already had. `applied: false` means it was refused as older than the key's current statement; `preference` then carries the statement that survived, and `transition_id` identifies the refusal on the key's record.
+type PreferenceWriteResult struct {
+	// Applied Whether the request took effect. False only when it was refused as out of order; the surviving, newer statement is returned in `preference`.
+	Applied *bool `json:"applied,omitempty"`
+
+	// Preference The key's surviving statement. Null after an applied delete, when the key is back to having no record.
+	Preference *Preference `json:"preference,omitempty"`
+
+	// TransitionId Identifies this write on the key's record, for applied and refused requests alike. Null when the write was a repeat of the current statement and recorded nothing new.
+	TransitionId *PreferenceTransitionID `json:"transition_id,omitempty"`
 }
 
 // RealtimeApp defines model for RealtimeApp.
@@ -12891,6 +13275,12 @@ type WhatsAppStickerSend struct {
 	Url string `json:"url"`
 }
 
+// WhatsAppSuppressionCreatedEventType Always `whatsapp_suppression.created` for this event.
+type WhatsAppSuppressionCreatedEventType string
+
+// WhatsAppSuppressionID defines model for WhatsAppSuppressionID.
+type WhatsAppSuppressionID = string
+
 // WhatsAppTemplateCategory Meta's content classification for a template.
 //
 // - `authentication`: delivers one-time passcodes.
@@ -13391,6 +13781,18 @@ type UpdateContactParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListContactPreferencesParams defines parameters for ListContactPreferences.
+type ListContactPreferencesParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
@@ -14457,6 +14859,54 @@ type GetWorkspaceNumberParams struct {
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
+// ListPreferencesParams defines parameters for ListPreferences.
+type ListPreferencesParams struct {
+	// Channel Return only preferences on this channel.
+	Channel *PreferenceChannel `form:"channel,omitempty" json:"channel,omitempty"`
+
+	// Handle Return only preferences for this exact handle: an email address or an E.164 phone number. Requires `channel`, since a handle only means something on its channel.
+	Handle *string `form:"handle,omitempty" json:"handle,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreatePreferenceParams defines parameters for CreatePreference.
+type CreatePreferenceParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeletePreferenceParams defines parameters for DeletePreference.
+type DeletePreferenceParams struct {
+	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // PublishRealtimeAppBatchParams defines parameters for PublishRealtimeAppBatch.
 type PublishRealtimeAppBatchParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
@@ -15319,6 +15769,9 @@ type CreatePhoneNumberLookupJSONRequestBody = PhoneNumberLookupRequest
 
 // CreateNumbersOrderJSONRequestBody defines body for CreateNumbersOrder for application/json ContentType.
 type CreateNumbersOrderJSONRequestBody = NumbersOrderCreate
+
+// CreatePreferenceJSONRequestBody defines body for CreatePreference for application/json ContentType.
+type CreatePreferenceJSONRequestBody = PreferenceCreate
 
 // PublishRealtimeAppBatchJSONRequestBody defines body for PublishRealtimeAppBatch for application/json ContentType.
 type PublishRealtimeAppBatchJSONRequestBody = RealtimeBatchPublish
@@ -16738,6 +17191,90 @@ func (t *WebhookEvent) MergeEventEmailSuppressionCreated(v EventEmailSuppression
 	return err
 }
 
+// AsEventPreferenceDeleted returns the union data inside the WebhookEvent as a EventPreferenceDeleted
+func (t WebhookEvent) AsEventPreferenceDeleted() (EventPreferenceDeleted, error) {
+	var body EventPreferenceDeleted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventPreferenceDeleted overwrites any union data inside the WebhookEvent as the provided EventPreferenceDeleted
+func (t *WebhookEvent) FromEventPreferenceDeleted(v EventPreferenceDeleted) error {
+	v.Type = "preference.deleted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventPreferenceDeleted performs a merge with any union data inside the WebhookEvent, using the provided EventPreferenceDeleted
+func (t *WebhookEvent) MergeEventPreferenceDeleted(v EventPreferenceDeleted) error {
+	v.Type = "preference.deleted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventPreferenceGranted returns the union data inside the WebhookEvent as a EventPreferenceGranted
+func (t WebhookEvent) AsEventPreferenceGranted() (EventPreferenceGranted, error) {
+	var body EventPreferenceGranted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventPreferenceGranted overwrites any union data inside the WebhookEvent as the provided EventPreferenceGranted
+func (t *WebhookEvent) FromEventPreferenceGranted(v EventPreferenceGranted) error {
+	v.Type = "preference.granted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventPreferenceGranted performs a merge with any union data inside the WebhookEvent, using the provided EventPreferenceGranted
+func (t *WebhookEvent) MergeEventPreferenceGranted(v EventPreferenceGranted) error {
+	v.Type = "preference.granted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventPreferenceRevoked returns the union data inside the WebhookEvent as a EventPreferenceRevoked
+func (t WebhookEvent) AsEventPreferenceRevoked() (EventPreferenceRevoked, error) {
+	var body EventPreferenceRevoked
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventPreferenceRevoked overwrites any union data inside the WebhookEvent as the provided EventPreferenceRevoked
+func (t *WebhookEvent) FromEventPreferenceRevoked(v EventPreferenceRevoked) error {
+	v.Type = "preference.revoked"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventPreferenceRevoked performs a merge with any union data inside the WebhookEvent, using the provided EventPreferenceRevoked
+func (t *WebhookEvent) MergeEventPreferenceRevoked(v EventPreferenceRevoked) error {
+	v.Type = "preference.revoked"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventSMSAccepted returns the union data inside the WebhookEvent as a EventSMSAccepted
 func (t WebhookEvent) AsEventSMSAccepted() (EventSMSAccepted, error) {
 	var body EventSMSAccepted
@@ -17438,6 +17975,34 @@ func (t *WebhookEvent) MergeEventWhatsAppSent(v EventWhatsAppSent) error {
 	return err
 }
 
+// AsEventWhatsAppSuppressionCreated returns the union data inside the WebhookEvent as a EventWhatsAppSuppressionCreated
+func (t WebhookEvent) AsEventWhatsAppSuppressionCreated() (EventWhatsAppSuppressionCreated, error) {
+	var body EventWhatsAppSuppressionCreated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppSuppressionCreated overwrites any union data inside the WebhookEvent as the provided EventWhatsAppSuppressionCreated
+func (t *WebhookEvent) FromEventWhatsAppSuppressionCreated(v EventWhatsAppSuppressionCreated) error {
+	v.Type = "whatsapp_suppression.created"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppSuppressionCreated performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppSuppressionCreated
+func (t *WebhookEvent) MergeEventWhatsAppSuppressionCreated(v EventWhatsAppSuppressionCreated) error {
+	v.Type = "whatsapp_suppression.created"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t WebhookEvent) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -17500,6 +18065,12 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventEmailMailboxThreadCreated()
 	case "email_suppression.created":
 		return t.AsEventEmailSuppressionCreated()
+	case "preference.deleted":
+		return t.AsEventPreferenceDeleted()
+	case "preference.granted":
+		return t.AsEventPreferenceGranted()
+	case "preference.revoked":
+		return t.AsEventPreferenceRevoked()
 	case "sms.accepted":
 		return t.AsEventSMSAccepted()
 	case "sms.delivered":
@@ -17550,6 +18121,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventWhatsAppRejected()
 	case "whatsapp.sent":
 		return t.AsEventWhatsAppSent()
+	case "whatsapp_suppression.created":
+		return t.AsEventWhatsAppSuppressionCreated()
 	default:
 		return nil, errors.New("unknown discriminator value: " + discriminator)
 	}
@@ -17857,6 +18430,9 @@ type ClientInterface interface {
 
 	UpdateContact(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListContactPreferences request
+	ListContactPreferences(ctx context.Context, contactId ContactID, params *ListContactPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateEmailMessageBatchWithBody request with any body
 	CreateEmailMessageBatchWithBody(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -18059,6 +18635,20 @@ type ClientInterface interface {
 
 	// GetWorkspaceNumber request
 	GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListPreferences request
+	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreatePreferenceWithBody request with any body
+	CreatePreferenceWithBody(ctx context.Context, params *CreatePreferenceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreatePreference(ctx context.Context, params *CreatePreferenceParams, body CreatePreferenceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeletePreference request
+	DeletePreference(ctx context.Context, preferenceId PreferenceID, params *DeletePreferenceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetPreference request
+	GetPreference(ctx context.Context, preferenceId PreferenceID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PublishRealtimeAppBatchWithBody request with any body
 	PublishRealtimeAppBatchWithBody(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -18579,6 +19169,18 @@ func (c *Client) UpdateContactWithBody(ctx context.Context, contactId ContactID,
 
 func (c *Client) UpdateContact(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateContactRequest(c.Server, contactId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListContactPreferences(ctx context.Context, contactId ContactID, params *ListContactPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListContactPreferencesRequest(c.Server, contactId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -19443,6 +20045,66 @@ func (c *Client) ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedN
 
 func (c *Client) GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWorkspaceNumberRequest(c.Server, numberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListPreferencesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreatePreferenceWithBody(ctx context.Context, params *CreatePreferenceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreatePreferenceRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreatePreference(ctx context.Context, params *CreatePreferenceParams, body CreatePreferenceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreatePreferenceRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeletePreference(ctx context.Context, preferenceId PreferenceID, params *DeletePreferenceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeletePreferenceRequest(c.Server, preferenceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetPreference(ctx context.Context, preferenceId PreferenceID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPreferenceRequest(c.Server, preferenceId)
 	if err != nil {
 		return nil, err
 	}
@@ -21467,6 +22129,91 @@ func NewUpdateContactRequestWithBody(server string, contactId ContactID, params 
 			req.Header.Set("Idempotency-Key", headerParam0)
 		}
 
+	}
+
+	return req, nil
+}
+
+// NewListContactPreferencesRequest generates requests for ListContactPreferences
+func NewListContactPreferencesRequest(server string, contactId ContactID, params *ListContactPreferencesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "contact_id", contactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/contacts/%s/preferences", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -26668,6 +27415,246 @@ func NewGetWorkspaceNumberRequest(server string, numberId AllocatedNumberID, par
 	return req, nil
 }
 
+// NewListPreferencesRequest generates requests for ListPreferences
+func NewListPreferencesRequest(server string, params *ListPreferencesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/preferences")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Channel != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "channel", *params.Channel, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Handle != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "handle", *params.Handle, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreatePreferenceRequest calls the generic CreatePreference builder with application/json body
+func NewCreatePreferenceRequest(server string, params *CreatePreferenceParams, body CreatePreferenceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreatePreferenceRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreatePreferenceRequestWithBody generates requests for CreatePreference with any type of body
+func NewCreatePreferenceRequestWithBody(server string, params *CreatePreferenceParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/preferences")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeletePreferenceRequest generates requests for DeletePreference
+func NewDeletePreferenceRequest(server string, preferenceId PreferenceID, params *DeletePreferenceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "preference_id", preferenceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/preferences/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetPreferenceRequest generates requests for GetPreference
+func NewGetPreferenceRequest(server string, preferenceId PreferenceID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "preference_id", preferenceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/preferences/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewPublishRealtimeAppBatchRequest calls the generic PublishRealtimeAppBatch builder with application/json body
 func NewPublishRealtimeAppBatchRequest(server string, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, body PublishRealtimeAppBatchJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -30950,6 +31937,9 @@ type ClientWithResponsesInterface interface {
 
 	UpdateContactWithResponse(ctx context.Context, contactId ContactID, params *UpdateContactParams, body UpdateContactJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateContactResponse, error)
 
+	// ListContactPreferencesWithResponse request
+	ListContactPreferencesWithResponse(ctx context.Context, contactId ContactID, params *ListContactPreferencesParams, reqEditors ...RequestEditorFn) (*ListContactPreferencesResponse, error)
+
 	// CreateEmailMessageBatchWithBodyWithResponse request with any body
 	CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
 
@@ -31152,6 +32142,20 @@ type ClientWithResponsesInterface interface {
 
 	// GetWorkspaceNumberWithResponse request
 	GetWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*GetWorkspaceNumberResponse, error)
+
+	// ListPreferencesWithResponse request
+	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
+
+	// CreatePreferenceWithBodyWithResponse request with any body
+	CreatePreferenceWithBodyWithResponse(ctx context.Context, params *CreatePreferenceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePreferenceResponse, error)
+
+	CreatePreferenceWithResponse(ctx context.Context, params *CreatePreferenceParams, body CreatePreferenceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePreferenceResponse, error)
+
+	// DeletePreferenceWithResponse request
+	DeletePreferenceWithResponse(ctx context.Context, preferenceId PreferenceID, params *DeletePreferenceParams, reqEditors ...RequestEditorFn) (*DeletePreferenceResponse, error)
+
+	// GetPreferenceWithResponse request
+	GetPreferenceWithResponse(ctx context.Context, preferenceId PreferenceID, reqEditors ...RequestEditorFn) (*GetPreferenceResponse, error)
 
 	// PublishRealtimeAppBatchWithBodyWithResponse request with any body
 	PublishRealtimeAppBatchWithBodyWithResponse(ctx context.Context, realtimeAppId RealtimeAppID, params *PublishRealtimeAppBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishRealtimeAppBatchResponse, error)
@@ -32075,6 +33079,42 @@ func (r UpdateContactResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListContactPreferencesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PreferenceList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListContactPreferencesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListContactPreferencesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListContactPreferencesResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -34247,6 +35287,150 @@ func (r GetWorkspaceNumberResponse) ContentType() string {
 	return ""
 }
 
+type ListPreferencesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PreferenceList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListPreferencesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListPreferencesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListPreferencesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreatePreferenceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PreferenceWriteResult
+	JSON201      *PreferenceWriteResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r CreatePreferenceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreatePreferenceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreatePreferenceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeletePreferenceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *PreferenceWriteResult
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeletePreferenceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeletePreferenceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeletePreferenceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetPreferenceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Preference
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetPreferenceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetPreferenceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetPreferenceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type PublishRealtimeAppBatchResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -36269,6 +37453,15 @@ func (c *ClientWithResponses) UpdateContactWithResponse(ctx context.Context, con
 	return ParseUpdateContactResponse(rsp)
 }
 
+// ListContactPreferencesWithResponse request returning *ListContactPreferencesResponse
+func (c *ClientWithResponses) ListContactPreferencesWithResponse(ctx context.Context, contactId ContactID, params *ListContactPreferencesParams, reqEditors ...RequestEditorFn) (*ListContactPreferencesResponse, error) {
+	rsp, err := c.ListContactPreferences(ctx, contactId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListContactPreferencesResponse(rsp)
+}
+
 // CreateEmailMessageBatchWithBodyWithResponse request with arbitrary body returning *CreateEmailMessageBatchResponse
 func (c *ClientWithResponses) CreateEmailMessageBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error) {
 	rsp, err := c.CreateEmailMessageBatchWithBody(ctx, params, contentType, body, reqEditors...)
@@ -36902,6 +38095,50 @@ func (c *ClientWithResponses) GetWorkspaceNumberWithResponse(ctx context.Context
 		return nil, err
 	}
 	return ParseGetWorkspaceNumberResponse(rsp)
+}
+
+// ListPreferencesWithResponse request returning *ListPreferencesResponse
+func (c *ClientWithResponses) ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error) {
+	rsp, err := c.ListPreferences(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListPreferencesResponse(rsp)
+}
+
+// CreatePreferenceWithBodyWithResponse request with arbitrary body returning *CreatePreferenceResponse
+func (c *ClientWithResponses) CreatePreferenceWithBodyWithResponse(ctx context.Context, params *CreatePreferenceParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePreferenceResponse, error) {
+	rsp, err := c.CreatePreferenceWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePreferenceResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreatePreferenceWithResponse(ctx context.Context, params *CreatePreferenceParams, body CreatePreferenceJSONRequestBody, reqEditors ...RequestEditorFn) (*CreatePreferenceResponse, error) {
+	rsp, err := c.CreatePreference(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreatePreferenceResponse(rsp)
+}
+
+// DeletePreferenceWithResponse request returning *DeletePreferenceResponse
+func (c *ClientWithResponses) DeletePreferenceWithResponse(ctx context.Context, preferenceId PreferenceID, params *DeletePreferenceParams, reqEditors ...RequestEditorFn) (*DeletePreferenceResponse, error) {
+	rsp, err := c.DeletePreference(ctx, preferenceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeletePreferenceResponse(rsp)
+}
+
+// GetPreferenceWithResponse request returning *GetPreferenceResponse
+func (c *ClientWithResponses) GetPreferenceWithResponse(ctx context.Context, preferenceId PreferenceID, reqEditors ...RequestEditorFn) (*GetPreferenceResponse, error) {
+	rsp, err := c.GetPreference(ctx, preferenceId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetPreferenceResponse(rsp)
 }
 
 // PublishRealtimeAppBatchWithBodyWithResponse request with arbitrary body returning *PublishRealtimeAppBatchResponse
@@ -38854,6 +40091,74 @@ func ParseUpdateContactResponse(rsp *http.Response) (*UpdateContactResponse, err
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListContactPreferencesResponse parses an HTTP response from a ListContactPreferencesWithResponse call
+func ParseListContactPreferencesResponse(rsp *http.Response) (*ListContactPreferencesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListContactPreferencesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PreferenceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -43135,6 +44440,278 @@ func ParseGetWorkspaceNumberResponse(rsp *http.Response) (*GetWorkspaceNumberRes
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest Number
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListPreferencesResponse parses an HTTP response from a ListPreferencesWithResponse call
+func ParseListPreferencesResponse(rsp *http.Response) (*ListPreferencesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListPreferencesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PreferenceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreatePreferenceResponse parses an HTTP response from a CreatePreferenceWithResponse call
+func ParseCreatePreferenceResponse(rsp *http.Response) (*CreatePreferenceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreatePreferenceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PreferenceWriteResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest PreferenceWriteResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeletePreferenceResponse parses an HTTP response from a DeletePreferenceWithResponse call
+func ParseDeletePreferenceResponse(rsp *http.Response) (*DeletePreferenceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeletePreferenceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PreferenceWriteResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetPreferenceResponse parses an HTTP response from a GetPreferenceWithResponse call
+func ParseGetPreferenceResponse(rsp *http.Response) (*GetPreferenceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetPreferenceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Preference
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

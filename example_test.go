@@ -2237,3 +2237,94 @@ func ExampleNumbersService_Release() {
 		log.Fatal(err)
 	}
 }
+
+// List looks up the messaging preferences recorded for one handle on one
+// channel.
+func ExamplePreferencesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for pref, err := range client.Preferences.List(context.Background(), bird.PreferencesListParams{
+		Channel: bird.PreferenceChannelSms,
+		Handle:  "+15550001234",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(pref.Id, *pref.Status)
+	}
+}
+
+// Get reads one recorded preference by ID.
+func ExamplePreferencesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	pref, err := client.Preferences.Get(context.Background(), "prf_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*pref.Status, *pref.Coverage)
+}
+
+// Create records a consent grant, with the evidence needed to override a
+// stored opt-out on the same number.
+func ExamplePreferencesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Preferences.Create(context.Background(), bird.PreferencesCreateParams{
+		Channel:     bird.PreferenceChannelEmail,
+		Handle:      "recipient@example.com",
+		Status:      bird.PreferenceStatusGranted,
+		Source:      "signup-form-v2",
+		ConsentedAt: time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A newer statement already on file answers Applied false instead of an
+	// error, with the surviving statement in Preference.
+	if result.Applied != nil && *result.Applied {
+		fmt.Println("grant recorded")
+	}
+}
+
+// Delete removes a preference statement by ID.
+func ExamplePreferencesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Preferences.Delete(context.Background(), "prf_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A newer statement recorded since refuses the delete: Applied comes back
+	// false and Preference carries the statement that survived.
+	switch {
+	case result.Applied == nil:
+	case !*result.Applied && result.Preference != nil:
+		fmt.Println("delete refused, surviving statement:", result.Preference.Id)
+	default:
+		fmt.Println("deleted")
+	}
+}
+
+// List reads the messaging preferences recorded for a contact's own handles
+// across every channel.
+func ExampleContactsPreferencesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for pref, err := range client.Contacts.Preferences.List(context.Background(), "con_01krdgeqcxet5s7t44vh8rt9mg", bird.ContactsPreferencesListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(*pref.Channel, *pref.Status)
+	}
+}

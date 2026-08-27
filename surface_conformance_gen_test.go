@@ -96,12 +96,17 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Domains.Update
 	_ = c.Domains.Delete
 	_ = c.Webhooks.Unwrap
+	_ = c.Preferences.List
+	_ = c.Preferences.Get
+	_ = c.Preferences.Create
+	_ = c.Preferences.Delete
 	_ = c.Contacts.List
 	_ = c.Contacts.Get
 	_ = c.Contacts.Create
 	_ = c.Contacts.Update
 	_ = c.Contacts.Delete
 	_ = c.Contacts.Batch
+	_ = c.Contacts.Preferences.List
 	_ = c.ContactProperties.List
 	_ = c.ContactProperties.Get
 	_ = c.ContactProperties.Create

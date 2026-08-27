@@ -121,6 +121,32 @@ const (
 	NumbersOrderStatusPending   = oapi.NumbersOrderStatusPending
 )
 
+// PreferenceChannel is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the PreferenceChannel* constants with a
+// default branch rather than treating the set as closed.
+type PreferenceChannel = oapi.PreferenceChannel
+
+const (
+	PreferenceChannelEmail    = oapi.PreferenceChannelEmail
+	PreferenceChannelSms      = oapi.PreferenceChannelSms
+	PreferenceChannelWhatsapp = oapi.PreferenceChannelWhatsapp
+)
+
+// PreferenceOrigin is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the PreferenceOrigin* constants with a
+// default branch rather than treating the set as closed.
+type PreferenceOrigin = oapi.PreferenceOrigin
+
+const (
+	PreferenceOriginApiKey           = oapi.PreferenceOriginApiKey
+	PreferenceOriginImport           = oapi.PreferenceOriginImport
+	PreferenceOriginKeyword          = oapi.PreferenceOriginKeyword
+	PreferenceOriginPreferencePage   = oapi.PreferenceOriginPreferencePage
+	PreferenceOriginUnsubscribeEvent = oapi.PreferenceOriginUnsubscribeEvent
+	PreferenceOriginUnsubscribeLink  = oapi.PreferenceOriginUnsubscribeLink
+	PreferenceOriginUser             = oapi.PreferenceOriginUser
+)
+
 // SMSErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSErrorCode* constants with a
 // default branch rather than treating the set as closed.

@@ -213,6 +213,38 @@ type (
 	ContactUpsertResultItem = oapi.ContactUpsertResultItem
 )
 
+// Preference is one recorded consent grant or opt-out; PreferenceList is a
+// page of them.
+type (
+	Preference     = oapi.Preference
+	PreferenceList = oapi.PreferenceList
+)
+
+// PreferenceStatus is what a statement says: granted records consent to
+// receive messages, revoked records an opt-out.
+type PreferenceStatus = oapi.PreferenceStatus
+
+const (
+	PreferenceStatusGranted PreferenceStatus = "granted"
+	PreferenceStatusRevoked PreferenceStatus = "revoked"
+)
+
+// PreferenceCoverage is how much traffic a statement covers:
+// non_transactional keeps transactional messages such as receipts and
+// verification codes flowing; all covers every message.
+type PreferenceCoverage = oapi.PreferenceCoverage
+
+const (
+	PreferenceCoverageAll              PreferenceCoverage = "all"
+	PreferenceCoverageNonTransactional PreferenceCoverage = "non_transactional"
+)
+
+// PreferenceWriteResult is the outcome of a preference create or delete.
+// Applied true means the write took effect; applied false means it was
+// refused as older than the key's current statement, and Preference then
+// carries the statement that survived.
+type PreferenceWriteResult = oapi.PreferenceWriteResult
+
 // Audience is a static audience of contacts; AudienceList is a page of
 // audiences. AudienceMember pairs a contact with the time it joined;
 // AudienceMemberList is a page of members.

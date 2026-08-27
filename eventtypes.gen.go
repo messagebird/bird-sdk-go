@@ -34,6 +34,9 @@ const (
 	EventTypeEmailScheduled               = oapi.EventTypeEmailScheduled
 	EventTypeEmailSuppressionCreated      = oapi.EventTypeEmailSuppressionCreated
 	EventTypeEmailUnsubscribed            = oapi.EventTypeEmailUnsubscribed
+	EventTypePreferenceDeleted            = oapi.EventTypePreferenceDeleted
+	EventTypePreferenceGranted            = oapi.EventTypePreferenceGranted
+	EventTypePreferenceRevoked            = oapi.EventTypePreferenceRevoked
 	EventTypeSmsAccepted                  = oapi.EventTypeSmsAccepted
 	EventTypeSmsDelivered                 = oapi.EventTypeSmsDelivered
 	EventTypeSmsExpired                   = oapi.EventTypeSmsExpired
@@ -59,4 +62,5 @@ const (
 	EventTypeWhatsappReceived             = oapi.EventTypeWhatsappReceived
 	EventTypeWhatsappRejected             = oapi.EventTypeWhatsappRejected
 	EventTypeWhatsappSent                 = oapi.EventTypeWhatsappSent
+	EventTypeWhatsappSuppressionCreated   = oapi.EventTypeWhatsappSuppressionCreated
 )

@@ -6,8 +6,9 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// Optional query-param builders: each maps a clean Go value to the pointer the
-// wire params struct wants, returning nil for the zero value so the param is omitted.
+// Optional wire-field builders: each maps a clean Go value to the pointer a
+// wire params or body struct wants, returning nil for the zero value so the
+// field is omitted.
 
 // optDate renders a calendar-day query param; a zero time is omitted.
 func optDate(t time.Time) *openapi_types.Date {

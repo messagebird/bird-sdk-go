@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.41.0
+
+- Add the `preferences` resource — list, get, create, and delete stated messaging preferences (consent grants and opt-outs) across email, SMS, and WhatsApp — plus `contacts.preferences.list` for the rows keyed to a contact's own handles, and typed webhook events for `preference.granted`, `preference.revoked`, `preference.deleted`, and `whatsapp_suppression.created`.
+
 ## 0.40.3
 
 - `refresh_cursor` fetches the items that sort before a response's first row in the current sort order. Those are the items added since the response only when new items sort first, so a list sorted another way is refreshed by re-fetching it.
