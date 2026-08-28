@@ -459,4 +459,8 @@ type (
 	EmailThreadMessageBody = oapi.EmailThreadMessageBody
 	// EmailThreadMessageAttachmentList is the attachment manifest.
 	EmailThreadMessageAttachmentList = oapi.EmailThreadMessageAttachmentList
+
+	// Workspace is the workspace a credential is scoped to: its id, name, and
+	// organization.
+	Workspace = oapi.Workspace
 )

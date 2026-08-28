@@ -95,6 +95,7 @@ output-options:
     - verifyDomain
     - updateDomain
     - deleteDomain
+    - getCurrentWorkspace
     - listPreferences
     - getPreference
     - createPreference

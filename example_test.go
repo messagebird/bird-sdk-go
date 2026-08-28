@@ -2328,3 +2328,15 @@ func ExampleContactsPreferencesService_List() {
 		fmt.Println(*pref.Channel, *pref.Status)
 	}
 }
+
+func ExampleWorkspaceService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	workspace, err := client.Workspace.Get(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(workspace.Id, workspace.Name)
+}

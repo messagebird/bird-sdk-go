@@ -18911,6 +18911,9 @@ type ClientInterface interface {
 
 	// ListWhatsAppMessageEvents request
 	ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetCurrentWorkspace request
+	GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -20919,6 +20922,18 @@ func (c *Client) GetWhatsAppMessage(ctx context.Context, messageId WhatsAppMessa
 
 func (c *Client) ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWhatsAppMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetCurrentWorkspaceRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -31907,6 +31922,33 @@ func NewListWhatsAppMessageEventsRequest(server string, messageId WhatsAppMessag
 	return req, nil
 }
 
+// NewGetCurrentWorkspaceRequest generates requests for GetCurrentWorkspace
+func NewGetCurrentWorkspaceRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/workspace")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -32418,6 +32460,9 @@ type ClientWithResponsesInterface interface {
 
 	// ListWhatsAppMessageEventsWithResponse request
 	ListWhatsAppMessageEventsWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessageEventsResponse, error)
+
+	// GetCurrentWorkspaceWithResponse request
+	GetCurrentWorkspaceWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error)
 }
 
 type ListAudiencesResponse struct {
@@ -37286,6 +37331,42 @@ func (r ListWhatsAppMessageEventsResponse) ContentType() string {
 	return ""
 }
 
+type GetCurrentWorkspaceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Workspace
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetCurrentWorkspaceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetCurrentWorkspaceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetCurrentWorkspaceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // ListAudiencesWithResponse request returning *ListAudiencesResponse
 func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error) {
 	rsp, err := c.ListAudiences(ctx, params, reqEditors...)
@@ -38761,6 +38842,15 @@ func (c *ClientWithResponses) ListWhatsAppMessageEventsWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseListWhatsAppMessageEventsResponse(rsp)
+}
+
+// GetCurrentWorkspaceWithResponse request returning *GetCurrentWorkspaceResponse
+func (c *ClientWithResponses) GetCurrentWorkspaceWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error) {
+	rsp, err := c.GetCurrentWorkspace(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetCurrentWorkspaceResponse(rsp)
 }
 
 // ParseListAudiencesResponse parses an HTTP response from a ListAudiencesWithResponse call
@@ -48347,6 +48437,74 @@ func ParseListWhatsAppMessageEventsResponse(rsp *http.Response) (*ListWhatsAppMe
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetCurrentWorkspaceResponse parses an HTTP response from a GetCurrentWorkspaceWithResponse call
+func ParseGetCurrentWorkspaceResponse(rsp *http.Response) (*GetCurrentWorkspaceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetCurrentWorkspaceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Workspace
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
