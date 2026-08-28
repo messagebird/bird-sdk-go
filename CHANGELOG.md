@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.45.1
+
+- SMS segment docs: the UCS2 limit is 70 UTF-16 code units, not 70 characters, so 35 non-BMP emoji fill one segment.
+
 ## 0.45.0
 
 - The numbers list's `prefix` filter now matches without `country_code`: the digits are compared from the start of each stored number, ignoring a leading `+`, so short codes and a full number pasted as digits both resolve. With `country_code` it anchors behind the dial code as before.

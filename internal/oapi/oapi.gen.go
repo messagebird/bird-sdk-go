@@ -11584,17 +11584,39 @@ type SMSReceivedEventType string
 
 // SMSSegments Segment breakdown for the message body. Segment count drives billing.
 type SMSSegments struct {
-	// Characters Character count of the body under the selected encoding.
+	// Characters Character count of the body, counted in Unicode code points under either encoding. This is not the segment measure: a `GSM_7BIT` extended-table character counts once here but costs two septets, and a `UCS2` emoji outside the Basic Multilingual Plane counts once here but costs two of the segment's 70 code units.
 	Characters *int `json:"characters,omitempty"`
 
 	// Count Number of segments the body is split into. Each segment is a billable unit.
 	Count *int `json:"count,omitempty"`
 
-	// Encoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
+	// Encoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 septets
+	// (seven-bit units) in one segment, or 153 per part in a multi-segment
+	// message. The `UCS2` encoding applies when the body contains a character
+	// outside the GSM 03.38 alphabet, including emoji, CJK, and some accented
+	// characters. It fits 70 UTF-16 code units in one segment, or 67 per part.
+	//
+	// Neither limit counts characters, and both alphabets have characters that
+	// cost two units. Under `GSM_7BIT` there are ten such entries, and they are
+	// the whole set: `^`, `{`, `}`, `\`, `[`, `]`, `~`, `|`, `€`, and the form
+	// feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
+	// outside the Basic Multilingual Plane is a surrogate pair costing two code
+	// units, so 35 of those fill a single segment.
 	Encoding *SMSSegmentsEncoding `json:"encoding,omitempty"`
 }
 
-// SMSSegmentsEncoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 characters in one segment, or 153 per part in a multi-segment message. The `UCS2` encoding applies when the body contains a character outside the GSM 03.38 alphabet, including emoji, CJK, and some accented characters. It fits 70 characters in one segment, or 67 per part in a multi-segment message.
+// SMSSegmentsEncoding Encoding used for the body. The `GSM_7BIT` encoding fits 160 septets
+// (seven-bit units) in one segment, or 153 per part in a multi-segment
+// message. The `UCS2` encoding applies when the body contains a character
+// outside the GSM 03.38 alphabet, including emoji, CJK, and some accented
+// characters. It fits 70 UTF-16 code units in one segment, or 67 per part.
+//
+// Neither limit counts characters, and both alphabets have characters that
+// cost two units. Under `GSM_7BIT` there are ten such entries, and they are
+// the whole set: `^`, `{`, `}`, `\`, `[`, `]`, `~`, `|`, `€`, and the form
+// feed control. Eighty of those fill a single segment. Under `UCS2` an emoji
+// outside the Basic Multilingual Plane is a surrogate pair costing two code
+// units, so 35 of those fill a single segment.
 type SMSSegmentsEncoding string
 
 // SMSSendOptions Settings that change how Bird processes this message. Each option applies to this send only; omit one to use its default.
@@ -14790,7 +14812,7 @@ type ReplyEmailThreadMessageParams struct {
 
 // CreateEmailLookupParams defines parameters for CreateEmailLookup.
 type CreateEmailLookupParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -14808,7 +14830,7 @@ type CreateEmailLookupParams struct {
 
 // CreatePhoneNumberLookupParams defines parameters for CreatePhoneNumberLookup.
 type CreatePhoneNumberLookupParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -14850,7 +14872,7 @@ type ListWorkspaceNumbersParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
@@ -14877,13 +14899,13 @@ type ListAvailableNumbersParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // GetAvailableNumberParams defines parameters for GetAvailableNumber.
 type GetAvailableNumberParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
@@ -14901,13 +14923,13 @@ type ListNumbersOrdersParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // CreateNumbersOrderParams defines parameters for CreateNumbersOrder.
 type CreateNumbersOrderParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -14925,13 +14947,13 @@ type CreateNumbersOrderParams struct {
 
 // GetNumbersOrderParams defines parameters for GetNumbersOrder.
 type GetNumbersOrderParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // ReleaseWorkspaceNumberParams defines parameters for ReleaseWorkspaceNumber.
 type ReleaseWorkspaceNumberParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -14949,7 +14971,7 @@ type ReleaseWorkspaceNumberParams struct {
 
 // GetWorkspaceNumberParams defines parameters for GetWorkspaceNumber.
 type GetWorkspaceNumberParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
@@ -15003,7 +15025,7 @@ type DeletePreferenceParams struct {
 
 // PublishRealtimeAppBatchParams defines parameters for PublishRealtimeAppBatch.
 type PublishRealtimeAppBatchParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15027,7 +15049,7 @@ type ListRealtimeAppChannelsParams struct {
 	// Include Per-channel attributes to include. Repeatable. Requesting `member_count` without a presence-channel `prefix`, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
 	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
@@ -15036,19 +15058,19 @@ type GetRealtimeAppChannelParams struct {
 	// Include Attributes to include. Repeatable. Requesting `member_count` for a non-presence channel, or `connection_count` when the app's connection-counting flag is off, returns a validation error (400).
 	Include *[]RealtimeChannelInclude `form:"include,omitempty" json:"include,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // ListRealtimeAppChannelMembersParams defines parameters for ListRealtimeAppChannelMembers.
 type ListRealtimeAppChannelMembersParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // PublishRealtimeAppEventParams defines parameters for PublishRealtimeAppEvent.
 type PublishRealtimeAppEventParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15066,7 +15088,7 @@ type PublishRealtimeAppEventParams struct {
 
 // DisconnectRealtimeAppMemberParams defines parameters for DisconnectRealtimeAppMember.
 type DisconnectRealtimeAppMemberParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15084,7 +15106,7 @@ type DisconnectRealtimeAppMemberParams struct {
 
 // SendRealtimeAppMemberEventParams defines parameters for SendRealtimeAppMemberEvent.
 type SendRealtimeAppMemberEventParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15132,13 +15154,13 @@ type ListSMSKeywordRulesParams struct {
 	// Scope Keep only default rules (`system`) or only the rules you created (`workspace`). Omit for both.
 	Scope *SMSKeywordRuleScope `form:"scope,omitempty" json:"scope,omitempty"`
 
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // CreateSMSKeywordRuleParams defines parameters for CreateSMSKeywordRule.
 type CreateSMSKeywordRuleParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15156,7 +15178,7 @@ type CreateSMSKeywordRuleParams struct {
 
 // DeleteSMSKeywordRuleParams defines parameters for DeleteSMSKeywordRule.
 type DeleteSMSKeywordRuleParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15174,13 +15196,13 @@ type DeleteSMSKeywordRuleParams struct {
 
 // GetSMSKeywordRuleParams defines parameters for GetSMSKeywordRule.
 type GetSMSKeywordRuleParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
 // UpdateSMSKeywordRuleParams defines parameters for UpdateSMSKeywordRule.
 type UpdateSMSKeywordRuleParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15640,7 +15662,7 @@ type ListSMSTemplatesParams struct {
 
 // CreateVerificationParams defines parameters for CreateVerification.
 type CreateVerificationParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15658,7 +15680,7 @@ type CreateVerificationParams struct {
 
 // CreateVerificationCheckParams defines parameters for CreateVerificationCheck.
 type CreateVerificationCheckParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -15676,7 +15698,7 @@ type CreateVerificationCheckParams struct {
 
 // CreateVerificationNextChannelParams defines parameters for CreateVerificationNextChannel.
 type CreateVerificationNextChannelParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication; API-key requests derive the workspace from the key.
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
