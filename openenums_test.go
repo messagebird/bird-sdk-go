@@ -2,6 +2,7 @@ package bird_test
 
 import (
 	"encoding/json"
+	"reflect"
 	"testing"
 
 	bird "github.com/messagebird/bird-sdk-go"
@@ -54,5 +55,27 @@ func TestOpenEnumConstantsAreUsableThroughTheFacade(t *testing.T) {
 	}
 	if !channel.Valid() {
 		t.Fatal("a re-exported constant must be a valid member")
+	}
+}
+
+// A named open enum is a DEFINED Go type, not a `type X = string` alias — a source
+// break for callers assigning the field to a string. Which one the generator emits
+// is stated in backend/openapi/BEST_PRACTICES.md §Open vs Closed Enums, only there.
+func TestNamedOpenEnumIsADefinedTypeAndInlineOneIsNot(t *testing.T) {
+	t.Parallel()
+
+	named := reflect.TypeOf(bird.VerificationChannel(""))
+	if named.Kind() != reflect.String {
+		t.Fatalf("open enums are string-kinded on the wire, got %s", named.Kind())
+	}
+	if named.Name() != "VerificationChannel" {
+		t.Fatalf("a named open enum must keep its own type identity; an alias reports %q", named.Name())
+	}
+
+	// last_channel inlines the same vocabulary rather than referencing the
+	// component, so it generates a plain string with no constants to hang off.
+	inline := reflect.TypeOf(bird.Verification{}.LastChannel)
+	if got := inline.String(); got != "*string" {
+		t.Fatalf("inline open enum should generate a plain string, got %s", got)
 	}
 }
