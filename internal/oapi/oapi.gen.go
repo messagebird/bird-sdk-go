@@ -9323,6 +9323,9 @@ type EventWhatsAppReceivedData struct {
 	// Audio Audio the contact sent.
 	Audio *WhatsAppAudio `json:"audio,omitempty"`
 
+	// ContactCards Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book.
+	ContactCards *[]WhatsAppContactCard `json:"contact_cards,omitempty"`
+
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppReceivedDataDirection `json:"direction"`
 
@@ -11042,7 +11045,7 @@ type SMSError struct {
 	// This is an open enum. Accept unrecognized values.
 	Code SMSErrorCode `json:"code"`
 
-	// Description Human-readable explanation of the failure.
+	// Description The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
 	Description string `json:"description"`
 
 	// OccurredAt When the failure occurred.
@@ -11419,7 +11422,7 @@ type SMSMessage struct {
 	// Metadata Arbitrary JSON metadata stored on the message and echoed in webhook payloads.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Options Settings Bird applied to this message, with any option you omitted filled in with the default that was in force when you sent it. Absent on inbound messages, and on outbound messages sent before Bird began recording these settings.
+	// Options The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
 	Options *SMSMessageEffectiveOptions `json:"options,omitempty"`
 
 	// Segments Segment breakdown for the message body. Segment count drives billing.
@@ -11438,7 +11441,7 @@ type SMSMessage struct {
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To string `json:"to"`
 
-	// ValidityPeriod How long, in seconds, Bird keeps trying to deliver before the message transitions to `expired`.
+	// ValidityPeriod Preview feature: how long, in seconds, the carrier may keep attempting delivery before the message is marked `expired`. Not returned yet.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 }
 
@@ -11457,7 +11460,7 @@ type SMSMessageBatchResponse struct {
 	Summary *SMSBatchSummary `json:"summary,omitempty"`
 }
 
-// SMSMessageCategory Content classification. Tells Bird and carriers why you're sending; per-country compliance rules (opt-out policy, quiet hours) key on it as they roll out.
+// SMSMessageCategory Content classification: why you are sending. Carriers see it, and where a destination country requires the sender to be registered, that registration is approved for a category: a send outside what it covers returns a `422` `SenderCategoryNotPermitted`. A registration approved for `marketing` covers all four values; one approved for `transactional`, `authentication`, or `service` covers those three and not `marketing`. Use `authentication` for a one-time passcode and `marketing` for a promotion; otherwise pick the value matching the message's purpose.
 type SMSMessageCategory string
 
 // SMSMessageEffectiveOptions The settings Bird applied to this message. Every option is reported, whether you set it on the send or took the default that was in force at the time.
@@ -11495,7 +11498,7 @@ type SMSMessageSendRequest struct {
 	// CampaignId Preview feature: campaign correlation for analytics. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	CampaignId *string `json:"campaign_id,omitempty"`
 
-	// Category Content classification. Tells Bird and carriers why you're sending; per-country compliance rules (opt-out policy, quiet hours) key on it as they roll out. Required on a free-text send; omit it on a template send, where the category is derived from the template.
+	// Category Content classification: why you are sending. Required on a free-text send; omit it on a template send, where the category is derived from the template. Where the destination country requires the sender to be registered, a category outside what that registration covers returns a `422` `SenderCategoryNotPermitted`.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -11537,7 +11540,7 @@ type SMSMessageSendRequest struct {
 	// TopicId Preview feature: topic-gated sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	TopicId *string `json:"topic_id,omitempty"`
 
-	// ValidityPeriod Preview feature: how long, in seconds (60-172800), Bird keeps trying to deliver before the message transitions to `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
+	// ValidityPeriod Preview feature: how long, in seconds (60-172800), the carrier may keep attempting delivery before the message is marked `expired`. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 	union          json.RawMessage
 }
@@ -11550,16 +11553,18 @@ type SMSMessageSendRequest1 = interface{}
 
 // SMSMessageStatus Delivery status:
 //
-// - `scheduled`: Queued for a future send time.
 // - `accepted`: Accepted and awaiting carrier handoff.
 // - `sent`: Handed to the carrier and awaiting a delivery receipt.
 // - `delivered`: Confirmed as delivered.
-// - `undelivered`: Temporarily unreachable.
-// - `failed`: Permanently failed.
+// - `undelivered`: The carrier reported delivery as failed for a reason that may clear later, such as a handset out of coverage or a carrier at capacity. Final all the same: the message is not retried, so reaching the recipient means sending again.
+// - `failed`: The carrier reported delivery as failed for a reason that will not clear, such as an unassigned number, a recipient who has opted out, or content the carrier refused.
 // - `rejected`: Refused before carrier handoff.
-// - `canceled`: Canceled before a scheduled send.
 // - `expired`: Reached its validity limit without a final receipt.
 // - `received`: Received as an inbound message.
+//
+// `scheduled` and `canceled` are declared ahead of the send-later scheduling
+// feature that produces them, so their arrival is not a breaking change. No
+// message carries either status today.
 type SMSMessageStatus string
 
 // SMSOriginatorStatsPoint Aggregate delivery and latency stats for a single originator (the sender address messages were sent from) over the requested period.
@@ -12856,6 +12861,92 @@ type WhatsAppAudioSend struct {
 	Voice *bool `json:"voice,omitempty"`
 }
 
+// WhatsAppContactAddress One postal address on a shared contact card.
+type WhatsAppContactAddress struct {
+	City    *string `json:"city,omitempty"`
+	Country *string `json:"country,omitempty"`
+
+	// CountryCode The country as the card holds it, left exactly as WhatsApp sent it: it describes a postal address rather than a routing destination.
+	CountryCode *string `json:"country_code,omitempty"`
+	State       *string `json:"state,omitempty"`
+	Street      *string `json:"street,omitempty"`
+
+	// Type The label the contact's device attached, for example `Home`. Free text passed through verbatim.
+	Type *string `json:"type,omitempty"`
+	Zip  *string `json:"zip,omitempty"`
+}
+
+// WhatsAppContactCard A contact card the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only.
+// Nothing here is required. WhatsApp sends the parts the card holds and omits the rest, and a card that arrives with only an `origin` is still meaningful, so an empty card reads back empty rather than being dropped.
+type WhatsAppContactCard struct {
+	Addresses *[]WhatsAppContactAddress `json:"addresses,omitempty"`
+
+	// Birthday The contact's birthday, which WhatsApp sends as `YYYY-MM-DD`. Passed through as text rather than typed as a date: the value comes off the contact's own device unvalidated, and a card we could not parse would otherwise have to lose the field or fail the whole read.
+	Birthday *string                 `json:"birthday,omitempty"`
+	Emails   *[]WhatsAppContactEmail `json:"emails,omitempty"`
+
+	// Name The contact's name, when the card carries one.
+	Name *WhatsAppContactName `json:"name,omitempty"`
+
+	// Org Where the contact works, when the card carries it.
+	Org *WhatsAppContactOrg `json:"org,omitempty"`
+
+	// Origin Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since.
+	Origin *string `json:"origin,omitempty"`
+
+	// PhoneNumbers The numbers on the card. A button tap carries the contact's own number here, which is the point of asking.
+	PhoneNumbers *[]WhatsAppContactPhone `json:"phone_numbers,omitempty"`
+	Urls         *[]WhatsAppContactUrl   `json:"urls,omitempty"`
+
+	// Vcard The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone.
+	Vcard *string `json:"vcard,omitempty"`
+}
+
+// WhatsAppContactEmail One email address on a shared contact card.
+type WhatsAppContactEmail struct {
+	Email *string `json:"email,omitempty"`
+
+	// Type The label the contact's device attached, for example `Personal` or `Work`. Free text passed through verbatim.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppContactName The contact's name, in the parts their device supplied. Every part is optional: WhatsApp sends what the card holds and omits the rest.
+type WhatsAppContactName struct {
+	FirstName *string `json:"first_name,omitempty"`
+
+	// FormattedName The whole name as the contact's device renders it.
+	FormattedName *string `json:"formatted_name,omitempty"`
+	LastName      *string `json:"last_name,omitempty"`
+	MiddleName    *string `json:"middle_name,omitempty"`
+	Prefix        *string `json:"prefix,omitempty"`
+	Suffix        *string `json:"suffix,omitempty"`
+}
+
+// WhatsAppContactOrg Where the contact works, as their card records it.
+type WhatsAppContactOrg struct {
+	Company    *string `json:"company,omitempty"`
+	Department *string `json:"department,omitempty"`
+	Title      *string `json:"title,omitempty"`
+}
+
+// WhatsAppContactPhone One phone number on a shared contact card.
+type WhatsAppContactPhone struct {
+	// PhoneNumber The number as the card holds it, normalized to E.164 where we can parse it. A card is whatever the contact's device stored, so a number that no country's numbering plan accepts, an extension among them, is passed through exactly as it arrived rather than dropped. Parse defensively: most values are E.164 and none is guaranteed to be.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Type The label the contact's device attached, for example `CELL`, `Home` or `iPhone`. Free text passed through verbatim: WhatsApp declares no vocabulary here and does not normalize the casing, so neither do we.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppContactUrl One website on a shared contact card.
+type WhatsAppContactUrl struct {
+	// Type The label the contact's device attached, for example `Company`. Free text passed through verbatim.
+	Type *string `json:"type,omitempty"`
+
+	// Url The address as the card holds it, which is often bare rather than a full URL, so it is passed through as text rather than validated.
+	Url *string `json:"url,omitempty"`
+}
+
 // WhatsAppDocument defines model for WhatsAppDocument.
 type WhatsAppDocument struct {
 	// Caption Text shown beneath the document. Absent when the sender wrote none.
@@ -13047,6 +13138,9 @@ type WhatsAppMedia struct {
 type WhatsAppMessage struct {
 	// Audio Audio the message carried.
 	Audio *WhatsAppAudio `json:"audio,omitempty"`
+
+	// ContactCards Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+	ContactCards *[]WhatsAppContactCard `json:"contact_cards,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost,omitempty"`
@@ -15122,7 +15216,7 @@ type ListSMSMessagesParams struct {
 	// Direction Filter by direction. Omit for both.
 	Direction *MessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`.
+	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
 
 	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`.

@@ -18,8 +18,9 @@ type SmsService struct {
 	Stats *SmsStatsService
 }
 
-// SMSCategory classifies a send for opt-out (STOP) policy, quiet hours, and
-// per-country compliance.
+// SMSCategory classifies a send: carriers see it, and a country sender
+// registration is approved for a category, so a send outside what it covers is
+// refused. Quiet hours do not key on it; nothing implements them.
 type SMSCategory = oapi.SMSMessageCategory
 
 const (
