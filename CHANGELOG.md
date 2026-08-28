@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.45.0
+
+- The numbers list's `prefix` filter now matches without `country_code`: the digits are compared from the start of each stored number, ignoring a leading `+`, so short codes and a full number pasted as digits both resolve. With `country_code` it anchors behind the dial code as before.
+
 ## 0.44.0
 
 - Add the `workspace` resource: `get()` returns the workspace the credential is scoped to, including its id, name, owning organization's id, and notification and logo settings.
