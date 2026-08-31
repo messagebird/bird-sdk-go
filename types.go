@@ -268,8 +268,8 @@ type (
 // configuration; DomainCapabilities is the per-capability readiness breakdown.
 // The write-side *Config aliases accompany DomainCreateParams / DomainUpdateParams.
 type (
-	Domain             = oapi.Domain
-	DomainList         = oapi.DomainList
+	Domain     = oapi.Domain
+	DomainList = oapi.DomainList
 
 	// Number is a number the workspace holds; NumberList is a page of them.
 	// AvailableNumber is one on sale and AvailableNumberList a page of those.
@@ -280,11 +280,11 @@ type (
 	AvailableNumberList = oapi.AvailableNumberList
 	NumbersOrder        = oapi.NumbersOrder
 	NumbersOrderList    = oapi.NumbersOrderList
-	DNSRecord          = oapi.DNSRecord
-	DomainDKIM         = oapi.DomainDKIM
-	DomainCapabilities = oapi.DomainCapabilities
-	DomainCapability   = oapi.DomainCapability
-	DomainStatus       = oapi.DomainStatus
+	DNSRecord           = oapi.DNSRecord
+	DomainDKIM          = oapi.DomainDKIM
+	DomainCapabilities  = oapi.DomainCapabilities
+	DomainCapability    = oapi.DomainCapability
+	DomainStatus        = oapi.DomainStatus
 )
 
 // WhatsAppMessage is a sent or received WhatsApp message; WhatsAppMessageList
@@ -331,6 +331,53 @@ type (
 	WhatsAppStickerSend  = oapi.WhatsAppStickerSend
 	WhatsAppDocumentSend = oapi.WhatsAppDocumentSend
 	WhatsAppLocationSend = oapi.WhatsAppLocationSend
+)
+
+// The interactive send arm and the shapes it nests. Each is the wire object
+// verbatim: `Type` names the kind and the matching field carries it, and the
+// server rejects a send that carries a second kind's field.
+type (
+	WhatsAppInteractiveSend                 = oapi.WhatsAppInteractiveSend
+	WhatsAppInteractiveHeaderSend           = oapi.WhatsAppInteractiveHeaderSend
+	WhatsAppInteractiveButtonSend           = oapi.WhatsAppInteractiveButtonSend
+	WhatsAppInteractiveQuickReplyButtonSend = oapi.WhatsAppInteractiveQuickReplyButtonSend
+	WhatsAppInteractiveCtaUrlSend           = oapi.WhatsAppInteractiveCtaUrlSend
+	WhatsAppInteractiveListSend             = oapi.WhatsAppInteractiveListSend
+	WhatsAppInteractiveListSectionSend      = oapi.WhatsAppInteractiveListSectionSend
+	WhatsAppInteractiveListRowSend          = oapi.WhatsAppInteractiveListRowSend
+	WhatsAppInteractiveCardSend             = oapi.WhatsAppInteractiveCardSend
+	WhatsAppInteractiveCardHeaderSend       = oapi.WhatsAppInteractiveCardHeaderSend
+)
+
+// The kinds a send may name, and the kinds its header and buttons may name.
+// Closed on the write side, unlike their read counterparts above: WhatsApp adds
+// kinds we render back before we accept them on a send. The names carry the
+// schemas' own `Write` infix so each constant reads against the field it sets.
+type (
+	WhatsAppInteractiveTypeWrite       = oapi.WhatsAppInteractiveTypeWrite
+	WhatsAppInteractiveHeaderTypeWrite = oapi.WhatsAppInteractiveHeaderTypeWrite
+	WhatsAppInteractiveButtonTypeWrite = oapi.WhatsAppInteractiveButtonTypeWrite
+)
+
+const (
+	WhatsAppInteractiveTypeWriteButton                 = oapi.WhatsAppInteractiveTypeWriteButton
+	WhatsAppInteractiveTypeWriteList                   = oapi.WhatsAppInteractiveTypeWriteList
+	WhatsAppInteractiveTypeWriteCtaUrl                 = oapi.WhatsAppInteractiveTypeWriteCtaUrl
+	WhatsAppInteractiveTypeWriteCarousel               = oapi.WhatsAppInteractiveTypeWriteCarousel
+	WhatsAppInteractiveTypeWriteLocationRequestMessage = oapi.WhatsAppInteractiveTypeWriteLocationRequestMessage
+	WhatsAppInteractiveTypeWriteRequestContactInfo     = oapi.WhatsAppInteractiveTypeWriteRequestContactInfo
+)
+
+const (
+	WhatsAppInteractiveHeaderTypeWriteText     = oapi.WhatsAppInteractiveHeaderTypeWriteText
+	WhatsAppInteractiveHeaderTypeWriteImage    = oapi.WhatsAppInteractiveHeaderTypeWriteImage
+	WhatsAppInteractiveHeaderTypeWriteVideo    = oapi.WhatsAppInteractiveHeaderTypeWriteVideo
+	WhatsAppInteractiveHeaderTypeWriteDocument = oapi.WhatsAppInteractiveHeaderTypeWriteDocument
+)
+
+const (
+	WhatsAppInteractiveButtonTypeWriteQuickReply = oapi.WhatsAppInteractiveButtonTypeWriteQuickReply
+	WhatsAppInteractiveButtonTypeWriteCtaUrl     = oapi.WhatsAppInteractiveButtonTypeWriteCtaUrl
 )
 
 // WhatsAppTag is a structured {name, value} label on a WhatsApp send.

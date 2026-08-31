@@ -3834,6 +3834,27 @@ func (e VoiceCallRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for VoiceCallRouteType.
+const (
+	Forward VoiceCallRouteType = "forward"
+	Reject  VoiceCallRouteType = "reject"
+	Trunk   VoiceCallRouteType = "trunk"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallRouteType enum.
+func (e VoiceCallRouteType) Valid() bool {
+	switch e {
+	case Forward:
+		return true
+	case Reject:
+		return true
+	case Trunk:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceCallStatus.
 const (
 	VoiceCallStatusAnswered   VoiceCallStatus = "answered"
@@ -3867,6 +3888,24 @@ func (e VoiceCallStatus) Valid() bool {
 	case VoiceCallStatusRinging:
 		return true
 	case VoiceCallStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceInboundForwardAs.
+const (
+	CallingNumber VoiceInboundForwardAs = "calling_number"
+	DialedNumber  VoiceInboundForwardAs = "dialed_number"
+)
+
+// Valid indicates whether the value is a known member of the VoiceInboundForwardAs enum.
+func (e VoiceInboundForwardAs) Valid() bool {
+	switch e {
+	case CallingNumber:
+		return true
+	case DialedNumber:
 		return true
 	default:
 		return false
@@ -4224,6 +4263,168 @@ func (e WhatsAppEventType) Valid() bool {
 	case WhatsAppEventTypeWhatsappRejected:
 		return true
 	case WhatsAppEventTypeWhatsappSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveButtonType.
+const (
+	WhatsAppInteractiveButtonTypeCtaUrl     WhatsAppInteractiveButtonType = "cta_url"
+	WhatsAppInteractiveButtonTypeQuickReply WhatsAppInteractiveButtonType = "quick_reply"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveButtonType enum.
+func (e WhatsAppInteractiveButtonType) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveButtonTypeCtaUrl:
+		return true
+	case WhatsAppInteractiveButtonTypeQuickReply:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveButtonTypeWrite.
+const (
+	WhatsAppInteractiveButtonTypeWriteCtaUrl     WhatsAppInteractiveButtonTypeWrite = "cta_url"
+	WhatsAppInteractiveButtonTypeWriteQuickReply WhatsAppInteractiveButtonTypeWrite = "quick_reply"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveButtonTypeWrite enum.
+func (e WhatsAppInteractiveButtonTypeWrite) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveButtonTypeWriteCtaUrl:
+		return true
+	case WhatsAppInteractiveButtonTypeWriteQuickReply:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveHeaderType.
+const (
+	WhatsAppInteractiveHeaderTypeDocument WhatsAppInteractiveHeaderType = "document"
+	WhatsAppInteractiveHeaderTypeImage    WhatsAppInteractiveHeaderType = "image"
+	WhatsAppInteractiveHeaderTypeText     WhatsAppInteractiveHeaderType = "text"
+	WhatsAppInteractiveHeaderTypeVideo    WhatsAppInteractiveHeaderType = "video"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveHeaderType enum.
+func (e WhatsAppInteractiveHeaderType) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveHeaderTypeDocument:
+		return true
+	case WhatsAppInteractiveHeaderTypeImage:
+		return true
+	case WhatsAppInteractiveHeaderTypeText:
+		return true
+	case WhatsAppInteractiveHeaderTypeVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveHeaderTypeWrite.
+const (
+	WhatsAppInteractiveHeaderTypeWriteDocument WhatsAppInteractiveHeaderTypeWrite = "document"
+	WhatsAppInteractiveHeaderTypeWriteImage    WhatsAppInteractiveHeaderTypeWrite = "image"
+	WhatsAppInteractiveHeaderTypeWriteText     WhatsAppInteractiveHeaderTypeWrite = "text"
+	WhatsAppInteractiveHeaderTypeWriteVideo    WhatsAppInteractiveHeaderTypeWrite = "video"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveHeaderTypeWrite enum.
+func (e WhatsAppInteractiveHeaderTypeWrite) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveHeaderTypeWriteDocument:
+		return true
+	case WhatsAppInteractiveHeaderTypeWriteImage:
+		return true
+	case WhatsAppInteractiveHeaderTypeWriteText:
+		return true
+	case WhatsAppInteractiveHeaderTypeWriteVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveReplyType.
+const (
+	WhatsAppInteractiveReplyTypeButton WhatsAppInteractiveReplyType = "button"
+	WhatsAppInteractiveReplyTypeList   WhatsAppInteractiveReplyType = "list"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveReplyType enum.
+func (e WhatsAppInteractiveReplyType) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveReplyTypeButton:
+		return true
+	case WhatsAppInteractiveReplyTypeList:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveType.
+const (
+	WhatsAppInteractiveTypeButton                 WhatsAppInteractiveType = "button"
+	WhatsAppInteractiveTypeCarousel               WhatsAppInteractiveType = "carousel"
+	WhatsAppInteractiveTypeCtaUrl                 WhatsAppInteractiveType = "cta_url"
+	WhatsAppInteractiveTypeList                   WhatsAppInteractiveType = "list"
+	WhatsAppInteractiveTypeLocationRequestMessage WhatsAppInteractiveType = "location_request_message"
+	WhatsAppInteractiveTypeRequestContactInfo     WhatsAppInteractiveType = "request_contact_info"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveType enum.
+func (e WhatsAppInteractiveType) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveTypeButton:
+		return true
+	case WhatsAppInteractiveTypeCarousel:
+		return true
+	case WhatsAppInteractiveTypeCtaUrl:
+		return true
+	case WhatsAppInteractiveTypeList:
+		return true
+	case WhatsAppInteractiveTypeLocationRequestMessage:
+		return true
+	case WhatsAppInteractiveTypeRequestContactInfo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppInteractiveTypeWrite.
+const (
+	WhatsAppInteractiveTypeWriteButton                 WhatsAppInteractiveTypeWrite = "button"
+	WhatsAppInteractiveTypeWriteCarousel               WhatsAppInteractiveTypeWrite = "carousel"
+	WhatsAppInteractiveTypeWriteCtaUrl                 WhatsAppInteractiveTypeWrite = "cta_url"
+	WhatsAppInteractiveTypeWriteList                   WhatsAppInteractiveTypeWrite = "list"
+	WhatsAppInteractiveTypeWriteLocationRequestMessage WhatsAppInteractiveTypeWrite = "location_request_message"
+	WhatsAppInteractiveTypeWriteRequestContactInfo     WhatsAppInteractiveTypeWrite = "request_contact_info"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppInteractiveTypeWrite enum.
+func (e WhatsAppInteractiveTypeWrite) Valid() bool {
+	switch e {
+	case WhatsAppInteractiveTypeWriteButton:
+		return true
+	case WhatsAppInteractiveTypeWriteCarousel:
+		return true
+	case WhatsAppInteractiveTypeWriteCtaUrl:
+		return true
+	case WhatsAppInteractiveTypeWriteList:
+		return true
+	case WhatsAppInteractiveTypeWriteLocationRequestMessage:
+		return true
+	case WhatsAppInteractiveTypeWriteRequestContactInfo:
 		return true
 	default:
 		return false
@@ -9259,7 +9460,7 @@ type EventWhatsAppBase struct {
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction EventWhatsAppBaseDirection `json:"direction"`
 
-	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
@@ -9268,7 +9469,7 @@ type EventWhatsAppBase struct {
 	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	To          WhatsAppAddress   `json:"to"`
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
@@ -9318,7 +9519,7 @@ type EventWhatsAppFailedData struct {
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *WhatsAppError `json:"error,omitempty"`
 
-	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
@@ -9327,7 +9528,7 @@ type EventWhatsAppFailedData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	To          WhatsAppAddress   `json:"to"`
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
@@ -9380,7 +9581,7 @@ type EventWhatsAppReceivedData struct {
 	// Document Document the contact sent.
 	Document *WhatsAppDocument `json:"document,omitempty"`
 
-	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
 	// Image Image the contact sent.
@@ -9401,7 +9602,7 @@ type EventWhatsAppReceivedData struct {
 	// Text Text the contact sent.
 	Text *WhatsAppText `json:"text,omitempty"`
 
-	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	To WhatsAppAddress `json:"to"`
 
 	// Unsupported Set when the contact sent content the API does not model, naming the WhatsApp content type.
@@ -9439,7 +9640,7 @@ type EventWhatsAppRejectedData struct {
 	// Error Failure detail for a message that could not be delivered or was rejected.
 	Error *WhatsAppError `json:"error,omitempty"`
 
-	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
@@ -9448,7 +9649,7 @@ type EventWhatsAppRejectedData struct {
 	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
 
-	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	To          WhatsAppAddress   `json:"to"`
 	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
 	WorkspaceId WorkspaceID       `json:"workspace_id"`
@@ -12517,8 +12718,11 @@ type VoiceCall struct {
 	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
 	PddMs *int `json:"pdd_ms,omitempty"`
 
-	// RejectionReason Why we refused the call before dialing a carrier. Absent when the call connected or failed at the carrier; see `sip_response_code` for the carrier response.
+	// RejectionReason Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
 	RejectionReason *VoiceCallRejectionReason `json:"rejection_reason,omitempty"`
+
+	// Route Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
+	Route *VoiceCallInboundRoute `json:"route,omitempty"`
 
 	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
 	SessionId *VoiceSessionID `json:"session_id,omitempty"`
@@ -12564,6 +12768,45 @@ type VoiceCallDirection string
 
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
+
+// VoiceCallInboundRoute Which answer the dialled number gave an incoming call, as it was acted on. The
+// type selects the shape: "reject" turned the call away, "trunk" delivered it to
+// one of your SIP trunks, and "forward" placed a call to another of your numbers
+// and connected the two.
+//
+// It says what the number was set to do, not that it worked. A "trunk" route on a
+// call that never connected is a number pointed at a trunk that did not take it;
+// the call's status is what carries the outcome.
+type VoiceCallInboundRoute struct {
+	union json.RawMessage
+}
+
+// VoiceCallInboundRouteForward defines model for VoiceCallInboundRouteForward.
+type VoiceCallInboundRouteForward struct {
+	// ForwardAs Which of the call's two numbers the forwarded leg presented as its caller. The value that went on the wire, not the one the number is set to now.
+	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
+
+	// ForwardTo The number the call was forwarded to, in E.164 format. Recorded as it was at the time, so it may name a number you have since stopped verifying.
+	ForwardTo string `json:"forward_to"`
+
+	// Type The call was forwarded to another of your numbers.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallInboundRouteReject defines model for VoiceCallInboundRouteReject.
+type VoiceCallInboundRouteReject struct {
+	// Type The number turned the call away. This is where every number starts, so it covers a number nobody has configured as well as one set to reject.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallInboundRouteTrunk defines model for VoiceCallInboundRouteTrunk.
+type VoiceCallInboundRouteTrunk struct {
+	// TrunkId The SIP trunk the call was delivered to. Recorded as it was at the time, so it may name a trunk you have since changed or deleted.
+	TrunkId SIPTrunkID `json:"trunk_id"`
+
+	// Type The call was delivered to one of your SIP trunks.
+	Type VoiceCallRouteType `json:"type"`
+}
 
 // VoiceCallList defines model for VoiceCallList.
 type VoiceCallList struct {
@@ -12612,6 +12855,16 @@ type VoiceCallList struct {
 //   - `call_not_permitted`: The call could not be priced for your account.
 type VoiceCallRejectionReason string
 
+// VoiceCallRouteType Which answer a number carries.
+//
+// - `reject`: refuses the call. This is where every number starts.
+// - `trunk`: delivers the call to one of your SIP trunks.
+// - `forward`: places a call to one of your verified caller IDs and connects the two.
+//
+// It selects the answer's own shape, so a new way to answer a call arrives as a
+// new value alongside a new set of fields.
+type VoiceCallRouteType string
+
 // VoiceCallStatus Call status.
 //
 // A call that has ended carries one of:
@@ -12634,6 +12887,21 @@ type VoiceCallRejectionReason string
 // for a caller who hung up before it was picked up. Neither is emitted yet and
 // both outcomes are reported as `failed` today.
 type VoiceCallStatus string
+
+// VoiceInboundForwardAs Which of a forwarded call's two numbers it shows as the caller.
+//
+// "dialed_number" is the number the caller dialled, which is one of yours.
+// Carriers treat it as fully yours, so it is the least likely to be altered or
+// screened. Whoever answers sees which of your numbers was called, not who called
+// it. It needs your workspace approved to place calls from numbers you bought from
+// us; where it is not, this value is refused and the call shows the calling
+// number.
+//
+// "calling_number" is the caller's own number, so the phone rings as though they
+// had dialled it directly and the call can be returned from the call log. Because
+// the number is not one you own, some carriers (most often in the US and parts of
+// Europe) mark such calls as unverified, replace the number, or screen them.
+type VoiceInboundForwardAs string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
 type VoiceMediaQuality struct {
@@ -12904,13 +13172,19 @@ type WebhookTestResponse struct {
 // WebhookTestResponseStatus Whether your endpoint accepted the test event. `delivered` means it returned a `2xx` status; `failed` means it returned a non-`2xx` status or could not be reached (see `error` for the latter).
 type WebhookTestResponseStatus string
 
-// WhatsAppAddress Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both.
+// WhatsAppAddress Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 type WhatsAppAddress struct {
 	// Bsuid Business-scoped user ID, Meta's identifier for the WhatsApp user. Present only on the WhatsApp-user side of the message.
 	Bsuid *string `json:"bsuid,omitempty"`
 
+	// DisplayName Present only on a message received from a WhatsApp user, on `from`; never on an outbound send's `to`, where the profile is not known. Absent when the message carries no profile, and on a message received before this workspace started recording them.
+	DisplayName *string `json:"display_name,omitempty"`
+
 	// PhoneNumber Phone number in E.164 format, when known.
 	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Username Present only on a message received from a WhatsApp user, on `from`; never on an outbound send's `to`, where the profile is not known. Absent when the contact has not adopted one, and on a message received before this workspace started recording them. Same form as a number's own username (`WhatsAppNumberProfile.username`), without a leading `@`; a message cannot be addressed by it.
+	Username *string `json:"username,omitempty"`
 }
 
 // WhatsAppAudio defines model for WhatsAppAudio.
@@ -13165,6 +13439,444 @@ type WhatsAppImageSend struct {
 	Url string `json:"url"`
 }
 
+// WhatsAppInteractive Interactive content of a WhatsApp message: body text plus something the recipient can tap. The field named by `type` is the one that is present, except on `location_request_message` and `request_contact_info`, which name no field: each is a single button asking the recipient for something, so `body_text` is the whole message. Outbound only, and so an echo of what the send asked for: a contact cannot send interactive content, and a tap on it reads as `interactive_reply`, or on a location or contact request as the message the recipient shared in answer. Unlike the send schema, this one does not pin each `type` to its field. The vocabulary in `type` is open, so dispatch on it and treat an unrecognized value as a kind added since. Only the discriminator is open: this schema declares no additional properties, so a new kind's own payload field arrives here in the same change that introduces the kind, which is additive.
+type WhatsAppInteractive struct {
+	// BodyText The message's main text.
+	BodyText string `json:"body_text"`
+
+	// Buttons The buttons the message offered, in the order shown.
+	Buttons *[]WhatsAppInteractiveButton `json:"buttons,omitempty"`
+
+	// Cards The cards the message offered, in the order they appeared, left to right.
+	Cards *[]WhatsAppInteractiveCard `json:"cards,omitempty"`
+
+	// CtaUrl The link button the message offered.
+	CtaUrl *WhatsAppInteractiveCtaUrl `json:"cta_url,omitempty"`
+
+	// FooterText The small print below the body. Absent when the message carried none.
+	FooterText *string `json:"footer_text,omitempty"`
+
+	// Header What was shown above the body. Absent when the message carried no header.
+	Header *WhatsAppInteractiveHeader `json:"header,omitempty"`
+
+	// List The menu the message offered.
+	List *WhatsAppInteractiveList `json:"list,omitempty"`
+
+	// Type Which kind of interactive message this is, and which field carries it.
+	Type WhatsAppInteractiveType `json:"type"`
+}
+
+// WhatsAppInteractiveButton One button the message offered. The field named by `type` is the one that is present. As on the message itself, the read vocabulary is open: dispatch on `type` and treat an unrecognized value as a button kind added since.
+type WhatsAppInteractiveButton struct {
+	// CtaUrl The button's label and the address it opens.
+	CtaUrl *WhatsAppInteractiveCtaUrl `json:"cta_url,omitempty"`
+
+	// QuickReply The button's label and the handle it sends back.
+	QuickReply *WhatsAppInteractiveQuickReplyButton `json:"quick_reply,omitempty"`
+
+	// Type Which kind of button this is, and which field carries it.
+	Type WhatsAppInteractiveButtonType `json:"type"`
+}
+
+// WhatsAppInteractiveButtonSend One button on an interactive message or on a carousel card. `type` names the kind and the field that carries it, so a button kind WhatsApp adds later arrives as another `type` here rather than as a new shape somewhere else.
+type WhatsAppInteractiveButtonSend struct {
+	// CtaUrl The button's label and the address it opens. Send this on a `cta_url` button.
+	CtaUrl *WhatsAppInteractiveCtaUrlSend `json:"cta_url,omitempty"`
+
+	// QuickReply The button's label and the handle it sends back. Send this on a `quick_reply` button.
+	QuickReply *WhatsAppInteractiveQuickReplyButtonSend `json:"quick_reply,omitempty"`
+
+	// Type Which kind of button this is, and which field carries it.
+	Type  WhatsAppInteractiveButtonTypeWrite `json:"type"`
+	union json.RawMessage
+}
+
+// WhatsAppInteractiveButtonSend0 defines model for .
+type WhatsAppInteractiveButtonSend0 struct {
+	CtaUrl interface{} `json:"cta_url,omitempty"`
+	Type   interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveButtonSend1 defines model for .
+type WhatsAppInteractiveButtonSend1 struct {
+	QuickReply interface{} `json:"quick_reply,omitempty"`
+	Type       interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveButtonType Which kind of button this is, and which field carries it.
+//
+// - `quick_reply`: sends its own identifier back as an inbound message.
+// - `cta_url`: opens a link in the recipient's browser.
+//
+// Open enum: WhatsApp adds button kinds over time, so treat an unrecognized
+// value as a future kind rather than an error.
+type WhatsAppInteractiveButtonType string
+
+// WhatsAppInteractiveButtonTypeWrite Which kind of button this is, and which field carries it.
+//
+//   - `quick_reply`: sends its own identifier back as an inbound message. The
+//     name `WhatsAppTemplateButtonTypeWrite` already uses for the same control.
+//   - `cta_url`: opens a link in the recipient's browser.
+//
+// Closed on the write side: a kind Bird cannot send to Meta is rejected rather
+// than accepted and then failed asynchronously.
+type WhatsAppInteractiveButtonTypeWrite string
+
+// WhatsAppInteractiveCard One card the carousel showed, in the position it appeared in.
+type WhatsAppInteractiveCard struct {
+	// BodyText The card's own text. Absent when the card carried none.
+	BodyText *string `json:"body_text,omitempty"`
+
+	// Buttons The buttons the card offered, in the order shown.
+	Buttons []WhatsAppInteractiveButton `json:"buttons"`
+
+	// Header The image or video shown at the top of the card.
+	Header WhatsAppInteractiveHeader `json:"header"`
+}
+
+// WhatsAppInteractiveCardHeaderSend The media at the top of a carousel card. Every card must carry one, and it must be an image or a video: a card takes no text or document header.
+type WhatsAppInteractiveCardHeaderSend struct {
+	// Type Which kind of media this is. A card accepts `image` or `video` only.
+	Type WhatsAppInteractiveHeaderTypeWrite `json:"type"`
+
+	// Url Public `https` URL of the file to show at the top of the card. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB. WhatsApp fetches it at send time, on the same terms as a message header's `url`.
+	Url   string `json:"url"`
+	union json.RawMessage
+}
+
+// WhatsAppInteractiveCardHeaderSend0 defines model for .
+type WhatsAppInteractiveCardHeaderSend0 struct {
+	Type interface{} `json:"type,omitempty"`
+}
+
+// WhatsAppInteractiveCardHeaderSend1 defines model for .
+type WhatsAppInteractiveCardHeaderSend1 struct {
+	Type interface{} `json:"type,omitempty"`
+}
+
+// WhatsAppInteractiveCardSend One card in a carousel: media at the top, optional text of its own, and the buttons under it. A card has no footer, and its position in `cards` is the position it appears in.
+type WhatsAppInteractiveCardSend struct {
+	// BodyText The card's own text, below its media, with at most two line breaks. Optional: a card can carry media and buttons alone.
+	BodyText *string `json:"body_text,omitempty"`
+
+	// Buttons The buttons under the card, in the order given. Either one `cta_url` button or up to three `quick_reply` buttons: the two kinds cannot be mixed on one card. Every card in the carousel must carry the same kinds in the same number, and a carousel whose cards disagree returns a `422` `WhatsAppInteractiveCarouselButtonsMismatch`.
+	Buttons []WhatsAppInteractiveButtonSend `json:"buttons"`
+
+	// Header The image or video at the top of the card.
+	Header WhatsAppInteractiveCardHeaderSend `json:"header"`
+	union  json.RawMessage
+}
+
+// WhatsAppInteractiveCardSend0 defines model for .
+type WhatsAppInteractiveCardSend0 struct {
+	Buttons interface{} `json:"buttons,omitempty"`
+}
+
+// WhatsAppInteractiveCardSend1 defines model for .
+type WhatsAppInteractiveCardSend1 struct {
+	Buttons interface{} `json:"buttons,omitempty"`
+}
+
+// WhatsAppInteractiveCtaUrl The link button the message offered: its label and the address it opens.
+type WhatsAppInteractiveCtaUrl struct {
+	// Text The button's label.
+	Text string `json:"text"`
+
+	// Url The address the button opens, as the send supplied it.
+	Url string `json:"url"`
+}
+
+// WhatsAppInteractiveCtaUrlSend A button that opens a link in the recipient's browser, so a long or opaque address never has to appear in the message body.
+type WhatsAppInteractiveCtaUrlSend struct {
+	// Text The button's label.
+	Text string `json:"text"`
+
+	// Url The address the button opens. It is fixed for every recipient, so per recipient tracking belongs in the address you supply, for example as a query parameter you generate per send.
+	Url string `json:"url"`
+}
+
+// WhatsAppInteractiveHeader What the interactive message showed above its body. `type` names the kind and the field that carries it: `text` for a line of copy, `url` for the file every other kind shows. As on the message itself, the read vocabulary is open: dispatch on `type` and treat an unrecognized value as a header kind added since.
+type WhatsAppInteractiveHeader struct {
+	// Text The line of text shown above the body.
+	Text *string `json:"text,omitempty"`
+
+	// Type Which kind of header this is, and which field carries it.
+	Type WhatsAppInteractiveHeaderType `json:"type"`
+
+	// Url The URL of the file shown above the body, as the send supplied it. Interactive content is outbound only, so Bird neither stores nor proxies the file.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppInteractiveHeaderSend What to show above an interactive message's body. `type` names the kind and the field that carries it: `text` for a line of copy, `url` for the file every other kind shows, the same pairing a template's `parameters` use. A `list` accepts a `text` header only, and any other kind on it is refused.
+type WhatsAppInteractiveHeaderSend struct {
+	// Text A single line of text above the body. Send it on a `text` header.
+	Text *string `json:"text,omitempty"`
+
+	// Type Which kind of header this is, and which field carries it.
+	Type WhatsAppInteractiveHeaderTypeWrite `json:"type"`
+
+	// Url Public `https` URL of the file to show. Send it on an `image`, `video` or `document` header. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB; a document, up to 100 MB, and PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client while other file types are transmitted but unsupported. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch.
+	Url   *string `json:"url,omitempty"`
+	union json.RawMessage
+}
+
+// WhatsAppInteractiveHeaderSend0 defines model for .
+type WhatsAppInteractiveHeaderSend0 struct {
+	Type interface{} `json:"type"`
+	Url  interface{} `json:"url,omitempty"`
+}
+
+// WhatsAppInteractiveHeaderSend1 defines model for .
+type WhatsAppInteractiveHeaderSend1 struct {
+	Text interface{} `json:"text,omitempty"`
+	Type interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveHeaderType A header's kind, and which field carries it. Open enum: WhatsApp adds header kinds over time, so treat an unrecognized value as a future kind rather than an error.
+type WhatsAppInteractiveHeaderType string
+
+// WhatsAppInteractiveHeaderTypeWrite A header's kind, and which field carries it. `text` is a line of copy; the rest each show a file whose address you give in `url`. A `list` accepts `text` only, and a carousel card accepts `image` or `video` only. Closed on the write side: a kind Bird cannot send to Meta is rejected rather than accepted and then failed asynchronously.
+type WhatsAppInteractiveHeaderTypeWrite string
+
+// WhatsAppInteractiveList The menu the message offered: a button that opens it, and the groups of options behind it.
+type WhatsAppInteractiveList struct {
+	// ButtonText The label of the button that opens the menu.
+	ButtonText string `json:"button_text"`
+
+	// Sections The groups of options in the menu, in the order shown.
+	Sections []WhatsAppInteractiveListSection `json:"sections"`
+}
+
+// WhatsAppInteractiveListRow One option in a list's menu. On the echo of a message Bird sent, the row as declared; on an inbound `interactive_reply`, the row the contact chose. No length is declared here: this is what WhatsApp reported, not what a send is held to.
+type WhatsAppInteractiveListRow struct {
+	// Description The second line under the label. Absent when the row carried none.
+	Description *string `json:"description,omitempty"`
+
+	// Slug The handle the row carries back, never shown to the recipient.
+	Slug string `json:"slug"`
+
+	// Text The row's label, shown as its title in the menu.
+	Text string `json:"text"`
+}
+
+// WhatsAppInteractiveListRowSend One option in a list's menu. Choosing it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+type WhatsAppInteractiveListRowSend struct {
+	// Description A second line under the label, for detail that will not fit in it.
+	Description *string `json:"description,omitempty"`
+
+	// Slug Your own handle for this option, echoed back on the reply. You choose the value and it is never shown to the recipient. Any characters, up to 200.
+	Slug string `json:"slug"`
+
+	// Text The option's label, shown as the row's title in the menu. It must differ from every other row's label and from every button's label in the same message, not merely within its own group; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+	Text string `json:"text"`
+}
+
+// WhatsAppInteractiveListSection One group of options in the menu the message showed.
+type WhatsAppInteractiveListSection struct {
+	// Rows The options in this group, in the order shown.
+	Rows []WhatsAppInteractiveListRow `json:"rows"`
+
+	// Title The group's heading, shown above its rows.
+	Title string `json:"title"`
+}
+
+// WhatsAppInteractiveListSectionSend One group of options in a list's menu. A menu with a single group still carries a title, which WhatsApp shows above its rows.
+type WhatsAppInteractiveListSectionSend struct {
+	// Rows The options in this group. A message carries at most 10 rows across all its groups combined, so this per-group maximum is not additive: more than 10 in total returns a `422` `WhatsAppInteractiveLimitExceeded`. Row labels must be unique across the whole message too, not just within a group.
+	Rows []WhatsAppInteractiveListRowSend `json:"rows"`
+
+	// Title The group's heading, shown above its rows.
+	Title string `json:"title"`
+}
+
+// WhatsAppInteractiveListSend A menu of options behind a single button. The recipient taps the button, WhatsApp opens the menu, and choosing one option sends it back as a reply.
+type WhatsAppInteractiveListSend struct {
+	// ButtonText The label of the button that opens the menu.
+	ButtonText string `json:"button_text"`
+
+	// Sections The groups of options in the menu, in the order shown. At most 10 rows across all groups combined, each carrying a label unique across the whole message.
+	Sections []WhatsAppInteractiveListSectionSend `json:"sections"`
+}
+
+// WhatsAppInteractiveQuickReplyButton A reply button's label and the handle it carries back. On the echo of a message Bird sent, the pair the send declared; on an inbound `interactive_reply`, the pair the contact tapped. No length is declared here, because a tap can echo a template's quick-reply button, whose label runs longer than an interactive message's own allows.
+type WhatsAppInteractiveQuickReplyButton struct {
+	// Slug The handle the button carries back, never shown to the recipient. On a tap on a template's quick-reply button, it is the payload that template declared.
+	Slug string `json:"slug"`
+
+	// Text The label the recipient saw.
+	Text string `json:"text"`
+}
+
+// WhatsAppInteractiveQuickReplyButtonSend One tappable reply button. Tapping it sends `slug` back as an inbound message, which reads as an `interactive_reply`.
+type WhatsAppInteractiveQuickReplyButtonSend struct {
+	// Slug Your own handle for this button, echoed back on the reply. You choose the value and it is never shown to the recipient, so it can carry whatever your application needs to route the answer. Any characters, up to 256.
+	Slug string `json:"slug"`
+
+	// Text The button's label. It must differ from every other button's label in the same message, because the recipient's reply is identified to them by the label they tapped.
+	Text string `json:"text"`
+}
+
+// WhatsAppInteractiveReply What the contact tapped, on an inbound message answering an interactive message or a template's quick-reply button. `type` names the kind and the field it names carries it, as everywhere else in this arm. Inbound only: a message that offers something to tap reads as `interactive` instead, and the two never appear together.
+type WhatsAppInteractiveReply struct {
+	// Button The button the contact tapped, as you declared it. On a reply to a template's quick-reply button, `slug` is the button's payload, which WhatsApp sets to the button's own label.
+	Button *WhatsAppInteractiveQuickReplyButton `json:"button,omitempty"`
+
+	// List The row the contact chose, as you declared it. `description` is present only when the row carried one.
+	List *WhatsAppInteractiveListRow `json:"list,omitempty"`
+
+	// Type Which kind of tap this reply came from, and which field carries it.
+	Type WhatsAppInteractiveReplyType `json:"type"`
+}
+
+// WhatsAppInteractiveReplyType Which kind of tap the reply came from.
+//
+//   - `button`: a reply button on an interactive message, or a quick-reply
+//     button on a template. Both carry an identifier and a label, so they read
+//     the same way.
+//   - `list`: a row chosen from a list's menu. Only this kind carries a
+//     `description`.
+//
+// Open enum: WhatsApp adds interactive kinds over time, so treat an
+// unrecognized value as a future kind rather than an error.
+type WhatsAppInteractiveReplyType string
+
+// WhatsAppInteractiveSend An interactive message to send: body text plus something for the recipient to tap. Name the kind in `type` and carry that kind's field alongside it: `buttons`, `list`, `cta_url` or `cards`. The schema pins each `type` to its own field and bars the other kinds', so a request carrying a second kind's field alongside the right one is refused. `location_request_message` and `request_contact_info` name no field: each is a single button asking the recipient for something, so `body_text` is the whole message and every other kind's field is barred. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+type WhatsAppInteractiveSend struct {
+	// BodyText The message's main text, required on every kind, and the whole message on `location_request_message` and `request_contact_info`. The WhatsApp client turns any URL it contains into a clickable link. Only a `list` may use the full length; the other kinds cap it at 1024 characters.
+	BodyText string `json:"body_text"`
+
+	// Buttons The buttons to show, in the order given. Send this on a `button` message, where every button is a `quick_reply`. Every label must be unique within the message; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+	Buttons *[]WhatsAppInteractiveButtonSend `json:"buttons,omitempty"`
+
+	// Cards The cards to show, in the order they appear, left to right. Send this on a `carousel` message, with between 2 and 10 cards. The message's own `body_text` introduces them; a carousel carries no header and no footer of its own.
+	Cards *[]WhatsAppInteractiveCardSend `json:"cards,omitempty"`
+
+	// CtaUrl The link button to show. Send this on a `cta_url` message.
+	CtaUrl *WhatsAppInteractiveCtaUrlSend `json:"cta_url,omitempty"`
+
+	// FooterText Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
+	FooterText *string `json:"footer_text,omitempty"`
+
+	// Header Optional content above the body. A `list` accepts a `text` header only; `button` and `cta_url` also accept an image, video or document. A `carousel` accepts none: its cards carry their own media. Neither request kind accepts one.
+	Header *WhatsAppInteractiveHeaderSend `json:"header,omitempty"`
+
+	// List The menu to show. Send this on a `list` message.
+	List *WhatsAppInteractiveListSend `json:"list,omitempty"`
+
+	// Type Which kind of interactive message this is, and which field carries it.
+	Type  WhatsAppInteractiveTypeWrite `json:"type"`
+	union json.RawMessage
+}
+
+// WhatsAppInteractiveSend0 defines model for .
+type WhatsAppInteractiveSend0 struct {
+	BodyText interface{} `json:"body_text,omitempty"`
+	Buttons  interface{} `json:"buttons"`
+	Cards    interface{} `json:"cards,omitempty"`
+	CtaUrl   interface{} `json:"cta_url,omitempty"`
+	List     interface{} `json:"list,omitempty"`
+	Type     interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveSend1 defines model for .
+type WhatsAppInteractiveSend1 struct {
+	Buttons interface{} `json:"buttons,omitempty"`
+	Cards   interface{} `json:"cards,omitempty"`
+	CtaUrl  interface{} `json:"cta_url,omitempty"`
+	Header  *struct {
+		Type interface{} `json:"type,omitempty"`
+		Url  interface{} `json:"url,omitempty"`
+	} `json:"header,omitempty"`
+	Type interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveSend2 defines model for .
+type WhatsAppInteractiveSend2 struct {
+	BodyText interface{} `json:"body_text,omitempty"`
+	Buttons  interface{} `json:"buttons,omitempty"`
+	Cards    interface{} `json:"cards,omitempty"`
+	List     interface{} `json:"list,omitempty"`
+	Type     interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveSend3 defines model for .
+type WhatsAppInteractiveSend3 struct {
+	BodyText   interface{} `json:"body_text,omitempty"`
+	Buttons    interface{} `json:"buttons,omitempty"`
+	CtaUrl     interface{} `json:"cta_url,omitempty"`
+	FooterText interface{} `json:"footer_text,omitempty"`
+	Header     interface{} `json:"header,omitempty"`
+	List       interface{} `json:"list,omitempty"`
+	Type       interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveSend4 defines model for .
+type WhatsAppInteractiveSend4 struct {
+	BodyText   interface{} `json:"body_text,omitempty"`
+	Buttons    interface{} `json:"buttons,omitempty"`
+	Cards      interface{} `json:"cards,omitempty"`
+	CtaUrl     interface{} `json:"cta_url,omitempty"`
+	FooterText interface{} `json:"footer_text,omitempty"`
+	Header     interface{} `json:"header,omitempty"`
+	List       interface{} `json:"list,omitempty"`
+	Type       interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveSend5 defines model for .
+type WhatsAppInteractiveSend5 struct {
+	BodyText   interface{} `json:"body_text,omitempty"`
+	Buttons    interface{} `json:"buttons,omitempty"`
+	Cards      interface{} `json:"cards,omitempty"`
+	CtaUrl     interface{} `json:"cta_url,omitempty"`
+	FooterText interface{} `json:"footer_text,omitempty"`
+	Header     interface{} `json:"header,omitempty"`
+	List       interface{} `json:"list,omitempty"`
+	Type       interface{} `json:"type"`
+}
+
+// WhatsAppInteractiveType Which kind of interactive message this is.
+//
+//   - `button`: up to three tappable buttons, each sending its own identifier
+//     back as an inbound message. Carried in `buttons`.
+//   - `list`: a single button that opens a menu of rows to choose one from.
+//   - `cta_url`: a single button that opens a link.
+//   - `carousel`: 2 to 10 media cards the recipient scrolls through sideways,
+//     each with its own buttons. Carried in `cards`.
+//   - `location_request_message`: a single button that asks the recipient to
+//     share where they are. A tap arrives as an inbound `location` message.
+//   - `request_contact_info`: a single button that asks the recipient to share
+//     their phone number. A tap arrives as an inbound message carrying the number
+//     on `contact_cards`, with `origin` set to `contact_request`.
+//
+// The last two name no field of their own: the ask is the whole message, and
+// `body_text` is all they carry.
+//
+// Open enum: WhatsApp adds interactive kinds over time, so treat an
+// unrecognized value as a future kind rather than an error.
+type WhatsAppInteractiveType string
+
+// WhatsAppInteractiveTypeWrite Which kind of interactive message to send.
+//
+//   - `button`: up to three tappable buttons, each sending its own identifier
+//     back as an inbound message. Carried in `buttons`.
+//   - `list`: a single button that opens a menu of rows to choose one from.
+//   - `cta_url`: a single button that opens a link, so the address stays out of
+//     the message body.
+//   - `carousel`: 2 to 10 media cards the recipient scrolls through sideways,
+//     each with its own buttons. Carried in `cards`.
+//   - `location_request_message`: a single button that asks the recipient to
+//     share where they are. A tap arrives as an inbound `location` message.
+//   - `request_contact_info`: a single button that asks the recipient to share
+//     their phone number. A tap arrives as an inbound message carrying the number
+//     on `contact_cards`, with `origin` set to `contact_request`.
+//
+// The last two name no field of their own: the ask is the whole message, and
+// `body_text` is all they carry.
+//
+// Closed on the write side: a kind Bird cannot send to Meta is rejected rather
+// than accepted and then failed asynchronously.
+type WhatsAppInteractiveTypeWrite string
+
 // WhatsAppLocation Location content of a WhatsApp message: a point on the map the recipient can open in their maps app.
 type WhatsAppLocation struct {
 	// Address Street address of the place. Shown only when `name` is also set.
@@ -13240,6 +13952,15 @@ type WhatsAppMessage struct {
 	// Image Image the message carried.
 	Image *WhatsAppImage `json:"image,omitempty"`
 
+	// InReplyToMessageId The message this one answers. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. An outbound message echoes the `in_reply_to_message_id` it was sent with. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// Interactive Interactive content the message carried. Outbound only: a contact cannot send one. A tap on a reply button or a list row reads back as `interactive_reply` on the contact's inbound message; a `cta_url` link sends nothing back, and the two request kinds are answered by an inbound `location` or `contact_cards` message.
+	Interactive *WhatsAppInteractive `json:"interactive,omitempty"`
+
+	// InteractiveReply What the contact tapped, on a message answering an interactive message or a template's quick-reply button. Inbound only.
+	InteractiveReply *WhatsAppInteractiveReply `json:"interactive_reply,omitempty"`
+
 	// LastError Failure detail for a message that could not be delivered or was rejected.
 	LastError *WhatsAppError `json:"last_error,omitempty"`
 
@@ -13312,6 +14033,12 @@ type WhatsAppMessageSendRequest struct {
 
 	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Image *WhatsAppImageSend `json:"image,omitempty"`
+
+	// InReplyToMessageId Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// Interactive Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	Interactive *WhatsAppInteractiveSend `json:"interactive,omitempty"`
 
 	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
@@ -16808,6 +17535,125 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsVoiceCallInboundRouteReject returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteReject
+func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteReject() (VoiceCallInboundRouteReject, error) {
+	var body VoiceCallInboundRouteReject
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallInboundRouteReject overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteReject
+func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteReject(v VoiceCallInboundRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallInboundRouteReject performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteReject
+func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteReject(v VoiceCallInboundRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallInboundRouteTrunk returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteTrunk
+func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteTrunk() (VoiceCallInboundRouteTrunk, error) {
+	var body VoiceCallInboundRouteTrunk
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallInboundRouteTrunk overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteTrunk
+func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteTrunk(v VoiceCallInboundRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallInboundRouteTrunk performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteTrunk
+func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteTrunk(v VoiceCallInboundRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallInboundRouteForward returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteForward
+func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteForward() (VoiceCallInboundRouteForward, error) {
+	var body VoiceCallInboundRouteForward
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallInboundRouteForward overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteForward
+func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteForward(v VoiceCallInboundRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallInboundRouteForward performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteForward
+func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteForward(v VoiceCallInboundRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceCallInboundRoute) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t VoiceCallInboundRoute) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "forward":
+		return t.AsVoiceCallInboundRouteForward()
+	case "reject":
+		return t.AsVoiceCallInboundRouteReject()
+	case "trunk":
+		return t.AsVoiceCallInboundRouteTrunk()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t VoiceCallInboundRoute) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceCallInboundRoute) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsEventDomainFailed returns the union data inside the WebhookEvent as a EventDomainFailed
 func (t WebhookEvent) AsEventDomainFailed() (EventDomainFailed, error) {
 	var body EventDomainFailed
@@ -18424,6 +19270,776 @@ func (t WebhookEvent) MarshalJSON() ([]byte, error) {
 
 func (t *WebhookEvent) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsWhatsAppInteractiveButtonSend0 returns the union data inside the WhatsAppInteractiveButtonSend as a WhatsAppInteractiveButtonSend0
+func (t WhatsAppInteractiveButtonSend) AsWhatsAppInteractiveButtonSend0() (WhatsAppInteractiveButtonSend0, error) {
+	var body WhatsAppInteractiveButtonSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveButtonSend0 overwrites any union data inside the WhatsAppInteractiveButtonSend as the provided WhatsAppInteractiveButtonSend0
+func (t *WhatsAppInteractiveButtonSend) FromWhatsAppInteractiveButtonSend0(v WhatsAppInteractiveButtonSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveButtonSend0 performs a merge with any union data inside the WhatsAppInteractiveButtonSend, using the provided WhatsAppInteractiveButtonSend0
+func (t *WhatsAppInteractiveButtonSend) MergeWhatsAppInteractiveButtonSend0(v WhatsAppInteractiveButtonSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveButtonSend1 returns the union data inside the WhatsAppInteractiveButtonSend as a WhatsAppInteractiveButtonSend1
+func (t WhatsAppInteractiveButtonSend) AsWhatsAppInteractiveButtonSend1() (WhatsAppInteractiveButtonSend1, error) {
+	var body WhatsAppInteractiveButtonSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveButtonSend1 overwrites any union data inside the WhatsAppInteractiveButtonSend as the provided WhatsAppInteractiveButtonSend1
+func (t *WhatsAppInteractiveButtonSend) FromWhatsAppInteractiveButtonSend1(v WhatsAppInteractiveButtonSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveButtonSend1 performs a merge with any union data inside the WhatsAppInteractiveButtonSend, using the provided WhatsAppInteractiveButtonSend1
+func (t *WhatsAppInteractiveButtonSend) MergeWhatsAppInteractiveButtonSend1(v WhatsAppInteractiveButtonSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppInteractiveButtonSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.CtaUrl != nil {
+		object["cta_url"], err = json.Marshal(t.CtaUrl)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'cta_url': %w", err)
+		}
+	}
+
+	if t.QuickReply != nil {
+		object["quick_reply"], err = json.Marshal(t.QuickReply)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'quick_reply': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppInteractiveButtonSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["cta_url"]; found {
+		err = json.Unmarshal(raw, &t.CtaUrl)
+		if err != nil {
+			return fmt.Errorf("error reading 'cta_url': %w", err)
+		}
+	}
+
+	if raw, found := object["quick_reply"]; found {
+		err = json.Unmarshal(raw, &t.QuickReply)
+		if err != nil {
+			return fmt.Errorf("error reading 'quick_reply': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsWhatsAppInteractiveCardHeaderSend0 returns the union data inside the WhatsAppInteractiveCardHeaderSend as a WhatsAppInteractiveCardHeaderSend0
+func (t WhatsAppInteractiveCardHeaderSend) AsWhatsAppInteractiveCardHeaderSend0() (WhatsAppInteractiveCardHeaderSend0, error) {
+	var body WhatsAppInteractiveCardHeaderSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveCardHeaderSend0 overwrites any union data inside the WhatsAppInteractiveCardHeaderSend as the provided WhatsAppInteractiveCardHeaderSend0
+func (t *WhatsAppInteractiveCardHeaderSend) FromWhatsAppInteractiveCardHeaderSend0(v WhatsAppInteractiveCardHeaderSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveCardHeaderSend0 performs a merge with any union data inside the WhatsAppInteractiveCardHeaderSend, using the provided WhatsAppInteractiveCardHeaderSend0
+func (t *WhatsAppInteractiveCardHeaderSend) MergeWhatsAppInteractiveCardHeaderSend0(v WhatsAppInteractiveCardHeaderSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveCardHeaderSend1 returns the union data inside the WhatsAppInteractiveCardHeaderSend as a WhatsAppInteractiveCardHeaderSend1
+func (t WhatsAppInteractiveCardHeaderSend) AsWhatsAppInteractiveCardHeaderSend1() (WhatsAppInteractiveCardHeaderSend1, error) {
+	var body WhatsAppInteractiveCardHeaderSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveCardHeaderSend1 overwrites any union data inside the WhatsAppInteractiveCardHeaderSend as the provided WhatsAppInteractiveCardHeaderSend1
+func (t *WhatsAppInteractiveCardHeaderSend) FromWhatsAppInteractiveCardHeaderSend1(v WhatsAppInteractiveCardHeaderSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveCardHeaderSend1 performs a merge with any union data inside the WhatsAppInteractiveCardHeaderSend, using the provided WhatsAppInteractiveCardHeaderSend1
+func (t *WhatsAppInteractiveCardHeaderSend) MergeWhatsAppInteractiveCardHeaderSend1(v WhatsAppInteractiveCardHeaderSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppInteractiveCardHeaderSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	object["url"], err = json.Marshal(t.Url)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'url': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppInteractiveCardHeaderSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	if raw, found := object["url"]; found {
+		err = json.Unmarshal(raw, &t.Url)
+		if err != nil {
+			return fmt.Errorf("error reading 'url': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsWhatsAppInteractiveCardSend0 returns the union data inside the WhatsAppInteractiveCardSend as a WhatsAppInteractiveCardSend0
+func (t WhatsAppInteractiveCardSend) AsWhatsAppInteractiveCardSend0() (WhatsAppInteractiveCardSend0, error) {
+	var body WhatsAppInteractiveCardSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveCardSend0 overwrites any union data inside the WhatsAppInteractiveCardSend as the provided WhatsAppInteractiveCardSend0
+func (t *WhatsAppInteractiveCardSend) FromWhatsAppInteractiveCardSend0(v WhatsAppInteractiveCardSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveCardSend0 performs a merge with any union data inside the WhatsAppInteractiveCardSend, using the provided WhatsAppInteractiveCardSend0
+func (t *WhatsAppInteractiveCardSend) MergeWhatsAppInteractiveCardSend0(v WhatsAppInteractiveCardSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveCardSend1 returns the union data inside the WhatsAppInteractiveCardSend as a WhatsAppInteractiveCardSend1
+func (t WhatsAppInteractiveCardSend) AsWhatsAppInteractiveCardSend1() (WhatsAppInteractiveCardSend1, error) {
+	var body WhatsAppInteractiveCardSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveCardSend1 overwrites any union data inside the WhatsAppInteractiveCardSend as the provided WhatsAppInteractiveCardSend1
+func (t *WhatsAppInteractiveCardSend) FromWhatsAppInteractiveCardSend1(v WhatsAppInteractiveCardSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveCardSend1 performs a merge with any union data inside the WhatsAppInteractiveCardSend, using the provided WhatsAppInteractiveCardSend1
+func (t *WhatsAppInteractiveCardSend) MergeWhatsAppInteractiveCardSend1(v WhatsAppInteractiveCardSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppInteractiveCardSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.BodyText != nil {
+		object["body_text"], err = json.Marshal(t.BodyText)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'body_text': %w", err)
+		}
+	}
+
+	if t.Buttons != nil {
+		object["buttons"], err = json.Marshal(t.Buttons)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'buttons': %w", err)
+		}
+	}
+
+	object["header"], err = json.Marshal(t.Header)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'header': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppInteractiveCardSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["body_text"]; found {
+		err = json.Unmarshal(raw, &t.BodyText)
+		if err != nil {
+			return fmt.Errorf("error reading 'body_text': %w", err)
+		}
+	}
+
+	if raw, found := object["buttons"]; found {
+		err = json.Unmarshal(raw, &t.Buttons)
+		if err != nil {
+			return fmt.Errorf("error reading 'buttons': %w", err)
+		}
+	}
+
+	if raw, found := object["header"]; found {
+		err = json.Unmarshal(raw, &t.Header)
+		if err != nil {
+			return fmt.Errorf("error reading 'header': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsWhatsAppInteractiveHeaderSend0 returns the union data inside the WhatsAppInteractiveHeaderSend as a WhatsAppInteractiveHeaderSend0
+func (t WhatsAppInteractiveHeaderSend) AsWhatsAppInteractiveHeaderSend0() (WhatsAppInteractiveHeaderSend0, error) {
+	var body WhatsAppInteractiveHeaderSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveHeaderSend0 overwrites any union data inside the WhatsAppInteractiveHeaderSend as the provided WhatsAppInteractiveHeaderSend0
+func (t *WhatsAppInteractiveHeaderSend) FromWhatsAppInteractiveHeaderSend0(v WhatsAppInteractiveHeaderSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveHeaderSend0 performs a merge with any union data inside the WhatsAppInteractiveHeaderSend, using the provided WhatsAppInteractiveHeaderSend0
+func (t *WhatsAppInteractiveHeaderSend) MergeWhatsAppInteractiveHeaderSend0(v WhatsAppInteractiveHeaderSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveHeaderSend1 returns the union data inside the WhatsAppInteractiveHeaderSend as a WhatsAppInteractiveHeaderSend1
+func (t WhatsAppInteractiveHeaderSend) AsWhatsAppInteractiveHeaderSend1() (WhatsAppInteractiveHeaderSend1, error) {
+	var body WhatsAppInteractiveHeaderSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveHeaderSend1 overwrites any union data inside the WhatsAppInteractiveHeaderSend as the provided WhatsAppInteractiveHeaderSend1
+func (t *WhatsAppInteractiveHeaderSend) FromWhatsAppInteractiveHeaderSend1(v WhatsAppInteractiveHeaderSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveHeaderSend1 performs a merge with any union data inside the WhatsAppInteractiveHeaderSend, using the provided WhatsAppInteractiveHeaderSend1
+func (t *WhatsAppInteractiveHeaderSend) MergeWhatsAppInteractiveHeaderSend1(v WhatsAppInteractiveHeaderSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppInteractiveHeaderSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Text != nil {
+		object["text"], err = json.Marshal(t.Text)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'text': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	if t.Url != nil {
+		object["url"], err = json.Marshal(t.Url)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'url': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppInteractiveHeaderSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["text"]; found {
+		err = json.Unmarshal(raw, &t.Text)
+		if err != nil {
+			return fmt.Errorf("error reading 'text': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	if raw, found := object["url"]; found {
+		err = json.Unmarshal(raw, &t.Url)
+		if err != nil {
+			return fmt.Errorf("error reading 'url': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsWhatsAppInteractiveSend0 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend0
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend0() (WhatsAppInteractiveSend0, error) {
+	var body WhatsAppInteractiveSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend0 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend0
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend0(v WhatsAppInteractiveSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend0 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend0
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend0(v WhatsAppInteractiveSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveSend1 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend1
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend1() (WhatsAppInteractiveSend1, error) {
+	var body WhatsAppInteractiveSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend1 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend1
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend1(v WhatsAppInteractiveSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend1 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend1
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend1(v WhatsAppInteractiveSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveSend2 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend2
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend2() (WhatsAppInteractiveSend2, error) {
+	var body WhatsAppInteractiveSend2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend2 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend2
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend2(v WhatsAppInteractiveSend2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend2 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend2
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend2(v WhatsAppInteractiveSend2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveSend3 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend3
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend3() (WhatsAppInteractiveSend3, error) {
+	var body WhatsAppInteractiveSend3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend3 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend3
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend3(v WhatsAppInteractiveSend3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend3 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend3
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend3(v WhatsAppInteractiveSend3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveSend4 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend4
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend4() (WhatsAppInteractiveSend4, error) {
+	var body WhatsAppInteractiveSend4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend4 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend4
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend4(v WhatsAppInteractiveSend4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend4 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend4
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend4(v WhatsAppInteractiveSend4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWhatsAppInteractiveSend5 returns the union data inside the WhatsAppInteractiveSend as a WhatsAppInteractiveSend5
+func (t WhatsAppInteractiveSend) AsWhatsAppInteractiveSend5() (WhatsAppInteractiveSend5, error) {
+	var body WhatsAppInteractiveSend5
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWhatsAppInteractiveSend5 overwrites any union data inside the WhatsAppInteractiveSend as the provided WhatsAppInteractiveSend5
+func (t *WhatsAppInteractiveSend) FromWhatsAppInteractiveSend5(v WhatsAppInteractiveSend5) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWhatsAppInteractiveSend5 performs a merge with any union data inside the WhatsAppInteractiveSend, using the provided WhatsAppInteractiveSend5
+func (t *WhatsAppInteractiveSend) MergeWhatsAppInteractiveSend5(v WhatsAppInteractiveSend5) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WhatsAppInteractiveSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	object["body_text"], err = json.Marshal(t.BodyText)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'body_text': %w", err)
+	}
+
+	if t.Buttons != nil {
+		object["buttons"], err = json.Marshal(t.Buttons)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'buttons': %w", err)
+		}
+	}
+
+	if t.Cards != nil {
+		object["cards"], err = json.Marshal(t.Cards)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'cards': %w", err)
+		}
+	}
+
+	if t.CtaUrl != nil {
+		object["cta_url"], err = json.Marshal(t.CtaUrl)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'cta_url': %w", err)
+		}
+	}
+
+	if t.FooterText != nil {
+		object["footer_text"], err = json.Marshal(t.FooterText)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'footer_text': %w", err)
+		}
+	}
+
+	if t.Header != nil {
+		object["header"], err = json.Marshal(t.Header)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'header': %w", err)
+		}
+	}
+
+	if t.List != nil {
+		object["list"], err = json.Marshal(t.List)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'list': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *WhatsAppInteractiveSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["body_text"]; found {
+		err = json.Unmarshal(raw, &t.BodyText)
+		if err != nil {
+			return fmt.Errorf("error reading 'body_text': %w", err)
+		}
+	}
+
+	if raw, found := object["buttons"]; found {
+		err = json.Unmarshal(raw, &t.Buttons)
+		if err != nil {
+			return fmt.Errorf("error reading 'buttons': %w", err)
+		}
+	}
+
+	if raw, found := object["cards"]; found {
+		err = json.Unmarshal(raw, &t.Cards)
+		if err != nil {
+			return fmt.Errorf("error reading 'cards': %w", err)
+		}
+	}
+
+	if raw, found := object["cta_url"]; found {
+		err = json.Unmarshal(raw, &t.CtaUrl)
+		if err != nil {
+			return fmt.Errorf("error reading 'cta_url': %w", err)
+		}
+	}
+
+	if raw, found := object["footer_text"]; found {
+		err = json.Unmarshal(raw, &t.FooterText)
+		if err != nil {
+			return fmt.Errorf("error reading 'footer_text': %w", err)
+		}
+	}
+
+	if raw, found := object["header"]; found {
+		err = json.Unmarshal(raw, &t.Header)
+		if err != nil {
+			return fmt.Errorf("error reading 'header': %w", err)
+		}
+	}
+
+	if raw, found := object["list"]; found {
+		err = json.Unmarshal(raw, &t.List)
+		if err != nil {
+			return fmt.Errorf("error reading 'list': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
 	return err
 }
 

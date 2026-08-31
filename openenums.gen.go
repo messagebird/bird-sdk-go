@@ -319,6 +319,52 @@ const (
 	WhatsAppEventTypeWhatsappSent      = oapi.WhatsAppEventTypeWhatsappSent
 )
 
+// WhatsAppInteractiveButtonType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppInteractiveButtonType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppInteractiveButtonType = oapi.WhatsAppInteractiveButtonType
+
+const (
+	WhatsAppInteractiveButtonTypeCtaUrl     = oapi.WhatsAppInteractiveButtonTypeCtaUrl
+	WhatsAppInteractiveButtonTypeQuickReply = oapi.WhatsAppInteractiveButtonTypeQuickReply
+)
+
+// WhatsAppInteractiveHeaderType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppInteractiveHeaderType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppInteractiveHeaderType = oapi.WhatsAppInteractiveHeaderType
+
+const (
+	WhatsAppInteractiveHeaderTypeDocument = oapi.WhatsAppInteractiveHeaderTypeDocument
+	WhatsAppInteractiveHeaderTypeImage    = oapi.WhatsAppInteractiveHeaderTypeImage
+	WhatsAppInteractiveHeaderTypeText     = oapi.WhatsAppInteractiveHeaderTypeText
+	WhatsAppInteractiveHeaderTypeVideo    = oapi.WhatsAppInteractiveHeaderTypeVideo
+)
+
+// WhatsAppInteractiveReplyType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppInteractiveReplyType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppInteractiveReplyType = oapi.WhatsAppInteractiveReplyType
+
+const (
+	WhatsAppInteractiveReplyTypeButton = oapi.WhatsAppInteractiveReplyTypeButton
+	WhatsAppInteractiveReplyTypeList   = oapi.WhatsAppInteractiveReplyTypeList
+)
+
+// WhatsAppInteractiveType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppInteractiveType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppInteractiveType = oapi.WhatsAppInteractiveType
+
+const (
+	WhatsAppInteractiveTypeButton                 = oapi.WhatsAppInteractiveTypeButton
+	WhatsAppInteractiveTypeCarousel               = oapi.WhatsAppInteractiveTypeCarousel
+	WhatsAppInteractiveTypeCtaUrl                 = oapi.WhatsAppInteractiveTypeCtaUrl
+	WhatsAppInteractiveTypeList                   = oapi.WhatsAppInteractiveTypeList
+	WhatsAppInteractiveTypeLocationRequestMessage = oapi.WhatsAppInteractiveTypeLocationRequestMessage
+	WhatsAppInteractiveTypeRequestContactInfo     = oapi.WhatsAppInteractiveTypeRequestContactInfo
+)
+
 // WhatsAppTemplateCategory is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppTemplateCategory* constants with a
 // default branch rather than treating the set as closed.

@@ -33,6 +33,15 @@ type WhatsappSendParams struct {
 	Document *WhatsAppDocumentSend
 	Location *WhatsAppLocationSend
 
+	// Interactive is body text plus something for the recipient to tap: reply
+	// buttons, a list menu, a link button, media cards, or a single button asking
+	// for their location or contact details.
+	Interactive *WhatsAppInteractiveSend
+
+	// InReplyToMessageID quotes an earlier message from the same conversation
+	// above this one, the way replying in the WhatsApp client does.
+	InReplyToMessageID string
+
 	Tags     []WhatsAppTag  // structured {name, value} labels for filtering and analytics
 	Metadata map[string]any // arbitrary JSON stored on the message and echoed in webhooks
 }
@@ -72,6 +81,11 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 	body.Sticker = p.Sticker
 	body.Document = p.Document
 	body.Location = p.Location
+	body.Interactive = p.Interactive
+	if p.InReplyToMessageID != "" {
+		id := oapi.WhatsAppMessageID(p.InReplyToMessageID)
+		body.InReplyToMessageId = &id
+	}
 	if len(p.Tags) > 0 {
 		tags := p.Tags
 		body.Tags = &tags

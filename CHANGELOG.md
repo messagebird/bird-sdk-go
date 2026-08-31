@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.49.0
+
+- A voice call record now carries `route`: what your number did with an incoming call, whether it went to a SIP trunk, was forwarded, or was refused. Absent on outbound calls, and on calls recorded before this release, so treat a missing `route` as unknown rather than as proof the call was outbound.
+- A WhatsApp message's `from` now carries the contact's `username` and `display_name` when WhatsApp discloses them. Both are descriptive; a message cannot be addressed by either. What a message is addressed by is unchanged: the contact's `phone_number`, or the `bsuid` that a contact who has not shared a phone number already carried.
+- `whatsapp.send` gains `interactive`, which takes reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details, and `in_reply_to_message_id`, which quotes an earlier message from the same conversation. A message read back carries `interactive` and, when the contact tapped something, `interactive_reply`.
+
 ## 0.48.0
 
 - Mailboxes now report `size_bytes`: the stored bytes of their retained messages (the metadata and extracted text kept for the retention tier plus attachment bytes). Plans can cap it per mailbox; a send from a mailbox at its cap is rejected with `E17049`.
