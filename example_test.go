@@ -261,7 +261,7 @@ func ExampleEmailDefaults() {
 
 // Unwrap verifies the Standard Webhooks signature over the raw request body and
 // returns a typed event to dispatch on.
-func ExampleWebhookService_Unwrap() {
+func ExampleWebhooksService_Unwrap() {
 	client, err := bird.NewClient(
 		option.WithAPIKey(os.Getenv("BIRD_API_KEY")),
 		option.WithWebhookSecret(os.Getenv("BIRD_WEBHOOK_SECRET")),
@@ -2339,4 +2339,118 @@ func ExampleWorkspaceService_Get() {
 		log.Fatal(err)
 	}
 	fmt.Println(workspace.Id, workspace.Name)
+}
+
+// Create returns the signing secret, which is never readable again.
+func ExampleWebhooksService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	created, err := client.Webhooks.Create(context.Background(), bird.WebhooksCreateParams{
+		URL:         "https://acme.com/hooks/bird",
+		Events:      []bird.WebhookEventType{"email.delivered", "email.bounced"},
+		Description: "Delivery pipeline",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(created.Id, created.Secret)
+}
+
+// List iterates every webhook endpoint in the workspace.
+func ExampleWebhooksService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for endpoint, err := range client.Webhooks.List(context.Background(), bird.WebhooksListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(endpoint.Id, endpoint.Url)
+	}
+}
+
+// Get returns one endpoint's URL, subscribed events, and delivery status.
+func ExampleWebhooksService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	endpoint, err := client.Webhooks.Get(context.Background(), "whk_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(endpoint.Url)
+}
+
+// Update replaces the whole subscription set rather than adding to it.
+func ExampleWebhooksService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	endpoint, err := client.Webhooks.Update(context.Background(), "whk_123", bird.WebhooksUpdateParams{
+		Events: []bird.WebhookEventType{"email.delivered"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(endpoint.Events)
+}
+
+// Test delivers a synthetic event to the endpoint.
+func ExampleWebhooksService_Test() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Webhooks.Test(context.Background(), "whk_123", bird.WebhooksTestParams{
+		EventType: "email.delivered",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.Status)
+}
+
+// Attempts is one endpoint's delivery log.
+func ExampleWebhooksService_Attempts() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	attempts, err := client.Webhooks.Attempts(context.Background(), "whk_123", bird.WebhooksAttemptsParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, attempt := range attempts.Data {
+		fmt.Println(attempt.Status)
+	}
+}
+
+// RotateSecret mints a new secret; both old and new sign deliveries for 24
+// hours, after which the old one stops.
+func ExampleWebhooksService_RotateSecret() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rotated, err := client.Webhooks.RotateSecret(context.Background(), "whk_123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(rotated.Secret)
+}
+
+// Delete stops delivery to the endpoint.
+func ExampleWebhooksService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Webhooks.Delete(context.Background(), "whk_123"); err != nil {
+		log.Fatal(err)
+	}
 }

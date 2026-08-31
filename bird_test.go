@@ -652,3 +652,35 @@ func TestWithRegionResolvesBaseURL(t *testing.T) {
 		t.Errorf("WithRegion should resolve the base URL: %v", err)
 	}
 }
+
+func TestReceiverOnlyClient(t *testing.T) {
+	if _, err := bird.NewClient(); err == nil {
+		t.Fatal("NewClient with neither credential should error")
+	}
+	client, err := bird.NewClient(option.WithWebhookSecret(webhookSecret))
+	if err != nil {
+		t.Fatalf("NewClient(WithWebhookSecret): %v", err)
+	}
+
+	payload := []byte(`{"type":"email.delivered","email_id":"em_1","recipient":"c@d.com"}`)
+	id := "msg_2KWPBgLlAfxdpx2AI54pPJ85f4W"
+	ts := strconv.FormatInt(time.Now().Unix(), 10)
+	headers := http.Header{}
+	headers.Set("webhook-id", id)
+	headers.Set("webhook-timestamp", ts)
+	headers.Set("webhook-signature", sign(t, id, ts, payload))
+	event, err := client.Webhooks.Unwrap(payload, headers)
+	if err != nil {
+		t.Fatalf("Unwrap on a keyless client: %v", err)
+	}
+	if event.Type() != bird.EventTypeEmailDelivered {
+		t.Errorf("Type = %q, want email.delivered", event.Type())
+	}
+
+	if _, err := client.Webhooks.Get(context.Background(), "whk_x"); !errors.Is(err, bird.ErrMissingAPIKey) {
+		t.Errorf("Webhooks.Get on a keyless client = %v, want ErrMissingAPIKey", err)
+	}
+	if err := client.Get(context.Background(), "/v1/workspace", nil); !errors.Is(err, bird.ErrMissingAPIKey) {
+		t.Errorf("raw Get on a keyless client = %v, want ErrMissingAPIKey", err)
+	}
+}

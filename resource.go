@@ -31,6 +31,9 @@ func (r resource) getAuth(ctx context.Context, opts []option.RequestOption, sche
 	if err != nil {
 		return nil, err
 	}
+	if cfg.APIKey == "" {
+		return nil, ErrMissingAPIKey
+	}
 	editors, err := r.client.credentialEditors(cfg, schemes)
 	if err != nil {
 		return nil, err
@@ -53,6 +56,9 @@ func (r resource) postAuth(ctx context.Context, opts []option.RequestOption, sch
 	cfg, err := r.client.resolve(opts)
 	if err != nil {
 		return nil, err
+	}
+	if cfg.APIKey == "" {
+		return nil, ErrMissingAPIKey
 	}
 	editors, err := r.client.credentialEditors(cfg, schemes)
 	if err != nil {

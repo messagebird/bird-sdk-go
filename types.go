@@ -405,11 +405,6 @@ const (
 	CategoryMarketing     Category = "marketing"
 )
 
-// WebhookEventType is a webhook event's discriminant. It is an open string: the
-// known values are the EventType* constants, and an event type added by a newer
-// server flows through Unwrap as a plain string.
-type WebhookEventType = oapi.WebhookEventType
-
 // Webhook event payloads, returned by Event.AsAny. Type-switch on these.
 type (
 	DomainFailedEvent            = oapi.EventDomainFailed
@@ -463,4 +458,16 @@ type (
 	// Workspace is the workspace a credential is scoped to: its id, name, and
 	// organization.
 	Workspace = oapi.Workspace
+
+	WebhookAttemptList = oapi.WebhookAttemptList
+	WebhookEndpoint = oapi.WebhookEndpoint
+	WebhookEndpointCreate = oapi.WebhookEndpointCreate
+	WebhookEndpointCreated = oapi.WebhookEndpointCreated
+	WebhookEndpointID = oapi.WebhookEndpointID
+	WebhookEndpointList = oapi.WebhookEndpointList
+	WebhookEndpointUpdate = oapi.WebhookEndpointUpdate
+	WebhookRotateSecretResponse = oapi.WebhookRotateSecretResponse
+	WebhookSortField = oapi.WebhookSortField
+	WebhookTestRequest = oapi.WebhookTestRequest
+	WebhookTestResponse = oapi.WebhookTestResponse
 )

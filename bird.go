@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.45.1"
+	version = "0.46.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -67,7 +67,7 @@ type Client struct {
 	Whatsapp          *WhatsappService
 	Voice             *VoiceService
 	Verify            *VerifyService
-	Webhooks          *WebhookService
+	Webhooks          *WebhooksService
 	Contacts          *ContactsService
 	Audiences         *AudiencesService
 	ContactProperties *ContactPropertiesService
@@ -79,9 +79,14 @@ type Client struct {
 	Workspace         *WorkspaceService
 }
 
-// NewClient builds a Client. An API key is required (option.WithAPIKey); the
-// base URL is derived from the key's region prefix unless option.WithBaseURL or
-// option.WithRegion is given.
+// ErrMissingAPIKey is returned by every API method of a client constructed
+// without option.WithAPIKey (a receiver-only client, which can still Unwrap).
+var ErrMissingAPIKey = errors.New("bird: this client has no API key (webhook verification only); pass option.WithAPIKey to call the API")
+
+// NewClient builds a Client. An API key (option.WithAPIKey) is required for API
+// calls; a webhook receiver may instead pass only option.WithWebhookSecret and
+// use Client.Webhooks.Unwrap. The base URL is derived from the key's region
+// prefix unless option.WithBaseURL or option.WithRegion is given.
 func NewClient(opts ...option.RequestOption) (*Client, error) {
 	cfg := requestconfig.Config{MaxRetries: defaultMaxRetries, Timeout: defaultTimeout}
 	for _, o := range opts {
@@ -89,10 +94,10 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 			return nil, err
 		}
 	}
-	if cfg.APIKey == "" {
-		return nil, errors.New("bird: an API key is required; pass option.WithAPIKey")
+	if cfg.APIKey == "" && cfg.WebhookSecret == "" {
+		return nil, errors.New("bird: pass option.WithAPIKey for API calls, or option.WithWebhookSecret for a receiver-only client")
 	}
-	if cfg.BaseURL == "" {
+	if cfg.BaseURL == "" && cfg.APIKey != "" {
 		region := cfg.Region
 		if region == "" {
 			region = regionFromAPIKey(cfg.APIKey)
@@ -123,7 +128,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Whatsapp = &WhatsappService{resource{client: c}}
 	c.Voice = &VoiceService{resource{client: c}}
 	c.Verify = &VerifyService{Verifications: &VerifyVerificationsService{resource{client: c}}}
-	c.Webhooks = &WebhookService{client: c}
+	c.Webhooks = &WebhooksService{resource{client: c}}
 	c.Contacts = &ContactsService{resource: resource{client: c}}
 	c.Contacts.Preferences = &ContactsPreferencesService{resource{client: c}}
 	c.Audiences = &AudiencesService{resource{client: c}}
@@ -332,6 +337,9 @@ func (c *Client) Do(ctx context.Context, method, path string, body, out any, opt
 	cfg, err := c.resolve(opts)
 	if err != nil {
 		return err
+	}
+	if cfg.APIKey == "" {
+		return ErrMissingAPIKey
 	}
 	reqURL, err := resolveRawRequestURL(cfg.BaseURL, path)
 	if err != nil {

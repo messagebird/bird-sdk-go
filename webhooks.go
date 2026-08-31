@@ -18,10 +18,10 @@ import (
 // payload is rejected as stale or replayed.
 const webhookTolerance = 5 * time.Minute
 
-// WebhookService verifies inbound webhook deliveries. Reach it via
+// WebhooksService verifies inbound webhook deliveries. Reach it via
 // Client.Webhooks. Configure the signing secret with option.WithWebhookSecret on
 // the client (or per call on Unwrap). It is pure crypto — no transport.
-type WebhookService struct{ client *Client }
+type WebhooksService struct{ resource }
 
 // Event is a verified webhook event. Switch on Type, or call AsAny and
 // type-switch on the concrete payload (e.g. EmailDeliveredEvent).
@@ -43,7 +43,9 @@ func (e Event) AsAny() (any, error) {
 // Unwrap verifies the Standard Webhooks signature over the raw request body and
 // returns the decoded event. Hand it the exact bytes received — parsing and
 // re-serializing before verifying breaks the signature.
-func (s *WebhookService) Unwrap(payload []byte, headers http.Header, opts ...option.RequestOption) (Event, error) {
+// WebhookEventType is an open string: a type added by a newer server arrives
+// here as a plain string rather than one of the EventType* constants.
+func (s *WebhooksService) Unwrap(payload []byte, headers http.Header, opts ...option.RequestOption) (Event, error) {
 	cfg, err := s.client.resolve(opts)
 	if err != nil {
 		return Event{}, err

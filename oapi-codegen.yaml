@@ -95,6 +95,14 @@ output-options:
     - verifyDomain
     - updateDomain
     - deleteDomain
+    - listWebhooks
+    - getWebhook
+    - createWebhook
+    - testWebhook
+    - deleteWebhook
+    - listWebhookAttempts
+    - rotateWebhookSecret
+    - updateWebhook
     - getCurrentWorkspace
     - listPreferences
     - getPreference
