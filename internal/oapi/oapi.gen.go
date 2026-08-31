@@ -9993,6 +9993,9 @@ type Mailbox struct {
 	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
 	RetentionTier MailboxRetentionTier `json:"retention_tier"`
 
+	// SizeBytes Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+	SizeBytes *int64 `json:"size_bytes,omitempty"`
+
 	// State Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
 	State *MailboxState `json:"state,omitempty"`
 
@@ -34637,6 +34640,7 @@ type CreateMailboxMessageResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -35927,6 +35931,7 @@ type ReplyEmailThreadMessageResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON410      *Gone
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
@@ -42633,6 +42638,13 @@ func ParseCreateMailboxMessageResponse(rsp *http.Response) (*CreateMailboxMessag
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -45222,6 +45234,13 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
 		var dest Gone
