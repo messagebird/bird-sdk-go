@@ -2528,13 +2528,19 @@ func (e MailboxCreateReceivePolicy) Valid() bool {
 
 // Defines values for MailboxCreateRetentionTier.
 const (
+	MailboxCreateRetentionTierN1y  MailboxCreateRetentionTier = "1y"
 	MailboxCreateRetentionTierN30d MailboxCreateRetentionTier = "30d"
+	MailboxCreateRetentionTierN90d MailboxCreateRetentionTier = "90d"
 )
 
 // Valid indicates whether the value is a known member of the MailboxCreateRetentionTier enum.
 func (e MailboxCreateRetentionTier) Valid() bool {
 	switch e {
+	case MailboxCreateRetentionTierN1y:
+		return true
 	case MailboxCreateRetentionTierN30d:
+		return true
+	case MailboxCreateRetentionTierN90d:
 		return true
 	default:
 		return false
@@ -2582,13 +2588,19 @@ func (e MailboxUpdateReceivePolicy) Valid() bool {
 
 // Defines values for MailboxUpdateRetentionTier.
 const (
+	N1y  MailboxUpdateRetentionTier = "1y"
 	N30d MailboxUpdateRetentionTier = "30d"
+	N90d MailboxUpdateRetentionTier = "90d"
 )
 
 // Valid indicates whether the value is a known member of the MailboxUpdateRetentionTier enum.
 func (e MailboxUpdateRetentionTier) Valid() bool {
 	switch e {
+	case N1y:
+		return true
 	case N30d:
+		return true
+	case N90d:
 		return true
 	default:
 		return false
@@ -7307,12 +7319,12 @@ type EmailThreadList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata and extracted text stay readable for the mailbox's retention tier. The original rendered source (HTML body, raw MIME, attachment bytes) is available through the body, raw, and attachment endpoints for 30 days after the message occurred.
+// EmailThreadMessage A message in a mailbox conversation, either direction. Message metadata, extracted text, and attachment bytes stay readable for the mailbox's retention tier. The body and raw MIME are available through the body and raw endpoints for 30 days after the message occurred.
 type EmailThreadMessage struct {
 	// AttachmentCount Number of attachments on the message.
 	AttachmentCount *int `json:"attachment_count,omitempty"`
 
-	// AttachmentManifest Attachment metadata (filename, content type, size). Stays readable for the mailbox's retention tier even after the attachment bytes themselves have expired.
+	// AttachmentManifest Attachment metadata (filename, content type, size). Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
 	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
 
 	// Authentication Whether the sender of a received message was authenticated.
@@ -7421,7 +7433,7 @@ type EmailThreadMessageAuthentication string
 // EmailThreadMessageDirection Which way the message went. `inbound` means you received it, `outbound` means you sent it.
 type EmailThreadMessageDirection string
 
-// EmailThreadMessageAttachment Attachment metadata on a conversation message. The metadata stays readable for the mailbox's retention tier. The attachment bytes are downloadable for 30 days after the message occurred.
+// EmailThreadMessageAttachment Attachment metadata on a conversation message. Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
 type EmailThreadMessageAttachment struct {
 	// ContentType MIME content type, or null when it could not be determined.
 	ContentType *string `json:"content_type,omitempty"`
@@ -7505,7 +7517,7 @@ type EmailThreadMessageReplyRequest struct {
 
 // EmailThreadMessageSource Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 type EmailThreadMessageSource struct {
-	// AvailableUntil When the log entry (and the message's original rendered source) expires.
+	// AvailableUntil When the log entry (and the message's body and raw MIME) expires.
 	AvailableUntil *time.Time `json:"available_until,omitempty"`
 
 	// Resource API path of the log entry for this message.
@@ -9933,7 +9945,7 @@ type LookupSimSwap struct {
 	Status  *LookupPropertyStatus `json:"status,omitempty"`
 }
 
-// Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata and extracted text for its retention tier. The original rendered source of each message remains available for 30 days.
+// Mailbox A durable mailbox identity for an agent. A mailbox owns an email address, groups mail into threads, applies receive policy, and remembers message metadata, extracted text, and attachments for its retention tier. The body and raw MIME of each message remain available for 30 days.
 type Mailbox struct {
 	// Address The mailbox's email address. Immutable once created.
 	Address *openapi_types.Email `json:"address,omitempty"`
@@ -9978,7 +9990,7 @@ type Mailbox struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy MailboxReceivePolicy `json:"receive_policy"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
+	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
 	RetentionTier MailboxRetentionTier `json:"retention_tier"`
 
 	// State Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
@@ -10008,7 +10020,7 @@ type MailboxChannel string
 //   - `drop`: Stores nothing.
 type MailboxReceivePolicy string
 
-// MailboxRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source (HTML, raw message, attachments) is always available for 30 days regardless of tier.
+// MailboxRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
 type MailboxRetentionTier string
 
 // MailboxState Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
@@ -10041,7 +10053,7 @@ type MailboxCreate struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
+	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
 	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
 }
 
@@ -10055,7 +10067,7 @@ type MailboxCreate struct {
 //   - `drop`: Stores nothing.
 type MailboxCreateReceivePolicy string
 
-// MailboxCreateRetentionTier How long the mailbox remembers message metadata and extracted text. Original rendered source is always available for 30 days regardless of tier.
+// MailboxCreateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
 type MailboxCreateRetentionTier string
 
 // MailboxID defines model for MailboxID.
@@ -10147,7 +10159,7 @@ type MailboxUpdate struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
+	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
@@ -10161,7 +10173,7 @@ type MailboxUpdate struct {
 //   - `drop`: Stores nothing.
 type MailboxUpdateReceivePolicy string
 
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata and extracted text. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
+// MailboxUpdateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
 type MailboxUpdateRetentionTier string
 
 // MessageCost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
@@ -34439,6 +34451,7 @@ type CreateMailboxResponse struct {
 	JSON201      *Mailbox
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON409      *Conflict
 	JSON422      *Unprocessable
@@ -34547,6 +34560,7 @@ type UpdateMailboxResponse struct {
 	JSON200      *Mailbox
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON422      *Unprocessable
@@ -42237,6 +42251,13 @@ func ParseCreateMailboxResponse(rsp *http.Response) (*CreateMailboxResponse, err
 		}
 		response.JSON401 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -42440,6 +42461,13 @@ func ParseUpdateMailboxResponse(rsp *http.Response) (*UpdateMailboxResponse, err
 			return nil, err
 		}
 		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
 		var dest Forbidden

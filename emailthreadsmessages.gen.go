@@ -157,7 +157,7 @@ func (s *EmailThreadsMessagesService) Reply(ctx context.Context, threadId string
 	return &out, nil
 }
 
-// Attachments List the attachments on a conversation message. Bytes are downloadable for 30 days, and the metadata stays readable afterward on the message's attachment_manifest.
+// Attachments List the attachments on a conversation message. Bytes are downloadable for the mailbox's retention tier, and the metadata stays readable afterward on the message's attachment_manifest.
 func (s *EmailThreadsMessagesService) Attachments(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageAttachmentList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListEmailThreadMessageAttachments(ctx, oapi.ThreadID(threadId), messageId, cfg...)

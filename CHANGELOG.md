@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.47.0
+
+- Mailbox `retention_tier` now accepts `90d` and `1y` on create and update, gated by the organization's plan; a tier the plan does not include is rejected with `E17048`.
+
 ## 0.46.0
 
 - **Breaking:** the webhook verifier type is renamed to `WebhooksService`; update code that names the `WebhookService` type to the new name.
