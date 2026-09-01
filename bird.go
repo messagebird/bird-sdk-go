@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.50.0"
+	version = "0.51.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -58,6 +58,9 @@ type EmailDefaults = requestconfig.EmailDefaults
 type Client struct {
 	cfg  requestconfig.Config
 	oapi *oapi.Client
+	// oapiNoRedirect is oapi with redirect-following off, for the operations
+	// whose success IS a redirect the caller must take without our credentials.
+	oapiNoRedirect *oapi.Client
 
 	Email             *EmailService
 	Sms               *SmsService
@@ -115,8 +118,19 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
+	// A second client that stops at a redirect instead of following it. Go
+	// strips Authorization only across a differing DOMAIN, so a presigned URL on
+	// the same host — or any host Go reads as the same domain — would otherwise
+	// receive this client's credentials on the hop, which both leaks the key and
+	// fails the request (a presigned URL refuses a second auth mechanism).
+	noRedirect := *cfg.HTTPClient
+	noRedirect.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	noRedirectOC, err := oapi.NewClient(cfg.BaseURL, oapi.WithHTTPClient(&noRedirect))
+	if err != nil {
+		return nil, err
+	}
 
-	c := &Client{cfg: cfg, oapi: oc}
+	c := &Client{cfg: cfg, oapi: oc, oapiNoRedirect: noRedirectOC}
 	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
@@ -125,7 +139,8 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.SmsTemplates = &SmsTemplatesService{resource{client: c}}
 	c.SmsSuppressions = &SmsSuppressionsService{resource{client: c}}
 	c.SmsKeywordRules = &SmsKeywordRulesService{resource{client: c}}
-	c.Whatsapp = &WhatsappService{resource{client: c}}
+	c.Whatsapp = &WhatsappService{resource: resource{client: c}}
+	c.Whatsapp.Messages = &WhatsappMessagesService{resource{client: c}}
 	c.Voice = &VoiceService{resource{client: c}}
 	c.Verify = &VerifyService{Verifications: &VerifyVerificationsService{resource{client: c}}}
 	c.Webhooks = &WebhooksService{resource{client: c}}

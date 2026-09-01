@@ -11,7 +11,12 @@ import (
 
 // WhatsappService sends WhatsApp messages and reads them back. Reach it
 // via Client.Whatsapp.
-type WhatsappService struct{ resource }
+type WhatsappService struct {
+	resource
+
+	// Messages reaches the subresources one message owns.
+	Messages *WhatsappMessagesService
+}
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind
 // of content — a template, or one free-form arm. Which arms a send may use, and
@@ -37,6 +42,11 @@ type WhatsappSendParams struct {
 	// buttons, a list menu, a link button, media cards, or a single button asking
 	// for their location or contact details.
 	Interactive *WhatsAppInteractiveSend
+
+	// ContactCards sends up to five contact cards. A card's Name needs
+	// FormattedName plus at least one other part, and a PhoneNumber in E.164 earns
+	// the card a button that opens a chat with it.
+	ContactCards []WhatsAppContactCardSend
 
 	// InReplyToMessageID quotes an earlier message from the same conversation
 	// above this one, the way replying in the WhatsApp client does.
@@ -82,6 +92,10 @@ func (p WhatsappSendParams) toWire() oapi.WhatsAppMessageSendRequest {
 	body.Document = p.Document
 	body.Location = p.Location
 	body.Interactive = p.Interactive
+	if len(p.ContactCards) > 0 {
+		cards := p.ContactCards
+		body.ContactCards = &cards
+	}
 	if p.InReplyToMessageID != "" {
 		id := oapi.WhatsAppMessageID(p.InReplyToMessageID)
 		body.InReplyToMessageId = &id

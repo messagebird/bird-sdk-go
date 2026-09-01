@@ -349,6 +349,19 @@ type (
 	WhatsAppInteractiveCardHeaderSend       = oapi.WhatsAppInteractiveCardHeaderSend
 )
 
+// The contact-card send arm and the shapes it nests. Each is the wire object
+// verbatim: a card's Name needs FormattedName plus at least one other part, and a
+// PhoneNumber in E.164 earns the card a button that opens a chat with it.
+type (
+	WhatsAppContactCardSend    = oapi.WhatsAppContactCardSend
+	WhatsAppContactNameSend    = oapi.WhatsAppContactNameSend
+	WhatsAppContactOrgSend     = oapi.WhatsAppContactOrgSend
+	WhatsAppContactPhoneSend   = oapi.WhatsAppContactPhoneSend
+	WhatsAppContactEmailSend   = oapi.WhatsAppContactEmailSend
+	WhatsAppContactUrlSend     = oapi.WhatsAppContactUrlSend
+	WhatsAppContactAddressSend = oapi.WhatsAppContactAddressSend
+)
+
 // The kinds a send may name, and the kinds its header and buttons may name.
 // Closed on the write side, unlike their read counterparts above: WhatsApp adds
 // kinds we render back before we accept them on a send. The names carry the
@@ -506,15 +519,15 @@ type (
 	// organization.
 	Workspace = oapi.Workspace
 
-	WebhookAttemptList = oapi.WebhookAttemptList
-	WebhookEndpoint = oapi.WebhookEndpoint
-	WebhookEndpointCreate = oapi.WebhookEndpointCreate
-	WebhookEndpointCreated = oapi.WebhookEndpointCreated
-	WebhookEndpointID = oapi.WebhookEndpointID
-	WebhookEndpointList = oapi.WebhookEndpointList
-	WebhookEndpointUpdate = oapi.WebhookEndpointUpdate
+	WebhookAttemptList          = oapi.WebhookAttemptList
+	WebhookEndpoint             = oapi.WebhookEndpoint
+	WebhookEndpointCreate       = oapi.WebhookEndpointCreate
+	WebhookEndpointCreated      = oapi.WebhookEndpointCreated
+	WebhookEndpointID           = oapi.WebhookEndpointID
+	WebhookEndpointList         = oapi.WebhookEndpointList
+	WebhookEndpointUpdate       = oapi.WebhookEndpointUpdate
 	WebhookRotateSecretResponse = oapi.WebhookRotateSecretResponse
-	WebhookSortField = oapi.WebhookSortField
-	WebhookTestRequest = oapi.WebhookTestRequest
-	WebhookTestResponse = oapi.WebhookTestResponse
+	WebhookSortField            = oapi.WebhookSortField
+	WebhookTestRequest          = oapi.WebhookTestRequest
+	WebhookTestResponse         = oapi.WebhookTestResponse
 )

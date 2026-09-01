@@ -84,7 +84,7 @@ func (cfg Config) Execute(ctx context.Context, mutation bool, call Attempt) ([]b
 			continue
 		}
 
-		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+		if (resp.StatusCode >= 200 && resp.StatusCode < 300) || resp.StatusCode == cfg.SuccessStatus {
 			cfg.fillResponse(resp)
 			return body, nil
 		}

@@ -36,7 +36,11 @@ type Config struct {
 	RealtimeEncryptionMasterKey string
 	Header                      http.Header
 	ResponseInto                *Response
-	EmailDefaults               EmailDefaults
+	// SuccessStatus is a 3xx an operation answers on success. Set only where the
+	// contract is a redirect the caller must take itself, because the target is
+	// pre-authorized and must not receive this client's credentials.
+	SuccessStatus int
+	EmailDefaults EmailDefaults
 	// Sealed is set on the per-call config so construction-only options
 	// (WithBaseURL/WithAPIKey/WithHTTPClient) can reject being applied per call.
 	Sealed bool

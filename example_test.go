@@ -421,7 +421,20 @@ func ExampleWhatsappService_Send() {
 	fmt.Println(msg.Id, *msg.Status)
 }
 
-// Send free-form WhatsApp text, inside an open 24-hour customer service window.
+// Download the media on a received WhatsApp message.
+func ExampleWhatsappMessagesService_Media() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	media, err := client.Whatsapp.Messages.Media(context.Background(),
+		"wam_01kya19eknftrs2s6p82asmvnh", "waf_01kyb2m4xq7whs0d8n3prv6tez")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(media.ContentType, media.ContentLength)
+}
+
 func ExampleWhatsappService_Send_freeForm() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

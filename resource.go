@@ -43,6 +43,37 @@ func (r resource) getAuth(ctx context.Context, opts []option.RequestOption, sche
 	})
 }
 
+// getRedirect is get for an operation whose success is a redirect: status counts
+// as success alongside 2xx, and the transport metadata comes back so the caller
+// can read Location and fetch it with a client that carries no credentials.
+func (r resource) getRedirect(ctx context.Context, opts []option.RequestOption, status int, call func(context.Context, requestConfig) (*http.Response, error)) ([]byte, Response, error) {
+	var meta Response
+	cfg, err := r.client.resolve(opts)
+	if err != nil {
+		return nil, meta, err
+	}
+	if cfg.APIKey == "" {
+		return nil, meta, ErrMissingAPIKey
+	}
+	editors, err := r.client.credentialEditors(cfg, nil)
+	if err != nil {
+		return nil, meta, err
+	}
+	// ResponseInto is the caller's own handle when they passed
+	// option.WithResponseInto, so borrow the field and hand their copy back
+	// afterwards rather than dropping what they asked for.
+	caller := cfg.ResponseInto
+	cfg.ResponseInto = &meta
+	cfg.SuccessStatus = status
+	body, err := cfg.Execute(ctx, false, func(ctx context.Context, _ string) (*http.Response, error) {
+		return call(ctx, editors)
+	})
+	if caller != nil {
+		*caller = meta
+	}
+	return body, meta, err
+}
+
 // post runs a write through the shared request core: resolve options, then
 // execute with one idempotency key reused across every retry attempt (the hard
 // lifecycle invariant), and return the decoded response body.

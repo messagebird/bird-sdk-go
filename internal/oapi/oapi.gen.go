@@ -3679,6 +3679,7 @@ func (e VerificationStatus) Valid() bool {
 const (
 	VerificationAttemptFailureReasonCarrierRejected    VerificationAttemptFailureReason = "carrier_rejected"
 	VerificationAttemptFailureReasonChannelDisabled    VerificationAttemptFailureReason = "channel_disabled"
+	VerificationAttemptFailureReasonChannelRestricted  VerificationAttemptFailureReason = "channel_restricted"
 	VerificationAttemptFailureReasonChannelUnavailable VerificationAttemptFailureReason = "channel_unavailable"
 	VerificationAttemptFailureReasonDeliveryTimeout    VerificationAttemptFailureReason = "delivery_timeout"
 	VerificationAttemptFailureReasonHardBounce         VerificationAttemptFailureReason = "hard_bounce"
@@ -3693,6 +3694,8 @@ func (e VerificationAttemptFailureReason) Valid() bool {
 	case VerificationAttemptFailureReasonCarrierRejected:
 		return true
 	case VerificationAttemptFailureReasonChannelDisabled:
+		return true
+	case VerificationAttemptFailureReasonChannelRestricted:
 		return true
 	case VerificationAttemptFailureReasonChannelUnavailable:
 		return true
@@ -9170,6 +9173,9 @@ type EventVerifyAttemptUndeliveredData struct {
 	//   moved to the next channel.
 	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 	//   verification moved to the next channel.
+	// - `channel_restricted`: The channel does not carry passcodes to this
+	//   destination country. The verification moves to the next channel enabled
+	//   there, or fails when the country has no other.
 	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
 	//   timeout, so the verification moved to the next channel.
 	// - `not_billable`: The send could not be charged, so it was never handed to the
@@ -9262,6 +9268,9 @@ type EventVerifyVerificationFailedData struct {
 	//   moved to the next channel.
 	// - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 	//   verification moved to the next channel.
+	// - `channel_restricted`: The channel does not carry passcodes to this
+	//   destination country. The verification moves to the next channel enabled
+	//   there, or fails when the country has no other.
 	// - `delivery_timeout`: No delivery confirmation arrived before the channel's
 	//   timeout, so the verification moved to the next channel.
 	// - `not_billable`: The send could not be charged, so it was never handed to the
@@ -9466,6 +9475,9 @@ type EventWhatsAppBase struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
@@ -9524,6 +9536,9 @@ type EventWhatsAppFailedData struct {
 
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
+
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -9590,7 +9605,7 @@ type EventWhatsAppReceivedData struct {
 	// Image Image the contact sent.
 	Image *WhatsAppImage `json:"image,omitempty"`
 
-	// InReplyToMessageId The message this one answers, when WhatsApp reports it as a reply. Absent when it answers nothing, or when the message it names is not one we hold.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// InteractiveReply What the contact tapped, when the message answers an interactive message or a template's quick-reply button.
@@ -9651,6 +9666,9 @@ type EventWhatsAppRejectedData struct {
 
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
+
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -12605,6 +12623,9 @@ type VerificationStatus string
 //     moved to the next channel.
 //   - `channel_disabled`: Sending on the channel is temporarily disabled, so the
 //     verification moved to the next channel.
+//   - `channel_restricted`: The channel does not carry passcodes to this
+//     destination country. The verification moves to the next channel enabled
+//     there, or fails when the country has no other.
 //   - `delivery_timeout`: No delivery confirmation arrived before the channel's
 //     timeout, so the verification moved to the next channel.
 //   - `not_billable`: The send could not be charged, so it was never handed to the
@@ -13234,12 +13255,27 @@ type WhatsAppContactAddress struct {
 	State       *string `json:"state,omitempty"`
 	Street      *string `json:"street,omitempty"`
 
-	// Type The label the contact's device attached, for example `Home`. Free text passed through verbatim.
+	// Type The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
 	Type *string `json:"type,omitempty"`
 	Zip  *string `json:"zip,omitempty"`
 }
 
-// WhatsAppContactCard A contact card the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only.
+// WhatsAppContactAddressSend One postal address to put on a contact card.
+type WhatsAppContactAddressSend struct {
+	City    *string `json:"city,omitempty"`
+	Country *string `json:"country,omitempty"`
+
+	// CountryCode The country as it should appear on the address, commonly the ISO two-letter code.
+	CountryCode *string `json:"country_code,omitempty"`
+	State       *string `json:"state,omitempty"`
+	Street      *string `json:"street,omitempty"`
+
+	// Type A label for the address, shown beside it. Free text, sent exactly as written.
+	Type *string `json:"type,omitempty"`
+	Zip  *string `json:"zip,omitempty"`
+}
+
+// WhatsAppContactCard A contact card on this message: one the contact shared, or one this workspace sent.
 // Nothing here is required. WhatsApp sends the parts the card holds and omits the rest, and a card that arrives with only an `origin` is still meaningful, so an empty card reads back empty rather than being dropped.
 type WhatsAppContactCard struct {
 	Addresses *[]WhatsAppContactAddress `json:"addresses,omitempty"`
@@ -13254,22 +13290,48 @@ type WhatsAppContactCard struct {
 	// Org Where the contact works, when the card carries it.
 	Org *WhatsAppContactOrg `json:"org,omitempty"`
 
-	// Origin Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since.
+	// Origin Why the card arrived. `contact_request` means the contact tapped a button this workspace sent asking for their number, which is the only signal that the message answers that ask; `other` means they shared a card in the chat. Open enum: treat an unrecognized value as a way of sharing added since. Set on a card the contact shared; absent on one this workspace sent.
 	Origin *string `json:"origin,omitempty"`
 
 	// PhoneNumbers The numbers on the card. A button tap carries the contact's own number here, which is the point of asking.
 	PhoneNumbers *[]WhatsAppContactPhone `json:"phone_numbers,omitempty"`
 	Urls         *[]WhatsAppContactUrl   `json:"urls,omitempty"`
 
-	// Vcard The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone.
+	// Vcard The contact's card in vCard format. WhatsApp sends it on a card shared in the chat and omits it on a button tap, which carries the number alone. Set on a card the contact shared; absent on one this workspace sent.
 	Vcard *string `json:"vcard,omitempty"`
+}
+
+// WhatsAppContactCardSend A contact card to send. WhatsApp shows the name on the card and the rest in a profile view the recipient opens from it.
+// A card carrying a phone number renders buttons that message or save the contact; a card without one can only be added to an address book.
+type WhatsAppContactCardSend struct {
+	Addresses *[]WhatsAppContactAddressSend `json:"addresses,omitempty"`
+
+	// Birthday The contact's birthday, as `YYYY-MM-DD`. WhatsApp rejects any other shape, and a date no calendar holds is rejected too.
+	Birthday *string                     `json:"birthday,omitempty"`
+	Emails   *[]WhatsAppContactEmailSend `json:"emails,omitempty"`
+	Name     WhatsAppContactNameSend     `json:"name"`
+
+	// Org Where the contact works.
+	Org *WhatsAppContactOrgSend `json:"org,omitempty"`
+
+	// PhoneNumbers The numbers on the card. A number in E.164 renders a button that opens a WhatsApp chat with it; one that is not renders an invite instead.
+	PhoneNumbers *[]WhatsAppContactPhoneSend `json:"phone_numbers,omitempty"`
+	Urls         *[]WhatsAppContactUrlSend   `json:"urls,omitempty"`
 }
 
 // WhatsAppContactEmail One email address on a shared contact card.
 type WhatsAppContactEmail struct {
 	Email *string `json:"email,omitempty"`
 
-	// Type The label the contact's device attached, for example `Personal` or `Work`. Free text passed through verbatim.
+	// Type The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppContactEmailSend One email address to put on a contact card.
+type WhatsAppContactEmailSend struct {
+	Email string `json:"email"`
+
+	// Type A label for the address, shown beside it. Free text, sent exactly as written.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -13285,8 +13347,27 @@ type WhatsAppContactName struct {
 	Suffix        *string `json:"suffix,omitempty"`
 }
 
+// WhatsAppContactNameSend The contact's name. `formatted_name` is what the card shows, and WhatsApp additionally requires at least one of the parts below it, so a card carrying only a formatted name is rejected.
+type WhatsAppContactNameSend struct {
+	FirstName *string `json:"first_name,omitempty"`
+
+	// FormattedName The whole name, as the card should render it.
+	FormattedName string  `json:"formatted_name"`
+	LastName      *string `json:"last_name,omitempty"`
+	MiddleName    *string `json:"middle_name,omitempty"`
+	Prefix        *string `json:"prefix,omitempty"`
+	Suffix        *string `json:"suffix,omitempty"`
+}
+
 // WhatsAppContactOrg Where the contact works, as their card records it.
 type WhatsAppContactOrg struct {
+	Company    *string `json:"company,omitempty"`
+	Department *string `json:"department,omitempty"`
+	Title      *string `json:"title,omitempty"`
+}
+
+// WhatsAppContactOrgSend Where the contact works, as the card should record it.
+type WhatsAppContactOrgSend struct {
 	Company    *string `json:"company,omitempty"`
 	Department *string `json:"department,omitempty"`
 	Title      *string `json:"title,omitempty"`
@@ -13297,17 +13378,35 @@ type WhatsAppContactPhone struct {
 	// PhoneNumber The number as the card holds it, normalized to E.164 where we can parse it. A card is whatever the contact's device stored, so a number that no country's numbering plan accepts, an extension among them, is passed through exactly as it arrived rather than dropped. Parse defensively: most values are E.164 and none is guaranteed to be.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 
-	// Type The label the contact's device attached, for example `CELL`, `Home` or `iPhone`. Free text passed through verbatim: WhatsApp declares no vocabulary here and does not normalize the casing, so neither do we.
+	// Type The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppContactPhoneSend One phone number to put on a contact card.
+type WhatsAppContactPhoneSend struct {
+	// PhoneNumber The number to show. Send it in E.164 to get a card the recipient can message from; any other form still renders, with an invite button.
+	PhoneNumber string `json:"phone_number"`
+
+	// Type A label for the number, shown beside it. Free text: WhatsApp defines no vocabulary, and the label is sent exactly as written.
 	Type *string `json:"type,omitempty"`
 }
 
 // WhatsAppContactUrl One website on a shared contact card.
 type WhatsAppContactUrl struct {
-	// Type The label the contact's device attached, for example `Company`. Free text passed through verbatim.
+	// Type The label attached to this value, for example `CELL`, `Home` or `iPhone`. Free text: WhatsApp defines no vocabulary. A label on a received card is lowercased; one this workspace sent reads back exactly as sent.
 	Type *string `json:"type,omitempty"`
 
 	// Url The address as the card holds it, which is often bare rather than a full URL, so it is passed through as text rather than validated.
 	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppContactUrlSend One website to put on a contact card.
+type WhatsAppContactUrlSend struct {
+	// Type A label for the website, shown beside it. Free text, sent exactly as written.
+	Type *string `json:"type,omitempty"`
+
+	// Url The address to show. Not validated as a URL, because a card commonly carries a bare domain.
+	Url string `json:"url"`
 }
 
 // WhatsAppDocument defines model for WhatsAppDocument.
@@ -13940,7 +14039,7 @@ type WhatsAppMessage struct {
 	// Audio Audio the message carried.
 	Audio *WhatsAppAudio `json:"audio,omitempty"`
 
-	// ContactCards Contact cards the contact shared, either by tapping a button that asked for their number or by sending a card from their address book. Inbound only: sending a contact card is not supported.
+	// ContactCards Contact cards on this message: cards the contact shared, either by tapping a button that asked for their number or by sending one from their address book, or the cards this workspace sent.
 	ContactCards *[]WhatsAppContactCard `json:"contact_cards,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
@@ -14037,6 +14136,9 @@ type WhatsAppMessageList struct {
 type WhatsAppMessageSendRequest struct {
 	// Audio Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Audio *WhatsAppAudioSend `json:"audio,omitempty"`
+
+	// ContactCards Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+	ContactCards *[]WhatsAppContactCardSend `json:"contact_cards,omitempty"`
 
 	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
@@ -20766,6 +20868,9 @@ type ClientInterface interface {
 	// ListWhatsAppMessageEvents request
 	ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetWhatsAppMessageMedia request
+	GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetCurrentWorkspace request
 	GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
@@ -22908,6 +23013,18 @@ func (c *Client) GetWhatsAppMessage(ctx context.Context, messageId WhatsAppMessa
 
 func (c *Client) ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWhatsAppMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppMessageMediaRequest(c.Server, messageId, mediaId)
 	if err != nil {
 		return nil, err
 	}
@@ -34418,6 +34535,47 @@ func NewListWhatsAppMessageEventsRequest(server string, messageId WhatsAppMessag
 	return req, nil
 }
 
+// NewGetWhatsAppMessageMediaRequest generates requests for GetWhatsAppMessageMedia
+func NewGetWhatsAppMessageMediaRequest(server string, messageId WhatsAppMessageID, mediaId WhatsAppFileID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "media_id", mediaId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/messages/%s/media/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetCurrentWorkspaceRequest generates requests for GetCurrentWorkspace
 func NewGetCurrentWorkspaceRequest(server string) (*http.Request, error) {
 	var err error
@@ -34986,6 +35144,9 @@ type ClientWithResponsesInterface interface {
 
 	// ListWhatsAppMessageEventsWithResponse request
 	ListWhatsAppMessageEventsWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessageEventsResponse, error)
+
+	// GetWhatsAppMessageMediaWithResponse request
+	GetWhatsAppMessageMediaWithResponse(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageMediaResponse, error)
 
 	// GetCurrentWorkspaceWithResponse request
 	GetCurrentWorkspaceWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error)
@@ -40150,6 +40311,42 @@ func (r ListWhatsAppMessageEventsResponse) ContentType() string {
 	return ""
 }
 
+type GetWhatsAppMessageMediaResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON410      *Gone
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppMessageMediaResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppMessageMediaResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppMessageMediaResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetCurrentWorkspaceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -41757,6 +41954,15 @@ func (c *ClientWithResponses) ListWhatsAppMessageEventsWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseListWhatsAppMessageEventsResponse(rsp)
+}
+
+// GetWhatsAppMessageMediaWithResponse request returning *GetWhatsAppMessageMediaResponse
+func (c *ClientWithResponses) GetWhatsAppMessageMediaWithResponse(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageMediaResponse, error) {
+	rsp, err := c.GetWhatsAppMessageMedia(ctx, messageId, mediaId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppMessageMediaResponse(rsp)
 }
 
 // GetCurrentWorkspaceWithResponse request returning *GetCurrentWorkspaceResponse
@@ -51931,6 +52137,74 @@ func ParseListWhatsAppMessageEventsResponse(rsp *http.Response) (*ListWhatsAppMe
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppMessageMediaResponse parses an HTTP response from a GetWhatsAppMessageMediaWithResponse call
+func ParseGetWhatsAppMessageMediaResponse(rsp *http.Response) (*GetWhatsAppMessageMediaResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppMessageMediaResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 410:
+		var dest Gone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

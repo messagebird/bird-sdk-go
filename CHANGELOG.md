@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.51.0
+
+- The `whatsapp.accepted`, `whatsapp.sent`, `whatsapp.delivered`, `whatsapp.read`, `whatsapp.failed`, and `whatsapp.rejected` webhook payloads now type `in_reply_to_message_id`, naming the message an outbound send answers.
+
 ## 0.50.0
 
 - The `whatsapp.received` webhook payload now types `in_reply_to_message_id` and `interactive_reply`, naming the message an inbound reply answers and what the contact tapped.

@@ -74,6 +74,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Whatsapp.Get
 	_ = c.Whatsapp.List
 	_ = c.Whatsapp.ListEvents
+	_ = c.Whatsapp.Messages.Media
 	_ = c.Voice.List
 	_ = c.Voice.Get
 	_ = c.Verify.Verifications.Create
