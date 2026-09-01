@@ -3791,17 +3791,18 @@ func (e VoiceCallDirection) Valid() bool {
 
 // Defines values for VoiceCallRejectionReason.
 const (
-	VoiceCallRejectionReasonCallNotPermitted        VoiceCallRejectionReason = "call_not_permitted"
-	VoiceCallRejectionReasonCallerIDNotVerified     VoiceCallRejectionReason = "caller_id_not_verified"
-	VoiceCallRejectionReasonCallsPerSecondExceeded  VoiceCallRejectionReason = "calls_per_second_exceeded"
-	VoiceCallRejectionReasonConcurrentCallsExceeded VoiceCallRejectionReason = "concurrent_calls_exceeded"
-	VoiceCallRejectionReasonDailySpendExceeded      VoiceCallRejectionReason = "daily_spend_exceeded"
-	VoiceCallRejectionReasonDestinationBlocked      VoiceCallRejectionReason = "destination_blocked"
-	VoiceCallRejectionReasonDestinationNotEnabled   VoiceCallRejectionReason = "destination_not_enabled"
-	VoiceCallRejectionReasonInsufficientBalance     VoiceCallRejectionReason = "insufficient_balance"
-	VoiceCallRejectionReasonNoRouteFound            VoiceCallRejectionReason = "no_route_found"
-	VoiceCallRejectionReasonRoutingNotConfigured    VoiceCallRejectionReason = "routing_not_configured"
-	VoiceCallRejectionReasonSourceNotAllowed        VoiceCallRejectionReason = "source_not_allowed"
+	VoiceCallRejectionReasonCallNotPermitted           VoiceCallRejectionReason = "call_not_permitted"
+	VoiceCallRejectionReasonCallerIDNotVerified        VoiceCallRejectionReason = "caller_id_not_verified"
+	VoiceCallRejectionReasonCallsPerSecondExceeded     VoiceCallRejectionReason = "calls_per_second_exceeded"
+	VoiceCallRejectionReasonConcurrentCallsExceeded    VoiceCallRejectionReason = "concurrent_calls_exceeded"
+	VoiceCallRejectionReasonDailySpendExceeded         VoiceCallRejectionReason = "daily_spend_exceeded"
+	VoiceCallRejectionReasonDestinationBlocked         VoiceCallRejectionReason = "destination_blocked"
+	VoiceCallRejectionReasonDestinationNotEnabled      VoiceCallRejectionReason = "destination_not_enabled"
+	VoiceCallRejectionReasonInsufficientBalance        VoiceCallRejectionReason = "insufficient_balance"
+	VoiceCallRejectionReasonNoRouteFound               VoiceCallRejectionReason = "no_route_found"
+	VoiceCallRejectionReasonNumberOwnershipNotVerified VoiceCallRejectionReason = "number_ownership_not_verified"
+	VoiceCallRejectionReasonRoutingNotConfigured       VoiceCallRejectionReason = "routing_not_configured"
+	VoiceCallRejectionReasonSourceNotAllowed           VoiceCallRejectionReason = "source_not_allowed"
 )
 
 // Valid indicates whether the value is a known member of the VoiceCallRejectionReason enum.
@@ -3824,6 +3825,8 @@ func (e VoiceCallRejectionReason) Valid() bool {
 	case VoiceCallRejectionReasonInsufficientBalance:
 		return true
 	case VoiceCallRejectionReasonNoRouteFound:
+		return true
+	case VoiceCallRejectionReasonNumberOwnershipNotVerified:
 		return true
 	case VoiceCallRejectionReasonRoutingNotConfigured:
 		return true
@@ -9587,6 +9590,12 @@ type EventWhatsAppReceivedData struct {
 	// Image Image the contact sent.
 	Image *WhatsAppImage `json:"image,omitempty"`
 
+	// InReplyToMessageId The message this one answers, when WhatsApp reports it as a reply. Absent when it answers nothing, or when the message it names is not one we hold.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// InteractiveReply What the contact tapped, when the message answers an interactive message or a template's quick-reply button.
+	InteractiveReply *WhatsAppInteractiveReply `json:"interactive_reply,omitempty"`
+
 	// Location Location the contact sent.
 	Location *WhatsAppLocation `json:"location,omitempty"`
 
@@ -12833,6 +12842,10 @@ type VoiceCallList struct {
 //   - `caller_id_not_verified`: The number in the `From` header is not a verified
 //     caller ID for this workspace. Verify it, or present a number you have
 //     already verified.
+//   - `number_ownership_not_verified`: You bought this number, but the country that
+//     issued it has not yet accepted the documents proving your workspace owns it.
+//     Open the number under Numbers and complete its ownership requirements, then
+//     place the call again.
 //   - `destination_not_enabled`: You have not turned on calling to this
 //     destination country. Enable it in your voice destination settings.
 //   - `insufficient_balance`: Your wallet did not cover the call. Top up, or turn

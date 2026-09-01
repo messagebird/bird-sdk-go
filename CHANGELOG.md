@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.50.0
+
+- The `whatsapp.received` webhook payload now types `in_reply_to_message_id` and `interactive_reply`, naming the message an inbound reply answers and what the contact tapped.
+- `rejection_reason` on a voice call record gains `number_ownership_not_verified`, returned when the country that issued a number you bought has not accepted the documents proving your workspace owns it.
+
 ## 0.49.0
 
 - A voice call record now carries `route`: what your number did with an incoming call, whether it went to a SIP trunk, was forwarded, or was refused. Absent on outbound calls, and on calls recorded before this release, so treat a missing `route` as unknown rather than as proof the call was outbound.
