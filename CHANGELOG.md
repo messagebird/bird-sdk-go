@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.52.0
+
+- Verification attempt failures can now report `channel_restricted`, meaning the channel does not carry passcodes to the recipient's country. The verification moves to the next channel enabled there, or fails when the country has no other.
+- A WhatsApp send can carry up to five contact cards, as `--contact-cards` on `bird whatsapp send` and `contact_cards` on the `whatsapp_send` tool and each SDK's send. A card's name needs `formatted_name` plus at least one other part, and a phone number in E.164 earns the card a button that opens a chat with it.
+- Add `whatsapp.messages.media`, which downloads a received WhatsApp message's media and returns the bytes with the content type storage declared. It takes the redirect hop for you, without sending your API key to the pre-authorized storage URL.
+
 ## 0.51.0
 
 - The `whatsapp.accepted`, `whatsapp.sent`, `whatsapp.delivered`, `whatsapp.read`, `whatsapp.failed`, and `whatsapp.rejected` webhook payloads now type `in_reply_to_message_id`, naming the message an outbound send answers.
