@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.54.0
+
+- SMS and email batch sends now put their items under a `messages` object key on the wire (`POST /v1/sms/batches` and `POST /v1/email/batches`); the `messages` parameter each surface already takes is unchanged, and the API keeps accepting the previous bare-array body from older versions.
+
 ## 0.53.0
 
 - Batch email sends now take `scheduled_at` on each item, so one batch can mix scheduled and immediate messages.

@@ -209,9 +209,9 @@ type EmailSendBatchParams struct {
 }
 
 func (p EmailSendBatchParams) toWire() oapi.EmailMessageBatchRequest {
-	wire := make(oapi.EmailMessageBatchRequest, len(p.Messages))
+	wire := oapi.EmailMessageBatchRequest{Messages: make([]oapi.EmailMessageSendRequest, len(p.Messages))}
 	for i, m := range p.Messages {
-		wire[i] = m.toWire()
+		wire.Messages[i] = m.toWire()
 	}
 	return wire
 }
@@ -227,8 +227,8 @@ func (s *EmailService) SendBatch(ctx context.Context, params EmailSendBatchParam
 		return nil, err
 	}
 	wire := params.toWire()
-	for i := range wire {
-		applyEmailDefaults(&wire[i], cfg.EmailDefaults)
+	for i := range wire.Messages {
+		applyEmailDefaults(&wire.Messages[i], cfg.EmailDefaults)
 	}
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
 		params := &oapi.CreateEmailMessageBatchParams{}

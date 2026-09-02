@@ -130,9 +130,9 @@ type SmsSendBatchParams struct {
 }
 
 func (p SmsSendBatchParams) toWire() oapi.SMSMessageBatchRequest {
-	batch := make(oapi.SMSMessageBatchRequest, len(p.Messages))
+	batch := oapi.SMSMessageBatchRequest{Messages: make([]oapi.SMSMessageSendRequest, len(p.Messages))}
 	for i, m := range p.Messages {
-		batch[i] = m.toWire()
+		batch.Messages[i] = m.toWire()
 	}
 	return batch
 }
