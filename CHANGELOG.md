@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.55.0
+
+- **Breaking:** changing a mailbox's `retention_tier` now applies to its stored messages in the background rather than as part of the update call. Lowering the tier a second time before the first change finishes is rejected with `E17050`; retry later. You can still raise the tier to one your plan permits. Large mailboxes can take hours to finish.
+- When your plan includes mailbox storage, the allowance is shared by every mailbox in the organization. Sending is rejected with `E17049` once the organization's mailboxes reach it. Soft-deleted mailboxes count while they can still be restored.
+
 ## 0.54.0
 
 - SMS and email batch sends now put their items under a `messages` object key on the wire (`POST /v1/sms/batches` and `POST /v1/email/batches`); the `messages` parameter each surface already takes is unchanged, and the API keeps accepting the previous bare-array body from older versions.

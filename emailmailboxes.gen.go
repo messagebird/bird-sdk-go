@@ -101,11 +101,11 @@ type EmailMailboxesUpdateParams struct {
 	DefaultReplyTo Nullable[string]
 	// Which inbound mail the mailbox accepts: - `open`: Accepts everything not blocked by a rule. - `replies_only`: Accepts only replies to messages this mailbox has sent. A reply must match a message the mailbox sent. Landing in an existing thread by itself does not count. - `allowlist`: Accepts only senders matching an allow rule. - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy
-	// How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
+	// How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
 	RetentionTier *MailboxUpdateRetentionTier
 	// Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
-	// Set to `true` when lowering `retention_tier` would delete remembered messages older than the new cutoff. The request is rejected without it in that case.
+	// Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case.
 	Confirm bool
 }
 
@@ -216,7 +216,7 @@ func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts 
 	return &out, nil
 }
 
-// Update Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier requires `confirm=true` when it would delete remembered messages older than the new cutoff.
+// Update Update a mailbox's display name, reply-to, receive policy, retention tier, IP pool, or metadata. Lowering the retention tier requires `confirm=true` when it would make remembered messages older than the new cutoff eligible for deletion. Retention tier changes apply in the background, and lowering the tier again before the first change finishes is refused.
 func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, params EmailMailboxesUpdateParams, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := params.toWireParams()
@@ -235,7 +235,7 @@ func (s *EmailMailboxesService) Update(ctx context.Context, mailboxId string, pa
 	return &out, nil
 }
 
-// Delete Delete a mailbox. The address stops receiving immediately and is quarantined. The mailbox and its remembered messages stay restorable for 30 days through the restore endpoint, then are permanently deleted.
+// Delete Delete a mailbox. The address stops receiving immediately and is quarantined. The mailbox can be restored for 30 days, while normal message-retention expiry continues. After 30 days, the mailbox and its remaining messages are permanently deleted.
 func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteMailboxParams{}
@@ -247,7 +247,7 @@ func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, op
 	return err
 }
 
-// Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and the remembered messages are back. Past the window the mailbox is permanently deleted and returns `404`. A mailbox that is not deleted returns `409`.
+// Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and its remaining remembered messages are available. Normal message-retention expiry continues while a mailbox is deleted. Past the restore window the mailbox is permanently deleted and returns `404`. A mailbox that is not deleted returns `409`.
 func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.RestoreMailboxParams{}

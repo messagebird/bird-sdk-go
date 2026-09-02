@@ -48,7 +48,7 @@ type EmailThreadsMessagesReplyParams struct {
 	Metadata map[string]any
 	// Content classification, which controls suppression policy: - `marketing`: Blocks on all suppression reasons. - `transactional`: Allows delivery through complaint and unsubscribe suppressions, for receipts, password resets, and similar operational mail.
 	Category *EmailMessageCategory
-	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
+	// File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments []EmailAttachment
 }
 

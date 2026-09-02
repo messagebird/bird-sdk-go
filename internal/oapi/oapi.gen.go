@@ -6361,7 +6361,7 @@ type EmailLookupResult string
 
 // EmailMailboxComposeRequest A new message sent from a mailbox, starting a new conversation. Mirrors the plain send request without `from`, because the mailbox is who the message comes from, and without `scheduled_at`, because a mailbox sends immediately. We set the RFC 5322 Message-ID so replies thread back into this conversation. At least one of `html` or `text` must be provided.
 type EmailMailboxComposeRequest struct {
-	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
+	// Attachments File attachments. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
 	// Bcc BCC recipients. Each entry is a plain email string, an RFC 5322 mailbox string (`Jane <jane@acme.com>`), or an object with an optional display name.
@@ -7700,7 +7700,7 @@ type EmailThreadMessageRecipientStatus string
 
 // EmailThreadMessageReplyRequest A reply to a conversation message. Recipients are derived from the message being replied to: its Reply-To address when present, otherwise its From address. Set `reply_all` to also include the original To and Cc recipients (minus the mailbox's own address). The subject and threading headers are set automatically. At least one of `html` or `text` must be provided.
 type EmailThreadMessageReplyRequest struct {
-	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for 30 days.
+	// Attachments File attachments to include with the reply. The send is rejected when the estimated generated message size exceeds 20 MB (bodies plus all attachments after base64 encoding). Keep total raw attachment content at or below 15 MB for reliable headroom. Attachment metadata stays on the message's `attachment_manifest`, and the bytes are downloadable for the mailbox's retention tier.
 	Attachments *[]EmailAttachment `json:"attachments,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
@@ -8194,7 +8194,7 @@ type EventEmailMailboxMessageReceivedType string
 
 // EventEmailMailboxMessageReceivedData Identifiers, threading details, authentication results, and extracted text for a received mailbox message. The thread-message endpoints provide the original source during its 30-day retention window.
 type EventEmailMailboxMessageReceivedData struct {
-	// AttachmentCount Number of attachments on the message. Attachment content remains available during the 30-day original-source retention window.
+	// AttachmentCount Number of attachments on the message. Attachment content remains available for the mailbox's retention tier.
 	AttachmentCount int `json:"attachment_count"`
 
 	// Authentication Whether the sender of the received message was authenticated.
@@ -10190,7 +10190,7 @@ type Mailbox struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to"`
 
-	// DeletedAt When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and its remembered messages are permanently removed.
+	// DeletedAt When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
 	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
@@ -10224,10 +10224,10 @@ type Mailbox struct {
 	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
 	RetentionTier MailboxRetentionTier `json:"retention_tier"`
 
-	// SizeBytes Stored bytes across the mailbox's retained messages: the metadata and extracted text kept for the retention tier plus attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
+	// SizeBytes Stored bytes across the mailbox's retained messages: subject, preview, extracted text, and attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
 	SizeBytes *int64 `json:"size_bytes,omitempty"`
 
-	// State Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
+	// State Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
 	State *MailboxState `json:"state,omitempty"`
 
 	// ThreadCount Number of retained threads.
@@ -10257,7 +10257,7 @@ type MailboxReceivePolicy string
 // MailboxRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
 type MailboxRetentionTier string
 
-// MailboxState Lifecycle state. Suspended mailboxes stop emitting events. Inbound mail is retained as blocked.
+// MailboxState Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
 type MailboxState string
 
 // MailboxCreate Parameters for creating a mailbox.
@@ -10393,7 +10393,7 @@ type MailboxUpdate struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
+	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
@@ -10407,7 +10407,7 @@ type MailboxUpdate struct {
 //   - `drop`: Stores nothing.
 type MailboxUpdateReceivePolicy string
 
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier deletes remembered messages older than the new horizon, and requires `confirm=true` when that would happen.
+// MailboxUpdateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
 type MailboxUpdateRetentionTier string
 
 // MessageCost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
@@ -14980,7 +14980,7 @@ type DeleteMailboxParams struct {
 
 // UpdateMailboxParams defines parameters for UpdateMailbox.
 type UpdateMailboxParams struct {
-	// Confirm Set to `true` when lowering `retention_tier` would delete remembered messages older than the new cutoff. The request is rejected without it in that case.
+	// Confirm Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case.
 	Confirm *bool `form:"confirm,omitempty" json:"confirm,omitempty"`
 
 	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
@@ -36362,6 +36362,7 @@ type UpdateMailboxResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -44328,6 +44329,13 @@ func ParseUpdateMailboxResponse(rsp *http.Response) (*UpdateMailboxResponse, err
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
