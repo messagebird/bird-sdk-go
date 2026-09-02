@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.53.0
+
+- Batch email sends now take `scheduled_at` on each item, so one batch can mix scheduled and immediate messages.
+
 ## 0.52.0
 
 - Verification attempt failures can now report `channel_restricted`, meaning the channel does not carry passcodes to the recipient's country. The verification moves to the next channel enabled there, or fails when the country has no other.

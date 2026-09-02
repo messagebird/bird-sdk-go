@@ -71,8 +71,8 @@ type EmailSendParams struct {
 	Parameters map[string]any
 	// ScheduledAt holds the message until a future instant instead of sending
 	// it immediately: at least 30 seconds and at most 30 days ahead, and
-	// mutually exclusive with Template. Only a single send accepts it; a batch
-	// item that sets one is rejected with a 422.
+	// mutually exclusive with Template. A batch item takes it on the same
+	// terms, so one batch can mix scheduled and immediate messages.
 	ScheduledAt time.Time
 }
 
