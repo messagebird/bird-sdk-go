@@ -12711,6 +12711,9 @@ type VerificationOptions struct {
 
 	// CodeLength Passcode length for this verification. Omit to use the configured length.
 	CodeLength *int `json:"code_length,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language *LanguageTag `json:"language,omitempty"`
 }
 
 // VerificationTerminalReason Why a verification session reached its final state without succeeding: `attempts_exhausted` (too many incorrect passcodes), `ttl_elapsed` (the time window elapsed before a correct passcode), or `undeliverable` (no planned channel could deliver a passcode, so the recipient never had one to submit). Open enum: new reasons may be added over time, so treat any unrecognized value as a future reason rather than an error.

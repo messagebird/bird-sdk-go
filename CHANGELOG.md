@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.57.0
+
+- Verify verifications accept `options.language`, which selects the built-in translation the one-time-passcode message is sent in. SMS is translated; every other channel still sends English.
+
 ## 0.56.0
 
 - An email send response now reports `scheduled_at` for a scheduled message, on a single send and on every item of a batch. On both the message and the batch item the field is now typed as a plain timestamp rather than a nullable one, which is what the API has always sent: the key is absent on an immediate send, never null.
