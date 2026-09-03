@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.56.0
+
+- An email send response now reports `scheduled_at` for a scheduled message, on a single send and on every item of a batch. On both the message and the batch item the field is now typed as a plain timestamp rather than a nullable one, which is what the API has always sent: the key is absent on an immediate send, never null.
+
 ## 0.55.0
 
 - **Breaking:** changing a mailbox's `retention_tier` now applies to its stored messages in the background rather than as part of the update call. Lowering the tier a second time before the first change finishes is rejected with `E17050`; retry later. You can still raise the tier to one your plan permits. Large mailboxes can take hours to finish.

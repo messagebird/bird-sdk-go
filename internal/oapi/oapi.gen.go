@@ -6570,7 +6570,7 @@ type EmailMessage struct {
 	// ResolvedLanguage The template language this send was actually delivered in, in canonical form. Null when the send used no template. A non-null value with a null `requested_language` means the send named no language and took the template's default.
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
 
-	// ScheduledAt When this message is scheduled to send, for a send created with a future send time. Null for an immediate send. Stays set after the scheduled send fires.
+	// ScheduledAt When this message is scheduled to send, for a send created with a future send time. Absent for an immediate send. Stays set after the scheduled send fires.
 	ScheduledAt *time.Time          `json:"scheduled_at,omitempty"`
 	Status      *EmailMessageStatus `json:"status,omitempty"`
 
@@ -6613,6 +6613,9 @@ type EmailMessageBatchItem struct {
 
 	// ResolvedLanguage The template language this item was actually delivered in, in canonical form. Null when the item used no template. A value here differing from `requested_language` means the template did not have the language asked for and its `on_missing_language` policy chose this one.
 	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
+	// ScheduledAt When this item is scheduled to send, for an item created with a future send time. Absent for an item that sends immediately.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 
 	// Status Initial status of this message in the batch.
 	Status *EmailMessageBatchItemStatus `json:"status,omitempty"`
