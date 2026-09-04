@@ -3719,6 +3719,7 @@ const (
 	VerificationChannelEmail    VerificationChannel = "email"
 	VerificationChannelSms      VerificationChannel = "sms"
 	VerificationChannelTelegram VerificationChannel = "telegram"
+	VerificationChannelVoice    VerificationChannel = "voice"
 	VerificationChannelWhatsapp VerificationChannel = "whatsapp"
 )
 
@@ -3730,6 +3731,8 @@ func (e VerificationChannel) Valid() bool {
 	case VerificationChannelSms:
 		return true
 	case VerificationChannelTelegram:
+		return true
+	case VerificationChannelVoice:
 		return true
 	case VerificationChannelWhatsapp:
 		return true
@@ -3842,9 +3845,10 @@ func (e VoiceCallRejectionReason) Valid() bool {
 
 // Defines values for VoiceCallRouteType.
 const (
-	Forward VoiceCallRouteType = "forward"
-	Reject  VoiceCallRouteType = "reject"
-	Trunk   VoiceCallRouteType = "trunk"
+	Forward   VoiceCallRouteType = "forward"
+	Reject    VoiceCallRouteType = "reject"
+	Trunk     VoiceCallRouteType = "trunk"
+	Voicemail VoiceCallRouteType = "voicemail"
 )
 
 // Valid indicates whether the value is a known member of the VoiceCallRouteType enum.
@@ -3855,6 +3859,8 @@ func (e VoiceCallRouteType) Valid() bool {
 	case Reject:
 		return true
 	case Trunk:
+		return true
+	case Voicemail:
 		return true
 	default:
 		return false
@@ -11792,7 +11798,7 @@ type SMSMessageSendRequest struct {
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from. Use an E.164 number such as `+15557654321`, or a short code of 5-6 digits. You can also use an alphanumeric sender ID of 1-11 letters, digits, spaces, dashes, or underscores. It must contain at least one letter, for example `MyBrand`. A numeric sender must be a number your workspace owns; an alphanumeric sender is accepted where the destination country permits one. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
 	From *string `json:"from,omitempty"`
 
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -12803,6 +12809,12 @@ type VoiceCallCost struct {
 
 	// OutboundAmount What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
 	OutboundAmount *string `json:"outbound_amount,omitempty"`
+
+	// RecordingAmount What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
+	RecordingAmount *string `json:"recording_amount,omitempty"`
+
+	// TranscriptionAmount What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
+	TranscriptionAmount *string `json:"transcription_amount,omitempty"`
 }
 
 // VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
@@ -12906,6 +12918,7 @@ type VoiceCallRejectionReason string
 // - `reject`: refuses the call. This is where every number starts.
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
+// - `voicemail`: answers, plays your greeting, and records what the caller says.
 //
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.

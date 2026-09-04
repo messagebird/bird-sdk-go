@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.58.0
+
+- **Breaking:** an alphanumeric SMS sender ID must now be 3 to 11 characters. Claiming a shorter one returns a `422`; a shorter sender your workspace already owns keeps sending.
+- Verification channels gain `voice`, which delivers a passcode as an automated call reading the code aloud. A country's channel settings and channel order accept it, and a verification's `last_channel` can report it. Availability is per region and per country, so a country that has not enabled voice keeps the channels it already had.
+
 ## 0.57.0
 
 - Verify verifications accept `options.language`, which selects the built-in translation the one-time-passcode message is sent in. SMS is translated; every other channel still sends English.

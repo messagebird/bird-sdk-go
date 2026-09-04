@@ -275,6 +275,7 @@ const (
 	VerificationChannelEmail    = oapi.VerificationChannelEmail
 	VerificationChannelSms      = oapi.VerificationChannelSms
 	VerificationChannelTelegram = oapi.VerificationChannelTelegram
+	VerificationChannelVoice    = oapi.VerificationChannelVoice
 	VerificationChannelWhatsapp = oapi.VerificationChannelWhatsapp
 )
 
