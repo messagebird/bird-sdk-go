@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.58.1
+
+- Mailbox restore help now states that `404` also applies once permanent erasure has started.
+- `retention_tier` descriptions now distinguish retained text and attachments from the 30-day limit on original bodies and inbound raw MIME.
+
 ## 0.58.0
 
 - **Breaking:** an alphanumeric SMS sender ID must now be 3 to 11 characters. Claiming a shorter one returns a `422`; a shorter sender your workspace already owns keeps sending.

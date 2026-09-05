@@ -10199,7 +10199,7 @@ type Mailbox struct {
 	// DefaultReplyTo Default `Reply-To` address stamped on mail sent from this mailbox. `null` when unset.
 	DefaultReplyTo *openapi_types.Email `json:"default_reply_to"`
 
-	// DeletedAt When the mailbox was deleted, or `null` if it is active. A deleted mailbox stops receiving mail immediately but can be restored for 30 days, after which it and any remaining remembered messages are permanently removed.
+	// DeletedAt When the mailbox was deleted, or `null` if active. Deletion stops receiving; restore is available for 30 days unless permanent erasure has started.
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
 	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
@@ -10230,7 +10230,7 @@ type Mailbox struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy MailboxReceivePolicy `json:"receive_policy"`
 
-	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
+	// RetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier.
 	RetentionTier MailboxRetentionTier `json:"retention_tier"`
 
 	// SizeBytes Stored bytes across the mailbox's retained messages: subject, preview, extracted text, and attachment bytes. Message bodies and raw MIME expire after 30 days and do not count. Maintained with each message written or deleted, so the value is current; messages stored before the counter existed are not counted.
@@ -10263,7 +10263,7 @@ type MailboxChannel string
 //   - `drop`: Stores nothing.
 type MailboxReceivePolicy string
 
-// MailboxRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier.
+// MailboxRetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier.
 type MailboxRetentionTier string
 
 // MailboxState Lifecycle state. `active` means the mailbox can send, receive, and expose conversations. `suspended` pauses sending, conversation reads, and events; inbound mail is retained with the `blocked` label until you resume it.
@@ -10296,7 +10296,7 @@ type MailboxCreate struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+	// RetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
 	RetentionTier *MailboxCreateRetentionTier `json:"retention_tier,omitempty"`
 }
 
@@ -10310,7 +10310,7 @@ type MailboxCreate struct {
 //   - `drop`: Stores nothing.
 type MailboxCreateReceivePolicy string
 
-// MailboxCreateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+// MailboxCreateRetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
 type MailboxCreateRetentionTier string
 
 // MailboxID defines model for MailboxID.
@@ -10402,7 +10402,7 @@ type MailboxUpdate struct {
 	// - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy `json:"receive_policy,omitempty"`
 
-	// RetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+	// RetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
 	RetentionTier *MailboxUpdateRetentionTier `json:"retention_tier,omitempty"`
 }
 
@@ -10416,7 +10416,7 @@ type MailboxUpdate struct {
 //   - `drop`: Stores nothing.
 type MailboxUpdateReceivePolicy string
 
-// MailboxUpdateRetentionTier How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+// MailboxUpdateRetentionTier How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
 type MailboxUpdateRetentionTier string
 
 // MessageCost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.

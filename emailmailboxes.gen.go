@@ -60,7 +60,7 @@ type EmailMailboxesCreateParams struct {
 	DefaultReplyTo string
 	// Which inbound mail the mailbox accepts: - `open`: Accepts everything not blocked by a rule. - `replies_only`: Accepts only replies to messages this mailbox has sent. A reply must match a message the mailbox sent. Landing in an existing thread by itself does not count. - `allowlist`: Accepts only senders matching an allow rule. - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy
-	// How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them.
+	// How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
 	RetentionTier *MailboxCreateRetentionTier
 	// Your own key/value data to attach to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
@@ -101,7 +101,7 @@ type EmailMailboxesUpdateParams struct {
 	DefaultReplyTo Nullable[string]
 	// Which inbound mail the mailbox accepts: - `open`: Accepts everything not blocked by a rule. - `replies_only`: Accepts only replies to messages this mailbox has sent. A reply must match a message the mailbox sent. Landing in an existing thread by itself does not count. - `allowlist`: Accepts only senders matching an allow rule. - `drop`: Stores nothing.
 	ReceivePolicy *MailboxUpdateReceivePolicy
-	// How long the mailbox remembers message metadata, extracted text, and attachments. Message bodies and raw MIME stay available for 30 days regardless of tier. Tiers longer than 30 days require a plan that includes them. Lowering the tier immediately hides remembered messages older than the new horizon. Deletion waits at least ten minutes and until the background retention update has processed every stored message. The update starts every ten minutes and can take hours for large mailboxes; the next hourly purge deletes eligible messages. A lowering that would affect messages requires `confirm=true`.
+	// How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them. Lowering the tier requires `confirm=true` when messages would be affected; accepted changes hide those messages immediately. Deletion waits at least ten minutes and until the retention update finishes.
 	RetentionTier *MailboxUpdateRetentionTier
 	// Replaces the mailbox's key/value data. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]any
@@ -247,7 +247,7 @@ func (s *EmailMailboxesService) Delete(ctx context.Context, mailboxId string, op
 	return err
 }
 
-// Restore Restore a mailbox deleted less than 30 days ago: the address starts receiving again and its remaining remembered messages are available. Normal message-retention expiry continues while a mailbox is deleted. Past the restore window the mailbox is permanently deleted and returns `404`. A mailbox that is not deleted returns `409`.
+// Restore Restore receiving and access to unexpired messages. Returns `404` if deletion was 30 or more days ago or permanent erasure has started, and `409` if the mailbox is not deleted or its address is unavailable.
 func (s *EmailMailboxesService) Restore(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.RestoreMailboxParams{}
