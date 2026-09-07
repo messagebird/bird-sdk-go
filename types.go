@@ -76,6 +76,10 @@ type EmailStatus = oapi.EmailMessageStatus
 type (
 	// TemplateScope distinguishes Bird's built-in templates from a workspace's own.
 	TemplateScope = oapi.TemplateScope
+	// EmailTemplateCategory is an email template's traffic class (transactional or marketing).
+	EmailTemplateCategory = oapi.EmailTemplateCategory
+	// EmailTemplateTheme is one of the built-in email templates' visual themes.
+	EmailTemplateTheme = oapi.EmailTemplateTheme
 	// SMSMessageCategory is an SMS's content classification.
 	SMSMessageCategory = oapi.SMSMessageCategory
 	// EmailStatsSortMetric is the metric an email-stats breakdown sorts by.
@@ -187,6 +191,13 @@ type (
 type (
 	SMSTemplate     = oapi.SMSTemplate
 	SMSTemplateList = oapi.SMSTemplateList
+)
+
+// EmailTemplateSummary is one row of the email templates list; EmailTemplateList
+// is a page of them.
+type (
+	EmailTemplateSummary = oapi.EmailTemplateSummary
+	EmailTemplateList    = oapi.EmailTemplateList
 )
 
 // SMSMessage is a sent or received SMS with its status, segment breakdown, and

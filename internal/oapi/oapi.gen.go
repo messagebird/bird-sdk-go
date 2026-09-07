@@ -1149,6 +1149,66 @@ func (e EmailStatsSortMetric) Valid() bool {
 	}
 }
 
+// Defines values for EmailTemplateCategory.
+const (
+	EmailTemplateCategoryMarketing     EmailTemplateCategory = "marketing"
+	EmailTemplateCategoryTransactional EmailTemplateCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateCategory enum.
+func (e EmailTemplateCategory) Valid() bool {
+	switch e {
+	case EmailTemplateCategoryMarketing:
+		return true
+	case EmailTemplateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateSource.
+const (
+	EmailTemplateSourceHtml EmailTemplateSource = "html"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateSource enum.
+func (e EmailTemplateSource) Valid() bool {
+	switch e {
+	case EmailTemplateSourceHtml:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateTheme.
+const (
+	Arcane   EmailTemplateTheme = "arcane"
+	Barebone EmailTemplateTheme = "barebone"
+	Matte    EmailTemplateTheme = "matte"
+	Protocol EmailTemplateTheme = "protocol"
+	Studio   EmailTemplateTheme = "studio"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateTheme enum.
+func (e EmailTemplateTheme) Valid() bool {
+	switch e {
+	case Arcane:
+		return true
+	case Barebone:
+		return true
+	case Matte:
+		return true
+	case Protocol:
+		return true
+	case Studio:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailThreadLastDirection.
 const (
 	EmailThreadLastDirectionInbound  EmailThreadLastDirection = "inbound"
@@ -4463,34 +4523,34 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	Accepted  WhatsAppMessageStatus = "accepted"
-	Canceled  WhatsAppMessageStatus = "canceled"
-	Delivered WhatsAppMessageStatus = "delivered"
-	Failed    WhatsAppMessageStatus = "failed"
-	Received  WhatsAppMessageStatus = "received"
-	Rejected  WhatsAppMessageStatus = "rejected"
-	Scheduled WhatsAppMessageStatus = "scheduled"
-	Sent      WhatsAppMessageStatus = "sent"
+	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
+	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
+	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
+	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
+	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
+	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
+	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
+	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case Accepted:
+	case WhatsAppMessageStatusAccepted:
 		return true
-	case Canceled:
+	case WhatsAppMessageStatusCanceled:
 		return true
-	case Delivered:
+	case WhatsAppMessageStatusDelivered:
 		return true
-	case Failed:
+	case WhatsAppMessageStatusFailed:
 		return true
-	case Received:
+	case WhatsAppMessageStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppMessageStatusRejected:
 		return true
-	case Scheduled:
+	case WhatsAppMessageStatusScheduled:
 		return true
-	case Sent:
+	case WhatsAppMessageStatusSent:
 		return true
 	default:
 		return false
@@ -7417,8 +7477,41 @@ type EmailTagStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
+// EmailTemplateCategory Whether the template is for `transactional` email or `marketing` email.
+type EmailTemplateCategory string
+
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
+
+// EmailTemplateLanguageState Where one of the template's languages stands: whether sends are using it, and whether its draft contains an unpublished edit.
+type EmailTemplateLanguageState struct {
+	// Draft Whether the draft holds an edit to this language that has not been published. If this is true and the status is `live`, sends are still using the older content, and your edit goes out the next time you submit.
+	Draft *bool `json:"draft,omitempty"`
+
+	// Status Status of one template language on channels without third-party review.
+	//
+	// - `draft`: it has never been published.
+	// - `live`: it is available to sends.
+	// - `superseded`: a later version replaced it.
+	//
+	// Treat an unknown value as not sendable.
+	Status *TemplateLanguageStatus `json:"status,omitempty"`
+}
+
+// EmailTemplateList defines model for EmailTemplateList.
+type EmailTemplateList struct {
+	// Data Page of email templates.
+	Data []EmailTemplateSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
 
 // EmailTemplateSend A reference to the template to send. Identify the template by its `id` or its `slug`, supplying exactly one of the two, and give the values for its variables in `parameters`.
 type EmailTemplateSend struct {
@@ -7448,6 +7541,9 @@ type EmailTemplateSend0 = interface{}
 // EmailTemplateSend1 defines model for .
 type EmailTemplateSend1 = interface{}
 
+// EmailTemplateSource The authoring format the template is written in, fixed at creation. `html` is finished markup you provide, optionally personalized with Liquid.
+type EmailTemplateSource string
+
 // EmailTemplateStatsPoint Delivery, engagement, and latency numbers for every message sent with one template over the requested period.
 type EmailTemplateStatsPoint struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
@@ -7460,6 +7556,88 @@ type EmailTemplateStatsPoint struct {
 	// Trend A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
+
+// EmailTemplateSummary defines model for EmailTemplateSummary.
+type EmailTemplateSummary struct {
+	// AvailableLanguages The languages this template currently supports for sending, as BCP-47 tags. Empty until the template is published, because sends serve published content. This set may shrink for reasons other than editing, so read it rather than assuming it matches what was published.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Whether the template is for `transactional` email or `marketing` email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created. Null for a built-in `system` template.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for, in your own words. Null if you have not set one.
+	Description *string `json:"description"`
+
+	// DraftVersionId The current editable draft version. Null for a built-in `system` template, which has no draft.
+	DraftVersionId *EmailTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             EmailTemplateID         `json:"id"`
+
+	// Languages Every language this template has, keyed by language tag, each with its state. Enough to show which templates need attention in a list without a request per row.
+	Languages *map[string]EmailTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When this template was last submitted. Null if it never has been. Only submitting moves this timestamp, so a rollback keeps reporting the last real submit.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version a send resolves to, or null if the template has never been published.
+	LiveVersionId *EmailTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// LiveVersionNumber The live version's sequential number (1, 2, 3…), the same one version history reports, or null if the template has never been published. A built-in `system` template is permanently published as version 1. A rollback moves it backwards, because it names the version that is live rather than how many exist.
+	LiveVersionNumber *int `json:"live_version_number,omitempty"`
+
+	// Name The template's display name, shown wherever the template is listed. You can change it any time. It defaults to the slug if you do not set one.
+	Name string `json:"name"`
+
+	// PublishedVersionId Deprecated: use `live_version_id` instead, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The name you send the template by. You can use either the slug or the id when you send. It never changes after the template is created. A built-in `system` template's slug always starts with `bird_`.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// Source The authoring format the template is written in, fixed at creation. `html` is finished markup you provide, optionally personalized with Liquid.
+	Source EmailTemplateSource `json:"source"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// This summary answers whether the template is usable at all. A template with
+	// one language live is `active` even while another is still drafted or refused.
+	// Read `languages` to determine the state of each language and its reason.
+	//
+	// Which of the five a template can reach follows its channel's review model. A
+	// channel whose content a third party reviews reaches all five; one whose
+	// content goes live on publish moves between `draft`, `active` and `inactive`.
+	//
+	// Open enum: treat a value you do not recognize as a new one rather than as
+	// an error.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// Theme The visual theme a built-in template is designed in, or null for a template your workspace authored (which has no theme).
+	Theme *EmailTemplateTheme `json:"theme,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for a built-in `system` template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template, which no workspace owns.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
+}
+
+// EmailTemplateTheme The visual theme a built-in template is designed in. Each of the catalog's five themes ships its own set of eight emails, and the sets overlap only partly, so the theme is what you choose between once you know which email you want. Only built-in `system` templates have one.
+type EmailTemplateTheme string
 
 // EmailTemplateVersionID defines model for EmailTemplateVersionID.
 type EmailTemplateVersionID = string
@@ -15621,6 +15799,33 @@ type GetEmailStatsByTemplateParams struct {
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
 
+// ListEmailTemplatesParams defines parameters for ListEmailTemplates.
+type ListEmailTemplatesParams struct {
+	// Scope Filter by who owns the template. Use `system` for our built-in templates and `workspace` for the ones your workspace created. Leave it out to get both.
+	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// Category Return only `transactional` or `marketing` templates; omit to return both categories.
+	Category *EmailTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// Source Return only templates authored in this format.
+	Source *EmailTemplateSource `form:"source,omitempty" json:"source,omitempty"`
+
+	// Theme Filter by the visual theme a built-in template is designed in. Only our built-in templates have a theme, so naming one returns built-ins alone.
+	Theme *EmailTemplateTheme `form:"theme,omitempty" json:"theme,omitempty"`
+
+	// Q A case-insensitive substring search across the template's slug, name, and description.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
 // ListEmailThreadsParams defines parameters for ListEmailThreads.
 type ListEmailThreadsParams struct {
 	// MailboxId Filter to conversations in a specific mailbox.
@@ -20614,6 +20819,9 @@ type ClientInterface interface {
 	// GetEmailStatsByTemplate request
 	GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListEmailTemplates request
+	ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailThreads request
 	ListEmailThreads(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -21838,6 +22046,18 @@ func (c *Client) GetEmailStatsByTag(ctx context.Context, params *GetEmailStatsBy
 
 func (c *Client) GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailStatsByTemplateRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplatesRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -28170,6 +28390,144 @@ func NewGetEmailStatsByTemplateRequest(server string, params *GetEmailStatsByTem
 		if params.TrendGrain != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "trend_grain", *params.TrendGrain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListEmailTemplatesRequest generates requests for ListEmailTemplates
+func NewListEmailTemplatesRequest(server string, params *ListEmailTemplatesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Source != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "source", *params.Source, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Theme != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "theme", *params.Theme, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -34891,6 +35249,9 @@ type ClientWithResponsesInterface interface {
 	// GetEmailStatsByTemplateWithResponse request
 	GetEmailStatsByTemplateWithResponse(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTemplateResponse, error)
 
+	// ListEmailTemplatesWithResponse request
+	ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error)
+
 	// ListEmailThreadsWithResponse request
 	ListEmailThreadsWithResponse(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*ListEmailThreadsResponse, error)
 
@@ -37438,6 +37799,41 @@ func (r GetEmailStatsByTemplateResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailTemplatesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplatesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplatesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplatesResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -41101,6 +41497,15 @@ func (c *ClientWithResponses) GetEmailStatsByTemplateWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseGetEmailStatsByTemplateResponse(rsp)
+}
+
+// ListEmailTemplatesWithResponse request returning *ListEmailTemplatesResponse
+func (c *ClientWithResponses) ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error) {
+	rsp, err := c.ListEmailTemplates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplatesResponse(rsp)
 }
 
 // ListEmailThreadsWithResponse request returning *ListEmailThreadsResponse
@@ -46455,6 +46860,67 @@ func ParseGetEmailStatsByTemplateResponse(rsp *http.Response) (*GetEmailStatsByT
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplatesResponse parses an HTTP response from a ListEmailTemplatesWithResponse call
+func ParseListEmailTemplatesResponse(rsp *http.Response) (*ListEmailTemplatesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplatesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

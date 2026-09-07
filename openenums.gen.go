@@ -63,6 +63,15 @@ const (
 	EmailLookupResultValid         = oapi.EmailLookupResultValid
 )
 
+// EmailTemplateSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateSource* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateSource = oapi.EmailTemplateSource
+
+const (
+	EmailTemplateSourceHtml = oapi.EmailTemplateSourceHtml
+)
+
 // LookupFlag is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the LookupFlag* constants with a
 // default branch rather than treating the set as closed.

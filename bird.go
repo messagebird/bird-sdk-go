@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.58.1"
+	version = "0.59.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -133,6 +133,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c := &Client{cfg: cfg, oapi: oc, oapiNoRedirect: noRedirectOC}
 	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
+	c.Email.Templates = &EmailTemplatesService{resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
 	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
 	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}

@@ -38,6 +38,7 @@ output-options:
     - getEmailStatsByBounceCode
     - getEmailStatsByComplaintType
     - getEmailStatsByBroadcast
+    - listEmailTemplates
     - createSMSMessage
     - createSMSMessageBatch
     - getSMSMessage

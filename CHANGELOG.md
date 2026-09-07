@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.59.0
+
+- Add a read-only list method for the workspace's email templates, so a template can be chosen from the workspace's own list before a send.
+
 ## 0.58.1
 
 - Mailbox restore help now states that `404` also applies once permanent erasure has started.

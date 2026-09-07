@@ -2467,3 +2467,17 @@ func ExampleWebhooksService_Delete() {
 		log.Fatal(err)
 	}
 }
+
+// List the workspace's own email templates.
+func ExampleEmailTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for tpl, err := range client.Email.Templates.List(context.Background(), bird.EmailTemplatesListParams{Scope: "workspace"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(*tpl.Slug, tpl.Name)
+	}
+}

@@ -38,6 +38,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Stats.ByBounceCode
 	_ = c.Email.Stats.ByComplaintType
 	_ = c.Email.Stats.ByBroadcast
+	_ = c.Email.Templates.List
 	_ = c.Sms.Send
 	_ = c.Sms.SendBatch
 	_ = c.Sms.Get
