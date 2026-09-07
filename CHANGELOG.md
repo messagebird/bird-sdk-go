@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.60.0
+
+- Add `broadcast_id` to the per-recipient outbound email events, naming the broadcast a send went out as part of so you can group a broadcast's events without looking each send up. It is null on a send with no broadcast behind it.
+
 ## 0.59.0
 
 - Add a read-only list method for the workspace's email templates, so a template can be chosen from the workspace's own list before a send.

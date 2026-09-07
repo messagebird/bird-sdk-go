@@ -5964,6 +5964,9 @@ type EmailBounceStatsWithRates struct {
 // - `undetermined`: The receiving server's response was ambiguous.
 type EmailBounceType string
 
+// EmailBroadcastID defines model for EmailBroadcastID.
+type EmailBroadcastID = string
+
 // EmailBroadcastStatsPoint Delivery, engagement and latency figures for one broadcast's messages over the period you asked for.
 type EmailBroadcastStatsPoint struct {
 	// BroadcastId The broadcast this row covers, the same ID the broadcast endpoints return. Only mail sent as part of a broadcast has a broadcast ID, so one-off and transactional sends do not appear in this breakdown at all.
@@ -8061,7 +8064,9 @@ type EventEmailAcceptedData = EventEmailBase
 
 // EventEmailBase Identity fields shared by every email lifecycle event payload.
 type EventEmailBase struct {
-	EmailId EmailID `json:"email_id"`
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -8112,7 +8117,10 @@ type EventEmailBouncedData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
-	EmailId    EmailID         `json:"email_id"`
+
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -8167,7 +8175,9 @@ type EventEmailClickedType string
 
 // EventEmailClickedData defines model for EventEmailClickedData.
 type EventEmailClickedData struct {
-	EmailId EmailID `json:"email_id"`
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// IpAddress IP address of the client that clicked the link, or null when it is not known.
 	IpAddress *string `json:"ip_address"`
@@ -8210,7 +8220,9 @@ type EventEmailComplainedType string
 
 // EventEmailComplainedData defines model for EventEmailComplainedData.
 type EventEmailComplainedData struct {
-	EmailId EmailID `json:"email_id"`
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// FeedbackType The kind of feedback the mailbox provider reported (such as `abuse` or `fraud`), or null when the provider did not specify one.
 	FeedbackType *string `json:"feedback_type"`
@@ -8258,6 +8270,9 @@ type EventEmailDeferredData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
+
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
 
 	// DeferReason Human-readable reason the receiving mail server gave for the deferral, or null when none was provided.
 	DeferReason *string `json:"defer_reason"`
@@ -8534,7 +8549,9 @@ type EventEmailOpenedType string
 
 // EventEmailOpenedData defines model for EventEmailOpenedData.
 type EventEmailOpenedData struct {
-	EmailId EmailID `json:"email_id"`
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// IpAddress IP address of the client that opened the email, or null when it is not known.
 	IpAddress *string `json:"ip_address"`
@@ -8591,7 +8608,10 @@ type EventEmailOutOfBandBounceData struct {
 	// - `admin`: An administrative refusal, such as relaying denied or a blocklisted domain.
 	// - `undetermined`: The receiving server's response was ambiguous.
 	BounceType EmailBounceType `json:"bounce_type"`
-	EmailId    EmailID         `json:"email_id"`
+
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
@@ -8709,7 +8729,9 @@ type EventEmailRejectedType string
 
 // EventEmailRejectedData defines model for EventEmailRejectedData.
 type EventEmailRejectedData struct {
-	EmailId EmailID `json:"email_id"`
+	// BroadcastId The broadcast this send went out as part of, echoed on every per-recipient event for the send so you can attribute engagement to the broadcast without an extra lookup. Null when the send was not part of a broadcast. On `email.unsubscribed` and `email.list_unsubscribed`, null can also mean the recipient used an unsubscribe link that names no broadcast, so on those two events null does not rule a broadcast out.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id"`
+	EmailId     EmailID           `json:"email_id"`
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the send so you can correlate events with your own records. Null when the send carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
