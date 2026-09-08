@@ -4523,34 +4523,34 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
-	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
-	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
-	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
-	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
-	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
-	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
-	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
+	Accepted  WhatsAppMessageStatus = "accepted"
+	Canceled  WhatsAppMessageStatus = "canceled"
+	Delivered WhatsAppMessageStatus = "delivered"
+	Failed    WhatsAppMessageStatus = "failed"
+	Received  WhatsAppMessageStatus = "received"
+	Rejected  WhatsAppMessageStatus = "rejected"
+	Scheduled WhatsAppMessageStatus = "scheduled"
+	Sent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case WhatsAppMessageStatusAccepted:
+	case Accepted:
 		return true
-	case WhatsAppMessageStatusCanceled:
+	case Canceled:
 		return true
-	case WhatsAppMessageStatusDelivered:
+	case Delivered:
 		return true
-	case WhatsAppMessageStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppMessageStatusReceived:
+	case Received:
 		return true
-	case WhatsAppMessageStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppMessageStatusScheduled:
+	case Scheduled:
 		return true
-	case WhatsAppMessageStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -5343,7 +5343,7 @@ type CurrencyCode = string
 
 // DNSRecord defines model for DNSRecord.
 type DNSRecord struct {
-	// Error Human-readable detail for a failed check on this record: what was found in DNS and why it did not match. `null` when the record is verified or not yet checked.
+	// Error Human-readable detail for a check that did not pass on this record: what was found in DNS and why it did not match. Also set while `pending` when the record is published but does not match the expected value, which is the case you can act on. `null` when the record is `verified`, when nothing is published at this name yet, or before the first check.
 	Error *string `json:"error,omitempty"`
 
 	// Host The fully qualified hostname for this record (for example, `bird1._domainkey.mail.acme.com`).
@@ -7617,16 +7617,15 @@ type EmailTemplateSummary struct {
 	// - `rejected`: it was reviewed and every language was refused.
 	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
 	//
-	// This summary answers whether the template is usable at all. A template with
-	// one language live is `active` even while another is still drafted or refused.
-	// Read `languages` to determine the state of each language and its reason.
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
 	//
-	// Which of the five a template can reach follows its channel's review model. A
-	// channel whose content a third party reviews reaches all five; one whose
-	// content goes live on publish moves between `draft`, `active` and `inactive`.
-	//
-	// Open enum: treat a value you do not recognize as a new one rather than as
-	// an error.
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
 	Status *TemplateStatus `json:"status,omitempty"`
 
 	// Theme The visual theme a built-in template is designed in, or null for a template your workspace authored (which has no theme).
@@ -12511,16 +12510,15 @@ type SMSTemplate struct {
 	// - `rejected`: it was reviewed and every language was refused.
 	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
 	//
-	// This summary answers whether the template is usable at all. A template with
-	// one language live is `active` even while another is still drafted or refused.
-	// Read `languages` to determine the state of each language and its reason.
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
 	//
-	// Which of the five a template can reach follows its channel's review model. A
-	// channel whose content a third party reviews reaches all five; one whose
-	// content goes live on publish moves between `draft`, `active` and `inactive`.
-	//
-	// Open enum: treat a value you do not recognize as a new one rather than as
-	// an error.
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
 	Status *TemplateStatus `json:"status,omitempty"`
 
 	// UpdatedAt When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
@@ -12738,16 +12736,15 @@ type TemplateSlug = string
 // - `rejected`: it was reviewed and every language was refused.
 // - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
 //
-// This summary answers whether the template is usable at all. A template with
-// one language live is `active` even while another is still drafted or refused.
-// Read `languages` to determine the state of each language and its reason.
+// A template with one language live is `active` even while another is still
+// drafted or refused. Read `languages` for the state of each language and its
+// reason.
 //
-// Which of the five a template can reach follows its channel's review model. A
-// channel whose content a third party reviews reaches all five; one whose
-// content goes live on publish moves between `draft`, `active` and `inactive`.
-//
-// Open enum: treat a value you do not recognize as a new one rather than as
-// an error.
+// Which values a channel reports follows its review model. A channel whose
+// content a third party reviews uses all five. On email and SMS, where content
+// goes live on publish, a template is `draft`, `active` or `inactive`, and
+// `pending` and `rejected` are reserved for the review stage coming to both, so
+// a template reaching either is not a breaking change.
 type TemplateStatus string
 
 // TemplateVariable A single variable slot a template fills in from the values supplied when sending. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
@@ -14374,7 +14371,7 @@ type WhatsAppMessageSendRequest struct {
 	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Image *WhatsAppImageSend `json:"image,omitempty"`
 
-	// InReplyToMessageId Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. A message this workspace does not hold, or one older than the 15-day window we keep provider ids for, returns a `422` `WhatsAppInReplyToNotFound`. A message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, returns a `422` `WhatsAppInReplyToNotQuotable`.
+	// InReplyToMessageId Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// Interactive Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
@@ -36690,6 +36687,7 @@ type DeleteMailboxResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -40652,9 +40650,11 @@ type CreateWhatsAppMessageResponse struct {
 	JSON401      *Unauthorized
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
+	JSON404      *NotFound
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -44625,6 +44625,13 @@ func ParseDeleteMailboxResponse(rsp *http.Response) (*DeleteMailboxResponse, err
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -52488,6 +52495,13 @@ func ParseCreateWhatsAppMessageResponse(rsp *http.Response) (*CreateWhatsAppMess
 		}
 		response.JSON403 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -52508,6 +52522,13 @@ func ParseCreateWhatsAppMessageResponse(rsp *http.Response) (*CreateWhatsAppMess
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

@@ -76,6 +76,8 @@ type EmailStatus = oapi.EmailMessageStatus
 type (
 	// TemplateScope distinguishes Bird's built-in templates from a workspace's own.
 	TemplateScope = oapi.TemplateScope
+	// TemplateStatus is where a template stands as a whole, on every channel.
+	TemplateStatus = oapi.TemplateStatus
 	// EmailTemplateCategory is an email template's traffic class (transactional or marketing).
 	EmailTemplateCategory = oapi.EmailTemplateCategory
 	// EmailTemplateTheme is one of the built-in email templates' visual themes.
@@ -114,6 +116,16 @@ type (
 	// SMSKeywordRuleScope distinguishes Bird's default keyword rules from a
 	// workspace's own.
 	SMSKeywordRuleScope = oapi.SMSKeywordRuleScope
+)
+
+// Hand-written because closing the enum took TemplateStatus out of the
+// open-enum generator's reach, and these five were already published.
+const (
+	TemplateStatusDraft    = oapi.TemplateStatusDraft
+	TemplateStatusPending  = oapi.TemplateStatusPending
+	TemplateStatusActive   = oapi.TemplateStatusActive
+	TemplateStatusRejected = oapi.TemplateStatusRejected
+	TemplateStatusInactive = oapi.TemplateStatusInactive
 )
 
 // Email statistics responses, returned by the Client.Email.Stats methods. Each

@@ -245,19 +245,6 @@ const (
 	TemplateLanguageStatusSuperseded = oapi.TemplateLanguageStatusSuperseded
 )
 
-// TemplateStatus is an open string on the wire: a value added by a newer server
-// deserializes unchanged, so compare against the TemplateStatus* constants with a
-// default branch rather than treating the set as closed.
-type TemplateStatus = oapi.TemplateStatus
-
-const (
-	TemplateStatusActive   = oapi.TemplateStatusActive
-	TemplateStatusDraft    = oapi.TemplateStatusDraft
-	TemplateStatusInactive = oapi.TemplateStatusInactive
-	TemplateStatusPending  = oapi.TemplateStatusPending
-	TemplateStatusRejected = oapi.TemplateStatusRejected
-)
-
 // VerificationAttemptFailureReason is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the VerificationAttemptFailureReason* constants with a
 // default branch rather than treating the set as closed.
