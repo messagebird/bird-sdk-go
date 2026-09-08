@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.60.1
+
+- Clarify that email and SMS template slugs stay fixed after creation, while WhatsApp template slugs can change before the first submission.
+
 ## 0.60.0
 
 - Add `broadcast_id` to the per-recipient outbound email events, naming the broadcast a send went out as part of so you can group a broadcast's events without looking each send up. It is null on a send with no broadcast behind it.

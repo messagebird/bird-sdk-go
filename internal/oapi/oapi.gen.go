@@ -12727,7 +12727,7 @@ type TemplateOnMissingLanguage string
 // TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
 type TemplateScope string
 
-// TemplateSlug A template's slug: what you send it by, for example `welcome-email`. You choose it when you create the template, and it cannot be changed afterwards. It can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
+// TemplateSlug A template's slug: what you send it by, for example `welcome-email`. Email and SMS slugs stay fixed after creation. WhatsApp slugs can change only before the first submission. A slug can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
 type TemplateSlug = string
 
 // TemplateStatus Where the template stands as a whole. The same five states on every channel.
