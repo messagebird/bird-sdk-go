@@ -374,6 +374,26 @@ const (
 	WhatsAppTemplateCategoryUtility        = oapi.WhatsAppTemplateCategoryUtility
 )
 
+// WhatsAppTemplateLanguageStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppTemplateLanguageStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppTemplateLanguageStatus = oapi.WhatsAppTemplateLanguageStatus
+
+const (
+	WhatsAppTemplateLanguageStatusApproved        = oapi.WhatsAppTemplateLanguageStatusApproved
+	WhatsAppTemplateLanguageStatusArchived        = oapi.WhatsAppTemplateLanguageStatusArchived
+	WhatsAppTemplateLanguageStatusDeleted         = oapi.WhatsAppTemplateLanguageStatusDeleted
+	WhatsAppTemplateLanguageStatusDisabled        = oapi.WhatsAppTemplateLanguageStatusDisabled
+	WhatsAppTemplateLanguageStatusInAppeal        = oapi.WhatsAppTemplateLanguageStatusInAppeal
+	WhatsAppTemplateLanguageStatusLimitExceeded   = oapi.WhatsAppTemplateLanguageStatusLimitExceeded
+	WhatsAppTemplateLanguageStatusOutcomeUnknown  = oapi.WhatsAppTemplateLanguageStatusOutcomeUnknown
+	WhatsAppTemplateLanguageStatusPaused          = oapi.WhatsAppTemplateLanguageStatusPaused
+	WhatsAppTemplateLanguageStatusPending         = oapi.WhatsAppTemplateLanguageStatusPending
+	WhatsAppTemplateLanguageStatusPendingDeletion = oapi.WhatsAppTemplateLanguageStatusPendingDeletion
+	WhatsAppTemplateLanguageStatusRejected        = oapi.WhatsAppTemplateLanguageStatusRejected
+	WhatsAppTemplateLanguageStatusSubmitFailed    = oapi.WhatsAppTemplateLanguageStatusSubmitFailed
+)
+
 // WhatsAppTemplateParameterType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppTemplateParameterType* constants with a
 // default branch rather than treating the set as closed.
@@ -386,4 +406,29 @@ const (
 	WhatsAppTemplateParameterTypeLocation = oapi.WhatsAppTemplateParameterTypeLocation
 	WhatsAppTemplateParameterTypeText     = oapi.WhatsAppTemplateParameterTypeText
 	WhatsAppTemplateParameterTypeVideo    = oapi.WhatsAppTemplateParameterTypeVideo
+)
+
+// WhatsAppTemplateQualityScore is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppTemplateQualityScore* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppTemplateQualityScore = oapi.WhatsAppTemplateQualityScore
+
+const (
+	WhatsAppTemplateQualityScoreGreen   = oapi.WhatsAppTemplateQualityScoreGreen
+	WhatsAppTemplateQualityScoreRed     = oapi.WhatsAppTemplateQualityScoreRed
+	WhatsAppTemplateQualityScoreUnknown = oapi.WhatsAppTemplateQualityScoreUnknown
+	WhatsAppTemplateQualityScoreYellow  = oapi.WhatsAppTemplateQualityScoreYellow
+)
+
+// WhatsAppTemplateRejectionCategory is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppTemplateRejectionCategory* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppTemplateRejectionCategory = oapi.WhatsAppTemplateRejectionCategory
+
+const (
+	WhatsAppTemplateRejectionCategoryAbusiveContent     = oapi.WhatsAppTemplateRejectionCategoryAbusiveContent
+	WhatsAppTemplateRejectionCategoryIncorrectCategory  = oapi.WhatsAppTemplateRejectionCategoryIncorrectCategory
+	WhatsAppTemplateRejectionCategoryInvalidFormat      = oapi.WhatsAppTemplateRejectionCategoryInvalidFormat
+	WhatsAppTemplateRejectionCategoryScam               = oapi.WhatsAppTemplateRejectionCategoryScam
+	WhatsAppTemplateRejectionCategoryTagContentMismatch = oapi.WhatsAppTemplateRejectionCategoryTagContentMismatch
 )

@@ -16,6 +16,9 @@ type WhatsappService struct {
 
 	// Messages reaches the subresources one message owns.
 	Messages *WhatsappMessagesService
+
+	// Templates reads the workspace's template registry.
+	Templates *WhatsappTemplatesService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind

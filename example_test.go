@@ -2468,6 +2468,88 @@ func ExampleWebhooksService_Delete() {
 	}
 }
 
+// List the WhatsApp templates a send can name, with the languages each resolves.
+func ExampleWhatsappTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for tpl, err := range client.Whatsapp.Templates.List(context.Background(), bird.WhatsappTemplatesListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(tpl.Id, *tpl.Slug, *tpl.Status)
+	}
+}
+
+// Read one WhatsApp template by its slug.
+func ExampleWhatsappTemplatesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	tpl, err := client.Whatsapp.Templates.Get(context.Background(), "bird_otp")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(tpl.DefaultLanguage, *tpl.AvailableLanguages)
+}
+
+// Walk one template's submissions, newest first.
+func ExampleWhatsappTemplatesVersionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for version, err := range client.Whatsapp.Templates.Versions.List(context.Background(), "bird_otp", bird.WhatsappTemplatesVersionsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(version.Id, len(version.Languages))
+	}
+}
+
+// Read one version of one template.
+func ExampleWhatsappTemplatesVersionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	version, err := client.Whatsapp.Templates.Versions.Get(context.Background(), "bird_otp", "wav_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(version.Id, len(version.Languages))
+}
+
+// See which languages one version holds, without fetching their content.
+func ExampleWhatsappTemplatesVersionsLanguagesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	languages, err := client.Whatsapp.Templates.Versions.Languages.List(context.Background(), "bird_otp", "wav_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, l := range languages.Data {
+		fmt.Println(l.Language, l.Revision)
+	}
+}
+
+// Read one language's content blocks.
+func ExampleWhatsappTemplatesVersionsLanguagesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	language, err := client.Whatsapp.Templates.Versions.Languages.Get(context.Background(), "bird_otp", "wav_01ky4x8e4genzb7way45txfkm1", "nl-BE")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(language.Language, len(language.Components))
+}
+
 // List the workspace's own email templates.
 func ExampleEmailTemplatesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

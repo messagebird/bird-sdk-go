@@ -327,6 +327,29 @@ type (
 	WhatsAppEventList = oapi.WhatsAppEventList
 )
 
+// The template registry, read at three levels: a template is the handle a send
+// names, a version is one immutable submission of it, and a language is one
+// language's content within a version. The Summary forms carry no content.
+type (
+	WhatsAppTemplate                = oapi.WhatsAppTemplate
+	WhatsAppTemplateList            = oapi.WhatsAppTemplateList
+	WhatsAppTemplateVersion         = oapi.WhatsAppTemplateVersion
+	WhatsAppTemplateVersionSummary  = oapi.WhatsAppTemplateVersionSummary
+	WhatsAppTemplateVersionList     = oapi.WhatsAppTemplateVersionList
+	WhatsAppTemplateLanguage        = oapi.WhatsAppTemplateLanguage
+	WhatsAppTemplateLanguageSummary = oapi.WhatsAppTemplateLanguageSummary
+	WhatsAppTemplateLanguageList    = oapi.WhatsAppTemplateLanguageList
+)
+
+// WhatsAppTemplateComponent is one content block of a language; the other three
+// carry Meta's verdict on the language that holds them.
+type (
+	WhatsAppTemplateComponent       = oapi.WhatsAppTemplateComponent
+	WhatsAppTemplateQuality         = oapi.WhatsAppTemplateQuality
+	WhatsAppTemplateRejection       = oapi.WhatsAppTemplateRejection
+	WhatsAppTemplateSubmissionError = oapi.WhatsAppTemplateSubmissionError
+)
+
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the
 // verdict on an email address. Every block a phone lookup carries reports its
 // own status, so a partial answer is visible rather than silent.

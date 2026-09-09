@@ -76,6 +76,12 @@ output-options:
     - listWhatsAppMessages
     - listWhatsAppMessageEvents
     - getWhatsAppMessageMedia
+    - listWhatsAppTemplates
+    - getWhatsAppTemplate
+    - listWhatsAppTemplateVersions
+    - getWhatsAppTemplateVersion
+    - listWhatsAppTemplateVersionLanguages
+    - getWhatsAppTemplateVersionLanguage
     - listVoiceCalls
     - getVoiceCall
     - createVerification

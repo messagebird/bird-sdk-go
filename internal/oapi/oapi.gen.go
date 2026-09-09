@@ -4608,6 +4608,54 @@ func (e WhatsAppTemplateCategory) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppTemplateLanguageStatus.
+const (
+	WhatsAppTemplateLanguageStatusApproved        WhatsAppTemplateLanguageStatus = "approved"
+	WhatsAppTemplateLanguageStatusArchived        WhatsAppTemplateLanguageStatus = "archived"
+	WhatsAppTemplateLanguageStatusDeleted         WhatsAppTemplateLanguageStatus = "deleted"
+	WhatsAppTemplateLanguageStatusDisabled        WhatsAppTemplateLanguageStatus = "disabled"
+	WhatsAppTemplateLanguageStatusInAppeal        WhatsAppTemplateLanguageStatus = "in_appeal"
+	WhatsAppTemplateLanguageStatusLimitExceeded   WhatsAppTemplateLanguageStatus = "limit_exceeded"
+	WhatsAppTemplateLanguageStatusOutcomeUnknown  WhatsAppTemplateLanguageStatus = "outcome_unknown"
+	WhatsAppTemplateLanguageStatusPaused          WhatsAppTemplateLanguageStatus = "paused"
+	WhatsAppTemplateLanguageStatusPending         WhatsAppTemplateLanguageStatus = "pending"
+	WhatsAppTemplateLanguageStatusPendingDeletion WhatsAppTemplateLanguageStatus = "pending_deletion"
+	WhatsAppTemplateLanguageStatusRejected        WhatsAppTemplateLanguageStatus = "rejected"
+	WhatsAppTemplateLanguageStatusSubmitFailed    WhatsAppTemplateLanguageStatus = "submit_failed"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateLanguageStatus enum.
+func (e WhatsAppTemplateLanguageStatus) Valid() bool {
+	switch e {
+	case WhatsAppTemplateLanguageStatusApproved:
+		return true
+	case WhatsAppTemplateLanguageStatusArchived:
+		return true
+	case WhatsAppTemplateLanguageStatusDeleted:
+		return true
+	case WhatsAppTemplateLanguageStatusDisabled:
+		return true
+	case WhatsAppTemplateLanguageStatusInAppeal:
+		return true
+	case WhatsAppTemplateLanguageStatusLimitExceeded:
+		return true
+	case WhatsAppTemplateLanguageStatusOutcomeUnknown:
+		return true
+	case WhatsAppTemplateLanguageStatusPaused:
+		return true
+	case WhatsAppTemplateLanguageStatusPending:
+		return true
+	case WhatsAppTemplateLanguageStatusPendingDeletion:
+		return true
+	case WhatsAppTemplateLanguageStatusRejected:
+		return true
+	case WhatsAppTemplateLanguageStatusSubmitFailed:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppTemplateParameterType.
 const (
 	WhatsAppTemplateParameterTypeDocument WhatsAppTemplateParameterType = "document"
@@ -4632,6 +4680,57 @@ func (e WhatsAppTemplateParameterType) Valid() bool {
 	case WhatsAppTemplateParameterTypeText:
 		return true
 	case WhatsAppTemplateParameterTypeVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateQualityScore.
+const (
+	WhatsAppTemplateQualityScoreGreen   WhatsAppTemplateQualityScore = "green"
+	WhatsAppTemplateQualityScoreRed     WhatsAppTemplateQualityScore = "red"
+	WhatsAppTemplateQualityScoreUnknown WhatsAppTemplateQualityScore = "unknown"
+	WhatsAppTemplateQualityScoreYellow  WhatsAppTemplateQualityScore = "yellow"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateQualityScore enum.
+func (e WhatsAppTemplateQualityScore) Valid() bool {
+	switch e {
+	case WhatsAppTemplateQualityScoreGreen:
+		return true
+	case WhatsAppTemplateQualityScoreRed:
+		return true
+	case WhatsAppTemplateQualityScoreUnknown:
+		return true
+	case WhatsAppTemplateQualityScoreYellow:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppTemplateRejectionCategory.
+const (
+	WhatsAppTemplateRejectionCategoryAbusiveContent     WhatsAppTemplateRejectionCategory = "abusive_content"
+	WhatsAppTemplateRejectionCategoryIncorrectCategory  WhatsAppTemplateRejectionCategory = "incorrect_category"
+	WhatsAppTemplateRejectionCategoryInvalidFormat      WhatsAppTemplateRejectionCategory = "invalid_format"
+	WhatsAppTemplateRejectionCategoryScam               WhatsAppTemplateRejectionCategory = "scam"
+	WhatsAppTemplateRejectionCategoryTagContentMismatch WhatsAppTemplateRejectionCategory = "tag_content_mismatch"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppTemplateRejectionCategory enum.
+func (e WhatsAppTemplateRejectionCategory) Valid() bool {
+	switch e {
+	case WhatsAppTemplateRejectionCategoryAbusiveContent:
+		return true
+	case WhatsAppTemplateRejectionCategoryIncorrectCategory:
+		return true
+	case WhatsAppTemplateRejectionCategoryInvalidFormat:
+		return true
+	case WhatsAppTemplateRejectionCategoryScam:
+		return true
+	case WhatsAppTemplateRejectionCategoryTagContentMismatch:
 		return true
 	default:
 		return false
@@ -7600,7 +7699,7 @@ type EmailTemplateSummary struct {
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
 
-	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
 
 	// Slug The name you send the template by. You can use either the slug or the id when you send. It never changes after the template is created. A built-in `system` template's slug always starts with `bird_`.
@@ -12722,7 +12821,7 @@ type TemplateLanguageStatus string
 // recipient did not expect at a rate the sender did not choose.
 type TemplateOnMissingLanguage string
 
-// TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+// TemplateScope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 type TemplateScope string
 
 // TemplateSlug A template's slug: what you send it by, for example `welcome-email`. Email and SMS slugs stay fixed after creation. WhatsApp slugs can change only before the first submission. A slug can contain lowercase letters, numbers, hyphens, and underscores, has to start and end with a letter or a number, and can be up to 63 characters long.
@@ -12773,6 +12872,9 @@ type Timestamps struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
+
+// UserID defines model for UserID.
+type UserID = string
 
 // Verification defines model for Verification.
 type Verification struct {
@@ -14418,7 +14520,7 @@ type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
 type WhatsAppMessageTemplate struct {
-	// Category Content classification applied to messages sent from this template.
+	// Category The category this message was priced at, recorded as it stood when the message was sent. For a template you authored this is the category Meta applies to the language the send resolved to, which can differ from the category declared on the template: Meta categorizes each language separately and may move one. A built-in `bird_` template is priced at the single category the built-in declares, the same in every language.
 	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
 
 	// Components The values that filled the template's placeholders. Empty for an authentication template, whose content is never returned.
@@ -14515,6 +14617,160 @@ type WhatsAppSuppressionCreatedEventType string
 // WhatsAppSuppressionID defines model for WhatsAppSuppressionID.
 type WhatsAppSuppressionID = string
 
+// WhatsAppTemplate A message template: one identity holding a copy of the message per language. Each language is reviewed, priced and paused by Meta on its own, so the template's own status is an aggregate and the per-language detail is in `languages`. A version contains the content.
+type WhatsAppTemplate struct {
+	// AvailableLanguages The languages a send can resolve right now: approved and not held back by Meta. It shrinks for reasons you did not cause: Meta pauses, disables, archives or limits a language and it leaves the set with nobody having edited anything. Read `languages` to see which languages exist and why one is missing.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Meta's content classification for a template.
+	//
+	// - `authentication`: delivers one-time passcodes.
+	// - `utility`: delivers transaction-triggered updates (receipts, order status).
+	// - `marketing`: carries promotional content.
+	//
+	// The category determines the sender number and price. This is an open enum.
+	// Accept unrecognized values.
+	Category WhatsAppTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created. Null for a built-in template, which Bird ships rather than stores.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for. Null when unset.
+	Description *string `json:"description"`
+
+	// DraftVersionId The open draft, or null when nobody is editing. Non-null is the answer to whether this template has unsubmitted work: a draft exists only because someone opened one.
+	DraftVersionId *WhatsAppTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             WhatsAppTemplateID         `json:"id"`
+
+	// LanguageSourceRequired When true, a send must name a language explicitly rather than letting the template resolve one.
+	LanguageSourceRequired bool `json:"language_source_required"`
+
+	// Languages Where each of the template's languages stands, keyed by BCP-47 language tag. This is the summary of the version currently in service, so a template reading `active` can still hold a rejected or paused language: the aggregate says something is sendable, and this says which. Content is not here; it lives under a version.
+	Languages *map[string]WhatsAppTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When this template was last submitted. Null for a pre-approved built-in template.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version Meta is serving. A version goes live as a unit the moment any of its languages is approved, superseding the one before it. Null until a first approval.
+	LiveVersionId *WhatsAppTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name A display name for the template. Nothing resolves through it, so it is safe to show wherever a human reads the template.
+	Name string `json:"name"`
+
+	// Next What to do next with this template, given the state it is in. Each entry names one
+	// action and says why it is worth taking, so you can act on this response without
+	// working out the order yourself. Present on reads that compute it: an empty list
+	// means there is nothing to do, and the field is absent entirely on responses that
+	// do not report next actions.
+	//
+	// A `draft` template routes to opening its draft, a `pending` one to the version
+	// under review, and a `rejected` or `inactive` one to a fresh draft. The template's
+	// `status` is the aggregate over its languages, so an entry may send you to the
+	// version to see where each language actually stands.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// OnMissingLanguage What a send does when the language it asks for has no approved copy. Defaults to `fail` on WhatsApp, because every language is separately approved and separately priced: falling back silently would send content the recipient did not expect at a rate the sender did not choose.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// PendingVersionId A submitted version still awaiting verdicts: what to poll. It stays set while any language is unresolved, including after a sibling's approval took the version live. Null when nothing is outstanding.
+	PendingVersionId *WhatsAppTemplateVersionID `json:"pending_version_id,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The template's handle, editable before the first submission. Address it by this handle, and reference it when sending. Handles beginning with `bird_` are reserved for our built-in templates.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// SlugEditable Whether the slug can still be changed. False after the first submission and for built-in templates.
+	SlugEditable *bool `json:"slug_editable,omitempty"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
+	//
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for a built-in template, which Bird ships rather than stores.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Waba The WhatsApp Business Account that holds this template's languages at Meta. Absent on a built-in template: those live on a WABA that Bird manages centrally rather than on your account, so it is not yours to reconcile against and is not disclosed.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppTemplateButton defines model for WhatsAppTemplateButton.
+type WhatsAppTemplateButton struct {
+	// ExampleParameters Example values for this button's variables, in placeholder order. Present when the button address has variables, and on a `copy_code` button, where the single value is the sample coupon code WhatsApp reviewed.
+	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
+
+	// OtpType How the recipient receives the one-time passcode. Present on authentication-template OTP buttons.
+	OtpType *string `json:"otp_type,omitempty"`
+
+	// PhoneNumber The number the button dials. Present on dial buttons.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Text The button's label. Absent on an authentication template's passcode button until the language has been submitted, since WhatsApp writes that label itself. Absent on a `request_contact_info` draft for a related reason: WhatsApp fixes that label, so a draft that carried it reads back without it. Once the language is submitted, this carries the label WhatsApp wrote, which is `Share Contact Info` in every language today.
+	Text *string `json:"text,omitempty"`
+
+	// Type The button's behavior.
+	//
+	// - `url`: opens a link.
+	// - `quick_reply`: sends its own label back to you as an inbound message.
+	// - `phone_number`: dials the number it carries.
+	// - `otp`: copies a one-time passcode. It belongs only on an authentication
+	//   template, and that template takes no other button type.
+	// - `copy_code`: copies a coupon code to the recipient's clipboard. It
+	//   belongs only on a marketing template, which takes at most one.
+	// - `request_contact_info`: asks the recipient to share the phone number
+	//   their WhatsApp account carries. It belongs only on a utility or
+	//   marketing template, as that template's only button.
+	//
+	// This is an open enum. Accept unrecognized values.
+	Type *string `json:"type,omitempty"`
+
+	// Url The address the button opens, with any variable placeholder shown inline. Present on link buttons.
+	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppTemplateCard One card in a carousel.
+type WhatsAppTemplateCard struct {
+	// Components This card's content blocks, in display order.
+	Components *[]WhatsAppTemplateCardComponent `json:"components,omitempty"`
+}
+
+// WhatsAppTemplateCardComponent One content block inside a carousel card.
+type WhatsAppTemplateCardComponent struct {
+	// Buttons The buttons this card carries. Present on a card's buttons block.
+	Buttons *[]WhatsAppTemplateButton `json:"buttons,omitempty"`
+
+	// ExampleParameters Example values for this block's variables, in placeholder order.
+	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
+
+	// Format The card header's content type. Present on a card's header block.
+	Format *string `json:"format,omitempty"`
+
+	// Text The block's text content, with any variable placeholders shown inline.
+	Text *string `json:"text,omitempty"`
+
+	// Type The card block's type.
+	Type *string `json:"type,omitempty"`
+}
+
 // WhatsAppTemplateCategory Meta's content classification for a template.
 //
 // - `authentication`: delivers one-time passcodes.
@@ -14525,11 +14781,254 @@ type WhatsAppSuppressionID = string
 // Accept unrecognized values.
 type WhatsAppTemplateCategory string
 
+// WhatsAppTemplateComponent defines model for WhatsAppTemplateComponent.
+type WhatsAppTemplateComponent struct {
+	// AddSecurityRecommendation Whether this authentication template's body ends with WhatsApp's advice not to share the code. Present on an authentication template's body block.
+	AddSecurityRecommendation *bool `json:"add_security_recommendation,omitempty"`
+
+	// Buttons The buttons attached to this block. Present when the block carries buttons.
+	Buttons *[]WhatsAppTemplateButton `json:"buttons,omitempty"`
+
+	// Cards The cards this block scrolls through, in display order. Present on a `carousel` block.
+	Cards *[]WhatsAppTemplateCard `json:"cards,omitempty"`
+
+	// CodeExpirationMinutes How long the passcode stays valid, which WhatsApp states in this footer. Present on an authentication template's footer block. Omitting it on a write leaves the footer off entirely.
+	CodeExpirationMinutes *int `json:"code_expiration_minutes,omitempty"`
+
+	// ExampleParameters Example values for this block's variables, in placeholder order (one per `{{n}}`). Use them to see what a filled message looks like. Present when the block has variables.
+	ExampleParameters *[]WhatsAppTemplateExampleParameter `json:"example_parameters,omitempty"`
+
+	// Format The header block's content type. Present on a header block. A `text` header carries a line of copy. The `image`, `video`, `gif`, and `document` formats each show a file whose address is in the block's `example_parameters`. The `location` format shows a map. It carries no content because the coordinates belong to the message rather than the template.
+	Format *string `json:"format,omitempty"`
+
+	// Text The block's text content, with any variable placeholders shown inline. Present when the block carries text. An authentication template's body and footer are written by WhatsApp from the two settings below rather than by you, so their text is absent until the language has been submitted and WhatsApp has supplied it.
+	Text *string `json:"text,omitempty"`
+
+	// Type The content block's type within the template.
+	Type *string `json:"type,omitempty"`
+}
+
+// WhatsAppTemplateContentHash A hash over the serialized `components` this API surfaces, prefixed with the algorithm that produced it (`sha256:`) so the algorithm can change without the field becoming ambiguous. It tells you whether a language differs without transferring its content. Compare hashes only within one version of this API. Adding a field to the component shape changes every hash even when the underlying content is unchanged. Email's field of the same name carries bare hex and predates this form.
+type WhatsAppTemplateContentHash = string
+
+// WhatsAppTemplateExampleParameter defines model for WhatsAppTemplateExampleParameter.
+type WhatsAppTemplateExampleParameter struct {
+	// Name The named placeholder this example fills. Present whenever the template declares named parameters, which is what a send must name; absent only for a positional template, whose values go in `{{n}}` order.
+	Name *string `json:"name,omitempty"`
+
+	// Text An example value for a text parameter. Present when `type` is `text`.
+	Text *string `json:"text,omitempty"`
+
+	// Type The kind of value this parameter accepts.
+	Type *WhatsAppTemplateParameterType `json:"type,omitempty"`
+
+	// Url The address of the file a media header shows, as it was given when the header was authored rather than WhatsApp's copy of it. Present when `type` is `image`, `video`, `gif` or `document`.
+	Url *string `json:"url,omitempty"`
+}
+
 // WhatsAppTemplateID defines model for WhatsAppTemplateID.
 type WhatsAppTemplateID = string
 
+// WhatsAppTemplateLanguage One language of one version: its content, what the submission carrying it did with it, and everything Meta holds about it.
+type WhatsAppTemplateLanguage struct {
+	// ApprovedAt When Meta approved this exact content. It is a permanent mark on the content rather than a status, so a later pause or archival does not clear it. Null for a built-in template's language, whose approval predates Bird holding a date for it.
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+
+	// Category Meta's content classification for a template.
+	//
+	// - `authentication`: delivers one-time passcodes.
+	// - `utility`: delivers transaction-triggered updates (receipts, order status).
+	// - `marketing`: carries promotional content.
+	//
+	// The category determines the sender number and price. This is an open enum.
+	// Accept unrecognized values.
+	Category *WhatsAppTemplateCategory `json:"category,omitempty"`
+
+	// Components This language's content blocks, in display order, exactly as submitted or as they stand in the draft.
+	Components  []WhatsAppTemplateComponent  `json:"components"`
+	ContentHash *WhatsAppTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// PreviousCategory Meta's content classification for a template.
+	//
+	// - `authentication`: delivers one-time passcodes.
+	// - `utility`: delivers transaction-triggered updates (receipts, order status).
+	// - `marketing`: carries promotional content.
+	//
+	// The category determines the sender number and price. This is an open enum.
+	// Accept unrecognized values.
+	PreviousCategory *WhatsAppTemplateCategory `json:"previous_category,omitempty"`
+
+	// Quality Meta's quality rating for one language, with the rating it moved from and when it moved. Present only once Meta has rated the language, and only on the version currently in service. A superseded version's content carries no rating.
+	Quality *WhatsAppTemplateQuality `json:"quality,omitempty"`
+
+	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
+	Rejection *WhatsAppTemplateRejection `json:"rejection,omitempty"`
+
+	// Revision A write counter, incremented every time the content it belongs to changes. It sits at 1 on content that has never been written through this API.
+	Revision WhatsAppTemplateRevision `json:"revision"`
+
+	// Status Language review and health status:
+	//
+	// - `approved`: Passed review and can be sent.
+	// - `pending`: Under review.
+	// - `rejected`: Failed review.
+	// - `paused` or `disabled`: Sending is suspended.
+	// - `in_appeal`: A decision is being appealed.
+	// - `pending_deletion`: Scheduled for deletion by Meta.
+	// - `limit_exceeded`: Sending is blocked by a limit.
+	// - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
+	// - `deleted`: Permanently deleted.
+	// - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
+	// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
+	//
+	// This is an open enum. Accept unrecognized values.
+	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
+
+	// SubmittedAt When this content was submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's language, which Bird ships already approved rather than submitting on your behalf.
+	SubmittedAt *time.Time `json:"submitted_at,omitempty"`
+
+	// UpdatedAt When this language last changed. Null for a built-in template's language, which Bird ships rather than stores.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// UpdatedBy The workspace member who last wrote this language. Always null for a built-in template's language: nobody in the workspace authored it.
+	UpdatedBy *UserID `json:"updated_by,omitempty"`
+}
+
+// WhatsAppTemplateLanguageList defines model for WhatsAppTemplateLanguageList.
+type WhatsAppTemplateLanguageList struct {
+	// Data Every language this version holds, without content.
+	Data []WhatsAppTemplateLanguageSummary `json:"data"`
+}
+
+// WhatsAppTemplateLanguageState Where one language stands, without its content: content lives under a version, read that for it. An object rather than a bare status string, so detail beyond status can arrive later as a sibling property instead of a breaking change.
+type WhatsAppTemplateLanguageState struct {
+	// EditableAt The next time you can edit this language, if Meta's one-edit-per-day limit on an approved language is currently spent. Null when an edit is allowed right now, though Meta also caps an approved language at ten edits per rolling 30 days: a null here does not guarantee an edit will succeed if you are close to that limit too.
+	EditableAt *time.Time `json:"editable_at,omitempty"`
+
+	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
+
+	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
+	Rejection *WhatsAppTemplateRejection `json:"rejection,omitempty"`
+
+	// Status On a template, where this language stands on the version currently in service. On a version, what that version's submission did with this language. Absent on a draft, which has not been submitted.
+	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
+
+	// SubmittedAt When this language's content was last submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's language, shipped already approved rather than submitted on your behalf.
+	SubmittedAt *time.Time `json:"submitted_at,omitempty"`
+}
+
+// WhatsAppTemplateLanguageStatus Language review and health status:
+//
+// - `approved`: Passed review and can be sent.
+// - `pending`: Under review.
+// - `rejected`: Failed review.
+// - `paused` or `disabled`: Sending is suspended.
+// - `in_appeal`: A decision is being appealed.
+// - `pending_deletion`: Scheduled for deletion by Meta.
+// - `limit_exceeded`: Sending is blocked by a limit.
+// - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
+// - `deleted`: Permanently deleted.
+// - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
+// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
+//
+// This is an open enum. Accept unrecognized values.
+type WhatsAppTemplateLanguageStatus string
+
+// WhatsAppTemplateLanguageSummary One language of a version without its content. Fetch the language itself for the content.
+type WhatsAppTemplateLanguageSummary struct {
+	// ContentHash A hash over the serialized `components` this API surfaces, for telling whether a language differs without fetching it. It is comparable only within one version of this API: adding a field to the component shape changes every hash without the underlying content changing.
+	ContentHash *string `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Next What to do next about this language, given the verdict it carries. Present on reads
+	// that compute it: an empty list means there is nothing to do, and the field is absent
+	// entirely on responses that do not report next actions.
+	//
+	// Approval is per language, so this is where a rejection, a pause, or a reclaimed
+	// language is answered. The template's own next actions cannot say, because they read
+	// the aggregate.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Revision A write counter, incremented every time the content it belongs to changes. It sits at 1 on content that has never been written through this API.
+	Revision WhatsAppTemplateRevision `json:"revision"`
+
+	// Status Language review and health status:
+	//
+	// - `approved`: Passed review and can be sent.
+	// - `pending`: Under review.
+	// - `rejected`: Failed review.
+	// - `paused` or `disabled`: Sending is suspended.
+	// - `in_appeal`: A decision is being appealed.
+	// - `pending_deletion`: Scheduled for deletion by Meta.
+	// - `limit_exceeded`: Sending is blocked by a limit.
+	// - `archived`: Reclaimed after 12 months without use; recoverable for 28 days.
+	// - `deleted`: Permanently deleted.
+	// - `submit_failed`: A submission or a deletion did not complete and will not be retried. `error.description` says why, and `error.meta_error_code` is set only where WhatsApp itself refused.
+	// - `outcome_unknown`: A create or an edit reached WhatsApp but no response came back, so the outcome is still being resolved against WhatsApp. An unanswered deletion is retried instead of landing here. `error.description` says so, and `error.meta_error_code` is absent, since nothing was refused.
+	//
+	// This is an open enum. Accept unrecognized values.
+	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
+}
+
+// WhatsAppTemplateList defines model for WhatsAppTemplateList.
+type WhatsAppTemplateList struct {
+	// Data Page of templates available to your workspace.
+	Data []WhatsAppTemplate `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
 // WhatsAppTemplateParameterType The kind of value a template parameter carries, which follows the block it fills. The `text` type is a plain string substituted into a placeholder. This includes a coupon button's code, which the recipient copies from the button. The `image`, `video`, `gif`, and `document` types carry a media header's file in `url`. Each matches its header's `format`. The `location` type fills a location header and carries a point on the map. Open enum: more kinds may be added over time.
 type WhatsAppTemplateParameterType string
+
+// WhatsAppTemplateQuality Meta's quality rating for one language, with the rating it moved from and when it moved. Present only once Meta has rated the language, and only on the version currently in service. A superseded version's content carries no rating.
+type WhatsAppTemplateQuality struct {
+	// CurrentScore Meta's quality rating for one language of a template, derived from how recipients respond to messages sent from it. The `red` score is the leading indicator of a pause. Reaching Meta's lowest rating pauses sending from that language for three hours; a second time pauses it for six, and a third disables it. The `unknown` score is a value Meta reports. When Meta has not rated the language, the rating object is absent. This is an open enum. Accept unrecognized values.
+	CurrentScore WhatsAppTemplateQualityScore `json:"current_score"`
+
+	// PreviousScore Meta's quality rating for one language of a template, derived from how recipients respond to messages sent from it. The `red` score is the leading indicator of a pause. Reaching Meta's lowest rating pauses sending from that language for three hours; a second time pauses it for six, and a third disables it. The `unknown` score is a value Meta reports. When Meta has not rated the language, the rating object is absent. This is an open enum. Accept unrecognized values.
+	PreviousScore *WhatsAppTemplateQualityScore `json:"previous_score,omitempty"`
+
+	// UpdatedAt When the rating last changed. A re-evaluation that lands on the same rating does not move it, so this answers how long the language has held its current rating.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// WhatsAppTemplateQualityScore Meta's quality rating for one language of a template, derived from how recipients respond to messages sent from it. The `red` score is the leading indicator of a pause. Reaching Meta's lowest rating pauses sending from that language for three hours; a second time pauses it for six, and a third disables it. The `unknown` score is a value Meta reports. When Meta has not rated the language, the rating object is absent. This is an open enum. Accept unrecognized values.
+type WhatsAppTemplateQualityScore string
+
+// WhatsAppTemplateRejection Why Meta refused a language's content, and what it says about fixing it. Present when `status` is `rejected`.
+type WhatsAppTemplateRejection struct {
+	// Category Why Meta refused a language's content, in Meta's own vocabulary, lowercased. Read it with `reason`, which carries Meta's human-written detail, and `recommendation`, which carries its suggested fix. This is an open enum. Accept unrecognized values.
+	Category *WhatsAppTemplateRejectionCategory `json:"category,omitempty"`
+
+	// Reason Meta's detail about the refusal, passed through unmodified.
+	Reason *string `json:"reason,omitempty"`
+
+	// Recommendation Meta's suggested fix, the only thing it says about how to make the content acceptable. Meta sends it for some refusals and not others.
+	Recommendation *string `json:"recommendation,omitempty"`
+}
+
+// WhatsAppTemplateRejectionCategory Why Meta refused a language's content, in Meta's own vocabulary, lowercased. Read it with `reason`, which carries Meta's human-written detail, and `recommendation`, which carries its suggested fix. This is an open enum. Accept unrecognized values.
+type WhatsAppTemplateRejectionCategory string
+
+// WhatsAppTemplateRevision A write counter, incremented every time the content it belongs to changes. It sits at 1 on content that has never been written through this API.
+type WhatsAppTemplateRevision = int
 
 // WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
 type WhatsAppTemplateSend struct {
@@ -14537,7 +15036,7 @@ type WhatsAppTemplateSend struct {
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to.
+	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
 	Language *LanguageTag `json:"language,omitempty"`
 
 	// Slug The template to send, by its slug handle (for example `bird_otp`).
@@ -14550,6 +15049,92 @@ type WhatsAppTemplateSend0 = interface{}
 
 // WhatsAppTemplateSend1 defines model for .
 type WhatsAppTemplateSend1 = interface{}
+
+// WhatsAppTemplateSubmissionError Why the submission itself did not complete. Distinct from `rejection`, which is Meta refusing the content it was given.
+type WhatsAppTemplateSubmissionError struct {
+	// Description Human-readable explanation of why the submission did not complete.
+	Description *string `json:"description,omitempty"`
+
+	// MetaErrorCode WhatsApp's most specific code for the refusal: its error subcode when it sent one, otherwise its top-level code. Opaque, treat it as a string. Absent when the failure was Bird's own verdict rather than a WhatsApp refusal.
+	MetaErrorCode *string `json:"meta_error_code,omitempty"`
+}
+
+// WhatsAppTemplateVersion One version of a template: the content of every language it holds, frozen when it was submitted, alongside what Meta made of each. A draft is a version too: a mutable one, with no number and no submission date.
+type WhatsAppTemplateVersion struct {
+	// CreatedAt When the version was opened. Null for a built-in template's version, which Bird ships rather than stores.
+	CreatedAt *time.Time                `json:"created_at,omitempty"`
+	Id        WhatsAppTemplateVersionID `json:"id"`
+
+	// Languages This version's content, keyed by BCP-47 language tag, with what its submission did with each language.
+	Languages map[string]WhatsAppTemplateVersionLanguage `json:"languages"`
+
+	// SubmittedAt When this version was submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's version, which Bird ships already approved rather than submitting on your behalf.
+	SubmittedAt *time.Time         `json:"submitted_at,omitempty"`
+	TemplateId  WhatsAppTemplateID `json:"template_id"`
+
+	// VersionNumber The version's sequence number, assigned when it is submitted. Null on a draft, which has not been submitted and has no place in the sequence yet.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
+
+// WhatsAppTemplateVersionID defines model for WhatsAppTemplateVersionID.
+type WhatsAppTemplateVersionID = string
+
+// WhatsAppTemplateVersionLanguage One language's content in one version, and what that submission did with it.
+type WhatsAppTemplateVersionLanguage struct {
+	// Components This language's content in this version, in display order.
+	Components []WhatsAppTemplateComponent `json:"components"`
+
+	// Error Why the submission did not complete, present when `status` is `submit_failed` or `outcome_unknown`. Absent otherwise, including on a rejection, whose reason is in `rejection`.
+	Error *WhatsAppTemplateSubmissionError `json:"error,omitempty"`
+
+	// Rejection Why Meta refused this content, present when `status` is `rejected`. Absent otherwise.
+	Rejection *WhatsAppTemplateRejection `json:"rejection,omitempty"`
+
+	// Status What this submission did with this language. Absent on a draft, which has not been submitted. Whether the language can be sent right now is a different question, answered by the template's `languages` summary.
+	Status *WhatsAppTemplateLanguageStatus `json:"status,omitempty"`
+}
+
+// WhatsAppTemplateVersionList defines model for WhatsAppTemplateVersionList.
+type WhatsAppTemplateVersionList struct {
+	// Data Page of the template's versions, newest first.
+	Data []WhatsAppTemplateVersionSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppTemplateVersionSummary One version of a template, without its content. A version holds a full copy of every language it was submitted with. Listing versions therefore names the languages and what became of each without carrying their content. Read a single version for its content. Read its shallow language collection for content hashes.
+type WhatsAppTemplateVersionSummary struct {
+	// CreatedAt When the version was opened. Null for a built-in template's version, which Bird ships rather than stores.
+	CreatedAt *time.Time                `json:"created_at,omitempty"`
+	Id        WhatsAppTemplateVersionID `json:"id"`
+
+	// Languages What this version's submission did with each language it holds, keyed by BCP-47 language tag. Content is not here: read the version for that.
+	Languages map[string]WhatsAppTemplateLanguageState `json:"languages"`
+
+	// Next What to do next with this version, given whether it has been submitted. Present on
+	// reads that compute it: an empty list means there is nothing to do, and the field is
+	// absent entirely on responses that do not report next actions.
+	//
+	// A version with no `version_number` is the open draft, and routes to writing its
+	// languages and checking it. One that carries a number is frozen, so it routes to
+	// reading the verdicts it holds. `submitted_at` does not separate the two, because
+	// it is also null on a built-in template's version.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// SubmittedAt When this version was submitted to Meta. Null on a draft, which has not been submitted, and null for a built-in template's version, which Bird ships already approved rather than submitting on your behalf.
+	SubmittedAt *time.Time         `json:"submitted_at,omitempty"`
+	TemplateId  WhatsAppTemplateID `json:"template_id"`
+
+	// VersionNumber The version's sequence number, assigned when it is submitted. Null on a draft, which has not been submitted and has no place in the sequence yet.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
 
 // WhatsAppText Text content of a WhatsApp message.
 type WhatsAppText struct {
@@ -17073,6 +17658,45 @@ type CreateWhatsAppMessageParams struct {
 type ListWhatsAppMessageEventsParams struct {
 	// Type Keep only events of this exact type (for example `whatsapp.delivered` or `whatsapp.failed`). Omit for the full timeline.
 	Type *WhatsAppEventType `form:"type,omitempty" json:"type,omitempty"`
+}
+
+// ListWhatsAppTemplatesParams defines parameters for ListWhatsAppTemplates.
+type ListWhatsAppTemplatesParams struct {
+	// Waba Filter to a single WhatsApp Business Account by its Meta WABA ID: the same value each template reports in its own `waba` field. Our built-in templates belong to no account and are never returned when this is set, and an account your workspace does not hold returns an empty page.
+	Waba *string `form:"waba,omitempty" json:"waba,omitempty"`
+
+	// Status Filter by lifecycle status. Repeat the parameter to match any of several. Our built-in templates are always `active`.
+	Status *[]TemplateStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Scope Filter by ownership tier: `system` for the built-in, Meta-approved template catalog, or `workspace` for the workspace's own templates. Omit to return both.
+	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// Category Filter by template category.
+	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// Q A case-insensitive substring search across the template's slug, name, and description.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListWhatsAppTemplateVersionsParams defines parameters for ListWhatsAppTemplateVersions.
+type ListWhatsAppTemplateVersionsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
 // CreateAudienceJSONRequestBody defines body for CreateAudience for application/json ContentType.
@@ -21123,6 +21747,24 @@ type ClientInterface interface {
 	// GetWhatsAppMessageMedia request
 	GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWhatsAppTemplates request
+	ListWhatsAppTemplates(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppTemplate request
+	GetWhatsAppTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppTemplateVersions request
+	ListWhatsAppTemplateVersions(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppTemplateVersion request
+	GetWhatsAppTemplateVersion(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppTemplateVersionLanguages request
+	ListWhatsAppTemplateVersionLanguages(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppTemplateVersionLanguage request
+	GetWhatsAppTemplateVersionLanguage(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetCurrentWorkspace request
 	GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
@@ -23289,6 +23931,78 @@ func (c *Client) ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsA
 
 func (c *Client) GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppMessageMediaRequest(c.Server, messageId, mediaId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppTemplates(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppTemplatesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppTemplateRequest(c.Server, templateRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppTemplateVersions(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppTemplateVersionsRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppTemplateVersion(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppTemplateVersionRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppTemplateVersionLanguages(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppTemplateVersionLanguagesRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppTemplateVersionLanguage(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppTemplateVersionLanguageRequest(c.Server, templateRef, versionId, language)
 	if err != nil {
 		return nil, err
 	}
@@ -34978,6 +35692,393 @@ func NewGetWhatsAppMessageMediaRequest(server string, messageId WhatsAppMessageI
 	return req, nil
 }
 
+// NewListWhatsAppTemplatesRequest generates requests for ListWhatsAppTemplates
+func NewListWhatsAppTemplatesRequest(server string, params *ListWhatsAppTemplatesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Waba != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "waba", *params.Waba, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppTemplateRequest generates requests for GetWhatsAppTemplate
+func NewGetWhatsAppTemplateRequest(server string, templateRef string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppTemplateVersionsRequest generates requests for ListWhatsAppTemplateVersions
+func NewListWhatsAppTemplateVersionsRequest(server string, templateRef string, params *ListWhatsAppTemplateVersionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s/versions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppTemplateVersionRequest generates requests for GetWhatsAppTemplateVersion
+func NewGetWhatsAppTemplateVersionRequest(server string, templateRef string, versionId WhatsAppTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppTemplateVersionLanguagesRequest generates requests for ListWhatsAppTemplateVersionLanguages
+func NewListWhatsAppTemplateVersionLanguagesRequest(server string, templateRef string, versionId WhatsAppTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s/versions/%s/languages", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppTemplateVersionLanguageRequest generates requests for GetWhatsAppTemplateVersionLanguage
+func NewGetWhatsAppTemplateVersionLanguageRequest(server string, templateRef string, versionId WhatsAppTemplateVersionID, language LanguageTag) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetCurrentWorkspaceRequest generates requests for GetCurrentWorkspace
 func NewGetCurrentWorkspaceRequest(server string) (*http.Request, error) {
 	var err error
@@ -35552,6 +36653,24 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppMessageMediaWithResponse request
 	GetWhatsAppMessageMediaWithResponse(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageMediaResponse, error)
+
+	// ListWhatsAppTemplatesWithResponse request
+	ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error)
+
+	// GetWhatsAppTemplateWithResponse request
+	GetWhatsAppTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateResponse, error)
+
+	// ListWhatsAppTemplateVersionsWithResponse request
+	ListWhatsAppTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateVersionsResponse, error)
+
+	// GetWhatsAppTemplateVersionWithResponse request
+	GetWhatsAppTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateVersionResponse, error)
+
+	// ListWhatsAppTemplateVersionLanguagesWithResponse request
+	ListWhatsAppTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateVersionLanguagesResponse, error)
+
+	// GetWhatsAppTemplateVersionLanguageWithResponse request
+	GetWhatsAppTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateVersionLanguageResponse, error)
 
 	// GetCurrentWorkspaceWithResponse request
 	GetCurrentWorkspaceWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error)
@@ -40791,6 +41910,221 @@ func (r GetWhatsAppMessageMediaResponse) ContentType() string {
 	return ""
 }
 
+type ListWhatsAppTemplatesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppTemplatesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppTemplatesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppTemplatesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplate
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppTemplateVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateVersionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppTemplateVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppTemplateVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppTemplateVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateVersion
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppTemplateVersionLanguagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateLanguageList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppTemplateVersionLanguagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppTemplateVersionLanguagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppTemplateVersionLanguagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppTemplateVersionLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppTemplateLanguage
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppTemplateVersionLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppTemplateVersionLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppTemplateVersionLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetCurrentWorkspaceResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -42416,6 +43750,60 @@ func (c *ClientWithResponses) GetWhatsAppMessageMediaWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseGetWhatsAppMessageMediaResponse(rsp)
+}
+
+// ListWhatsAppTemplatesWithResponse request returning *ListWhatsAppTemplatesResponse
+func (c *ClientWithResponses) ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error) {
+	rsp, err := c.ListWhatsAppTemplates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppTemplatesResponse(rsp)
+}
+
+// GetWhatsAppTemplateWithResponse request returning *GetWhatsAppTemplateResponse
+func (c *ClientWithResponses) GetWhatsAppTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateResponse, error) {
+	rsp, err := c.GetWhatsAppTemplate(ctx, templateRef, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppTemplateResponse(rsp)
+}
+
+// ListWhatsAppTemplateVersionsWithResponse request returning *ListWhatsAppTemplateVersionsResponse
+func (c *ClientWithResponses) ListWhatsAppTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListWhatsAppTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateVersionsResponse, error) {
+	rsp, err := c.ListWhatsAppTemplateVersions(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppTemplateVersionsResponse(rsp)
+}
+
+// GetWhatsAppTemplateVersionWithResponse request returning *GetWhatsAppTemplateVersionResponse
+func (c *ClientWithResponses) GetWhatsAppTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateVersionResponse, error) {
+	rsp, err := c.GetWhatsAppTemplateVersion(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppTemplateVersionResponse(rsp)
+}
+
+// ListWhatsAppTemplateVersionLanguagesWithResponse request returning *ListWhatsAppTemplateVersionLanguagesResponse
+func (c *ClientWithResponses) ListWhatsAppTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplateVersionLanguagesResponse, error) {
+	rsp, err := c.ListWhatsAppTemplateVersionLanguages(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppTemplateVersionLanguagesResponse(rsp)
+}
+
+// GetWhatsAppTemplateVersionLanguageWithResponse request returning *GetWhatsAppTemplateVersionLanguageResponse
+func (c *ClientWithResponses) GetWhatsAppTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId WhatsAppTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetWhatsAppTemplateVersionLanguageResponse, error) {
+	rsp, err := c.GetWhatsAppTemplateVersionLanguage(ctx, templateRef, versionId, language, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppTemplateVersionLanguageResponse(rsp)
 }
 
 // GetCurrentWorkspaceWithResponse request returning *GetCurrentWorkspaceResponse
@@ -52726,6 +54114,407 @@ func ParseGetWhatsAppMessageMediaResponse(rsp *http.Response) (*GetWhatsAppMessa
 			return nil, err
 		}
 		response.JSON410 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppTemplatesResponse parses an HTTP response from a ListWhatsAppTemplatesWithResponse call
+func ParseListWhatsAppTemplatesResponse(rsp *http.Response) (*ListWhatsAppTemplatesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppTemplatesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppTemplateResponse parses an HTTP response from a GetWhatsAppTemplateWithResponse call
+func ParseGetWhatsAppTemplateResponse(rsp *http.Response) (*GetWhatsAppTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppTemplateVersionsResponse parses an HTTP response from a ListWhatsAppTemplateVersionsWithResponse call
+func ParseListWhatsAppTemplateVersionsResponse(rsp *http.Response) (*ListWhatsAppTemplateVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppTemplateVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateVersionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppTemplateVersionResponse parses an HTTP response from a GetWhatsAppTemplateVersionWithResponse call
+func ParseGetWhatsAppTemplateVersionResponse(rsp *http.Response) (*GetWhatsAppTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppTemplateVersionLanguagesResponse parses an HTTP response from a ListWhatsAppTemplateVersionLanguagesWithResponse call
+func ParseListWhatsAppTemplateVersionLanguagesResponse(rsp *http.Response) (*ListWhatsAppTemplateVersionLanguagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppTemplateVersionLanguagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateLanguageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppTemplateVersionLanguageResponse parses an HTTP response from a GetWhatsAppTemplateVersionLanguageWithResponse call
+func ParseGetWhatsAppTemplateVersionLanguageResponse(rsp *http.Response) (*GetWhatsAppTemplateVersionLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppTemplateVersionLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppTemplateLanguage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

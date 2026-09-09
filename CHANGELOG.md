@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.62.0
+
+- Add `client.Whatsapp.Templates` methods to list and get WhatsApp templates, their versions, and each version's languages.
+- **Breaking:** a WhatsApp send of a template you authored now picks its language the way that template says to, so a call that already worked can resolve to a different language or stop resolving at all: omitting `language` sends the template's `default_language` rather than the sole approved language, and a language the template does not stock is served by the closest match or refused according to the template's `on_missing_language` setting. Check that each template's `default_language` is one WhatsApp approved, and handle three refusals new to those sends: `E15007` for a language tag WhatsApp does not support, `E15077` when the template cannot send in the language you asked for, and `E15076` when the template sets `language_source_required` and your send names no language. A send served by a language other than the one you asked for is priced at that language's category, because WhatsApp categorizes each language separately, so sends already made under a template WhatsApp recategorized are worth re-checking.
+
 ## 0.61.0
 
 - A sending domain's DNS record now sets `error` while its status is still `pending`, reporting that the record published in DNS does not match the expected value.
