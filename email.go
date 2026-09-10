@@ -71,7 +71,9 @@ type EmailSendParams struct {
 	// (fallback to the closest match, or fail the send).
 	Language string
 	// Parameters holds template variables rendered into the subject and
-	// body at send time; works with both inline content and a Template.
+	// body at send time; works with both inline content and a Template. For
+	// inline content, an empty map enables Liquid without substitutions; nil
+	// sends the content literally.
 	Parameters map[string]any
 	// ScheduledAt holds the message until a future instant instead of sending
 	// it immediately: at least 30 seconds and at most 30 days ahead, and
@@ -160,12 +162,12 @@ func (p EmailSendParams) toWire() oapi.EmailMessageSendRequest {
 			language := p.Language
 			tmpl.Language = &language
 		}
-		if len(p.Parameters) > 0 {
+		if p.Parameters != nil {
 			parameters := p.Parameters
 			tmpl.Parameters = &parameters
 		}
 		body.Template = &tmpl
-	} else if len(p.Parameters) > 0 {
+	} else if p.Parameters != nil {
 		parameters := p.Parameters
 		body.Parameters = &parameters
 	}

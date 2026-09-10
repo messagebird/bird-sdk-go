@@ -66,6 +66,18 @@ func (p WhatsappListEventsParams) toWire() *oapi.ListWhatsAppMessageEventsParams
 	}
 }
 
+// WhatsappMarkReadParams is the request body for mark_read.
+type WhatsappMarkReadParams struct {
+	// Show a typing indicator to the contact as well as marking the message read. WhatsApp clears it when you send your next message, or after 25 seconds, whichever comes first. Only ask for one if you are about to reply.
+	TypingIndicator *bool
+}
+
+func (p WhatsappMarkReadParams) toWire() oapi.WhatsAppReadReceiptRequest {
+	body := oapi.WhatsAppReadReceiptRequest{}
+	body.TypingIndicator = p.TypingIndicator
+	return body
+}
+
 // Get Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the one content it was built from (a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards, or interactive_reply on an inbound tap), and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
 func (s *WhatsappService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*WhatsAppMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
@@ -119,6 +131,25 @@ func (s *WhatsappService) ListEvents(ctx context.Context, messageId string, para
 		return nil, err
 	}
 	var out WhatsAppEventList
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// MarkRead Mark one inbound WhatsApp message as read, optionally showing a typing indicator at the same time. Accepted asynchronously (202); there is no status to poll and no webhook.
+func (s *WhatsappService) MarkRead(ctx context.Context, messageId string, params WhatsappMarkReadParams, opts ...option.RequestOption) (*WhatsAppReadReceipt, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.SendWhatsAppReadReceiptParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.SendWhatsAppReadReceipt(ctx, oapi.WhatsAppMessageID(messageId), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WhatsAppReadReceipt
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

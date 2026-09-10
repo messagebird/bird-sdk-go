@@ -4115,6 +4115,7 @@ const (
 	EventTypeWhatsappAccepted             WebhookEventType = "whatsapp.accepted"
 	EventTypeWhatsappDelivered            WebhookEventType = "whatsapp.delivered"
 	EventTypeWhatsappFailed               WebhookEventType = "whatsapp.failed"
+	EventTypeWhatsappReacted              WebhookEventType = "whatsapp.reacted"
 	EventTypeWhatsappRead                 WebhookEventType = "whatsapp.read"
 	EventTypeWhatsappReceived             WebhookEventType = "whatsapp.received"
 	EventTypeWhatsappRejected             WebhookEventType = "whatsapp.rejected"
@@ -4220,6 +4221,8 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeWhatsappDelivered:
 		return true
 	case EventTypeWhatsappFailed:
+		return true
+	case EventTypeWhatsappReacted:
 		return true
 	case EventTypeWhatsappRead:
 		return true
@@ -4523,34 +4526,73 @@ func (e WhatsAppMessageDirection) Valid() bool {
 
 // Defines values for WhatsAppMessageStatus.
 const (
-	Accepted  WhatsAppMessageStatus = "accepted"
-	Canceled  WhatsAppMessageStatus = "canceled"
-	Delivered WhatsAppMessageStatus = "delivered"
-	Failed    WhatsAppMessageStatus = "failed"
-	Received  WhatsAppMessageStatus = "received"
-	Rejected  WhatsAppMessageStatus = "rejected"
-	Scheduled WhatsAppMessageStatus = "scheduled"
-	Sent      WhatsAppMessageStatus = "sent"
+	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
+	WhatsAppMessageStatusCanceled  WhatsAppMessageStatus = "canceled"
+	WhatsAppMessageStatusDelivered WhatsAppMessageStatus = "delivered"
+	WhatsAppMessageStatusFailed    WhatsAppMessageStatus = "failed"
+	WhatsAppMessageStatusReceived  WhatsAppMessageStatus = "received"
+	WhatsAppMessageStatusRejected  WhatsAppMessageStatus = "rejected"
+	WhatsAppMessageStatusScheduled WhatsAppMessageStatus = "scheduled"
+	WhatsAppMessageStatusSent      WhatsAppMessageStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageStatus enum.
 func (e WhatsAppMessageStatus) Valid() bool {
 	switch e {
-	case Accepted:
+	case WhatsAppMessageStatusAccepted:
 		return true
-	case Canceled:
+	case WhatsAppMessageStatusCanceled:
 		return true
-	case Delivered:
+	case WhatsAppMessageStatusDelivered:
 		return true
-	case Failed:
+	case WhatsAppMessageStatusFailed:
 		return true
-	case Received:
+	case WhatsAppMessageStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppMessageStatusRejected:
 		return true
-	case Scheduled:
+	case WhatsAppMessageStatusScheduled:
 		return true
-	case Sent:
+	case WhatsAppMessageStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppReactedEventType.
+const (
+	WhatsappReacted WhatsAppReactedEventType = "whatsapp.reacted"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppReactedEventType enum.
+func (e WhatsAppReactedEventType) Valid() bool {
+	switch e {
+	case WhatsappReacted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppReactionEventStatus.
+const (
+	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
+	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
+	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
+	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
+func (e WhatsAppReactionEventStatus) Valid() bool {
+	switch e {
+	case WhatsAppReactionEventStatusFailed:
+		return true
+	case WhatsAppReactionEventStatusReceived:
+		return true
+	case WhatsAppReactionEventStatusRejected:
+		return true
+	case WhatsAppReactionEventStatusSent:
 		return true
 	default:
 		return false
@@ -6875,7 +6917,7 @@ type EmailMessageSendRequest struct {
 	// Metadata Arbitrary JSON object returned on API reads and included in webhook payloads. You can query its paths in analytics, such as `metadata.order_id`, but it is not a dashboard filter. The serialized object is limited to 2 KB. Use metadata for per-send context such as order IDs, customer references, and structured event data. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Parameters Parameter values used to personalize inline content. A parameter is a single word, and a token in the subject or body (for example `{{ animal }}`) is replaced with the value of that name at send time. Shared across all recipients of this send. A token with no matching key renders empty. Cap: 16 KB serialized. When sending a stored `template`, put the values in `template.parameters` instead.
+	// Parameters Parameter values used to personalize inline content, shared across all recipients of this send. Tokens such as `{{ animal }}` are replaced with matching values; missing values render empty. Include this object, even as `{}`, to use Liquid, or omit it to leave tokens unchanged. Use single-word names other than `bird`. Cap: 16 KB serialized. For a stored template, use `template.parameters` instead. See [inline personalization](https://bird.com/docs/guides/email/sending-email#content) for validation and URL encoding examples.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// ReplyTo Reply-To addresses, each a plain email string, an RFC 5322 mailbox string, or an object with an optional display name. RFC 5322 allows multiple. Every recipient reply hits all listed addresses, so 1-2 is typical. The 25 cap exists to prevent header sizes that some receiving mail servers reject.
@@ -9864,6 +9906,32 @@ type EventWhatsAppFailedData struct {
 
 // EventWhatsAppFailedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type EventWhatsAppFailedDataDirection string
+
+// EventWhatsAppReacted A contact placed, changed or took back a reaction on a message.
+type EventWhatsAppReacted struct {
+	// Data Payload of the whatsapp.reacted event. Names the message the contact reacted to, not the reaction, because a reaction is an annotation on a message rather than a message of its own.
+	Data EventWhatsAppReactedData `json:"data"`
+
+	// Timestamp When the contact reacted, as reported by WhatsApp. Meta reports this to the second, so a contact who changes or withdraws a reaction quickly can produce two events sharing one timestamp. Sorting reactions on one message by this field cannot order those, and neither can delivery order, which retries make unreliable. Act on the reaction each event carries, as the change it describes; do not reconstruct the sequence from the events or treat the last one to arrive as the message's standing reaction. Read the message back for the reactions that stand: `getWhatsAppMessage` (`GET /v1/whatsapp/messages/{message_id}`) returns one entry per sender in `reactions`, and `listWhatsAppMessageReactionEvents` has every change.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `whatsapp.reacted` for this event.
+	Type WhatsAppReactedEventType `json:"type"`
+}
+
+// EventWhatsAppReactedData Payload of the whatsapp.reacted event. Names the message the contact reacted to, not the reaction, because a reaction is an annotation on a message rather than a message of its own.
+type EventWhatsAppReactedData struct {
+	// Emoji The emoji the contact placed, as WhatsApp sent it and not normalized. Null when they took their reaction back rather than placing one. Always present, so null is the removal itself rather than a value we are missing.
+	Emoji *string `json:"emoji"`
+
+	// From The contact who reacted, as WhatsApp identified them.
+	From WhatsAppAddress `json:"from"`
+
+	// To Your WhatsApp number, the business side of the conversation.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
 
 // EventWhatsAppRead The recipient read the message.
 type EventWhatsAppRead struct {
@@ -13065,7 +13133,13 @@ type VoiceCall struct {
 	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
 	PddMs *int `json:"pdd_ms,omitempty"`
 
-	// RejectionReason Why we refused the call before dialing a carrier. Absent whenever the refusal was not ours: a call that connected, a call the carrier or the far end turned down (`sip_response_code` carries their answer, and a 6xx decline reads as `rejected` rather than `failed`), and an incoming call turned away by the number it dialed, which fails no check of ours and so names no reason. `route` says what that number was set to do.
+	// RejectionReason Why we rejected the call. Absent on connected calls and calls rejected
+	// by the carrier or recipient. For carrier or recipient rejections, see
+	// `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
+	//
+	// Read alongside `route` when present. A refusal caused by the number's
+	// configuration has no rejection reason; the route records that
+	// configuration.
 	RejectionReason *VoiceCallRejectionReason `json:"rejection_reason,omitempty"`
 
 	// Route Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
@@ -13122,14 +13196,9 @@ type VoiceCallDirection string
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
 
-// VoiceCallInboundRoute Which answer the dialled number gave an incoming call, as it was acted on. The
-// type selects the shape: "reject" turned the call away, "trunk" delivered it to
-// one of your SIP trunks, and "forward" placed a call to another of your numbers
-// and connected the two.
-//
-// It says what the number was set to do, not that it worked. A "trunk" route on a
-// call that never connected is a number pointed at a trunk that did not take it;
-// the call's status is what carries the outcome.
+// VoiceCallInboundRoute The routing choice recorded for an incoming call. A recorded route does not
+// guarantee that the call connected. Check `status` for the outcome and
+// `rejection_reason` for the cause when present.
 type VoiceCallInboundRoute struct {
 	union json.RawMessage
 }
@@ -13175,36 +13244,38 @@ type VoiceCallList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// VoiceCallRejectionReason Why we refused the call before dialing a carrier. Every refusal is signalled
-// to your PBX as `503`, so `sip_response_code` alone cannot tell these causes
-// apart. This field is where the cause lives.
+// VoiceCallRejectionReason Why we rejected the call. Use `rejection_reason` to identify the cause;
+// `sip_response_code` alone cannot distinguish these reasons.
 //
-// Most of them you can fix yourself:
+// You can resolve these issues:
 //
 //   - `source_not_allowed`: The call came from an IP address that is not in the
 //     trunk's allowed-address list. Add the address your PBX sends from.
 //   - `caller_id_not_verified`: The number in the `From` header is not a verified
-//     caller ID for this workspace. Verify it, or present a number you have
-//     already verified.
-//   - `number_ownership_not_verified`: You bought this number, but the country that
-//     issued it has not yet accepted the documents proving your workspace owns it.
-//     Open the number under Numbers and complete its ownership requirements, then
-//     place the call again.
-//   - `destination_not_enabled`: You have not turned on calling to this
-//     destination country. Enable it in your voice destination settings.
-//   - `insufficient_balance`: Your wallet did not cover the call. Top up, or turn
-//     on automatic top-ups.
-//   - `daily_spend_exceeded`: The call would have passed your organization's daily
-//     voice spend limit. The limit resets at the start of the next UTC day.
+//     caller ID for this workspace. Verify it or use a verified caller ID.
+//   - `number_ownership_not_verified`: The ownership documents for this purchased
+//     number have not yet been accepted under its country's requirements. We
+//     block outgoing and incoming calls on the number until verification is
+//     complete. Blocked incoming calls never reach your PBX, and their route type
+//     is `reject` regardless of the number's configuration. Open the number
+//     under **Numbers** and complete its ownership requirements, then retry
+//     the call.
+//   - `destination_not_enabled`: Calling to this destination country is disabled.
+//     Enable it in your voice destination settings.
+//   - `insufficient_balance`: Your wallet balance was too low for the call.
+//     Top up or enable automatic top-ups.
+//   - `daily_spend_exceeded`: The call would exceed your organization's daily
+//     voice spend limit. Retry after the limit resets at the start of the next
+//     UTC day.
 //   - `concurrent_calls_exceeded`: You already have as many calls in progress as
-//     your account allows. Wait for one to end, or ask support to raise the limit.
+//     your account allows. Wait for one to end or ask support to raise the limit.
 //   - `calls_per_second_exceeded`: You placed calls faster than your account
-//     allows. Slow the rate you dial at, then retry.
+//     allows. Reduce your dialing rate and retry.
 //
 // For all other reasons, contact support and provide the call `id`:
 //
-//   - `routing_not_configured`: No dial plan is attached to this trunk yet.
-//     Expected on a new trunk.
+//   - `routing_not_configured`: This trunk has no dial plan, which can happen on
+//     a new trunk.
 //   - `no_route_found`: A dial plan is attached, but no rule in it covers this
 //     destination.
 //   - `destination_blocked`: The destination is blocked by our routing
@@ -13817,7 +13888,9 @@ type WhatsAppEvent struct {
 	// - `whatsapp.accepted`: The API accepted the request.
 	// - `whatsapp.sent`: The message reached the WhatsApp network.
 	// - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
-	// - `whatsapp.read`: The recipient opened the message.
+	// - `whatsapp.read`: The message was read. On an outbound message the recipient
+	//   opened it; on an inbound one Bird acknowledged it to WhatsApp for the
+	//   business, which is what a read receipt records.
 	// - `whatsapp.failed`: Delivery failed permanently.
 	// - `whatsapp.rejected`: The message was refused before sending and not charged.
 	// - `whatsapp.received`: An inbound message arrived from the contact.
@@ -13837,13 +13910,15 @@ type WhatsAppEventList struct {
 
 // WhatsAppEventType Message timeline event type:
 //
-// - `whatsapp.accepted`: The API accepted the request.
-// - `whatsapp.sent`: The message reached the WhatsApp network.
-// - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
-// - `whatsapp.read`: The recipient opened the message.
-// - `whatsapp.failed`: Delivery failed permanently.
-// - `whatsapp.rejected`: The message was refused before sending and not charged.
-// - `whatsapp.received`: An inbound message arrived from the contact.
+//   - `whatsapp.accepted`: The API accepted the request.
+//   - `whatsapp.sent`: The message reached the WhatsApp network.
+//   - `whatsapp.delivered`: Delivery to the recipient's device was confirmed.
+//   - `whatsapp.read`: The message was read. On an outbound message the recipient
+//     opened it; on an inbound one Bird acknowledged it to WhatsApp for the
+//     business, which is what a read receipt records.
+//   - `whatsapp.failed`: Delivery failed permanently.
+//   - `whatsapp.rejected`: The message was refused before sending and not charged.
+//   - `whatsapp.received`: An inbound message arrived from the contact.
 //
 // This is an open enum. Accept unrecognized values.
 type WhatsAppEventType string
@@ -14406,7 +14481,10 @@ type WhatsAppMessage struct {
 	// Metadata Arbitrary JSON metadata stored on the message.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// ReadAt When the message was read by the recipient. Null until then.
+	// Reactions Emoji reactions standing on this message right now, one per sender. Absent when the message has none. A reaction that was replaced by a different emoji, or taken back, is not listed; the message's reaction log keeps that history. WhatsApp accepts a reaction on a message up to 30 days old, and we keep provider ids for 15, so a reaction placed on a message older than that cannot be matched to it and does not appear here.
+	Reactions *[]WhatsAppReaction `json:"reactions,omitempty"`
+
+	// ReadAt When the message was read. On an outbound message this is the recipient opening it. On an inbound one it is when Bird acknowledged the message to WhatsApp for the business, which a read receipt sets. Null until then.
 	ReadAt *time.Time `json:"read_at,omitempty"`
 
 	// SentAt When the message was handed to the WhatsApp network. Null until then.
@@ -14515,7 +14593,9 @@ type WhatsAppMessageSendRequest struct {
 // - `scheduled`: Reserved and not returned.
 // - `canceled`: Reserved and not returned.
 //
-// Read receipts appear in `read_at` and `whatsapp.read` events.
+// Read receipts appear in `read_at` and `whatsapp.read` events, in both
+// directions: the recipient opening an outbound message, and the business
+// acknowledging an inbound one.
 type WhatsAppMessageStatus string
 
 // WhatsAppMessageTemplate The template a message was sent from. On reads `slug`, `language`, `category`, and `components` are always present; `components` is an empty array for an authentication template (the filled-in values, for example a verification code, are never returned).
@@ -14585,6 +14665,95 @@ type WhatsAppMessageTemplateComponentParameter struct {
 
 	// Url Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
 	Url *string `json:"url,omitempty"`
+}
+
+// WhatsAppReactedEventType Always `whatsapp.reacted` for this event.
+type WhatsAppReactedEventType string
+
+// WhatsAppReaction An emoji reaction standing on a message. One entry per sender: reacting again replaces that sender's entry rather than adding one, and removing a reaction drops it from the list. A one-to-one message therefore carries at most two, one for the contact and one for your business number. This is the folded current state, so it names no single change; the message's reaction log is what records how each one arrived.
+type WhatsAppReaction struct {
+	// Emoji The emoji, as WhatsApp sent it. It is not normalized, so two emoji that render identically can differ byte for byte and compare unequal.
+	Emoji *string `json:"emoji,omitempty"`
+
+	// From Who reacted. On a group message this is what tells one participant's reaction from another's. On a one-to-one message it is your business number on a reaction you placed and the contact on one they placed, which is why it is here rather than inferred from the message's `direction`.
+	From *WhatsAppAddress `json:"from,omitempty"`
+}
+
+// WhatsAppReactionAccepted A reaction as accepted, which WhatsApp has not applied yet and may still refuse. It names the reaction-log entry the request created, so a caller that places two changes on one message can tell which entry is which; read the message's `reactions` for what currently stands, or its reaction log for what became of this one.
+type WhatsAppReactionAccepted struct {
+	// Emoji The emoji as accepted, echoing the one the request carried.
+	Emoji string                  `json:"emoji"`
+	Id    WhatsAppReactionEventID `json:"id"`
+}
+
+// WhatsAppReactionEvent One change to a reaction on a message: a reaction placed, replaced by a different emoji, or taken back. Entries are never edited, so a sender who reacts twice and then removes it leaves three of them.
+type WhatsAppReactionEvent struct {
+	// Emoji The emoji this entry placed, as WhatsApp sent it and not normalized. Null when the entry took a reaction back rather than placing one. Always present, so null is the removal itself rather than a value we are missing.
+	Emoji *string `json:"emoji,omitempty"`
+
+	// Error Failure detail for a message that could not be delivered or was rejected.
+	Error *WhatsAppError `json:"error,omitempty"`
+
+	// From Who made the change. Your business number on a reaction you placed, the contact on one they placed.
+	From *WhatsAppAddress        `json:"from,omitempty"`
+	Id   WhatsAppReactionEventID `json:"id"`
+
+	// OccurredAt When the change was made.
+	OccurredAt *time.Time                   `json:"occurred_at,omitempty"`
+	Status     *WhatsAppReactionEventStatus `json:"status,omitempty"`
+}
+
+// WhatsAppReactionEventID defines model for WhatsAppReactionEventID.
+type WhatsAppReactionEventID = string
+
+// WhatsAppReactionEventList defines model for WhatsAppReactionEventList.
+type WhatsAppReactionEventList struct {
+	// Data Changes to this message's reactions, newest first.
+	Data []WhatsAppReactionEvent `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppReactionEventStatus What became of one reaction change:
+//
+//   - `received` means the contact placed or removed the reaction and WhatsApp
+//     told us about it. Every inbound entry carries this.
+//   - `sent` means your reaction reached WhatsApp. Reactions have no delivery or
+//     read receipt, so this is as far as an outbound entry gets.
+//   - `failed` means WhatsApp refused it. `error` says why, most often because the
+//     contact deleted the message. The grounds we can check for ourselves (a
+//     message you sent, one that is itself a reaction, one over 30 days old) are
+//     refused when you ask, so they do not reach here.
+//   - `rejected` means we refused it before it reached WhatsApp, so nothing was
+//     sent. `error` says why.
+//
+// Only `received` and `sent` entries change what stands on the message, so those
+// are the ones the message's `reactions` are folded from.
+type WhatsAppReactionEventStatus string
+
+// WhatsAppReactionUpsert defines model for WhatsAppReactionUpsert.
+type WhatsAppReactionUpsert struct {
+	// Emoji The emoji to place, as the character itself. Replaces your existing reaction on this message if you have one. To take a reaction back entirely, delete it rather than sending an empty value. WhatsApp takes exactly one emoji, so a value carrying more than one is refused with a `422` rather than sent. The length cap is generous because a single joined emoji is many code points: a couple-kissing one carrying two skin tones is ten, which is why the cap alone cannot express the limit.
+	Emoji string `json:"emoji"`
+}
+
+// WhatsAppReadReceipt The acknowledgement Bird accepted. There is no status to poll afterwards: WhatsApp reports nothing about a read receipt.
+type WhatsAppReadReceipt struct {
+	// TypingIndicator Whether a typing indicator was requested alongside the read receipt.
+	TypingIndicator bool `json:"typing_indicator"`
+}
+
+// WhatsAppReadReceiptRequest What to acknowledge on the inbound message. An absent body and `{}` mean the same thing: mark the message read and show nothing.
+type WhatsAppReadReceiptRequest struct {
+	// TypingIndicator Show a typing indicator to the contact as well as marking the message read. WhatsApp clears it when you send your next message, or after 25 seconds, whichever comes first. Only ask for one if you are about to reply.
+	TypingIndicator *bool `json:"typing_indicator,omitempty"`
 }
 
 // WhatsAppReceivedEventType Event type.
@@ -15337,7 +15506,17 @@ type ListAudiencesParams struct {
 
 // CreateAudienceParams defines parameters for CreateAudience.
 type CreateAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15352,7 +15531,17 @@ type CreateAudienceParams struct {
 
 // DeleteAudienceParams defines parameters for DeleteAudience.
 type DeleteAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15367,7 +15556,17 @@ type DeleteAudienceParams struct {
 
 // UpdateAudienceParams defines parameters for UpdateAudience.
 type UpdateAudienceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15397,7 +15596,17 @@ type ListAudienceContactsParams struct {
 
 // AssignAudienceContactsParams defines parameters for AssignAudienceContacts.
 type AssignAudienceContactsParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15412,7 +15621,17 @@ type AssignAudienceContactsParams struct {
 
 // UnassignAudienceContactsParams defines parameters for UnassignAudienceContacts.
 type UnassignAudienceContactsParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15427,7 +15646,17 @@ type UnassignAudienceContactsParams struct {
 
 // UnassignAudienceContactParams defines parameters for UnassignAudienceContact.
 type UnassignAudienceContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15454,7 +15683,17 @@ type ListContactPropertiesParams struct {
 
 // CreateContactPropertyParams defines parameters for CreateContactProperty.
 type CreateContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15469,7 +15708,17 @@ type CreateContactPropertyParams struct {
 
 // UpdateContactPropertyParams defines parameters for UpdateContactProperty.
 type UpdateContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15484,7 +15733,17 @@ type UpdateContactPropertyParams struct {
 
 // ArchiveContactPropertyParams defines parameters for ArchiveContactProperty.
 type ArchiveContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15499,7 +15758,17 @@ type ArchiveContactPropertyParams struct {
 
 // UnarchiveContactPropertyParams defines parameters for UnarchiveContactProperty.
 type UnarchiveContactPropertyParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15544,7 +15813,17 @@ type ListContactsParams struct {
 
 // CreateContactParams defines parameters for CreateContact.
 type CreateContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15559,7 +15838,17 @@ type CreateContactParams struct {
 
 // CreateContactBatchParams defines parameters for CreateContactBatch.
 type CreateContactBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15574,7 +15863,17 @@ type CreateContactBatchParams struct {
 
 // DeleteContactParams defines parameters for DeleteContact.
 type DeleteContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15589,7 +15888,17 @@ type DeleteContactParams struct {
 
 // UpdateContactParams defines parameters for UpdateContact.
 type UpdateContactParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15616,7 +15925,17 @@ type ListContactPreferencesParams struct {
 
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
 type CreateEmailMessageBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15661,7 +15980,17 @@ type ListDomainsParamsOrder string
 
 // CreateDomainParams defines parameters for CreateDomain.
 type CreateDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15676,7 +16005,17 @@ type CreateDomainParams struct {
 
 // DeleteDomainParams defines parameters for DeleteDomain.
 type DeleteDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15691,7 +16030,17 @@ type DeleteDomainParams struct {
 
 // UpdateDomainParams defines parameters for UpdateDomain.
 type UpdateDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15706,7 +16055,17 @@ type UpdateDomainParams struct {
 
 // VerifyDomainParams defines parameters for VerifyDomain.
 type VerifyDomainParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15751,7 +16110,17 @@ type ListMailboxesParamsState string
 
 // CreateMailboxParams defines parameters for CreateMailbox.
 type CreateMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15766,7 +16135,17 @@ type CreateMailboxParams struct {
 
 // DeleteMailboxParams defines parameters for DeleteMailbox.
 type DeleteMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15784,7 +16163,17 @@ type UpdateMailboxParams struct {
 	// Confirm Set to `true` when lowering `retention_tier` would make remembered messages older than the new cutoff eligible for deletion. The request is rejected without it in that case.
 	Confirm *bool `form:"confirm,omitempty" json:"confirm,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15799,7 +16188,17 @@ type UpdateMailboxParams struct {
 
 // CreateMailboxMessageParams defines parameters for CreateMailboxMessage.
 type CreateMailboxMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15832,7 +16231,17 @@ type ListMailboxReceiveRulesParamsAction string
 
 // CreateMailboxReceiveRuleParams defines parameters for CreateMailboxReceiveRule.
 type CreateMailboxReceiveRuleParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15847,7 +16256,17 @@ type CreateMailboxReceiveRuleParams struct {
 
 // DeleteMailboxReceiveRuleParams defines parameters for DeleteMailboxReceiveRule.
 type DeleteMailboxReceiveRuleParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15862,7 +16281,17 @@ type DeleteMailboxReceiveRuleParams struct {
 
 // RestoreMailboxParams defines parameters for RestoreMailbox.
 type RestoreMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15877,7 +16306,17 @@ type RestoreMailboxParams struct {
 
 // ResumeMailboxParams defines parameters for ResumeMailbox.
 type ResumeMailboxParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15943,7 +16382,17 @@ type ListEmailMessagesParams struct {
 
 // CreateEmailMessageParams defines parameters for CreateEmailMessage.
 type CreateEmailMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -15958,7 +16407,17 @@ type CreateEmailMessageParams struct {
 
 // CancelEmailMessageParams defines parameters for CancelEmailMessage.
 type CancelEmailMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16473,7 +16932,17 @@ type DeleteEmailThreadParams struct {
 	// Permanent Permanently delete the conversation and its messages immediately instead of moving them to the trash.
 	Permanent *bool `form:"permanent,omitempty" json:"permanent,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16488,7 +16957,17 @@ type DeleteEmailThreadParams struct {
 
 // UpdateEmailThreadParams defines parameters for UpdateEmailThread.
 type UpdateEmailThreadParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16527,7 +17006,17 @@ type ListEmailThreadMessagesParamsInclude string
 
 // ReplyEmailThreadMessageParams defines parameters for ReplyEmailThreadMessage.
 type ReplyEmailThreadMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16545,7 +17034,17 @@ type CreateEmailLookupParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16563,7 +17062,17 @@ type CreatePhoneNumberLookupParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16662,7 +17171,17 @@ type CreateNumbersOrderParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16686,7 +17205,17 @@ type ReleaseWorkspaceNumberParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16725,7 +17254,17 @@ type ListPreferencesParams struct {
 
 // CreatePreferenceParams defines parameters for CreatePreference.
 type CreatePreferenceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16740,7 +17279,17 @@ type CreatePreferenceParams struct {
 
 // DeletePreferenceParams defines parameters for DeletePreference.
 type DeletePreferenceParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16758,7 +17307,17 @@ type PublishRealtimeAppBatchParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16803,7 +17362,17 @@ type PublishRealtimeAppEventParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16821,7 +17390,17 @@ type DisconnectRealtimeAppMemberParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16839,7 +17418,17 @@ type SendRealtimeAppMemberEventParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16854,7 +17443,17 @@ type SendRealtimeAppMemberEventParams struct {
 
 // CreateSMSMessageBatchParams defines parameters for CreateSMSMessageBatch.
 type CreateSMSMessageBatchParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16893,7 +17492,17 @@ type CreateSMSKeywordRuleParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16911,7 +17520,17 @@ type DeleteSMSKeywordRuleParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16935,7 +17554,17 @@ type UpdateSMSKeywordRuleParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -16989,7 +17618,17 @@ type ListSMSMessagesParams struct {
 
 // CreateSMSMessageParams defines parameters for CreateSMSMessage.
 type CreateSMSMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17350,7 +17989,17 @@ type ListSMSSuppressionsParams struct {
 
 // CreateSMSSuppressionParams defines parameters for CreateSMSSuppression.
 type CreateSMSSuppressionParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17365,7 +18014,17 @@ type CreateSMSSuppressionParams struct {
 
 // DeleteSMSSuppressionParams defines parameters for DeleteSMSSuppression.
 type DeleteSMSSuppressionParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17395,7 +18054,17 @@ type CreateVerificationParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17413,7 +18082,17 @@ type CreateVerificationCheckParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17431,7 +18110,17 @@ type CreateVerificationNextChannelParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17512,7 +18201,17 @@ type ListWebhooksParamsOrder string
 
 // CreateWebhookParams defines parameters for CreateWebhook.
 type CreateWebhookParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17527,7 +18226,17 @@ type CreateWebhookParams struct {
 
 // DeleteWebhookParams defines parameters for DeleteWebhook.
 type DeleteWebhookParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17542,7 +18251,17 @@ type DeleteWebhookParams struct {
 
 // UpdateWebhookParams defines parameters for UpdateWebhook.
 type UpdateWebhookParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17569,7 +18288,17 @@ type ListWebhookAttemptsParams struct {
 
 // RotateWebhookSecretParams defines parameters for RotateWebhookSecret.
 type RotateWebhookSecretParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17584,7 +18313,17 @@ type RotateWebhookSecretParams struct {
 
 // TestWebhookParams defines parameters for TestWebhook.
 type TestWebhookParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17641,7 +18380,17 @@ type ListWhatsAppMessagesParams struct {
 
 // CreateWhatsAppMessageParams defines parameters for CreateWhatsAppMessage.
 type CreateWhatsAppMessageParams struct {
-	// IdempotencyKey Client-supplied deduplication key. When present, the original response is replayed for any duplicate request with the same key, within the idempotency window (3 hours by default).
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
 	//
 	// Two distinct 409 errors signal misuse:
 	//
@@ -17658,6 +18407,93 @@ type CreateWhatsAppMessageParams struct {
 type ListWhatsAppMessageEventsParams struct {
 	// Type Keep only events of this exact type (for example `whatsapp.delivered` or `whatsapp.failed`). Omit for the full timeline.
 	Type *WhatsAppEventType `form:"type,omitempty" json:"type,omitempty"`
+}
+
+// DeleteWhatsAppMessageReactionParams defines parameters for DeleteWhatsAppMessageReaction.
+type DeleteWhatsAppMessageReactionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpsertWhatsAppMessageReactionParams defines parameters for UpsertWhatsAppMessageReaction.
+type UpsertWhatsAppMessageReactionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListWhatsAppMessageReactionEventsParams defines parameters for ListWhatsAppMessageReactionEvents.
+type ListWhatsAppMessageReactionEventsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// SendWhatsAppReadReceiptParams defines parameters for SendWhatsAppReadReceipt.
+type SendWhatsAppReadReceiptParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListWhatsAppTemplatesParams defines parameters for ListWhatsAppTemplates.
@@ -17812,6 +18648,12 @@ type TestWebhookJSONRequestBody = WebhookTestRequest
 
 // CreateWhatsAppMessageJSONRequestBody defines body for CreateWhatsAppMessage for application/json ContentType.
 type CreateWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
+
+// UpsertWhatsAppMessageReactionJSONRequestBody defines body for UpsertWhatsAppMessageReaction for application/json ContentType.
+type UpsertWhatsAppMessageReactionJSONRequestBody = WhatsAppReactionUpsert
+
+// SendWhatsAppReadReceiptJSONRequestBody defines body for SendWhatsAppReadReceipt for application/json ContentType.
+type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
@@ -19986,6 +20828,34 @@ func (t *WebhookEvent) MergeEventWhatsAppFailed(v EventWhatsAppFailed) error {
 	return err
 }
 
+// AsEventWhatsAppReacted returns the union data inside the WebhookEvent as a EventWhatsAppReacted
+func (t WebhookEvent) AsEventWhatsAppReacted() (EventWhatsAppReacted, error) {
+	var body EventWhatsAppReacted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppReacted overwrites any union data inside the WebhookEvent as the provided EventWhatsAppReacted
+func (t *WebhookEvent) FromEventWhatsAppReacted(v EventWhatsAppReacted) error {
+	v.Type = "whatsapp.reacted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppReacted performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppReacted
+func (t *WebhookEvent) MergeEventWhatsAppReacted(v EventWhatsAppReacted) error {
+	v.Type = "whatsapp.reacted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventWhatsAppRead returns the union data inside the WebhookEvent as a EventWhatsAppRead
 func (t WebhookEvent) AsEventWhatsAppRead() (EventWhatsAppRead, error) {
 	var body EventWhatsAppRead
@@ -20236,6 +21106,8 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventWhatsAppDelivered()
 	case "whatsapp.failed":
 		return t.AsEventWhatsAppFailed()
+	case "whatsapp.reacted":
+		return t.AsEventWhatsAppReacted()
 	case "whatsapp.read":
 		return t.AsEventWhatsAppRead()
 	case "whatsapp.received":
@@ -21746,6 +22618,22 @@ type ClientInterface interface {
 
 	// GetWhatsAppMessageMedia request
 	GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppMessageReaction request
+	DeleteWhatsAppMessageReaction(ctx context.Context, messageId WhatsAppMessageID, params *DeleteWhatsAppMessageReactionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpsertWhatsAppMessageReactionWithBody request with any body
+	UpsertWhatsAppMessageReactionWithBody(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpsertWhatsAppMessageReaction(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, body UpsertWhatsAppMessageReactionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppMessageReactionEvents request
+	ListWhatsAppMessageReactionEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageReactionEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SendWhatsAppReadReceiptWithBody request with any body
+	SendWhatsAppReadReceiptWithBody(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppTemplates request
 	ListWhatsAppTemplates(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -23931,6 +24819,78 @@ func (c *Client) ListWhatsAppMessageEvents(ctx context.Context, messageId WhatsA
 
 func (c *Client) GetWhatsAppMessageMedia(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppMessageMediaRequest(c.Server, messageId, mediaId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppMessageReaction(ctx context.Context, messageId WhatsAppMessageID, params *DeleteWhatsAppMessageReactionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppMessageReactionRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertWhatsAppMessageReactionWithBody(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertWhatsAppMessageReactionRequestWithBody(c.Server, messageId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertWhatsAppMessageReaction(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, body UpsertWhatsAppMessageReactionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertWhatsAppMessageReactionRequest(c.Server, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppMessageReactionEvents(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageReactionEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppMessageReactionEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendWhatsAppReadReceiptWithBody(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendWhatsAppReadReceiptRequestWithBody(c.Server, messageId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendWhatsAppReadReceiptRequest(c.Server, messageId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -35692,6 +36652,264 @@ func NewGetWhatsAppMessageMediaRequest(server string, messageId WhatsAppMessageI
 	return req, nil
 }
 
+// NewDeleteWhatsAppMessageReactionRequest generates requests for DeleteWhatsAppMessageReaction
+func NewDeleteWhatsAppMessageReactionRequest(server string, messageId WhatsAppMessageID, params *DeleteWhatsAppMessageReactionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/messages/%s/reaction", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpsertWhatsAppMessageReactionRequest calls the generic UpsertWhatsAppMessageReaction builder with application/json body
+func NewUpsertWhatsAppMessageReactionRequest(server string, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, body UpsertWhatsAppMessageReactionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpsertWhatsAppMessageReactionRequestWithBody(server, messageId, params, "application/json", bodyReader)
+}
+
+// NewUpsertWhatsAppMessageReactionRequestWithBody generates requests for UpsertWhatsAppMessageReaction with any type of body
+func NewUpsertWhatsAppMessageReactionRequestWithBody(server string, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/messages/%s/reaction", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppMessageReactionEventsRequest generates requests for ListWhatsAppMessageReactionEvents
+func NewListWhatsAppMessageReactionEventsRequest(server string, messageId WhatsAppMessageID, params *ListWhatsAppMessageReactionEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/messages/%s/reaction-events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSendWhatsAppReadReceiptRequest calls the generic SendWhatsAppReadReceipt builder with application/json body
+func NewSendWhatsAppReadReceiptRequest(server string, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSendWhatsAppReadReceiptRequestWithBody(server, messageId, params, "application/json", bodyReader)
+}
+
+// NewSendWhatsAppReadReceiptRequestWithBody generates requests for SendWhatsAppReadReceipt with any type of body
+func NewSendWhatsAppReadReceiptRequestWithBody(server string, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/messages/%s/read", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppTemplatesRequest generates requests for ListWhatsAppTemplates
 func NewListWhatsAppTemplatesRequest(server string, params *ListWhatsAppTemplatesParams) (*http.Request, error) {
 	var err error
@@ -36654,6 +37872,22 @@ type ClientWithResponsesInterface interface {
 	// GetWhatsAppMessageMediaWithResponse request
 	GetWhatsAppMessageMediaWithResponse(ctx context.Context, messageId WhatsAppMessageID, mediaId WhatsAppFileID, reqEditors ...RequestEditorFn) (*GetWhatsAppMessageMediaResponse, error)
 
+	// DeleteWhatsAppMessageReactionWithResponse request
+	DeleteWhatsAppMessageReactionWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *DeleteWhatsAppMessageReactionParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppMessageReactionResponse, error)
+
+	// UpsertWhatsAppMessageReactionWithBodyWithResponse request with any body
+	UpsertWhatsAppMessageReactionWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertWhatsAppMessageReactionResponse, error)
+
+	UpsertWhatsAppMessageReactionWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, body UpsertWhatsAppMessageReactionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertWhatsAppMessageReactionResponse, error)
+
+	// ListWhatsAppMessageReactionEventsWithResponse request
+	ListWhatsAppMessageReactionEventsWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageReactionEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessageReactionEventsResponse, error)
+
+	// SendWhatsAppReadReceiptWithBodyWithResponse request with any body
+	SendWhatsAppReadReceiptWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
+
+	SendWhatsAppReadReceiptWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
+
 	// ListWhatsAppTemplatesWithResponse request
 	ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error)
 
@@ -36721,6 +37955,7 @@ type CreateAudienceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -36757,6 +37992,7 @@ type DeleteAudienceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -36830,6 +38066,7 @@ type UpdateAudienceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -36902,6 +38139,7 @@ type AssignAudienceContactsResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -36938,6 +38176,7 @@ type UnassignAudienceContactsResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -36973,6 +38212,7 @@ type UnassignAudienceContactResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37045,6 +38285,7 @@ type CreateContactPropertyResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37118,6 +38359,7 @@ type UpdateContactPropertyResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37155,6 +38397,7 @@ type ArchiveContactPropertyResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37192,6 +38435,7 @@ type UnarchiveContactPropertyResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37264,6 +38508,7 @@ type CreateContactResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37300,6 +38545,7 @@ type CreateContactBatchResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37335,6 +38581,7 @@ type DeleteContactResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37409,6 +38656,7 @@ type UpdateContactResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37483,6 +38731,7 @@ type CreateEmailMessageBatchResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37555,6 +38804,7 @@ type CreateDomainResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37591,6 +38841,7 @@ type DeleteDomainResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37665,6 +38916,7 @@ type UpdateDomainResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37701,6 +38953,7 @@ type VerifyDomainResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37774,6 +39027,7 @@ type CreateMailboxResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37810,6 +39064,7 @@ type DeleteMailboxResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37885,6 +39140,7 @@ type UpdateMailboxResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -37960,6 +39216,7 @@ type CreateMailboxMessageResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38034,6 +39291,7 @@ type CreateMailboxReceiveRuleResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38069,6 +39327,7 @@ type DeleteMailboxReceiveRuleResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38106,6 +39365,7 @@ type RestoreMailboxResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38143,6 +39403,7 @@ type ResumeMailboxResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38254,6 +39515,7 @@ type CreateEmailMessageResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -38326,6 +39588,7 @@ type CancelEmailMessageResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39024,6 +40287,7 @@ type DeleteEmailThreadResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39099,6 +40363,7 @@ type UpdateEmailThreadResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39287,6 +40552,7 @@ type ReplyEmailThreadMessageResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39544,6 +40810,7 @@ type CreateNumbersOrderResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39616,6 +40883,7 @@ type ReleaseWorkspaceNumberResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39724,6 +40992,7 @@ type CreatePreferenceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39760,6 +41029,7 @@ type DeletePreferenceResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39833,6 +41103,7 @@ type PublishRealtimeAppBatchResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -39981,6 +41252,7 @@ type PublishRealtimeAppEventResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40017,6 +41289,7 @@ type DisconnectRealtimeAppMemberResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40053,6 +41326,7 @@ type SendRealtimeAppMemberEventResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40090,6 +41364,7 @@ type CreateSMSMessageBatchResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40162,6 +41437,7 @@ type CreateSMSKeywordRuleResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40197,6 +41473,7 @@ type DeleteSMSKeywordRuleResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40271,6 +41548,7 @@ type UpdateSMSKeywordRuleResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -40344,6 +41622,7 @@ type CreateSMSMessageResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41082,6 +42361,7 @@ type CreateSMSSuppressionResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41117,6 +42397,7 @@ type DeleteSMSSuppressionResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41481,6 +42762,7 @@ type CreateWebhookResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41516,6 +42798,7 @@ type DeleteWebhookResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41589,6 +42872,7 @@ type UpdateWebhookResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41661,6 +42945,7 @@ type RotateWebhookSecretResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41699,6 +42984,7 @@ type TestWebhookResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -41904,6 +43190,155 @@ func (r GetWhatsAppMessageMediaResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetWhatsAppMessageMediaResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppMessageReactionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppMessageReactionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppMessageReactionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppMessageReactionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpsertWhatsAppMessageReactionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppReactionAccepted
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpsertWhatsAppMessageReactionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpsertWhatsAppMessageReactionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpsertWhatsAppMessageReactionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppMessageReactionEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppReactionEventList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppMessageReactionEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppMessageReactionEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppMessageReactionEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SendWhatsAppReadReceiptResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppReadReceipt
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SendWhatsAppReadReceiptResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SendWhatsAppReadReceiptResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SendWhatsAppReadReceiptResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -43752,6 +45187,58 @@ func (c *ClientWithResponses) GetWhatsAppMessageMediaWithResponse(ctx context.Co
 	return ParseGetWhatsAppMessageMediaResponse(rsp)
 }
 
+// DeleteWhatsAppMessageReactionWithResponse request returning *DeleteWhatsAppMessageReactionResponse
+func (c *ClientWithResponses) DeleteWhatsAppMessageReactionWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *DeleteWhatsAppMessageReactionParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppMessageReactionResponse, error) {
+	rsp, err := c.DeleteWhatsAppMessageReaction(ctx, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppMessageReactionResponse(rsp)
+}
+
+// UpsertWhatsAppMessageReactionWithBodyWithResponse request with arbitrary body returning *UpsertWhatsAppMessageReactionResponse
+func (c *ClientWithResponses) UpsertWhatsAppMessageReactionWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertWhatsAppMessageReactionResponse, error) {
+	rsp, err := c.UpsertWhatsAppMessageReactionWithBody(ctx, messageId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertWhatsAppMessageReactionResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpsertWhatsAppMessageReactionWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *UpsertWhatsAppMessageReactionParams, body UpsertWhatsAppMessageReactionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertWhatsAppMessageReactionResponse, error) {
+	rsp, err := c.UpsertWhatsAppMessageReaction(ctx, messageId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertWhatsAppMessageReactionResponse(rsp)
+}
+
+// ListWhatsAppMessageReactionEventsWithResponse request returning *ListWhatsAppMessageReactionEventsResponse
+func (c *ClientWithResponses) ListWhatsAppMessageReactionEventsWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *ListWhatsAppMessageReactionEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessageReactionEventsResponse, error) {
+	rsp, err := c.ListWhatsAppMessageReactionEvents(ctx, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppMessageReactionEventsResponse(rsp)
+}
+
+// SendWhatsAppReadReceiptWithBodyWithResponse request with arbitrary body returning *SendWhatsAppReadReceiptResponse
+func (c *ClientWithResponses) SendWhatsAppReadReceiptWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error) {
+	rsp, err := c.SendWhatsAppReadReceiptWithBody(ctx, messageId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendWhatsAppReadReceiptResponse(rsp)
+}
+
+func (c *ClientWithResponses) SendWhatsAppReadReceiptWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error) {
+	rsp, err := c.SendWhatsAppReadReceipt(ctx, messageId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendWhatsAppReadReceiptResponse(rsp)
+}
+
 // ListWhatsAppTemplatesWithResponse request returning *ListWhatsAppTemplatesResponse
 func (c *ClientWithResponses) ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error) {
 	rsp, err := c.ListWhatsAppTemplates(ctx, params, reqEditors...)
@@ -43939,6 +45426,13 @@ func ParseCreateAudienceResponse(rsp *http.Response) (*CreateAudienceResponse, e
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44006,6 +45500,13 @@ func ParseDeleteAudienceResponse(rsp *http.Response) (*DeleteAudienceResponse, e
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -44150,6 +45651,13 @@ func ParseUpdateAudienceResponse(rsp *http.Response) (*UpdateAudienceResponse, e
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44286,6 +45794,13 @@ func ParseAssignAudienceContactsResponse(rsp *http.Response) (*AssignAudienceCon
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44354,6 +45869,13 @@ func ParseUnassignAudienceContactsResponse(rsp *http.Response) (*UnassignAudienc
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44414,6 +45936,13 @@ func ParseUnassignAudienceContactResponse(rsp *http.Response) (*UnassignAudience
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -44550,6 +46079,13 @@ func ParseCreateContactPropertyResponse(rsp *http.Response) (*CreateContactPrope
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -44694,6 +46230,13 @@ func ParseUpdateContactPropertyResponse(rsp *http.Response) (*UpdateContactPrope
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44769,6 +46312,13 @@ func ParseArchiveContactPropertyResponse(rsp *http.Response) (*ArchiveContactPro
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -44843,6 +46393,13 @@ func ParseUnarchiveContactPropertyResponse(rsp *http.Response) (*UnarchiveContac
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -44980,6 +46537,13 @@ func ParseCreateContactResponse(rsp *http.Response) (*CreateContactResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45048,6 +46612,13 @@ func ParseCreateContactBatchResponse(rsp *http.Response) (*CreateContactBatchRes
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45108,6 +46679,13 @@ func ParseDeleteContactResponse(rsp *http.Response) (*DeleteContactResponse, err
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -45259,6 +46837,13 @@ func ParseUpdateContactResponse(rsp *http.Response) (*UpdateContactResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45409,6 +46994,13 @@ func ParseCreateEmailMessageBatchResponse(rsp *http.Response) (*CreateEmailMessa
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45545,6 +47137,13 @@ func ParseCreateDomainResponse(rsp *http.Response) (*CreateDomainResponse, error
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45612,6 +47211,13 @@ func ParseDeleteDomainResponse(rsp *http.Response) (*DeleteDomainResponse, error
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -45763,6 +47369,13 @@ func ParseUpdateDomainResponse(rsp *http.Response) (*UpdateDomainResponse, error
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -45830,6 +47443,13 @@ func ParseVerifyDomainResponse(rsp *http.Response) (*VerifyDomainResponse, error
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -45974,6 +47594,13 @@ func ParseCreateMailboxResponse(rsp *http.Response) (*CreateMailboxResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -46041,6 +47668,13 @@ func ParseDeleteMailboxResponse(rsp *http.Response) (*DeleteMailboxResponse, err
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -46199,6 +47833,13 @@ func ParseUpdateMailboxResponse(rsp *http.Response) (*UpdateMailboxResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -46356,6 +47997,13 @@ func ParseCreateMailboxMessageResponse(rsp *http.Response) (*CreateMailboxMessag
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -46506,6 +48154,13 @@ func ParseCreateMailboxReceiveRuleResponse(rsp *http.Response) (*CreateMailboxRe
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -46566,6 +48221,13 @@ func ParseDeleteMailboxReceiveRuleResponse(rsp *http.Response) (*DeleteMailboxRe
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -46642,6 +48304,13 @@ func ParseRestoreMailboxResponse(rsp *http.Response) (*RestoreMailboxResponse, e
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -46716,6 +48385,13 @@ func ParseResumeMailboxResponse(rsp *http.Response) (*ResumeMailboxResponse, err
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -46942,6 +48618,13 @@ func ParseCreateEmailMessageResponse(rsp *http.Response) (*CreateEmailMessageRes
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -47077,6 +48760,13 @@ func ParseCancelEmailMessageResponse(rsp *http.Response) (*CancelEmailMessageRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -48468,6 +50158,13 @@ func ParseDeleteEmailThreadResponse(rsp *http.Response) (*DeleteEmailThreadRespo
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -48624,6 +50321,13 @@ func ParseUpdateEmailThreadResponse(rsp *http.Response) (*UpdateEmailThreadRespo
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -49020,6 +50724,13 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -49532,6 +51243,13 @@ func ParseCreateNumbersOrderResponse(rsp *http.Response) (*CreateNumbersOrderRes
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -49667,6 +51385,13 @@ func ParseReleaseWorkspaceNumberResponse(rsp *http.Response) (*ReleaseWorkspaceN
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -49872,6 +51597,13 @@ func ParseCreatePreferenceResponse(rsp *http.Response) (*CreatePreferenceRespons
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -49939,6 +51671,13 @@ func ParseDeletePreferenceResponse(rsp *http.Response) (*DeletePreferenceRespons
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -50082,6 +51821,13 @@ func ParsePublishRealtimeAppBatchResponse(rsp *http.Response) (*PublishRealtimeA
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -50383,6 +52129,13 @@ func ParsePublishRealtimeAppEventResponse(rsp *http.Response) (*PublishRealtimeA
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -50451,6 +52204,13 @@ func ParseDisconnectRealtimeAppMemberResponse(rsp *http.Response) (*DisconnectRe
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -50518,6 +52278,13 @@ func ParseSendRealtimeAppMemberEventResponse(rsp *http.Response) (*SendRealtimeA
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -50593,6 +52360,13 @@ func ParseCreateSMSMessageBatchResponse(rsp *http.Response) (*CreateSMSMessageBa
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -50730,6 +52504,13 @@ func ParseCreateSMSKeywordRuleResponse(rsp *http.Response) (*CreateSMSKeywordRul
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -50790,6 +52571,13 @@ func ParseDeleteSMSKeywordRuleResponse(rsp *http.Response) (*DeleteSMSKeywordRul
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -50941,6 +52729,13 @@ func ParseUpdateSMSKeywordRuleResponse(rsp *http.Response) (*UpdateSMSKeywordRul
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -51083,6 +52878,13 @@ func ParseCreateSMSMessageResponse(rsp *http.Response) (*CreateSMSMessageRespons
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -52570,6 +54372,13 @@ func ParseCreateSMSSuppressionResponse(rsp *http.Response) (*CreateSMSSuppressio
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -52630,6 +54439,13 @@ func ParseDeleteSMSSuppressionResponse(rsp *http.Response) (*DeleteSMSSuppressio
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -53339,6 +55155,13 @@ func ParseCreateWebhookResponse(rsp *http.Response) (*CreateWebhookResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -53399,6 +55222,13 @@ func ParseDeleteWebhookResponse(rsp *http.Response) (*DeleteWebhookResponse, err
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -53543,6 +55373,13 @@ func ParseUpdateWebhookResponse(rsp *http.Response) (*UpdateWebhookResponse, err
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -53679,6 +55516,13 @@ func ParseRotateWebhookSecretResponse(rsp *http.Response) (*RotateWebhookSecretR
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -53760,6 +55604,13 @@ func ParseTestWebhookResponse(rsp *http.Response) (*TestWebhookResponse, error) 
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -54135,6 +55986,313 @@ func ParseGetWhatsAppMessageMediaResponse(rsp *http.Response) (*GetWhatsAppMessa
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppMessageReactionResponse parses an HTTP response from a DeleteWhatsAppMessageReactionWithResponse call
+func ParseDeleteWhatsAppMessageReactionResponse(rsp *http.Response) (*DeleteWhatsAppMessageReactionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppMessageReactionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpsertWhatsAppMessageReactionResponse parses an HTTP response from a UpsertWhatsAppMessageReactionWithResponse call
+func ParseUpsertWhatsAppMessageReactionResponse(rsp *http.Response) (*UpsertWhatsAppMessageReactionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpsertWhatsAppMessageReactionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppReactionAccepted
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppMessageReactionEventsResponse parses an HTTP response from a ListWhatsAppMessageReactionEventsWithResponse call
+func ParseListWhatsAppMessageReactionEventsResponse(rsp *http.Response) (*ListWhatsAppMessageReactionEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppMessageReactionEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppReactionEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSendWhatsAppReadReceiptResponse parses an HTTP response from a SendWhatsAppReadReceiptWithResponse call
+func ParseSendWhatsAppReadReceiptResponse(rsp *http.Response) (*SendWhatsAppReadReceiptResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SendWhatsAppReadReceiptResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppReadReceipt
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

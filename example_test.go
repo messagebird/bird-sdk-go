@@ -493,6 +493,62 @@ func ExampleWhatsappService_ListEvents() {
 	}
 }
 
+// Acknowledge a received WhatsApp message, showing a typing indicator while a
+// reply is composed.
+func ExampleWhatsappService_MarkRead() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ack, err := client.Whatsapp.MarkRead(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappMarkReadParams{
+		TypingIndicator: bird.Ptr(true),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(ack.TypingIndicator)
+}
+
+// React to a received WhatsApp message.
+func ExampleWhatsappReactionService_Set() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	reaction, err := client.Whatsapp.Reaction.Set(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappReactionSetParams{
+		Emoji: "\U0001F44D",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(reaction.Id, reaction.Emoji)
+}
+
+// Take back the reaction this workspace placed on a message.
+func ExampleWhatsappReactionService_Remove() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.Reaction.Remove(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+// Read what became of each change to a message's reactions, newest first.
+func ExampleWhatsappReactionService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for event, err := range client.Whatsapp.Reaction.ListEvents(context.Background(), "wam_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappReactionListEventsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(event.Id, event.Emoji, event.Status)
+	}
+}
+
 // Create a contact. Unset optional fields are omitted from the request.
 func ExampleContactsService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

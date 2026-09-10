@@ -58,6 +58,7 @@ const (
 	EventTypeWhatsappAccepted             = oapi.EventTypeWhatsappAccepted
 	EventTypeWhatsappDelivered            = oapi.EventTypeWhatsappDelivered
 	EventTypeWhatsappFailed               = oapi.EventTypeWhatsappFailed
+	EventTypeWhatsappReacted              = oapi.EventTypeWhatsappReacted
 	EventTypeWhatsappRead                 = oapi.EventTypeWhatsappRead
 	EventTypeWhatsappReceived             = oapi.EventTypeWhatsappReceived
 	EventTypeWhatsappRejected             = oapi.EventTypeWhatsappRejected

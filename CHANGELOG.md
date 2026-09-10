@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.63.0
+
+- Add the whatsapp.reacted webhook event, raised when a contact places, changes or takes back a reaction on a message.
+- Acknowledge and react to WhatsApp messages a contact sent you: mark one read, optionally showing a typing indicator while you compose a reply, place or replace an emoji reaction, take yours back, and read the log of every change to a message's reactions. A message's standing `reactions` are now returned alongside it.
+- Email `parameters` help now explains when inline content uses Liquid and how to preserve literal template delimiters.
+- Preserve empty email parameters so Liquid expressions work without named values.
+
 ## 0.62.0
 
 - Add `client.Whatsapp.Templates` methods to list and get WhatsApp templates, their versions, and each version's languages.

@@ -113,6 +113,109 @@ func TestSendSuccess(t *testing.T) {
 	}
 }
 
+func TestEmailSendParametersPreservePresence(t *testing.T) {
+	tests := []struct {
+		name       string
+		parameters map[string]any
+		want       string
+		present    bool
+	}{
+		{name: "absent", parameters: nil},
+		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
+		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var requestBody []byte
+			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+				requestBody, _ = io.ReadAll(r.Body)
+				w.WriteHeader(http.StatusCreated)
+				_, _ = io.WriteString(w, messageJSON)
+			})
+			client := newClient(t, server)
+
+			_, err := client.Email.Send(context.Background(), bird.EmailSendParams{
+				From:       "hello@acme.com",
+				To:         []string{"customer@example.com"},
+				Subject:    "Welcome",
+				Text:       "Hi {{ first_name }}",
+				Parameters: tt.parameters,
+			})
+			if err != nil {
+				t.Fatalf("Send: %v", err)
+			}
+
+			var sent map[string]json.RawMessage
+			if err := json.Unmarshal(requestBody, &sent); err != nil {
+				t.Fatalf("decode request body: %v", err)
+			}
+			got, present := sent["parameters"]
+			if present != tt.present {
+				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
+			}
+			if present && string(got) != tt.want {
+				t.Errorf("parameters = %s, want %s", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestEmailSendBatchParametersPreservePresence(t *testing.T) {
+	tests := []struct {
+		name       string
+		parameters map[string]any
+		want       string
+		present    bool
+	}{
+		{name: "absent", parameters: nil},
+		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
+		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var requestBody []byte
+			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+				requestBody, _ = io.ReadAll(r.Body)
+				w.WriteHeader(http.StatusCreated)
+				_, _ = io.WriteString(w, `{"data":[]}`)
+			})
+			client := newClient(t, server)
+
+			_, err := client.Email.SendBatch(context.Background(), bird.EmailSendBatchParams{
+				Messages: []bird.EmailSendParams{{
+					From:       "hello@acme.com",
+					To:         []string{"customer@example.com"},
+					Subject:    "Welcome",
+					Text:       "Hi {{ first_name }}",
+					Parameters: tt.parameters,
+				}},
+			})
+			if err != nil {
+				t.Fatalf("SendBatch: %v", err)
+			}
+
+			var sent struct {
+				Messages []map[string]json.RawMessage `json:"messages"`
+			}
+			if err := json.Unmarshal(requestBody, &sent); err != nil {
+				t.Fatalf("decode request body: %v", err)
+			}
+			if len(sent.Messages) != 1 {
+				t.Fatalf("message count = %d, want 1", len(sent.Messages))
+			}
+			got, present := sent.Messages[0]["parameters"]
+			if present != tt.present {
+				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
+			}
+			if present && string(got) != tt.want {
+				t.Errorf("parameters = %s, want %s", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestSendTemplateLanguage(t *testing.T) {
 	var gotBody string
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {

@@ -75,6 +75,10 @@ output-options:
     - getWhatsAppMessage
     - listWhatsAppMessages
     - listWhatsAppMessageEvents
+    - sendWhatsAppReadReceipt
+    - upsertWhatsAppMessageReaction
+    - deleteWhatsAppMessageReaction
+    - listWhatsAppMessageReactionEvents
     - getWhatsAppMessageMedia
     - listWhatsAppTemplates
     - getWhatsAppTemplate

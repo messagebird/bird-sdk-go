@@ -19,6 +19,9 @@ type WhatsappService struct {
 
 	// Templates reads the workspace's template registry.
 	Templates *WhatsappTemplatesService
+
+	// Reaction places, removes and follows the emoji reactions on one message.
+	Reaction *WhatsappReactionService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind

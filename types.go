@@ -320,6 +320,26 @@ type (
 // WhatsAppMessageStatus is a message's delivery status.
 type WhatsAppMessageStatus = oapi.WhatsAppMessageStatus
 
+// WhatsAppReadReceipt is the acknowledgement Bird accepted for an inbound
+// message. Nothing reports back afterwards: WhatsApp publishes no callback for
+// one.
+type WhatsAppReadReceipt = oapi.WhatsAppReadReceipt
+
+// WhatsAppReaction is a reaction standing on a message right now, one per
+// sender; WhatsAppReactionAccepted is the reaction a place request accepted,
+// which names the log entry it created.
+type (
+	WhatsAppReaction         = oapi.WhatsAppReaction
+	WhatsAppReactionAccepted = oapi.WhatsAppReactionAccepted
+)
+
+// WhatsAppReactionEvent is one change to a message's reactions — an emoji
+// placed, replaced, or taken back; WhatsAppReactionEventList is a page of them.
+type (
+	WhatsAppReactionEvent     = oapi.WhatsAppReactionEvent
+	WhatsAppReactionEventList = oapi.WhatsAppReactionEventList
+)
+
 // WhatsAppEvent is a single lifecycle event on a message's timeline;
 // WhatsAppEventList is the (unpaginated) timeline for one message.
 type (
