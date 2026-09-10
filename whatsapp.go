@@ -14,6 +14,8 @@ import (
 type WhatsappService struct {
 	resource
 
+	// Stats reads aggregate statistics over the workspace's WhatsApp traffic.
+	Stats *WhatsappStatsService
 	// Messages reaches the subresources one message owns.
 	Messages *WhatsappMessagesService
 

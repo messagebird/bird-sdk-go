@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.64.0
+
+- Add `whatsapp.stats` reads over the workspace's own WhatsApp traffic: the period summary, the daily and hourly series, and breakdowns by template, template category, phone number, error code, tag, and destination country, with received-message counts under `whatsapp.stats.inbound`.
+
 ## 0.63.0
 
 - Add the whatsapp.reacted webhook event, raised when a contact places, changes or takes back a reaction on a message.

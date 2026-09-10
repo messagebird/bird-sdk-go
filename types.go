@@ -378,6 +378,28 @@ type (
 	EmailLookup       = oapi.EmailLookup
 )
 
+// WhatsApp statistics responses, returned by the Client.Whatsapp.Stats methods.
+// Each is the read-side body for one breakdown; the Inbound set counts
+// messages the workspace's own numbers received rather than what it sent.
+type (
+	// WhatsAppStatsSummary is the delivery and latency totals for a window,
+	// optionally with a previous-period comparison. Returned by Stats.Summary.
+	WhatsAppStatsSummary = oapi.WhatsAppStatsSummary
+	// WhatsAppStatsResponse is a time series of per-bucket points. Returned by
+	// Stats.Daily and Stats.Hourly.
+	WhatsAppStatsResponse                   = oapi.WhatsAppStatsResponse
+	WhatsAppStatsByErrorCodeResponse        = oapi.WhatsAppStatsByErrorCodeResponse
+	WhatsAppStatsByTemplateResponse         = oapi.WhatsAppStatsByTemplateResponse
+	WhatsAppStatsByTemplateCategoryResponse = oapi.WhatsAppStatsByTemplateCategoryResponse
+	WhatsAppStatsByTagResponse              = oapi.WhatsAppStatsByTagResponse
+	WhatsAppStatsByPhoneNumberResponse      = oapi.WhatsAppStatsByPhoneNumberResponse
+	WhatsAppStatsByCountryResponse          = oapi.WhatsAppStatsByCountryResponse
+
+	WhatsAppInboundStatsSummaryResponse       = oapi.WhatsAppInboundStatsSummaryResponse
+	WhatsAppInboundStatsResponse              = oapi.WhatsAppInboundStatsResponse
+	WhatsAppInboundStatsByPhoneNumberResponse = oapi.WhatsAppInboundStatsByPhoneNumberResponse
+)
+
 // WhatsAppMessageTemplateComponent is a filled-in template component — supplied
 // on a template send and echoed back on the sent message.
 // WhatsAppMessageTemplateComponentParameter is one of its placeholder values.

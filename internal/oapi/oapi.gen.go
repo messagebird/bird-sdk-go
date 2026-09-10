@@ -13804,6 +13804,57 @@ type WhatsAppContactUrlSend struct {
 	Url string `json:"url"`
 }
 
+// WhatsAppCountryStatsPoint Lifecycle counts, derived rates, engagement and latency for a single destination country over the requested period.
+type WhatsAppCountryStatsPoint struct {
+	// Country The destination country this row aggregates, as an ISO 3166-1 alpha-2 code. `ZZ` collects recipients whose country could not be resolved.
+	Country    *CountryCode             `json:"country,omitempty"`
+	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
+}
+
+// WhatsAppDeliveryCounts WhatsApp lifecycle counts for a time bucket, attributed by send time. A message accepted on Monday and delivered on Tuesday counts in Monday's bucket. The sibling `engagement` block reports read counts. Rates are available only for the whole period. Very large counts are close estimates rather than exact tallies.
+type WhatsAppDeliveryCounts struct {
+	// Accepted Distinct messages accepted for sending after admission checks.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// Delivered Distinct messages confirmed delivered to the recipient's device.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// Failed Distinct messages that failed during sending or delivery.
+	Failed *int `json:"failed,omitempty"`
+
+	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, or the wallet could not fund the send. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
+	Rejected *int `json:"rejected,omitempty"`
+
+	// Sent Distinct messages handed off for delivery.
+	Sent *int `json:"sent,omitempty"`
+}
+
+// WhatsAppDeliveryStats WhatsApp lifecycle counts and rates for the requested period, attributed by send time, so a later delivery stays attributed to the period in which its message was accepted, and a recent period under-reports `delivered` while delivery reports are still arriving. The sibling `engagement` block reports read counts and rates. Rates are null when their denominator is zero. Very large counts are close estimates rather than exact tallies.
+type WhatsAppDeliveryStats struct {
+	// Accepted Distinct messages accepted for sending after admission checks. This is the denominator for `delivery_rate` and `failure_rate`.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// Delivered Distinct messages confirmed delivered to the recipient's device.
+	Delivered *int `json:"delivered,omitempty"`
+
+	// DeliveryRate Share of accepted messages that were delivered, computed as `delivered / accepted`. Null when no messages were accepted in scope.
+	DeliveryRate *float32 `json:"delivery_rate,omitempty"`
+
+	// Failed Distinct messages that failed during sending or delivery.
+	Failed *int `json:"failed,omitempty"`
+
+	// FailureRate Share of accepted messages that ultimately failed, computed as `failed / accepted`. Null when no messages were accepted in scope.
+	FailureRate *float32 `json:"failure_rate,omitempty"`
+
+	// Rejected Distinct messages rejected before any send attempt, because the recipient is on the workspace's suppression list, no reachable recipient was given, the destination has no price, or the wallet could not fund the send. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `failure_rate`, which covers send failures only.
+	Rejected *int `json:"rejected,omitempty"`
+
+	// Sent Distinct messages handed off for delivery.
+	Sent *int `json:"sent,omitempty"`
+}
+
 // WhatsAppDocument defines model for WhatsAppDocument.
 type WhatsAppDocument struct {
 	// Caption Text shown beneath the document. Absent when the sender wrote none.
@@ -13832,6 +13883,21 @@ type WhatsAppDocumentSend struct {
 
 	// Url Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
 	Url string `json:"url"`
+}
+
+// WhatsAppEngagementCounts WhatsApp engagement counts for a time bucket, attributed by send time. A message accepted on Monday and read on Tuesday counts in Monday's bucket. Read rates are available only for the whole period. Very large counts are close estimates rather than exact tallies.
+type WhatsAppEngagementCounts struct {
+	// Read Distinct messages confirmed read by the recipient.
+	Read *int `json:"read,omitempty"`
+}
+
+// WhatsAppEngagementStats WhatsApp engagement counts and the derived read rate for the scope of the containing row (the whole requested period or a breakdown dimension). The `read` field is the number of distinct messages confirmed read by the recipient. Send time determines attribution; the instant the read receipt arrived does not. A read is counted in the period its message was accepted in, alongside that message's own delivery when one arrived. The read rate divides reads by messages delivered in the same scope and is null when its denominator is zero. Very large counts are close estimates rather than exact tallies.
+type WhatsAppEngagementStats struct {
+	// Read Distinct messages confirmed read by the recipient.
+	Read *int `json:"read,omitempty"`
+
+	// ReadRate Distinct messages read relative to messages delivered in the same scope, computed as `read / delivery.delivered`. Both counts are attributed by send time, so a read is counted alongside its own message's delivery. The rate can exceed 1 where a read receipt arrived for a message whose delivery receipt did not, or, at high volume, because the counts are close estimates. Null when `delivery.delivered` is zero.
+	ReadRate *float32 `json:"read_rate,omitempty"`
 }
 
 // WhatsAppError Failure detail for a message that could not be delivered or was rejected.
@@ -13873,6 +13939,15 @@ type WhatsAppError struct {
 //
 // This is an open enum. Accept unrecognized values.
 type WhatsAppErrorCode string
+
+// WhatsAppErrorCodeStatsPoint Number of failed messages for a single normalized failure reason over the requested period.
+type WhatsAppErrorCodeStatsPoint struct {
+	// Count Distinct messages that failed with this reason in scope.
+	Count *int `json:"count,omitempty"`
+
+	// ErrorCode The normalized failure reason this row aggregates, matching the `last_error.code` reported on an individual failed message.
+	ErrorCode *WhatsAppErrorCode `json:"error_code,omitempty"`
+}
 
 // WhatsAppEvent defines model for WhatsAppEvent.
 type WhatsAppEvent struct {
@@ -13948,6 +14023,73 @@ type WhatsAppImageSend struct {
 
 	// Url Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
 	Url string `json:"url"`
+}
+
+// WhatsAppInboundPhoneNumberStatsPoint Received-message count for a single business phone number over the requested period.
+type WhatsAppInboundPhoneNumberStatsPoint struct {
+	// PhoneNumber The business phone number that received the messages, in E.164 form.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Received Distinct messages the number received in the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// WhatsAppInboundStatsByPhoneNumberResponse Per-phone-number breakdown of received messages for the requested period, ranked by volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppInboundStatsByPhoneNumberResponse struct {
+	// Data Phone-number rows ranked by received-message volume descending, capped at the requested `limit`. A number with no messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]WhatsAppInboundPhoneNumberStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct phone numbers with received messages in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped; raise `limit` (up to 200) or narrow the window to see more.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppInboundStatsComparison The received-message count for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type WhatsAppInboundStatsComparison struct {
+	Delta *WhatsAppInboundStatsComparisonDelta `json:"delta,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the preceding period.
+	Received *int `json:"received,omitempty"`
+}
+
+// WhatsAppInboundStatsComparisonDelta The change from the preceding period to the requested one. The `received_pct_change` field is a signed relative change, computed as `(current - previous) / previous`. A value of `0.5` means 50% higher, and `-0.2` means 20% lower. The field is null when the previous period received none.
+type WhatsAppInboundStatsComparisonDelta struct {
+	// ReceivedPctChange Relative change in received messages versus the previous period, as a signed fraction. Null when the previous period received none.
+	ReceivedPctChange *float32 `json:"received_pct_change,omitempty"`
+}
+
+// WhatsAppInboundStatsPoint Received-message count for one time bucket (a calendar day or hour), bucketed by the time each message reached your number.
+type WhatsAppInboundStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the request's grain.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Received Distinct messages received in this bucket.
+	Received *int `json:"received,omitempty"`
+}
+
+// WhatsAppInboundStatsResponse Received-message time series. `period` echoes the range the server computed against; `data` is one row per bucket in chronological order.
+type WhatsAppInboundStatsResponse struct {
+	// Data One row per bucket (day or hour, matching the request) in the period, in chronological order. Buckets with no activity are included with a count of zero, so the series charts continuously without client-side gap handling.
+	Data *[]WhatsAppInboundStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period WhatsAppStatsSeriesPeriod `json:"period"`
+}
+
+// WhatsAppInboundStatsSummaryResponse Total received messages for the requested period.
+type WhatsAppInboundStatsSummaryResponse struct {
+	Comparison *WhatsAppInboundStatsComparison `json:"comparison,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the period, counted by the time each message reached your number. Computed across the whole window rather than summed from the daily or hourly series, so it can sit slightly below the sum of those rows.
+	Received *int `json:"received,omitempty"`
 }
 
 // WhatsAppInteractive Interactive content of a WhatsApp message: body text plus something the recipient can tap. The field named by `type` is the one that is present, except on `location_request_message` and `request_contact_info`, which name no field: each is a single button asking the recipient for something, so `body_text` is the whole message. Outbound only, and so an echo of what the send asked for: a contact cannot send interactive content, and a tap on it reads as `interactive_reply`, or on a location or contact request as the message the recipient shared in answer. Unlike the send schema, this one does not pin each `type` to its field. The vocabulary in `type` is open, so dispatch on it and treat an unrecognized value as a kind added since. Only the discriminator is open: this schema declares no additional properties, so a new kind's own payload field arrives here in the same change that introduces the kind, which is additive.
@@ -14388,6 +14530,38 @@ type WhatsAppInteractiveType string
 // than accepted and then failed asynchronously.
 type WhatsAppInteractiveTypeWrite string
 
+// WhatsAppLatencyQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+type WhatsAppLatencyQuantiles struct {
+	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P50Ms *int `json:"p50_ms,omitempty"`
+
+	// P95Ms 95th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P95Ms *int `json:"p95_ms,omitempty"`
+
+	// P99Ms 99th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P99Ms *int `json:"p99_ms,omitempty"`
+}
+
+// WhatsAppLatencyStats Latency percentiles in milliseconds for the requested scope:
+//
+// - `processing`: From acceptance to WhatsApp handoff.
+// - `delivery`: From WhatsApp handoff to delivery confirmation.
+// - `total`: From acceptance to delivery confirmation.
+//
+// Each family is omitted when no qualifying message contributes a measurement.
+// Individual percentiles can also be null. `delivery` is measured on a best-effort basis, so
+// it can be absent for a scope whose `processing` and `total` are present.
+type WhatsAppLatencyStats struct {
+	// Delivery Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Delivery *WhatsAppLatencyQuantiles `json:"delivery,omitempty"`
+
+	// Processing Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Processing *WhatsAppLatencyQuantiles `json:"processing,omitempty"`
+
+	// Total Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Total *WhatsAppLatencyQuantiles `json:"total,omitempty"`
+}
+
 // WhatsAppLocation Location content of a WhatsApp message: a point on the map the recipient can open in their maps app.
 type WhatsAppLocation struct {
 	// Address Street address of the place. Shown only when `name` is also set.
@@ -14667,6 +14841,19 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// WhatsAppPhoneNumberStatsPoint Lifecycle counts, rates, and engagement for one business phone number over the requested period, including whether the number is shared.
+type WhatsAppPhoneNumberStatsPoint struct {
+	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
+
+	// PhoneNumber The business sender phone number in E.164 form.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Shared `true` for a shared Bird-managed number; `false` for a number owned by your workspace.
+	Shared *bool `json:"shared,omitempty"`
+}
+
 // WhatsAppReactedEventType Always `whatsapp.reacted` for this event.
 type WhatsAppReactedEventType string
 
@@ -14759,6 +14946,175 @@ type WhatsAppReadReceiptRequest struct {
 // WhatsAppReceivedEventType Event type.
 type WhatsAppReceivedEventType string
 
+// WhatsAppStatsByCountryResponse Per-country breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByCountryResponse struct {
+	// Data Country rows ranked by accepted volume descending. Empty when no eligible activity occurred in the period; rows sum to the summary less group-send volume, and less any pre-cutover phone-addressed sends still inside the window.
+	Data *[]WhatsAppCountryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct countries with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsByErrorCodeResponse Per-error-code failure breakdown for the requested period, ranked by failure count descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByErrorCodeResponse struct {
+	// Data Error-code rows ranked by failure count descending. Empty when no failures occurred in the period.
+	Data *[]WhatsAppErrorCodeStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct error codes with failures in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsByPhoneNumberResponse Per-phone-number breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByPhoneNumberResponse struct {
+	// Data Phone-number rows ranked by accepted volume descending.
+	Data *[]WhatsAppPhoneNumberStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct phone numbers with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsByTagResponse Per-tag breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByTagResponse struct {
+	// Data Tag rows ranked by accepted volume descending.
+	Data *[]WhatsAppTagStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct tags with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsByTemplateCategoryResponse Per-template-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByTemplateCategoryResponse struct {
+	// Data Category rows ranked by accepted volume descending.
+	Data *[]WhatsAppTemplateCategoryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct categories with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsByTemplateResponse Per-template breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type WhatsAppStatsByTemplateResponse struct {
+	// Data Template rows ranked by accepted volume descending.
+	Data *[]WhatsAppTemplateStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct templates with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// WhatsAppStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type WhatsAppStatsComparison struct {
+	Delivery   *WhatsAppDeliveryStats        `json:"delivery,omitempty"`
+	Delta      *WhatsAppStatsComparisonDelta `json:"delta,omitempty"`
+	Engagement *WhatsAppEngagementStats      `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats         `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+}
+
+// WhatsAppStatsComparisonDelta Changes from the previous period. A `*_pct_change` value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero. A `*_rate_pp` value is the signed difference between rate fractions and is null when either rate is undefined.
+type WhatsAppStatsComparisonDelta struct {
+	// AcceptedPctChange Relative change in accepted messages (`delivery.accepted`) versus the previous period, as a signed fraction. Null when the previous period accepted none.
+	AcceptedPctChange *float32 `json:"accepted_pct_change,omitempty"`
+
+	// DeliveredPctChange Relative change in delivered messages (`delivery.delivered`) versus the previous period, as a signed fraction. Null when the previous period delivered none.
+	DeliveredPctChange *float32 `json:"delivered_pct_change,omitempty"`
+
+	// DeliveryRatePp Signed difference between this period's and the previous period's delivery rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's delivery rate is undefined.
+	DeliveryRatePp *float32 `json:"delivery_rate_pp,omitempty"`
+
+	// FailedPctChange Relative change in failed messages (`delivery.failed`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	FailedPctChange *float32 `json:"failed_pct_change,omitempty"`
+
+	// FailureRatePp Signed difference between this period's and the previous period's failure rate, both fractions in [0,1] (multiply by 100 for percentage points). Null when either period's failure rate is undefined.
+	FailureRatePp *float32 `json:"failure_rate_pp,omitempty"`
+
+	// ReadPctChange Relative change in messages read (`engagement.read`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ReadPctChange *float32 `json:"read_pct_change,omitempty"`
+
+	// ReadRatePp Signed difference between the current and previous read-rate fractions. Multiply by 100 for percentage points. The value can fall outside `[-1, 1]` because a read receipt can arrive for a message whose delivery receipt did not, and high-volume counts are approximate. Null when either rate is undefined.
+	ReadRatePp *float32 `json:"read_rate_pp,omitempty"`
+
+	// RejectedPctChange Relative change in rejected messages (`delivery.rejected`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	RejectedPctChange *float32 `json:"rejected_pct_change,omitempty"`
+
+	// SentPctChange Relative change in sent messages (`delivery.sent`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	SentPctChange *float32 `json:"sent_pct_change,omitempty"`
+}
+
+// WhatsAppStatsPoint WhatsApp lifecycle counts, engagement, and latency percentiles for one time bucket (a calendar day or hour), bucketed by send time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. Rates apply to the whole window rather than individual buckets.
+type WhatsAppStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the period's grain.
+	Bucket     *string                   `json:"bucket,omitempty"`
+	Delivery   *WhatsAppDeliveryCounts   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementCounts `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats     `json:"latency,omitempty"`
+}
+
+// WhatsAppStatsResponse Time-series stats payload. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type WhatsAppStatsResponse struct {
+	// Data One row per day or hour in chronological order. Buckets with no activity contain zero counts.
+	Data *[]WhatsAppStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period WhatsAppStatsSeriesPeriod `json:"period"`
+}
+
+// WhatsAppStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+type WhatsAppStatsSeriesPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant on the hour grain.
+	From *string `json:"from,omitempty"`
+
+	// Grain The bucket grain of the series, either `day` or `hour`.
+	Grain *StatsGrain `json:"grain,omitempty"`
+
+	// To Inclusive end of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant on the hour grain.
+	To *string `json:"to,omitempty"`
+}
+
+// WhatsAppStatsSummary WhatsApp lifecycle counts, rates, engagement, and latency percentiles for the full requested period. Counts aggregate the time buckets. Latency percentiles cover the whole period. Rates are null when their denominator is zero.
+type WhatsAppStatsSummary struct {
+	Comparison *WhatsAppStatsComparison `json:"comparison,omitempty"`
+	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period WhatsAppStatsSummaryPeriod `json:"period"`
+}
+
+// WhatsAppStatsSummaryPeriod The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+type WhatsAppStatsSummaryPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary.
+	From *string `json:"from,omitempty"`
+
+	// To Inclusive end of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary.
+	To *string `json:"to,omitempty"`
+}
+
 // WhatsAppSticker defines model for WhatsAppSticker.
 type WhatsAppSticker struct {
 	// Animated Whether the sticker is animated. Absent on an outbound message.
@@ -14785,6 +15141,16 @@ type WhatsAppSuppressionCreatedEventType string
 
 // WhatsAppSuppressionID defines model for WhatsAppSuppressionID.
 type WhatsAppSuppressionID = string
+
+// WhatsAppTagStatsPoint Lifecycle counts, derived rates, and engagement for a single tag (name:value) over the requested period.
+type WhatsAppTagStatsPoint struct {
+	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
+
+	// Tag The tag this row aggregates, in `name:value` form.
+	Tag *string `json:"tag,omitempty"`
+}
 
 // WhatsAppTemplate A message template: one identity holding a copy of the message per language. Each language is reviewed, priced and paused by Meta on its own, so the template's own status is an aggregate and the per-language detail is in `languages`. A version contains the content.
 type WhatsAppTemplate struct {
@@ -14949,6 +15315,15 @@ type WhatsAppTemplateCardComponent struct {
 // The category determines the sender number and price. This is an open enum.
 // Accept unrecognized values.
 type WhatsAppTemplateCategory string
+
+// WhatsAppTemplateCategoryStatsPoint Lifecycle counts, derived rates, and engagement for a single WhatsApp template category over the requested period.
+type WhatsAppTemplateCategoryStatsPoint struct {
+	// Category The template category this row aggregates.
+	Category   *WhatsAppTemplateCategory `json:"category,omitempty"`
+	Delivery   *WhatsAppDeliveryStats    `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats  `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats     `json:"latency,omitempty"`
+}
 
 // WhatsAppTemplateComponent defines model for WhatsAppTemplateComponent.
 type WhatsAppTemplateComponent struct {
@@ -15219,6 +15594,16 @@ type WhatsAppTemplateSend0 = interface{}
 // WhatsAppTemplateSend1 defines model for .
 type WhatsAppTemplateSend1 = interface{}
 
+// WhatsAppTemplateStatsPoint Lifecycle counts, derived rates, engagement and latency for a single WhatsApp template over the requested period.
+type WhatsAppTemplateStatsPoint struct {
+	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
+	Engagement *WhatsAppEngagementStats `json:"engagement,omitempty"`
+	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
+
+	// TemplateId The template these messages were sent from, using the same `id` the WhatsApp template endpoints return. A send that resolved no template does not appear in this breakdown. A template renamed after it was used to send still reports under this one `id`, and a template deleted after sending keeps its row rather than dropping the messages.
+	TemplateId *WhatsAppTemplateID `json:"template_id,omitempty"`
+}
+
 // WhatsAppTemplateSubmissionError Why the submission itself did not complete. Distinct from `rejection`, which is Meta refusing the content it was given.
 type WhatsAppTemplateSubmissionError struct {
 	// Description Human-readable explanation of why the submission did not complete.
@@ -15431,6 +15816,9 @@ type StatsTimezone = string
 
 // TagFilter defines model for TagFilter.
 type TagFilter = []string
+
+// WhatsAppStatsTemplateFilter defines model for WhatsAppStatsTemplateFilter.
+type WhatsAppStatsTemplateFilter = string
 
 // XWorkspaceId defines model for XWorkspaceId.
 type XWorkspaceId = string
@@ -18494,6 +18882,225 @@ type SendWhatsAppReadReceiptParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetWhatsAppStatsByCountryParams defines parameters for GetWhatsAppStatsByCountry.
+type GetWhatsAppStatsByCountryParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of country rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppStatsDailyParams defines parameters for GetWhatsAppStatsDaily.
+type GetWhatsAppStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
+	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+
+	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+}
+
+// GetWhatsAppStatsByErrorCodeParams defines parameters for GetWhatsAppStatsByErrorCode.
+type GetWhatsAppStatsByErrorCodeParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of error-code rows to return, ranked by failure count descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppStatsHourlyParams defines parameters for GetWhatsAppStatsHourly.
+type GetWhatsAppStatsHourlyParams struct {
+	// From Start of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise. The window may not exceed 30 days (720 hours). Defaults to 168 hours (7 days) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise, so both bounds are inclusive. The window may not exceed 30 days (720 hours). Defaults to the current hour when omitted.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
+	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+
+	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+}
+
+// GetWhatsAppInboundStatsDailyParams defines parameters for GetWhatsAppInboundStatsDaily.
+type GetWhatsAppInboundStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetWhatsAppInboundStatsHourlyParams defines parameters for GetWhatsAppInboundStatsHourly.
+type GetWhatsAppInboundStatsHourlyParams struct {
+	// From Start of the window (RFC 3339 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included. The window may not exceed 30 days (720 hours). Defaults to 168 hours (7 days) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (RFC 3339 instant). Rounded down to the start of its hour (the local hour when `timezone` is set, otherwise the UTC hour), and that hour is included (both bounds inclusive). The window may not exceed 30 days (720 hours). Defaults to the current hour when omitted.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetWhatsAppInboundStatsByPhoneNumberParams defines parameters for GetWhatsAppInboundStatsByPhoneNumber.
+type GetWhatsAppInboundStatsByPhoneNumberParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of phone-number rows to return, ranked by received-message volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppInboundStatsSummaryParams defines parameters for GetWhatsAppInboundStatsSummary.
+type GetWhatsAppInboundStatsSummaryParams struct {
+	// From Inclusive start of the window, either a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The form you use selects the grain the total is resolved at. Interpreted in `timezone`, or in UTC when `timezone` is omitted. Must use the same form as `to`. A numeric UTC offset (for example `+05:45`) is rejected when `timezone` is set; pass a calendar day or a `Z` instant instead. Defaults to 30 days before `to` for day windows, or 168 hours before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, in the same form as `from`. Defaults to today, or the current hour for an hour window. A day window may not exceed 365 days and an hour window 720 hours.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Compare Set to `previous_period` to include the received-message count for the immediately preceding window of equal length. The response also includes the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetWhatsAppStatsByPhoneNumberParams defines parameters for GetWhatsAppStatsByPhoneNumber.
+type GetWhatsAppStatsByPhoneNumberParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of phone-number rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppStatsSummaryParams defines parameters for GetWhatsAppStatsSummary.
+type GetWhatsAppStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `to`. When omitted, it defaults to 30 days before `to` for day windows or 168 hours (7 days) before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `from`. When omitted, it defaults to today for day windows or the current hour for hour windows in that timezone. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Template Restricts the statistics to one template, identified by its ID (`wat_…`) or slug. Mutually exclusive with the other dimension filters (`category`, `phone_number`, `tag`); only one may be set per request. An ID matches the `template_id` key on a row of the per-template breakdown; a slug is accepted for callers that predate that key and resolves to the same messages.
+	Template *WhatsAppStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
+
+	// Category Restrict the statistics to a single template category. Mutually exclusive with the other dimension filters (`template`, `phone_number`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// PhoneNumber Restrict the statistics to a single business sender phone number, in E.164 form. Mutually exclusive with the other dimension filters (`template`, `category`, `tag`); only one may be set per request. Matches the `phone_number` key on a row of the per-phone-number breakdown.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`template`, `category`, `phone_number`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request. The comparison window carries any dimension filter set on the request, so a filtered comparison compares like with like.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetWhatsAppStatsByTagParams defines parameters for GetWhatsAppStatsByTag.
+type GetWhatsAppStatsByTagParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of tag rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppStatsByTemplateCategoryParams defines parameters for GetWhatsAppStatsByTemplateCategory.
+type GetWhatsAppStatsByTemplateCategoryParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of template-category rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// GetWhatsAppStatsByTemplateParams defines parameters for GetWhatsAppStatsByTemplate.
+type GetWhatsAppStatsByTemplateParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of template rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // ListWhatsAppTemplatesParams defines parameters for ListWhatsAppTemplates.
@@ -22635,6 +23242,45 @@ type ClientInterface interface {
 
 	SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetWhatsAppStatsByCountry request
+	GetWhatsAppStatsByCountry(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsDaily request
+	GetWhatsAppStatsDaily(ctx context.Context, params *GetWhatsAppStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsByErrorCode request
+	GetWhatsAppStatsByErrorCode(ctx context.Context, params *GetWhatsAppStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsHourly request
+	GetWhatsAppStatsHourly(ctx context.Context, params *GetWhatsAppStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppInboundStatsDaily request
+	GetWhatsAppInboundStatsDaily(ctx context.Context, params *GetWhatsAppInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppInboundStatsHourly request
+	GetWhatsAppInboundStatsHourly(ctx context.Context, params *GetWhatsAppInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppInboundStatsByPhoneNumber request
+	GetWhatsAppInboundStatsByPhoneNumber(ctx context.Context, params *GetWhatsAppInboundStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppInboundStatsSummary request
+	GetWhatsAppInboundStatsSummary(ctx context.Context, params *GetWhatsAppInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsByPhoneNumber request
+	GetWhatsAppStatsByPhoneNumber(ctx context.Context, params *GetWhatsAppStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsSummary request
+	GetWhatsAppStatsSummary(ctx context.Context, params *GetWhatsAppStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsByTag request
+	GetWhatsAppStatsByTag(ctx context.Context, params *GetWhatsAppStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsByTemplateCategory request
+	GetWhatsAppStatsByTemplateCategory(ctx context.Context, params *GetWhatsAppStatsByTemplateCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppStatsByTemplate request
+	GetWhatsAppStatsByTemplate(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListWhatsAppTemplates request
 	ListWhatsAppTemplates(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -24891,6 +25537,162 @@ func (c *Client) SendWhatsAppReadReceiptWithBody(ctx context.Context, messageId 
 
 func (c *Client) SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSendWhatsAppReadReceiptRequest(c.Server, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByCountry(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByCountryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsDaily(ctx context.Context, params *GetWhatsAppStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByErrorCode(ctx context.Context, params *GetWhatsAppStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByErrorCodeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsHourly(ctx context.Context, params *GetWhatsAppStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppInboundStatsDaily(ctx context.Context, params *GetWhatsAppInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppInboundStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppInboundStatsHourly(ctx context.Context, params *GetWhatsAppInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppInboundStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppInboundStatsByPhoneNumber(ctx context.Context, params *GetWhatsAppInboundStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppInboundStatsByPhoneNumberRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppInboundStatsSummary(ctx context.Context, params *GetWhatsAppInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppInboundStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByPhoneNumber(ctx context.Context, params *GetWhatsAppStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByPhoneNumberRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsSummary(ctx context.Context, params *GetWhatsAppStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByTag(ctx context.Context, params *GetWhatsAppStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByTagRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByTemplateCategory(ctx context.Context, params *GetWhatsAppStatsByTemplateCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByTemplateCategoryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppStatsByTemplate(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppStatsByTemplateRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -36910,6 +37712,1272 @@ func NewSendWhatsAppReadReceiptRequestWithBody(server string, messageId WhatsApp
 	return req, nil
 }
 
+// NewGetWhatsAppStatsByCountryRequest generates requests for GetWhatsAppStatsByCountry
+func NewGetWhatsAppStatsByCountryRequest(server string, params *GetWhatsAppStatsByCountryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/countries")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsDailyRequest generates requests for GetWhatsAppStatsDaily
+func NewGetWhatsAppStatsDailyRequest(server string, params *GetWhatsAppStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PhoneNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsByErrorCodeRequest generates requests for GetWhatsAppStatsByErrorCode
+func NewGetWhatsAppStatsByErrorCodeRequest(server string, params *GetWhatsAppStatsByErrorCodeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/error-codes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsHourlyRequest generates requests for GetWhatsAppStatsHourly
+func NewGetWhatsAppStatsHourlyRequest(server string, params *GetWhatsAppStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PhoneNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppInboundStatsDailyRequest generates requests for GetWhatsAppInboundStatsDaily
+func NewGetWhatsAppInboundStatsDailyRequest(server string, params *GetWhatsAppInboundStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/inbound/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppInboundStatsHourlyRequest generates requests for GetWhatsAppInboundStatsHourly
+func NewGetWhatsAppInboundStatsHourlyRequest(server string, params *GetWhatsAppInboundStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/inbound/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppInboundStatsByPhoneNumberRequest generates requests for GetWhatsAppInboundStatsByPhoneNumber
+func NewGetWhatsAppInboundStatsByPhoneNumberRequest(server string, params *GetWhatsAppInboundStatsByPhoneNumberParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/inbound/phone-numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppInboundStatsSummaryRequest generates requests for GetWhatsAppInboundStatsSummary
+func NewGetWhatsAppInboundStatsSummaryRequest(server string, params *GetWhatsAppInboundStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/inbound/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsByPhoneNumberRequest generates requests for GetWhatsAppStatsByPhoneNumber
+func NewGetWhatsAppStatsByPhoneNumberRequest(server string, params *GetWhatsAppStatsByPhoneNumberParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/phone-numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsSummaryRequest generates requests for GetWhatsAppStatsSummary
+func NewGetWhatsAppStatsSummaryRequest(server string, params *GetWhatsAppStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Template != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "template", *params.Template, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PhoneNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsByTagRequest generates requests for GetWhatsAppStatsByTag
+func NewGetWhatsAppStatsByTagRequest(server string, params *GetWhatsAppStatsByTagParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/tags")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsByTemplateCategoryRequest generates requests for GetWhatsAppStatsByTemplateCategory
+func NewGetWhatsAppStatsByTemplateCategoryRequest(server string, params *GetWhatsAppStatsByTemplateCategoryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/template-categories")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppStatsByTemplateRequest generates requests for GetWhatsAppStatsByTemplate
+func NewGetWhatsAppStatsByTemplateRequest(server string, params *GetWhatsAppStatsByTemplateParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/stats/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppTemplatesRequest generates requests for ListWhatsAppTemplates
 func NewListWhatsAppTemplatesRequest(server string, params *ListWhatsAppTemplatesParams) (*http.Request, error) {
 	var err error
@@ -37887,6 +39955,45 @@ type ClientWithResponsesInterface interface {
 	SendWhatsAppReadReceiptWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
 
 	SendWhatsAppReadReceiptWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
+
+	// GetWhatsAppStatsByCountryWithResponse request
+	GetWhatsAppStatsByCountryWithResponse(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByCountryResponse, error)
+
+	// GetWhatsAppStatsDailyWithResponse request
+	GetWhatsAppStatsDailyWithResponse(ctx context.Context, params *GetWhatsAppStatsDailyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsDailyResponse, error)
+
+	// GetWhatsAppStatsByErrorCodeWithResponse request
+	GetWhatsAppStatsByErrorCodeWithResponse(ctx context.Context, params *GetWhatsAppStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByErrorCodeResponse, error)
+
+	// GetWhatsAppStatsHourlyWithResponse request
+	GetWhatsAppStatsHourlyWithResponse(ctx context.Context, params *GetWhatsAppStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsHourlyResponse, error)
+
+	// GetWhatsAppInboundStatsDailyWithResponse request
+	GetWhatsAppInboundStatsDailyWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsDailyResponse, error)
+
+	// GetWhatsAppInboundStatsHourlyWithResponse request
+	GetWhatsAppInboundStatsHourlyWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsHourlyResponse, error)
+
+	// GetWhatsAppInboundStatsByPhoneNumberWithResponse request
+	GetWhatsAppInboundStatsByPhoneNumberWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsByPhoneNumberResponse, error)
+
+	// GetWhatsAppInboundStatsSummaryWithResponse request
+	GetWhatsAppInboundStatsSummaryWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsSummaryResponse, error)
+
+	// GetWhatsAppStatsByPhoneNumberWithResponse request
+	GetWhatsAppStatsByPhoneNumberWithResponse(ctx context.Context, params *GetWhatsAppStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByPhoneNumberResponse, error)
+
+	// GetWhatsAppStatsSummaryWithResponse request
+	GetWhatsAppStatsSummaryWithResponse(ctx context.Context, params *GetWhatsAppStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsSummaryResponse, error)
+
+	// GetWhatsAppStatsByTagWithResponse request
+	GetWhatsAppStatsByTagWithResponse(ctx context.Context, params *GetWhatsAppStatsByTagParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTagResponse, error)
+
+	// GetWhatsAppStatsByTemplateCategoryWithResponse request
+	GetWhatsAppStatsByTemplateCategoryWithResponse(ctx context.Context, params *GetWhatsAppStatsByTemplateCategoryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTemplateCategoryResponse, error)
+
+	// GetWhatsAppStatsByTemplateWithResponse request
+	GetWhatsAppStatsByTemplateWithResponse(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTemplateResponse, error)
 
 	// ListWhatsAppTemplatesWithResponse request
 	ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error)
@@ -43345,6 +45452,487 @@ func (r SendWhatsAppReadReceiptResponse) ContentType() string {
 	return ""
 }
 
+type GetWhatsAppStatsByCountryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByCountryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByCountryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByCountryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByCountryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsByErrorCodeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByErrorCodeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByErrorCodeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByErrorCodeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByErrorCodeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppInboundStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppInboundStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppInboundStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppInboundStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppInboundStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppInboundStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppInboundStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppInboundStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppInboundStatsByPhoneNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppInboundStatsByPhoneNumberResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppInboundStatsByPhoneNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppInboundStatsByPhoneNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppInboundStatsByPhoneNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppInboundStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppInboundStatsSummaryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppInboundStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppInboundStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppInboundStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsByPhoneNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByPhoneNumberResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByPhoneNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByPhoneNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByPhoneNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsByTagResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByTagResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByTagResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByTagResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByTagResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsByTemplateCategoryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByTemplateCategoryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByTemplateCategoryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByTemplateCategoryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByTemplateCategoryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppStatsByTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppStatsByTemplateResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppStatsByTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppStatsByTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppTemplatesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -45237,6 +47825,123 @@ func (c *ClientWithResponses) SendWhatsAppReadReceiptWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseSendWhatsAppReadReceiptResponse(rsp)
+}
+
+// GetWhatsAppStatsByCountryWithResponse request returning *GetWhatsAppStatsByCountryResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByCountryWithResponse(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByCountryResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByCountry(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByCountryResponse(rsp)
+}
+
+// GetWhatsAppStatsDailyWithResponse request returning *GetWhatsAppStatsDailyResponse
+func (c *ClientWithResponses) GetWhatsAppStatsDailyWithResponse(ctx context.Context, params *GetWhatsAppStatsDailyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsDailyResponse, error) {
+	rsp, err := c.GetWhatsAppStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsDailyResponse(rsp)
+}
+
+// GetWhatsAppStatsByErrorCodeWithResponse request returning *GetWhatsAppStatsByErrorCodeResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByErrorCodeWithResponse(ctx context.Context, params *GetWhatsAppStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByErrorCodeResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByErrorCode(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByErrorCodeResponse(rsp)
+}
+
+// GetWhatsAppStatsHourlyWithResponse request returning *GetWhatsAppStatsHourlyResponse
+func (c *ClientWithResponses) GetWhatsAppStatsHourlyWithResponse(ctx context.Context, params *GetWhatsAppStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsHourlyResponse, error) {
+	rsp, err := c.GetWhatsAppStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsHourlyResponse(rsp)
+}
+
+// GetWhatsAppInboundStatsDailyWithResponse request returning *GetWhatsAppInboundStatsDailyResponse
+func (c *ClientWithResponses) GetWhatsAppInboundStatsDailyWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsDailyResponse, error) {
+	rsp, err := c.GetWhatsAppInboundStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppInboundStatsDailyResponse(rsp)
+}
+
+// GetWhatsAppInboundStatsHourlyWithResponse request returning *GetWhatsAppInboundStatsHourlyResponse
+func (c *ClientWithResponses) GetWhatsAppInboundStatsHourlyWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsHourlyResponse, error) {
+	rsp, err := c.GetWhatsAppInboundStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppInboundStatsHourlyResponse(rsp)
+}
+
+// GetWhatsAppInboundStatsByPhoneNumberWithResponse request returning *GetWhatsAppInboundStatsByPhoneNumberResponse
+func (c *ClientWithResponses) GetWhatsAppInboundStatsByPhoneNumberWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsByPhoneNumberResponse, error) {
+	rsp, err := c.GetWhatsAppInboundStatsByPhoneNumber(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppInboundStatsByPhoneNumberResponse(rsp)
+}
+
+// GetWhatsAppInboundStatsSummaryWithResponse request returning *GetWhatsAppInboundStatsSummaryResponse
+func (c *ClientWithResponses) GetWhatsAppInboundStatsSummaryWithResponse(ctx context.Context, params *GetWhatsAppInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppInboundStatsSummaryResponse, error) {
+	rsp, err := c.GetWhatsAppInboundStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppInboundStatsSummaryResponse(rsp)
+}
+
+// GetWhatsAppStatsByPhoneNumberWithResponse request returning *GetWhatsAppStatsByPhoneNumberResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByPhoneNumberWithResponse(ctx context.Context, params *GetWhatsAppStatsByPhoneNumberParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByPhoneNumberResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByPhoneNumber(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByPhoneNumberResponse(rsp)
+}
+
+// GetWhatsAppStatsSummaryWithResponse request returning *GetWhatsAppStatsSummaryResponse
+func (c *ClientWithResponses) GetWhatsAppStatsSummaryWithResponse(ctx context.Context, params *GetWhatsAppStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsSummaryResponse, error) {
+	rsp, err := c.GetWhatsAppStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsSummaryResponse(rsp)
+}
+
+// GetWhatsAppStatsByTagWithResponse request returning *GetWhatsAppStatsByTagResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByTagWithResponse(ctx context.Context, params *GetWhatsAppStatsByTagParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTagResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByTag(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByTagResponse(rsp)
+}
+
+// GetWhatsAppStatsByTemplateCategoryWithResponse request returning *GetWhatsAppStatsByTemplateCategoryResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByTemplateCategoryWithResponse(ctx context.Context, params *GetWhatsAppStatsByTemplateCategoryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTemplateCategoryResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByTemplateCategory(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByTemplateCategoryResponse(rsp)
+}
+
+// GetWhatsAppStatsByTemplateWithResponse request returning *GetWhatsAppStatsByTemplateResponse
+func (c *ClientWithResponses) GetWhatsAppStatsByTemplateWithResponse(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTemplateResponse, error) {
+	rsp, err := c.GetWhatsAppStatsByTemplate(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppStatsByTemplateResponse(rsp)
 }
 
 // ListWhatsAppTemplatesWithResponse request returning *ListWhatsAppTemplatesResponse
@@ -56265,6 +58970,981 @@ func ParseSendWhatsAppReadReceiptResponse(rsp *http.Response) (*SendWhatsAppRead
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByCountryResponse parses an HTTP response from a GetWhatsAppStatsByCountryWithResponse call
+func ParseGetWhatsAppStatsByCountryResponse(rsp *http.Response) (*GetWhatsAppStatsByCountryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByCountryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByCountryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsDailyResponse parses an HTTP response from a GetWhatsAppStatsDailyWithResponse call
+func ParseGetWhatsAppStatsDailyResponse(rsp *http.Response) (*GetWhatsAppStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByErrorCodeResponse parses an HTTP response from a GetWhatsAppStatsByErrorCodeWithResponse call
+func ParseGetWhatsAppStatsByErrorCodeResponse(rsp *http.Response) (*GetWhatsAppStatsByErrorCodeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByErrorCodeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByErrorCodeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsHourlyResponse parses an HTTP response from a GetWhatsAppStatsHourlyWithResponse call
+func ParseGetWhatsAppStatsHourlyResponse(rsp *http.Response) (*GetWhatsAppStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppInboundStatsDailyResponse parses an HTTP response from a GetWhatsAppInboundStatsDailyWithResponse call
+func ParseGetWhatsAppInboundStatsDailyResponse(rsp *http.Response) (*GetWhatsAppInboundStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppInboundStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppInboundStatsHourlyResponse parses an HTTP response from a GetWhatsAppInboundStatsHourlyWithResponse call
+func ParseGetWhatsAppInboundStatsHourlyResponse(rsp *http.Response) (*GetWhatsAppInboundStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppInboundStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppInboundStatsByPhoneNumberResponse parses an HTTP response from a GetWhatsAppInboundStatsByPhoneNumberWithResponse call
+func ParseGetWhatsAppInboundStatsByPhoneNumberResponse(rsp *http.Response) (*GetWhatsAppInboundStatsByPhoneNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppInboundStatsByPhoneNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppInboundStatsByPhoneNumberResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppInboundStatsSummaryResponse parses an HTTP response from a GetWhatsAppInboundStatsSummaryWithResponse call
+func ParseGetWhatsAppInboundStatsSummaryResponse(rsp *http.Response) (*GetWhatsAppInboundStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppInboundStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppInboundStatsSummaryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByPhoneNumberResponse parses an HTTP response from a GetWhatsAppStatsByPhoneNumberWithResponse call
+func ParseGetWhatsAppStatsByPhoneNumberResponse(rsp *http.Response) (*GetWhatsAppStatsByPhoneNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByPhoneNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByPhoneNumberResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsSummaryResponse parses an HTTP response from a GetWhatsAppStatsSummaryWithResponse call
+func ParseGetWhatsAppStatsSummaryResponse(rsp *http.Response) (*GetWhatsAppStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByTagResponse parses an HTTP response from a GetWhatsAppStatsByTagWithResponse call
+func ParseGetWhatsAppStatsByTagResponse(rsp *http.Response) (*GetWhatsAppStatsByTagResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByTagResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByTagResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByTemplateCategoryResponse parses an HTTP response from a GetWhatsAppStatsByTemplateCategoryWithResponse call
+func ParseGetWhatsAppStatsByTemplateCategoryResponse(rsp *http.Response) (*GetWhatsAppStatsByTemplateCategoryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByTemplateCategoryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByTemplateCategoryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppStatsByTemplateResponse parses an HTTP response from a GetWhatsAppStatsByTemplateWithResponse call
+func ParseGetWhatsAppStatsByTemplateResponse(rsp *http.Response) (*GetWhatsAppStatsByTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppStatsByTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppStatsByTemplateResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

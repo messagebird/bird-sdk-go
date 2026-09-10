@@ -2606,6 +2606,237 @@ func ExampleWhatsappTemplatesVersionsLanguagesService_Get() {
 	fmt.Println(language.Language, len(language.Components))
 }
 
+// Summary returns outbound delivery and latency totals for a window.
+func ExampleWhatsappStatsService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	summary, err := client.Whatsapp.Stats.Summary(context.Background(), bird.WhatsappStatsSummaryParams{
+		From:     "2026-08-01",
+		To:       "2026-08-31",
+		Timezone: "Europe/Amsterdam",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*summary.Delivery.Accepted, *summary.Delivery.Delivered)
+}
+
+// Daily returns one row per calendar day in the window.
+func ExampleWhatsappStatsService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Whatsapp.Stats.Daily(context.Background(), bird.WhatsappStatsDailyParams{
+		From: time.Now().AddDate(0, 0, -7),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Delivery.Accepted)
+	}
+}
+
+// Hourly returns one row per hour, for a window of at most 30 days.
+func ExampleWhatsappStatsService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Whatsapp.Stats.Hourly(context.Background(), bird.WhatsappStatsHourlyParams{
+		From: time.Now().Add(-24 * time.Hour),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Delivery.Accepted)
+	}
+}
+
+// ByErrorCode ranks the failure reasons behind undelivered traffic.
+func ExampleWhatsappStatsService_ByErrorCode() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByErrorCode(context.Background(), bird.WhatsappStatsByErrorCodeParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.ErrorCode, *row.Count)
+	}
+}
+
+// ByTemplate ranks templates by accepted volume.
+func ExampleWhatsappStatsService_ByTemplate() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByTemplate(context.Background(), bird.WhatsappStatsByTemplateParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.TemplateId, *row.Delivery.Accepted)
+	}
+}
+
+// ByTemplateCategory groups outbound counts by Meta's template category.
+func ExampleWhatsappStatsService_ByTemplateCategory() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByTemplateCategory(context.Background(), bird.WhatsappStatsByTemplateCategoryParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Category, *row.Delivery.Accepted)
+	}
+}
+
+// ByTag ranks the campaigns and segments sends are tagged with.
+func ExampleWhatsappStatsService_ByTag() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByTag(context.Background(), bird.WhatsappStatsByTagParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Tag, *row.Delivery.Accepted)
+	}
+}
+
+// ByPhoneNumber compares how each business sender number performs.
+func ExampleWhatsappStatsService_ByPhoneNumber() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByPhoneNumber(context.Background(), bird.WhatsappStatsByPhoneNumberParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.PhoneNumber, *row.Delivery.Accepted)
+	}
+}
+
+// ByCountry ranks destination markets by accepted volume.
+func ExampleWhatsappStatsService_ByCountry() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.ByCountry(context.Background(), bird.WhatsappStatsByCountryParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.Country, *row.Delivery.Accepted)
+	}
+}
+
+// Summary returns how many messages the workspace's numbers received.
+func ExampleWhatsappStatsInboundService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	summary, err := client.Whatsapp.Stats.Inbound.Summary(context.Background(), bird.WhatsappStatsInboundSummaryParams{
+		From: "2026-05-01",
+		To:   "2026-05-31",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*summary.Received)
+}
+
+// Daily returns received-message counts, one row per calendar day.
+func ExampleWhatsappStatsInboundService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Whatsapp.Stats.Inbound.Daily(context.Background(), bird.WhatsappStatsInboundDailyParams{
+		From: time.Now().AddDate(0, 0, -7),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Received)
+	}
+}
+
+// Hourly returns received-message counts, one row per hour.
+func ExampleWhatsappStatsInboundService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	series, err := client.Whatsapp.Stats.Inbound.Hourly(context.Background(), bird.WhatsappStatsInboundHourlyParams{
+		From: time.Now().Add(-24 * time.Hour),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, point := range *series.Data {
+		fmt.Println(*point.Bucket, *point.Received)
+	}
+}
+
+// ByPhoneNumber shows which of the workspace's numbers took the traffic.
+func ExampleWhatsappStatsInboundService_ByPhoneNumber() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	stats, err := client.Whatsapp.Stats.Inbound.ByPhoneNumber(context.Background(), bird.WhatsappStatsInboundByPhoneNumberParams{
+		From: time.Now().AddDate(0, -1, 0),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, row := range *stats.Data {
+		fmt.Println(*row.PhoneNumber, *row.Received)
+	}
+}
+
 // List the workspace's own email templates.
 func ExampleEmailTemplatesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

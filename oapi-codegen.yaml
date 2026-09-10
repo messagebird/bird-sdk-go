@@ -86,6 +86,19 @@ output-options:
     - getWhatsAppTemplateVersion
     - listWhatsAppTemplateVersionLanguages
     - getWhatsAppTemplateVersionLanguage
+    - getWhatsAppStatsSummary
+    - getWhatsAppStatsDaily
+    - getWhatsAppStatsHourly
+    - getWhatsAppStatsByErrorCode
+    - getWhatsAppStatsByTemplate
+    - getWhatsAppStatsByTemplateCategory
+    - getWhatsAppStatsByTag
+    - getWhatsAppStatsByPhoneNumber
+    - getWhatsAppStatsByCountry
+    - getWhatsAppInboundStatsSummary
+    - getWhatsAppInboundStatsDaily
+    - getWhatsAppInboundStatsHourly
+    - getWhatsAppInboundStatsByPhoneNumber
     - listVoiceCalls
     - getVoiceCall
     - createVerification
