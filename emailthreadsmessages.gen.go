@@ -37,9 +37,9 @@ func (p EmailThreadsMessagesListParams) toWire(startingAfter string) *oapi.ListE
 // EmailThreadsMessagesReplyParams is the request body for reply.
 type EmailThreadsMessagesReplyParams struct {
 	// HTML body of the reply. At least one of html or text must be provided.
-	HTML string
+	HTML *string
 	// Plain-text body of the reply. At least one of html or text must be provided.
-	Text string
+	Text *string
 	// Also send the reply to the original To and Cc recipients, minus the mailbox's own address.
 	ReplyAll *bool
 	// Structured `{name, value}` labels for filtering and analytics on the sent-message log. Cap: 20 tags per send.
@@ -54,12 +54,8 @@ type EmailThreadsMessagesReplyParams struct {
 
 func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRequest {
 	body := oapi.EmailThreadMessageReplyRequest{}
-	if p.HTML != "" {
-		body.Html = Ptr(p.HTML)
-	}
-	if p.Text != "" {
-		body.Text = Ptr(p.Text)
-	}
+	body.Html = p.HTML
+	body.Text = p.Text
 	body.ReplyAll = p.ReplyAll
 	if len(p.Tags) > 0 {
 		v := p.Tags

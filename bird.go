@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.65.0"
+	version = "0.66.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -79,6 +79,7 @@ type Client struct {
 	Lookup            *LookupService
 	Numbers           *NumbersService
 	Preferences       *PreferencesService
+	Broadcasts        *BroadcastsService
 	Workspace         *WorkspaceService
 }
 
@@ -133,7 +134,6 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c := &Client{cfg: cfg, oapi: oc, oapiNoRedirect: noRedirectOC}
 	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
-	c.Email.Templates = &EmailTemplatesService{resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
 	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
 	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}
@@ -164,6 +164,10 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Email.Mailboxes.ReceiveRules = &EmailMailboxesReceiveRulesService{resource{client: c}}
 	c.Email.Threads = &EmailThreadsService{resource: resource{client: c}}
 	c.Email.Threads.Messages = &EmailThreadsMessagesService{resource{client: c}}
+	c.Email.Templates = &EmailTemplatesService{resource: resource{client: c}}
+	c.Email.Templates.Versions = &EmailTemplatesVersionsService{resource: resource{client: c}}
+	c.Email.Templates.Versions.Languages = &EmailTemplatesVersionsLanguagesService{resource{client: c}}
+	c.Email.Templates.Broadcasts = &EmailTemplatesBroadcastsService{resource{client: c}}
 	c.Realtime = &RealtimeService{
 		resource: resource{client: c},
 		Channels: &RealtimeChannelsService{resource{client: c}},
@@ -174,6 +178,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Numbers.Available = &NumbersAvailableService{resource{client: c}}
 	c.Numbers.Orders = &NumbersOrdersService{resource{client: c}}
 	c.Preferences = &PreferencesService{resource{client: c}}
+	c.Broadcasts = &BroadcastsService{resource{client: c}}
 	c.Workspace = &WorkspaceService{resource{client: c}}
 	return c, nil
 }

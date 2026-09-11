@@ -35,16 +35,14 @@ type EmailMailboxesReceiveRulesCreateParams struct {
 	// The sender address (`alice@example.com`) or domain (`example.com`) to match. Domains also match their subdomains. Stored lowercase.
 	Entry string
 	// Your own note about why the rule exists.
-	Note string
+	Note *string
 }
 
 func (p EmailMailboxesReceiveRulesCreateParams) toWire() oapi.ReceiveRuleCreate {
 	body := oapi.ReceiveRuleCreate{}
 	body.Action = p.Action
 	body.Entry = p.Entry
-	if p.Note != "" {
-		body.Note = Ptr(p.Note)
-	}
+	body.Note = p.Note
 	return body
 }
 

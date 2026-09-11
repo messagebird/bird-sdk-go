@@ -556,8 +556,8 @@ func ExampleContactsService_Create() {
 		log.Fatal(err)
 	}
 	contact, err := client.Contacts.Create(context.Background(), bird.ContactCreateParams{
-		Email:     "jane@acme.com",
-		FirstName: "Jane",
+		Email:     bird.Ptr("jane@acme.com"),
+		FirstName: bird.Ptr("Jane"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -699,7 +699,7 @@ func ExampleAudiencesService_Update() {
 	// Rename the audience and clear its description (Null sends an explicit JSON
 	// null). Omit a field to leave it unchanged; bird.Value(...) sets a new value.
 	audience, err := client.Audiences.Update(context.Background(), "adn_123", bird.AudienceUpdateParams{
-		Name:        "Renamed",
+		Name:        bird.Ptr("Renamed"),
 		Description: bird.Null[string](),
 	})
 	if err != nil {
@@ -772,6 +772,171 @@ func ExampleAudiencesService_RemoveContact() {
 	}
 	if err := client.Audiences.RemoveContact(context.Background(), "adn_123", "con_1"); err != nil {
 		log.Fatal(err)
+	}
+}
+
+func ExampleBroadcastsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	broadcast, err := client.Broadcasts.Create(context.Background(), bird.BroadcastsCreateParams{
+		From:       "newsletter@example.com",
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
+		Template:   "emt_01krdgeqcxet5s7t44vh8rt9mg",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Id, *broadcast.Status)
+}
+
+func ExampleBroadcastsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	broadcast, err := client.Broadcasts.Get(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Status)
+	// The counters are omitted when the event store is unavailable, which still reads 200.
+	if broadcast.SentCount != nil && broadcast.DeliveredCount != nil {
+		fmt.Println(*broadcast.SentCount, *broadcast.DeliveredCount)
+	}
+}
+
+func ExampleBroadcastsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	broadcast, err := client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
+		bird.BroadcastsUpdateParams{Template: bird.Value("emt_01krdgeqcxet5s7t44vh8rt9mg")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Status)
+}
+
+func ExampleBroadcastsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Broadcasts.Delete(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleBroadcastsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for broadcast, err := range client.Broadcasts.List(context.Background(),
+		bird.BroadcastsListParams{Status: []bird.EmailBroadcastStatus{bird.EmailBroadcastStatusSent}}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(*broadcast.Id, *broadcast.Status)
+	}
+}
+
+func ExampleBroadcastsService_Send() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	broadcast, err := client.Broadcasts.Send(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
+		bird.BroadcastsSendParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Status)
+}
+
+func ExampleBroadcastsService_Cancel() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	broadcast, err := client.Broadcasts.Cancel(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*broadcast.Status)
+}
+
+func ExampleBroadcastsService_SendQuota() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	quota, err := client.Broadcasts.SendQuota(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if *quota.Allowed < *quota.Recipients {
+		fmt.Println(quota.LimitedBy, "allowance covers only", *quota.Allowed)
+	}
+}
+
+func ExampleBroadcastsService_Counts() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	counts, err := client.Broadcasts.Counts(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*counts.Total, *counts.Addressable, *counts.Sendable)
+}
+
+func ExampleBroadcastsService_ListRecipients() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for recipient, err := range client.Broadcasts.ListRecipients(context.Background(),
+		"eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsListRecipientsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(recipient.Recipient, *recipient.Status)
+	}
+}
+
+func ExampleBroadcastsService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for event, err := range client.Broadcasts.ListEvents(context.Background(),
+		"eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsListEventsParams{Type: "email.bounced"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		// bounce_type is absent unless the event is a bounce the server classified.
+		if event.BounceType != nil {
+			fmt.Println(event.Type, event.RecipientId, *event.BounceType)
+		}
+	}
+}
+
+func ExampleBroadcastsService_ListClickedLinks() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	links, err := client.Broadcasts.ListClickedLinks(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, link := range links.Data {
+		fmt.Println(*link.Url, *link.ClickCount, *link.RecipientCount)
 	}
 }
 
@@ -1243,7 +1408,7 @@ func ExampleEmailMailboxesService_Create() {
 		log.Fatal(err)
 	}
 	mailbox, err := client.Email.Mailboxes.Create(context.Background(), bird.EmailMailboxesCreateParams{
-		DisplayName: "Support",
+		DisplayName: bird.Ptr("Support"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -1487,7 +1652,7 @@ func ExampleEmailThreadsMessagesService_Reply() {
 		log.Fatal(err)
 	}
 	reply, err := client.Email.Threads.Messages.Reply(context.Background(), "thr_123", "rem_456", bird.EmailThreadsMessagesReplyParams{
-		Text: "Thanks for reaching out!",
+		Text: bird.Ptr("Thanks for reaching out!"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -2419,7 +2584,7 @@ func ExampleWebhooksService_Create() {
 	created, err := client.Webhooks.Create(context.Background(), bird.WebhooksCreateParams{
 		URL:         "https://acme.com/hooks/bird",
 		Events:      []bird.WebhookEventType{"email.delivered", "email.bounced"},
-		Description: "Delivery pipeline",
+		Description: bird.Ptr("Delivery pipeline"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -2476,7 +2641,7 @@ func ExampleWebhooksService_Test() {
 		log.Fatal(err)
 	}
 	result, err := client.Webhooks.Test(context.Background(), "whk_123", bird.WebhooksTestParams{
-		EventType: "email.delivered",
+		EventType: bird.Ptr("email.delivered"),
 	})
 	if err != nil {
 		log.Fatal(err)

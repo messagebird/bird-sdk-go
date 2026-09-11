@@ -43,7 +43,7 @@ type WebhooksCreateParams struct {
 	// Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries.
 	Events []WebhookEventType
 	// Human-readable label for this endpoint, up to 256 characters.
-	Description string
+	Description *string
 }
 
 func (p WebhooksCreateParams) toWire() oapi.WebhookEndpointCreate {
@@ -54,23 +54,19 @@ func (p WebhooksCreateParams) toWire() oapi.WebhookEndpointCreate {
 		events[i] = oapi.WebhookEventType(v)
 	}
 	body.Events = events
-	if p.Description != "" {
-		body.Description = Ptr(p.Description)
-	}
+	body.Description = p.Description
 	return body
 }
 
 // WebhooksTestParams is the request body for test.
 type WebhooksTestParams struct {
 	// Event type to simulate. Any type from the event catalog is accepted, whether or not the endpoint subscribes to it; an unknown type returns a `422`. When omitted, the endpoint's first subscribed event type is used.
-	EventType string
+	EventType *string
 }
 
 func (p WebhooksTestParams) toWire() oapi.WebhookTestRequest {
 	body := oapi.WebhookTestRequest{}
-	if p.EventType != "" {
-		body.EventType = Ptr(p.EventType)
-	}
+	body.EventType = p.EventType
 	return body
 }
 
@@ -95,9 +91,9 @@ func (p WebhooksAttemptsParams) toWire() *oapi.ListWebhookAttemptsParams {
 // WebhooksUpdateParams is the request body for update.
 type WebhooksUpdateParams struct {
 	// Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
-	URL string
+	URL *string
 	// Human-readable label for this endpoint, up to 256 characters.
-	Description string
+	Description *string
 	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events []WebhookEventType
 	// `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
@@ -106,12 +102,8 @@ type WebhooksUpdateParams struct {
 
 func (p WebhooksUpdateParams) toWire() oapi.WebhookEndpointUpdate {
 	body := oapi.WebhookEndpointUpdate{}
-	if p.URL != "" {
-		body.Url = Ptr(p.URL)
-	}
-	if p.Description != "" {
-		body.Description = Ptr(p.Description)
-	}
+	body.Url = p.URL
+	body.Description = p.Description
 	events := make([]oapi.WebhookEventType, len(p.Events))
 	for i, v := range p.Events {
 		events[i] = oapi.WebhookEventType(v)

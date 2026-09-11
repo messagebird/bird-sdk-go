@@ -52,36 +52,28 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 // ContactCreateParams is the request body for create.
 type ContactCreateParams struct {
 	// The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
-	Email string
+	Email *string
 	// The contact's phone number in E.164 format, including the leading `+` and country code. Spaces and punctuation are accepted and stripped; the number is stored in its canonical form, which may differ from what you send, and is unique within the workspace. An empty string is treated as if the field were omitted. Supply an email address, a phone number, or both.
-	PhoneNumber string
+	PhoneNumber *string
 	// The contact's first name.
-	FirstName string
+	FirstName *string
 	// The contact's last name.
-	LastName string
+	LastName *string
 	// Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
-	ExternalID string
+	ExternalID *string
 	// Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
 	Data map[string]any
 }
 
 func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 	body := oapi.ContactCreateRequest{}
-	if p.Email != "" {
-		body.Email = Ptr(openapi_types.Email(p.Email))
+	if p.Email != nil {
+		body.Email = Ptr(openapi_types.Email(*p.Email))
 	}
-	if p.PhoneNumber != "" {
-		body.PhoneNumber = Ptr(p.PhoneNumber)
-	}
-	if p.FirstName != "" {
-		body.FirstName = Ptr(p.FirstName)
-	}
-	if p.LastName != "" {
-		body.LastName = Ptr(p.LastName)
-	}
-	if p.ExternalID != "" {
-		body.ExternalId = Ptr(p.ExternalID)
-	}
+	body.PhoneNumber = p.PhoneNumber
+	body.FirstName = p.FirstName
+	body.LastName = p.LastName
+	body.ExternalId = p.ExternalID
 	if len(p.Data) > 0 {
 		v := p.Data
 		body.Data = &v

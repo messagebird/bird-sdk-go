@@ -33,7 +33,7 @@ type AudienceCreateParams struct {
 	// Display name for the audience.
 	Name string
 	// Longer description of who this audience is.
-	Description string
+	Description *string
 	// How the audience's recipients are determined. `static` is an explicit member list you manage by adding and removing contacts.
 	Type *AudienceCreateRequestType
 }
@@ -41,9 +41,7 @@ type AudienceCreateParams struct {
 func (p AudienceCreateParams) toWire() oapi.AudienceCreateRequest {
 	body := oapi.AudienceCreateRequest{}
 	body.Name = p.Name
-	if p.Description != "" {
-		body.Description = Ptr(p.Description)
-	}
+	body.Description = p.Description
 	if p.Type != nil {
 		body.Type = p.Type
 	}
@@ -53,16 +51,14 @@ func (p AudienceCreateParams) toWire() oapi.AudienceCreateRequest {
 // AudienceUpdateParams is the request body for update.
 type AudienceUpdateParams struct {
 	// New display name for the audience. Omit to keep the current name. The name cannot be cleared, and a whitespace-only value returns a validation error.
-	Name string
+	Name *string
 	// Longer description of who this audience is. Set to null to clear.
 	Description Nullable[string]
 }
 
 func (p AudienceUpdateParams) toWire() oapi.AudienceUpdateRequest {
 	body := oapi.AudienceUpdateRequest{}
-	if p.Name != "" {
-		body.Name = Ptr(p.Name)
-	}
+	body.Name = p.Name
 	body.Description = p.Description
 	return body
 }

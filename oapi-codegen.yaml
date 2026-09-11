@@ -38,7 +38,36 @@ output-options:
     - getEmailStatsByBounceCode
     - getEmailStatsByComplaintType
     - getEmailStatsByBroadcast
+    - createEmailTemplate
     - listEmailTemplates
+    - getEmailTemplate
+    - updateEmailTemplate
+    - deleteEmailTemplate
+    - duplicateEmailTemplate
+    - getEmailTemplatePreview
+    - listEmailTemplateVersions
+    - getEmailTemplateVersion
+    - deleteEmailTemplateVersion
+    - submitEmailTemplateVersion
+    - rollbackEmailTemplate
+    - listEmailTemplateVersionLanguages
+    - getEmailTemplateLanguage
+    - upsertEmailTemplateLanguage
+    - updateEmailTemplateLanguage
+    - deleteEmailTemplateLanguage
+    - listEmailTemplateBroadcasts
+    - createEmailBroadcast
+    - listEmailBroadcasts
+    - getEmailBroadcast
+    - updateEmailBroadcast
+    - deleteEmailBroadcast
+    - sendEmailBroadcast
+    - cancelEmailBroadcast
+    - listEmailBroadcastEvents
+    - listEmailBroadcastRecipients
+    - getEmailBroadcastCounts
+    - listEmailBroadcastClickedLinks
+    - getEmailBroadcastSendQuota
     - createSMSMessage
     - createSMSMessageBatch
     - getSMSMessage

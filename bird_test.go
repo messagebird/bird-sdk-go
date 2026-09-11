@@ -787,3 +787,74 @@ func TestReceiverOnlyClient(t *testing.T) {
 		t.Errorf("raw Get on a keyless client = %v, want ErrMissingAPIKey", err)
 	}
 }
+
+func TestBroadcastChannelDefaults(t *testing.T) {
+	var body map[string]any
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		body = nil
+		b, _ := io.ReadAll(r.Body)
+		_ = json.Unmarshal(b, &body)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = io.WriteString(w, `{"id":"eb_01krdgeqcxet5s7t44vh8rt9mg","category":"marketing","status":"draft","recipient_count":0,"created_at":"2026-01-01T00:00:00Z","sent_at":null}`)
+	})
+
+	client := newClient(t, server, option.WithEmailDefaults(bird.EmailDefaults{
+		From:     "default@acme.com",
+		Category: bird.CategoryTransactional,
+		Headers:  map[string]string{"X-Default": "y"},
+	}))
+	ctx := context.Background()
+
+	// Unset fields take the configured defaults: a broadcast is an email send.
+	if _, err := client.Broadcasts.Create(ctx, bird.BroadcastsCreateParams{
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
+	}); err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if body["from"] != "default@acme.com" || body["category"] != "transactional" {
+		t.Errorf("defaults not applied: from=%v category=%v", body["from"], body["category"])
+	}
+
+	// Per-call value wins.
+	if _, err := client.Broadcasts.Create(ctx, bird.BroadcastsCreateParams{
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg", From: "override@acme.com",
+	}); err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if body["from"] != "override@acme.com" {
+		t.Errorf("per-call From should win: %v", body["from"])
+	}
+
+	// An explicit empty map is a value the caller set, not an absence: the
+	// configured headers must not fill it. optMap drops the empty map from the
+	// wire, so the assertion is that the default never arrives.
+	if _, err := client.Broadcasts.Create(ctx, bird.BroadcastsCreateParams{
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
+		Headers:    map[string]string{},
+	}); err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if h, ok := body["headers"]; ok {
+		t.Errorf("an explicit empty Headers must not take the configured default: %v", h)
+	}
+
+	// A nil map is an absence, so the default does fill it.
+	if _, err := client.Broadcasts.Create(ctx, bird.BroadcastsCreateParams{
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
+	}); err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if h, _ := body["headers"].(map[string]any); h["X-Default"] != "y" {
+		t.Errorf("a nil Headers should take the configured default: %v", body["headers"])
+	}
+
+	// An update never takes a default: an unset field keeps what the draft holds.
+	if _, err := client.Broadcasts.Update(ctx, "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{
+		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
+	}); err != nil {
+		t.Fatalf("Update: %v", err)
+	}
+	if _, ok := body["from"]; ok {
+		t.Errorf("update must not take the configured From: %v", body["from"])
+	}
+}

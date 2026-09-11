@@ -6,6 +6,72 @@ import (
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 )
 
+// EmailClientFamily is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailClientFamily* constants with a
+// default branch rather than treating the set as closed.
+type EmailClientFamily = oapi.EmailClientFamily
+
+const (
+	EmailClientFamilyAol          = oapi.EmailClientFamilyAol
+	EmailClientFamilyAppleMail    = oapi.EmailClientFamilyAppleMail
+	EmailClientFamilyFastmail     = oapi.EmailClientFamilyFastmail
+	EmailClientFamilyGmail        = oapi.EmailClientFamilyGmail
+	EmailClientFamilyGmx          = oapi.EmailClientFamilyGmx
+	EmailClientFamilyHey          = oapi.EmailClientFamilyHey
+	EmailClientFamilyIonos1and1   = oapi.EmailClientFamilyIonos1and1
+	EmailClientFamilyLaposte      = oapi.EmailClientFamilyLaposte
+	EmailClientFamilyMailRu       = oapi.EmailClientFamilyMailRu
+	EmailClientFamilyOrange       = oapi.EmailClientFamilyOrange
+	EmailClientFamilyOutlook      = oapi.EmailClientFamilyOutlook
+	EmailClientFamilyProtonmail   = oapi.EmailClientFamilyProtonmail
+	EmailClientFamilySamsungEmail = oapi.EmailClientFamilySamsungEmail
+	EmailClientFamilySfr          = oapi.EmailClientFamilySfr
+	EmailClientFamilyThunderbird  = oapi.EmailClientFamilyThunderbird
+	EmailClientFamilyWebDe        = oapi.EmailClientFamilyWebDe
+	EmailClientFamilyWpPl         = oapi.EmailClientFamilyWpPl
+	EmailClientFamilyYahoo        = oapi.EmailClientFamilyYahoo
+)
+
+// EmailClientPlatform is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailClientPlatform* constants with a
+// default branch rather than treating the set as closed.
+type EmailClientPlatform = oapi.EmailClientPlatform
+
+const (
+	EmailClientPlatformAndroid        = oapi.EmailClientPlatformAndroid
+	EmailClientPlatformDesktopWebmail = oapi.EmailClientPlatformDesktopWebmail
+	EmailClientPlatformIos            = oapi.EmailClientPlatformIos
+	EmailClientPlatformMacos          = oapi.EmailClientPlatformMacos
+	EmailClientPlatformMobileWebmail  = oapi.EmailClientPlatformMobileWebmail
+	EmailClientPlatformOutlookCom     = oapi.EmailClientPlatformOutlookCom
+	EmailClientPlatformWindows        = oapi.EmailClientPlatformWindows
+	EmailClientPlatformWindowsMail    = oapi.EmailClientPlatformWindowsMail
+)
+
+// EmailCompatibilityRuleID is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailCompatibilityRuleID* constants with a
+// default branch rather than treating the set as closed.
+type EmailCompatibilityRuleID = oapi.EmailCompatibilityRuleID
+
+const (
+	EmailCompatibilityRuleIDCssAtImport            = oapi.EmailCompatibilityRuleIDCssAtImport
+	EmailCompatibilityRuleIDCssDisplayFlexGrid     = oapi.EmailCompatibilityRuleIDCssDisplayFlexGrid
+	EmailCompatibilityRuleIDCssMathFunctions       = oapi.EmailCompatibilityRuleIDCssMathFunctions
+	EmailCompatibilityRuleIDCssModernColor         = oapi.EmailCompatibilityRuleIDCssModernColor
+	EmailCompatibilityRuleIDCssPositionFixedSticky = oapi.EmailCompatibilityRuleIDCssPositionFixedSticky
+	EmailCompatibilityRuleIDCssVariablesNoFallback = oapi.EmailCompatibilityRuleIDCssVariablesNoFallback
+	EmailCompatibilityRuleIDCssViewportUnits       = oapi.EmailCompatibilityRuleIDCssViewportUnits
+	EmailCompatibilityRuleIDHtmlButton             = oapi.EmailCompatibilityRuleIDHtmlButton
+	EmailCompatibilityRuleIDHtmlEmbeddedContent    = oapi.EmailCompatibilityRuleIDHtmlEmbeddedContent
+	EmailCompatibilityRuleIDHtmlEventHandlers      = oapi.EmailCompatibilityRuleIDHtmlEventHandlers
+	EmailCompatibilityRuleIDHtmlForm               = oapi.EmailCompatibilityRuleIDHtmlForm
+	EmailCompatibilityRuleIDHtmlLinkedStylesheet   = oapi.EmailCompatibilityRuleIDHtmlLinkedStylesheet
+	EmailCompatibilityRuleIDHtmlMedia              = oapi.EmailCompatibilityRuleIDHtmlMedia
+	EmailCompatibilityRuleIDHtmlScript             = oapi.EmailCompatibilityRuleIDHtmlScript
+	EmailCompatibilityRuleIDHtmlSvg                = oapi.EmailCompatibilityRuleIDHtmlSvg
+	EmailCompatibilityRuleIDHtmlWebPageMarkup      = oapi.EmailCompatibilityRuleIDHtmlWebPageMarkup
+)
+
 // EmailEventType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailEventType* constants with a
 // default branch rather than treating the set as closed.
@@ -70,6 +136,19 @@ type EmailTemplateSource = oapi.EmailTemplateSource
 
 const (
 	EmailTemplateSourceHtml = oapi.EmailTemplateSourceHtml
+)
+
+// EmailTemplateTheme is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateTheme* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateTheme = oapi.EmailTemplateTheme
+
+const (
+	EmailTemplateThemeArcane   = oapi.EmailTemplateThemeArcane
+	EmailTemplateThemeBarebone = oapi.EmailTemplateThemeBarebone
+	EmailTemplateThemeMatte    = oapi.EmailTemplateThemeMatte
+	EmailTemplateThemeProtocol = oapi.EmailTemplateThemeProtocol
+	EmailTemplateThemeStudio   = oapi.EmailTemplateThemeStudio
 )
 
 // LookupFlag is an open string on the wire: a value added by a newer server

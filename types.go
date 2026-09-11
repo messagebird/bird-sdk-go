@@ -71,6 +71,61 @@ type EmailAttachment = oapi.EmailAttachment
 // EmailStatus is a message's aggregate delivery status.
 type EmailStatus = oapi.EmailMessageStatus
 
+// Broadcast reads, returned by the Client.Broadcasts methods.
+type (
+	// EmailBroadcast is one broadcast with its audience reference and counters.
+	EmailBroadcast = oapi.EmailBroadcast
+	// EmailBroadcastList is one page of broadcasts plus its pagination cursors.
+	EmailBroadcastList = oapi.EmailBroadcastList
+	// EmailBroadcastCounts is how many contacts a broadcast's audience holds,
+	// how many of those have an address, and how many of those addressable ones
+	// are not suppressed. They describe the audience, not delivery, and sending
+	// does not change them.
+	EmailBroadcastCounts = oapi.EmailBroadcastCounts
+	// EmailBroadcastClickedLink is one link in a broadcast, with how many
+	// recipients clicked it.
+	EmailBroadcastClickedLink = oapi.EmailBroadcastClickedLink
+	// EmailBroadcastClickedLinkList is the links a broadcast's recipients
+	// clicked, with a click count each.
+	EmailBroadcastClickedLinkList = oapi.EmailBroadcastClickedLinkList
+	// EmailBroadcastSendQuota is how much of a broadcast the organization's
+	// email send allowance covers, read before sending it.
+	EmailBroadcastSendQuota = oapi.EmailBroadcastSendQuota
+	// EmailBroadcastStatus is where a broadcast stands in its lifecycle, reported
+	// as EmailBroadcastCounts.Status and taken by the broadcast list filter.
+	EmailBroadcastStatus = oapi.EmailBroadcastStatus
+	// EmailRecipient is one address a broadcast sent to, with its own state.
+	EmailRecipient = oapi.EmailRecipient
+	// EmailRecipientList is one page of recipients plus its pagination cursors.
+	EmailRecipientList = oapi.EmailRecipientList
+	// EmailEvent is one entry in a delivery timeline.
+	EmailEvent = oapi.EmailEvent
+	// EmailEventList is one page of events plus its pagination cursors.
+	EmailEventList = oapi.EmailEventList
+	// EmailBroadcastCategory is a broadcast's suppression policy, as every read
+	// reports it. It is a separate type from the shared Category, so passing a
+	// read value where a Category is wanted converts: Category(b.Category).
+	EmailBroadcastCategory = oapi.EmailBroadcastCategory
+	// EmailBroadcastFailureReason is why a failed broadcast stopped.
+	EmailBroadcastFailureReason = oapi.EmailBroadcastFailureReason
+	// EmailSendAllowanceWindow is the period a send allowance is measured over,
+	// reported as EmailBroadcastSendQuota.LimitedBy.
+	EmailSendAllowanceWindow = oapi.EmailSendAllowanceWindow
+	// EmailRecipientStatus is where one recipient of a broadcast has got to.
+	EmailRecipientStatus = oapi.EmailRecipientStatus
+	// EmailEventBounceType is how a receiving server refused a message.
+	EmailEventBounceType = oapi.EmailEventBounceType
+	// EmailRecipientBounceType is how a receiving server refused this recipient's
+	// copy. Distinct from EmailEventBounceType: a recipient carries its own.
+	EmailRecipientBounceType = oapi.EmailRecipientBounceType
+	// EmailEventRejectionReason is why we refused an event's send before trying.
+	EmailEventRejectionReason = oapi.EmailEventRejectionReason
+	// EmailRecipientRejectionReason is why we refused this recipient before trying.
+	EmailRecipientRejectionReason = oapi.EmailRecipientRejectionReason
+	// RecipientRole is which address field a recipient was named in.
+	RecipientRole = oapi.RecipientRole
+)
+
 // Enum vocabularies the read filters expose. Each is a named type, so a params
 // field carries it rather than a bare string.
 type (
@@ -78,10 +133,18 @@ type (
 	TemplateScope = oapi.TemplateScope
 	// TemplateStatus is where a template stands as a whole, on every channel.
 	TemplateStatus = oapi.TemplateStatus
-	// EmailTemplateCategory is an email template's traffic class (transactional or marketing).
+	// EmailTemplateThemeFilter is the closed set of themes the template list filter
+	// takes. EmailTemplateTheme, the value a template reports back, is open, and the
+	// exported EmailTemplateTheme* constants are its type, not this one -- a filter
+	// takes a string literal, as every other closed enum here does.
+	EmailTemplateThemeFilter = oapi.EmailTemplateThemeFilter
+	// EmailTemplateCategory is whether a template is transactional or marketing.
 	EmailTemplateCategory = oapi.EmailTemplateCategory
-	// EmailTemplateTheme is one of the built-in email templates' visual themes.
-	EmailTemplateTheme = oapi.EmailTemplateTheme
+	// EmailTemplateSourceWrite is the closed set of authoring formats a template
+	// can be created in. EmailTemplateSource, the value a template reports back,
+	// is open, because a format Bird adds later has to parse on a client that
+	// shipped before it.
+	EmailTemplateSourceWrite = oapi.EmailTemplateSourceWrite
 	// SMSMessageCategory is an SMS's content classification.
 	SMSMessageCategory = oapi.SMSMessageCategory
 	// EmailStatsSortMetric is the metric an email-stats breakdown sorts by.
@@ -153,6 +216,46 @@ type (
 	EmailStatsByBroadcastResponse             = oapi.EmailStatsByBroadcastResponse
 )
 
+// Email template reads, returned by the Client.Email.Templates methods.
+type (
+	// EmailTemplate is one template with its draft and published versions.
+	EmailTemplate = oapi.EmailTemplate
+	// EmailTemplateSummary is a template's list row.
+	EmailTemplateSummary = oapi.EmailTemplateSummary
+	// EmailTemplateList is one page of templates plus its pagination cursors.
+	EmailTemplateList = oapi.EmailTemplateList
+	// EmailTemplatePreview is a template rendered with sample values, with the
+	// client-compatibility findings the render turned up.
+	EmailTemplatePreview = oapi.EmailTemplatePreview
+	// EmailTemplateBroadcastSummary is one broadcast blocking a template delete.
+	EmailTemplateBroadcastSummary = oapi.EmailTemplateBroadcastSummary
+	// EmailTemplateBroadcastList is one page of those broadcasts plus its
+	// pagination cursors.
+	EmailTemplateBroadcastList = oapi.EmailTemplateBroadcastList
+	// EmailTemplateVersion is one version of a template with its per-language
+	// content.
+	EmailTemplateVersion = oapi.EmailTemplateVersion
+	// EmailTemplateVersionSummary is a version's list row.
+	EmailTemplateVersionSummary = oapi.EmailTemplateVersionSummary
+	// EmailTemplateVersionList is one page of versions plus its pagination
+	// cursors.
+	EmailTemplateVersionList = oapi.EmailTemplateVersionList
+	// EmailTemplateSubmitResult is the outcome of submitting a draft: the frozen
+	// version, or the problems that stopped it freezing.
+	EmailTemplateSubmitResult = oapi.EmailTemplateSubmitResult
+	// EmailTemplateLanguage is one language's subject and body on a version.
+	EmailTemplateLanguage = oapi.EmailTemplateLanguage
+	// EmailTemplateLanguageList is every language a version carries.
+	EmailTemplateLanguageList = oapi.EmailTemplateLanguageList
+	// EmailTemplateLanguageSaved is a written language and its new revision,
+	// with the same advisory client-compatibility report the language read
+	// carries.
+	EmailTemplateLanguageSaved = oapi.EmailTemplateLanguageSaved
+	// EmailTemplateLanguageContent is one language's subject and bodies, the
+	// value side of the map Create takes.
+	EmailTemplateLanguageContent = oapi.EmailTemplateLanguageContent
+)
+
 // SMSTemplate is an SMS template with its body, variables, and available
 // languages; SMSTemplateList is the (unpaginated) set of templates available to
 // the workspace.
@@ -203,13 +306,6 @@ type (
 type (
 	SMSTemplate     = oapi.SMSTemplate
 	SMSTemplateList = oapi.SMSTemplateList
-)
-
-// EmailTemplateSummary is one row of the email templates list; EmailTemplateList
-// is a page of them.
-type (
-	EmailTemplateSummary = oapi.EmailTemplateSummary
-	EmailTemplateList    = oapi.EmailTemplateList
 )
 
 // SMSMessage is a sent or received SMS with its status, segment breakdown, and
@@ -572,6 +668,97 @@ const (
 	EmailStatusRejected       EmailStatus = "rejected"
 	EmailStatusPartialFailure EmailStatus = "partial_failure"
 	EmailStatusCanceled       EmailStatus = "canceled"
+)
+
+const (
+	EmailBroadcastStatusDraft     EmailBroadcastStatus = "draft"
+	EmailBroadcastStatusScheduled EmailBroadcastStatus = "scheduled"
+	EmailBroadcastStatusAccepted  EmailBroadcastStatus = "accepted"
+	EmailBroadcastStatusSending   EmailBroadcastStatus = "sending"
+	EmailBroadcastStatusSent      EmailBroadcastStatus = "sent"
+	EmailBroadcastStatusCanceling EmailBroadcastStatus = "canceling"
+	EmailBroadcastStatusCanceled  EmailBroadcastStatus = "canceled"
+	EmailBroadcastStatusFailed    EmailBroadcastStatus = "failed"
+)
+
+const (
+	EmailBroadcastCategoryMarketing     EmailBroadcastCategory = "marketing"
+	EmailBroadcastCategoryTransactional EmailBroadcastCategory = "transactional"
+)
+
+const (
+	EmailSendAllowanceWindowDaily   EmailSendAllowanceWindow = "daily"
+	EmailSendAllowanceWindowMonthly EmailSendAllowanceWindow = "monthly"
+	EmailSendAllowanceWindowNone    EmailSendAllowanceWindow = "none"
+)
+
+const (
+	EmailRecipientStatusAccepted   EmailRecipientStatus = "accepted"
+	EmailRecipientStatusProcessed  EmailRecipientStatus = "processed"
+	EmailRecipientStatusDeferred   EmailRecipientStatus = "deferred"
+	EmailRecipientStatusDelivered  EmailRecipientStatus = "delivered"
+	EmailRecipientStatusBounced    EmailRecipientStatus = "bounced"
+	EmailRecipientStatusComplained EmailRecipientStatus = "complained"
+	EmailRecipientStatusRejected   EmailRecipientStatus = "rejected"
+)
+
+// failure_reason is null on a broadcast that has not failed, and the field is a
+// plain pointer, so nil is the test. There is no constant for the generator's
+// "<nil>" rendering of the schema's null.
+const (
+	EmailBroadcastFailureReasonEmptyAudience       EmailBroadcastFailureReason = "empty_audience"
+	EmailBroadcastFailureReasonAudienceUnavailable EmailBroadcastFailureReason = "audience_unavailable"
+	EmailBroadcastFailureReasonContentInvalid      EmailBroadcastFailureReason = "content_invalid"
+	EmailBroadcastFailureReasonInsufficientFunds   EmailBroadcastFailureReason = "insufficient_funds"
+	EmailBroadcastFailureReasonQuotaExceeded       EmailBroadcastFailureReason = "quota_exceeded"
+	EmailBroadcastFailureReasonInternalError       EmailBroadcastFailureReason = "internal_error"
+)
+
+// An absent bounce_type is how the wire expresses "unclassified", so there is
+// no constant for the generator's "<nil>" rendering of the schema's null.
+const (
+	EmailEventBounceTypeHard         EmailEventBounceType = "hard"
+	EmailEventBounceTypeSoft         EmailEventBounceType = "soft"
+	EmailEventBounceTypeBlock        EmailEventBounceType = "block"
+	EmailEventBounceTypeAdmin        EmailEventBounceType = "admin"
+	EmailEventBounceTypeUndetermined EmailEventBounceType = "undetermined"
+)
+
+// A recipient carries its own bounce vocabulary, identical in values to the
+// event's. They are separate types on the wire, so a constant from one does not
+// compile against the other.
+const (
+	EmailRecipientBounceTypeHard         EmailRecipientBounceType = "hard"
+	EmailRecipientBounceTypeSoft         EmailRecipientBounceType = "soft"
+	EmailRecipientBounceTypeBlock        EmailRecipientBounceType = "block"
+	EmailRecipientBounceTypeAdmin        EmailRecipientBounceType = "admin"
+	EmailRecipientBounceTypeUndetermined EmailRecipientBounceType = "undetermined"
+)
+
+const (
+	EmailEventRejectionReasonRecipientSuppressed EmailEventRejectionReason = "recipient_suppressed"
+	EmailEventRejectionReasonTransmissionFailed  EmailEventRejectionReason = "transmission_failed"
+	EmailEventRejectionReasonGenerationFailure   EmailEventRejectionReason = "generation_failure"
+	EmailEventRejectionReasonPolicyRejection     EmailEventRejectionReason = "policy_rejection"
+	EmailEventRejectionReasonDomainUnverified    EmailEventRejectionReason = "domain_unverified"
+	EmailEventRejectionReasonQuotaExceeded       EmailEventRejectionReason = "quota_exceeded"
+	EmailEventRejectionReasonRecipientNotAllowed EmailEventRejectionReason = "recipient_not_allowed"
+)
+
+const (
+	EmailRecipientRejectionReasonRecipientSuppressed EmailRecipientRejectionReason = "recipient_suppressed"
+	EmailRecipientRejectionReasonTransmissionFailed  EmailRecipientRejectionReason = "transmission_failed"
+	EmailRecipientRejectionReasonGenerationFailure   EmailRecipientRejectionReason = "generation_failure"
+	EmailRecipientRejectionReasonPolicyRejection     EmailRecipientRejectionReason = "policy_rejection"
+	EmailRecipientRejectionReasonDomainUnverified    EmailRecipientRejectionReason = "domain_unverified"
+	EmailRecipientRejectionReasonQuotaExceeded       EmailRecipientRejectionReason = "quota_exceeded"
+	EmailRecipientRejectionReasonRecipientNotAllowed EmailRecipientRejectionReason = "recipient_not_allowed"
+)
+
+const (
+	RecipientRoleTo  RecipientRole = "to"
+	RecipientRoleCc  RecipientRole = "cc"
+	RecipientRoleBcc RecipientRole = "bcc"
 )
 
 // Category classifies a send's suppression policy.

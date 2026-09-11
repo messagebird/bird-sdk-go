@@ -51,13 +51,13 @@ func (p EmailMailboxesListParams) toWire(startingAfter string) *oapi.ListMailbox
 // EmailMailboxesCreateParams is the request body for create.
 type EmailMailboxesCreateParams struct {
 	// The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
-	LocalPart string
+	LocalPart *string
 	// The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
-	Domain string
+	Domain *string
 	// Display name used as the sender name on mail from this mailbox.
-	DisplayName string
+	DisplayName *string
 	// Default `Reply-To` address stamped on mail sent from this mailbox.
-	DefaultReplyTo string
+	DefaultReplyTo *string
 	// Which inbound mail the mailbox accepts: - `open`: Accepts everything not blocked by a rule. - `replies_only`: Accepts only replies to messages this mailbox has sent. A reply must match a message the mailbox sent. Landing in an existing thread by itself does not count. - `allowlist`: Accepts only senders matching an allow rule. - `drop`: Stores nothing.
 	ReceivePolicy *MailboxCreateReceivePolicy
 	// How long message metadata, extracted text, and attachments are kept. Original bodies and inbound raw MIME are limited to 30 days on every tier. Longer tiers require a plan that includes them.
@@ -68,17 +68,11 @@ type EmailMailboxesCreateParams struct {
 
 func (p EmailMailboxesCreateParams) toWire() oapi.MailboxCreate {
 	body := oapi.MailboxCreate{}
-	if p.LocalPart != "" {
-		body.LocalPart = Ptr(p.LocalPart)
-	}
-	if p.Domain != "" {
-		body.Domain = Ptr(p.Domain)
-	}
-	if p.DisplayName != "" {
-		body.DisplayName = Ptr(p.DisplayName)
-	}
-	if p.DefaultReplyTo != "" {
-		body.DefaultReplyTo = Ptr(openapi_types.Email(p.DefaultReplyTo))
+	body.LocalPart = p.LocalPart
+	body.Domain = p.Domain
+	body.DisplayName = p.DisplayName
+	if p.DefaultReplyTo != nil {
+		body.DefaultReplyTo = Ptr(openapi_types.Email(*p.DefaultReplyTo))
 	}
 	if p.ReceivePolicy != nil {
 		body.ReceivePolicy = p.ReceivePolicy

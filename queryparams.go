@@ -85,3 +85,10 @@ func optSlice[T any](ss []T) *[]T {
 	}
 	return &ss
 }
+
+func optMap[V any](m map[string]V) *map[string]V {
+	if len(m) == 0 {
+		return nil
+	}
+	return &m
+}

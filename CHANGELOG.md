@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.66.0
+
+- Add `broadcasts.counts`, which reports how many contacts an email broadcast's audience holds, how many of those have an email address, and how many of those addressable contacts are not suppressed for the broadcast's category, so a send can be sized before it goes out.
+- Add a `broadcasts` resource that reads an email broadcast's results: the recipients it resolved to, their delivery events, the links they clicked, and the send allowance a send would draw on.
+- Add `broadcasts.list`, `broadcasts.get`, `broadcasts.delete` and `broadcasts.cancel`, so an email broadcast can be found, read with its counters, removed while it is still a draft, and stopped once it is sending.
+- Add `broadcasts.create`, `broadcasts.update` and `broadcasts.send`, so an email broadcast can be drafted, edited while it is a draft or scheduled, and sent now or scheduled for a later time.
+- Add `email.templates` for managing reusable email templates: create, list, read, update, delete and duplicate a template, render a preview, list, read, submit, delete and roll back its versions under `email.templates.versions`, write a version's per-language content under `email.templates.versions.languages`, and list the broadcasts that block deleting a template.
+- **Breaking:** optional string and numeric fields in request parameters for contacts, audiences, mailboxes, thread replies, templates, and webhooks now use pointers to preserve explicit empty strings and zero values; wrap supplied values with `bird.Ptr(...)` and use `nil` to omit them. This affects 17 fields on the new template methods and 18 fields on existing methods.
+
 ## 0.65.0
 
 - Read the WhatsApp numbers your workspace sends from, and the WhatsApp Business Accounts behind them: list your senders with the status, quality rating, messaging limit and throughput level WhatsApp reports for each, read one sender, read the business profile people see in WhatsApp, follow how a number reached its current state, and list or read a connected business account with its review, verification and Marketing Messages onboarding state.

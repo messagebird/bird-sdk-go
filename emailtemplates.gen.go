@@ -10,6 +10,10 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type EmailTemplatePreviewContent = oapi.EmailTemplatePreviewContent
+
+type TemplateOnMissingLanguage = oapi.TemplateOnMissingLanguage
+
 // EmailTemplatesListParams filters the list. Zero-value fields are omitted.
 type EmailTemplatesListParams struct {
 	// Filter by who owns the template. Use `system` for our built-in templates and `workspace` for the ones your workspace created. Leave it out to get both.
@@ -19,7 +23,7 @@ type EmailTemplatesListParams struct {
 	// Return only templates authored in this format.
 	Source EmailTemplateSource
 	// Filter by the visual theme a built-in template is designed in. Only our built-in templates have a theme, so naming one returns built-ins alone.
-	Theme EmailTemplateTheme
+	Theme EmailTemplateThemeFilter
 	// A case-insensitive substring search across the template's slug, name, and description.
 	Q string
 	// Maximum number of items to return per page.
@@ -36,6 +40,76 @@ func (p EmailTemplatesListParams) toWire(startingAfter string) *oapi.ListEmailTe
 		Limit:         optInt(p.Limit),
 		StartingAfter: optStr(startingAfter),
 	}
+}
+
+// EmailTemplatesUpdateParams is the request body for update.
+type EmailTemplatesUpdateParams struct {
+	// The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+	Revision int
+	// New display name, in free text. The slug stays fixed at creation, so renaming the template does not break whatever refers to it by slug or id.
+	Name *string
+	// What the template is for, in your own words. Send `null` to clear it.
+	Description Nullable[string]
+	// New default language for the draft. Must be one of the languages the draft already has, so add the language first if it is not there yet.
+	DefaultLanguage *string
+	// What a send does when it asks for a language this template does not carry.
+	OnMissingLanguage *TemplateOnMissingLanguage
+	// Whether a send has to name a language. Turning it on rejects a send that names none instead of serving the default language, and makes the template unusable for a broadcast, which has no way to name one.
+	LanguageSourceRequired *bool
+}
+
+func (p EmailTemplatesUpdateParams) toWire() oapi.EmailTemplateUpdate {
+	body := oapi.EmailTemplateUpdate{}
+	body.Revision = p.Revision
+	body.Name = p.Name
+	body.Description = p.Description
+	body.DefaultLanguage = p.DefaultLanguage
+	if p.OnMissingLanguage != nil {
+		body.OnMissingLanguage = p.OnMissingLanguage
+	}
+	body.LanguageSourceRequired = p.LanguageSourceRequired
+	return body
+}
+
+// EmailTemplatesDuplicateParams is the request body for duplicate.
+type EmailTemplatesDuplicateParams struct {
+	// The copy's workspace-unique handle, and the stable alternative to the template ID when sending by template. It can contain lowercase letters, numbers, hyphens, and underscores. Omit it to derive one from the source (for example, `welcome-email-copy`), with a numeric suffix if that slug is already taken. Two prefixes are rejected: `bird_`, reserved for our built-in templates, and `emt_`, the template ID format, which a slug could never be distinguished from. If you supply a slug that is already in use in the workspace, the request returns a conflict.
+	Slug *string
+}
+
+func (p EmailTemplatesDuplicateParams) toWire() oapi.EmailTemplateDuplicate {
+	body := oapi.EmailTemplateDuplicate{}
+	body.Slug = p.Slug
+	return body
+}
+
+// EmailTemplatesPreviewParams is the request body for preview.
+type EmailTemplatesPreviewParams struct {
+	// Render this content rather than the template's stored draft. It is what an editor uses to show a change as it is made, since nothing has to be saved first. The content is treated exactly as a draft would be: personalization is filled in the same way, a plain-text body is derived from the HTML when you omit it, and content that could not be published is refused with the same error. `version` asks for a published version's own content, so the two cannot be combined.
+	Content *EmailTemplatePreviewContent
+	// Sample values for the variables the template uses, for this one preview only. A variable takes its value under its own name. A `bird.` value nests to match the token, so `{"bird": {"contact": {"first_name": "Ada"}}}` fills `{{ bird.contact.first_name }}`. A preview is more forgiving than a send: a parameter you leave out renders as empty here rather than being rejected. `parameters` is capped at 16 KB once serialized.
+	Parameters map[string]any
+	// Render the template the way this contact would receive it. Every `{{ bird.contact.… }}` token takes its value from the contact's record, narrowed to the attributes the template reads and filled from each property's `fallback_value` where the contact holds no value: the same values a broadcast to this contact would send. Values are read as the contact stands right now, so a preview reflects an edit to their record as soon as you make it. A `bird.contact.…` value you also pass in `parameters` wins for that one attribute, so you can preview a contact with one field changed without editing them.
+	Contact *string
+	// Which of the template's languages to render. Omit it to render the default language. When the template does not have the language you ask for, its own `on_missing_language` setting decides whether a close match is rendered instead or the request is rejected. It is the same choice the send makes.
+	Language *string
+	// Preview a specific published version by its id, instead of the current draft.
+	Version *string
+}
+
+func (p EmailTemplatesPreviewParams) toWire() oapi.EmailTemplatePreviewRequest {
+	body := oapi.EmailTemplatePreviewRequest{}
+	if p.Content != nil {
+		body.Content = p.Content
+	}
+	if len(p.Parameters) > 0 {
+		v := p.Parameters
+		body.Parameters = &v
+	}
+	body.Contact = p.Contact
+	body.Language = p.Language
+	body.Version = p.Version
+	return body
 }
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
@@ -65,4 +139,88 @@ func (s *EmailTemplatesService) List(ctx context.Context, params EmailTemplatesL
 		}
 		return page.Data, page.NextCursor, nil
 	})
+}
+
+// Get Read one template's metadata: the state of every language it has, the languages it can send today, the draft revision, and its draft and published version IDs. The response omits content; read a version's language to retrieve it. Accepts a workspace template ID (`emt_…`) or a built-in `system` template's `bird_` slug.
+func (s *EmailTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*EmailTemplate, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetEmailTemplate(ctx, templateRef, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Update Change a template's metadata and draft settings without editing its content. Save content on the draft version. Pass the last-read draft `revision`; a concurrent edit returns a conflict.
+func (s *EmailTemplatesService) Update(ctx context.Context, templateRef string, params EmailTemplatesUpdateParams, opts ...option.RequestOption) (*EmailTemplate, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateEmailTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateEmailTemplate(ctx, templateRef, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Delete Delete a template and every version it holds, freeing its slug for reuse in the workspace. The deletion cannot be undone, and a later send naming the template is rejected. A template a `scheduled` or `accepted` broadcast still references cannot be deleted, and returns a conflict.
+func (s *EmailTemplatesService) Delete(ctx context.Context, templateRef string, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DeleteEmailTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DeleteEmailTemplate(ctx, templateRef, op, cfg...)
+	})
+	return err
+}
+
+// Duplicate Copy a workspace or built-in `system` template into a new unpublished template. Its editable draft inherits the source's current content, category, authoring format, and description. Supply `slug` or use the derived `-copy` slug. A slug already in use returns a conflict.
+func (s *EmailTemplatesService) Duplicate(ctx context.Context, templateRef string, params EmailTemplatesDuplicateParams, opts ...option.RequestOption) (*EmailTemplate, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DuplicateEmailTemplateParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DuplicateEmailTemplate(ctx, templateRef, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Preview Render a template with sample values and return the resulting subject, HTML, and plain-text bodies: the personalized email as it will send. Renders the draft by default. Pass `version` to select a published version instead; built-in `system` templates have no versions, so `version` on one returns a validation error. Pass `contact` to fill the personalization from a real contact's record. Sample `parameters` cap at 16 KB serialized. Personalization that is invalid or unsupported returns a validation error naming what to fix. The response also carries `compatibility`: what the HTML uses that mail clients remove, ignore, or render inconsistently, each finding naming the pattern, the line and column it sits on, and what to use instead. Advisory, and the preview renders either way.
+func (s *EmailTemplatesService) Preview(ctx context.Context, templateRef string, params EmailTemplatesPreviewParams, opts ...option.RequestOption) (*EmailTemplatePreview, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.GetEmailTemplatePreviewParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.GetEmailTemplatePreview(ctx, templateRef, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailTemplatePreview
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

@@ -20,15 +20,14 @@ type EmailService struct {
 	// Stats reads aggregated delivery and engagement statistics.
 	Stats *EmailStatsService
 
-	// Templates reads the templates a workspace can send with: its own and
-	// Bird's built-in ones.
-	Templates *EmailTemplatesService
-
 	// Mailboxes manages durable agent mailboxes that receive, store, and send email.
 	Mailboxes *EmailMailboxesService
 
 	// Threads reads and manages email conversations across every mailbox.
 	Threads *EmailThreadsService
+
+	// Templates manages reusable email templates and their versions.
+	Templates *EmailTemplatesService
 }
 
 // EmailSendParams is an email send. Optional fields are omitted from the request

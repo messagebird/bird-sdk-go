@@ -456,6 +456,330 @@ func (e EmailBounceType) Valid() bool {
 	}
 }
 
+// Defines values for EmailBroadcastCategory.
+const (
+	EmailBroadcastCategoryMarketing     EmailBroadcastCategory = "marketing"
+	EmailBroadcastCategoryTransactional EmailBroadcastCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastCategory enum.
+func (e EmailBroadcastCategory) Valid() bool {
+	switch e {
+	case EmailBroadcastCategoryMarketing:
+		return true
+	case EmailBroadcastCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastFailureReason.
+const (
+	EmailBroadcastFailureReasonAudienceUnavailable EmailBroadcastFailureReason = "audience_unavailable"
+	EmailBroadcastFailureReasonContentInvalid      EmailBroadcastFailureReason = "content_invalid"
+	EmailBroadcastFailureReasonEmptyAudience       EmailBroadcastFailureReason = "empty_audience"
+	EmailBroadcastFailureReasonInsufficientFunds   EmailBroadcastFailureReason = "insufficient_funds"
+	EmailBroadcastFailureReasonInternalError       EmailBroadcastFailureReason = "internal_error"
+	EmailBroadcastFailureReasonLessThannil         EmailBroadcastFailureReason = "<nil>"
+	EmailBroadcastFailureReasonQuotaExceeded       EmailBroadcastFailureReason = "quota_exceeded"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastFailureReason enum.
+func (e EmailBroadcastFailureReason) Valid() bool {
+	switch e {
+	case EmailBroadcastFailureReasonAudienceUnavailable:
+		return true
+	case EmailBroadcastFailureReasonContentInvalid:
+		return true
+	case EmailBroadcastFailureReasonEmptyAudience:
+		return true
+	case EmailBroadcastFailureReasonInsufficientFunds:
+		return true
+	case EmailBroadcastFailureReasonInternalError:
+		return true
+	case EmailBroadcastFailureReasonLessThannil:
+		return true
+	case EmailBroadcastFailureReasonQuotaExceeded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastCreateRequestCategory.
+const (
+	EmailBroadcastCreateRequestCategoryMarketing     EmailBroadcastCreateRequestCategory = "marketing"
+	EmailBroadcastCreateRequestCategoryTransactional EmailBroadcastCreateRequestCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastCreateRequestCategory enum.
+func (e EmailBroadcastCreateRequestCategory) Valid() bool {
+	switch e {
+	case EmailBroadcastCreateRequestCategoryMarketing:
+		return true
+	case EmailBroadcastCreateRequestCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastStatus.
+const (
+	EmailBroadcastStatusAccepted  EmailBroadcastStatus = "accepted"
+	EmailBroadcastStatusCanceled  EmailBroadcastStatus = "canceled"
+	EmailBroadcastStatusCanceling EmailBroadcastStatus = "canceling"
+	EmailBroadcastStatusDraft     EmailBroadcastStatus = "draft"
+	EmailBroadcastStatusFailed    EmailBroadcastStatus = "failed"
+	EmailBroadcastStatusScheduled EmailBroadcastStatus = "scheduled"
+	EmailBroadcastStatusSending   EmailBroadcastStatus = "sending"
+	EmailBroadcastStatusSent      EmailBroadcastStatus = "sent"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastStatus enum.
+func (e EmailBroadcastStatus) Valid() bool {
+	switch e {
+	case EmailBroadcastStatusAccepted:
+		return true
+	case EmailBroadcastStatusCanceled:
+		return true
+	case EmailBroadcastStatusCanceling:
+		return true
+	case EmailBroadcastStatusDraft:
+		return true
+	case EmailBroadcastStatusFailed:
+		return true
+	case EmailBroadcastStatusScheduled:
+		return true
+	case EmailBroadcastStatusSending:
+		return true
+	case EmailBroadcastStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastUpdateRequestCategory.
+const (
+	EmailBroadcastUpdateRequestCategoryMarketing     EmailBroadcastUpdateRequestCategory = "marketing"
+	EmailBroadcastUpdateRequestCategoryTransactional EmailBroadcastUpdateRequestCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastUpdateRequestCategory enum.
+func (e EmailBroadcastUpdateRequestCategory) Valid() bool {
+	switch e {
+	case EmailBroadcastUpdateRequestCategoryMarketing:
+		return true
+	case EmailBroadcastUpdateRequestCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailClientFamily.
+const (
+	EmailClientFamilyAol          EmailClientFamily = "aol"
+	EmailClientFamilyAppleMail    EmailClientFamily = "apple_mail"
+	EmailClientFamilyFastmail     EmailClientFamily = "fastmail"
+	EmailClientFamilyGmail        EmailClientFamily = "gmail"
+	EmailClientFamilyGmx          EmailClientFamily = "gmx"
+	EmailClientFamilyHey          EmailClientFamily = "hey"
+	EmailClientFamilyIonos1and1   EmailClientFamily = "ionos_1and1"
+	EmailClientFamilyLaposte      EmailClientFamily = "laposte"
+	EmailClientFamilyMailRu       EmailClientFamily = "mail_ru"
+	EmailClientFamilyOrange       EmailClientFamily = "orange"
+	EmailClientFamilyOutlook      EmailClientFamily = "outlook"
+	EmailClientFamilyProtonmail   EmailClientFamily = "protonmail"
+	EmailClientFamilySamsungEmail EmailClientFamily = "samsung_email"
+	EmailClientFamilySfr          EmailClientFamily = "sfr"
+	EmailClientFamilyThunderbird  EmailClientFamily = "thunderbird"
+	EmailClientFamilyWebDe        EmailClientFamily = "web_de"
+	EmailClientFamilyWpPl         EmailClientFamily = "wp_pl"
+	EmailClientFamilyYahoo        EmailClientFamily = "yahoo"
+)
+
+// Valid indicates whether the value is a known member of the EmailClientFamily enum.
+func (e EmailClientFamily) Valid() bool {
+	switch e {
+	case EmailClientFamilyAol:
+		return true
+	case EmailClientFamilyAppleMail:
+		return true
+	case EmailClientFamilyFastmail:
+		return true
+	case EmailClientFamilyGmail:
+		return true
+	case EmailClientFamilyGmx:
+		return true
+	case EmailClientFamilyHey:
+		return true
+	case EmailClientFamilyIonos1and1:
+		return true
+	case EmailClientFamilyLaposte:
+		return true
+	case EmailClientFamilyMailRu:
+		return true
+	case EmailClientFamilyOrange:
+		return true
+	case EmailClientFamilyOutlook:
+		return true
+	case EmailClientFamilyProtonmail:
+		return true
+	case EmailClientFamilySamsungEmail:
+		return true
+	case EmailClientFamilySfr:
+		return true
+	case EmailClientFamilyThunderbird:
+		return true
+	case EmailClientFamilyWebDe:
+		return true
+	case EmailClientFamilyWpPl:
+		return true
+	case EmailClientFamilyYahoo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailClientPlatform.
+const (
+	EmailClientPlatformAndroid        EmailClientPlatform = "android"
+	EmailClientPlatformDesktopWebmail EmailClientPlatform = "desktop_webmail"
+	EmailClientPlatformIos            EmailClientPlatform = "ios"
+	EmailClientPlatformMacos          EmailClientPlatform = "macos"
+	EmailClientPlatformMobileWebmail  EmailClientPlatform = "mobile_webmail"
+	EmailClientPlatformOutlookCom     EmailClientPlatform = "outlook_com"
+	EmailClientPlatformWindows        EmailClientPlatform = "windows"
+	EmailClientPlatformWindowsMail    EmailClientPlatform = "windows_mail"
+)
+
+// Valid indicates whether the value is a known member of the EmailClientPlatform enum.
+func (e EmailClientPlatform) Valid() bool {
+	switch e {
+	case EmailClientPlatformAndroid:
+		return true
+	case EmailClientPlatformDesktopWebmail:
+		return true
+	case EmailClientPlatformIos:
+		return true
+	case EmailClientPlatformMacos:
+		return true
+	case EmailClientPlatformMobileWebmail:
+		return true
+	case EmailClientPlatformOutlookCom:
+		return true
+	case EmailClientPlatformWindows:
+		return true
+	case EmailClientPlatformWindowsMail:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompatibilityReportSeverity.
+const (
+	EmailCompatibilityReportSeverityNone    EmailCompatibilityReportSeverity = "none"
+	EmailCompatibilityReportSeverityProblem EmailCompatibilityReportSeverity = "problem"
+	EmailCompatibilityReportSeverityWarning EmailCompatibilityReportSeverity = "warning"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompatibilityReportSeverity enum.
+func (e EmailCompatibilityReportSeverity) Valid() bool {
+	switch e {
+	case EmailCompatibilityReportSeverityNone:
+		return true
+	case EmailCompatibilityReportSeverityProblem:
+		return true
+	case EmailCompatibilityReportSeverityWarning:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompatibilityRuleID.
+const (
+	EmailCompatibilityRuleIDCssAtImport            EmailCompatibilityRuleID = "css_at_import"
+	EmailCompatibilityRuleIDCssDisplayFlexGrid     EmailCompatibilityRuleID = "css_display_flex_grid"
+	EmailCompatibilityRuleIDCssMathFunctions       EmailCompatibilityRuleID = "css_math_functions"
+	EmailCompatibilityRuleIDCssModernColor         EmailCompatibilityRuleID = "css_modern_color"
+	EmailCompatibilityRuleIDCssPositionFixedSticky EmailCompatibilityRuleID = "css_position_fixed_sticky"
+	EmailCompatibilityRuleIDCssVariablesNoFallback EmailCompatibilityRuleID = "css_variables_no_fallback"
+	EmailCompatibilityRuleIDCssViewportUnits       EmailCompatibilityRuleID = "css_viewport_units"
+	EmailCompatibilityRuleIDHtmlButton             EmailCompatibilityRuleID = "html_button"
+	EmailCompatibilityRuleIDHtmlEmbeddedContent    EmailCompatibilityRuleID = "html_embedded_content"
+	EmailCompatibilityRuleIDHtmlEventHandlers      EmailCompatibilityRuleID = "html_event_handlers"
+	EmailCompatibilityRuleIDHtmlForm               EmailCompatibilityRuleID = "html_form"
+	EmailCompatibilityRuleIDHtmlLinkedStylesheet   EmailCompatibilityRuleID = "html_linked_stylesheet"
+	EmailCompatibilityRuleIDHtmlMedia              EmailCompatibilityRuleID = "html_media"
+	EmailCompatibilityRuleIDHtmlScript             EmailCompatibilityRuleID = "html_script"
+	EmailCompatibilityRuleIDHtmlSvg                EmailCompatibilityRuleID = "html_svg"
+	EmailCompatibilityRuleIDHtmlWebPageMarkup      EmailCompatibilityRuleID = "html_web_page_markup"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompatibilityRuleID enum.
+func (e EmailCompatibilityRuleID) Valid() bool {
+	switch e {
+	case EmailCompatibilityRuleIDCssAtImport:
+		return true
+	case EmailCompatibilityRuleIDCssDisplayFlexGrid:
+		return true
+	case EmailCompatibilityRuleIDCssMathFunctions:
+		return true
+	case EmailCompatibilityRuleIDCssModernColor:
+		return true
+	case EmailCompatibilityRuleIDCssPositionFixedSticky:
+		return true
+	case EmailCompatibilityRuleIDCssVariablesNoFallback:
+		return true
+	case EmailCompatibilityRuleIDCssViewportUnits:
+		return true
+	case EmailCompatibilityRuleIDHtmlButton:
+		return true
+	case EmailCompatibilityRuleIDHtmlEmbeddedContent:
+		return true
+	case EmailCompatibilityRuleIDHtmlEventHandlers:
+		return true
+	case EmailCompatibilityRuleIDHtmlForm:
+		return true
+	case EmailCompatibilityRuleIDHtmlLinkedStylesheet:
+		return true
+	case EmailCompatibilityRuleIDHtmlMedia:
+		return true
+	case EmailCompatibilityRuleIDHtmlScript:
+		return true
+	case EmailCompatibilityRuleIDHtmlSvg:
+		return true
+	case EmailCompatibilityRuleIDHtmlWebPageMarkup:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompatibilitySeverity.
+const (
+	EmailCompatibilitySeverityProblem EmailCompatibilitySeverity = "problem"
+	EmailCompatibilitySeverityWarning EmailCompatibilitySeverity = "warning"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompatibilitySeverity enum.
+func (e EmailCompatibilitySeverity) Valid() bool {
+	switch e {
+	case EmailCompatibilitySeverityProblem:
+		return true
+	case EmailCompatibilitySeverityWarning:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailEngagementSortMetric.
 const (
 	EmailEngagementSortMetricClicks                   EmailEngagementSortMetric = "clicks"
@@ -1011,6 +1335,27 @@ func (e EmailRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for EmailSendAllowanceWindow.
+const (
+	EmailSendAllowanceWindowDaily   EmailSendAllowanceWindow = "daily"
+	EmailSendAllowanceWindowMonthly EmailSendAllowanceWindow = "monthly"
+	EmailSendAllowanceWindowNone    EmailSendAllowanceWindow = "none"
+)
+
+// Valid indicates whether the value is a known member of the EmailSendAllowanceWindow enum.
+func (e EmailSendAllowanceWindow) Valid() bool {
+	switch e {
+	case EmailSendAllowanceWindowDaily:
+		return true
+	case EmailSendAllowanceWindowMonthly:
+		return true
+	case EmailSendAllowanceWindowNone:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailSmtpConfigCategory.
 const (
 	EmailSmtpConfigCategoryMarketing     EmailSmtpConfigCategory = "marketing"
@@ -1182,17 +1527,59 @@ func (e EmailTemplateSource) Valid() bool {
 	}
 }
 
+// Defines values for EmailTemplateSourceWrite.
+const (
+	EmailTemplateSourceWriteHtml EmailTemplateSourceWrite = "html"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateSourceWrite enum.
+func (e EmailTemplateSourceWrite) Valid() bool {
+	switch e {
+	case EmailTemplateSourceWriteHtml:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailTemplateTheme.
 const (
-	Arcane   EmailTemplateTheme = "arcane"
-	Barebone EmailTemplateTheme = "barebone"
-	Matte    EmailTemplateTheme = "matte"
-	Protocol EmailTemplateTheme = "protocol"
-	Studio   EmailTemplateTheme = "studio"
+	EmailTemplateThemeArcane   EmailTemplateTheme = "arcane"
+	EmailTemplateThemeBarebone EmailTemplateTheme = "barebone"
+	EmailTemplateThemeMatte    EmailTemplateTheme = "matte"
+	EmailTemplateThemeProtocol EmailTemplateTheme = "protocol"
+	EmailTemplateThemeStudio   EmailTemplateTheme = "studio"
 )
 
 // Valid indicates whether the value is a known member of the EmailTemplateTheme enum.
 func (e EmailTemplateTheme) Valid() bool {
+	switch e {
+	case EmailTemplateThemeArcane:
+		return true
+	case EmailTemplateThemeBarebone:
+		return true
+	case EmailTemplateThemeMatte:
+		return true
+	case EmailTemplateThemeProtocol:
+		return true
+	case EmailTemplateThemeStudio:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateThemeFilter.
+const (
+	Arcane   EmailTemplateThemeFilter = "arcane"
+	Barebone EmailTemplateThemeFilter = "barebone"
+	Matte    EmailTemplateThemeFilter = "matte"
+	Protocol EmailTemplateThemeFilter = "protocol"
+	Studio   EmailTemplateThemeFilter = "studio"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateThemeFilter enum.
+func (e EmailTemplateThemeFilter) Valid() bool {
 	switch e {
 	case Arcane:
 		return true
@@ -1203,6 +1590,27 @@ func (e EmailTemplateTheme) Valid() bool {
 	case Protocol:
 		return true
 	case Studio:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateVersionStatus.
+const (
+	EmailTemplateVersionStatusArchived  EmailTemplateVersionStatus = "archived"
+	EmailTemplateVersionStatusDraft     EmailTemplateVersionStatus = "draft"
+	EmailTemplateVersionStatusPublished EmailTemplateVersionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateVersionStatus enum.
+func (e EmailTemplateVersionStatus) Valid() bool {
+	switch e {
+	case EmailTemplateVersionStatusArchived:
+		return true
+	case EmailTemplateVersionStatusDraft:
+		return true
+	case EmailTemplateVersionStatusPublished:
 		return true
 	default:
 		return false
@@ -3215,22 +3623,22 @@ func (e SMSMessageDirection) Valid() bool {
 
 // Defines values for SMSMessageCategory.
 const (
-	SMSMessageCategoryAuthentication SMSMessageCategory = "authentication"
-	SMSMessageCategoryMarketing      SMSMessageCategory = "marketing"
-	SMSMessageCategoryService        SMSMessageCategory = "service"
-	SMSMessageCategoryTransactional  SMSMessageCategory = "transactional"
+	Authentication SMSMessageCategory = "authentication"
+	Marketing      SMSMessageCategory = "marketing"
+	Service        SMSMessageCategory = "service"
+	Transactional  SMSMessageCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSMessageCategory enum.
 func (e SMSMessageCategory) Valid() bool {
 	switch e {
-	case SMSMessageCategoryAuthentication:
+	case Authentication:
 		return true
-	case SMSMessageCategoryMarketing:
+	case Marketing:
 		return true
-	case SMSMessageCategoryService:
+	case Service:
 		return true
-	case SMSMessageCategoryTransactional:
+	case Transactional:
 		return true
 	default:
 		return false
@@ -3575,16 +3983,16 @@ func (e StatsGrain) Valid() bool {
 
 // Defines values for StatsTrendGrain.
 const (
-	Daily  StatsTrendGrain = "daily"
-	Hourly StatsTrendGrain = "hourly"
+	StatsTrendGrainDaily  StatsTrendGrain = "daily"
+	StatsTrendGrainHourly StatsTrendGrain = "hourly"
 )
 
 // Valid indicates whether the value is a known member of the StatsTrendGrain enum.
 func (e StatsTrendGrain) Valid() bool {
 	switch e {
-	case Daily:
+	case StatsTrendGrainDaily:
 		return true
-	case Hourly:
+	case StatsTrendGrainHourly:
 		return true
 	default:
 		return false
@@ -6714,8 +7122,298 @@ type EmailBounceStatsWithRates struct {
 // - `undetermined`: The receiving server's response was ambiguous.
 type EmailBounceType string
 
+// EmailBroadcast defines model for EmailBroadcast.
+type EmailBroadcast struct {
+	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// BouncedCount How many recipients the message could not be delivered to at all. Absent when `sent_count` is.
+	BouncedCount *int64 `json:"bounced_count,omitempty"`
+
+	// CanceledAt When the broadcast was canceled, and absent if it never was. This is when cancellation was requested, so it is set as soon as the status is `canceling` and does not move while the remaining sends stop and the status becomes `canceled`.
+	CanceledAt *time.Time `json:"canceled_at,omitempty"`
+
+	// Category What kind of email this is, which decides how suppressions apply to it. A `marketing` broadcast is held back from every suppressed address. A `transactional` one still goes to addresses suppressed for a complaint or an unsubscribe, because those suppressions are about marketing mail.
+	Category EmailBroadcastCategory `json:"category"`
+
+	// ClickCount How many times a link in the message was clicked, added up across every recipient. One recipient clicking twice counts twice. Absent when `sent_count` is.
+	ClickCount *int64 `json:"click_count,omitempty"`
+
+	// ComplainedCount How many recipients marked the message as spam. Absent when `sent_count` is.
+	ComplainedCount *int64 `json:"complained_count,omitempty"`
+
+	// CreatedAt When the broadcast was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DeliveredCount How many recipients' messages were accepted by their mail server. Absent when `sent_count` is.
+	DeliveredCount *int64 `json:"delivered_count,omitempty"`
+
+	// DeliveredRecipients How many distinct recipients a delivery landed for. This is the denominator to measure `unique_opens_non_prefetched`, `unique_clicks` and `complained_count` against. It differs from `delivered_count`, which reports how many recipients are currently in the delivered state: a recipient who was delivered to and then complained moves to `complained_count` and leaves `delivered_count`, but stays here, because the message did reach them. Absent when `sent_count` is.
+	DeliveredRecipients *int64 `json:"delivered_recipients,omitempty"`
+
+	// FailureDetail A sentence explaining the failure in more detail than `failure_reason` does, and `null` when the broadcast has not failed. Show it to the person using your app. Do not write code that reads it, because the wording can change. Branch on `failure_reason` instead.
+	FailureDetail *string `json:"failure_detail,omitempty"`
+
+	// FailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+	//
+	// - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
+	// - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
+	// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
+	//   - The broadcast has no template, or its template has been deleted.
+	//   - The template has no published version, or no sendable content.
+	//   - The template uses a loop that a broadcast cannot fill.
+	//   - The template requires every send to name a language.
+	//   - The sending domain is no longer verified.
+	//   - The IP pool has nothing to send from.
+	//   - The message could not be handed off for delivery.
+	// - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
+	// - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
+	// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+	FailureReason *EmailBroadcastFailureReason `json:"failure_reason,omitempty"`
+
+	// From An email address with an optional display name.
+	From *EmailAddress `json:"from,omitempty"`
+
+	// Headers Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
+	Headers *map[string]string `json:"headers,omitempty"`
+
+	// HtmlBytes Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, so this is the real body we send and differs per recipient only by that recipient's own merge values. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+	HtmlBytes *int64 `json:"html_bytes,omitempty"`
+
+	// Id Broadcast ID.
+	Id *string `json:"id,omitempty"`
+
+	// IpPoolId The IP pool this broadcast sends from, or `ipp_shared` when it sends through the shared pool. Absent when it sends on your organization's default pool.
+	IpPoolId *string `json:"ip_pool_id,omitempty"`
+
+	// Metadata Any JSON you want to keep on the broadcast. We store it and hand it back in webhook payloads, and that is all it does. If you want to search or filter by it, use `tags` instead.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Next What to do next about this broadcast, given the state it is in. Each entry names one action and
+	// says why it is worth taking. Present on reads that compute it: an empty list means there is
+	// nothing to do, and the field is absent entirely on responses that do not report next actions.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// OpenCount How many times the message was opened, added up across every recipient. One recipient opening it twice counts twice. Absent when `sent_count` is.
+	OpenCount *int64 `json:"open_count,omitempty"`
+
+	// OutOfBandBounces How many recipients bounced after the message had already been accepted for delivery. A recipient who bounced this way more than once counts once. Absent when `sent_count` is.
+	OutOfBandBounces *int64 `json:"out_of_band_bounces,omitempty"`
+
+	// RecipientCount Number of recipients after suppressed addresses are removed from the audience. This is 0 until sending starts and the audience becomes a recipient list.
+	RecipientCount *int64 `json:"recipient_count,omitempty"`
+
+	// ReplyTo Where replies to this broadcast go, if you want them somewhere other than the `from` address. Absent when you have not set one.
+	ReplyTo *[]EmailAddress `json:"reply_to,omitempty"`
+
+	// ScheduledAt When the broadcast is due to send, and absent when it is not scheduled.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
+	// SendingIps The IP addresses this broadcast's messages went out from, up to 100 of them. A broadcast is spread across every address in its pool, so more than one can appear. The receiving mail systems name the address when they deliver, bounce or defer a message, so this stays absent until the first of those comes back. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which read them. For delivery and latency broken down per address, read the sending-IP stats.
+	SendingIps *[]string `json:"sending_ips,omitempty"`
+
+	// SentAt When the last recipient was sent to and the broadcast became `sent`. Null until then. Compare with `started_at`, which is when the broadcast started sending.
+	SentAt *time.Time `json:"sent_at,omitempty"`
+
+	// SentCount How many recipients the broadcast has been sent to, counting every recipient whose status is `processed` or later. The number rises while the broadcast is `sending` and stops changing once the broadcast has finished. These counters are exact. The email stats endpoints report on the same sending but are approximate, so use these numbers when you need the precise count. Absent when the broadcast comes back from creating, updating, sending or canceling it, none of which read the counters. Absent from a list row for a broadcast that has no delivery events yet, such as a draft, where reading that one broadcast answers 0 instead. Absent too when the event store cannot be reached, which still returns 200. Read the broadcast again for the numbers.
+	SentCount *int64 `json:"sent_count,omitempty"`
+
+	// StartedAt When the broadcast started sending. Absent until then. Compare with `sent_at`, which is when the broadcast finished sending.
+	StartedAt *time.Time `json:"started_at,omitempty"`
+
+	// Status Where the broadcast itself has got to, separate from what happened to individual recipients: for that, read `sent_count`, `delivered_count`, `bounced_count` and `complained_count` below. When it is `failed`, `failure_reason` says why.
+	Status *EmailBroadcastStatus `json:"status,omitempty"`
+
+	// Tags Labels on this broadcast, each one a `name` and a `value`, that you can filter and search broadcasts by. Use tags for anything you want to find broadcasts by later, and `metadata` for data you only want handed back to you.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template The template this broadcast sends. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
+	Template *EmailBroadcastTemplate `json:"template,omitempty"`
+
+	// TextBytes Size of the plain-text body this broadcast sends, in bytes, or 0 when its content has no plain-text part. Measured, and absent, the same way as `html_bytes`.
+	TextBytes *int64 `json:"text_bytes,omitempty"`
+
+	// TrackClicks Whether link clicks are tracked for this broadcast.
+	TrackClicks bool `json:"track_clicks"`
+
+	// TrackOpens Whether opens are tracked for this broadcast.
+	TrackOpens bool `json:"track_opens"`
+
+	// UniqueClicks How many distinct recipients clicked a link in the message at least once. A recipient who clicked several times counts once. Absent when `sent_count` is.
+	UniqueClicks *int64 `json:"unique_clicks,omitempty"`
+
+	// UniqueOpensNonPrefetched How many distinct recipients opened the message at least once, excluding opens auto-fetched by inbox privacy features (such as Apple Mail Privacy Protection and the Gmail image proxy). A recipient who opened several times, or whose inbox prefetched the message, counts once. Absent when `sent_count` is.
+	UniqueOpensNonPrefetched *int64 `json:"unique_opens_non_prefetched,omitempty"`
+}
+
+// EmailBroadcastCategory What kind of email this is, which decides how suppressions apply to it. A `marketing` broadcast is held back from every suppressed address. A `transactional` one still goes to addresses suppressed for a complaint or an unsubscribe, because those suppressions are about marketing mail.
+type EmailBroadcastCategory string
+
+// EmailBroadcastFailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
+//
+// - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
+// - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
+// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
+//   - The broadcast has no template, or its template has been deleted.
+//   - The template has no published version, or no sendable content.
+//   - The template uses a loop that a broadcast cannot fill.
+//   - The template requires every send to name a language.
+//   - The sending domain is no longer verified.
+//   - The IP pool has nothing to send from.
+//   - The message could not be handed off for delivery.
+//
+// - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
+// - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
+// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
+type EmailBroadcastFailureReason string
+
+// EmailBroadcastClickedLink One destination URL a broadcast's recipients clicked, with its exact click and recipient totals. Grouped over every click event the broadcast has, not a sample.
+type EmailBroadcastClickedLink struct {
+	// ClickCount Total clicks through this URL, including clicks that carried no link name.
+	ClickCount *int64 `json:"click_count,omitempty"`
+
+	// Name What the link said, resolved by the name used by the most clicks that carried one. Null when no click through this URL ever carried a name.
+	Name *string `json:"name,omitempty"`
+
+	// RecipientCount Number of distinct recipients who clicked this URL at least once.
+	RecipientCount *int64 `json:"recipient_count,omitempty"`
+
+	// Url The clicked URL.
+	Url *string `json:"url,omitempty"`
+}
+
+// EmailBroadcastClickedLinkList defines model for EmailBroadcastClickedLinkList.
+type EmailBroadcastClickedLinkList struct {
+	// Data The broadcast's clicked URLs, most-clicked first, capped at 100 rows.
+	Data []EmailBroadcastClickedLink `json:"data"`
+
+	// Total Total number of distinct URLs the broadcast's recipients clicked, regardless of the cap on `data`. When it exceeds the number of rows returned, the list was capped at the 100 most-clicked URLs.
+	Total *int `json:"total,omitempty"`
+}
+
+// EmailBroadcastCounts How many people a broadcast would reach right now, narrowing from everyone in the audience down to the ones it could actually be sent to.
+//
+// These are live numbers, worked out at the moment you ask. Audience membership and suppressions change, so they can drift between now and when the broadcast sends.
+//
+// **They are about the audience, not about delivery, and sending does not change them.** Once the broadcast has sent, its own `recipient_count` is the number that actually went out, and what each of those recipients did with the message is in [the broadcast's recipients](/docs/api/reference/list-email-broadcast-recipients) and [its events](/docs/api/reference/list-email-broadcast-events). `status` is here so you can tell which question these numbers are answering, and `broadcast_id` names what they are about.
+type EmailBroadcastCounts struct {
+	// Addressable How many of those contacts have an email address. A contact with no address is not counted. This is never higher than `total`.
+	Addressable *int64 `json:"addressable,omitempty"`
+
+	// BroadcastId The broadcast these counts are for.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id,omitempty"`
+
+	// Next What to do next, given where the broadcast is. On a broadcast that has already sent this names
+	// the reads that carry delivery outcomes, which these counts never do. An empty list means there
+	// is nothing to do; the field is absent entirely on responses that do not report next actions.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Sendable How many of the addressable contacts are not suppressed for this broadcast's category, which is who the email would actually go to. This is never higher than `addressable`. Which suppressions apply depends on the category, so the same audience can give a higher number for a transactional broadcast than for a marketing one. A transactional broadcast still reaches people who unsubscribed from or complained about marketing mail, and a marketing broadcast does not.
+	Sendable *int64 `json:"sendable,omitempty"`
+
+	// Status Where the broadcast is in its lifecycle, so the counts read in context. Anything past `draft` or `scheduled` means these numbers describe an audience the broadcast has already been sent to, not one it is about to reach.
+	Status *EmailBroadcastStatus `json:"status,omitempty"`
+
+	// Total How many contacts are in the audience.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EmailBroadcastCreateRequest A broadcast sends one email to a whole audience. Every field here is optional, so you can create an empty draft and fill it in later. To actually send, a broadcast needs three things: a `from` address on a verified domain, an `audience_id`, and a `template`.
+//
+// Leave `send` false, which is the default, and you get a draft. Update it as often as you like, then send it when you are ready. Set `send` to true and the broadcast goes out as soon as it is created, or at `scheduled_at` if you set one.
+type EmailBroadcastCreateRequest struct {
+	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// Category What kind of email this is. A broadcast sets this itself rather than taking it from its template, and it decides two things: which suppressions apply, and whether we add an unsubscribe header.
+	//
+	// `marketing`, the default, is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way still reaches people who have already unsubscribed from you.
+	Category *EmailBroadcastCreateRequestCategory `json:"category,omitempty"`
+
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
+	From *EmailAddressInput `json:"from,omitempty"`
+
+	// Headers Custom email headers to set on the broadcast, as name and value pairs. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
+	Headers *map[string]string `json:"headers,omitempty"`
+
+	// IpPoolId The IP pool to send this broadcast from. Pass a pool ID, or `ipp_shared` to send through the shared pool on purpose. Leave it out and the broadcast uses your organization's default pool. A pool we do not recognize, or one with no IPs available to send from, is refused with a `422`.
+	IpPoolId *string `json:"ip_pool_id,omitempty"`
+
+	// Metadata Any JSON you want to keep on the broadcast. We store it, hand it back when you read the broadcast, and include it in webhook payloads, and you can break stats down by a path inside it such as `metadata.order_id`. It can be up to 2 KB once serialized.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReplyTo Where replies to this broadcast should go. Give each address as a plain address, as `Jane <jane@acme.com>` to include a display name, or as an object with an address and a name. You can list more than one.
+	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// ScheduledAt When to send the broadcast. It has to be at least 30 seconds and at most 365 days from now. It requires `send` to be true, so a `scheduled_at` on its own is refused rather than saved on the draft.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
+	// Send Whether to send the broadcast as soon as it is created. Set it to true and the broadcast goes out immediately, or at `scheduled_at` if you set one. Leave it false, which is the default, and you get a draft you can update and send later.
+	Send *bool `json:"send,omitempty"`
+
+	// Tags Labels on this broadcast, each one a `name` and a `value`, up to 20 of them. You can filter the broadcast list by a tag, break your stats down by one, and read them back off webhook payloads. Use tags for anything you want to find broadcasts by later, and `metadata` for data you only want handed back to you.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+	Template *EmailBroadcastTemplate `json:"template,omitempty"`
+
+	// TrackClicks Whether to track link clicks for this broadcast.
+	TrackClicks *bool `json:"track_clicks,omitempty"`
+
+	// TrackOpens Whether to track opens for this broadcast.
+	TrackOpens *bool `json:"track_opens,omitempty"`
+}
+
+// EmailBroadcastCreateRequestCategory What kind of email this is. A broadcast sets this itself rather than taking it from its template, and it decides two things: which suppressions apply, and whether we add an unsubscribe header.
+//
+// `marketing`, the default, is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way still reaches people who have already unsubscribed from you.
+type EmailBroadcastCreateRequestCategory string
+
 // EmailBroadcastID defines model for EmailBroadcastID.
 type EmailBroadcastID = string
+
+// EmailBroadcastList defines model for EmailBroadcastList.
+type EmailBroadcastList struct {
+	// Data Page of broadcast objects.
+	Data []EmailBroadcast `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailBroadcastSendNowRequest defines model for EmailBroadcastSendNowRequest.
+type EmailBroadcastSendNowRequest struct {
+	// ScheduledAt When to send the broadcast. It has to be at least 30 seconds and at most 365 days from now. Leave it out to send straight away.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+}
+
+// EmailBroadcastSendQuota How much of a broadcast the organization's email send allowance covers, read before the broadcast is sent. The allowance is shared with every other email the organization sends, so `allowed` moves as those sends land, and `recipients` moves as audience membership and suppressions change. Treat both as a live estimate rather than a promise: a broadcast whose recipients all fit today can still run into the allowance if other sends consume it first.
+type EmailBroadcastSendQuota struct {
+	// Allowed Number of those recipients the organization's email send allowance covers. Equal to `recipients` when nothing limits the send, and lower when part of the audience runs past what is left of it. A part-covered send goes out in whole batches, so this is cut back to a batch boundary rather than to the exact number of emails left: it can sit below `remaining` rather than matching it, and should be read rather than worked out from `limit` and `remaining`. 0 means none of them would go out, either because the audience is larger than the whole allowance, which is refused rather than sent in part, or because too little of the allowance is left to carry any of it.
+	Allowed *int64 `json:"allowed,omitempty"`
+
+	// Limit Size of the allowance named by `limited_by`, in emails. Omitted when nothing limits the send.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// LimitedBy Which of the organization's email send allowances stops a send from reaching its whole audience.
+	//
+	// - `none`: every recipient is covered.
+	// - `monthly`: the allowance that runs with the billing period.
+	// - `daily`: the allowance that resets at the end of each UTC day.
+	//
+	// When both apply, the tighter of the two is reported.
+	LimitedBy EmailSendAllowanceWindow `json:"limited_by"`
+
+	// Recipients Number of contacts the broadcast would send to right now, after contacts without an email address and contacts suppressed for the broadcast's category are dropped. The same number the broadcast's audience counts report as sendable.
+	Recipients *int64 `json:"recipients,omitempty"`
+
+	// Remaining How much of that allowance is left in the current window, in emails. Omitted when nothing limits the send.
+	Remaining *int64 `json:"remaining,omitempty"`
+}
 
 // EmailBroadcastStatsPoint Delivery, engagement and latency figures for one broadcast's messages over the period you asked for.
 type EmailBroadcastStatsPoint struct {
@@ -6725,6 +7423,70 @@ type EmailBroadcastStatsPoint struct {
 	Engagement  *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency     *EmailLatencyStats    `json:"latency,omitempty"`
 }
+
+// EmailBroadcastStatus Where the broadcast itself has got to. This is separate from what happened to individual recipients, which the broadcast's own `sent_count`, `delivered_count`, `bounced_count` and `complained_count` tell you. Those four are fields on the broadcast, not on everything that carries this status, and reading the broadcast's recipients or its events gives the same outcomes one recipient at a time.
+//
+// - `draft`: Created, and not sent or scheduled yet.
+// - `scheduled`: Due to send at `scheduled_at`. You can still edit it, and you can still change the time, right up until sending starts.
+// - `accepted`: Taken for immediate sending. Nothing has gone out yet.
+// - `sending`: On its way. Some recipients have been sent to and some have not.
+// - `sent`: Every recipient has been sent to.
+// - `canceling`: A cancellation is under way and the remaining sends are stopping.
+// - `canceled`: The cancellation finished. Anything already on its way to a recipient when you canceled cannot be pulled back.
+// - `failed`: The broadcast could not be sent. Reading the broadcast gives `failure_reason`, which says why. If it had already started sending, the recipients it reached keep their delivery status and carry on producing events.
+//
+// A draft is deleted rather than canceled, because it was never sent.
+type EmailBroadcastStatus string
+
+// EmailBroadcastTemplate The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+type EmailBroadcastTemplate struct {
+	Id EmailTemplateID `json:"id"`
+
+	// VersionId The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
+	VersionId *EmailTemplateVersionID `json:"version_id,omitempty"`
+}
+
+// EmailBroadcastUpdateRequest Changes a broadcast that is still a draft or is scheduled. Whatever you send here is applied, and anything you leave out keeps the value it already had. Once a broadcast has started sending it can no longer be edited.
+type EmailBroadcastUpdateRequest struct {
+	AudienceId *AudienceID `json:"audience_id,omitempty"`
+
+	// Category What kind of email this is. It decides two things: which suppressions apply, and whether we add an unsubscribe header.
+	//
+	// `marketing` is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way reaches people who have already unsubscribed from you.
+	Category *EmailBroadcastUpdateRequestCategory `json:"category,omitempty"`
+
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
+	From *EmailAddressInput `json:"from,omitempty"`
+
+	// Headers Custom email headers to set on the broadcast, as name and value pairs. What you send replaces the headers the draft already had rather than adding to them. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
+	Headers *map[string]string `json:"headers,omitempty"`
+
+	// IpPoolId The IP pool to send this broadcast from. Pass a pool ID, or `ipp_shared` to send through the shared pool on purpose. Set it to null to fall back to your organization's default pool.
+	IpPoolId nullable.Nullable[string] `json:"ip_pool_id,omitempty"`
+
+	// Metadata Any JSON you want to keep on the broadcast, up to 2 KB once serialized. What you send replaces the metadata the draft already had rather than merging into it.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// ReplyTo Where replies to this broadcast should go. Set this to null to remove the addresses already set.
+	ReplyTo nullable.Nullable[[]EmailAddressInput] `json:"reply_to,omitempty"`
+
+	// Tags Labels on this broadcast, each one a `name` and a `value`, that you can filter and search broadcasts by. What you send replaces the tags the draft already had rather than adding to them.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// Template The template the broadcast sends. Its published version is fixed when the broadcast is prepared for sending. Set this to null to take the template off a draft, or leave it out to keep the one already set.
+	Template nullable.Nullable[EmailBroadcastTemplate] `json:"template,omitempty"`
+
+	// TrackClicks Whether to track link clicks for this broadcast.
+	TrackClicks *bool `json:"track_clicks,omitempty"`
+
+	// TrackOpens Whether to track opens for this broadcast.
+	TrackOpens *bool `json:"track_opens,omitempty"`
+}
+
+// EmailBroadcastUpdateRequestCategory What kind of email this is. It decides two things: which suppressions apply, and whether we add an unsubscribe header.
+//
+// `marketing` is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way reaches people who have already unsubscribed from you.
+type EmailBroadcastUpdateRequestCategory string
 
 // EmailCategoryStatsPoint Aggregate delivery and engagement stats for a single category over the requested period.
 type EmailCategoryStatsPoint struct {
@@ -6738,6 +7500,44 @@ type EmailCategoryStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
+// EmailClientFamily Which mail client a finding applies to. A finding's `message` names at most
+// Apple Mail, Gmail, Outlook, and Yahoo; its `unsupported_clients` and
+// `partial_clients` name every client affected.
+//
+// - `gmail`: Gmail
+// - `outlook`: Outlook
+// - `yahoo`: Yahoo
+// - `apple_mail`: Apple Mail
+// - `aol`: AOL
+// - `thunderbird`: Mozilla Thunderbird
+// - `samsung_email`: Samsung Email
+// - `sfr`: SFR
+// - `orange`: Orange
+// - `protonmail`: ProtonMail
+// - `hey`: HEY
+// - `mail_ru`: Mail.ru
+// - `fastmail`: Fastmail
+// - `laposte`: LaPoste.net
+// - `gmx`: GMX
+// - `web_de`: WEB.DE
+// - `ionos_1and1`: 1&1
+// - `wp_pl`: WP.pl
+type EmailClientFamily string
+
+// EmailClientPlatform Which build of a client family a finding applies to. A family can support a
+// feature in one build and not another, so Gmail on iOS is tracked separately
+// from Gmail on the web.
+//
+// - `desktop_webmail`: Desktop Webmail
+// - `mobile_webmail`: Mobile Webmail
+// - `ios`: iOS
+// - `android`: Android
+// - `windows`: Windows
+// - `macos`: macOS
+// - `windows_mail`: Windows Mail
+// - `outlook_com`: Outlook.com
+type EmailClientPlatform string
+
 // EmailClientStatsPoint Engagement counts for messages opened or clicked from a single email client, operating system, or device type over the requested period. The reading environment is resolved from open and click events only, so this breakdown reports engagement activity: opens, clicks, and the recipients behind them. It has no delivery counts and no open or click rates, because the receiving mail server reports delivery without a client or device, preventing a per-client delivered denominator and rates. Exactly one of `email_client`, `os`, and `device_type` is populated, selected by the request's `group_by`. The other two are null. Inbox-privacy prefetching also affects the detected client. As with open counts, `opens_non_prefetched` excludes opens auto-fetched by an inbox privacy feature. It includes opens caused by a person opening the message.
 type EmailClientStatsPoint struct {
 	// DeviceType The device type this row aggregates (for example `mobile`, `desktop`, `tablet`). Populated only when `group_by=device_type`. Null otherwise.
@@ -6750,6 +7550,135 @@ type EmailClientStatsPoint struct {
 	// Os The operating system this row aggregates (for example `iOS`, `Android`, `Windows`, `macOS`). Populated only when `group_by=os`. Null otherwise.
 	Os *string `json:"os,omitempty"`
 }
+
+// EmailClientSupport One mail client family a finding applies to, and which of that family's platforms.
+type EmailClientSupport struct {
+	// Family Which mail client a finding applies to. A finding's `message` names at most
+	// Apple Mail, Gmail, Outlook, and Yahoo; its `unsupported_clients` and
+	// `partial_clients` name every client affected.
+	//
+	// - `gmail`: Gmail
+	// - `outlook`: Outlook
+	// - `yahoo`: Yahoo
+	// - `apple_mail`: Apple Mail
+	// - `aol`: AOL
+	// - `thunderbird`: Mozilla Thunderbird
+	// - `samsung_email`: Samsung Email
+	// - `sfr`: SFR
+	// - `orange`: Orange
+	// - `protonmail`: ProtonMail
+	// - `hey`: HEY
+	// - `mail_ru`: Mail.ru
+	// - `fastmail`: Fastmail
+	// - `laposte`: LaPoste.net
+	// - `gmx`: GMX
+	// - `web_de`: WEB.DE
+	// - `ionos_1and1`: 1&1
+	// - `wp_pl`: WP.pl
+	Family *EmailClientFamily `json:"family,omitempty"`
+
+	// Platforms Which of the family's platforms this applies to, in alphabetical order.
+	Platforms *[]EmailClientPlatform `json:"platforms,omitempty"`
+}
+
+// EmailCompatibilityFinding One pattern in the HTML that mail clients remove, ignore, or render inconsistently.
+type EmailCompatibilityFinding struct {
+	// Column The 1-based column the pattern starts at, on that line.
+	Column *int `json:"column,omitempty"`
+
+	// Field Which field of that language the finding is in. Always `html`; the subject and the plain-text body are not checked.
+	Field *string `json:"field,omitempty"`
+
+	// Fix What to use instead. Null when there is no drop-in alternative and the fix is a restructure.
+	Fix *string `json:"fix,omitempty"`
+
+	// Language Which language's content this finding is in. Null when the call covered a single language.
+	Language *LanguageTag `json:"language,omitempty"`
+
+	// Line The 1-based line the pattern is on, in the HTML the containing response's `compatibility` says it covered.
+	Line *int `json:"line,omitempty"`
+
+	// Match The source text that matched, starting at `line` and `column`: the smallest span that identifies what is wrong. Never the enclosing line. For a finding on a whole element, the span runs from the opening tag through the close tag, because the client drops the element's content along with its markup. Cut at 256 characters, so an element holding a long body is quoted from its start rather than in full.
+	Match *string `json:"match,omitempty"`
+
+	// Message What is wrong and which clients it affects, worded to show to whoever is authoring the template. It covers the rule's whole category rather than the exact text that matched, so a rule covering `<video>` and `<audio>` names both whichever one is on the line. Show `fix` and then `partial` after it.
+	Message *string `json:"message,omitempty"`
+
+	// Partial Which clients support the feature only partly. Null when no client's support is partial.
+	Partial *string `json:"partial,omitempty"`
+
+	// PartialClients Every client family that renders something other than what you wrote, in alphabetical order by each entry's `family`. Empty when no client's support is partial, which is also when `partial` is null. `partial` names at most four families; this names all of them.
+	PartialClients *[]EmailClientSupport `json:"partial_clients,omitempty"`
+
+	// RuleId Which rule produced a finding.
+	//
+	// - `html_script`: a `<script>` tag.
+	// - `html_event_handlers`: a JavaScript event-handler attribute such as `onclick`.
+	// - `html_embedded_content`: an `<iframe>`, `<embed>`, or `<object>`.
+	// - `html_linked_stylesheet`: a `<link rel="stylesheet">`.
+	// - `css_at_import`: an `@import` rule.
+	// - `html_form`: a `<form>`, `<input>`, `<select>`, or `<textarea>`.
+	// - `html_svg`: an inline `<svg>`.
+	// - `html_media`: a `<video>` or `<audio>` element.
+	// - `css_display_flex_grid`: `display: flex` or `display: grid`, and their `inline-` forms.
+	// - `css_position_fixed_sticky`: `position: fixed` or `position: sticky`.
+	// - `css_variables_no_fallback`: a `var()` with no fallback value.
+	// - `css_viewport_units`: a `vh` or `vw` length.
+	// - `html_button`: a `<button>` element.
+	// - `css_math_functions`: `clamp()`, `min()`, or `max()`.
+	// - `css_modern_color`: `oklch()`, `oklab()`, `lch()`, or `lab()`.
+	// - `html_web_page_markup`: markup a web framework left behind, such as a `data-reactroot` attribute or a `__next` element id.
+	RuleId *EmailCompatibilityRuleID `json:"rule_id,omitempty"`
+
+	// Severity What a finding costs you.
+	//
+	// - `problem`: the pattern does nothing at all. The client removes the markup, never loads the stylesheet carrying it, or will not operate the control. Where a finding names clients, that is what happens in those clients.
+	// - `warning`: it does something, but not what you wrote.
+	//
+	// Neither one refuses a save, a submit, or a send.
+	Severity *EmailCompatibilitySeverity `json:"severity,omitempty"`
+
+	// UnsupportedClients Every client family that does not support the feature at all, in alphabetical order by each entry's `family`. Empty on a finding whose `message`, `fix`, and `partial` name no client. `message` names at most four families; this names all of them.
+	UnsupportedClients *[]EmailClientSupport `json:"unsupported_clients,omitempty"`
+}
+
+// EmailCompatibilityReportSeverity The worst severity across every finding the response was computed from, which
+// is the authoritative reading: a response that caps how many findings it lists
+// still accounts here for the ones it left out. Each response's `compatibility`
+// says which content it covered.
+//
+// - `problem`: at least one finding is a `problem`.
+// - `warning`: every finding is a `warning`.
+// - `none`: there are no findings.
+type EmailCompatibilityReportSeverity string
+
+// EmailCompatibilityRuleID Which rule produced a finding.
+//
+// - `html_script`: a `<script>` tag.
+// - `html_event_handlers`: a JavaScript event-handler attribute such as `onclick`.
+// - `html_embedded_content`: an `<iframe>`, `<embed>`, or `<object>`.
+// - `html_linked_stylesheet`: a `<link rel="stylesheet">`.
+// - `css_at_import`: an `@import` rule.
+// - `html_form`: a `<form>`, `<input>`, `<select>`, or `<textarea>`.
+// - `html_svg`: an inline `<svg>`.
+// - `html_media`: a `<video>` or `<audio>` element.
+// - `css_display_flex_grid`: `display: flex` or `display: grid`, and their `inline-` forms.
+// - `css_position_fixed_sticky`: `position: fixed` or `position: sticky`.
+// - `css_variables_no_fallback`: a `var()` with no fallback value.
+// - `css_viewport_units`: a `vh` or `vw` length.
+// - `html_button`: a `<button>` element.
+// - `css_math_functions`: `clamp()`, `min()`, or `max()`.
+// - `css_modern_color`: `oklch()`, `oklab()`, `lch()`, or `lab()`.
+// - `html_web_page_markup`: markup a web framework left behind, such as a `data-reactroot` attribute or a `__next` element id.
+type EmailCompatibilityRuleID string
+
+// EmailCompatibilitySeverity What a finding costs you.
+//
+// - `problem`: the pattern does nothing at all. The client removes the markup, never loads the stylesheet carrying it, or will not operate the control. Where a finding names clients, that is what happens in those clients.
+// - `warning`: it does something, but not what you wrote.
+//
+// Neither one refuses a save, a submit, or a send.
+type EmailCompatibilitySeverity string
 
 // EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so no other count applies.
 type EmailComplaintTypeStatsPoint struct {
@@ -7744,6 +8673,15 @@ type EmailRecipientList struct {
 //     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
+// EmailSendAllowanceWindow Which of the organization's email send allowances stops a send from reaching its whole audience.
+//
+// - `none`: every recipient is covered.
+// - `monthly`: the allowance that runs with the billing period.
+// - `daily`: the allowance that resets at the end of each UTC day.
+//
+// When both apply, the tighter of the two is reported.
+type EmailSendAllowanceWindow string
+
 // EmailSendingDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent from a single sending domain over the requested period.
 type EmailSendingDomainStatsPoint struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
@@ -8230,11 +9168,283 @@ type EmailTagStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
+// EmailTemplate defines model for EmailTemplate.
+type EmailTemplate struct {
+	// AvailableLanguages The languages this template currently supports for sending, as BCP-47 tags. Empty until the template is published, because sends serve published content. The set may shrink for reasons other than editing, so read it rather than assuming it matches what was published. A built-in `system` template has no publish step and always reports its one language.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Whether the template is for `transactional` email or `marketing` email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created. Null for a built-in `system` template.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for, in your own words. Null if you have not set one.
+	Description *string `json:"description"`
+
+	// DraftVersionId The current editable draft version. Null for a built-in `system` template, which has no draft.
+	DraftVersionId *EmailTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             EmailTemplateID         `json:"id"`
+
+	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language, and the template cannot be used for a broadcast, which has no way to name one.
+	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
+
+	// Languages Every language this template has, keyed by language tag in BCP-47 form
+	// such as `en` or `pt-BR`, each with its state. One read tells you which
+	// languages are live and which have unpublished edits, without fetching any
+	// content.
+	//
+	// Content is not here: read a version's languages for that, one language at
+	// a time.
+	Languages *map[string]EmailTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When this template was last submitted. Null if it never has been. Submitting is the only thing that moves this timestamp: rolling back changes which version is live without counting as a submit, so this keeps reporting the last real submit. Read it alongside `languages`, which says where each language stands.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version a send resolves to, or null if the template has never been published.
+	LiveVersionId *EmailTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name The template's display name, shown wherever the template is listed. You can change it any time. It defaults to the slug if you do not set one.
+	Name string `json:"name"`
+
+	// OnMissingLanguage What a send does when it asks for a language this template does not carry. Defaults to `fallback` on email.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// PublishedVersionId Deprecated: use `live_version_id` instead, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	PublishedVersionId *EmailTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Revision The draft's revision counter. Send it back on the next update to detect concurrent edits. Null for a built-in `system` template, which is unversioned.
+	Revision *int `json:"revision,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The name you send the template by. You can use either the slug or the id when you send. It never changes after the template is created. A built-in `system` template's slug always starts with `bird_`.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// Source The authoring format the template is written in, fixed at creation. `html` is finished markup you provide, optionally personalized with Liquid.
+	Source EmailTemplateSource `json:"source"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
+	//
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// Theme The visual theme a built-in template is designed in, or null for a template your workspace authored (which has no theme).
+	Theme *EmailTemplateTheme `json:"theme,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for a built-in `system` template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template, which no workspace owns.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
+}
+
+// EmailTemplateBroadcastList defines model for EmailTemplateBroadcastList.
+type EmailTemplateBroadcastList struct {
+	// Data Page of broadcasts blocking a delete of the template, newest first.
+	Data []EmailTemplateBroadcastSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailTemplateBroadcastSummary One broadcast that blocks deleting this template.
+type EmailTemplateBroadcastSummary struct {
+	// CreatedAt When the broadcast was created.
+	CreatedAt *time.Time       `json:"created_at,omitempty"`
+	Id        EmailBroadcastID `json:"id"`
+
+	// ScheduledAt When the broadcast is due to send, or null when it is not scheduled.
+	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+
+	// Status Where the broadcast has got to. Only `scheduled` and `accepted` appear here: those are the two that have not pinned their content yet, so they are the ones blocking the delete. This list carries the status alone; the per-recipient totals live on the broadcast itself.
+	Status *EmailBroadcastStatus `json:"status,omitempty"`
+}
+
 // EmailTemplateCategory Whether the template is for `transactional` email or `marketing` email.
 type EmailTemplateCategory string
 
+// EmailTemplateCreate Parameters for creating an email template and its initial draft.
+type EmailTemplateCreate struct {
+	// Category Whether the template is for `transactional` email or `marketing` email.
+	Category EmailTemplateCategory `json:"category"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage *LanguageTag `json:"default_language,omitempty"`
+
+	// Description What the template is for, in your own words.
+	Description *string `json:"description,omitempty"`
+
+	// LanguageSourceRequired Whether a send has to name a language. Set it to true to reject a send that names none instead of serving the default language. Pair it with `on_missing_language: fail` when every send must pick a language deliberately: on its own, `fail` is bypassed by naming no language at all. A template with this set cannot be used for a broadcast, which has no way to name one. Defaults to false.
+	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
+
+	// Languages The initial draft's content, keyed by language tag in BCP-47 form such as
+	// `en` or `pt-BR`. A template holds up to 25 languages, and a send picks one
+	// of them.
+	//
+	// Omit this to create an empty draft and add content later.
+	Languages *map[string]EmailTemplateLanguageContent `json:"languages,omitempty"`
+
+	// Name The template's display name, shown wherever the template is listed. You can change it any time. It defaults to the slug if you do not set one.
+	Name *string `json:"name,omitempty"`
+
+	// OnMissingLanguage What a send does when it asks for a language this template does not carry. Defaults to `fallback` on email.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// Slug The template's workspace-unique handle, and a stable alternative to the template ID when sending by template. It can contain lowercase letters, numbers, hyphens, and underscores. It is fixed at creation, so pick it deliberately. Two prefixes are rejected: `bird_`, reserved for our built-in templates, and `emt_`, the template ID format, which a slug could never be distinguished from.
+	Slug TemplateSlug `json:"slug"`
+
+	// Source The authoring format the template is written in, fixed at creation.
+	// `html` is finished markup you provide, optionally personalized with
+	// Liquid. Liquid supports variables, filters, and control flow such
+	// as `{% if %}` conditionals and `{% for %}` loops. A few constructs are
+	// rejected when you submit, and the error names exactly what to change:
+	//
+	// - Partial includes (`{% include %}`, `{% render %}`).
+	// - The `increment`, `decrement`, and `ifchanged` tags.
+	// - The `money`, `format_date`, `format_time`, `json`, `inspect`, and `type` filters.
+	// - Comparing against `empty`/`blank` (use `.size == 0` instead).
+	// - Blocks nested far deeper than real email markup needs.
+	//
+	// A broadcast's template additionally cannot use a `{% for %}` loop,
+	// because a broadcast supplies one value per contact property, so there
+	// is nothing to iterate. Send with the messages API instead if the
+	// template needs one.
+	Source EmailTemplateSourceWrite `json:"source"`
+}
+
+// EmailTemplateDraftRevision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+type EmailTemplateDraftRevision = int
+
+// EmailTemplateDuplicate Optional parameters when duplicating an email template. The body may be omitted entirely to accept the defaults.
+type EmailTemplateDuplicate struct {
+	// Slug The copy's workspace-unique handle, and the stable alternative to the template ID when sending by template. It can contain lowercase letters, numbers, hyphens, and underscores. Omit it to derive one from the source (for example, `welcome-email-copy`), with a numeric suffix if that slug is already taken. Two prefixes are rejected: `bird_`, reserved for our built-in templates, and `emt_`, the template ID format, which a slug could never be distinguished from. If you supply a slug that is already in use in the workspace, the request returns a conflict.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+}
+
 // EmailTemplateID defines model for EmailTemplateID.
 type EmailTemplateID = string
+
+// EmailTemplateLanguage One language of a template version: its content plus the identity a concurrent-edit check needs. Reading a language returns everything you need to edit it and save it back.
+type EmailTemplateLanguage struct {
+	// Compatibility What the stored HTML uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Line and column count in the `content.html` this response carries. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
+	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
+
+	// CompatibilitySeverity The worst severity across every finding the response was computed from, which
+	// is the authoritative reading: a response that caps how many findings it lists
+	// still accounts here for the ones it left out. Each response's `compatibility`
+	// says which content it covered.
+	//
+	// - `problem`: at least one finding is a `problem`.
+	// - `warning`: every finding is a `warning`.
+	// - `none`: there are no findings.
+	CompatibilitySeverity *EmailCompatibilityReportSeverity `json:"compatibility_severity,omitempty"`
+
+	// Content One language's content for an email template. Each language carries its own subject, preview text and bodies, so a translation can differ in wording and length from every other language without affecting them.
+	Content *EmailTemplateLanguageContent `json:"content,omitempty"`
+
+	// ContentHash A hash over this language's content, prefixed with the algorithm that produced it (`sha256:`), so the algorithm can change without the field becoming ambiguous. It tells you whether a language differs without transferring the content, and is comparable only within one version of this API. Null for a language saved before fingerprints were recorded.
+	ContentHash *string `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter. Send it back when you save this language so a concurrent edit is caught instead of silently overwritten. It counts only this language's own changes, so editing another language never invalidates it.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null if that is not recorded.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailTemplateLanguageContent One language's content for an email template. Each language carries its own subject, preview text and bodies, so a translation can differ in wording and length from every other language without affecting them.
+type EmailTemplateLanguageContent struct {
+	// Html The HTML body for this language.
+	Html *string `json:"html,omitempty"`
+
+	// PreviewText The line an inbox shows after the subject in the message list, for this language. Leave it out and the inbox shows the opening words of the body instead. A mail client only reads it from the message body, so publishing folds it into the top of the HTML, hidden from view once the message is open; write it here rather than hiding your own copy in the body.
+	PreviewText *string `json:"preview_text,omitempty"`
+
+	// Subject The email subject line for this language.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text The plain-text body for this language. Omit it and a plain-text alternative is derived from the HTML when you submit.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailTemplateLanguageList defines model for EmailTemplateLanguageList.
+type EmailTemplateLanguageList struct {
+	// Data Every language the version holds, ordered by language tag, without their content. Read a single language to get its content.
+	Data []EmailTemplateLanguageSummary `json:"data"`
+}
+
+// EmailTemplateLanguageSaved The identity, revision counters, and fingerprint of a saved language. The response does not include its content; read the language to retrieve it.
+type EmailTemplateLanguageSaved struct {
+	// Compatibility What the HTML you just saved uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Advisory: the language was saved either way, and a finding never refuses a write. Line and column count in the HTML as saved, which the language read returns as `content.html`. A partial update reports on the language in full rather than on the fields it carried, so it reads the same as the read of the same language. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
+	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
+
+	// CompatibilitySeverity The worst severity across every finding the response was computed from, which
+	// is the authoritative reading: a response that caps how many findings it lists
+	// still accounts here for the ones it left out. Each response's `compatibility`
+	// says which content it covered.
+	//
+	// - `problem`: at least one finding is a `problem`.
+	// - `warning`: every finding is a `warning`.
+	// - `none`: there are no findings.
+	CompatibilitySeverity *EmailCompatibilityReportSeverity `json:"compatibility_severity,omitempty"`
+
+	// ContentHash A hash over the language's content as saved, prefixed with the algorithm that produced it (`sha256:`), so the algorithm can change without the field becoming ambiguous. It tells you whether a language differs without transferring the content, and is comparable only within one version of this API.
+	ContentHash *string `json:"content_hash,omitempty"`
+
+	// DraftRevision The draft's new revision. Saving a language moves it, so any template update you make next must send this value instead of the revision you read before the save.
+	DraftRevision *int `json:"draft_revision,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Next What to do next with this save. Present on reads that compute it: an empty list means
+	// there is nothing to do, and the field is absent entirely on responses that do not
+	// report next actions.
+	//
+	// A `problem` in `compatibility` routes back to this same write, with the identifiers
+	// to address it already on this response; a `warning` says what degrades and leaves
+	// the draft as it is.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Revision This language's new revision. Send it back on your next save of this language so a concurrent edit is caught instead of silently overwritten.
+	Revision *int `json:"revision,omitempty"`
+
+	// TemplateRef The template this call addressed, as its id, even when you addressed it by slug. Send it back as `template_ref` on a follow-up call.
+	TemplateRef *EmailTemplateRef `json:"template_ref,omitempty"`
+
+	// UpdatedAt When this language was saved.
+	UpdatedAt *time.Time             `json:"updated_at,omitempty"`
+	VersionId EmailTemplateVersionID `json:"version_id"`
+}
 
 // EmailTemplateLanguageState Where one of the template's languages stands: whether sends are using it, and whether its draft contains an unpublished edit.
 type EmailTemplateLanguageState struct {
@@ -8251,6 +9461,63 @@ type EmailTemplateLanguageState struct {
 	Status *TemplateLanguageStatus `json:"status,omitempty"`
 }
 
+// EmailTemplateLanguageSummary One language of a template version, without its content: enough to list what a version holds and how big each language is. Read a single language to get its content and its compatibility report.
+type EmailTemplateLanguageSummary struct {
+	// ContentHash A hash over this language's content, prefixed with the algorithm that produced it (`sha256:`), so the algorithm can change without the field becoming ambiguous. It tells you whether a language differs without transferring the content, and is comparable only within one version of this API. Null for a language saved before fingerprints were recorded.
+	ContentHash *string `json:"content_hash,omitempty"`
+
+	// HasHtml Whether this language has an HTML body.
+	HasHtml *bool `json:"has_html,omitempty"`
+
+	// HasText Whether this language has a plain-text body.
+	HasText *bool `json:"has_text,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter, to send back when you save it. It counts only this language's own changes.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null if that is not recorded.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailTemplateLanguageUpdate A partial edit to one language: send only the fields you are changing, and the rest keep their current values. The language must already exist. Create it by saving its full content instead.
+type EmailTemplateLanguageUpdate struct {
+	// Html A new HTML body for this language.
+	Html *string `json:"html,omitempty"`
+
+	// PreviewText A new line for the inbox to show after the subject in the message list. Send null to clear it, and the inbox shows the opening words of the body instead.
+	PreviewText nullable.Nullable[string] `json:"preview_text,omitempty"`
+
+	// Revision The revision you last read for this language, to detect a concurrent edit. The edit is rejected with a conflict if the language moved on since. Omit it to apply the edit unconditionally.
+	Revision *int `json:"revision,omitempty"`
+
+	// Subject A new email subject line for this language.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
+	Text nullable.Nullable[string] `json:"text,omitempty"`
+}
+
+// EmailTemplateLanguageUpsert Content to save for one language, replacing whatever that language held. Send every field you want the language to keep: a field you omit is cleared, which is what makes saving the same content twice land the same way every time.
+type EmailTemplateLanguageUpsert struct {
+	// Html The HTML body for this language.
+	Html *string `json:"html,omitempty"`
+
+	// PreviewText The line an inbox shows after the subject in the message list. Leave it out and the inbox shows the opening words of the body instead.
+	PreviewText *string `json:"preview_text,omitempty"`
+
+	// Revision The revision you last read for this language, to detect a concurrent edit. The save is rejected with a conflict if the language moved on since. Omit it to save unconditionally. Creating a language does not need one.
+	Revision *int `json:"revision,omitempty"`
+
+	// Subject The email subject line for this language.
+	Subject string `json:"subject"`
+
+	// Text The plain-text body for this language. Omit it and a plain-text alternative is derived from the HTML when you submit.
+	Text *string `json:"text,omitempty"`
+}
+
 // EmailTemplateList defines model for EmailTemplateList.
 type EmailTemplateList struct {
 	// Data Page of email templates.
@@ -8264,6 +9531,92 @@ type EmailTemplateList struct {
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailTemplatePreview A rendered preview of an email template: its subject, HTML, and plain-text bodies with the supplied sample values filled in, ready to display.
+type EmailTemplatePreview struct {
+	// Compatibility What the previewed HTML uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Line and column count in the `content.html` you supplied, or in the template's own HTML when you supplied none, so they address the source rather than the rendered output. Previewing a published `version` is the exception: where the stored version keeps no authored copy of a language the publish step rewrote, the positions count in that rewritten body, which no response returns. A preview renders either way. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
+	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
+
+	// CompatibilitySeverity The worst severity across every finding the response was computed from, which
+	// is the authoritative reading: a response that caps how many findings it lists
+	// still accounts here for the ones it left out. Each response's `compatibility`
+	// says which content it covered.
+	//
+	// - `problem`: at least one finding is a `problem`.
+	// - `warning`: every finding is a `warning`.
+	// - `none`: there are no findings.
+	CompatibilitySeverity *EmailCompatibilityReportSeverity `json:"compatibility_severity,omitempty"`
+
+	// Html The rendered HTML body. Null when the template has no HTML body.
+	Html *string `json:"html,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Subject The rendered subject line. Null when the template has no subject.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text The rendered plain-text body. Derived from the HTML when the template has no separate plain-text body, and null when it has neither.
+	Text *string `json:"text,omitempty"`
+
+	// Variables The variables you can fill in with `parameters`. This list covers only the
+	// language named by `language`. A version read combines the variables from
+	// every language the version holds. Preview each language separately to see
+	// its own variables.
+	//
+	// Variables under the reserved `bird.` namespace are not listed here. We
+	// supply those values, but you can nest sample values under `bird` in
+	// `parameters` to preview them.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+}
+
+// EmailTemplatePreviewContent Content to render instead of the template's stored draft. Give it the subject and bodies you have in hand and they are rendered exactly as the draft would be, so an editor can show what a change looks like before it is saved.
+type EmailTemplatePreviewContent struct {
+	// Html The HTML body to render.
+	Html *string `json:"html,omitempty"`
+
+	// PreviewText The preview text to render. It is folded into the top of the HTML the same way publishing folds it, so the rendered body carries the hidden preheader a recipient's inbox would read.
+	PreviewText *string `json:"preview_text,omitempty"`
+
+	// Subject The subject line to render.
+	Subject *string `json:"subject,omitempty"`
+
+	// Text The plain-text body to render. Omit it and a plain-text alternative is derived from the HTML, the same way it is derived when you publish.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailTemplatePreviewRequest Sample values and options for rendering a template preview. Omit the body entirely to preview the current draft: `bird.contact.` tokens then fill from stand-in values, and a parameter you give no value for renders as empty.
+type EmailTemplatePreviewRequest struct {
+	// Contact Render the template the way this contact would receive it. Every `{{ bird.contact.… }}` token takes its value from the contact's record, narrowed to the attributes the template reads and filled from each property's `fallback_value` where the contact holds no value: the same values a broadcast to this contact would send.
+	//
+	// Values are read as the contact stands right now, so a preview reflects an edit to their record as soon as you make it. A `bird.contact.…` value you also pass in `parameters` wins for that one attribute, so you can preview a contact with one field changed without editing them.
+	Contact *ContactID `json:"contact,omitempty"`
+
+	// Content Render this content rather than the template's stored draft. It is what an editor uses to show a change as it is made, since nothing has to be saved first.
+	//
+	// The content is treated exactly as a draft would be: personalization is filled in the same way, a plain-text body is derived from the HTML when you omit it, and content that could not be published is refused with the same error. `version` asks for a published version's own content, so the two cannot be combined.
+	Content *EmailTemplatePreviewContent `json:"content,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language *LanguageTag `json:"language,omitempty"`
+
+	// Parameters Sample values for the variables the template uses, for this one preview only. A variable takes its value under its own name. A `bird.` value nests to match the token, so `{"bird": {"contact": {"first_name": "Ada"}}}` fills `{{ bird.contact.first_name }}`.
+	//
+	// A preview is more forgiving than a send: a parameter you leave out renders as empty here rather than being rejected. `parameters` is capped at 16 KB once serialized.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
+	// Version Preview a specific published version by its id, instead of the current draft.
+	Version *EmailTemplateVersionID `json:"version,omitempty"`
+}
+
+// EmailTemplateRef The template this call addressed, as its id, even when you addressed it by slug. Send it back as `template_ref` on a follow-up call.
+type EmailTemplateRef = string
+
+// EmailTemplateRollback Parameters for rolling a template back to an earlier published version. Rolling back also replaces the draft with that version's content, so you have to pass `revision`, the revision number of the draft you last read. If the draft has changed since you read it, that revision number is now stale, and the rollback fails with a conflict instead of overwriting the newer draft. Read the draft again to get its current revision, and try the rollback again.
+type EmailTemplateRollback struct {
+	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+	Revision EmailTemplateDraftRevision `json:"revision"`
 }
 
 // EmailTemplateSend A reference to the template to send. Identify the template by its `id` or its `slug`, supplying exactly one of the two, and give the values for its variables in `parameters`.
@@ -8297,6 +9650,9 @@ type EmailTemplateSend1 = interface{}
 // EmailTemplateSource The authoring format the template is written in, fixed at creation. `html` is finished markup you provide, optionally personalized with Liquid.
 type EmailTemplateSource string
 
+// EmailTemplateSourceWrite The authoring format to create the template in. `html` is finished markup you provide, optionally personalized with Liquid; a format the API cannot author yet is refused.
+type EmailTemplateSourceWrite string
+
 // EmailTemplateStatsPoint Delivery, engagement, and latency numbers for every message sent with one template over the requested period.
 type EmailTemplateStatsPoint struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
@@ -8308,6 +9664,62 @@ type EmailTemplateStatsPoint struct {
 
 	// Trend A short series of this template's delivery and engagement rates, one point per time bucket over the window. Only present when you set `include_trend=true` on the request.
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
+}
+
+// EmailTemplateSubmit Options for a submit. Every field here is optional, so an empty request body submits the draft exactly as it stands.
+type EmailTemplateSubmit struct {
+	// ExpectedRevision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+	ExpectedRevision *EmailTemplateDraftRevision `json:"expected_revision,omitempty"`
+
+	// Languages Languages to process when submitting an already-published version. Email templates accept submissions only for drafts, so setting this field for an email template is rejected.
+	Languages *[]LanguageTag `json:"languages,omitempty"`
+
+	// ValidateOnly Check the draft without actually submitting it. Every language gets checked and every problem gets reported back to you, but nothing is frozen and no new version gets created. Give a validation run its own `Idempotency-Key`, separate from the real submit that follows it. You can also send no key. The validation request and real submit have different bodies, so using the same key for both is rejected as key reuse.
+	ValidateOnly *bool `json:"validate_only,omitempty"`
+}
+
+// EmailTemplateSubmitProblem One problem found while checking whether a version can be submitted.
+type EmailTemplateSubmitProblem struct {
+	// Code The error code a real submit would fail with. Look it up in the error catalog to see what it means and what to do about it.
+	Code *string `json:"code,omitempty"`
+
+	// Field Which field within that language has the problem, such as `subject` or `html`. Null when the problem is not about one particular field.
+	Field *string `json:"field,omitempty"`
+
+	// Language The language this problem is about. Null when the problem is about the whole version rather than one language, for example an empty draft, or a default language the draft does not have.
+	Language *LanguageTag `json:"language,omitempty"`
+
+	// Message What is wrong, worded so you can show it directly to whoever is authoring the template.
+	Message *string `json:"message,omitempty"`
+}
+
+// EmailTemplateSubmitResult The outcome of a submit. This has the same shape whether the submit was a validation run or a real one, so you can read `valid` and `version` the same way either time to see what happened.
+type EmailTemplateSubmitResult struct {
+	// Compatibility What the draft's HTML uses that mail clients remove, ignore, or render inconsistently, across every language, in alphabetical order of language tag and then the order the patterns appear. Empty when nothing is worth reporting. Advisory, and separate from `errors`: a finding never fails a submit, so the version froze either way. Each finding names the `language` it is in, and its line and column count in that language's HTML, which the language read returns as `content.html`. At most 200 findings come back, the first 200 in that order, so a draft that reaches the cap can omit a later language's findings entirely rather than trimming each language: read a language's own findings from its read or its write. `compatibility_severity` is derived from every finding the draft produced, including any beyond those 200.
+	Compatibility *[]EmailCompatibilityFinding `json:"compatibility,omitempty"`
+
+	// CompatibilitySeverity The worst severity across every finding the response was computed from, which
+	// is the authoritative reading: a response that caps how many findings it lists
+	// still accounts here for the ones it left out. Each response's `compatibility`
+	// says which content it covered.
+	//
+	// - `problem`: at least one finding is a `problem`.
+	// - `warning`: every finding is a `warning`.
+	// - `none`: there are no findings.
+	CompatibilitySeverity *EmailCompatibilityReportSeverity `json:"compatibility_severity,omitempty"`
+
+	// Errors Every problem found across the draft's languages. Empty when `valid` is `true`.
+	Errors *[]EmailTemplateSubmitProblem `json:"errors,omitempty"`
+
+	// TemplateRef The template this call addressed, as its id, even when you addressed it by slug. Send it back as `template_ref` on a follow-up call.
+	TemplateRef *EmailTemplateRef `json:"template_ref,omitempty"`
+
+	// Valid Whether the version passed every check.
+	Valid *bool `json:"valid,omitempty"`
+
+	// Version The version this submit created, or null when it was only a validation run and nothing got frozen. As soon as this is not null, sends already use that version. No further action is required to make it live.
+	Version   *EmailTemplateVersion  `json:"version,omitempty"`
+	VersionId EmailTemplateVersionID `json:"version_id"`
 }
 
 // EmailTemplateSummary defines model for EmailTemplateSummary.
@@ -8388,11 +9800,149 @@ type EmailTemplateSummary struct {
 	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
 }
 
-// EmailTemplateTheme The visual theme a built-in template is designed in. Each of the catalog's five themes ships its own set of eight emails, and the sets overlap only partly, so the theme is what you choose between once you know which email you want. Only built-in `system` templates have one.
+// EmailTemplateTheme The visual theme a built-in template is designed in. Each of the catalog's five themes ships its own set of eight emails, and the sets overlap only partly, so the theme is what you choose between once you know which email you want. Only our built-in `system` templates have one.
 type EmailTemplateTheme string
+
+// EmailTemplateThemeFilter Filter by the visual theme a built-in template is designed in. Only built-in `system` templates have a theme, so naming one returns built-ins alone.
+type EmailTemplateThemeFilter string
+
+// EmailTemplateUpdate Partial update of a template's metadata and draft settings. Only the fields you send are changed. The rest are left as-is. Include the draft `revision` you last read so concurrent edits are detected. Content is not here: save a language on the draft version to change what the template says.
+type EmailTemplateUpdate struct {
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage *LanguageTag `json:"default_language,omitempty"`
+
+	// Description What the template is for, in your own words. Send `null` to clear it.
+	Description nullable.Nullable[string] `json:"description,omitempty"`
+
+	// LanguageSourceRequired Whether a send has to name a language. Turning it on rejects a send that names none instead of serving the default language, and makes the template unusable for a broadcast, which has no way to name one.
+	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
+
+	// Name New display name, in free text. The slug stays fixed at creation, so renaming the template does not break whatever refers to it by slug or id.
+	Name *string `json:"name,omitempty"`
+
+	// OnMissingLanguage What a send does when it asks for a language this template does not carry.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
+	Revision EmailTemplateDraftRevision `json:"revision"`
+}
+
+// EmailTemplateVersion defines model for EmailTemplateVersion.
+type EmailTemplateVersion struct {
+	// CreatedAt When this version was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag            `json:"default_language"`
+	Id              EmailTemplateVersionID `json:"id"`
+
+	// Languages The content this version holds, keyed by language tag in BCP-47 form such as `en` or `pt-BR`. Publishing freezes every language together, so a version shows exactly what it would send in each of them. On a published version this is the send content.
+	Languages *map[string]EmailTemplateLanguageContent `json:"languages,omitempty"`
+
+	// PublishedAt When this version was published, or null if it has not been published.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether this version is still being edited or has been published. It records
+	// the version's publication history: a version that a later one replaced stays
+	// `published`. The template's `live_version_id` names the version a send
+	// resolves to now.
+	//
+	// `archived` is reserved and no version carries it yet. Version retirement will
+	// produce it, so it is declared here ahead of that feature: a client written
+	// against this list today keeps working when the first archived version arrives,
+	// rather than the value's arrival being a breaking change.
+	Status     *EmailTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId EmailTemplateID             `json:"template_id"`
+
+	// UpdatedBy Who last saved this version: a member's own session, an OAuth token delegated from one, or a workspace API key. Publishing freezes a version, so on a published one this is whoever published it. Null means no actor is on record: a built-in template, which is code-defined rather than stored, or a version last saved by an API key before this field existed. Every other version has one, even when its display_name could not be resolved (a member whose account is gone, say).
+	UpdatedBy *Actor `json:"updated_by,omitempty"`
+
+	// Variables Every variable this version's content uses. You supply a value for each of them when you send.
+	//
+	// The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
+	//
+	// Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
 
 // EmailTemplateVersionID defines model for EmailTemplateVersionID.
 type EmailTemplateVersionID = string
+
+// EmailTemplateVersionList defines model for EmailTemplateVersionList.
+type EmailTemplateVersionList struct {
+	// Data One page of the template's versions, newest first. Each entry describes a version and which languages it holds. Read a single version if you want its actual content.
+	Data []EmailTemplateVersionSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailTemplateVersionStatus Whether this version is still being edited or has been published. It records
+// the version's publication history: a version that a later one replaced stays
+// `published`. The template's `live_version_id` names the version a send
+// resolves to now.
+//
+// `archived` is reserved and no version carries it yet. Version retirement will
+// produce it, so it is declared here ahead of that feature: a client written
+// against this list today keeps working when the first archived version arrives,
+// rather than the value's arrival being a breaking change.
+type EmailTemplateVersionStatus string
+
+// EmailTemplateVersionSummary One version of a template, without its content. Version history lists every version a template has ever had, and each one has a full copy of the content in every language it was published with. The listing describes the versions; read a single version to get what it holds.
+type EmailTemplateVersionSummary struct {
+	// AvailableLanguages The languages this version holds, as BCP-47 tags: the keys its `languages` map would return, without the content itself.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// CreatedAt When this version was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag            `json:"default_language"`
+	Id              EmailTemplateVersionID `json:"id"`
+
+	// PublishedAt When this version was published, or null if it has not been published.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether this version is still being edited or has been published. It records
+	// the version's publication history: a version that a later one replaced stays
+	// `published`. The template's `live_version_id` names the version a send
+	// resolves to now.
+	//
+	// `archived` is reserved and no version carries it yet. Version retirement will
+	// produce it, so it is declared here ahead of that feature: a client written
+	// against this list today keeps working when the first archived version arrives,
+	// rather than the value's arrival being a breaking change.
+	Status     *EmailTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId EmailTemplateID             `json:"template_id"`
+
+	// UpdatedBy Who last saved this version: a member's own session, an OAuth token delegated from one, or a workspace API key. Publishing freezes a version, so on a published one this is whoever published it. Null means no actor is on record: a built-in template, which is code-defined rather than stored, or a version last saved by an API key before this field existed. Every other version has one, even when its display_name could not be resolved (a member whose account is gone, say).
+	UpdatedBy *Actor `json:"updated_by,omitempty"`
+
+	// Variables Every variable this version's content uses. You supply a value for each of them when you send.
+	//
+	// The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
+	//
+	// Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
 
 // EmailThread A conversation in a mailbox. It groups every message in both directions, the mail the mailbox received and the replies it sent, and it holds the conversation's read state, labels, and participant list. A message is retained until it is trashed or ages past the mailbox's retention tier. Only retained messages count toward the totals below.
 type EmailThread struct {
@@ -16745,6 +18295,18 @@ type CreatedAfter = time.Time
 // CreatedBefore defines model for CreatedBefore.
 type CreatedBefore = time.Time
 
+// EmailBroadcastAudienceFilter defines model for EmailBroadcastAudienceFilter.
+type EmailBroadcastAudienceFilter = AudienceID
+
+// EmailBroadcastSearchFilter defines model for EmailBroadcastSearchFilter.
+type EmailBroadcastSearchFilter = string
+
+// EmailBroadcastStatusFilter defines model for EmailBroadcastStatusFilter.
+type EmailBroadcastStatusFilter = []EmailBroadcastStatus
+
+// EmailBroadcastTagFilter defines model for EmailBroadcastTagFilter.
+type EmailBroadcastTagFilter = string
+
 // EmailStatsTemplateFilter defines model for EmailStatsTemplateFilter.
 type EmailStatsTemplateFilter = string
 
@@ -17268,6 +18830,191 @@ type ListContactPreferencesParams struct {
 
 // CreateEmailMessageBatchParams defines parameters for CreateEmailMessageBatch.
 type CreateEmailMessageBatchParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListEmailBroadcastsParams defines parameters for ListEmailBroadcasts.
+type ListEmailBroadcastsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// Status Filter by lifecycle status. Repeat the parameter to match more than one status, for example `?status=accepted&status=sending`.
+	Status *EmailBroadcastStatusFilter `form:"status,omitempty" json:"status,omitempty"`
+
+	// AudienceId Filter by audience. Only broadcasts that use this audience are returned.
+	AudienceId *EmailBroadcastAudienceFilter `form:"audience_id,omitempty" json:"audience_id,omitempty"`
+
+	// Tag Filter by tag. Pass `name` to match any broadcast that has that tag name, or pass `name:value` to match a specific tag pair, for example `campaign:spring_launch`.
+	Tag *EmailBroadcastTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// Q Case-insensitive substring match against the broadcast's tag names and values, or the referenced template's name.
+	Q *EmailBroadcastSearchFilter `form:"q,omitempty" json:"q,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+}
+
+// CreateEmailBroadcastParams defines parameters for CreateEmailBroadcast.
+type CreateEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteEmailBroadcastParams defines parameters for DeleteEmailBroadcast.
+type DeleteEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateEmailBroadcastParams defines parameters for UpdateEmailBroadcast.
+type UpdateEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CancelEmailBroadcastParams defines parameters for CancelEmailBroadcast.
+type CancelEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListEmailBroadcastEventsParams defines parameters for ListEmailBroadcastEvents.
+type ListEmailBroadcastEventsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// Type Filter by event type, for example `email.bounced` or `email.opened`. A broadcast timeline is recipient-scoped, so `email.scheduled` and `email.canceled` never appear on it; a canceled broadcast reports that in its own `status`.
+	Type *EmailEventType `form:"type,omitempty" json:"type,omitempty"`
+}
+
+// ListEmailBroadcastRecipientsParams defines parameters for ListEmailBroadcastRecipients.
+type ListEmailBroadcastRecipientsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// To Return only the recipient at this address. Exact match, normalised to lowercase before comparison, so it returns at most one row.
+	To *openapi_types.Email `form:"to,omitempty" json:"to,omitempty"`
+}
+
+// SendEmailBroadcastParams defines parameters for SendEmailBroadcast.
+type SendEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -18217,7 +19964,7 @@ type ListEmailTemplatesParams struct {
 	Source *EmailTemplateSource `form:"source,omitempty" json:"source,omitempty"`
 
 	// Theme Filter by the visual theme a built-in template is designed in. Only our built-in templates have a theme, so naming one returns built-ins alone.
-	Theme *EmailTemplateTheme `form:"theme,omitempty" json:"theme,omitempty"`
+	Theme *EmailTemplateThemeFilter `form:"theme,omitempty" json:"theme,omitempty"`
 
 	// Q A case-insensitive substring search across the template's slug, name, and description.
 	Q *string `form:"q,omitempty" json:"q,omitempty"`
@@ -18230,6 +19977,305 @@ type ListEmailTemplatesParams struct {
 
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateEmailTemplateParams defines parameters for CreateEmailTemplate.
+type CreateEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteEmailTemplateParams defines parameters for DeleteEmailTemplate.
+type DeleteEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateEmailTemplateParams defines parameters for UpdateEmailTemplate.
+type UpdateEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListEmailTemplateBroadcastsParams defines parameters for ListEmailTemplateBroadcasts.
+type ListEmailTemplateBroadcastsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// DuplicateEmailTemplateParams defines parameters for DuplicateEmailTemplate.
+type DuplicateEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetEmailTemplatePreviewParams defines parameters for GetEmailTemplatePreview.
+type GetEmailTemplatePreviewParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListEmailTemplateVersionsParams defines parameters for ListEmailTemplateVersions.
+type ListEmailTemplateVersionsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// DeleteEmailTemplateVersionParams defines parameters for DeleteEmailTemplateVersion.
+type DeleteEmailTemplateVersionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteEmailTemplateLanguageParams defines parameters for DeleteEmailTemplateLanguage.
+type DeleteEmailTemplateLanguageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateEmailTemplateLanguageParams defines parameters for UpdateEmailTemplateLanguage.
+type UpdateEmailTemplateLanguageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpsertEmailTemplateLanguageParams defines parameters for UpsertEmailTemplateLanguage.
+type UpsertEmailTemplateLanguageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// RollbackEmailTemplateParams defines parameters for RollbackEmailTemplate.
+type RollbackEmailTemplateParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// SubmitEmailTemplateVersionParams defines parameters for SubmitEmailTemplateVersion.
+type SubmitEmailTemplateVersionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListEmailThreadsParams defines parameters for ListEmailThreads.
@@ -20202,6 +22248,15 @@ type UpdateContactJSONRequestBody = ContactUpdateRequest
 // CreateEmailMessageBatchJSONRequestBody defines body for CreateEmailMessageBatch for application/json ContentType.
 type CreateEmailMessageBatchJSONRequestBody = EmailMessageBatchRequest
 
+// CreateEmailBroadcastJSONRequestBody defines body for CreateEmailBroadcast for application/json ContentType.
+type CreateEmailBroadcastJSONRequestBody = EmailBroadcastCreateRequest
+
+// UpdateEmailBroadcastJSONRequestBody defines body for UpdateEmailBroadcast for application/json ContentType.
+type UpdateEmailBroadcastJSONRequestBody = EmailBroadcastUpdateRequest
+
+// SendEmailBroadcastJSONRequestBody defines body for SendEmailBroadcast for application/json ContentType.
+type SendEmailBroadcastJSONRequestBody = EmailBroadcastSendNowRequest
+
 // CreateDomainJSONRequestBody defines body for CreateDomain for application/json ContentType.
 type CreateDomainJSONRequestBody = DomainCreate
 
@@ -20222,6 +22277,30 @@ type CreateMailboxReceiveRuleJSONRequestBody = ReceiveRuleCreate
 
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
+
+// CreateEmailTemplateJSONRequestBody defines body for CreateEmailTemplate for application/json ContentType.
+type CreateEmailTemplateJSONRequestBody = EmailTemplateCreate
+
+// UpdateEmailTemplateJSONRequestBody defines body for UpdateEmailTemplate for application/json ContentType.
+type UpdateEmailTemplateJSONRequestBody = EmailTemplateUpdate
+
+// DuplicateEmailTemplateJSONRequestBody defines body for DuplicateEmailTemplate for application/json ContentType.
+type DuplicateEmailTemplateJSONRequestBody = EmailTemplateDuplicate
+
+// GetEmailTemplatePreviewJSONRequestBody defines body for GetEmailTemplatePreview for application/json ContentType.
+type GetEmailTemplatePreviewJSONRequestBody = EmailTemplatePreviewRequest
+
+// UpdateEmailTemplateLanguageJSONRequestBody defines body for UpdateEmailTemplateLanguage for application/json ContentType.
+type UpdateEmailTemplateLanguageJSONRequestBody = EmailTemplateLanguageUpdate
+
+// UpsertEmailTemplateLanguageJSONRequestBody defines body for UpsertEmailTemplateLanguage for application/json ContentType.
+type UpsertEmailTemplateLanguageJSONRequestBody = EmailTemplateLanguageUpsert
+
+// RollbackEmailTemplateJSONRequestBody defines body for RollbackEmailTemplate for application/json ContentType.
+type RollbackEmailTemplateJSONRequestBody = EmailTemplateRollback
+
+// SubmitEmailTemplateVersionJSONRequestBody defines body for SubmitEmailTemplateVersion for application/json ContentType.
+type SubmitEmailTemplateVersionJSONRequestBody = EmailTemplateSubmit
 
 // UpdateEmailThreadJSONRequestBody defines body for UpdateEmailThread for application/json ContentType.
 type UpdateEmailThreadJSONRequestBody = EmailThreadUpdateRequest
@@ -23840,6 +25919,48 @@ type ClientInterface interface {
 
 	CreateEmailMessageBatch(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListEmailBroadcasts request
+	ListEmailBroadcasts(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailBroadcastWithBody request with any body
+	CreateEmailBroadcastWithBody(ctx context.Context, params *CreateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailBroadcast(ctx context.Context, params *CreateEmailBroadcastParams, body CreateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailBroadcast request
+	DeleteEmailBroadcast(ctx context.Context, broadcastId string, params *DeleteEmailBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBroadcast request
+	GetEmailBroadcast(ctx context.Context, broadcastId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailBroadcastWithBody request with any body
+	UpdateEmailBroadcastWithBody(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailBroadcast(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, body UpdateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelEmailBroadcast request
+	CancelEmailBroadcast(ctx context.Context, broadcastId string, params *CancelEmailBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailBroadcastClickedLinks request
+	ListEmailBroadcastClickedLinks(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBroadcastCounts request
+	GetEmailBroadcastCounts(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailBroadcastEvents request
+	ListEmailBroadcastEvents(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailBroadcastRecipients request
+	ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SendEmailBroadcastWithBody request with any body
+	SendEmailBroadcastWithBody(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SendEmailBroadcast(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, body SendEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailBroadcastSendQuota request
+	GetEmailBroadcastSendQuota(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListDomains request
 	ListDomains(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -23973,6 +26094,73 @@ type ClientInterface interface {
 
 	// ListEmailTemplates request
 	ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailTemplateWithBody request with any body
+	CreateEmailTemplateWithBody(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailTemplate(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailTemplate request
+	DeleteEmailTemplate(ctx context.Context, templateRef string, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplate request
+	GetEmailTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailTemplateWithBody request with any body
+	UpdateEmailTemplateWithBody(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailTemplate(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailTemplateBroadcasts request
+	ListEmailTemplateBroadcasts(ctx context.Context, templateRef string, params *ListEmailTemplateBroadcastsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DuplicateEmailTemplateWithBody request with any body
+	DuplicateEmailTemplateWithBody(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DuplicateEmailTemplate(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplatePreviewWithBody request with any body
+	GetEmailTemplatePreviewWithBody(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	GetEmailTemplatePreview(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, body GetEmailTemplatePreviewJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailTemplateVersions request
+	ListEmailTemplateVersions(ctx context.Context, templateRef string, params *ListEmailTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailTemplateVersion request
+	DeleteEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *DeleteEmailTemplateVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplateVersion request
+	GetEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEmailTemplateVersionLanguages request
+	ListEmailTemplateVersionLanguages(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailTemplateLanguage request
+	DeleteEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *DeleteEmailTemplateLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplateLanguage request
+	GetEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailTemplateLanguageWithBody request with any body
+	UpdateEmailTemplateLanguageWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, body UpdateEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpsertEmailTemplateLanguageWithBody request with any body
+	UpsertEmailTemplateLanguageWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpsertEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, body UpsertEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RollbackEmailTemplateWithBody request with any body
+	RollbackEmailTemplateWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RollbackEmailTemplate(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, body RollbackEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SubmitEmailTemplateVersionWithBody request with any body
+	SubmitEmailTemplateVersionWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SubmitEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, body SubmitEmailTemplateVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListEmailThreads request
 	ListEmailThreads(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -24747,6 +26935,186 @@ func (c *Client) CreateEmailMessageBatch(ctx context.Context, params *CreateEmai
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListEmailBroadcasts(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBroadcastsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailBroadcastWithBody(ctx context.Context, params *CreateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailBroadcastRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailBroadcast(ctx context.Context, params *CreateEmailBroadcastParams, body CreateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailBroadcastRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailBroadcast(ctx context.Context, broadcastId string, params *DeleteEmailBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailBroadcastRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBroadcast(ctx context.Context, broadcastId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBroadcastRequest(c.Server, broadcastId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailBroadcastWithBody(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailBroadcastRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailBroadcast(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, body UpdateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailBroadcastRequest(c.Server, broadcastId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelEmailBroadcast(ctx context.Context, broadcastId string, params *CancelEmailBroadcastParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelEmailBroadcastRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBroadcastClickedLinks(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBroadcastClickedLinksRequest(c.Server, broadcastId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBroadcastCounts(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBroadcastCountsRequest(c.Server, broadcastId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBroadcastEvents(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBroadcastEventsRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailBroadcastRecipientsRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendEmailBroadcastWithBody(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendEmailBroadcastRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendEmailBroadcast(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, body SendEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendEmailBroadcastRequest(c.Server, broadcastId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailBroadcastSendQuota(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailBroadcastSendQuotaRequest(c.Server, broadcastId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListDomains(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListDomainsRequest(c.Server, params)
 	if err != nil {
@@ -25301,6 +27669,306 @@ func (c *Client) GetEmailStatsByTemplate(ctx context.Context, params *GetEmailSt
 
 func (c *Client) ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListEmailTemplatesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailTemplateWithBody(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailTemplateRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailTemplate(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailTemplateRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailTemplate(ctx context.Context, templateRef string, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailTemplateRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateRequest(c.Server, templateRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplateWithBody(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateRequestWithBody(c.Server, templateRef, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplate(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateRequest(c.Server, templateRef, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplateBroadcasts(ctx context.Context, templateRef string, params *ListEmailTemplateBroadcastsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplateBroadcastsRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DuplicateEmailTemplateWithBody(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDuplicateEmailTemplateRequestWithBody(c.Server, templateRef, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DuplicateEmailTemplate(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDuplicateEmailTemplateRequest(c.Server, templateRef, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplatePreviewWithBody(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplatePreviewRequestWithBody(c.Server, templateRef, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplatePreview(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, body GetEmailTemplatePreviewJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplatePreviewRequest(c.Server, templateRef, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplateVersions(ctx context.Context, templateRef string, params *ListEmailTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplateVersionsRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *DeleteEmailTemplateVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailTemplateVersionRequest(c.Server, templateRef, versionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateVersionRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEmailTemplateVersionLanguages(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEmailTemplateVersionLanguagesRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *DeleteEmailTemplateLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailTemplateLanguageRequest(c.Server, templateRef, versionId, language, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateLanguageRequest(c.Server, templateRef, versionId, language)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplateLanguageWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateLanguageRequestWithBody(c.Server, templateRef, versionId, language, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, body UpdateEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailTemplateLanguageRequest(c.Server, templateRef, versionId, language, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertEmailTemplateLanguageWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertEmailTemplateLanguageRequestWithBody(c.Server, templateRef, versionId, language, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertEmailTemplateLanguage(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, body UpsertEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertEmailTemplateLanguageRequest(c.Server, templateRef, versionId, language, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RollbackEmailTemplateWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRollbackEmailTemplateRequestWithBody(c.Server, templateRef, versionId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RollbackEmailTemplate(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, body RollbackEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRollbackEmailTemplateRequest(c.Server, templateRef, versionId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SubmitEmailTemplateVersionWithBody(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitEmailTemplateVersionRequestWithBody(c.Server, templateRef, versionId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SubmitEmailTemplateVersion(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, body SubmitEmailTemplateVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSubmitEmailTemplateVersionRequest(c.Server, templateRef, versionId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -28341,6 +31009,763 @@ func NewCreateEmailMessageBatchRequestWithBody(server string, params *CreateEmai
 			req.Header.Set("Idempotency-Key", headerParam0)
 		}
 
+	}
+
+	return req, nil
+}
+
+// NewListEmailBroadcastsRequest generates requests for ListEmailBroadcasts
+func NewListEmailBroadcastsRequest(server string, params *ListEmailBroadcastsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.AudienceId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "audience_id", *params.AudienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailBroadcastRequest calls the generic CreateEmailBroadcast builder with application/json body
+func NewCreateEmailBroadcastRequest(server string, params *CreateEmailBroadcastParams, body CreateEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailBroadcastRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailBroadcastRequestWithBody generates requests for CreateEmailBroadcast with any type of body
+func NewCreateEmailBroadcastRequestWithBody(server string, params *CreateEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailBroadcastRequest generates requests for DeleteEmailBroadcast
+func NewDeleteEmailBroadcastRequest(server string, broadcastId string, params *DeleteEmailBroadcastParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBroadcastRequest generates requests for GetEmailBroadcast
+func NewGetEmailBroadcastRequest(server string, broadcastId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailBroadcastRequest calls the generic UpdateEmailBroadcast builder with application/json body
+func NewUpdateEmailBroadcastRequest(server string, broadcastId string, params *UpdateEmailBroadcastParams, body UpdateEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailBroadcastRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailBroadcastRequestWithBody generates requests for UpdateEmailBroadcast with any type of body
+func NewUpdateEmailBroadcastRequestWithBody(server string, broadcastId string, params *UpdateEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelEmailBroadcastRequest generates requests for CancelEmailBroadcast
+func NewCancelEmailBroadcastRequest(server string, broadcastId string, params *CancelEmailBroadcastParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailBroadcastClickedLinksRequest generates requests for ListEmailBroadcastClickedLinks
+func NewListEmailBroadcastClickedLinksRequest(server string, broadcastId EmailBroadcastID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/clicked-links", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBroadcastCountsRequest generates requests for GetEmailBroadcastCounts
+func NewGetEmailBroadcastCountsRequest(server string, broadcastId EmailBroadcastID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/counts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListEmailBroadcastEventsRequest generates requests for ListEmailBroadcastEvents
+func NewListEmailBroadcastEventsRequest(server string, broadcastId string, params *ListEmailBroadcastEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Type != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListEmailBroadcastRecipientsRequest generates requests for ListEmailBroadcastRecipients
+func NewListEmailBroadcastRecipientsRequest(server string, broadcastId string, params *ListEmailBroadcastRecipientsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/recipients", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "email"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewSendEmailBroadcastRequest calls the generic SendEmailBroadcast builder with application/json body
+func NewSendEmailBroadcastRequest(server string, broadcastId string, params *SendEmailBroadcastParams, body SendEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSendEmailBroadcastRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewSendEmailBroadcastRequestWithBody generates requests for SendEmailBroadcast with any type of body
+func NewSendEmailBroadcastRequestWithBody(server string, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/send", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailBroadcastSendQuotaRequest generates requests for GetEmailBroadcastSendQuota
+func NewGetEmailBroadcastSendQuotaRequest(server string, broadcastId EmailBroadcastID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/send-quota", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -32161,6 +35586,1039 @@ func NewListEmailTemplatesRequest(server string, params *ListEmailTemplatesParam
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailTemplateRequest calls the generic CreateEmailTemplate builder with application/json body
+func NewCreateEmailTemplateRequest(server string, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailTemplateRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailTemplateRequestWithBody generates requests for CreateEmailTemplate with any type of body
+func NewCreateEmailTemplateRequestWithBody(server string, params *CreateEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailTemplateRequest generates requests for DeleteEmailTemplate
+func NewDeleteEmailTemplateRequest(server string, templateRef string, params *DeleteEmailTemplateParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateRequest generates requests for GetEmailTemplate
+func NewGetEmailTemplateRequest(server string, templateRef string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailTemplateRequest calls the generic UpdateEmailTemplate builder with application/json body
+func NewUpdateEmailTemplateRequest(server string, templateRef string, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailTemplateRequestWithBody(server, templateRef, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailTemplateRequestWithBody generates requests for UpdateEmailTemplate with any type of body
+func NewUpdateEmailTemplateRequestWithBody(server string, templateRef string, params *UpdateEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailTemplateBroadcastsRequest generates requests for ListEmailTemplateBroadcasts
+func NewListEmailTemplateBroadcastsRequest(server string, templateRef string, params *ListEmailTemplateBroadcastsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/broadcasts", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDuplicateEmailTemplateRequest calls the generic DuplicateEmailTemplate builder with application/json body
+func NewDuplicateEmailTemplateRequest(server string, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDuplicateEmailTemplateRequestWithBody(server, templateRef, params, "application/json", bodyReader)
+}
+
+// NewDuplicateEmailTemplateRequestWithBody generates requests for DuplicateEmailTemplate with any type of body
+func NewDuplicateEmailTemplateRequestWithBody(server string, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/duplicate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplatePreviewRequest calls the generic GetEmailTemplatePreview builder with application/json body
+func NewGetEmailTemplatePreviewRequest(server string, templateRef string, params *GetEmailTemplatePreviewParams, body GetEmailTemplatePreviewJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewGetEmailTemplatePreviewRequestWithBody(server, templateRef, params, "application/json", bodyReader)
+}
+
+// NewGetEmailTemplatePreviewRequestWithBody generates requests for GetEmailTemplatePreview with any type of body
+func NewGetEmailTemplatePreviewRequestWithBody(server string, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/preview", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEmailTemplateVersionsRequest generates requests for ListEmailTemplateVersions
+func NewListEmailTemplateVersionsRequest(server string, templateRef string, params *ListEmailTemplateVersionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailTemplateVersionRequest generates requests for DeleteEmailTemplateVersion
+func NewDeleteEmailTemplateVersionRequest(server string, templateRef string, versionId EmailTemplateVersionID, params *DeleteEmailTemplateVersionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateVersionRequest generates requests for GetEmailTemplateVersion
+func NewGetEmailTemplateVersionRequest(server string, templateRef string, versionId EmailTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListEmailTemplateVersionLanguagesRequest generates requests for ListEmailTemplateVersionLanguages
+func NewListEmailTemplateVersionLanguagesRequest(server string, templateRef string, versionId EmailTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/languages", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailTemplateLanguageRequest generates requests for DeleteEmailTemplateLanguage
+func NewDeleteEmailTemplateLanguageRequest(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *DeleteEmailTemplateLanguageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateLanguageRequest generates requests for GetEmailTemplateLanguage
+func NewGetEmailTemplateLanguageRequest(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailTemplateLanguageRequest calls the generic UpdateEmailTemplateLanguage builder with application/json body
+func NewUpdateEmailTemplateLanguageRequest(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, body UpdateEmailTemplateLanguageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailTemplateLanguageRequestWithBody(server, templateRef, versionId, language, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailTemplateLanguageRequestWithBody generates requests for UpdateEmailTemplateLanguage with any type of body
+func NewUpdateEmailTemplateLanguageRequestWithBody(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpsertEmailTemplateLanguageRequest calls the generic UpsertEmailTemplateLanguage builder with application/json body
+func NewUpsertEmailTemplateLanguageRequest(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, body UpsertEmailTemplateLanguageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpsertEmailTemplateLanguageRequestWithBody(server, templateRef, versionId, language, params, "application/json", bodyReader)
+}
+
+// NewUpsertEmailTemplateLanguageRequestWithBody generates requests for UpsertEmailTemplateLanguage with any type of body
+func NewUpsertEmailTemplateLanguageRequestWithBody(server string, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRollbackEmailTemplateRequest calls the generic RollbackEmailTemplate builder with application/json body
+func NewRollbackEmailTemplateRequest(server string, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, body RollbackEmailTemplateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRollbackEmailTemplateRequestWithBody(server, templateRef, versionId, params, "application/json", bodyReader)
+}
+
+// NewRollbackEmailTemplateRequestWithBody generates requests for RollbackEmailTemplate with any type of body
+func NewRollbackEmailTemplateRequestWithBody(server string, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/rollback", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewSubmitEmailTemplateVersionRequest calls the generic SubmitEmailTemplateVersion builder with application/json body
+func NewSubmitEmailTemplateVersionRequest(server string, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, body SubmitEmailTemplateVersionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSubmitEmailTemplateVersionRequestWithBody(server, templateRef, versionId, params, "application/json", bodyReader)
+}
+
+// NewSubmitEmailTemplateVersionRequestWithBody generates requests for SubmitEmailTemplateVersion with any type of body
+func NewSubmitEmailTemplateVersionRequestWithBody(server string, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/versions/%s/submit", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -41107,6 +45565,48 @@ type ClientWithResponsesInterface interface {
 
 	CreateEmailMessageBatchWithResponse(ctx context.Context, params *CreateEmailMessageBatchParams, body CreateEmailMessageBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailMessageBatchResponse, error)
 
+	// ListEmailBroadcastsWithResponse request
+	ListEmailBroadcastsWithResponse(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastsResponse, error)
+
+	// CreateEmailBroadcastWithBodyWithResponse request with any body
+	CreateEmailBroadcastWithBodyWithResponse(ctx context.Context, params *CreateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailBroadcastResponse, error)
+
+	CreateEmailBroadcastWithResponse(ctx context.Context, params *CreateEmailBroadcastParams, body CreateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailBroadcastResponse, error)
+
+	// DeleteEmailBroadcastWithResponse request
+	DeleteEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *DeleteEmailBroadcastParams, reqEditors ...RequestEditorFn) (*DeleteEmailBroadcastResponse, error)
+
+	// GetEmailBroadcastWithResponse request
+	GetEmailBroadcastWithResponse(ctx context.Context, broadcastId string, reqEditors ...RequestEditorFn) (*GetEmailBroadcastResponse, error)
+
+	// UpdateEmailBroadcastWithBodyWithResponse request with any body
+	UpdateEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailBroadcastResponse, error)
+
+	UpdateEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, body UpdateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailBroadcastResponse, error)
+
+	// CancelEmailBroadcastWithResponse request
+	CancelEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *CancelEmailBroadcastParams, reqEditors ...RequestEditorFn) (*CancelEmailBroadcastResponse, error)
+
+	// ListEmailBroadcastClickedLinksWithResponse request
+	ListEmailBroadcastClickedLinksWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*ListEmailBroadcastClickedLinksResponse, error)
+
+	// GetEmailBroadcastCountsWithResponse request
+	GetEmailBroadcastCountsWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*GetEmailBroadcastCountsResponse, error)
+
+	// ListEmailBroadcastEventsWithResponse request
+	ListEmailBroadcastEventsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastEventsResponse, error)
+
+	// ListEmailBroadcastRecipientsWithResponse request
+	ListEmailBroadcastRecipientsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastRecipientsResponse, error)
+
+	// SendEmailBroadcastWithBodyWithResponse request with any body
+	SendEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error)
+
+	SendEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, body SendEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error)
+
+	// GetEmailBroadcastSendQuotaWithResponse request
+	GetEmailBroadcastSendQuotaWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*GetEmailBroadcastSendQuotaResponse, error)
+
 	// ListDomainsWithResponse request
 	ListDomainsWithResponse(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*ListDomainsResponse, error)
 
@@ -41240,6 +45740,73 @@ type ClientWithResponsesInterface interface {
 
 	// ListEmailTemplatesWithResponse request
 	ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error)
+
+	// CreateEmailTemplateWithBodyWithResponse request with any body
+	CreateEmailTemplateWithBodyWithResponse(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error)
+
+	CreateEmailTemplateWithResponse(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error)
+
+	// DeleteEmailTemplateWithResponse request
+	DeleteEmailTemplateWithResponse(ctx context.Context, templateRef string, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateResponse, error)
+
+	// GetEmailTemplateWithResponse request
+	GetEmailTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetEmailTemplateResponse, error)
+
+	// UpdateEmailTemplateWithBodyWithResponse request with any body
+	UpdateEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error)
+
+	UpdateEmailTemplateWithResponse(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error)
+
+	// ListEmailTemplateBroadcastsWithResponse request
+	ListEmailTemplateBroadcastsWithResponse(ctx context.Context, templateRef string, params *ListEmailTemplateBroadcastsParams, reqEditors ...RequestEditorFn) (*ListEmailTemplateBroadcastsResponse, error)
+
+	// DuplicateEmailTemplateWithBodyWithResponse request with any body
+	DuplicateEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error)
+
+	DuplicateEmailTemplateWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error)
+
+	// GetEmailTemplatePreviewWithBodyWithResponse request with any body
+	GetEmailTemplatePreviewWithBodyWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetEmailTemplatePreviewResponse, error)
+
+	GetEmailTemplatePreviewWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, body GetEmailTemplatePreviewJSONRequestBody, reqEditors ...RequestEditorFn) (*GetEmailTemplatePreviewResponse, error)
+
+	// ListEmailTemplateVersionsWithResponse request
+	ListEmailTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListEmailTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionsResponse, error)
+
+	// DeleteEmailTemplateVersionWithResponse request
+	DeleteEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *DeleteEmailTemplateVersionParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateVersionResponse, error)
+
+	// GetEmailTemplateVersionWithResponse request
+	GetEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*GetEmailTemplateVersionResponse, error)
+
+	// ListEmailTemplateVersionLanguagesWithResponse request
+	ListEmailTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionLanguagesResponse, error)
+
+	// DeleteEmailTemplateLanguageWithResponse request
+	DeleteEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *DeleteEmailTemplateLanguageParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateLanguageResponse, error)
+
+	// GetEmailTemplateLanguageWithResponse request
+	GetEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetEmailTemplateLanguageResponse, error)
+
+	// UpdateEmailTemplateLanguageWithBodyWithResponse request with any body
+	UpdateEmailTemplateLanguageWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateLanguageResponse, error)
+
+	UpdateEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, body UpdateEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateLanguageResponse, error)
+
+	// UpsertEmailTemplateLanguageWithBodyWithResponse request with any body
+	UpsertEmailTemplateLanguageWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertEmailTemplateLanguageResponse, error)
+
+	UpsertEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, body UpsertEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertEmailTemplateLanguageResponse, error)
+
+	// RollbackEmailTemplateWithBodyWithResponse request with any body
+	RollbackEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RollbackEmailTemplateResponse, error)
+
+	RollbackEmailTemplateWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, body RollbackEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*RollbackEmailTemplateResponse, error)
+
+	// SubmitEmailTemplateVersionWithBodyWithResponse request with any body
+	SubmitEmailTemplateVersionWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitEmailTemplateVersionResponse, error)
+
+	SubmitEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, body SubmitEmailTemplateVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitEmailTemplateVersionResponse, error)
 
 	// ListEmailThreadsWithResponse request
 	ListEmailThreadsWithResponse(ctx context.Context, params *ListEmailThreadsParams, reqEditors ...RequestEditorFn) (*ListEmailThreadsResponse, error)
@@ -42460,6 +47027,450 @@ func (r CreateEmailMessageBatchResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r CreateEmailMessageBatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBroadcastsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBroadcastsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBroadcastsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBroadcastsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailBroadcast
+	JSON202      *EmailBroadcast
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcast
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcast
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailBroadcast
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBroadcastClickedLinksResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastClickedLinkList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBroadcastClickedLinksResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBroadcastClickedLinksResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBroadcastClickedLinksResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBroadcastCountsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastCounts
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBroadcastCountsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBroadcastCountsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBroadcastCountsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBroadcastEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailEventList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBroadcastEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBroadcastEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBroadcastEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailBroadcastRecipientsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailRecipientList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailBroadcastRecipientsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailBroadcastRecipientsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailBroadcastRecipientsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SendEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailBroadcast
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SendEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SendEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SendEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailBroadcastSendQuotaResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastSendQuota
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailBroadcastSendQuotaResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailBroadcastSendQuotaResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailBroadcastSendQuotaResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -43944,6 +48955,643 @@ func (r ListEmailTemplatesResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ListEmailTemplatesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplate
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailTemplateBroadcastsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateBroadcastList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplateBroadcastsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplateBroadcastsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplateBroadcastsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DuplicateEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DuplicateEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DuplicateEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DuplicateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplatePreviewResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplatePreview
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplatePreviewResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplatePreviewResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplatePreviewResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailTemplateVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateVersionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplateVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplateVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplateVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateVersion
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEmailTemplateVersionLanguagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateLanguageList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEmailTemplateVersionLanguagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEmailTemplateVersionLanguagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEmailTemplateVersionLanguagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailTemplateLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailTemplateLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailTemplateLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailTemplateLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateLanguage
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailTemplateLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateLanguageSaved
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailTemplateLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailTemplateLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailTemplateLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpsertEmailTemplateLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateLanguageSaved
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpsertEmailTemplateLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpsertEmailTemplateLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpsertEmailTemplateLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RollbackEmailTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RollbackEmailTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RollbackEmailTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RollbackEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SubmitEmailTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateSubmitResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SubmitEmailTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SubmitEmailTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SubmitEmailTemplateVersionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -48288,6 +53936,138 @@ func (c *ClientWithResponses) CreateEmailMessageBatchWithResponse(ctx context.Co
 	return ParseCreateEmailMessageBatchResponse(rsp)
 }
 
+// ListEmailBroadcastsWithResponse request returning *ListEmailBroadcastsResponse
+func (c *ClientWithResponses) ListEmailBroadcastsWithResponse(ctx context.Context, params *ListEmailBroadcastsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastsResponse, error) {
+	rsp, err := c.ListEmailBroadcasts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBroadcastsResponse(rsp)
+}
+
+// CreateEmailBroadcastWithBodyWithResponse request with arbitrary body returning *CreateEmailBroadcastResponse
+func (c *ClientWithResponses) CreateEmailBroadcastWithBodyWithResponse(ctx context.Context, params *CreateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailBroadcastResponse, error) {
+	rsp, err := c.CreateEmailBroadcastWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailBroadcastWithResponse(ctx context.Context, params *CreateEmailBroadcastParams, body CreateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailBroadcastResponse, error) {
+	rsp, err := c.CreateEmailBroadcast(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailBroadcastResponse(rsp)
+}
+
+// DeleteEmailBroadcastWithResponse request returning *DeleteEmailBroadcastResponse
+func (c *ClientWithResponses) DeleteEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *DeleteEmailBroadcastParams, reqEditors ...RequestEditorFn) (*DeleteEmailBroadcastResponse, error) {
+	rsp, err := c.DeleteEmailBroadcast(ctx, broadcastId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailBroadcastResponse(rsp)
+}
+
+// GetEmailBroadcastWithResponse request returning *GetEmailBroadcastResponse
+func (c *ClientWithResponses) GetEmailBroadcastWithResponse(ctx context.Context, broadcastId string, reqEditors ...RequestEditorFn) (*GetEmailBroadcastResponse, error) {
+	rsp, err := c.GetEmailBroadcast(ctx, broadcastId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBroadcastResponse(rsp)
+}
+
+// UpdateEmailBroadcastWithBodyWithResponse request with arbitrary body returning *UpdateEmailBroadcastResponse
+func (c *ClientWithResponses) UpdateEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailBroadcastResponse, error) {
+	rsp, err := c.UpdateEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *UpdateEmailBroadcastParams, body UpdateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailBroadcastResponse, error) {
+	rsp, err := c.UpdateEmailBroadcast(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailBroadcastResponse(rsp)
+}
+
+// CancelEmailBroadcastWithResponse request returning *CancelEmailBroadcastResponse
+func (c *ClientWithResponses) CancelEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *CancelEmailBroadcastParams, reqEditors ...RequestEditorFn) (*CancelEmailBroadcastResponse, error) {
+	rsp, err := c.CancelEmailBroadcast(ctx, broadcastId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelEmailBroadcastResponse(rsp)
+}
+
+// ListEmailBroadcastClickedLinksWithResponse request returning *ListEmailBroadcastClickedLinksResponse
+func (c *ClientWithResponses) ListEmailBroadcastClickedLinksWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*ListEmailBroadcastClickedLinksResponse, error) {
+	rsp, err := c.ListEmailBroadcastClickedLinks(ctx, broadcastId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBroadcastClickedLinksResponse(rsp)
+}
+
+// GetEmailBroadcastCountsWithResponse request returning *GetEmailBroadcastCountsResponse
+func (c *ClientWithResponses) GetEmailBroadcastCountsWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*GetEmailBroadcastCountsResponse, error) {
+	rsp, err := c.GetEmailBroadcastCounts(ctx, broadcastId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBroadcastCountsResponse(rsp)
+}
+
+// ListEmailBroadcastEventsWithResponse request returning *ListEmailBroadcastEventsResponse
+func (c *ClientWithResponses) ListEmailBroadcastEventsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastEventsResponse, error) {
+	rsp, err := c.ListEmailBroadcastEvents(ctx, broadcastId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBroadcastEventsResponse(rsp)
+}
+
+// ListEmailBroadcastRecipientsWithResponse request returning *ListEmailBroadcastRecipientsResponse
+func (c *ClientWithResponses) ListEmailBroadcastRecipientsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastRecipientsResponse, error) {
+	rsp, err := c.ListEmailBroadcastRecipients(ctx, broadcastId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailBroadcastRecipientsResponse(rsp)
+}
+
+// SendEmailBroadcastWithBodyWithResponse request with arbitrary body returning *SendEmailBroadcastResponse
+func (c *ClientWithResponses) SendEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error) {
+	rsp, err := c.SendEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) SendEmailBroadcastWithResponse(ctx context.Context, broadcastId string, params *SendEmailBroadcastParams, body SendEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*SendEmailBroadcastResponse, error) {
+	rsp, err := c.SendEmailBroadcast(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendEmailBroadcastResponse(rsp)
+}
+
+// GetEmailBroadcastSendQuotaWithResponse request returning *GetEmailBroadcastSendQuotaResponse
+func (c *ClientWithResponses) GetEmailBroadcastSendQuotaWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*GetEmailBroadcastSendQuotaResponse, error) {
+	rsp, err := c.GetEmailBroadcastSendQuota(ctx, broadcastId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailBroadcastSendQuotaResponse(rsp)
+}
+
 // ListDomainsWithResponse request returning *ListDomainsResponse
 func (c *ClientWithResponses) ListDomainsWithResponse(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*ListDomainsResponse, error) {
 	rsp, err := c.ListDomains(ctx, params, reqEditors...)
@@ -48702,6 +54482,223 @@ func (c *ClientWithResponses) ListEmailTemplatesWithResponse(ctx context.Context
 		return nil, err
 	}
 	return ParseListEmailTemplatesResponse(rsp)
+}
+
+// CreateEmailTemplateWithBodyWithResponse request with arbitrary body returning *CreateEmailTemplateResponse
+func (c *ClientWithResponses) CreateEmailTemplateWithBodyWithResponse(ctx context.Context, params *CreateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error) {
+	rsp, err := c.CreateEmailTemplateWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailTemplateWithResponse(ctx context.Context, params *CreateEmailTemplateParams, body CreateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailTemplateResponse, error) {
+	rsp, err := c.CreateEmailTemplate(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailTemplateResponse(rsp)
+}
+
+// DeleteEmailTemplateWithResponse request returning *DeleteEmailTemplateResponse
+func (c *ClientWithResponses) DeleteEmailTemplateWithResponse(ctx context.Context, templateRef string, params *DeleteEmailTemplateParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateResponse, error) {
+	rsp, err := c.DeleteEmailTemplate(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailTemplateResponse(rsp)
+}
+
+// GetEmailTemplateWithResponse request returning *GetEmailTemplateResponse
+func (c *ClientWithResponses) GetEmailTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetEmailTemplateResponse, error) {
+	rsp, err := c.GetEmailTemplate(ctx, templateRef, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateResponse(rsp)
+}
+
+// UpdateEmailTemplateWithBodyWithResponse request with arbitrary body returning *UpdateEmailTemplateResponse
+func (c *ClientWithResponses) UpdateEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error) {
+	rsp, err := c.UpdateEmailTemplateWithBody(ctx, templateRef, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailTemplateWithResponse(ctx context.Context, templateRef string, params *UpdateEmailTemplateParams, body UpdateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateResponse, error) {
+	rsp, err := c.UpdateEmailTemplate(ctx, templateRef, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateResponse(rsp)
+}
+
+// ListEmailTemplateBroadcastsWithResponse request returning *ListEmailTemplateBroadcastsResponse
+func (c *ClientWithResponses) ListEmailTemplateBroadcastsWithResponse(ctx context.Context, templateRef string, params *ListEmailTemplateBroadcastsParams, reqEditors ...RequestEditorFn) (*ListEmailTemplateBroadcastsResponse, error) {
+	rsp, err := c.ListEmailTemplateBroadcasts(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplateBroadcastsResponse(rsp)
+}
+
+// DuplicateEmailTemplateWithBodyWithResponse request with arbitrary body returning *DuplicateEmailTemplateResponse
+func (c *ClientWithResponses) DuplicateEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error) {
+	rsp, err := c.DuplicateEmailTemplateWithBody(ctx, templateRef, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDuplicateEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) DuplicateEmailTemplateWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error) {
+	rsp, err := c.DuplicateEmailTemplate(ctx, templateRef, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDuplicateEmailTemplateResponse(rsp)
+}
+
+// GetEmailTemplatePreviewWithBodyWithResponse request with arbitrary body returning *GetEmailTemplatePreviewResponse
+func (c *ClientWithResponses) GetEmailTemplatePreviewWithBodyWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetEmailTemplatePreviewResponse, error) {
+	rsp, err := c.GetEmailTemplatePreviewWithBody(ctx, templateRef, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplatePreviewResponse(rsp)
+}
+
+func (c *ClientWithResponses) GetEmailTemplatePreviewWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, body GetEmailTemplatePreviewJSONRequestBody, reqEditors ...RequestEditorFn) (*GetEmailTemplatePreviewResponse, error) {
+	rsp, err := c.GetEmailTemplatePreview(ctx, templateRef, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplatePreviewResponse(rsp)
+}
+
+// ListEmailTemplateVersionsWithResponse request returning *ListEmailTemplateVersionsResponse
+func (c *ClientWithResponses) ListEmailTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListEmailTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionsResponse, error) {
+	rsp, err := c.ListEmailTemplateVersions(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplateVersionsResponse(rsp)
+}
+
+// DeleteEmailTemplateVersionWithResponse request returning *DeleteEmailTemplateVersionResponse
+func (c *ClientWithResponses) DeleteEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *DeleteEmailTemplateVersionParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateVersionResponse, error) {
+	rsp, err := c.DeleteEmailTemplateVersion(ctx, templateRef, versionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailTemplateVersionResponse(rsp)
+}
+
+// GetEmailTemplateVersionWithResponse request returning *GetEmailTemplateVersionResponse
+func (c *ClientWithResponses) GetEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*GetEmailTemplateVersionResponse, error) {
+	rsp, err := c.GetEmailTemplateVersion(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateVersionResponse(rsp)
+}
+
+// ListEmailTemplateVersionLanguagesWithResponse request returning *ListEmailTemplateVersionLanguagesResponse
+func (c *ClientWithResponses) ListEmailTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, reqEditors ...RequestEditorFn) (*ListEmailTemplateVersionLanguagesResponse, error) {
+	rsp, err := c.ListEmailTemplateVersionLanguages(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEmailTemplateVersionLanguagesResponse(rsp)
+}
+
+// DeleteEmailTemplateLanguageWithResponse request returning *DeleteEmailTemplateLanguageResponse
+func (c *ClientWithResponses) DeleteEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *DeleteEmailTemplateLanguageParams, reqEditors ...RequestEditorFn) (*DeleteEmailTemplateLanguageResponse, error) {
+	rsp, err := c.DeleteEmailTemplateLanguage(ctx, templateRef, versionId, language, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailTemplateLanguageResponse(rsp)
+}
+
+// GetEmailTemplateLanguageWithResponse request returning *GetEmailTemplateLanguageResponse
+func (c *ClientWithResponses) GetEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetEmailTemplateLanguageResponse, error) {
+	rsp, err := c.GetEmailTemplateLanguage(ctx, templateRef, versionId, language, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateLanguageResponse(rsp)
+}
+
+// UpdateEmailTemplateLanguageWithBodyWithResponse request with arbitrary body returning *UpdateEmailTemplateLanguageResponse
+func (c *ClientWithResponses) UpdateEmailTemplateLanguageWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateLanguageResponse, error) {
+	rsp, err := c.UpdateEmailTemplateLanguageWithBody(ctx, templateRef, versionId, language, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateLanguageResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpdateEmailTemplateLanguageParams, body UpdateEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailTemplateLanguageResponse, error) {
+	rsp, err := c.UpdateEmailTemplateLanguage(ctx, templateRef, versionId, language, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailTemplateLanguageResponse(rsp)
+}
+
+// UpsertEmailTemplateLanguageWithBodyWithResponse request with arbitrary body returning *UpsertEmailTemplateLanguageResponse
+func (c *ClientWithResponses) UpsertEmailTemplateLanguageWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpsertEmailTemplateLanguageResponse, error) {
+	rsp, err := c.UpsertEmailTemplateLanguageWithBody(ctx, templateRef, versionId, language, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertEmailTemplateLanguageResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpsertEmailTemplateLanguageWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, language LanguageTag, params *UpsertEmailTemplateLanguageParams, body UpsertEmailTemplateLanguageJSONRequestBody, reqEditors ...RequestEditorFn) (*UpsertEmailTemplateLanguageResponse, error) {
+	rsp, err := c.UpsertEmailTemplateLanguage(ctx, templateRef, versionId, language, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertEmailTemplateLanguageResponse(rsp)
+}
+
+// RollbackEmailTemplateWithBodyWithResponse request with arbitrary body returning *RollbackEmailTemplateResponse
+func (c *ClientWithResponses) RollbackEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RollbackEmailTemplateResponse, error) {
+	rsp, err := c.RollbackEmailTemplateWithBody(ctx, templateRef, versionId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRollbackEmailTemplateResponse(rsp)
+}
+
+func (c *ClientWithResponses) RollbackEmailTemplateWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *RollbackEmailTemplateParams, body RollbackEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*RollbackEmailTemplateResponse, error) {
+	rsp, err := c.RollbackEmailTemplate(ctx, templateRef, versionId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRollbackEmailTemplateResponse(rsp)
+}
+
+// SubmitEmailTemplateVersionWithBodyWithResponse request with arbitrary body returning *SubmitEmailTemplateVersionResponse
+func (c *ClientWithResponses) SubmitEmailTemplateVersionWithBodyWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SubmitEmailTemplateVersionResponse, error) {
+	rsp, err := c.SubmitEmailTemplateVersionWithBody(ctx, templateRef, versionId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitEmailTemplateVersionResponse(rsp)
+}
+
+func (c *ClientWithResponses) SubmitEmailTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId EmailTemplateVersionID, params *SubmitEmailTemplateVersionParams, body SubmitEmailTemplateVersionJSONRequestBody, reqEditors ...RequestEditorFn) (*SubmitEmailTemplateVersionResponse, error) {
+	rsp, err := c.SubmitEmailTemplateVersion(ctx, templateRef, versionId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSubmitEmailTemplateVersionResponse(rsp)
 }
 
 // ListEmailThreadsWithResponse request returning *ListEmailThreadsResponse
@@ -51576,6 +57573,906 @@ func ParseCreateEmailMessageBatchResponse(rsp *http.Response) (*CreateEmailMessa
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBroadcastsResponse parses an HTTP response from a ListEmailBroadcastsWithResponse call
+func ParseListEmailBroadcastsResponse(rsp *http.Response) (*ListEmailBroadcastsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBroadcastsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailBroadcastResponse parses an HTTP response from a CreateEmailBroadcastWithResponse call
+func ParseCreateEmailBroadcastResponse(rsp *http.Response) (*CreateEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailBroadcastResponse parses an HTTP response from a DeleteEmailBroadcastWithResponse call
+func ParseDeleteEmailBroadcastResponse(rsp *http.Response) (*DeleteEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBroadcastResponse parses an HTTP response from a GetEmailBroadcastWithResponse call
+func ParseGetEmailBroadcastResponse(rsp *http.Response) (*GetEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailBroadcastResponse parses an HTTP response from a UpdateEmailBroadcastWithResponse call
+func ParseUpdateEmailBroadcastResponse(rsp *http.Response) (*UpdateEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelEmailBroadcastResponse parses an HTTP response from a CancelEmailBroadcastWithResponse call
+func ParseCancelEmailBroadcastResponse(rsp *http.Response) (*CancelEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBroadcastClickedLinksResponse parses an HTTP response from a ListEmailBroadcastClickedLinksWithResponse call
+func ParseListEmailBroadcastClickedLinksResponse(rsp *http.Response) (*ListEmailBroadcastClickedLinksResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBroadcastClickedLinksResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastClickedLinkList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBroadcastCountsResponse parses an HTTP response from a GetEmailBroadcastCountsWithResponse call
+func ParseGetEmailBroadcastCountsResponse(rsp *http.Response) (*GetEmailBroadcastCountsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBroadcastCountsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastCounts
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBroadcastEventsResponse parses an HTTP response from a ListEmailBroadcastEventsWithResponse call
+func ParseListEmailBroadcastEventsResponse(rsp *http.Response) (*ListEmailBroadcastEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBroadcastEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailBroadcastRecipientsResponse parses an HTTP response from a ListEmailBroadcastRecipientsWithResponse call
+func ParseListEmailBroadcastRecipientsResponse(rsp *http.Response) (*ListEmailBroadcastRecipientsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailBroadcastRecipientsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailRecipientList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSendEmailBroadcastResponse parses an HTTP response from a SendEmailBroadcastWithResponse call
+func ParseSendEmailBroadcastResponse(rsp *http.Response) (*SendEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SendEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailBroadcast
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailBroadcastSendQuotaResponse parses an HTTP response from a GetEmailBroadcastSendQuotaWithResponse call
+func ParseGetEmailBroadcastSendQuotaResponse(rsp *http.Response) (*GetEmailBroadcastSendQuotaResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailBroadcastSendQuotaResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastSendQuota
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -54604,6 +61501,1337 @@ func ParseListEmailTemplatesResponse(rsp *http.Response) (*ListEmailTemplatesRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailTemplateResponse parses an HTTP response from a CreateEmailTemplateWithResponse call
+func ParseCreateEmailTemplateResponse(rsp *http.Response) (*CreateEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailTemplateResponse parses an HTTP response from a DeleteEmailTemplateWithResponse call
+func ParseDeleteEmailTemplateResponse(rsp *http.Response) (*DeleteEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateResponse parses an HTTP response from a GetEmailTemplateWithResponse call
+func ParseGetEmailTemplateResponse(rsp *http.Response) (*GetEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailTemplateResponse parses an HTTP response from a UpdateEmailTemplateWithResponse call
+func ParseUpdateEmailTemplateResponse(rsp *http.Response) (*UpdateEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplateBroadcastsResponse parses an HTTP response from a ListEmailTemplateBroadcastsWithResponse call
+func ParseListEmailTemplateBroadcastsResponse(rsp *http.Response) (*ListEmailTemplateBroadcastsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplateBroadcastsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateBroadcastList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDuplicateEmailTemplateResponse parses an HTTP response from a DuplicateEmailTemplateWithResponse call
+func ParseDuplicateEmailTemplateResponse(rsp *http.Response) (*DuplicateEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DuplicateEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplatePreviewResponse parses an HTTP response from a GetEmailTemplatePreviewWithResponse call
+func ParseGetEmailTemplatePreviewResponse(rsp *http.Response) (*GetEmailTemplatePreviewResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplatePreviewResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplatePreview
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplateVersionsResponse parses an HTTP response from a ListEmailTemplateVersionsWithResponse call
+func ParseListEmailTemplateVersionsResponse(rsp *http.Response) (*ListEmailTemplateVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplateVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateVersionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailTemplateVersionResponse parses an HTTP response from a DeleteEmailTemplateVersionWithResponse call
+func ParseDeleteEmailTemplateVersionResponse(rsp *http.Response) (*DeleteEmailTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateVersionResponse parses an HTTP response from a GetEmailTemplateVersionWithResponse call
+func ParseGetEmailTemplateVersionResponse(rsp *http.Response) (*GetEmailTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEmailTemplateVersionLanguagesResponse parses an HTTP response from a ListEmailTemplateVersionLanguagesWithResponse call
+func ParseListEmailTemplateVersionLanguagesResponse(rsp *http.Response) (*ListEmailTemplateVersionLanguagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEmailTemplateVersionLanguagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateLanguageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailTemplateLanguageResponse parses an HTTP response from a DeleteEmailTemplateLanguageWithResponse call
+func ParseDeleteEmailTemplateLanguageResponse(rsp *http.Response) (*DeleteEmailTemplateLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailTemplateLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateLanguageResponse parses an HTTP response from a GetEmailTemplateLanguageWithResponse call
+func ParseGetEmailTemplateLanguageResponse(rsp *http.Response) (*GetEmailTemplateLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateLanguage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailTemplateLanguageResponse parses an HTTP response from a UpdateEmailTemplateLanguageWithResponse call
+func ParseUpdateEmailTemplateLanguageResponse(rsp *http.Response) (*UpdateEmailTemplateLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailTemplateLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateLanguageSaved
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpsertEmailTemplateLanguageResponse parses an HTTP response from a UpsertEmailTemplateLanguageWithResponse call
+func ParseUpsertEmailTemplateLanguageResponse(rsp *http.Response) (*UpsertEmailTemplateLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpsertEmailTemplateLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateLanguageSaved
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRollbackEmailTemplateResponse parses an HTTP response from a RollbackEmailTemplateWithResponse call
+func ParseRollbackEmailTemplateResponse(rsp *http.Response) (*RollbackEmailTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RollbackEmailTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSubmitEmailTemplateVersionResponse parses an HTTP response from a SubmitEmailTemplateVersionWithResponse call
+func ParseSubmitEmailTemplateVersionResponse(rsp *http.Response) (*SubmitEmailTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SubmitEmailTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateSubmitResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
