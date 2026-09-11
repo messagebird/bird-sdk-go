@@ -24,6 +24,12 @@ type WhatsappService struct {
 
 	// Reaction places, removes and follows the emoji reactions on one message.
 	Reaction *WhatsappReactionService
+
+	// Numbers reads the workspace's WhatsApp senders and their business profiles.
+	Numbers *WhatsappNumbersService
+
+	// BusinessAccounts reads the WhatsApp Business Accounts behind those senders.
+	BusinessAccounts *WhatsappBusinessAccountsService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind

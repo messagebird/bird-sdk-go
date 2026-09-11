@@ -286,6 +286,110 @@ const (
 	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
 )
 
+// WhatsAppBusinessAccountMarketingMessagesStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessAccountMarketingMessagesStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessAccountMarketingMessagesStatus = oapi.WhatsAppBusinessAccountMarketingMessagesStatus
+
+const (
+	WhatsAppBusinessAccountMarketingMessagesStatusEligible  = oapi.WhatsAppBusinessAccountMarketingMessagesStatusEligible
+	WhatsAppBusinessAccountMarketingMessagesStatusOnboarded = oapi.WhatsAppBusinessAccountMarketingMessagesStatusOnboarded
+)
+
+// WhatsAppBusinessAccountReviewStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessAccountReviewStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessAccountReviewStatus = oapi.WhatsAppBusinessAccountReviewStatus
+
+const (
+	WhatsAppBusinessAccountReviewStatusApproved = oapi.WhatsAppBusinessAccountReviewStatusApproved
+	WhatsAppBusinessAccountReviewStatusDeferred = oapi.WhatsAppBusinessAccountReviewStatusDeferred
+	WhatsAppBusinessAccountReviewStatusPending  = oapi.WhatsAppBusinessAccountReviewStatusPending
+	WhatsAppBusinessAccountReviewStatusRejected = oapi.WhatsAppBusinessAccountReviewStatusRejected
+)
+
+// WhatsAppBusinessAccountStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessAccountStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessAccountStatus = oapi.WhatsAppBusinessAccountStatus
+
+const (
+	WhatsAppBusinessAccountStatusActive = oapi.WhatsAppBusinessAccountStatusActive
+)
+
+// WhatsAppBusinessPortfolioMarketingMessagesStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessPortfolioMarketingMessagesStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessPortfolioMarketingMessagesStatus = oapi.WhatsAppBusinessPortfolioMarketingMessagesStatus
+
+const (
+	WhatsAppBusinessPortfolioMarketingMessagesStatusNotStarted          = oapi.WhatsAppBusinessPortfolioMarketingMessagesStatusNotStarted
+	WhatsAppBusinessPortfolioMarketingMessagesStatusRequestSent         = oapi.WhatsAppBusinessPortfolioMarketingMessagesStatusRequestSent
+	WhatsAppBusinessPortfolioMarketingMessagesStatusTermOfServiceSigned = oapi.WhatsAppBusinessPortfolioMarketingMessagesStatusTermOfServiceSigned
+)
+
+// WhatsAppBusinessVerificationStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessVerificationStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessVerificationStatus = oapi.WhatsAppBusinessVerificationStatus
+
+const (
+	WhatsAppBusinessVerificationStatusExpired             = oapi.WhatsAppBusinessVerificationStatusExpired
+	WhatsAppBusinessVerificationStatusFailed              = oapi.WhatsAppBusinessVerificationStatusFailed
+	WhatsAppBusinessVerificationStatusIneligible          = oapi.WhatsAppBusinessVerificationStatusIneligible
+	WhatsAppBusinessVerificationStatusNotVerified         = oapi.WhatsAppBusinessVerificationStatusNotVerified
+	WhatsAppBusinessVerificationStatusPending             = oapi.WhatsAppBusinessVerificationStatusPending
+	WhatsAppBusinessVerificationStatusPendingNeedMoreInfo = oapi.WhatsAppBusinessVerificationStatusPendingNeedMoreInfo
+	WhatsAppBusinessVerificationStatusPendingSubmission   = oapi.WhatsAppBusinessVerificationStatusPendingSubmission
+	WhatsAppBusinessVerificationStatusRejected            = oapi.WhatsAppBusinessVerificationStatusRejected
+	WhatsAppBusinessVerificationStatusRevoked             = oapi.WhatsAppBusinessVerificationStatusRevoked
+	WhatsAppBusinessVerificationStatusVerified            = oapi.WhatsAppBusinessVerificationStatusVerified
+)
+
+// WhatsAppBusinessVertical is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppBusinessVertical* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppBusinessVertical = oapi.WhatsAppBusinessVertical
+
+const (
+	WhatsAppBusinessVerticalAlcohol          = oapi.WhatsAppBusinessVerticalAlcohol
+	WhatsAppBusinessVerticalApparel          = oapi.WhatsAppBusinessVerticalApparel
+	WhatsAppBusinessVerticalAuto             = oapi.WhatsAppBusinessVerticalAuto
+	WhatsAppBusinessVerticalBeauty           = oapi.WhatsAppBusinessVerticalBeauty
+	WhatsAppBusinessVerticalEdu              = oapi.WhatsAppBusinessVerticalEdu
+	WhatsAppBusinessVerticalEntertain        = oapi.WhatsAppBusinessVerticalEntertain
+	WhatsAppBusinessVerticalEventPlan        = oapi.WhatsAppBusinessVerticalEventPlan
+	WhatsAppBusinessVerticalFinance          = oapi.WhatsAppBusinessVerticalFinance
+	WhatsAppBusinessVerticalGovt             = oapi.WhatsAppBusinessVerticalGovt
+	WhatsAppBusinessVerticalGrocery          = oapi.WhatsAppBusinessVerticalGrocery
+	WhatsAppBusinessVerticalHealth           = oapi.WhatsAppBusinessVerticalHealth
+	WhatsAppBusinessVerticalHotel            = oapi.WhatsAppBusinessVerticalHotel
+	WhatsAppBusinessVerticalNonprofit        = oapi.WhatsAppBusinessVerticalNonprofit
+	WhatsAppBusinessVerticalOnlineGambling   = oapi.WhatsAppBusinessVerticalOnlineGambling
+	WhatsAppBusinessVerticalOtcDrugs         = oapi.WhatsAppBusinessVerticalOtcDrugs
+	WhatsAppBusinessVerticalOther            = oapi.WhatsAppBusinessVerticalOther
+	WhatsAppBusinessVerticalPhysicalGambling = oapi.WhatsAppBusinessVerticalPhysicalGambling
+	WhatsAppBusinessVerticalProfServices     = oapi.WhatsAppBusinessVerticalProfServices
+	WhatsAppBusinessVerticalRestaurant       = oapi.WhatsAppBusinessVerticalRestaurant
+	WhatsAppBusinessVerticalRetail           = oapi.WhatsAppBusinessVerticalRetail
+	WhatsAppBusinessVerticalTravel           = oapi.WhatsAppBusinessVerticalTravel
+)
+
+// WhatsAppDisplayNameStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppDisplayNameStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppDisplayNameStatus = oapi.WhatsAppDisplayNameStatus
+
+const (
+	WhatsAppDisplayNameStatusApproved               = oapi.WhatsAppDisplayNameStatusApproved
+	WhatsAppDisplayNameStatusAvailableWithoutReview = oapi.WhatsAppDisplayNameStatusAvailableWithoutReview
+	WhatsAppDisplayNameStatusDeclined               = oapi.WhatsAppDisplayNameStatusDeclined
+	WhatsAppDisplayNameStatusExpired                = oapi.WhatsAppDisplayNameStatusExpired
+	WhatsAppDisplayNameStatusNonExists              = oapi.WhatsAppDisplayNameStatusNonExists
+	WhatsAppDisplayNameStatusNone                   = oapi.WhatsAppDisplayNameStatusNone
+	WhatsAppDisplayNameStatusPendingReview          = oapi.WhatsAppDisplayNameStatusPendingReview
+)
+
 // WhatsAppErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppErrorCode* constants with a
 // default branch rather than treating the set as closed.
@@ -363,6 +467,83 @@ const (
 	WhatsAppInteractiveTypeRequestContactInfo     = oapi.WhatsAppInteractiveTypeRequestContactInfo
 )
 
+// WhatsAppNumberErrorCode is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppNumberErrorCode* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppNumberErrorCode = oapi.WhatsAppNumberErrorCode
+
+const (
+	WhatsAppNumberErrorCodeBusinessAccountLocked         = oapi.WhatsAppNumberErrorCodeBusinessAccountLocked
+	WhatsAppNumberErrorCodeCreditCurrencyMismatch        = oapi.WhatsAppNumberErrorCodeCreditCurrencyMismatch
+	WhatsAppNumberErrorCodeInternalError                 = oapi.WhatsAppNumberErrorCodeInternalError
+	WhatsAppNumberErrorCodeInvalidRequest                = oapi.WhatsAppNumberErrorCodeInvalidRequest
+	WhatsAppNumberErrorCodeNumberAlreadyInUse            = oapi.WhatsAppNumberErrorCodeNumberAlreadyInUse
+	WhatsAppNumberErrorCodeNumberAlreadyLinked           = oapi.WhatsAppNumberErrorCodeNumberAlreadyLinked
+	WhatsAppNumberErrorCodeNumberNotRegistered           = oapi.WhatsAppNumberErrorCodeNumberNotRegistered
+	WhatsAppNumberErrorCodeNumberVerificationRequired    = oapi.WhatsAppNumberErrorCodeNumberVerificationRequired
+	WhatsAppNumberErrorCodePermissionDenied              = oapi.WhatsAppNumberErrorCodePermissionDenied
+	WhatsAppNumberErrorCodeRegistrationAttemptsExhausted = oapi.WhatsAppNumberErrorCodeRegistrationAttemptsExhausted
+	WhatsAppNumberErrorCodeRegistrationPinRateLimited    = oapi.WhatsAppNumberErrorCodeRegistrationPinRateLimited
+	WhatsAppNumberErrorCodeRegistrationPinRejected       = oapi.WhatsAppNumberErrorCodeRegistrationPinRejected
+	WhatsAppNumberErrorCodeVerificationCodeNotReceived   = oapi.WhatsAppNumberErrorCodeVerificationCodeNotReceived
+	WhatsAppNumberErrorCodeVerificationRateLimited       = oapi.WhatsAppNumberErrorCodeVerificationRateLimited
+)
+
+// WhatsAppNumberMessagingLimit is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppNumberMessagingLimit* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppNumberMessagingLimit = oapi.WhatsAppNumberMessagingLimit
+
+const (
+	WhatsAppNumberMessagingLimitTier100k      = oapi.WhatsAppNumberMessagingLimitTier100k
+	WhatsAppNumberMessagingLimitTier10k       = oapi.WhatsAppNumberMessagingLimitTier10k
+	WhatsAppNumberMessagingLimitTier1k        = oapi.WhatsAppNumberMessagingLimitTier1k
+	WhatsAppNumberMessagingLimitTier250       = oapi.WhatsAppNumberMessagingLimitTier250
+	WhatsAppNumberMessagingLimitTier50        = oapi.WhatsAppNumberMessagingLimitTier50
+	WhatsAppNumberMessagingLimitTierUnlimited = oapi.WhatsAppNumberMessagingLimitTierUnlimited
+)
+
+// WhatsAppNumberQualityRating is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppNumberQualityRating* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppNumberQualityRating = oapi.WhatsAppNumberQualityRating
+
+const (
+	WhatsAppNumberQualityRatingGreen   = oapi.WhatsAppNumberQualityRatingGreen
+	WhatsAppNumberQualityRatingRed     = oapi.WhatsAppNumberQualityRatingRed
+	WhatsAppNumberQualityRatingUnknown = oapi.WhatsAppNumberQualityRatingUnknown
+	WhatsAppNumberQualityRatingYellow  = oapi.WhatsAppNumberQualityRatingYellow
+)
+
+// WhatsAppNumberStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppNumberStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppNumberStatus = oapi.WhatsAppNumberStatus
+
+const (
+	WhatsAppNumberStatusAwaitingSignup = oapi.WhatsAppNumberStatusAwaitingSignup
+	WhatsAppNumberStatusBanned         = oapi.WhatsAppNumberStatusBanned
+	WhatsAppNumberStatusConnected      = oapi.WhatsAppNumberStatusConnected
+	WhatsAppNumberStatusDeleted        = oapi.WhatsAppNumberStatusDeleted
+	WhatsAppNumberStatusDisconnected   = oapi.WhatsAppNumberStatusDisconnected
+	WhatsAppNumberStatusFailed         = oapi.WhatsAppNumberStatusFailed
+	WhatsAppNumberStatusFlagged        = oapi.WhatsAppNumberStatusFlagged
+	WhatsAppNumberStatusMigrated       = oapi.WhatsAppNumberStatusMigrated
+	WhatsAppNumberStatusPending        = oapi.WhatsAppNumberStatusPending
+	WhatsAppNumberStatusPreparing      = oapi.WhatsAppNumberStatusPreparing
+	WhatsAppNumberStatusRateLimited    = oapi.WhatsAppNumberStatusRateLimited
+	WhatsAppNumberStatusRestricted     = oapi.WhatsAppNumberStatusRestricted
+)
+
+// WhatsAppNumberThroughputLevel is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppNumberThroughputLevel* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppNumberThroughputLevel = oapi.WhatsAppNumberThroughputLevel
+
+const (
+	WhatsAppNumberThroughputLevelStandard = oapi.WhatsAppNumberThroughputLevelStandard
+)
+
 // WhatsAppTemplateCategory is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppTemplateCategory* constants with a
 // default branch rather than treating the set as closed.
@@ -431,4 +612,15 @@ const (
 	WhatsAppTemplateRejectionCategoryInvalidFormat      = oapi.WhatsAppTemplateRejectionCategoryInvalidFormat
 	WhatsAppTemplateRejectionCategoryScam               = oapi.WhatsAppTemplateRejectionCategoryScam
 	WhatsAppTemplateRejectionCategoryTagContentMismatch = oapi.WhatsAppTemplateRejectionCategoryTagContentMismatch
+)
+
+// WhatsAppUsernameStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppUsernameStatus* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppUsernameStatus = oapi.WhatsAppUsernameStatus
+
+const (
+	WhatsAppUsernameStatusApproved = oapi.WhatsAppUsernameStatusApproved
+	WhatsAppUsernameStatusDeleted  = oapi.WhatsAppUsernameStatusDeleted
+	WhatsAppUsernameStatusReserved = oapi.WhatsAppUsernameStatusReserved
 )

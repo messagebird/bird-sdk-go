@@ -4275,6 +4275,321 @@ func (e WebhookTestResponseStatus) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppBusinessAccountBanState.
+const (
+	Disabled            WhatsAppBusinessAccountBanState = "disabled"
+	ScheduledForDisable WhatsAppBusinessAccountBanState = "scheduled_for_disable"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessAccountBanState enum.
+func (e WhatsAppBusinessAccountBanState) Valid() bool {
+	switch e {
+	case Disabled:
+		return true
+	case ScheduledForDisable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessAccountMarketingMessagesStatus.
+const (
+	WhatsAppBusinessAccountMarketingMessagesStatusEligible  WhatsAppBusinessAccountMarketingMessagesStatus = "eligible"
+	WhatsAppBusinessAccountMarketingMessagesStatusOnboarded WhatsAppBusinessAccountMarketingMessagesStatus = "onboarded"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessAccountMarketingMessagesStatus enum.
+func (e WhatsAppBusinessAccountMarketingMessagesStatus) Valid() bool {
+	switch e {
+	case WhatsAppBusinessAccountMarketingMessagesStatusEligible:
+		return true
+	case WhatsAppBusinessAccountMarketingMessagesStatusOnboarded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessAccountReviewStatus.
+const (
+	WhatsAppBusinessAccountReviewStatusApproved WhatsAppBusinessAccountReviewStatus = "approved"
+	WhatsAppBusinessAccountReviewStatusDeferred WhatsAppBusinessAccountReviewStatus = "deferred"
+	WhatsAppBusinessAccountReviewStatusPending  WhatsAppBusinessAccountReviewStatus = "pending"
+	WhatsAppBusinessAccountReviewStatusRejected WhatsAppBusinessAccountReviewStatus = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessAccountReviewStatus enum.
+func (e WhatsAppBusinessAccountReviewStatus) Valid() bool {
+	switch e {
+	case WhatsAppBusinessAccountReviewStatusApproved:
+		return true
+	case WhatsAppBusinessAccountReviewStatusDeferred:
+		return true
+	case WhatsAppBusinessAccountReviewStatusPending:
+		return true
+	case WhatsAppBusinessAccountReviewStatusRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessAccountSortField.
+const (
+	WhatsAppBusinessAccountSortFieldCreatedAt WhatsAppBusinessAccountSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessAccountSortField enum.
+func (e WhatsAppBusinessAccountSortField) Valid() bool {
+	switch e {
+	case WhatsAppBusinessAccountSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessAccountStatus.
+const (
+	WhatsAppBusinessAccountStatusActive WhatsAppBusinessAccountStatus = "active"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessAccountStatus enum.
+func (e WhatsAppBusinessAccountStatus) Valid() bool {
+	switch e {
+	case WhatsAppBusinessAccountStatusActive:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessPortfolioMarketingMessagesStatus.
+const (
+	WhatsAppBusinessPortfolioMarketingMessagesStatusNotStarted          WhatsAppBusinessPortfolioMarketingMessagesStatus = "not_started"
+	WhatsAppBusinessPortfolioMarketingMessagesStatusRequestSent         WhatsAppBusinessPortfolioMarketingMessagesStatus = "request_sent"
+	WhatsAppBusinessPortfolioMarketingMessagesStatusTermOfServiceSigned WhatsAppBusinessPortfolioMarketingMessagesStatus = "term_of_service_signed"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessPortfolioMarketingMessagesStatus enum.
+func (e WhatsAppBusinessPortfolioMarketingMessagesStatus) Valid() bool {
+	switch e {
+	case WhatsAppBusinessPortfolioMarketingMessagesStatusNotStarted:
+		return true
+	case WhatsAppBusinessPortfolioMarketingMessagesStatusRequestSent:
+		return true
+	case WhatsAppBusinessPortfolioMarketingMessagesStatusTermOfServiceSigned:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessVerificationStatus.
+const (
+	WhatsAppBusinessVerificationStatusExpired             WhatsAppBusinessVerificationStatus = "expired"
+	WhatsAppBusinessVerificationStatusFailed              WhatsAppBusinessVerificationStatus = "failed"
+	WhatsAppBusinessVerificationStatusIneligible          WhatsAppBusinessVerificationStatus = "ineligible"
+	WhatsAppBusinessVerificationStatusNotVerified         WhatsAppBusinessVerificationStatus = "not_verified"
+	WhatsAppBusinessVerificationStatusPending             WhatsAppBusinessVerificationStatus = "pending"
+	WhatsAppBusinessVerificationStatusPendingNeedMoreInfo WhatsAppBusinessVerificationStatus = "pending_need_more_info"
+	WhatsAppBusinessVerificationStatusPendingSubmission   WhatsAppBusinessVerificationStatus = "pending_submission"
+	WhatsAppBusinessVerificationStatusRejected            WhatsAppBusinessVerificationStatus = "rejected"
+	WhatsAppBusinessVerificationStatusRevoked             WhatsAppBusinessVerificationStatus = "revoked"
+	WhatsAppBusinessVerificationStatusVerified            WhatsAppBusinessVerificationStatus = "verified"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessVerificationStatus enum.
+func (e WhatsAppBusinessVerificationStatus) Valid() bool {
+	switch e {
+	case WhatsAppBusinessVerificationStatusExpired:
+		return true
+	case WhatsAppBusinessVerificationStatusFailed:
+		return true
+	case WhatsAppBusinessVerificationStatusIneligible:
+		return true
+	case WhatsAppBusinessVerificationStatusNotVerified:
+		return true
+	case WhatsAppBusinessVerificationStatusPending:
+		return true
+	case WhatsAppBusinessVerificationStatusPendingNeedMoreInfo:
+		return true
+	case WhatsAppBusinessVerificationStatusPendingSubmission:
+		return true
+	case WhatsAppBusinessVerificationStatusRejected:
+		return true
+	case WhatsAppBusinessVerificationStatusRevoked:
+		return true
+	case WhatsAppBusinessVerificationStatusVerified:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppBusinessVertical.
+const (
+	WhatsAppBusinessVerticalAlcohol          WhatsAppBusinessVertical = "alcohol"
+	WhatsAppBusinessVerticalApparel          WhatsAppBusinessVertical = "apparel"
+	WhatsAppBusinessVerticalAuto             WhatsAppBusinessVertical = "auto"
+	WhatsAppBusinessVerticalBeauty           WhatsAppBusinessVertical = "beauty"
+	WhatsAppBusinessVerticalEdu              WhatsAppBusinessVertical = "edu"
+	WhatsAppBusinessVerticalEntertain        WhatsAppBusinessVertical = "entertain"
+	WhatsAppBusinessVerticalEventPlan        WhatsAppBusinessVertical = "event_plan"
+	WhatsAppBusinessVerticalFinance          WhatsAppBusinessVertical = "finance"
+	WhatsAppBusinessVerticalGovt             WhatsAppBusinessVertical = "govt"
+	WhatsAppBusinessVerticalGrocery          WhatsAppBusinessVertical = "grocery"
+	WhatsAppBusinessVerticalHealth           WhatsAppBusinessVertical = "health"
+	WhatsAppBusinessVerticalHotel            WhatsAppBusinessVertical = "hotel"
+	WhatsAppBusinessVerticalNonprofit        WhatsAppBusinessVertical = "nonprofit"
+	WhatsAppBusinessVerticalOnlineGambling   WhatsAppBusinessVertical = "online_gambling"
+	WhatsAppBusinessVerticalOtcDrugs         WhatsAppBusinessVertical = "otc_drugs"
+	WhatsAppBusinessVerticalOther            WhatsAppBusinessVertical = "other"
+	WhatsAppBusinessVerticalPhysicalGambling WhatsAppBusinessVertical = "physical_gambling"
+	WhatsAppBusinessVerticalProfServices     WhatsAppBusinessVertical = "prof_services"
+	WhatsAppBusinessVerticalRestaurant       WhatsAppBusinessVertical = "restaurant"
+	WhatsAppBusinessVerticalRetail           WhatsAppBusinessVertical = "retail"
+	WhatsAppBusinessVerticalTravel           WhatsAppBusinessVertical = "travel"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppBusinessVertical enum.
+func (e WhatsAppBusinessVertical) Valid() bool {
+	switch e {
+	case WhatsAppBusinessVerticalAlcohol:
+		return true
+	case WhatsAppBusinessVerticalApparel:
+		return true
+	case WhatsAppBusinessVerticalAuto:
+		return true
+	case WhatsAppBusinessVerticalBeauty:
+		return true
+	case WhatsAppBusinessVerticalEdu:
+		return true
+	case WhatsAppBusinessVerticalEntertain:
+		return true
+	case WhatsAppBusinessVerticalEventPlan:
+		return true
+	case WhatsAppBusinessVerticalFinance:
+		return true
+	case WhatsAppBusinessVerticalGovt:
+		return true
+	case WhatsAppBusinessVerticalGrocery:
+		return true
+	case WhatsAppBusinessVerticalHealth:
+		return true
+	case WhatsAppBusinessVerticalHotel:
+		return true
+	case WhatsAppBusinessVerticalNonprofit:
+		return true
+	case WhatsAppBusinessVerticalOnlineGambling:
+		return true
+	case WhatsAppBusinessVerticalOtcDrugs:
+		return true
+	case WhatsAppBusinessVerticalOther:
+		return true
+	case WhatsAppBusinessVerticalPhysicalGambling:
+		return true
+	case WhatsAppBusinessVerticalProfServices:
+		return true
+	case WhatsAppBusinessVerticalRestaurant:
+		return true
+	case WhatsAppBusinessVerticalRetail:
+		return true
+	case WhatsAppBusinessVerticalTravel:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppDataLocalizationRegion.
+const (
+	AE WhatsAppDataLocalizationRegion = "AE"
+	AU WhatsAppDataLocalizationRegion = "AU"
+	BH WhatsAppDataLocalizationRegion = "BH"
+	BR WhatsAppDataLocalizationRegion = "BR"
+	CA WhatsAppDataLocalizationRegion = "CA"
+	CH WhatsAppDataLocalizationRegion = "CH"
+	DE WhatsAppDataLocalizationRegion = "DE"
+	GB WhatsAppDataLocalizationRegion = "GB"
+	ID WhatsAppDataLocalizationRegion = "ID"
+	IN WhatsAppDataLocalizationRegion = "IN"
+	JP WhatsAppDataLocalizationRegion = "JP"
+	KR WhatsAppDataLocalizationRegion = "KR"
+	SG WhatsAppDataLocalizationRegion = "SG"
+	ZA WhatsAppDataLocalizationRegion = "ZA"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppDataLocalizationRegion enum.
+func (e WhatsAppDataLocalizationRegion) Valid() bool {
+	switch e {
+	case AE:
+		return true
+	case AU:
+		return true
+	case BH:
+		return true
+	case BR:
+		return true
+	case CA:
+		return true
+	case CH:
+		return true
+	case DE:
+		return true
+	case GB:
+		return true
+	case ID:
+		return true
+	case IN:
+		return true
+	case JP:
+		return true
+	case KR:
+		return true
+	case SG:
+		return true
+	case ZA:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppDisplayNameStatus.
+const (
+	WhatsAppDisplayNameStatusApproved               WhatsAppDisplayNameStatus = "approved"
+	WhatsAppDisplayNameStatusAvailableWithoutReview WhatsAppDisplayNameStatus = "available_without_review"
+	WhatsAppDisplayNameStatusDeclined               WhatsAppDisplayNameStatus = "declined"
+	WhatsAppDisplayNameStatusExpired                WhatsAppDisplayNameStatus = "expired"
+	WhatsAppDisplayNameStatusNonExists              WhatsAppDisplayNameStatus = "non_exists"
+	WhatsAppDisplayNameStatusNone                   WhatsAppDisplayNameStatus = "none"
+	WhatsAppDisplayNameStatusPendingReview          WhatsAppDisplayNameStatus = "pending_review"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppDisplayNameStatus enum.
+func (e WhatsAppDisplayNameStatus) Valid() bool {
+	switch e {
+	case WhatsAppDisplayNameStatusApproved:
+		return true
+	case WhatsAppDisplayNameStatusAvailableWithoutReview:
+		return true
+	case WhatsAppDisplayNameStatusDeclined:
+		return true
+	case WhatsAppDisplayNameStatusExpired:
+		return true
+	case WhatsAppDisplayNameStatusNonExists:
+		return true
+	case WhatsAppDisplayNameStatusNone:
+		return true
+	case WhatsAppDisplayNameStatusPendingReview:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppErrorCode.
 const (
 	WhatsAppErrorCodeInsufficientBalance  WhatsAppErrorCode = "insufficient_balance"
@@ -4560,6 +4875,225 @@ func (e WhatsAppMessageStatus) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppNumberErrorCode.
+const (
+	WhatsAppNumberErrorCodeBusinessAccountLocked         WhatsAppNumberErrorCode = "business_account_locked"
+	WhatsAppNumberErrorCodeCreditCurrencyMismatch        WhatsAppNumberErrorCode = "credit_currency_mismatch"
+	WhatsAppNumberErrorCodeInternalError                 WhatsAppNumberErrorCode = "internal_error"
+	WhatsAppNumberErrorCodeInvalidRequest                WhatsAppNumberErrorCode = "invalid_request"
+	WhatsAppNumberErrorCodeNumberAlreadyInUse            WhatsAppNumberErrorCode = "number_already_in_use"
+	WhatsAppNumberErrorCodeNumberAlreadyLinked           WhatsAppNumberErrorCode = "number_already_linked"
+	WhatsAppNumberErrorCodeNumberNotRegistered           WhatsAppNumberErrorCode = "number_not_registered"
+	WhatsAppNumberErrorCodeNumberVerificationRequired    WhatsAppNumberErrorCode = "number_verification_required"
+	WhatsAppNumberErrorCodePermissionDenied              WhatsAppNumberErrorCode = "permission_denied"
+	WhatsAppNumberErrorCodeRegistrationAttemptsExhausted WhatsAppNumberErrorCode = "registration_attempts_exhausted"
+	WhatsAppNumberErrorCodeRegistrationPinRateLimited    WhatsAppNumberErrorCode = "registration_pin_rate_limited"
+	WhatsAppNumberErrorCodeRegistrationPinRejected       WhatsAppNumberErrorCode = "registration_pin_rejected"
+	WhatsAppNumberErrorCodeVerificationCodeNotReceived   WhatsAppNumberErrorCode = "verification_code_not_received"
+	WhatsAppNumberErrorCodeVerificationRateLimited       WhatsAppNumberErrorCode = "verification_rate_limited"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberErrorCode enum.
+func (e WhatsAppNumberErrorCode) Valid() bool {
+	switch e {
+	case WhatsAppNumberErrorCodeBusinessAccountLocked:
+		return true
+	case WhatsAppNumberErrorCodeCreditCurrencyMismatch:
+		return true
+	case WhatsAppNumberErrorCodeInternalError:
+		return true
+	case WhatsAppNumberErrorCodeInvalidRequest:
+		return true
+	case WhatsAppNumberErrorCodeNumberAlreadyInUse:
+		return true
+	case WhatsAppNumberErrorCodeNumberAlreadyLinked:
+		return true
+	case WhatsAppNumberErrorCodeNumberNotRegistered:
+		return true
+	case WhatsAppNumberErrorCodeNumberVerificationRequired:
+		return true
+	case WhatsAppNumberErrorCodePermissionDenied:
+		return true
+	case WhatsAppNumberErrorCodeRegistrationAttemptsExhausted:
+		return true
+	case WhatsAppNumberErrorCodeRegistrationPinRateLimited:
+		return true
+	case WhatsAppNumberErrorCodeRegistrationPinRejected:
+		return true
+	case WhatsAppNumberErrorCodeVerificationCodeNotReceived:
+		return true
+	case WhatsAppNumberErrorCodeVerificationRateLimited:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberEventSortField.
+const (
+	WhatsAppNumberEventSortFieldCreatedAt WhatsAppNumberEventSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberEventSortField enum.
+func (e WhatsAppNumberEventSortField) Valid() bool {
+	switch e {
+	case WhatsAppNumberEventSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberMessagingLimit.
+const (
+	WhatsAppNumberMessagingLimitTier100k      WhatsAppNumberMessagingLimit = "tier_100k"
+	WhatsAppNumberMessagingLimitTier10k       WhatsAppNumberMessagingLimit = "tier_10k"
+	WhatsAppNumberMessagingLimitTier1k        WhatsAppNumberMessagingLimit = "tier_1k"
+	WhatsAppNumberMessagingLimitTier250       WhatsAppNumberMessagingLimit = "tier_250"
+	WhatsAppNumberMessagingLimitTier50        WhatsAppNumberMessagingLimit = "tier_50"
+	WhatsAppNumberMessagingLimitTierUnlimited WhatsAppNumberMessagingLimit = "tier_unlimited"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberMessagingLimit enum.
+func (e WhatsAppNumberMessagingLimit) Valid() bool {
+	switch e {
+	case WhatsAppNumberMessagingLimitTier100k:
+		return true
+	case WhatsAppNumberMessagingLimitTier10k:
+		return true
+	case WhatsAppNumberMessagingLimitTier1k:
+		return true
+	case WhatsAppNumberMessagingLimitTier250:
+		return true
+	case WhatsAppNumberMessagingLimitTier50:
+		return true
+	case WhatsAppNumberMessagingLimitTierUnlimited:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberQualityRating.
+const (
+	WhatsAppNumberQualityRatingGreen   WhatsAppNumberQualityRating = "green"
+	WhatsAppNumberQualityRatingRed     WhatsAppNumberQualityRating = "red"
+	WhatsAppNumberQualityRatingUnknown WhatsAppNumberQualityRating = "unknown"
+	WhatsAppNumberQualityRatingYellow  WhatsAppNumberQualityRating = "yellow"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberQualityRating enum.
+func (e WhatsAppNumberQualityRating) Valid() bool {
+	switch e {
+	case WhatsAppNumberQualityRatingGreen:
+		return true
+	case WhatsAppNumberQualityRatingRed:
+		return true
+	case WhatsAppNumberQualityRatingUnknown:
+		return true
+	case WhatsAppNumberQualityRatingYellow:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberScope.
+const (
+	WhatsAppNumberScopeSystem    WhatsAppNumberScope = "system"
+	WhatsAppNumberScopeWorkspace WhatsAppNumberScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberScope enum.
+func (e WhatsAppNumberScope) Valid() bool {
+	switch e {
+	case WhatsAppNumberScopeSystem:
+		return true
+	case WhatsAppNumberScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberSortField.
+const (
+	WhatsAppNumberSortFieldCreatedAt WhatsAppNumberSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberSortField enum.
+func (e WhatsAppNumberSortField) Valid() bool {
+	switch e {
+	case WhatsAppNumberSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberStatus.
+const (
+	WhatsAppNumberStatusAwaitingSignup WhatsAppNumberStatus = "awaiting_signup"
+	WhatsAppNumberStatusBanned         WhatsAppNumberStatus = "banned"
+	WhatsAppNumberStatusConnected      WhatsAppNumberStatus = "connected"
+	WhatsAppNumberStatusDeleted        WhatsAppNumberStatus = "deleted"
+	WhatsAppNumberStatusDisconnected   WhatsAppNumberStatus = "disconnected"
+	WhatsAppNumberStatusFailed         WhatsAppNumberStatus = "failed"
+	WhatsAppNumberStatusFlagged        WhatsAppNumberStatus = "flagged"
+	WhatsAppNumberStatusMigrated       WhatsAppNumberStatus = "migrated"
+	WhatsAppNumberStatusPending        WhatsAppNumberStatus = "pending"
+	WhatsAppNumberStatusPreparing      WhatsAppNumberStatus = "preparing"
+	WhatsAppNumberStatusRateLimited    WhatsAppNumberStatus = "rate_limited"
+	WhatsAppNumberStatusRestricted     WhatsAppNumberStatus = "restricted"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberStatus enum.
+func (e WhatsAppNumberStatus) Valid() bool {
+	switch e {
+	case WhatsAppNumberStatusAwaitingSignup:
+		return true
+	case WhatsAppNumberStatusBanned:
+		return true
+	case WhatsAppNumberStatusConnected:
+		return true
+	case WhatsAppNumberStatusDeleted:
+		return true
+	case WhatsAppNumberStatusDisconnected:
+		return true
+	case WhatsAppNumberStatusFailed:
+		return true
+	case WhatsAppNumberStatusFlagged:
+		return true
+	case WhatsAppNumberStatusMigrated:
+		return true
+	case WhatsAppNumberStatusPending:
+		return true
+	case WhatsAppNumberStatusPreparing:
+		return true
+	case WhatsAppNumberStatusRateLimited:
+		return true
+	case WhatsAppNumberStatusRestricted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppNumberThroughputLevel.
+const (
+	WhatsAppNumberThroughputLevelStandard WhatsAppNumberThroughputLevel = "standard"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppNumberThroughputLevel enum.
+func (e WhatsAppNumberThroughputLevel) Valid() bool {
+	switch e {
+	case WhatsAppNumberThroughputLevelStandard:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppReactedEventType.
 const (
 	WhatsappReacted WhatsAppReactedEventType = "whatsapp.reacted"
@@ -4779,6 +5313,27 @@ func (e WhatsAppTemplateRejectionCategory) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppUsernameStatus.
+const (
+	WhatsAppUsernameStatusApproved WhatsAppUsernameStatus = "approved"
+	WhatsAppUsernameStatusDeleted  WhatsAppUsernameStatus = "deleted"
+	WhatsAppUsernameStatusReserved WhatsAppUsernameStatus = "reserved"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppUsernameStatus enum.
+func (e WhatsAppUsernameStatus) Valid() bool {
+	switch e {
+	case WhatsAppUsernameStatusApproved:
+		return true
+	case WhatsAppUsernameStatusDeleted:
+		return true
+	case WhatsAppUsernameStatusReserved:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for OrderDesc.
 const (
 	OrderDescAsc  OrderDesc = "asc"
@@ -4799,16 +5354,16 @@ func (e OrderDesc) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	CreatedAt ListDomainsParamsSort = "created_at"
-	Name      ListDomainsParamsSort = "name"
+	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
+	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case CreatedAt:
+	case ListDomainsParamsSortCreatedAt:
 		return true
-	case Name:
+	case ListDomainsParamsSortName:
 		return true
 	default:
 		return false
@@ -5069,16 +5624,70 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 
 // Defines values for ListWebhooksParamsOrder.
 const (
-	Asc  ListWebhooksParamsOrder = "asc"
-	Desc ListWebhooksParamsOrder = "desc"
+	ListWebhooksParamsOrderAsc  ListWebhooksParamsOrder = "asc"
+	ListWebhooksParamsOrderDesc ListWebhooksParamsOrder = "desc"
 )
 
 // Valid indicates whether the value is a known member of the ListWebhooksParamsOrder enum.
 func (e ListWebhooksParamsOrder) Valid() bool {
 	switch e {
-	case Asc:
+	case ListWebhooksParamsOrderAsc:
 		return true
-	case Desc:
+	case ListWebhooksParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWhatsAppBusinessAccountsParamsOrder.
+const (
+	ListWhatsAppBusinessAccountsParamsOrderAsc  ListWhatsAppBusinessAccountsParamsOrder = "asc"
+	ListWhatsAppBusinessAccountsParamsOrderDesc ListWhatsAppBusinessAccountsParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListWhatsAppBusinessAccountsParamsOrder enum.
+func (e ListWhatsAppBusinessAccountsParamsOrder) Valid() bool {
+	switch e {
+	case ListWhatsAppBusinessAccountsParamsOrderAsc:
+		return true
+	case ListWhatsAppBusinessAccountsParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWhatsAppNumbersParamsOrder.
+const (
+	ListWhatsAppNumbersParamsOrderAsc  ListWhatsAppNumbersParamsOrder = "asc"
+	ListWhatsAppNumbersParamsOrderDesc ListWhatsAppNumbersParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListWhatsAppNumbersParamsOrder enum.
+func (e ListWhatsAppNumbersParamsOrder) Valid() bool {
+	switch e {
+	case ListWhatsAppNumbersParamsOrderAsc:
+		return true
+	case ListWhatsAppNumbersParamsOrderDesc:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ListWhatsAppNumberEventsParamsOrder.
+const (
+	ListWhatsAppNumberEventsParamsOrderAsc  ListWhatsAppNumberEventsParamsOrder = "asc"
+	ListWhatsAppNumberEventsParamsOrderDesc ListWhatsAppNumberEventsParamsOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the ListWhatsAppNumberEventsParamsOrder enum.
+func (e ListWhatsAppNumberEventsParamsOrder) Valid() bool {
+	switch e {
+	case ListWhatsAppNumberEventsParamsOrderAsc:
+		return true
+	case ListWhatsAppNumberEventsParamsOrderDesc:
 		return true
 	default:
 		return false
@@ -13640,6 +14249,128 @@ type WhatsAppAudioSend struct {
 	Voice *bool `json:"voice,omitempty"`
 }
 
+// WhatsAppBusinessAccount defines model for WhatsAppBusinessAccount.
+type WhatsAppBusinessAccount struct {
+	// AccountReviewStatus How far WhatsApp's review of this account had got as of `meta_synced_at`. Absent until WhatsApp has reported it.
+	AccountReviewStatus *WhatsAppBusinessAccountReviewStatus `json:"account_review_status,omitempty"`
+
+	// Ban WhatsApp's ban on this account, absent unless Bird was told of one. `status` is what the account said when Bird last read it; this is what WhatsApp announced, which arrives only on the webhook that announces it and is never re-read.
+	Ban *WhatsAppBusinessAccountBan `json:"ban,omitempty"`
+
+	// BusinessVerificationStatus Whether Meta had verified the business behind this account as of `meta_synced_at`. Absent until Meta has reported it.
+	BusinessVerificationStatus *WhatsAppBusinessVerificationStatus `json:"business_verification_status,omitempty"`
+
+	// CreatedAt When this account was connected.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Id Unique identifier for the WhatsApp Business Account.
+	Id *WhatsAppBusinessAccountID `json:"id,omitempty"`
+
+	// MarketingMessagesOnboardingStatus Whether this account can use WhatsApp's Marketing Messages API, as of `meta_synced_at`. Absent until WhatsApp has reported it. Distinct from the owning portfolio's `marketing_messages_onboarding_status` (`portfolio.marketing_messages_onboarding_status`), which Meta gives the same field name but a different vocabulary: this one is the account's own eligibility, that one is the portfolio's Terms-of-Service progress.
+	MarketingMessagesOnboardingStatus *WhatsAppBusinessAccountMarketingMessagesStatus `json:"marketing_messages_onboarding_status,omitempty"`
+
+	// MetaSyncedAt When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status` and `portfolio` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
+	MetaSyncedAt *time.Time `json:"meta_synced_at,omitempty"`
+
+	// Name The account's name, as WhatsApp reports it.
+	Name *string `json:"name,omitempty"`
+
+	// Portfolio The Meta business portfolio that owns this account. Absent until Meta has reported it. The portfolio is where a messaging limit is set, so every account it owns shares one.
+	Portfolio *WhatsAppBusinessPortfolio `json:"portfolio,omitempty"`
+
+	// Status WhatsApp's own state for this account as of `meta_synced_at`. The status is `active` until WhatsApp reports otherwise. WhatsApp already considers an account usable if Bird could connect a number under it. The absence of a reading is therefore not evidence of another state.
+	Status *WhatsAppBusinessAccountStatus `json:"status,omitempty"`
+
+	// UpdatedAt When this account was last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Waba Meta's own identifier for this WhatsApp Business Account. This is the value to send when creating a template on the account.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppBusinessAccountBan WhatsApp's ban on this account, as WhatsApp announced it. Absent when there is no ban, and also when there is one WhatsApp announced before Bird began recording bans, or whose notification never reached Bird, since WhatsApp does not replay them. This is what WhatsApp announced rather than the account's current state, so it is never the field to read to decide whether an account can send.
+type WhatsAppBusinessAccountBan struct {
+	// AppealUrl Where to appeal WhatsApp's decision with Meta Business Support, because neither Bird nor this API can lift one. Absent when Bird does not know the account's Meta business portfolio, since there is no support-home path to build without one.
+	AppealUrl *string `json:"appeal_url,omitempty"`
+
+	// OccurredAt When WhatsApp reported the ban, by WhatsApp's own clock. Bird can learn of a ban later than this, so it is not when Bird recorded it.
+	OccurredAt *time.Time                       `json:"occurred_at,omitempty"`
+	State      *WhatsAppBusinessAccountBanState `json:"state,omitempty"`
+}
+
+// WhatsAppBusinessAccountBanState Whether WhatsApp has disabled a WhatsApp Business Account or scheduled it to be
+// disabled:
+//
+//   - `disabled`: WhatsApp has disabled the account, and it cannot send.
+//   - `scheduled_for_disable`: WhatsApp has set a date to disable the account, which can
+//     still send until then.
+//
+// An account WhatsApp has reinstated reports no `ban` at all rather than a third value
+// here.
+type WhatsAppBusinessAccountBanState string
+
+// WhatsAppBusinessAccountID defines model for WhatsAppBusinessAccountID.
+type WhatsAppBusinessAccountID = string
+
+// WhatsAppBusinessAccountList defines model for WhatsAppBusinessAccountList.
+type WhatsAppBusinessAccountList struct {
+	// Data The WhatsApp Business Accounts your workspace has connected.
+	Data []WhatsAppBusinessAccount `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppBusinessAccountMarketingMessagesStatus Whether this account can use WhatsApp's Marketing Messages API. `eligible` means WhatsApp would accept an onboarding request for it; `onboarded` means it has already been onboarded. Values are WhatsApp's own tokens, lower-cased. Open enum out of necessity. WhatsApp's onboarding guide names these two values and defers the rest to an API reference that does not document the field. Treat anything else as a state WhatsApp reports that this list has not caught up with.
+type WhatsAppBusinessAccountMarketingMessagesStatus string
+
+// WhatsAppBusinessAccountReviewStatus How far WhatsApp's own review of this WhatsApp Business Account has got. `deferred` is WhatsApp postponing the review rather than refusing it. Values are WhatsApp's own tokens, lower-cased. Open enum: treat an unrecognized value as a review state WhatsApp added rather than as an error.
+type WhatsAppBusinessAccountReviewStatus string
+
+// WhatsAppBusinessAccountSortField Sortable fields for a WhatsApp Business Account list.
+type WhatsAppBusinessAccountSortField string
+
+// WhatsAppBusinessAccountStatus WhatsApp's own state for a WhatsApp Business Account. Values are WhatsApp's own tokens, lower-cased. This enum is open because WhatsApp documents the field in neither its API reference nor its machine-readable schema. The `active` value is the only value in WhatsApp's example response, so it is the only one Bird can name. Treat anything else as a state WhatsApp reports and this list has not caught up with.
+type WhatsAppBusinessAccountStatus string
+
+// WhatsAppBusinessPortfolio The Meta business portfolio that owns a WhatsApp Business Account. Bird holds no resource of its own for a portfolio, which is why the identifier is named `meta_id`: it is meaningful only against Meta's own tools, and it is not a Bird identifier.
+type WhatsAppBusinessPortfolio struct {
+	// MarketingMessagesOnboardingStatus How far this portfolio has got through Meta's Marketing Messages terms of service. Absent until Meta has reported it. Distinct from the account's own `marketing_messages_onboarding_status`, which Meta gives the same field name but a different vocabulary: that one is the account's own eligibility, this one is the portfolio's Terms-of-Service progress.
+	MarketingMessagesOnboardingStatus *WhatsAppBusinessPortfolioMarketingMessagesStatus `json:"marketing_messages_onboarding_status,omitempty"`
+
+	// MetaId Meta's identifier for the portfolio. Treat it as an opaque string.
+	MetaId *string `json:"meta_id,omitempty"`
+
+	// Name The portfolio's name, as Meta reports it. Absent when Meta returned none.
+	Name *string `json:"name,omitempty"`
+}
+
+// WhatsAppBusinessPortfolioMarketingMessagesStatus How far the business portfolio has got through Meta's Marketing Messages
+// terms of service.
+//
+// - `not_started`: the portfolio has not begun the process.
+// - `request_sent`: a request is in.
+// - `term_of_service_signed`: the terms are accepted.
+//
+// A portfolio property, so every account the portfolio owns reports the same
+// value. Distinct from the account's own marketing-messages status, which Meta
+// confusingly gives the same name. Values are Meta's own tokens, lower-cased.
+// Open enum: treat an unrecognized value as a state Meta added rather than as
+// an error.
+type WhatsAppBusinessPortfolioMarketingMessagesStatus string
+
+// WhatsAppBusinessVerificationStatus Whether Meta has verified the business behind this WhatsApp Business Account. Verification is one of the paths to a higher messaging limit, so a value other than `verified` is often the reason a limit has not moved. Values are Meta's own tokens, lower-cased. Open enum: treat an unrecognized value as a state Meta added rather than as an error.
+type WhatsAppBusinessVerificationStatus string
+
+// WhatsAppBusinessVertical The industry WhatsApp shows on the business profile. WhatsApp adds categories over time, so a value outside this list can be returned.
+type WhatsAppBusinessVertical string
+
 // WhatsAppContactAddress One postal address on a shared contact card.
 type WhatsAppContactAddress struct {
 	City    *string `json:"city,omitempty"`
@@ -13813,6 +14544,9 @@ type WhatsAppCountryStatsPoint struct {
 	Latency    *WhatsAppLatencyStats    `json:"latency,omitempty"`
 }
 
+// WhatsAppDataLocalizationRegion A country where WhatsApp can store a business phone number's message content at rest, as its two-letter ISO 3166 code.
+type WhatsAppDataLocalizationRegion string
+
 // WhatsAppDeliveryCounts WhatsApp lifecycle counts for a time bucket, attributed by send time. A message accepted on Monday and delivered on Tuesday counts in Monday's bucket. The sibling `engagement` block reports read counts. Rates are available only for the whole period. Very large counts are close estimates rather than exact tallies.
 type WhatsAppDeliveryCounts struct {
 	// Accepted Distinct messages accepted for sending after admission checks.
@@ -13854,6 +14588,9 @@ type WhatsAppDeliveryStats struct {
 	// Sent Distinct messages handed off for delivery.
 	Sent *int `json:"sent,omitempty"`
 }
+
+// WhatsAppDisplayNameStatus Where WhatsApp's review of the display name stands. `available_without_review` means the name met WhatsApp's criteria for immediate use without a review step, and `none` means no display name has been submitted yet. WhatsApp adds states over time, so a value outside this list can be returned.
+type WhatsAppDisplayNameStatus string
 
 // WhatsAppDocument defines model for WhatsAppDocument.
 type WhatsAppDocument struct {
@@ -14841,6 +15578,221 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// WhatsAppNumber defines model for WhatsAppNumber.
+type WhatsAppNumber struct {
+	// CreatedAt When this number was submitted for connection.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DataLocalizationRegion The country this number's message content is stored at rest in, as its two-letter ISO 3166 code. Absent when it uses WhatsApp's default storage. It can differ from the region requested at connection when WhatsApp requires a particular country for the number.
+	DataLocalizationRegion *WhatsAppDataLocalizationRegion `json:"data_localization_region,omitempty"`
+
+	// Error Why this number's connection was refused for good. Present only while `status` is `failed`. A retryable step records its cause on a still-`pending` number without setting this field, because that cause is not a refusal yet, so a connection you are still waiting on reports no error here.
+	Error *WhatsAppNumberError `json:"error,omitempty"`
+
+	// FinishSetupUrl Where a person finishes connecting this number, present only while `status` is `awaiting_signup`. Finishing means completing WhatsApp's embedded signup, which is a browser flow behind an OAuth screen: it cannot be done over the API, so open this link and have someone with access to the workspace complete it. The number is offered to them already verified. Once they finish, `status` moves on and this link is no longer returned.
+	FinishSetupUrl *string `json:"finish_setup_url,omitempty"`
+
+	// Id Unique identifier for the connected number.
+	Id *WhatsAppNumberID `json:"id,omitempty"`
+
+	// IsOfficialBusinessAccount Whether WhatsApp grants this number Official Business Account status as of `meta_synced_at`. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf. WhatsApp grants the status per number, so two numbers on one WhatsApp Business Account can differ. The status also decides whether a rename is possible here: a number that has it cannot be renamed through `PATCH /v1/whatsapp/numbers/{number_id}/profile` at all, and has to be renamed through WhatsApp support instead.
+	IsOfficialBusinessAccount *bool `json:"is_official_business_account,omitempty"`
+
+	// MessagingLimit The messaging limit WhatsApp applied to this number's business portfolio as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
+	MessagingLimit *WhatsAppNumberMessagingLimit `json:"messaging_limit,omitempty"`
+
+	// MetaSyncedAt When this number's state was last read from WhatsApp. `status`, `quality_rating`, `messaging_limit`, `throughput_level`, and `is_official_business_account` all belong to that reading rather than representing live values. We re-read roughly hourly, so a change at WhatsApp can be up to an hour old here. Absent for a number we have never read back and for a number we operate on your behalf.
+	MetaSyncedAt *time.Time `json:"meta_synced_at,omitempty"`
+
+	// Name Your workspace's own label for this number, given when it was connected and changeable afterwards. It has no bearing on what WhatsApp displays to people the number messages; `GET /v1/whatsapp/numbers/{number_id}/profile` returns that as `display_name`. For a number we operate on your behalf, this is our own label instead and cannot be changed.
+	Name *string `json:"name,omitempty"`
+
+	// Next What to do next about this number, given the state it is in. Each entry names one
+	// action and says why it is worth taking, so you can act on this response without
+	// working out the order yourself. Present on reads that compute it: an empty list
+	// means there is nothing to do, and the field is absent entirely on responses that
+	// do not report next actions.
+	//
+	// While `status` is `awaiting_signup` this carries the browser step that finishes
+	// the connection, because embedded signup sits behind an OAuth screen no API call
+	// can stand in for.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// NumberId The number you hold with us that this WhatsApp number was connected from, as its id in GET /v1/numbers. Absent for a number you brought yourself.
+	NumberId *AllocatedNumberID `json:"number_id,omitempty"`
+
+	// PhoneNumber The number in E.164 format. Null only while the number itself is not yet known: a number your workspace holds carries its E.164 from the moment setup starts, so a value here does not mean the number can send. `status` is what says that.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// PreVerificationRequestedAt When we last asked WhatsApp to send this number a verification code, which we do only for a number your workspace connected itself from a number you hold with us. Absent for a number we operate on your behalf, and for one you connected through Embedded Signup with a code you read yourself. Wait a few hours after this before repairing a number whose verification failed: WhatsApp rotates the routes it verifies over during that period, and throttles a number asked repeatedly in a short window. Distinct from `updated_at`, which any change to the number moves.
+	PreVerificationRequestedAt *time.Time `json:"pre_verification_requested_at,omitempty"`
+
+	// QualityRating WhatsApp's quality rating for this number as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
+	QualityRating *WhatsAppNumberQualityRating `json:"quality_rating,omitempty"`
+
+	// Scope Whether the number sends under a WhatsApp Business Account we operate on your behalf (`system`) or one your workspace connected itself (`workspace`).
+	Scope *WhatsAppNumberScope `json:"scope,omitempty"`
+
+	// Status WhatsApp's own state for this number as of `meta_synced_at`, except for the three states we answer ourselves because WhatsApp holds nothing to report. A connection we are still verifying reads `preparing`, one waiting for someone to finish signup reads `awaiting_signup`, and a permanently refused one reads `failed`, with `error` saying why. `pending` is WhatsApp's own token for a number it does not hold as registered, and is also what a number with no stored WhatsApp status reads, including after setup completes, so it does not by itself establish whether setup is complete. A number we operate on your behalf reads `connected` as our own assertion rather than a reading from WhatsApp for every number we ship today; that tier carries no `meta_synced_at`.
+	Status *WhatsAppNumberStatus `json:"status,omitempty"`
+
+	// ThroughputLevel The send rate WhatsApp allowed this number as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
+	ThroughputLevel *WhatsAppNumberThroughputLevel `json:"throughput_level,omitempty"`
+
+	// UpdatedAt When this number was last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Waba The WhatsApp Business Account this number is connected under. Present only for a number your workspace connected itself.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppNumberError Why a number's connection was refused for good. `code` is the standardized reason. `description` explains the failure where one was recorded, and `meta_error_code` carries WhatsApp's own code when available. It accompanies the `failed` status only; a number still being retried carries no error.
+type WhatsAppNumberError struct {
+	// Code Standardized failure reason.
+	Code *WhatsAppNumberErrorCode `json:"code,omitempty"`
+
+	// Description Why the connection failed: WhatsApp's own words, in the language of the account it refused, when WhatsApp answered; our own explanation when the number was refused before WhatsApp was asked; a generic sentence when WhatsApp refused without giving a reason. Absent when the attempt failed without ever reaching WhatsApp, which leaves `code` as the only account of the failure. Show it to the person who owns the number; never match on its text.
+	Description *string `json:"description,omitempty"`
+
+	// MetaErrorCode WhatsApp's most specific code for the refusal: its error subcode where it sent one, otherwise its top-level code. Null when WhatsApp did not provide a code. Treat it as an opaque string.
+	MetaErrorCode *string `json:"meta_error_code,omitempty"`
+}
+
+// WhatsAppNumberErrorCode Standardized number-connection failure:
+//
+// - `registration_pin_rejected`: WhatsApp refused the two-step verification PIN.
+// - `registration_pin_rate_limited`: Too many PIN attempts occurred recently.
+// - `registration_attempts_exhausted`: Registration is blocked for 72 hours.
+// - `number_verification_required`: WhatsApp requires the number to be verified again.
+// - `number_not_registered`: WhatsApp does not hold the number as registered.
+// - `number_already_linked`: Another WhatsApp integration uses the number.
+// - `number_already_in_use`: WhatsApp cannot accept the number.
+// - `verification_code_not_received`: The verification text did not arrive.
+// - `verification_rate_limited`: WhatsApp declined to send this number another verification code, having been asked too often. It clears with time; retrying sooner extends it.
+// - `business_account_locked`: WhatsApp locked the business account.
+// - `credit_currency_mismatch`: WhatsApp bills the business account in a currency your organization is not billed in. Connect the number under a business account WhatsApp bills in that same currency, or one WhatsApp has set no currency on: an account's billing currency cannot be changed once WhatsApp sets it.
+// - `permission_denied`: WhatsApp refused access to the account.
+// - `invalid_request`: WhatsApp rejected the connection details.
+// - `internal_error`: The service could not classify or resolve the failure.
+//
+// This is an open enum. Accept unrecognized values.
+type WhatsAppNumberErrorCode string
+
+// WhatsAppNumberEvent defines model for WhatsAppNumberEvent.
+type WhatsAppNumberEvent struct {
+	// CreatedAt When the event was recorded.
+	CreatedAt time.Time             `json:"created_at"`
+	Id        WhatsAppNumberEventID `json:"id"`
+
+	// Metadata Structured details for the event. `from` and `to` carry the values that changed, and `from` is absent when the number had no prior value to report. A status change into `failed` also carries the `reason`; a display-name decision carries `new_display_name`, `decision`, and, when WhatsApp named one for a rejection, `rejection_reason`. A messaging-limit change also carries the `trigger` WhatsApp named for it, such as `onboarding` or `throughput_upgrade`, when it named one. A `whatsapp_number.created` event carries the `source` the number came from, and its `phone_number` once one is known.
+	Metadata map[string]interface{} `json:"metadata"`
+
+	// Summary Human-readable summary of what changed.
+	Summary string `json:"summary"`
+
+	// Type Type of number event. `whatsapp_number.messaging_limit_updated` and `whatsapp_number.profile_name_update` are reported by WhatsApp as they happen; `whatsapp_number.quality_rating_updated` is observed when Bird next reads the number, so it can lag the change by up to an hour. `whatsapp_number.status_changed` records every move of the `status` field on the number itself, whichever side caused it. Open enum: new event types may be added over time, so treat any unrecognized value as a future event rather than an error. The values below are the types known at this version.
+	Type string `json:"type"`
+}
+
+// WhatsAppNumberEventID defines model for WhatsAppNumberEventID.
+type WhatsAppNumberEventID = string
+
+// WhatsAppNumberEventList defines model for WhatsAppNumberEventList.
+type WhatsAppNumberEventList struct {
+	// Data Page of number events, newest first by default.
+	Data []WhatsAppNumberEvent `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppNumberEventSortField Sortable fields for a WhatsApp number's event list.
+type WhatsAppNumberEventSortField string
+
+// WhatsAppNumberID defines model for WhatsAppNumberID.
+type WhatsAppNumberID = string
+
+// WhatsAppNumberList defines model for WhatsAppNumberList.
+type WhatsAppNumberList struct {
+	// Data The WhatsApp numbers your workspace can send from.
+	Data []WhatsAppNumber `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppNumberMessagingLimit How many unique WhatsApp users can be messaged outside a customer service window in a rolling 24 hours, as WhatsApp's own tier token. WhatsApp calculates this for the business portfolio, and every number in that portfolio shares it; it is not this number's private capacity, and one number can consume all of it. Values are WhatsApp's own tokens, lower-cased. Open enum: WhatsApp documents a 2,000 limit its published tier vocabulary has no token for, so treat an unrecognized value as a tier WhatsApp added.
+type WhatsAppNumberMessagingLimit string
+
+// WhatsAppNumberProfile The business profile WhatsApp shows to people this number messages. It is read from WhatsApp on each request rather than from a stored copy, so it is always current and a WhatsApp outage makes it briefly unavailable.
+type WhatsAppNumberProfile struct {
+	// About The short line shown under the business name in a chat.
+	About *string `json:"about,omitempty"`
+
+	// Address The business address shown on the profile.
+	Address *string `json:"address,omitempty"`
+
+	// Description The longer description shown on the profile.
+	Description *string `json:"description,omitempty"`
+
+	// DisplayName The name WhatsApp verifies for this number. Once WhatsApp approves it, it appears at the top of a chat with this number; `display_name_status` is what says whether it has. Set when the number was connected, and changed from the dashboard or the CLI, as [WhatsApp phone numbers](/docs/guides/whatsapp/phone-number-setup) explains. This field still returns the current name until a requested change completes.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// DisplayNameStatus Where WhatsApp's review of the display name stands. A name still under review is not yet shown at the top of a chat.
+	DisplayNameStatus *WhatsAppDisplayNameStatus `json:"display_name_status,omitempty"`
+
+	// Email The contact email shown on the profile.
+	Email *openapi_types.Email `json:"email,omitempty"`
+
+	// NewDisplayName The display name whose change has been requested, whether or not WhatsApp is reviewing it. Absent when no change is pending.
+	NewDisplayName *string `json:"new_display_name,omitempty"`
+
+	// NewDisplayNameStatus Where the requested display name stands with WhatsApp, including whether it is being reviewed or was accepted for immediate use without a review. Absent when no change is pending. If WhatsApp accepts the name it becomes `display_name`. Every other outcome leaves the number on the name it already had: `declined` is WhatsApp refusing the name, and `expired` is a request that no longer stands and has to be made again.
+	NewDisplayNameStatus *WhatsAppDisplayNameStatus `json:"new_display_name_status,omitempty"`
+
+	// ProfilePictureUrl A link to the profile picture WhatsApp currently shows. WhatsApp signs this link and it expires within days, so load it when you display it and never store it. It is served with permissive cross-origin headers, so a browser can load it directly.
+	ProfilePictureUrl *string `json:"profile_picture_url,omitempty"`
+
+	// Username The username WhatsApp users can find this number by, without an `@`. Absent when the number has no username. Once set it cannot be removed through this API.
+	Username *string `json:"username,omitempty"`
+
+	// UsernameStatus Where the username stands with WhatsApp. Absent when the number has no username.
+	UsernameStatus *WhatsAppUsernameStatus `json:"username_status,omitempty"`
+
+	// Vertical The industry WhatsApp shows on the profile.
+	Vertical *WhatsAppBusinessVertical `json:"vertical,omitempty"`
+
+	// Websites Up to two websites shown on the profile.
+	Websites *[]string `json:"websites,omitempty"`
+}
+
+// WhatsAppNumberQualityRating WhatsApp quality rating for a business phone number, based on recipient feedback. `green`, `yellow`, and `red` indicate decreasing quality; sustained `red` can restrict the number. `unknown` is itself a reported rating. This is separate from a template-language quality score. Accept unrecognized values.
+type WhatsAppNumberQualityRating string
+
+// WhatsAppNumberScope defines model for WhatsAppNumberScope.
+type WhatsAppNumberScope string
+
+// WhatsAppNumberSortField Sortable fields for a WhatsApp number list.
+type WhatsAppNumberSortField string
+
+// WhatsAppNumberStatus Operational state of a business phone number. The `preparing` status means the service is verifying a managed number. The `awaiting_signup` status means verification finished and you must complete signup. The `pending` status is WhatsApp's own token for a number it does not hold as registered, and is also returned when no WhatsApp status has been stored, including after setup completes. It does not by itself establish whether setup is complete. The `connected` status means registration completed. The `failed` status means connection was refused permanently. Other values are WhatsApp's own operational states for a number already connected. This is an open enum. Accept unrecognized values.
+type WhatsAppNumberStatus string
+
+// WhatsAppNumberThroughputLevel How fast WhatsApp lets this number send, as WhatsApp's own level token. `standard` is 80 messages per second; WhatsApp upgrades an eligible number to 1,000 per second automatically. Values are WhatsApp's own tokens, lower-cased. This enum is open because WhatsApp publishes no vocabulary for the field. The `standard` value is the only value Bird has measured. The upgraded level's token remains unknown until a number returns it.
+type WhatsAppNumberThroughputLevel string
+
 // WhatsAppPhoneNumberStatsPoint Lifecycle counts, rates, and engagement for one business phone number over the requested period, including whether the number is shared.
 type WhatsAppPhoneNumberStatsPoint struct {
 	Delivery   *WhatsAppDeliveryStats   `json:"delivery,omitempty"`
@@ -15710,6 +16662,9 @@ type WhatsAppUnsupported struct {
 	// Type The WhatsApp content type we did not model. `unsupported` is not a placeholder here: WhatsApp reports its own `unsupported` type for a message its own clients cannot render, and that arrives as this value. Open enum: WhatsApp adds content types over time, so treat an unrecognized value as a future type rather than an error.
 	Type string `json:"type"`
 }
+
+// WhatsAppUsernameStatus Where the username stands with WhatsApp. WhatsApp adds states over time, so a value outside this list can be returned.
+type WhatsAppUsernameStatus string
 
 // WhatsAppVideo defines model for WhatsAppVideo.
 type WhatsAppVideo struct {
@@ -18724,6 +19679,27 @@ type TestWebhookParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListWhatsAppBusinessAccountsParams defines parameters for ListWhatsAppBusinessAccounts.
+type ListWhatsAppBusinessAccountsParams struct {
+	// Sort Field to sort by.
+	Sort *WhatsAppBusinessAccountSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *ListWhatsAppBusinessAccountsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListWhatsAppBusinessAccountsParamsOrder defines parameters for ListWhatsAppBusinessAccounts.
+type ListWhatsAppBusinessAccountsParamsOrder string
+
 // ListWhatsAppMessagesParams defines parameters for ListWhatsAppMessages.
 type ListWhatsAppMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -18883,6 +19859,60 @@ type SendWhatsAppReadReceiptParams struct {
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
+
+// ListWhatsAppNumbersParams defines parameters for ListWhatsAppNumbers.
+type ListWhatsAppNumbersParams struct {
+	// Waba Filter to a single WhatsApp Business Account by its Meta-assigned ID. Use the `waba` of a connected WhatsApp Business Account, or the `waba` on a number this list returns. A platform-managed number belongs to no WhatsApp Business Account and is never returned when this is set, so pairing it with `scope=system` always returns an empty page. An account this workspace does not hold returns an empty page.
+	Waba *string `form:"waba,omitempty" json:"waba,omitempty"`
+
+	// PhoneNumber Filter to a single number, given in E.164 format. The value is normalized before matching, so `+31612340001` and `+31 6 1234 0001` are the same filter. A value that cannot be normalized is matched exactly as given. A number this workspace cannot send from returns an empty page, rather than being rejected.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+
+	// Status Filter by the number's WhatsApp state: the `status` a number in this list carries. Every value matches that status exactly, so repeat the parameter for each state you want. `pending` covers both a number WhatsApp reports as not registered and one it has reported no state for at all, while the two states before that keep their own values: a number we are still verifying carries `preparing`, and one waiting for someone to finish signup carries `awaiting_signup`. Asking for all three reaches every connection that has not finished, plus any finished one WhatsApp has not reported on yet. `failed` matches a connection refused permanently. A value this vocabulary does not recognize matches nothing, rather than being rejected. Omit to return numbers in every state.
+	Status *[]WhatsAppNumberStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Scope Filter by ownership tier: `system` for platform-managed numbers and `workspace` for numbers your workspace connected. Omit to return both. A `system` number belongs to no WhatsApp Business Account, so pairing this with `waba` always returns an empty page.
+	Scope *WhatsAppNumberScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// Sort Field to sort by.
+	Sort *WhatsAppNumberSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *ListWhatsAppNumbersParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListWhatsAppNumbersParamsOrder defines parameters for ListWhatsAppNumbers.
+type ListWhatsAppNumbersParamsOrder string
+
+// ListWhatsAppNumberEventsParams defines parameters for ListWhatsAppNumberEvents.
+type ListWhatsAppNumberEventsParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *WhatsAppNumberEventSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *ListWhatsAppNumberEventsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListWhatsAppNumberEventsParamsOrder defines parameters for ListWhatsAppNumberEvents.
+type ListWhatsAppNumberEventsParamsOrder string
 
 // GetWhatsAppStatsByCountryParams defines parameters for GetWhatsAppStatsByCountry.
 type GetWhatsAppStatsByCountryParams struct {
@@ -23209,6 +24239,12 @@ type ClientInterface interface {
 
 	TestWebhook(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, body TestWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWhatsAppBusinessAccounts request
+	ListWhatsAppBusinessAccounts(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppBusinessAccount request
+	GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListWhatsAppMessages request
 	ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -23241,6 +24277,18 @@ type ClientInterface interface {
 	SendWhatsAppReadReceiptWithBody(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppNumbers request
+	ListWhatsAppNumbers(ctx context.Context, params *ListWhatsAppNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppNumber request
+	GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppNumberEvents request
+	ListWhatsAppNumberEvents(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppNumberProfile request
+	GetWhatsAppNumberProfile(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetWhatsAppStatsByCountry request
 	GetWhatsAppStatsByCountry(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -25403,6 +26451,30 @@ func (c *Client) TestWebhook(ctx context.Context, webhookId WebhookEndpointID, p
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListWhatsAppBusinessAccounts(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppBusinessAccountsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppBusinessAccountRequest(c.Server, businessAccountRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWhatsAppMessagesRequest(c.Server, params)
 	if err != nil {
@@ -25537,6 +26609,54 @@ func (c *Client) SendWhatsAppReadReceiptWithBody(ctx context.Context, messageId 
 
 func (c *Client) SendWhatsAppReadReceipt(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewSendWhatsAppReadReceiptRequest(c.Server, messageId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppNumbers(ctx context.Context, params *ListWhatsAppNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppNumbersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppNumberRequest(c.Server, numberId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppNumberEvents(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppNumberEventsRequest(c.Server, numberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppNumberProfile(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppNumberProfileRequest(c.Server, numberId)
 	if err != nil {
 		return nil, err
 	}
@@ -37065,6 +38185,142 @@ func NewTestWebhookRequestWithBody(server string, webhookId WebhookEndpointID, p
 	return req, nil
 }
 
+// NewListWhatsAppBusinessAccountsRequest generates requests for ListWhatsAppBusinessAccounts
+func NewListWhatsAppBusinessAccountsRequest(server string, params *ListWhatsAppBusinessAccountsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/business-accounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppBusinessAccountRequest generates requests for GetWhatsAppBusinessAccount
+func NewGetWhatsAppBusinessAccountRequest(server string, businessAccountRef string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_ref", businessAccountRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/business-accounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppMessagesRequest generates requests for ListWhatsAppMessages
 func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesParams) (*http.Request, error) {
 	var err error
@@ -37707,6 +38963,333 @@ func NewSendWhatsAppReadReceiptRequestWithBody(server string, messageId WhatsApp
 			req.Header.Set("Idempotency-Key", headerParam0)
 		}
 
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppNumbersRequest generates requests for ListWhatsAppNumbers
+func NewListWhatsAppNumbersRequest(server string, params *ListWhatsAppNumbersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Waba != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "waba", *params.Waba, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PhoneNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppNumberRequest generates requests for GetWhatsAppNumber
+func NewGetWhatsAppNumberRequest(server string, numberId WhatsAppNumberID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppNumberEventsRequest generates requests for ListWhatsAppNumberEvents
+func NewListWhatsAppNumberEventsRequest(server string, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppNumberProfileRequest generates requests for GetWhatsAppNumberProfile
+func NewGetWhatsAppNumberProfileRequest(server string, numberId WhatsAppNumberID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/profile", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -39923,6 +41506,12 @@ type ClientWithResponsesInterface interface {
 
 	TestWebhookWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, body TestWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*TestWebhookResponse, error)
 
+	// ListWhatsAppBusinessAccountsWithResponse request
+	ListWhatsAppBusinessAccountsWithResponse(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppBusinessAccountsResponse, error)
+
+	// GetWhatsAppBusinessAccountWithResponse request
+	GetWhatsAppBusinessAccountWithResponse(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppBusinessAccountResponse, error)
+
 	// ListWhatsAppMessagesWithResponse request
 	ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error)
 
@@ -39955,6 +41544,18 @@ type ClientWithResponsesInterface interface {
 	SendWhatsAppReadReceiptWithBodyWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
 
 	SendWhatsAppReadReceiptWithResponse(ctx context.Context, messageId WhatsAppMessageID, params *SendWhatsAppReadReceiptParams, body SendWhatsAppReadReceiptJSONRequestBody, reqEditors ...RequestEditorFn) (*SendWhatsAppReadReceiptResponse, error)
+
+	// ListWhatsAppNumbersWithResponse request
+	ListWhatsAppNumbersWithResponse(ctx context.Context, params *ListWhatsAppNumbersParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumbersResponse, error)
+
+	// GetWhatsAppNumberWithResponse request
+	GetWhatsAppNumberWithResponse(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberResponse, error)
+
+	// ListWhatsAppNumberEventsWithResponse request
+	ListWhatsAppNumberEventsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumberEventsResponse, error)
+
+	// GetWhatsAppNumberProfileWithResponse request
+	GetWhatsAppNumberProfileWithResponse(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberProfileResponse, error)
 
 	// GetWhatsAppStatsByCountryWithResponse request
 	GetWhatsAppStatsByCountryWithResponse(ctx context.Context, params *GetWhatsAppStatsByCountryParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByCountryResponse, error)
@@ -45118,6 +46719,77 @@ func (r TestWebhookResponse) ContentType() string {
 	return ""
 }
 
+type ListWhatsAppBusinessAccountsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppBusinessAccountList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppBusinessAccountsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppBusinessAccountsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppBusinessAccountsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppBusinessAccount
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -45446,6 +47118,151 @@ func (r SendWhatsAppReadReceiptResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r SendWhatsAppReadReceiptResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppNumbersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppNumberList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppNumbersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppNumbersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppNumbersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppNumber
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppNumberEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppNumberEventList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppNumberEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppNumberEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppNumberEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppNumberProfileResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppNumberProfile
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppNumberProfileResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppNumberProfileResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppNumberProfileResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -47722,6 +49539,24 @@ func (c *ClientWithResponses) TestWebhookWithResponse(ctx context.Context, webho
 	return ParseTestWebhookResponse(rsp)
 }
 
+// ListWhatsAppBusinessAccountsWithResponse request returning *ListWhatsAppBusinessAccountsResponse
+func (c *ClientWithResponses) ListWhatsAppBusinessAccountsWithResponse(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppBusinessAccountsResponse, error) {
+	rsp, err := c.ListWhatsAppBusinessAccounts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppBusinessAccountsResponse(rsp)
+}
+
+// GetWhatsAppBusinessAccountWithResponse request returning *GetWhatsAppBusinessAccountResponse
+func (c *ClientWithResponses) GetWhatsAppBusinessAccountWithResponse(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppBusinessAccountResponse, error) {
+	rsp, err := c.GetWhatsAppBusinessAccount(ctx, businessAccountRef, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppBusinessAccountResponse(rsp)
+}
+
 // ListWhatsAppMessagesWithResponse request returning *ListWhatsAppMessagesResponse
 func (c *ClientWithResponses) ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error) {
 	rsp, err := c.ListWhatsAppMessages(ctx, params, reqEditors...)
@@ -47825,6 +49660,42 @@ func (c *ClientWithResponses) SendWhatsAppReadReceiptWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseSendWhatsAppReadReceiptResponse(rsp)
+}
+
+// ListWhatsAppNumbersWithResponse request returning *ListWhatsAppNumbersResponse
+func (c *ClientWithResponses) ListWhatsAppNumbersWithResponse(ctx context.Context, params *ListWhatsAppNumbersParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumbersResponse, error) {
+	rsp, err := c.ListWhatsAppNumbers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppNumbersResponse(rsp)
+}
+
+// GetWhatsAppNumberWithResponse request returning *GetWhatsAppNumberResponse
+func (c *ClientWithResponses) GetWhatsAppNumberWithResponse(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberResponse, error) {
+	rsp, err := c.GetWhatsAppNumber(ctx, numberId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppNumberResponse(rsp)
+}
+
+// ListWhatsAppNumberEventsWithResponse request returning *ListWhatsAppNumberEventsResponse
+func (c *ClientWithResponses) ListWhatsAppNumberEventsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumberEventsResponse, error) {
+	rsp, err := c.ListWhatsAppNumberEvents(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppNumberEventsResponse(rsp)
+}
+
+// GetWhatsAppNumberProfileWithResponse request returning *GetWhatsAppNumberProfileResponse
+func (c *ClientWithResponses) GetWhatsAppNumberProfileWithResponse(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberProfileResponse, error) {
+	rsp, err := c.GetWhatsAppNumberProfile(ctx, numberId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppNumberProfileResponse(rsp)
 }
 
 // GetWhatsAppStatsByCountryWithResponse request returning *GetWhatsAppStatsByCountryResponse
@@ -58322,6 +60193,135 @@ func ParseTestWebhookResponse(rsp *http.Response) (*TestWebhookResponse, error) 
 	return response, nil
 }
 
+// ParseListWhatsAppBusinessAccountsResponse parses an HTTP response from a ListWhatsAppBusinessAccountsWithResponse call
+func ParseListWhatsAppBusinessAccountsResponse(rsp *http.Response) (*ListWhatsAppBusinessAccountsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppBusinessAccountsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppBusinessAccountList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppBusinessAccountResponse parses an HTTP response from a GetWhatsAppBusinessAccountWithResponse call
+func ParseGetWhatsAppBusinessAccountResponse(rsp *http.Response) (*GetWhatsAppBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppBusinessAccount
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListWhatsAppMessagesResponse parses an HTTP response from a ListWhatsAppMessagesWithResponse call
 func ParseListWhatsAppMessagesResponse(rsp *http.Response) (*ListWhatsAppMessagesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -58970,6 +60970,285 @@ func ParseSendWhatsAppReadReceiptResponse(rsp *http.Response) (*SendWhatsAppRead
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppNumbersResponse parses an HTTP response from a ListWhatsAppNumbersWithResponse call
+func ParseListWhatsAppNumbersResponse(rsp *http.Response) (*ListWhatsAppNumbersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppNumbersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppNumberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppNumberResponse parses an HTTP response from a GetWhatsAppNumberWithResponse call
+func ParseGetWhatsAppNumberResponse(rsp *http.Response) (*GetWhatsAppNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppNumberEventsResponse parses an HTTP response from a ListWhatsAppNumberEventsWithResponse call
+func ParseListWhatsAppNumberEventsResponse(rsp *http.Response) (*ListWhatsAppNumberEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppNumberEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppNumberEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppNumberProfileResponse parses an HTTP response from a GetWhatsAppNumberProfileWithResponse call
+func ParseGetWhatsAppNumberProfileResponse(rsp *http.Response) (*GetWhatsAppNumberProfileResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppNumberProfileResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppNumberProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

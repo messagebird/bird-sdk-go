@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.65.0
+
+- Read the WhatsApp numbers your workspace sends from, and the WhatsApp Business Accounts behind them: list your senders with the status, quality rating, messaging limit and throughput level WhatsApp reports for each, read one sender, read the business profile people see in WhatsApp, follow how a number reached its current state, and list or read a connected business account with its review, verification and Marketing Messages onboarding state.
+
 ## 0.64.0
 
 - Add `whatsapp.stats` reads over the workspace's own WhatsApp traffic: the period summary, the daily and hourly series, and breakdowns by template, template category, phone number, error code, tag, and destination country, with received-message counts under `whatsapp.stats.inbound`.

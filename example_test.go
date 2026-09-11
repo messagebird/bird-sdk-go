@@ -2850,3 +2850,86 @@ func ExampleEmailTemplatesService_List() {
 		fmt.Println(*tpl.Slug, tpl.Name)
 	}
 }
+
+// List the WhatsApp numbers this workspace can send from.
+func ExampleWhatsappNumbersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for number, err := range client.Whatsapp.Numbers.List(context.Background(), bird.WhatsappNumbersListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(number.Id, number.PhoneNumber, number.Status)
+	}
+}
+
+// Read one WhatsApp number and the state WhatsApp reports for it.
+func ExampleWhatsappNumbersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	number, err := client.Whatsapp.Numbers.Get(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(number.PhoneNumber, number.Status)
+}
+
+// Read the business profile WhatsApp shows to people a number messages.
+func ExampleWhatsappNumbersProfileService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	profile, err := client.Whatsapp.Numbers.Profile.Get(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if profile.Description != nil {
+		fmt.Println(*profile.Description)
+	}
+}
+
+// Follow how a WhatsApp number reached its current state.
+func ExampleWhatsappNumbersService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for event, err := range client.Whatsapp.Numbers.ListEvents(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappNumbersListEventsParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(event.CreatedAt, event.Type, event.Summary)
+	}
+}
+
+// List the WhatsApp Business Accounts this workspace holds.
+func ExampleWhatsappBusinessAccountsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for account, err := range client.Whatsapp.BusinessAccounts.List(context.Background(), bird.WhatsappBusinessAccountsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(account.Id, account.Name, account.Status)
+	}
+}
+
+// Read one WhatsApp Business Account and Meta's reviews of the business.
+func ExampleWhatsappBusinessAccountsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	account, err := client.Whatsapp.BusinessAccounts.Get(context.Background(), "waa_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(account.Name, account.Status)
+}

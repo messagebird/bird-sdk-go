@@ -370,6 +370,35 @@ type (
 	WhatsAppTemplateSubmissionError = oapi.WhatsAppTemplateSubmissionError
 )
 
+// The senders a send can name: a WhatsAppNumber is one connected number and the
+// state WhatsApp reports for it, WhatsAppNumberProfile is what people see about
+// the business in WhatsApp, and a WhatsAppNumberEvent is one step in how the
+// number reached its current state.
+type (
+	WhatsAppNumber          = oapi.WhatsAppNumber
+	WhatsAppNumberID        = oapi.WhatsAppNumberID
+	WhatsAppNumberList      = oapi.WhatsAppNumberList
+	WhatsAppNumberProfile   = oapi.WhatsAppNumberProfile
+	WhatsAppNumberEvent     = oapi.WhatsAppNumberEvent
+	WhatsAppNumberEventList = oapi.WhatsAppNumberEventList
+)
+
+// The filters a number or event list takes. WhatsAppNumberStatus is an open
+// enum, so openenums.gen.go declares it in this package already.
+type (
+	WhatsAppNumberScope          = oapi.WhatsAppNumberScope
+	WhatsAppNumberSortField      = oapi.WhatsAppNumberSortField
+	WhatsAppNumberEventSortField = oapi.WhatsAppNumberEventSortField
+)
+
+// WhatsAppBusinessAccount is the account a number reports in its own Waba
+// field, carrying Meta's reviews of the business rather than of the number.
+type (
+	WhatsAppBusinessAccount          = oapi.WhatsAppBusinessAccount
+	WhatsAppBusinessAccountList      = oapi.WhatsAppBusinessAccountList
+	WhatsAppBusinessAccountSortField = oapi.WhatsAppBusinessAccountSortField
+)
+
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the
 // verdict on an email address. Every block a phone lookup carries reports its
 // own status, so a partial answer is visible rather than silent.

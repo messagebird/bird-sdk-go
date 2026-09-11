@@ -86,6 +86,12 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Whatsapp.Templates.Versions.Get
 	_ = c.Whatsapp.Templates.Versions.Languages.List
 	_ = c.Whatsapp.Templates.Versions.Languages.Get
+	_ = c.Whatsapp.Numbers.List
+	_ = c.Whatsapp.Numbers.Get
+	_ = c.Whatsapp.Numbers.ListEvents
+	_ = c.Whatsapp.BusinessAccounts.List
+	_ = c.Whatsapp.Numbers.Profile.Get
+	_ = c.Whatsapp.BusinessAccounts.Get
 	_ = c.Whatsapp.Stats.Summary
 	_ = c.Whatsapp.Stats.Daily
 	_ = c.Whatsapp.Stats.Hourly
