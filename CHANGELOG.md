@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.68.0
+
+- Add `email.health`, which returns the workspace's sending-health verdict for a window: an overall `healthy`, `watching`, or `throttled` status, plus a signal per rate carrying its current value, its reference deliverability limit, and verdict boundaries where risk thresholds apply.
+- Add `suppressions.list`, `suppressions.get`, `suppressions.add` and `suppressions.remove`, so the addresses a workspace may not deliver to can be read and edited without dropping to raw HTTP. The `email` filter on `list` narrows a page by address prefix, so compare the `email` on each record before treating the address you asked about as suppressed.
+- MCP tools and Go SDK requests now send explicitly empty arrays and maps, allowing fields such as extra SMS keywords and broadcast headers to be cleared.
+
 ## 0.67.0
 
 - Read preceding pages with `EndingBefore` in Go list parameters. Automatic iteration preserves the initial cursor and uses forward cursors for subsequent pages.
