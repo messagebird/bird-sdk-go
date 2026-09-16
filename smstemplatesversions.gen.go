@@ -10,10 +10,10 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// WhatsappBusinessAccountsListParams filters the list. Zero-value fields are omitted.
-type WhatsappBusinessAccountsListParams struct {
+// SmsTemplatesVersionsListParams filters the list. Zero-value fields are omitted.
+type SmsTemplatesVersionsListParams struct {
 	// Field to sort by.
-	Sort WhatsAppBusinessAccountSortField
+	Sort SMSTemplateSortField
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
 	Order SortOrder
 	// Maximum number of items to return per page.
@@ -22,8 +22,8 @@ type WhatsappBusinessAccountsListParams struct {
 	EndingBefore string
 }
 
-func (p WhatsappBusinessAccountsListParams) toWire(startingAfter string) *oapi.ListWhatsAppBusinessAccountsParams {
-	return &oapi.ListWhatsAppBusinessAccountsParams{
+func (p SmsTemplatesVersionsListParams) toWire(startingAfter string) *oapi.ListSMSTemplateVersionsParams {
+	return &oapi.ListSMSTemplateVersionsParams{
 		Sort:          optZero(p.Sort),
 		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),
@@ -34,30 +34,30 @@ func (p WhatsappBusinessAccountsListParams) toWire(startingAfter string) *oapi.L
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
-func (s *WhatsappBusinessAccountsService) ListPage(ctx context.Context, params WhatsappBusinessAccountsListParams, startingAfter string, opts ...option.RequestOption) (*WhatsAppBusinessAccountList, error) {
+func (s *SmsTemplatesVersionsService) ListPage(ctx context.Context, templateRef string, params SmsTemplatesVersionsListParams, startingAfter string, opts ...option.RequestOption) (*SMSTemplateVersionList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListWhatsAppBusinessAccounts(ctx, params.toWire(startingAfter), cfg...)
+		return s.client.oapi.ListSMSTemplateVersions(ctx, templateRef, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
 	}
-	var out WhatsAppBusinessAccountList
+	var out SMSTemplateVersionList
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}
 	return &out, nil
 }
 
-// List List the WhatsApp Business Accounts the workspace has connected, as a cursor page, with the state WhatsApp reports for each. The `waba` a returned account carries is the same value that ties a number to its account, and the one `whatsapp.numbers.list`'s `waba` filter takes.
+// List List a template's permanent draft and immutable published versions, newest first. Built-in templates expose their current catalogue content as one synthetic published version.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
-func (s *WhatsappBusinessAccountsService) List(ctx context.Context, params WhatsappBusinessAccountsListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppBusinessAccount, error] {
-	return paginate(func(cursor string) ([]WhatsAppBusinessAccount, *string, error) {
+func (s *SmsTemplatesVersionsService) List(ctx context.Context, templateRef string, params SmsTemplatesVersionsListParams, opts ...option.RequestOption) iter.Seq2[*SMSTemplateVersionSummary, error] {
+	return paginate(func(cursor string) ([]SMSTemplateVersionSummary, *string, error) {
 		pageParams := params
 		if cursor != "" {
 			pageParams.EndingBefore = ""
 		}
-		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
+		page, err := s.ListPage(ctx, templateRef, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -65,15 +65,15 @@ func (s *WhatsappBusinessAccountsService) List(ctx context.Context, params Whats
 	})
 }
 
-// Get Read one connected WhatsApp Business Account by its `id` (`waa_` prefix) or the ID WhatsApp reports in `waba`, with the state WhatsApp reports for the account.
-func (s *WhatsappBusinessAccountsService) Get(ctx context.Context, businessAccountRef string, opts ...option.RequestOption) (*WhatsAppBusinessAccount, error) {
+// Get Read one draft or published SMS template version, including its variables and text in every language. Built-in templates expose their current catalogue content through a synthetic published version.
+func (s *SmsTemplatesVersionsService) Get(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*SMSTemplateVersion, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppBusinessAccount(ctx, businessAccountRef, cfg...)
+		return s.client.oapi.GetSMSTemplateVersion(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), cfg...)
 	})
 	if err != nil {
 		return nil, err
 	}
-	var out WhatsAppBusinessAccount
+	var out SMSTemplateVersion
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

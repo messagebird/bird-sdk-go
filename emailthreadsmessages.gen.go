@@ -22,6 +22,8 @@ type EmailThreadsMessagesListParams struct {
 	Include string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p EmailThreadsMessagesListParams) toWire(startingAfter string) *oapi.ListEmailThreadMessagesParams {
@@ -30,6 +32,7 @@ func (p EmailThreadsMessagesListParams) toWire(startingAfter string) *oapi.ListE
 		Label:         optStr(p.Label),
 		Include:       optEnum[oapi.ListEmailThreadMessagesParamsInclude](p.Include),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -57,18 +60,18 @@ func (p EmailThreadsMessagesReplyParams) toWire() oapi.EmailThreadMessageReplyRe
 	body.Html = p.HTML
 	body.Text = p.Text
 	body.ReplyAll = p.ReplyAll
-	if len(p.Tags) > 0 {
+	if p.Tags != nil {
 		v := p.Tags
 		body.Tags = &v
 	}
-	if len(p.Metadata) > 0 {
+	if p.Metadata != nil {
 		v := p.Metadata
 		body.Metadata = &v
 	}
 	if p.Category != nil {
 		body.Category = p.Category
 	}
-	if len(p.Attachments) > 0 {
+	if p.Attachments != nil {
 		v := p.Attachments
 		body.Attachments = &v
 	}
@@ -96,7 +99,11 @@ func (s *EmailThreadsMessagesService) ListPage(ctx context.Context, threadId str
 // fetch failed.
 func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string, params EmailThreadsMessagesListParams, opts ...option.RequestOption) iter.Seq2[*EmailThreadMessage, error] {
 	return paginate(func(cursor string) ([]EmailThreadMessage, *string, error) {
-		page, err := s.ListPage(ctx, threadId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, threadId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

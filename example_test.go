@@ -219,6 +219,24 @@ func ExampleEmailService_Cancel() {
 	}
 }
 
+func ExampleEmailService_Health() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	health, err := client.Email.Health(context.Background(), bird.EmailHealthParams{
+		From: time.Now().AddDate(0, 0, -30),
+		To:   time.Now(),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*health.Status)
+	for _, signal := range *health.Signals {
+		fmt.Println(*signal.Metric, *signal.Status)
+	}
+}
+
 // List auto-paginates: it lazily fetches each page and yields every matching
 // message across all of them.
 func ExampleEmailService_List() {
@@ -358,7 +376,7 @@ func ExampleSmsService_Send_template() {
 		log.Fatal(err)
 	}
 	msg, err := client.Sms.Send(context.Background(), bird.SmsSendParams{
-		To:         "+15551234567",
+		To:         "+14155550100",
 		Template:   "bird_otp_verification",
 		Parameters: map[string]any{"code": "123456"},
 	})
@@ -368,25 +386,23 @@ func ExampleSmsService_Send_template() {
 	fmt.Println(msg.Id)
 }
 
-// List the SMS templates available to the workspace. The catalogue is small,
-// returned in full, and not paginated.
+// List the SMS templates available to the workspace.
 func ExampleSmsTemplatesService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	list, err := client.SmsTemplates.List(context.Background(), bird.SMSTemplateListParams{
+	for tpl, err := range client.SmsTemplates.List(context.Background(), bird.SMSTemplateListParams{
 		Scope: "system",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, tpl := range list.Data {
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
 		fmt.Println(tpl.Id, *tpl.Slug)
 	}
 }
 
-// Read one SMS template by its slug (or id).
+// Read one SMS template's identity and live version.
 func ExampleSmsTemplatesService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -396,7 +412,65 @@ func ExampleSmsTemplatesService_Get() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(tpl.Id, *tpl.Body)
+	fmt.Println(tpl.DefaultLanguage, *tpl.LiveVersionId)
+}
+
+// Walk one SMS template's versions, newest first.
+func ExampleSmsTemplatesVersionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for version, err := range client.SmsTemplates.Versions.List(context.Background(), "bird_otp_verification", bird.SmsTemplatesVersionsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(version.Id, *version.VersionNumber)
+	}
+}
+
+// Read one SMS template version with all language content.
+func ExampleSmsTemplatesVersionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	version, err := client.SmsTemplates.Versions.Get(context.Background(), "bird_otp_verification", "smv_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if version.Languages == nil {
+		log.Fatal("version has no languages")
+	}
+	fmt.Println(version.Id, len(*version.Languages))
+}
+
+// List the languages one SMS template version contains.
+func ExampleSmsTemplatesVersionsLanguagesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	languages, err := client.SmsTemplates.Versions.Languages.List(context.Background(), "bird_otp_verification", "smv_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, language := range languages.Data {
+		fmt.Println(language.Language, *language.Revision)
+	}
+}
+
+// Read one language's SMS template text.
+func ExampleSmsTemplatesVersionsLanguagesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	language, err := client.SmsTemplates.Versions.Languages.Get(context.Background(), "bird_otp_verification", "smv_01ky4x8e4genzb7way45txfkm1", "en")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(language.Language, language.Text)
 }
 
 // Send a WhatsApp template message.
@@ -1386,6 +1460,57 @@ func ExampleDomainsService_Verify() {
 		log.Fatal(err)
 	}
 	fmt.Println(*domain.Status)
+}
+
+func ExampleSuppressionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for suppression, err := range client.Suppressions.List(context.Background(), bird.SuppressionsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(suppression.Email, suppression.Reason)
+	}
+}
+
+func ExampleSuppressionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	suppression, err := client.Suppressions.Get(context.Background(), "sup_abc123")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Reason, suppression.AppliesTo)
+}
+
+func ExampleSuppressionsService_Add() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Adding is idempotent: an address already suppressed manually returns that record.
+	suppression, err := client.Suppressions.Add(context.Background(), bird.SuppressionsAddParams{
+		Email: "blocked@example.com",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Id)
+}
+
+func ExampleSuppressionsService_Remove() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Check for remaining blocking records before resuming delivery.
+	if err := client.Suppressions.Remove(context.Background(), "sup_abc123"); err != nil {
+		log.Fatal(err)
+	}
 }
 
 // List auto-paginates across all mailboxes in the workspace.
@@ -3097,4 +3222,557 @@ func ExampleWhatsappBusinessAccountsService_Get() {
 		log.Fatal(err)
 	}
 	fmt.Println(account.Name, account.Status)
+}
+
+func ExampleEmailCompetitiveBrandsService_Search() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	report, err := client.Email.Competitive.Brands.Search(ctx, bird.EmailCompetitiveBrandsSearchParams{Q: "Everlane"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistService_Get() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	report, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsService_Create() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	matches, err := client.Email.Competitive.Brands.Search(ctx, bird.EmailCompetitiveBrandsSearchParams{Q: "Everlane"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	brandID := ""
+	if matches.Data != nil {
+		for _, match := range *matches.Data {
+			if match.Name != nil && *match.Name == "Everlane" && match.BrandId != nil {
+				brandID = string(*match.BrandId)
+				break
+			}
+		}
+	}
+	if brandID == "" {
+		log.Fatal("No exact Everlane match")
+	}
+	report, err := client.Email.Competitive.Watchlist.Brands.Create(ctx, bird.EmailCompetitiveWatchlistBrandsCreateParams{BrandID: brandID})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsService_Get() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	report, err := client.Email.Competitive.Watchlist.Brands.Get(ctx, watchlistBrandID, bird.EmailCompetitiveWatchlistBrandsGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsService_SendTime() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	report, err := client.Email.Competitive.Watchlist.Brands.SendTime(ctx, watchlistBrandID, bird.EmailCompetitiveWatchlistBrandsSendTimeParams{Timezone: "UTC"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsService_Delete() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	err = client.Email.Competitive.Watchlist.Brands.Delete(ctx, watchlistBrandID)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleEmailCompetitiveWatchlistService_Notable() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	report, err := client.Email.Competitive.Watchlist.Notable(ctx, bird.EmailCompetitiveWatchlistNotableParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveService_VolumeSeries() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	report, err := client.Email.Competitive.VolumeSeries(ctx, bird.EmailCompetitiveVolumeSeriesParams{Range: 30, BrandIDs: []bird.CompetitiveWatchlistBrandID{bird.CompetitiveWatchlistBrandID(watchlistBrandID)}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_List() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	for campaign, err := range client.Email.Competitive.Watchlist.Brands.Campaigns.List(ctx, watchlistBrandID, bird.EmailCompetitiveWatchlistBrandsCampaignsListParams{Range: 30, Limit: 25}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if campaign.Id != nil {
+			fmt.Println(*campaign.Id)
+		}
+	}
+}
+
+func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_Get() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	watchlist, err := client.Email.Competitive.Watchlist.Get(ctx, bird.EmailCompetitiveWatchlistGetParams{Range: 30})
+	if err != nil {
+		log.Fatal(err)
+	}
+	watchlistBrandID := ""
+	if watchlist.Data != nil {
+		for _, row := range *watchlist.Data {
+			if row.Name != nil && *row.Name == "Everlane" && row.WatchlistBrandId != nil {
+				watchlistBrandID = string(*row.WatchlistBrandId)
+				break
+			}
+		}
+	}
+	if watchlistBrandID == "" {
+		log.Fatal("Add Everlane to the watchlist first")
+	}
+	campaignID := ""
+	for campaign, err := range client.Email.Competitive.Watchlist.Brands.Campaigns.List(ctx, watchlistBrandID, bird.EmailCompetitiveWatchlistBrandsCampaignsListParams{Range: 30, Limit: 1}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if campaign.Id != nil {
+			campaignID = *campaign.Id
+			break
+		}
+	}
+	if campaignID == "" {
+		log.Fatal("No captured campaigns")
+	}
+	report, err := client.Email.Competitive.Watchlist.Brands.Campaigns.Get(ctx, watchlistBrandID, campaignID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsDomainsService_List() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Limit: 25}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		encoded, err := json.Marshal(domain)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(string(encoded))
+	}
+}
+
+func ExampleEmailInboxInsightsDomainsService_Update() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Domains.Update(ctx, sendingDomain, bird.EmailInboxInsightsDomainsUpdateParams{Monitored: bird.Bool(false)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsDomainMonitoringService_Upsert() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	report, err := client.Email.InboxInsights.DomainMonitoring.Upsert(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsService_Placement() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Placement(ctx, bird.EmailInboxInsightsPlacementParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsService_Authentication() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Authentication(ctx, bird.EmailInboxInsightsAuthenticationParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsService_Complaints() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Complaints(ctx, bird.EmailInboxInsightsComplaintsParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsService_SpamTraps() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.SpamTraps(ctx, bird.EmailInboxInsightsSpamTrapsParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsService_Blocklists() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Blocklists(ctx, bird.EmailInboxInsightsBlocklistsParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
+}
+
+func ExampleEmailInboxInsightsBenchmarksService_Industry() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.Benchmarks.Industry(ctx, bird.EmailInboxInsightsBenchmarksIndustryParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	encoded, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(encoded))
 }

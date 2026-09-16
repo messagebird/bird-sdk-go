@@ -15,6 +15,8 @@ import (
 type EmailListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
 	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -34,6 +36,7 @@ type EmailListParams struct {
 func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesParams {
 	return &oapi.ListEmailMessagesParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		CreatedAfter:  optTime(p.CreatedAfter),
 		CreatedBefore: optTime(p.CreatedBefore),
 		Status:        optZero(p.Status),
@@ -42,6 +45,21 @@ func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesPar
 		To:            optEmail(p.To),
 		From:          optEmail(p.From),
 		StartingAfter: optStr(startingAfter),
+	}
+}
+
+// EmailHealthParams filters the health read.
+type EmailHealthParams struct {
+	// Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 7 days before `to` when omitted.
+	From time.Time
+	// End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days. Day boundaries are always UTC; unlike the statistics reads, this one takes no `timezone`.
+	To time.Time
+}
+
+func (p EmailHealthParams) toWire() *oapi.GetEmailHealthParams {
+	return &oapi.GetEmailHealthParams{
+		From: optDate(p.From),
+		To:   optDate(p.To),
 	}
 }
 
@@ -81,7 +99,11 @@ func (s *EmailService) ListPage(ctx context.Context, params EmailListParams, sta
 // fetch failed.
 func (s *EmailService) List(ctx context.Context, params EmailListParams, opts ...option.RequestOption) iter.Seq2[*EmailMessage, error] {
 	return paginate(func(cursor string) ([]EmailMessage, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -99,4 +121,19 @@ func (s *EmailService) Cancel(ctx context.Context, messageId string, opts ...opt
 		return s.client.oapi.CancelEmailMessage(ctx, oapi.EmailID(messageId), op, cfg...)
 	})
 	return err
+}
+
+// Health Deliverability verdict for one window: an overall `healthy`, `watching`, or `throttled` status, plus signals for delivery, opens, bounces, and complaints. Each signal carries its rate and verdict. Delivery, bounce, and complaint signals include the thresholds that set their verdicts; open rate has no risk thresholds. Reports risk only and never pauses sending. Window defaults to the 7 days before today (UTC), maximum 365 days. For the counts and rates behind the verdict use `email.stats.summary`.
+func (s *EmailService) Health(ctx context.Context, params EmailHealthParams, opts ...option.RequestOption) (*EmailHealth, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetEmailHealth(ctx, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailHealth
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

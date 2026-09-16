@@ -14,11 +14,14 @@ import (
 type EmailTemplatesVersionsListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p EmailTemplatesVersionsListParams) toWire(startingAfter string) *oapi.ListEmailTemplateVersionsParams {
 	return &oapi.ListEmailTemplateVersionsParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -41,7 +44,7 @@ func (p EmailTemplatesVersionsSubmitParams) toWire() oapi.EmailTemplateSubmit {
 	for i, v := range p.Languages {
 		languages[i] = oapi.LanguageTag(v)
 	}
-	if len(languages) > 0 {
+	if p.Languages != nil {
 		body.Languages = &languages
 	}
 	return body
@@ -80,7 +83,11 @@ func (s *EmailTemplatesVersionsService) ListPage(ctx context.Context, templateRe
 // fetch failed.
 func (s *EmailTemplatesVersionsService) List(ctx context.Context, templateRef string, params EmailTemplatesVersionsListParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateVersionSummary, error] {
 	return paginate(func(cursor string) ([]EmailTemplateVersionSummary, *string, error) {
-		page, err := s.ListPage(ctx, templateRef, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, templateRef, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

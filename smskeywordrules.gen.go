@@ -57,7 +57,7 @@ func (p SmsKeywordRulesCreateParams) toWire() oapi.SMSKeywordRuleCreate {
 	body.Country = p.Country
 	body.Language = p.Language
 	body.Number = p.Number
-	if len(p.Keywords) > 0 {
+	if p.Keywords != nil {
 		v := p.Keywords
 		body.Keywords = &v
 	}
@@ -78,7 +78,7 @@ type SmsKeywordRulesUpdateParams struct {
 
 func (p SmsKeywordRulesUpdateParams) toWire() oapi.SMSKeywordRuleUpdate {
 	body := oapi.SMSKeywordRuleUpdate{}
-	if len(p.Keywords) > 0 {
+	if p.Keywords != nil {
 		v := p.Keywords
 		body.Keywords = &v
 	}

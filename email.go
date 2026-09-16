@@ -15,6 +15,8 @@ import (
 
 // EmailService sends and reads email messages. Reach it via Client.Email.
 type EmailService struct {
+	Competitive   *EmailCompetitiveService
+	InboxInsights *EmailInboxInsightsService
 	resource
 
 	// Stats reads aggregated delivery and engagement statistics.

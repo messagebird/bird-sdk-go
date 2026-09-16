@@ -29,7 +29,7 @@ func (p VerifyVerificationsCreateParams) toWire() oapi.VerificationCreateRequest
 	if p.Options != nil {
 		body.Options = p.Options
 	}
-	if len(p.Metadata) > 0 {
+	if p.Metadata != nil {
 		v := p.Metadata
 		body.Metadata = &v
 	}

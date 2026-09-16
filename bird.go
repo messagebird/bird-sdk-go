@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.66.0"
+	version = "0.67.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -75,6 +75,7 @@ type Client struct {
 	Audiences         *AudiencesService
 	ContactProperties *ContactPropertiesService
 	Domains           *DomainsService
+	Suppressions      *SuppressionsService
 	Realtime          *RealtimeService
 	Lookup            *LookupService
 	Numbers           *NumbersService
@@ -134,10 +135,21 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c := &Client{cfg: cfg, oapi: oc, oapiNoRedirect: noRedirectOC}
 	c.Email = &EmailService{resource: resource{client: c}}
 	c.Email.Stats = &EmailStatsService{resource{client: c}}
+	c.Email.Competitive = &EmailCompetitiveService{resource: resource{client: c}}
+	c.Email.Competitive.Brands = &EmailCompetitiveBrandsService{resource: resource{client: c}}
+	c.Email.Competitive.Watchlist = &EmailCompetitiveWatchlistService{resource: resource{client: c}}
+	c.Email.Competitive.Watchlist.Brands = &EmailCompetitiveWatchlistBrandsService{resource: resource{client: c}}
+	c.Email.Competitive.Watchlist.Brands.Campaigns = &EmailCompetitiveWatchlistBrandsCampaignsService{resource: resource{client: c}}
+	c.Email.InboxInsights = &EmailInboxInsightsService{resource: resource{client: c}}
+	c.Email.InboxInsights.Benchmarks = &EmailInboxInsightsBenchmarksService{resource: resource{client: c}}
+	c.Email.InboxInsights.DomainMonitoring = &EmailInboxInsightsDomainMonitoringService{resource: resource{client: c}}
+	c.Email.InboxInsights.Domains = &EmailInboxInsightsDomainsService{resource: resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
 	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
 	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}
-	c.SmsTemplates = &SmsTemplatesService{resource{client: c}}
+	c.SmsTemplates = &SmsTemplatesService{resource: resource{client: c}}
+	c.SmsTemplates.Versions = &SmsTemplatesVersionsService{resource: resource{client: c}}
+	c.SmsTemplates.Versions.Languages = &SmsTemplatesVersionsLanguagesService{resource{client: c}}
 	c.SmsSuppressions = &SmsSuppressionsService{resource{client: c}}
 	c.SmsKeywordRules = &SmsKeywordRulesService{resource{client: c}}
 	c.Whatsapp = &WhatsappService{resource: resource{client: c}}
@@ -159,6 +171,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Audiences = &AudiencesService{resource{client: c}}
 	c.ContactProperties = &ContactPropertiesService{resource{client: c}}
 	c.Domains = &DomainsService{resource{client: c}}
+	c.Suppressions = &SuppressionsService{resource{client: c}}
 	c.Email.Mailboxes = &EmailMailboxesService{resource: resource{client: c}}
 	c.Email.Mailboxes.Messages = &EmailMailboxesMessagesService{resource{client: c}}
 	c.Email.Mailboxes.ReceiveRules = &EmailMailboxesReceiveRulesService{resource{client: c}}

@@ -35,6 +35,8 @@ type VoiceListParams struct {
 	StartedBefore time.Time
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p VoiceListParams) toWire(startingAfter string) *oapi.ListVoiceCallsParams {
@@ -50,6 +52,7 @@ func (p VoiceListParams) toWire(startingAfter string) *oapi.ListVoiceCallsParams
 		StartedAfter:  optTime(p.StartedAfter),
 		StartedBefore: optTime(p.StartedBefore),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -75,7 +78,11 @@ func (s *VoiceService) ListPage(ctx context.Context, params VoiceListParams, sta
 // fetch failed.
 func (s *VoiceService) List(ctx context.Context, params VoiceListParams, opts ...option.RequestOption) iter.Seq2[*VoiceCall, error] {
 	return paginate(func(cursor string) ([]VoiceCall, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

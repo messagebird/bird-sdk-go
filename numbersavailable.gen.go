@@ -22,6 +22,8 @@ type NumbersAvailableListParams struct {
 	Capabilities []string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p NumbersAvailableListParams) toWire(startingAfter string) *oapi.ListAvailableNumbersParams {
@@ -31,6 +33,7 @@ func (p NumbersAvailableListParams) toWire(startingAfter string) *oapi.ListAvail
 		Prefix:        optStr(p.Prefix),
 		Capabilities:  optSlice(p.Capabilities),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -56,7 +59,11 @@ func (s *NumbersAvailableService) ListPage(ctx context.Context, params NumbersAv
 // fetch failed.
 func (s *NumbersAvailableService) List(ctx context.Context, params NumbersAvailableListParams, opts ...option.RequestOption) iter.Seq2[*AvailableNumber, error] {
 	return paginate(func(cursor string) ([]AvailableNumber, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

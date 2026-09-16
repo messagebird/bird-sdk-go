@@ -14,11 +14,14 @@ import (
 type ContactsPreferencesListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p ContactsPreferencesListParams) toWire(startingAfter string) *oapi.ListContactPreferencesParams {
 	return &oapi.ListContactPreferencesParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -44,7 +47,11 @@ func (s *ContactsPreferencesService) ListPage(ctx context.Context, contactId str
 // fetch failed.
 func (s *ContactsPreferencesService) List(ctx context.Context, contactId string, params ContactsPreferencesListParams, opts ...option.RequestOption) iter.Seq2[*Preference, error] {
 	return paginate(func(cursor string) ([]Preference, *string, error) {
-		page, err := s.ListPage(ctx, contactId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, contactId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

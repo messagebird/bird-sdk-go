@@ -31,12 +31,13 @@ const (
 )
 
 // SmsSendParams is a single SMS send. Provide either Text (with Category and
-// From) or a Template (by id or slug, with Parameters). The two are mutually
-// exclusive.
+// From) or a Template (by id or slug, with Parameters). A workspace template
+// requires an owned From; a built-in template selects its sender and rejects
+// From. The two content forms are mutually exclusive.
 // Zero-value fields are omitted from the request.
 type SmsSendParams struct {
 	To         string         // required; recipient phone number in E.164 format
-	From       string         // required with Text; omit on a template send
+	From       string         // required with Text or a workspace Template; omit with a built-in Template
 	Text       string         // free-text body (mutually exclusive with Template)
 	Category   SMSCategory    // required with Text; omit on a template send
 	Template   string         // stored template id (smt_…) or slug (mutually exclusive with Text)
@@ -103,8 +104,10 @@ func (p SmsSendParams) toWire() oapi.SMSMessageSendRequest {
 	return body
 }
 
-// Send sends one SMS message. Retried safely: a single idempotency key is reused
-// across attempts. Provide your own key with option.WithIdempotencyKey.
+// Send sends one SMS message. A workspace template requires an owned From; a
+// built-in template selects its sender and rejects From. Retried safely: a single
+// idempotency key is reused across attempts. Provide your own key with
+// option.WithIdempotencyKey.
 func (s *SmsService) Send(ctx context.Context, params SmsSendParams, opts ...option.RequestOption) (*SMSMessage, error) {
 	wire := params.toWire()
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {

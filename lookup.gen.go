@@ -26,7 +26,7 @@ func (p LookupPhoneNumberParams) toWire() oapi.PhoneNumberLookupRequest {
 	for i, v := range p.Type {
 		typeArg[i] = oapi.LookupProperty(v)
 	}
-	if len(typeArg) > 0 {
+	if p.Type != nil {
 		body.Type = &typeArg
 	}
 	return body

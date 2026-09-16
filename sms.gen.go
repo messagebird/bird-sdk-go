@@ -15,6 +15,8 @@ import (
 type SmsListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time
 	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -38,6 +40,7 @@ type SmsListParams struct {
 func (p SmsListParams) toWire(startingAfter string) *oapi.ListSMSMessagesParams {
 	return &oapi.ListSMSMessagesParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		CreatedAfter:  optTime(p.CreatedAfter),
 		CreatedBefore: optTime(p.CreatedBefore),
 		Direction:     optZero(p.Direction),
@@ -99,7 +102,11 @@ func (s *SmsService) ListPage(ctx context.Context, params SmsListParams, startin
 // fetch failed.
 func (s *SmsService) List(ctx context.Context, params SmsListParams, opts ...option.RequestOption) iter.Seq2[*SMSMessage, error] {
 	return paginate(func(cursor string) ([]SMSMessage, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

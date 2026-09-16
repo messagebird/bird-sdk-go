@@ -18,12 +18,15 @@ type EmailMailboxesReceiveRulesListParams struct {
 	Action string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p EmailMailboxesReceiveRulesListParams) toWire(startingAfter string) *oapi.ListMailboxReceiveRulesParams {
 	return &oapi.ListMailboxReceiveRulesParams{
 		Action:        optEnum[oapi.ListMailboxReceiveRulesParamsAction](p.Action),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -67,7 +70,11 @@ func (s *EmailMailboxesReceiveRulesService) ListPage(ctx context.Context, mailbo
 // fetch failed.
 func (s *EmailMailboxesReceiveRulesService) List(ctx context.Context, mailboxId string, params EmailMailboxesReceiveRulesListParams, opts ...option.RequestOption) iter.Seq2[*ReceiveRule, error] {
 	return paginate(func(cursor string) ([]ReceiveRule, *string, error) {
-		page, err := s.ListPage(ctx, mailboxId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, mailboxId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

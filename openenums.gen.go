@@ -72,6 +72,17 @@ const (
 	EmailCompatibilityRuleIDHtmlWebPageMarkup      = oapi.EmailCompatibilityRuleIDHtmlWebPageMarkup
 )
 
+// EmailCompetitiveCampaignSignal is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailCompetitiveCampaignSignal* constants with a
+// default branch rather than treating the set as closed.
+type EmailCompetitiveCampaignSignal = oapi.EmailCompetitiveCampaignSignal
+
+const (
+	EmailCompetitiveCampaignSignalBiggestSend      = oapi.EmailCompetitiveCampaignSignalBiggestSend
+	EmailCompetitiveCampaignSignalLandingInSpam    = oapi.EmailCompetitiveCampaignSignalLandingInSpam
+	EmailCompetitiveCampaignSignalReadRateStandout = oapi.EmailCompetitiveCampaignSignalReadRateStandout
+)
+
 // EmailEventType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailEventType* constants with a
 // default branch rather than treating the set as closed.
@@ -92,6 +103,67 @@ const (
 	EmailEventTypeEmailRejected         = oapi.EmailEventTypeEmailRejected
 	EmailEventTypeEmailScheduled        = oapi.EmailEventTypeEmailScheduled
 	EmailEventTypeEmailUnsubscribed     = oapi.EmailEventTypeEmailUnsubscribed
+)
+
+// EmailInboxInsightsDmarcReadinessReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsDmarcReadinessReason* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsDmarcReadinessReason = oapi.EmailInboxInsightsDmarcReadinessReason
+
+const (
+	EmailInboxInsightsDmarcReadinessReasonDataTooStale         = oapi.EmailInboxInsightsDmarcReadinessReasonDataTooStale
+	EmailInboxInsightsDmarcReadinessReasonNoPolicy             = oapi.EmailInboxInsightsDmarcReadinessReasonNoPolicy
+	EmailInboxInsightsDmarcReadinessReasonNoRuaData            = oapi.EmailInboxInsightsDmarcReadinessReasonNoRuaData
+	EmailInboxInsightsDmarcReadinessReasonSourceBelowThreshold = oapi.EmailInboxInsightsDmarcReadinessReasonSourceBelowThreshold
+)
+
+// EmailInboxInsightsDmarcVerdict is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsDmarcVerdict* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsDmarcVerdict = oapi.EmailInboxInsightsDmarcVerdict
+
+const (
+	EmailInboxInsightsDmarcVerdictAligned     = oapi.EmailInboxInsightsDmarcVerdictAligned
+	EmailInboxInsightsDmarcVerdictDkimOnly    = oapi.EmailInboxInsightsDmarcVerdictDkimOnly
+	EmailInboxInsightsDmarcVerdictFailsPolicy = oapi.EmailInboxInsightsDmarcVerdictFailsPolicy
+	EmailInboxInsightsDmarcVerdictSpfOnly     = oapi.EmailInboxInsightsDmarcVerdictSpfOnly
+)
+
+// EmailInboxInsightsGmailTab is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsGmailTab* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsGmailTab = oapi.EmailInboxInsightsGmailTab
+
+const (
+	EmailInboxInsightsGmailTabForums     = oapi.EmailInboxInsightsGmailTabForums
+	EmailInboxInsightsGmailTabNone       = oapi.EmailInboxInsightsGmailTabNone
+	EmailInboxInsightsGmailTabPrimary    = oapi.EmailInboxInsightsGmailTabPrimary
+	EmailInboxInsightsGmailTabPromotions = oapi.EmailInboxInsightsGmailTabPromotions
+	EmailInboxInsightsGmailTabSocial     = oapi.EmailInboxInsightsGmailTabSocial
+	EmailInboxInsightsGmailTabUpdates    = oapi.EmailInboxInsightsGmailTabUpdates
+)
+
+// EmailInboxInsightsTrapSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsTrapSource* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsTrapSource = oapi.EmailInboxInsightsTrapSource
+
+const (
+	EmailInboxInsightsTrapSourceAbusix    = oapi.EmailInboxInsightsTrapSourceAbusix
+	EmailInboxInsightsTrapSourceCloudmark = oapi.EmailInboxInsightsTrapSourceCloudmark
+)
+
+// EmailInboxInsightsTrapType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsTrapType* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsTrapType = oapi.EmailInboxInsightsTrapType
+
+const (
+	EmailInboxInsightsTrapTypeMixed    = oapi.EmailInboxInsightsTrapTypeMixed
+	EmailInboxInsightsTrapTypeParked   = oapi.EmailInboxInsightsTrapTypeParked
+	EmailInboxInsightsTrapTypePristine = oapi.EmailInboxInsightsTrapTypePristine
+	EmailInboxInsightsTrapTypeRecycled = oapi.EmailInboxInsightsTrapTypeRecycled
+	EmailInboxInsightsTrapTypeTypo     = oapi.EmailInboxInsightsTrapTypeTypo
 )
 
 // EmailLookupFlag is an open string on the wire: a value added by a newer server

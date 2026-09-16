@@ -420,8 +420,10 @@ func emailPage(id, subject, nextCursor string) string {
 
 func TestListPaginatesAcrossPages(t *testing.T) {
 	var cursors []string
+	var endingBefore []string
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
 		cursors = append(cursors, r.URL.Query().Get("starting_after"))
+		endingBefore = append(endingBefore, r.URL.Query().Get("ending_before"))
 		if r.URL.Query().Get("starting_after") == "" {
 			_, _ = io.WriteString(w, emailPage("em_1", "1", `"cur2"`))
 			return
@@ -431,7 +433,7 @@ func TestListPaginatesAcrossPages(t *testing.T) {
 
 	client := newClient(t, server)
 	var ids []string
-	for msg, err := range client.Email.List(context.Background(), bird.EmailListParams{Status: bird.EmailStatusBounced}) {
+	for msg, err := range client.Email.List(context.Background(), bird.EmailListParams{Status: bird.EmailStatusBounced, EndingBefore: "previous"}) {
 		if err != nil {
 			t.Fatalf("List: %v", err)
 		}
@@ -442,6 +444,9 @@ func TestListPaginatesAcrossPages(t *testing.T) {
 	}
 	if len(cursors) != 2 || cursors[1] != "cur2" {
 		t.Errorf("cursors = %v, want second page to use cur2", cursors)
+	}
+	if len(endingBefore) != 2 || endingBefore[0] != "previous" || endingBefore[1] != "" {
+		t.Errorf("ending_before = %v", endingBefore)
 	}
 }
 

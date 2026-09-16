@@ -23,9 +23,11 @@ type WhatsappNumbersListParams struct {
 	// Field to sort by.
 	Sort WhatsAppNumberSortField
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order string
+	Order SortOrder
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p WhatsappNumbersListParams) toWire(startingAfter string) *oapi.ListWhatsAppNumbersParams {
@@ -35,8 +37,9 @@ func (p WhatsappNumbersListParams) toWire(startingAfter string) *oapi.ListWhatsA
 		Status:        optSlice(p.Status),
 		Scope:         optZero(p.Scope),
 		Sort:          optZero(p.Sort),
-		Order:         optEnum[oapi.ListWhatsAppNumbersParamsOrder](p.Order),
+		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -46,16 +49,19 @@ type WhatsappNumbersListEventsParams struct {
 	// Field to sort by. Defaults to `created_at`.
 	Sort WhatsAppNumberEventSortField
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order string
+	Order SortOrder
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p WhatsappNumbersListEventsParams) toWire(startingAfter string) *oapi.ListWhatsAppNumberEventsParams {
 	return &oapi.ListWhatsAppNumberEventsParams{
 		Sort:          optZero(p.Sort),
-		Order:         optEnum[oapi.ListWhatsAppNumberEventsParamsOrder](p.Order),
+		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -81,7 +87,11 @@ func (s *WhatsappNumbersService) ListPage(ctx context.Context, params WhatsappNu
 // fetch failed.
 func (s *WhatsappNumbersService) List(ctx context.Context, params WhatsappNumbersListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppNumber, error] {
 	return paginate(func(cursor string) ([]WhatsAppNumber, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -125,7 +135,11 @@ func (s *WhatsappNumbersService) ListEventsPage(ctx context.Context, numberId st
 // fetch failed.
 func (s *WhatsappNumbersService) ListEvents(ctx context.Context, numberId string, params WhatsappNumbersListEventsParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppNumberEvent, error] {
 	return paginate(func(cursor string) ([]WhatsAppNumberEvent, *string, error) {
-		page, err := s.ListEventsPage(ctx, numberId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListEventsPage(ctx, numberId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

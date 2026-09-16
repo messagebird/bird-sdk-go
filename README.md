@@ -27,6 +27,8 @@ Requires Go 1.24+.
 - **Options** configure the client and override per call (`option.WithEmailDefaults`, `WithTimeout`, `WithIdempotencyKey`, …).
 - **`client.Get/Post/Put/Patch/Delete`** reach endpoints outside the curated surface.
 
+Optional collection fields in generated request params distinguish `nil` from an empty value: `nil` omits the field, while `[]string{}` or `map[string]any{}` sends an empty collection. The API decides whether that clears a value or is rejected.
+
 ## Examples
 
 Runnable, per-method examples live in [`example_test.go`](./example_test.go) and render under each method on [pkg.go.dev](https://pkg.go.dev/github.com/messagebird/bird-sdk-go): sending (simple and rich), error handling, get, pagination, channel defaults, the webhook receiver, and the escape hatch.

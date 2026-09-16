@@ -129,6 +129,8 @@ type (
 // Enum vocabularies the read filters expose. Each is a named type, so a params
 // field carries it rather than a bare string.
 type (
+	SortOrder            = oapi.SortOrder
+	SMSTemplateSortField = oapi.SMSTemplateSortField
 	// TemplateScope distinguishes Bird's built-in templates from a workspace's own.
 	TemplateScope = oapi.TemplateScope
 	// TemplateStatus is where a template stands as a whole, on every channel.
@@ -147,6 +149,8 @@ type (
 	EmailTemplateSourceWrite = oapi.EmailTemplateSourceWrite
 	// SMSMessageCategory is an SMS's content classification.
 	SMSMessageCategory = oapi.SMSMessageCategory
+	// SMSTemplateCategory is the traffic class accepted by an SMS template.
+	SMSTemplateCategory = oapi.SMSTemplateCategory
 	// EmailStatsSortMetric is the metric an email-stats breakdown sorts by.
 	EmailStatsSortMetric = oapi.EmailStatsSortMetric
 	// EmailEngagementSortMetric is the engagement metric a breakdown sorts by.
@@ -178,7 +182,9 @@ type (
 	SMSSuppressionReasonFilter = oapi.SMSSuppressionReasonFilter
 	// SMSKeywordRuleScope distinguishes Bird's default keyword rules from a
 	// workspace's own.
-	SMSKeywordRuleScope = oapi.SMSKeywordRuleScope
+	SMSKeywordRuleScope        = oapi.SMSKeywordRuleScope
+	SuppressionReasonFilter    = oapi.SuppressionReasonFilter
+	SuppressionScopeTypeFilter = oapi.SuppressionScopeTypeFilter
 )
 
 // Hand-written because closing the enum took TemplateStatus out of the
@@ -215,6 +221,8 @@ type (
 	EmailStatsByComplaintTypeResponse         = oapi.EmailStatsByComplaintTypeResponse
 	EmailStatsByBroadcastResponse             = oapi.EmailStatsByBroadcastResponse
 )
+
+type EmailHealth = oapi.EmailHealth
 
 // Email template reads, returned by the Client.Email.Templates methods.
 type (
@@ -255,10 +263,6 @@ type (
 	// value side of the map Create takes.
 	EmailTemplateLanguageContent = oapi.EmailTemplateLanguageContent
 )
-
-// SMSTemplate is an SMS template with its body, variables, and available
-// languages; SMSTemplateList is the (unpaginated) set of templates available to
-// the workspace.
 
 // SMS statistics responses, returned by the Client.Sms.Stats methods. Each is
 // the read-side body for one breakdown; the Inbound set counts messages the
@@ -304,8 +308,18 @@ type (
 )
 
 type (
-	SMSTemplate     = oapi.SMSTemplate
-	SMSTemplateList = oapi.SMSTemplateList
+	// SMSTemplate is one shallow template identity and its authoring state.
+	// Version and language responses carry its variables and text.
+	SMSTemplate                = oapi.SMSTemplate
+	SMSTemplateSummary         = oapi.SMSTemplateSummary
+	SMSTemplateList            = oapi.SMSTemplateList
+	SMSTemplateVersion         = oapi.SMSTemplateVersion
+	SMSTemplateVersionSummary  = oapi.SMSTemplateVersionSummary
+	SMSTemplateVersionList     = oapi.SMSTemplateVersionList
+	SMSTemplateVersionLanguage = oapi.SMSTemplateVersionLanguage
+	SMSTemplateLanguage        = oapi.SMSTemplateLanguage
+	SMSTemplateLanguageSummary = oapi.SMSTemplateLanguageSummary
+	SMSTemplateLanguageList    = oapi.SMSTemplateLanguageList
 )
 
 // SMSMessage is a sent or received SMS with its status, segment breakdown, and
@@ -404,6 +418,13 @@ type (
 	DomainCapabilities  = oapi.DomainCapabilities
 	DomainCapability    = oapi.DomainCapability
 	DomainStatus        = oapi.DomainStatus
+)
+
+type (
+	Suppression          = oapi.Suppression
+	SuppressionList      = oapi.SuppressionList
+	SuppressionScope     = oapi.SuppressionScope
+	SuppressionScopeType = oapi.SuppressionScopeType
 )
 
 // WhatsAppMessage is a sent or received WhatsApp message; WhatsAppMessageList
@@ -835,3 +856,30 @@ type (
 	WebhookTestRequest          = oapi.WebhookTestRequest
 	WebhookTestResponse         = oapi.WebhookTestResponse
 )
+
+type (
+	EmailCompetitiveBrandProfile             = oapi.EmailCompetitiveBrandProfile
+	EmailCompetitiveBrandSearchResults       = oapi.EmailCompetitiveBrandSearchResults
+	EmailCompetitiveCampaign                 = oapi.EmailCompetitiveCampaign
+	EmailCompetitiveCampaignFeed             = oapi.EmailCompetitiveCampaignFeed
+	EmailCompetitiveCampaignSort             = oapi.EmailCompetitiveCampaignSort
+	EmailCompetitiveNotableFeed              = oapi.EmailCompetitiveNotableFeed
+	EmailCompetitiveSendTimeGrid             = oapi.EmailCompetitiveSendTimeGrid
+	EmailCompetitiveVolumeSeries             = oapi.EmailCompetitiveVolumeSeries
+	EmailCompetitiveWatchlist                = oapi.EmailCompetitiveWatchlist
+	EmailCompetitiveWatchlistBrand           = oapi.EmailCompetitiveWatchlistBrand
+	EmailInboxInsightsAuthentication         = oapi.EmailInboxInsightsAuthentication
+	EmailInboxInsightsBlocklists             = oapi.EmailInboxInsightsBlocklists
+	EmailInboxInsightsCompare                = oapi.EmailInboxInsightsCompare
+	EmailInboxInsightsComplaints             = oapi.EmailInboxInsightsComplaints
+	EmailInboxInsightsDomain                 = oapi.EmailInboxInsightsDomain
+	EmailInboxInsightsDomainMonitoringResult = oapi.EmailInboxInsightsDomainMonitoringResult
+	EmailInboxInsightsDomainSort             = oapi.EmailInboxInsightsDomainSort
+	EmailInboxInsightsDomains                = oapi.EmailInboxInsightsDomains
+	EmailInboxInsightsGroupBy                = oapi.EmailInboxInsightsGroupBy
+	EmailInboxInsightsIndustryBenchmark      = oapi.EmailInboxInsightsIndustryBenchmark
+	EmailInboxInsightsPlacement              = oapi.EmailInboxInsightsPlacement
+	EmailInboxInsightsSpamTraps              = oapi.EmailInboxInsightsSpamTraps
+)
+
+type CompetitiveWatchlistBrandID = oapi.CompetitiveWatchlistBrandID

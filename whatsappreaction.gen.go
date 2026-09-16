@@ -26,11 +26,14 @@ func (p WhatsappReactionSetParams) toWire() oapi.WhatsAppReactionUpsert {
 type WhatsappReactionListEventsParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p WhatsappReactionListEventsParams) toWire(startingAfter string) *oapi.ListWhatsAppMessageReactionEventsParams {
 	return &oapi.ListWhatsAppMessageReactionEventsParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -87,7 +90,11 @@ func (s *WhatsappReactionService) ListEventsPage(ctx context.Context, messageId 
 // fetch failed.
 func (s *WhatsappReactionService) ListEvents(ctx context.Context, messageId string, params WhatsappReactionListEventsParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppReactionEvent, error] {
 	return paginate(func(cursor string) ([]WhatsAppReactionEvent, *string, error) {
-		page, err := s.ListEventsPage(ctx, messageId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListEventsPage(ctx, messageId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

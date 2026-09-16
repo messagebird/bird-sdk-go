@@ -28,12 +28,15 @@ type NumbersOrdersListParams struct {
 	Status NumbersOrderStatus
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p NumbersOrdersListParams) toWire(startingAfter string) *oapi.ListNumbersOrdersParams {
 	return &oapi.ListNumbersOrdersParams{
 		Status:        optZero(p.Status),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -78,7 +81,11 @@ func (s *NumbersOrdersService) ListPage(ctx context.Context, params NumbersOrder
 // fetch failed.
 func (s *NumbersOrdersService) List(ctx context.Context, params NumbersOrdersListParams, opts ...option.RequestOption) iter.Seq2[*NumbersOrder, error] {
 	return paginate(func(cursor string) ([]NumbersOrder, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

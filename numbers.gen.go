@@ -24,6 +24,8 @@ type NumbersListParams struct {
 	Capabilities []string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p NumbersListParams) toWire(startingAfter string) *oapi.ListWorkspaceNumbersParams {
@@ -34,6 +36,7 @@ func (p NumbersListParams) toWire(startingAfter string) *oapi.ListWorkspaceNumbe
 		Prefix:        optStr(p.Prefix),
 		Capabilities:  optSlice(p.Capabilities),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -59,7 +62,11 @@ func (s *NumbersService) ListPage(ctx context.Context, params NumbersListParams,
 // fetch failed.
 func (s *NumbersService) List(ctx context.Context, params NumbersListParams, opts ...option.RequestOption) iter.Seq2[*Number, error] {
 	return paginate(func(cursor string) ([]Number, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

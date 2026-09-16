@@ -22,6 +22,7 @@ output-options:
     - getEmailMessage
     - listEmailMessages
     - cancelEmailMessage
+    - getEmailHealth
     - getEmailStatsSummary
     - getEmailStatsDaily
     - getEmailStatsHourly
@@ -38,6 +39,25 @@ output-options:
     - getEmailStatsByBounceCode
     - getEmailStatsByComplaintType
     - getEmailStatsByBroadcast
+    - searchEmailCompetitiveBrands
+    - getEmailCompetitiveWatchlist
+    - createEmailCompetitiveWatchlistBrand
+    - deleteEmailCompetitiveWatchlistBrand
+    - getEmailCompetitiveBrand
+    - getEmailCompetitiveBrandCampaigns
+    - getEmailCompetitiveBrandCampaign
+    - getEmailCompetitiveNotableCampaigns
+    - getEmailCompetitiveBrandSendTime
+    - getEmailCompetitiveVolumeSeries
+    - getEmailInboxInsightsDomains
+    - getEmailInboxInsightsPlacement
+    - getEmailInboxInsightsAuthentication
+    - getEmailInboxInsightsComplaints
+    - getEmailInboxInsightsSpamTraps
+    - getEmailInboxInsightsBlocklists
+    - getEmailInboxInsightsIndustryBenchmark
+    - updateEmailInboxInsightsDomain
+    - upsertEmailInboxInsightsDomainMonitoring
     - createEmailTemplate
     - listEmailTemplates
     - getEmailTemplate
@@ -74,6 +94,10 @@ output-options:
     - listSMSMessages
     - listSMSTemplates
     - getSMSTemplate
+    - listSMSTemplateVersions
+    - getSMSTemplateVersion
+    - listSMSTemplateVersionLanguages
+    - getSMSTemplateVersionLanguage
     - listSMSMessageEvents
     - getSMSStatsSummary
     - getSMSStatsDaily
@@ -155,6 +179,10 @@ output-options:
     - verifyDomain
     - updateDomain
     - deleteDomain
+    - listSuppressions
+    - getSuppression
+    - createSuppression
+    - deleteSuppression
     - listWebhooks
     - getWebhook
     - createWebhook

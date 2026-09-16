@@ -34,6 +34,8 @@ type EmailMailboxesListParams struct {
 	IncludeDeleted bool
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p EmailMailboxesListParams) toWire(startingAfter string) *oapi.ListMailboxesParams {
@@ -44,6 +46,7 @@ func (p EmailMailboxesListParams) toWire(startingAfter string) *oapi.ListMailbox
 		Domain:         optStr(p.Domain),
 		IncludeDeleted: optBool(p.IncludeDeleted),
 		Limit:          optInt(p.Limit),
+		EndingBefore:   optStr(p.EndingBefore),
 		StartingAfter:  optStr(startingAfter),
 	}
 }
@@ -80,7 +83,7 @@ func (p EmailMailboxesCreateParams) toWire() oapi.MailboxCreate {
 	if p.RetentionTier != nil {
 		body.RetentionTier = p.RetentionTier
 	}
-	if len(p.Metadata) > 0 {
+	if p.Metadata != nil {
 		v := p.Metadata
 		body.Metadata = &v
 	}
@@ -113,7 +116,7 @@ func (p EmailMailboxesUpdateParams) toWire() oapi.MailboxUpdate {
 	if p.RetentionTier != nil {
 		body.RetentionTier = p.RetentionTier
 	}
-	if len(p.Metadata) > 0 {
+	if p.Metadata != nil {
 		v := p.Metadata
 		body.Metadata = &v
 	}
@@ -168,7 +171,11 @@ func (s *EmailMailboxesService) ListPage(ctx context.Context, params EmailMailbo
 // fetch failed.
 func (s *EmailMailboxesService) List(ctx context.Context, params EmailMailboxesListParams, opts ...option.RequestOption) iter.Seq2[*Mailbox, error] {
 	return paginate(func(cursor string) ([]Mailbox, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

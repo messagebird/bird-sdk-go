@@ -43,7 +43,7 @@ func optStr(s string) *string {
 	return &s
 }
 
-func optInt(n int) *int {
+func optInt[T ~int](n T) *T {
 	if n <= 0 {
 		return nil
 	}

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.67.0
+
+- Read preceding pages with `EndingBefore` in Go list parameters. Automatic iteration preserves the initial cursor and uses forward cursors for subsequent pages.
+- Add Competitive Insights and non-seed Inbox Insights operations to the SDKs, CLI and MCP server. Discover competitors and owned sending domains, manage watchlists and monitoring, and read campaign and deliverability reports. Insights API-key calls require preview access for the organization.
+- Mailbox thread messages and `email_mailbox.message_received` expose the receiving provider's `spf_pass` and `dkim_pass` results. Missing or inconclusive results are null. The provider supplies no DMARC result, so `dmarc_pass` remains null and `authentication` is `unknown` for received messages. Sent messages report null for these fields.
+- Received email messages expose the receiving provider's `spf_pass` and `dkim_pass` results. Missing or inconclusive results are null. The provider supplies no DMARC result or spam score, so `dmarc_pass` and `spam_score` remain null and `authentication` is `unknown`.
+- **Breaking:** SMS template `list` methods now return lazy iterators over shallow summaries instead of a list envelope, and `get` no longer returns message text or variables. Read content and variables through the new version and language methods. Add SMS template version and version-language read methods.
+- **Breaking:** list `order` parameters now use the shared `SortOrder` enum. Go callers passing a string variable to a typed `Order` field must convert it to `bird.SortOrder`.
+
 ## 0.66.0
 
 - Add `broadcasts.counts`, which reports how many contacts an email broadcast's audience holds, how many of those have an email address, and how many of those addressable contacts are not suppressed for the broadcast's category, so a send can be sized before it goes out.

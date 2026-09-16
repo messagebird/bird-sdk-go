@@ -19,9 +19,11 @@ type WebhookEventType = oapi.WebhookEventType
 type WebhooksListParams struct {
 	Sort WebhookSortField
 	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order string
+	Order SortOrder
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
 	IncludeTotal bool
 }
@@ -29,8 +31,9 @@ type WebhooksListParams struct {
 func (p WebhooksListParams) toWire(startingAfter string) *oapi.ListWebhooksParams {
 	return &oapi.ListWebhooksParams{
 		Sort:          optZero(p.Sort),
-		Order:         optEnum[oapi.ListWebhooksParamsOrder](p.Order),
+		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		IncludeTotal:  optBool(p.IncludeTotal),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -108,7 +111,7 @@ func (p WebhooksUpdateParams) toWire() oapi.WebhookEndpointUpdate {
 	for i, v := range p.Events {
 		events[i] = oapi.WebhookEventType(v)
 	}
-	if len(events) > 0 {
+	if p.Events != nil {
 		body.Events = &events
 	}
 	if p.Status != nil {
@@ -138,7 +141,11 @@ func (s *WebhooksService) ListPage(ctx context.Context, params WebhooksListParam
 // fetch failed.
 func (s *WebhooksService) List(ctx context.Context, params WebhooksListParams, opts ...option.RequestOption) iter.Seq2[*WebhookEndpoint, error] {
 	return paginate(func(cursor string) ([]WebhookEndpoint, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

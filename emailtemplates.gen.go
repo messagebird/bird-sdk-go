@@ -28,6 +28,8 @@ type EmailTemplatesListParams struct {
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p EmailTemplatesListParams) toWire(startingAfter string) *oapi.ListEmailTemplatesParams {
@@ -38,6 +40,7 @@ func (p EmailTemplatesListParams) toWire(startingAfter string) *oapi.ListEmailTe
 		Theme:         optZero(p.Theme),
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -102,7 +105,7 @@ func (p EmailTemplatesPreviewParams) toWire() oapi.EmailTemplatePreviewRequest {
 	if p.Content != nil {
 		body.Content = p.Content
 	}
-	if len(p.Parameters) > 0 {
+	if p.Parameters != nil {
 		v := p.Parameters
 		body.Parameters = &v
 	}
@@ -133,7 +136,11 @@ func (s *EmailTemplatesService) ListPage(ctx context.Context, params EmailTempla
 // fetch failed.
 func (s *EmailTemplatesService) List(ctx context.Context, params EmailTemplatesListParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateSummary, error] {
 	return paginate(func(cursor string) ([]EmailTemplateSummary, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

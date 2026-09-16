@@ -3,34 +3,55 @@ package bird
 
 import (
 	"context"
+	"iter"
 	"net/http"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-// SMSTemplateListParams filters the list read.
+// SMSTemplateListParams filters the list. Zero-value fields are omitted.
 type SMSTemplateListParams struct {
-	// Keep only templates of this scope. Every SMS template is `system`, so `workspace` matches none. Omit for all.
+	// Filter by who owns the template. Use `system` for built-in templates and `workspace` for templates your workspace created.
 	Scope TemplateScope
-	// Keep only templates whose `category` matches. Omit for all categories.
-	Category SMSMessageCategory
-	// Keep only templates available in this language, as a BCP-47 tag. Matches the template's `available_languages` entries exactly, with no fallback.
+	// Return templates in this category.
+	Category SMSTemplateCategory
+	// Return templates with this lifecycle status.
+	Status TemplateStatus
+	// Return templates whose published content contains this language, after the tag is canonicalized. Draft-only languages do not match.
 	Language string
+	// A case-insensitive substring search across slug, name, and description.
+	Q string
+	// Field to sort by.
+	Sort SMSTemplateSortField
+	// Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order SortOrder
+	// Maximum number of items to return per page.
+	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
-func (p SMSTemplateListParams) toWire() *oapi.ListSMSTemplatesParams {
+func (p SMSTemplateListParams) toWire(startingAfter string) *oapi.ListSMSTemplatesParams {
 	return &oapi.ListSMSTemplatesParams{
-		Scope:    optZero(p.Scope),
-		Category: optZero(p.Category),
-		Language: optZero(p.Language),
+		Scope:         optZero(p.Scope),
+		Category:      optZero(p.Category),
+		Status:        optZero(p.Status),
+		Language:      optZero(p.Language),
+		Q:             optStr(p.Q),
+		Sort:          optZero(p.Sort),
+		Order:         optZero(p.Order),
+		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// List List the SMS templates available to your workspace, including our built-in templates. Filter by scope, category, or language. The catalog is small and returned in full; this list is not paginated. Use `sms_templates.get` to read one template's variables before sending with it.
-func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListParams, opts ...option.RequestOption) (*SMSTemplateList, error) {
+// ListPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *SmsTemplatesService) ListPage(ctx context.Context, params SMSTemplateListParams, startingAfter string, opts ...option.RequestOption) (*SMSTemplateList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListSMSTemplates(ctx, params.toWire(), cfg...)
+		return s.client.oapi.ListSMSTemplates(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -42,7 +63,24 @@ func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListPa
 	return &out, nil
 }
 
-// Get Get one SMS template by its slug or ID, including its body and the variables it expects. Fetch it before `sms.send` to see which parameter keys a template send requires.
+// List List workspace and built-in SMS templates as a cursor page. Filter by scope, category, status, language, or a search across slug, name, and description. Read a version to retrieve content and variables.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListParams, opts ...option.RequestOption) iter.Seq2[*SMSTemplateSummary, error] {
+	return paginate(func(cursor string) ([]SMSTemplateSummary, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		return page.Data, page.NextCursor, nil
+	})
+}
+
+// Get Read one SMS template's metadata, language states, draft revision, and draft and live version IDs. The response omits content and variables; read a version to retrieve them.
 func (s *SmsTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*SMSTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetSMSTemplate(ctx, templateRef, cfg...)

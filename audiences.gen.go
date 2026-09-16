@@ -18,12 +18,15 @@ type AudienceListParams struct {
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p AudienceListParams) toWire(startingAfter string) *oapi.ListAudiencesParams {
 	return &oapi.ListAudiencesParams{
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -69,12 +72,15 @@ type AudienceListContactsParams struct {
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p AudienceListContactsParams) toWire(startingAfter string) *oapi.ListAudienceContactsParams {
 	return &oapi.ListAudienceContactsParams{
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -132,7 +138,11 @@ func (s *AudiencesService) ListPage(ctx context.Context, params AudienceListPara
 // fetch failed.
 func (s *AudiencesService) List(ctx context.Context, params AudienceListParams, opts ...option.RequestOption) iter.Seq2[*Audience, error] {
 	return paginate(func(cursor string) ([]Audience, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -226,7 +236,11 @@ func (s *AudiencesService) ListContactsPage(ctx context.Context, audienceId stri
 // fetch failed.
 func (s *AudiencesService) ListContacts(ctx context.Context, audienceId string, params AudienceListContactsParams, opts ...option.RequestOption) iter.Seq2[*AudienceMember, error] {
 	return paginate(func(cursor string) ([]AudienceMember, *string, error) {
-		page, err := s.ListContactsPage(ctx, audienceId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListContactsPage(ctx, audienceId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

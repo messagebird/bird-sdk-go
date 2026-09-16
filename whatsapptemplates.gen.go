@@ -24,6 +24,8 @@ type WhatsappTemplatesListParams struct {
 	Q string
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 }
 
 func (p WhatsappTemplatesListParams) toWire(startingAfter string) *oapi.ListWhatsAppTemplatesParams {
@@ -34,6 +36,7 @@ func (p WhatsappTemplatesListParams) toWire(startingAfter string) *oapi.ListWhat
 		Category:      optZero(p.Category),
 		Q:             optStr(p.Q),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
 }
@@ -59,7 +62,11 @@ func (s *WhatsappTemplatesService) ListPage(ctx context.Context, params Whatsapp
 // fetch failed.
 func (s *WhatsappTemplatesService) List(ctx context.Context, params WhatsappTemplatesListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppTemplate, error] {
 	return paginate(func(cursor string) ([]WhatsAppTemplate, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

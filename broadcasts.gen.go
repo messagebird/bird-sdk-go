@@ -15,6 +15,8 @@ import (
 type BroadcastsListParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Filter by lifecycle status. Repeat the parameter to match more than one status, for example `?status=accepted&status=sending`.
 	Status []EmailBroadcastStatus
 	// Filter by audience. Only broadcasts that use this audience are returned.
@@ -32,6 +34,7 @@ type BroadcastsListParams struct {
 func (p BroadcastsListParams) toWire(startingAfter string) *oapi.ListEmailBroadcastsParams {
 	return &oapi.ListEmailBroadcastsParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		Status:        optSlice(p.Status),
 		AudienceId:    optZero(p.AudienceID),
 		Tag:           optStr(p.Tag),
@@ -46,6 +49,8 @@ func (p BroadcastsListParams) toWire(startingAfter string) *oapi.ListEmailBroadc
 type BroadcastsListEventsParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Filter by event type, for example `email.bounced` or `email.opened`. A broadcast timeline is recipient-scoped, so `email.scheduled` and `email.canceled` never appear on it; a canceled broadcast reports that in its own `status`.
 	Type EmailEventType
 }
@@ -53,6 +58,7 @@ type BroadcastsListEventsParams struct {
 func (p BroadcastsListEventsParams) toWire(startingAfter string) *oapi.ListEmailBroadcastEventsParams {
 	return &oapi.ListEmailBroadcastEventsParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		Type:          optZero(p.Type),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -62,6 +68,8 @@ func (p BroadcastsListEventsParams) toWire(startingAfter string) *oapi.ListEmail
 type BroadcastsListRecipientsParams struct {
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Return only the recipient at this address. Exact match, normalised to lowercase before comparison, so it returns at most one row.
 	To string
 }
@@ -69,6 +77,7 @@ type BroadcastsListRecipientsParams struct {
 func (p BroadcastsListRecipientsParams) toWire(startingAfter string) *oapi.ListEmailBroadcastRecipientsParams {
 	return &oapi.ListEmailBroadcastRecipientsParams{
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		To:            optEmail(p.To),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -95,7 +104,11 @@ func (s *BroadcastsService) ListPage(ctx context.Context, params BroadcastsListP
 // fetch failed.
 func (s *BroadcastsService) List(ctx context.Context, params BroadcastsListParams, opts ...option.RequestOption) iter.Seq2[*EmailBroadcast, error] {
 	return paginate(func(cursor string) ([]EmailBroadcast, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -170,7 +183,11 @@ func (s *BroadcastsService) ListEventsPage(ctx context.Context, broadcastId stri
 // fetch failed.
 func (s *BroadcastsService) ListEvents(ctx context.Context, broadcastId string, params BroadcastsListEventsParams, opts ...option.RequestOption) iter.Seq2[*EmailEvent, error] {
 	return paginate(func(cursor string) ([]EmailEvent, *string, error) {
-		page, err := s.ListEventsPage(ctx, broadcastId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListEventsPage(ctx, broadcastId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -199,7 +216,11 @@ func (s *BroadcastsService) ListRecipientsPage(ctx context.Context, broadcastId 
 // fetch failed.
 func (s *BroadcastsService) ListRecipients(ctx context.Context, broadcastId string, params BroadcastsListRecipientsParams, opts ...option.RequestOption) iter.Seq2[*EmailRecipient, error] {
 	return paginate(func(cursor string) ([]EmailRecipient, *string, error) {
-		page, err := s.ListRecipientsPage(ctx, broadcastId, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListRecipientsPage(ctx, broadcastId, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

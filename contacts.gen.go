@@ -32,6 +32,8 @@ type ContactListParams struct {
 	Identifier ContactIdentifierFilter
 	// Maximum number of items to return per page.
 	Limit int
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
 	IncludeTotal bool
 }
@@ -44,6 +46,7 @@ func (p ContactListParams) toWire(startingAfter string) *oapi.ListContactsParams
 		Q:             optStr(p.Q),
 		Identifier:    optZero(p.Identifier),
 		Limit:         optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
 		IncludeTotal:  optBool(p.IncludeTotal),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -74,7 +77,7 @@ func (p ContactCreateParams) toWire() oapi.ContactCreateRequest {
 	body.FirstName = p.FirstName
 	body.LastName = p.LastName
 	body.ExternalId = p.ExternalID
-	if len(p.Data) > 0 {
+	if p.Data != nil {
 		v := p.Data
 		body.Data = &v
 	}
@@ -104,7 +107,7 @@ func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 	body.FirstName = p.FirstName
 	body.LastName = p.LastName
 	body.ExternalId = p.ExternalID
-	if len(p.Data) > 0 {
+	if p.Data != nil {
 		v := p.Data
 		body.Data = &v
 	}
@@ -130,7 +133,7 @@ func (p ContactBatchParams) toWire() oapi.ContactUpsertRequest {
 	for i, v := range p.AudienceIDs {
 		audienceIds[i] = oapi.AudienceID(v)
 	}
-	if len(audienceIds) > 0 {
+	if p.AudienceIDs != nil {
 		body.AudienceIds = &audienceIds
 	}
 	if p.MatchOn != nil {
@@ -163,7 +166,11 @@ func (s *ContactsService) ListPage(ctx context.Context, params ContactListParams
 // fetch failed.
 func (s *ContactsService) List(ctx context.Context, params ContactListParams, opts ...option.RequestOption) iter.Seq2[*Contact, error] {
 	return paginate(func(cursor string) ([]Contact, *string, error) {
-		page, err := s.ListPage(ctx, params, cursor, opts...)
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}

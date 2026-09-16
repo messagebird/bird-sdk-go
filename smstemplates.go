@@ -1,6 +1,10 @@
 package bird
 
-// SmsTemplatesService reads the SMS templates available to a workspace — Bird's
-// built-in templates and any the workspace authored. Reach it via
-// Client.SmsTemplates. The catalogue is read-only through this SDK.
-type SmsTemplatesService struct{ resource }
+// SmsTemplatesService reads the SMS templates available to a workspace. Reach
+// it via Client.SmsTemplates.
+type SmsTemplatesService struct {
+	resource
+
+	// Versions reads the content and variables stored under one template.
+	Versions *SmsTemplatesVersionsService
+}

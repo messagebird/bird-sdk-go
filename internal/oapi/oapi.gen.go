@@ -780,6 +780,120 @@ func (e EmailCompatibilitySeverity) Valid() bool {
 	}
 }
 
+// Defines values for EmailCompetitiveCampaignSignal.
+const (
+	EmailCompetitiveCampaignSignalBiggestSend      EmailCompetitiveCampaignSignal = "biggest_send"
+	EmailCompetitiveCampaignSignalLandingInSpam    EmailCompetitiveCampaignSignal = "landing_in_spam"
+	EmailCompetitiveCampaignSignalReadRateStandout EmailCompetitiveCampaignSignal = "read_rate_standout"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompetitiveCampaignSignal enum.
+func (e EmailCompetitiveCampaignSignal) Valid() bool {
+	switch e {
+	case EmailCompetitiveCampaignSignalBiggestSend:
+		return true
+	case EmailCompetitiveCampaignSignalLandingInSpam:
+		return true
+	case EmailCompetitiveCampaignSignalReadRateStandout:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompetitiveCampaignSort.
+const (
+	SentAt EmailCompetitiveCampaignSort = "sent_at"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompetitiveCampaignSort enum.
+func (e EmailCompetitiveCampaignSort) Valid() bool {
+	switch e {
+	case SentAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompetitiveFieldSource.
+const (
+	EmailCompetitiveFieldSourceMeasured EmailCompetitiveFieldSource = "measured"
+	EmailCompetitiveFieldSourceNone     EmailCompetitiveFieldSource = "none"
+	EmailCompetitiveFieldSourcePanel    EmailCompetitiveFieldSource = "panel"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompetitiveFieldSource enum.
+func (e EmailCompetitiveFieldSource) Valid() bool {
+	switch e {
+	case EmailCompetitiveFieldSourceMeasured:
+		return true
+	case EmailCompetitiveFieldSourceNone:
+		return true
+	case EmailCompetitiveFieldSourcePanel:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompetitivePanelStatus.
+const (
+	EmailCompetitivePanelStatusNoData      EmailCompetitivePanelStatus = "no_data"
+	EmailCompetitivePanelStatusNotInPanel  EmailCompetitivePanelStatus = "not_in_panel"
+	EmailCompetitivePanelStatusOk          EmailCompetitivePanelStatus = "ok"
+	EmailCompetitivePanelStatusUnavailable EmailCompetitivePanelStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompetitivePanelStatus enum.
+func (e EmailCompetitivePanelStatus) Valid() bool {
+	switch e {
+	case EmailCompetitivePanelStatusNoData:
+		return true
+	case EmailCompetitivePanelStatusNotInPanel:
+		return true
+	case EmailCompetitivePanelStatusOk:
+		return true
+	case EmailCompetitivePanelStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailCompetitiveWeekday.
+const (
+	Friday    EmailCompetitiveWeekday = "friday"
+	Monday    EmailCompetitiveWeekday = "monday"
+	Saturday  EmailCompetitiveWeekday = "saturday"
+	Sunday    EmailCompetitiveWeekday = "sunday"
+	Thursday  EmailCompetitiveWeekday = "thursday"
+	Tuesday   EmailCompetitiveWeekday = "tuesday"
+	Wednesday EmailCompetitiveWeekday = "wednesday"
+)
+
+// Valid indicates whether the value is a known member of the EmailCompetitiveWeekday enum.
+func (e EmailCompetitiveWeekday) Valid() bool {
+	switch e {
+	case Friday:
+		return true
+	case Monday:
+		return true
+	case Saturday:
+		return true
+	case Sunday:
+		return true
+	case Thursday:
+		return true
+	case Tuesday:
+		return true
+	case Wednesday:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailEngagementSortMetric.
 const (
 	EmailEngagementSortMetricClicks                   EmailEngagementSortMetric = "clicks"
@@ -924,6 +1038,357 @@ func (e EmailEventType) Valid() bool {
 	case EmailEventTypeEmailScheduled:
 		return true
 	case EmailEventTypeEmailUnsubscribed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailHealthStatus.
+const (
+	EmailHealthStatusHealthy   EmailHealthStatus = "healthy"
+	EmailHealthStatusThrottled EmailHealthStatus = "throttled"
+	EmailHealthStatusWatching  EmailHealthStatus = "watching"
+)
+
+// Valid indicates whether the value is a known member of the EmailHealthStatus enum.
+func (e EmailHealthStatus) Valid() bool {
+	switch e {
+	case EmailHealthStatusHealthy:
+		return true
+	case EmailHealthStatusThrottled:
+		return true
+	case EmailHealthStatusWatching:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailHealthSignalMetric.
+const (
+	EmailHealthSignalMetricBounceRate    EmailHealthSignalMetric = "bounce_rate"
+	EmailHealthSignalMetricComplaintRate EmailHealthSignalMetric = "complaint_rate"
+	EmailHealthSignalMetricDeliveryRate  EmailHealthSignalMetric = "delivery_rate"
+	EmailHealthSignalMetricOpenRate      EmailHealthSignalMetric = "open_rate"
+)
+
+// Valid indicates whether the value is a known member of the EmailHealthSignalMetric enum.
+func (e EmailHealthSignalMetric) Valid() bool {
+	switch e {
+	case EmailHealthSignalMetricBounceRate:
+		return true
+	case EmailHealthSignalMetricComplaintRate:
+		return true
+	case EmailHealthSignalMetricDeliveryRate:
+		return true
+	case EmailHealthSignalMetricOpenRate:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailHealthSignalStatus.
+const (
+	EmailHealthSignalStatusHealthy   EmailHealthSignalStatus = "healthy"
+	EmailHealthSignalStatusStrong    EmailHealthSignalStatus = "strong"
+	EmailHealthSignalStatusThrottled EmailHealthSignalStatus = "throttled"
+	EmailHealthSignalStatusWatching  EmailHealthSignalStatus = "watching"
+)
+
+// Valid indicates whether the value is a known member of the EmailHealthSignalStatus enum.
+func (e EmailHealthSignalStatus) Valid() bool {
+	switch e {
+	case EmailHealthSignalStatusHealthy:
+		return true
+	case EmailHealthSignalStatusStrong:
+		return true
+	case EmailHealthSignalStatusThrottled:
+		return true
+	case EmailHealthSignalStatusWatching:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailHealthSignalThresholdsDirection.
+const (
+	EmailHealthSignalThresholdsDirectionAbove EmailHealthSignalThresholdsDirection = "above"
+	EmailHealthSignalThresholdsDirectionBelow EmailHealthSignalThresholdsDirection = "below"
+)
+
+// Valid indicates whether the value is a known member of the EmailHealthSignalThresholdsDirection enum.
+func (e EmailHealthSignalThresholdsDirection) Valid() bool {
+	switch e {
+	case EmailHealthSignalThresholdsDirectionAbove:
+		return true
+	case EmailHealthSignalThresholdsDirectionBelow:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsCompare.
+const (
+	EmailInboxInsightsComparePreviousPeriod EmailInboxInsightsCompare = "previous_period"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsCompare enum.
+func (e EmailInboxInsightsCompare) Valid() bool {
+	switch e {
+	case EmailInboxInsightsComparePreviousPeriod:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsDmarcPolicy.
+const (
+	EmailInboxInsightsDmarcPolicyNone       EmailInboxInsightsDmarcPolicy = "none"
+	EmailInboxInsightsDmarcPolicyQuarantine EmailInboxInsightsDmarcPolicy = "quarantine"
+	EmailInboxInsightsDmarcPolicyReject     EmailInboxInsightsDmarcPolicy = "reject"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsDmarcPolicy enum.
+func (e EmailInboxInsightsDmarcPolicy) Valid() bool {
+	switch e {
+	case EmailInboxInsightsDmarcPolicyNone:
+		return true
+	case EmailInboxInsightsDmarcPolicyQuarantine:
+		return true
+	case EmailInboxInsightsDmarcPolicyReject:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsDmarcReadinessReason.
+const (
+	EmailInboxInsightsDmarcReadinessReasonDataTooStale         EmailInboxInsightsDmarcReadinessReason = "data_too_stale"
+	EmailInboxInsightsDmarcReadinessReasonNoPolicy             EmailInboxInsightsDmarcReadinessReason = "no_policy"
+	EmailInboxInsightsDmarcReadinessReasonNoRuaData            EmailInboxInsightsDmarcReadinessReason = "no_rua_data"
+	EmailInboxInsightsDmarcReadinessReasonSourceBelowThreshold EmailInboxInsightsDmarcReadinessReason = "source_below_threshold"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsDmarcReadinessReason enum.
+func (e EmailInboxInsightsDmarcReadinessReason) Valid() bool {
+	switch e {
+	case EmailInboxInsightsDmarcReadinessReasonDataTooStale:
+		return true
+	case EmailInboxInsightsDmarcReadinessReasonNoPolicy:
+		return true
+	case EmailInboxInsightsDmarcReadinessReasonNoRuaData:
+		return true
+	case EmailInboxInsightsDmarcReadinessReasonSourceBelowThreshold:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsDmarcVerdict.
+const (
+	EmailInboxInsightsDmarcVerdictAligned     EmailInboxInsightsDmarcVerdict = "aligned"
+	EmailInboxInsightsDmarcVerdictDkimOnly    EmailInboxInsightsDmarcVerdict = "dkim_only"
+	EmailInboxInsightsDmarcVerdictFailsPolicy EmailInboxInsightsDmarcVerdict = "fails_policy"
+	EmailInboxInsightsDmarcVerdictSpfOnly     EmailInboxInsightsDmarcVerdict = "spf_only"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsDmarcVerdict enum.
+func (e EmailInboxInsightsDmarcVerdict) Valid() bool {
+	switch e {
+	case EmailInboxInsightsDmarcVerdictAligned:
+		return true
+	case EmailInboxInsightsDmarcVerdictDkimOnly:
+		return true
+	case EmailInboxInsightsDmarcVerdictFailsPolicy:
+		return true
+	case EmailInboxInsightsDmarcVerdictSpfOnly:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsDomainMonitoringOutcome.
+const (
+	AlreadyOn         EmailInboxInsightsDomainMonitoringOutcome = "already_on"
+	ChoiceRequired    EmailInboxInsightsDomainMonitoringOutcome = "choice_required"
+	Enabled           EmailInboxInsightsDomainMonitoringOutcome = "enabled"
+	NoVerifiedDomains EmailInboxInsightsDomainMonitoringOutcome = "no_verified_domains"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsDomainMonitoringOutcome enum.
+func (e EmailInboxInsightsDomainMonitoringOutcome) Valid() bool {
+	switch e {
+	case AlreadyOn:
+		return true
+	case ChoiceRequired:
+		return true
+	case Enabled:
+		return true
+	case NoVerifiedDomains:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsDomainSort.
+const (
+	EmailInboxInsightsDomainSortDomain EmailInboxInsightsDomainSort = "domain"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsDomainSort enum.
+func (e EmailInboxInsightsDomainSort) Valid() bool {
+	switch e {
+	case EmailInboxInsightsDomainSortDomain:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsGmailTab.
+const (
+	EmailInboxInsightsGmailTabForums     EmailInboxInsightsGmailTab = "forums"
+	EmailInboxInsightsGmailTabNone       EmailInboxInsightsGmailTab = "none"
+	EmailInboxInsightsGmailTabPrimary    EmailInboxInsightsGmailTab = "primary"
+	EmailInboxInsightsGmailTabPromotions EmailInboxInsightsGmailTab = "promotions"
+	EmailInboxInsightsGmailTabSocial     EmailInboxInsightsGmailTab = "social"
+	EmailInboxInsightsGmailTabUpdates    EmailInboxInsightsGmailTab = "updates"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsGmailTab enum.
+func (e EmailInboxInsightsGmailTab) Valid() bool {
+	switch e {
+	case EmailInboxInsightsGmailTabForums:
+		return true
+	case EmailInboxInsightsGmailTabNone:
+		return true
+	case EmailInboxInsightsGmailTabPrimary:
+		return true
+	case EmailInboxInsightsGmailTabPromotions:
+		return true
+	case EmailInboxInsightsGmailTabSocial:
+		return true
+	case EmailInboxInsightsGmailTabUpdates:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsGroupBy.
+const (
+	EmailInboxInsightsGroupByDay   EmailInboxInsightsGroupBy = "day"
+	EmailInboxInsightsGroupByMonth EmailInboxInsightsGroupBy = "month"
+	EmailInboxInsightsGroupByWeek  EmailInboxInsightsGroupBy = "week"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsGroupBy enum.
+func (e EmailInboxInsightsGroupBy) Valid() bool {
+	switch e {
+	case EmailInboxInsightsGroupByDay:
+		return true
+	case EmailInboxInsightsGroupByMonth:
+		return true
+	case EmailInboxInsightsGroupByWeek:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsSectionStatus.
+const (
+	EmailInboxInsightsSectionStatusNoData        EmailInboxInsightsSectionStatus = "no_data"
+	EmailInboxInsightsSectionStatusNotApplicable EmailInboxInsightsSectionStatus = "not_applicable"
+	EmailInboxInsightsSectionStatusNotConfigured EmailInboxInsightsSectionStatus = "not_configured"
+	EmailInboxInsightsSectionStatusOk            EmailInboxInsightsSectionStatus = "ok"
+	EmailInboxInsightsSectionStatusUnavailable   EmailInboxInsightsSectionStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsSectionStatus enum.
+func (e EmailInboxInsightsSectionStatus) Valid() bool {
+	switch e {
+	case EmailInboxInsightsSectionStatusNoData:
+		return true
+	case EmailInboxInsightsSectionStatusNotApplicable:
+		return true
+	case EmailInboxInsightsSectionStatusNotConfigured:
+		return true
+	case EmailInboxInsightsSectionStatusOk:
+		return true
+	case EmailInboxInsightsSectionStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsTrapSource.
+const (
+	EmailInboxInsightsTrapSourceAbusix    EmailInboxInsightsTrapSource = "abusix"
+	EmailInboxInsightsTrapSourceCloudmark EmailInboxInsightsTrapSource = "cloudmark"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsTrapSource enum.
+func (e EmailInboxInsightsTrapSource) Valid() bool {
+	switch e {
+	case EmailInboxInsightsTrapSourceAbusix:
+		return true
+	case EmailInboxInsightsTrapSourceCloudmark:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsTrapType.
+const (
+	EmailInboxInsightsTrapTypeMixed    EmailInboxInsightsTrapType = "mixed"
+	EmailInboxInsightsTrapTypeParked   EmailInboxInsightsTrapType = "parked"
+	EmailInboxInsightsTrapTypePristine EmailInboxInsightsTrapType = "pristine"
+	EmailInboxInsightsTrapTypeRecycled EmailInboxInsightsTrapType = "recycled"
+	EmailInboxInsightsTrapTypeTypo     EmailInboxInsightsTrapType = "typo"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsTrapType enum.
+func (e EmailInboxInsightsTrapType) Valid() bool {
+	switch e {
+	case EmailInboxInsightsTrapTypeMixed:
+		return true
+	case EmailInboxInsightsTrapTypeParked:
+		return true
+	case EmailInboxInsightsTrapTypePristine:
+		return true
+	case EmailInboxInsightsTrapTypeRecycled:
+		return true
+	case EmailInboxInsightsTrapTypeTypo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsWeightingSource.
+const (
+	Account EmailInboxInsightsWeightingSource = "account"
+	Global  EmailInboxInsightsWeightingSource = "global"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsWeightingSource enum.
+func (e EmailInboxInsightsWeightingSource) Valid() bool {
+	switch e {
+	case Account:
+		return true
+	case Global:
 		return true
 	default:
 		return false
@@ -2684,16 +3149,16 @@ func (e InboundRouteUpdateAction) Valid() bool {
 
 // Defines values for InboundRouteUpdateMatchType.
 const (
-	InboundRouteUpdateMatchTypeAddress  InboundRouteUpdateMatchType = "address"
-	InboundRouteUpdateMatchTypeCatchAll InboundRouteUpdateMatchType = "catch_all"
+	Address  InboundRouteUpdateMatchType = "address"
+	CatchAll InboundRouteUpdateMatchType = "catch_all"
 )
 
 // Valid indicates whether the value is a known member of the InboundRouteUpdateMatchType enum.
 func (e InboundRouteUpdateMatchType) Valid() bool {
 	switch e {
-	case InboundRouteUpdateMatchTypeAddress:
+	case Address:
 		return true
-	case InboundRouteUpdateMatchTypeCatchAll:
+	case CatchAll:
 		return true
 	default:
 		return false
@@ -3623,22 +4088,22 @@ func (e SMSMessageDirection) Valid() bool {
 
 // Defines values for SMSMessageCategory.
 const (
-	Authentication SMSMessageCategory = "authentication"
-	Marketing      SMSMessageCategory = "marketing"
-	Service        SMSMessageCategory = "service"
-	Transactional  SMSMessageCategory = "transactional"
+	SMSMessageCategoryAuthentication SMSMessageCategory = "authentication"
+	SMSMessageCategoryMarketing      SMSMessageCategory = "marketing"
+	SMSMessageCategoryService        SMSMessageCategory = "service"
+	SMSMessageCategoryTransactional  SMSMessageCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSMessageCategory enum.
 func (e SMSMessageCategory) Valid() bool {
 	switch e {
-	case Authentication:
+	case SMSMessageCategoryAuthentication:
 		return true
-	case Marketing:
+	case SMSMessageCategoryMarketing:
 		return true
-	case Service:
+	case SMSMessageCategoryService:
 		return true
-	case Transactional:
+	case SMSMessageCategoryTransactional:
 		return true
 	default:
 		return false
@@ -3929,19 +4394,91 @@ func (e SMSSuppressionReason) Valid() bool {
 
 // Defines values for SMSSuppressionReasonFilter.
 const (
-	CarrierOptedOut SMSSuppressionReasonFilter = "carrier_opted_out"
-	KeywordStop     SMSSuppressionReasonFilter = "keyword_stop"
-	Manual          SMSSuppressionReasonFilter = "manual"
+	SMSSuppressionReasonFilterCarrierOptedOut SMSSuppressionReasonFilter = "carrier_opted_out"
+	SMSSuppressionReasonFilterKeywordStop     SMSSuppressionReasonFilter = "keyword_stop"
+	SMSSuppressionReasonFilterManual          SMSSuppressionReasonFilter = "manual"
 )
 
 // Valid indicates whether the value is a known member of the SMSSuppressionReasonFilter enum.
 func (e SMSSuppressionReasonFilter) Valid() bool {
 	switch e {
-	case CarrierOptedOut:
+	case SMSSuppressionReasonFilterCarrierOptedOut:
 		return true
-	case KeywordStop:
+	case SMSSuppressionReasonFilterKeywordStop:
 		return true
-	case Manual:
+	case SMSSuppressionReasonFilterManual:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSTemplateCategory.
+const (
+	SMSTemplateCategoryAuthentication SMSTemplateCategory = "authentication"
+	SMSTemplateCategoryMarketing      SMSTemplateCategory = "marketing"
+	SMSTemplateCategoryTransactional  SMSTemplateCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the SMSTemplateCategory enum.
+func (e SMSTemplateCategory) Valid() bool {
+	switch e {
+	case SMSTemplateCategoryAuthentication:
+		return true
+	case SMSTemplateCategoryMarketing:
+		return true
+	case SMSTemplateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSTemplateSortField.
+const (
+	SMSTemplateSortFieldCreatedAt SMSTemplateSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the SMSTemplateSortField enum.
+func (e SMSTemplateSortField) Valid() bool {
+	switch e {
+	case SMSTemplateSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SMSTemplateVersionStatus.
+const (
+	SMSTemplateVersionStatusDraft     SMSTemplateVersionStatus = "draft"
+	SMSTemplateVersionStatusPublished SMSTemplateVersionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the SMSTemplateVersionStatus enum.
+func (e SMSTemplateVersionStatus) Valid() bool {
+	switch e {
+	case SMSTemplateVersionStatusDraft:
+		return true
+	case SMSTemplateVersionStatusPublished:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SortOrder.
+const (
+	Asc  SortOrder = "asc"
+	Desc SortOrder = "desc"
+)
+
+// Valid indicates whether the value is a known member of the SortOrder enum.
+func (e SortOrder) Valid() bool {
+	switch e {
+	case Asc:
+		return true
+	case Desc:
 		return true
 	default:
 		return false
@@ -3999,6 +4536,30 @@ func (e StatsTrendGrain) Valid() bool {
 	}
 }
 
+// Defines values for SuppressionReasonFilter.
+const (
+	SuppressionReasonFilterComplaint   SuppressionReasonFilter = "complaint"
+	SuppressionReasonFilterHardBounce  SuppressionReasonFilter = "hard_bounce"
+	SuppressionReasonFilterManual      SuppressionReasonFilter = "manual"
+	SuppressionReasonFilterUnsubscribe SuppressionReasonFilter = "unsubscribe"
+)
+
+// Valid indicates whether the value is a known member of the SuppressionReasonFilter enum.
+func (e SuppressionReasonFilter) Valid() bool {
+	switch e {
+	case SuppressionReasonFilterComplaint:
+		return true
+	case SuppressionReasonFilterHardBounce:
+		return true
+	case SuppressionReasonFilterManual:
+		return true
+	case SuppressionReasonFilterUnsubscribe:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SuppressionScopeType.
 const (
 	SuppressionScopeTypeAudience  SuppressionScopeType = "audience"
@@ -4023,6 +4584,36 @@ func (e SuppressionScopeType) Valid() bool {
 	case SuppressionScopeTypeTopic:
 		return true
 	case SuppressionScopeTypeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SuppressionScopeTypeFilter.
+const (
+	SuppressionScopeTypeFilterAudience  SuppressionScopeTypeFilter = "audience"
+	SuppressionScopeTypeFilterCategory  SuppressionScopeTypeFilter = "category"
+	SuppressionScopeTypeFilterContact   SuppressionScopeTypeFilter = "contact"
+	SuppressionScopeTypeFilterDomain    SuppressionScopeTypeFilter = "domain"
+	SuppressionScopeTypeFilterTopic     SuppressionScopeTypeFilter = "topic"
+	SuppressionScopeTypeFilterWorkspace SuppressionScopeTypeFilter = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the SuppressionScopeTypeFilter enum.
+func (e SuppressionScopeTypeFilter) Valid() bool {
+	switch e {
+	case SuppressionScopeTypeFilterAudience:
+		return true
+	case SuppressionScopeTypeFilterCategory:
+		return true
+	case SuppressionScopeTypeFilterContact:
+		return true
+	case SuppressionScopeTypeFilterDomain:
+		return true
+	case SuppressionScopeTypeFilterTopic:
+		return true
+	case SuppressionScopeTypeFilterWorkspace:
 		return true
 	default:
 		return false
@@ -4313,10 +4904,9 @@ func (e VoiceCallRejectionReason) Valid() bool {
 
 // Defines values for VoiceCallRouteType.
 const (
-	Forward   VoiceCallRouteType = "forward"
-	Reject    VoiceCallRouteType = "reject"
-	Trunk     VoiceCallRouteType = "trunk"
-	Voicemail VoiceCallRouteType = "voicemail"
+	Forward VoiceCallRouteType = "forward"
+	Reject  VoiceCallRouteType = "reject"
+	Trunk   VoiceCallRouteType = "trunk"
 )
 
 // Valid indicates whether the value is a known member of the VoiceCallRouteType enum.
@@ -4327,8 +4917,6 @@ func (e VoiceCallRouteType) Valid() bool {
 	case Reject:
 		return true
 	case Trunk:
-		return true
-	case Voicemail:
 		return true
 	default:
 		return false
@@ -5742,18 +6330,126 @@ func (e WhatsAppUsernameStatus) Valid() bool {
 	}
 }
 
-// Defines values for OrderDesc.
+// Defines values for EmailCompetitiveRange.
 const (
-	OrderDescAsc  OrderDesc = "asc"
-	OrderDescDesc OrderDesc = "desc"
+	EmailCompetitiveRangeN30 EmailCompetitiveRange = 30
+	EmailCompetitiveRangeN7  EmailCompetitiveRange = 7
+	EmailCompetitiveRangeN90 EmailCompetitiveRange = 90
 )
 
-// Valid indicates whether the value is a known member of the OrderDesc enum.
-func (e OrderDesc) Valid() bool {
+// Valid indicates whether the value is a known member of the EmailCompetitiveRange enum.
+func (e EmailCompetitiveRange) Valid() bool {
 	switch e {
-	case OrderDescAsc:
+	case EmailCompetitiveRangeN30:
 		return true
-	case OrderDescDesc:
+	case EmailCompetitiveRangeN7:
+		return true
+	case EmailCompetitiveRangeN90:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailCompetitiveVolumeSeriesParamsRange.
+const (
+	GetEmailCompetitiveVolumeSeriesParamsRangeN30 GetEmailCompetitiveVolumeSeriesParamsRange = 30
+	GetEmailCompetitiveVolumeSeriesParamsRangeN7  GetEmailCompetitiveVolumeSeriesParamsRange = 7
+	GetEmailCompetitiveVolumeSeriesParamsRangeN90 GetEmailCompetitiveVolumeSeriesParamsRange = 90
+)
+
+// Valid indicates whether the value is a known member of the GetEmailCompetitiveVolumeSeriesParamsRange enum.
+func (e GetEmailCompetitiveVolumeSeriesParamsRange) Valid() bool {
+	switch e {
+	case GetEmailCompetitiveVolumeSeriesParamsRangeN30:
+		return true
+	case GetEmailCompetitiveVolumeSeriesParamsRangeN7:
+		return true
+	case GetEmailCompetitiveVolumeSeriesParamsRangeN90:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailCompetitiveWatchlistParamsRange.
+const (
+	GetEmailCompetitiveWatchlistParamsRangeN30 GetEmailCompetitiveWatchlistParamsRange = 30
+	GetEmailCompetitiveWatchlistParamsRangeN7  GetEmailCompetitiveWatchlistParamsRange = 7
+	GetEmailCompetitiveWatchlistParamsRangeN90 GetEmailCompetitiveWatchlistParamsRange = 90
+)
+
+// Valid indicates whether the value is a known member of the GetEmailCompetitiveWatchlistParamsRange enum.
+func (e GetEmailCompetitiveWatchlistParamsRange) Valid() bool {
+	switch e {
+	case GetEmailCompetitiveWatchlistParamsRangeN30:
+		return true
+	case GetEmailCompetitiveWatchlistParamsRangeN7:
+		return true
+	case GetEmailCompetitiveWatchlistParamsRangeN90:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailCompetitiveBrandParamsRange.
+const (
+	GetEmailCompetitiveBrandParamsRangeN30 GetEmailCompetitiveBrandParamsRange = 30
+	GetEmailCompetitiveBrandParamsRangeN7  GetEmailCompetitiveBrandParamsRange = 7
+	GetEmailCompetitiveBrandParamsRangeN90 GetEmailCompetitiveBrandParamsRange = 90
+)
+
+// Valid indicates whether the value is a known member of the GetEmailCompetitiveBrandParamsRange enum.
+func (e GetEmailCompetitiveBrandParamsRange) Valid() bool {
+	switch e {
+	case GetEmailCompetitiveBrandParamsRangeN30:
+		return true
+	case GetEmailCompetitiveBrandParamsRangeN7:
+		return true
+	case GetEmailCompetitiveBrandParamsRangeN90:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailCompetitiveBrandCampaignsParamsRange.
+const (
+	GetEmailCompetitiveBrandCampaignsParamsRangeN30 GetEmailCompetitiveBrandCampaignsParamsRange = 30
+	GetEmailCompetitiveBrandCampaignsParamsRangeN7  GetEmailCompetitiveBrandCampaignsParamsRange = 7
+	GetEmailCompetitiveBrandCampaignsParamsRangeN90 GetEmailCompetitiveBrandCampaignsParamsRange = 90
+)
+
+// Valid indicates whether the value is a known member of the GetEmailCompetitiveBrandCampaignsParamsRange enum.
+func (e GetEmailCompetitiveBrandCampaignsParamsRange) Valid() bool {
+	switch e {
+	case GetEmailCompetitiveBrandCampaignsParamsRangeN30:
+		return true
+	case GetEmailCompetitiveBrandCampaignsParamsRangeN7:
+		return true
+	case GetEmailCompetitiveBrandCampaignsParamsRangeN90:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetEmailCompetitiveNotableCampaignsParamsRange.
+const (
+	GetEmailCompetitiveNotableCampaignsParamsRangeN30 GetEmailCompetitiveNotableCampaignsParamsRange = 30
+	GetEmailCompetitiveNotableCampaignsParamsRangeN7  GetEmailCompetitiveNotableCampaignsParamsRange = 7
+	GetEmailCompetitiveNotableCampaignsParamsRangeN90 GetEmailCompetitiveNotableCampaignsParamsRange = 90
+)
+
+// Valid indicates whether the value is a known member of the GetEmailCompetitiveNotableCampaignsParamsRange enum.
+func (e GetEmailCompetitiveNotableCampaignsParamsRange) Valid() bool {
+	switch e {
+	case GetEmailCompetitiveNotableCampaignsParamsRangeN30:
+		return true
+	case GetEmailCompetitiveNotableCampaignsParamsRangeN7:
+		return true
+	case GetEmailCompetitiveNotableCampaignsParamsRangeN90:
 		return true
 	default:
 		return false
@@ -5762,34 +6458,16 @@ func (e OrderDesc) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
-	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
+	CreatedAt ListDomainsParamsSort = "created_at"
+	Name      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case ListDomainsParamsSortCreatedAt:
+	case CreatedAt:
 		return true
-	case ListDomainsParamsSortName:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListDomainsParamsOrder.
-const (
-	ListDomainsParamsOrderAsc  ListDomainsParamsOrder = "asc"
-	ListDomainsParamsOrderDesc ListDomainsParamsOrder = "desc"
-)
-
-// Valid indicates whether the value is a known member of the ListDomainsParamsOrder enum.
-func (e ListDomainsParamsOrder) Valid() bool {
-	switch e {
-	case ListDomainsParamsOrderAsc:
-		return true
-	case ListDomainsParamsOrderDesc:
+	case Name:
 		return true
 	default:
 		return false
@@ -5834,16 +6512,16 @@ func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 
 // Defines values for GetMailboxStatsParamsGranularity.
 const (
-	GetMailboxStatsParamsGranularityDay  GetMailboxStatsParamsGranularity = "day"
-	GetMailboxStatsParamsGranularityHour GetMailboxStatsParamsGranularity = "hour"
+	Day  GetMailboxStatsParamsGranularity = "day"
+	Hour GetMailboxStatsParamsGranularity = "hour"
 )
 
 // Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
 func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	switch e {
-	case GetMailboxStatsParamsGranularityDay:
+	case Day:
 		return true
-	case GetMailboxStatsParamsGranularityHour:
+	case Hour:
 		return true
 	default:
 		return false
@@ -6002,13 +6680,13 @@ func (e GetEmailStatsBySendingIpParamsSort) Valid() bool {
 
 // Defines values for GetEmailStatsSummaryParamsCompare.
 const (
-	GetEmailStatsSummaryParamsComparePreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
+	PreviousPeriod GetEmailStatsSummaryParamsCompare = "previous_period"
 )
 
 // Valid indicates whether the value is a known member of the GetEmailStatsSummaryParamsCompare enum.
 func (e GetEmailStatsSummaryParamsCompare) Valid() bool {
 	switch e {
-	case GetEmailStatsSummaryParamsComparePreviousPeriod:
+	case PreviousPeriod:
 		return true
 	default:
 		return false
@@ -6024,78 +6702,6 @@ const (
 func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 	switch e {
 	case ExtractedText:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListWebhooksParamsOrder.
-const (
-	ListWebhooksParamsOrderAsc  ListWebhooksParamsOrder = "asc"
-	ListWebhooksParamsOrderDesc ListWebhooksParamsOrder = "desc"
-)
-
-// Valid indicates whether the value is a known member of the ListWebhooksParamsOrder enum.
-func (e ListWebhooksParamsOrder) Valid() bool {
-	switch e {
-	case ListWebhooksParamsOrderAsc:
-		return true
-	case ListWebhooksParamsOrderDesc:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListWhatsAppBusinessAccountsParamsOrder.
-const (
-	ListWhatsAppBusinessAccountsParamsOrderAsc  ListWhatsAppBusinessAccountsParamsOrder = "asc"
-	ListWhatsAppBusinessAccountsParamsOrderDesc ListWhatsAppBusinessAccountsParamsOrder = "desc"
-)
-
-// Valid indicates whether the value is a known member of the ListWhatsAppBusinessAccountsParamsOrder enum.
-func (e ListWhatsAppBusinessAccountsParamsOrder) Valid() bool {
-	switch e {
-	case ListWhatsAppBusinessAccountsParamsOrderAsc:
-		return true
-	case ListWhatsAppBusinessAccountsParamsOrderDesc:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListWhatsAppNumbersParamsOrder.
-const (
-	ListWhatsAppNumbersParamsOrderAsc  ListWhatsAppNumbersParamsOrder = "asc"
-	ListWhatsAppNumbersParamsOrderDesc ListWhatsAppNumbersParamsOrder = "desc"
-)
-
-// Valid indicates whether the value is a known member of the ListWhatsAppNumbersParamsOrder enum.
-func (e ListWhatsAppNumbersParamsOrder) Valid() bool {
-	switch e {
-	case ListWhatsAppNumbersParamsOrderAsc:
-		return true
-	case ListWhatsAppNumbersParamsOrderDesc:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for ListWhatsAppNumberEventsParamsOrder.
-const (
-	ListWhatsAppNumberEventsParamsOrderAsc  ListWhatsAppNumberEventsParamsOrder = "asc"
-	ListWhatsAppNumberEventsParamsOrderDesc ListWhatsAppNumberEventsParamsOrder = "desc"
-)
-
-// Valid indicates whether the value is a known member of the ListWhatsAppNumberEventsParamsOrder enum.
-func (e ListWhatsAppNumberEventsParamsOrder) Valid() bool {
-	switch e {
-	case ListWhatsAppNumberEventsParamsOrderAsc:
-		return true
-	case ListWhatsAppNumberEventsParamsOrderDesc:
 		return true
 	default:
 		return false
@@ -6254,6 +6860,9 @@ type AvailableNumberList struct {
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// CompetitiveWatchlistBrandID defines model for CompetitiveWatchlistBrandID.
+type CompetitiveWatchlistBrandID = string
 
 // Contact defines model for Contact.
 type Contact struct {
@@ -7680,6 +8289,680 @@ type EmailCompatibilityRuleID string
 // Neither one refuses a save, a submit, or a send.
 type EmailCompatibilitySeverity string
 
+// EmailCompetitiveBrandID Identifier of the brand in the panel's catalog, used to add it to the watchlist. It is a string for the same reason a campaign id is: the values are wide enough that a client storing every number as a floating point value would round them, and a rounded identifier matches no brand at all.
+type EmailCompetitiveBrandID = string
+
+// EmailCompetitiveBrandMatch A brand matching a search, ready to be added to the watchlist.
+type EmailCompetitiveBrandMatch struct {
+	BrandId *EmailCompetitiveBrandID `json:"brand_id,omitempty"`
+
+	// Name The brand's name.
+	Name *string `json:"name,omitempty"`
+
+	// SendingDomains The domains this brand's figures would describe. Always one domain today, chosen as the one the panel sees the most of its mail from.
+	SendingDomains *[]string `json:"sending_domains,omitempty"`
+}
+
+// EmailCompetitiveBrandProfile One watched brand's figures for the period, with its placement broken out by mailbox provider.
+type EmailCompetitiveBrandProfile struct {
+	// Brand One brand on the watchlist, with its figures for the requested period. Your own
+	// workspace appears as a row too, so the table can be read as a single ranking.
+	//
+	// Every metric is present on every row and is `null` when it is unavailable for
+	// that brand, so a `0` is always a real measurement rather than a gap. Check
+	// `panel_status` for why a metric is null.
+	//
+	// `esp` and `list_size` are the exception. They are populated only when you read a
+	// single brand, and are always `null` on the watchlist whatever `panel_status`
+	// reports.
+	Brand EmailCompetitiveWatchlistRow `json:"brand"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+
+	// Providers Placement per mailbox provider, in the order the panel returned them. Empty when the panel published no breakdown for the brand's domains.
+	Providers *[]EmailCompetitiveProviderPlacement `json:"providers,omitempty"`
+}
+
+// EmailCompetitiveBrandSearchResults Brands matching the search. Ranked by how well they match, best first, and capped at 8 results because this backs a type-ahead. The panel's own answer is often shorter than the cap, in which case the cap was never the reason the list is short.
+type EmailCompetitiveBrandSearchResults struct {
+	// Data Matching brands. Empty when nothing matched, which for an unusual brand name means the panel does not track it rather than that the search failed.
+	Data *[]EmailCompetitiveBrandMatch `json:"data,omitempty"`
+}
+
+// EmailCompetitiveBrandSeries One line on the volume chart: a watched brand's sending over time, or your own.
+type EmailCompetitiveBrandSeries struct {
+	// IsWorkspace True on the line describing your own workspace's sending.
+	IsWorkspace *bool `json:"is_workspace,omitempty"`
+
+	// Name Label for the line: the brand's name, or your sending domain on your own line.
+	Name *string `json:"name,omitempty"`
+
+	// PanelStatus Whether panel figures are available for a row, and when they are not, why.
+	//
+	// `ok` means the panel reported figures for the requested period. `not_in_panel`
+	// means the panel does not track the sending domain at all, which is common for
+	// smaller and newer senders. `no_data` means the panel tracks the domain but
+	// observed no mail from it in the period. `unavailable` means the figures could
+	// not be retrieved this time and the same request may well succeed on a retry.
+	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
+
+	// Points One point per day of the period, oldest first, ending with the last whole UTC day rather than the one in progress. A domain the panel tracks but observed nothing for plots as zeros, which is a measured silence rather than a missing measurement. Points are empty only when there was nothing to plot at all, reported by `panel_status` as `not_in_panel` or `unavailable`.
+	Points *[]EmailCompetitiveVolumePoint `json:"points,omitempty"`
+
+	// SendingDomains The sending domains the line's figures describe. Always one domain today.
+	SendingDomains *[]string `json:"sending_domains,omitempty"`
+
+	// Source Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	Source           EmailCompetitiveFieldSource  `json:"source"`
+	WatchlistBrandId *CompetitiveWatchlistBrandID `json:"watchlist_brand_id,omitempty"`
+}
+
+// EmailCompetitiveCampaign defines model for EmailCompetitiveCampaign.
+type EmailCompetitiveCampaign struct {
+	// DiscountPercent The discount the subject line leads with, null when it names none. Read from the subject text, so it finds a stated offer and not one revealed inside the email.
+	DiscountPercent *float32 `json:"discount_percent,omitempty"`
+
+	// HasCreative Whether the panel captured the rendered email for this campaign.
+	HasCreative *bool `json:"has_creative,omitempty"`
+
+	// Id The identifier for this campaign. Use it to fetch this one campaign on its own.
+	//
+	// It is a string, and it needs to stay one. The values are long enough that
+	// JavaScript, and any other language that stores every number as a floating point
+	// value, will round them, and a rounded identifier matches no campaign at all.
+	// Compare it and pass it back as text.
+	Id *string `json:"id,omitempty"`
+
+	// ImageUrl Where the panel's capture of the rendered email can be fetched, null when it captured none. Panels image only some of what they observe, so an absent creative is an ordinary outcome rather than a failed one. The image is served from the panel's own host rather than from ours, so a page embedding it has to allow that host.
+	ImageUrl *string `json:"image_url,omitempty"`
+
+	// InboxRate Share of this campaign that reached an inbox, null when the panel observed it without recording where it landed. It describes this send rather than the brand's domain, so a single bad campaign is visible against a brand whose overall placement still looks healthy.
+	InboxRate *float32 `json:"inbox_rate,omitempty"`
+
+	// Reach Estimated recipients this campaign reached, null when the panel observed the campaign but published no estimate for it.
+	Reach *int64 `json:"reach,omitempty"`
+
+	// ReadRate Estimated share of recipients who read this campaign, null when the panel published no rate for it. Panel read rates count dwell time, so they do not move with the automatic opens that inflate a sender's own open rate.
+	ReadRate *float32 `json:"read_rate,omitempty"`
+
+	// SentAt When the panel first saw this campaign arrive.
+	SentAt *time.Time `json:"sent_at,omitempty"`
+
+	// SpamRate Share of this campaign that was filed as spam, null on the same terms.
+	SpamRate *float32 `json:"spam_rate,omitempty"`
+
+	// Subject The subject line the panel saw on this campaign.
+	Subject *string `json:"subject,omitempty"`
+}
+
+// EmailCompetitiveCampaignFeed defines model for EmailCompetitiveCampaignFeed.
+type EmailCompetitiveCampaignFeed struct {
+	// Captured Number of eligible campaigns in the first 300 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
+	Captured *int `json:"captured,omitempty"`
+
+	// Data Campaigns in this page, in the requested order.
+	Data *[]EmailCompetitiveCampaign `json:"data,omitempty"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PanelStatus Whether panel figures are available for a row, and when they are not, why.
+	//
+	// `ok` means the panel reported figures for the requested period. `not_in_panel`
+	// means the panel does not track the sending domain at all, which is common for
+	// smaller and newer senders. `no_data` means the panel tracks the domain but
+	// observed no mail from it in the period. `unavailable` means the figures could
+	// not be retrieved this time and the same request may well succeed on a retry.
+	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// PromoRate Fraction of captured campaigns whose subject leads with a discount. Null when captured is zero. This sampled value is independent of the returned page.
+	PromoRate *float32 `json:"promo_rate,omitempty"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Truncated Whether the sampled statistics or returned page omit part of the requested collection. Use next_cursor to determine whether another page is available.
+	Truncated *bool `json:"truncated,omitempty"`
+}
+
+// EmailCompetitiveCampaignSignal Why this campaign was surfaced. The set is open and grows as new signals are added.
+//
+// Every signal describes the campaign against its own brand's history, never against the
+// other brands you watch, so several brands can carry the same signal in one period and
+// none of them is the top of anything.
+//
+// `biggest_send` is a send far above that brand's own median: unusual for the brand, not
+// merely large. `read_rate_standout` is a campaign read unusually well for its brand.
+// `landing_in_spam` is one heavily filed as spam at a single mailbox provider, named in
+// `mailbox_provider`, which is worth seeing even when the brand's overall placement looks healthy.
+type EmailCompetitiveCampaignSignal string
+
+// EmailCompetitiveCampaignSort Field used to sort campaigns.
+type EmailCompetitiveCampaignSort string
+
+// EmailCompetitiveCampaignSummary The most recent campaign observed for a brand in the period.
+type EmailCompetitiveCampaignSummary struct {
+	// Id The identifier for this campaign. Use it to fetch this one campaign on its own.
+	//
+	// It is a string, and it needs to stay one. The values are long enough that
+	// JavaScript, and any other language that stores every number as a floating point
+	// value, will round them, and a rounded identifier matches no campaign at all.
+	// Compare it and pass it back as text.
+	Id *string `json:"id,omitempty"`
+
+	// ImageUrl Where the panel's capture of the rendered email can be fetched, null when it captured none. Panels image only some of what they observe, so an absent creative is an ordinary outcome rather than a failed one. The image is served from the panel's own host rather than from ours, so a page embedding it has to allow that host.
+	ImageUrl *string `json:"image_url,omitempty"`
+
+	// SentAt When the panel first saw this campaign arrive.
+	SentAt *time.Time `json:"sent_at,omitempty"`
+
+	// Subject The subject line the panel saw on this campaign.
+	Subject *string `json:"subject,omitempty"`
+}
+
+// EmailCompetitiveFieldSource Where a figure came from. `measured` means it is counted from your own
+// sending. `panel` means it is an estimate from an email panel, which observes a
+// sample of real inboxes and scales what it sees up to a whole audience. `none`
+// means there is no figure for this field on this row, so there is nothing to
+// attribute a source to.
+//
+// Only your own row carries `measured` figures, and only where the metric is counted
+// rather than estimated. Everything about a competitor is a panel estimate.
+type EmailCompetitiveFieldSource string
+
+// EmailCompetitiveNotableCampaign A campaign the panel surfaced, and the reason it did.
+type EmailCompetitiveNotableCampaign struct {
+	// BrandName The brand's name.
+	BrandName *string `json:"brand_name,omitempty"`
+
+	// Campaign One campaign an email panel observed a brand sending.
+	Campaign EmailCompetitiveCampaign `json:"campaign"`
+
+	// Claim The panel's own headline for this campaign, or null where it surfaced the campaign without making one. Null is the common case and is not a fault.
+	Claim *EmailCompetitiveNotableClaim `json:"claim,omitempty"`
+
+	// Evidence The figures behind a campaign's signal, for ordering or filtering the list yourself. Which field carries a value depends on the signal, and each is null both on the signals it does not describe and on a campaign of its own signal the panel published no figure for.
+	Evidence EmailCompetitiveNotableEvidence `json:"evidence"`
+
+	// MailboxProvider The provider a `landing_in_spam` campaign was heavily filed as spam at: spam placement is measured per provider, and this campaign's problem is at one of them. Null on every other signal.
+	MailboxProvider *EmailCompetitivePanelMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// Signal Why this campaign was surfaced. The set is open and grows as new signals are added.
+	//
+	// Every signal describes the campaign against its own brand's history, never against the
+	// other brands you watch, so several brands can carry the same signal in one period and
+	// none of them is the top of anything.
+	//
+	// `biggest_send` is a send far above that brand's own median: unusual for the brand, not
+	// merely large. `read_rate_standout` is a campaign read unusually well for its brand.
+	// `landing_in_spam` is one heavily filed as spam at a single mailbox provider, named in
+	// `mailbox_provider`, which is worth seeing even when the brand's overall placement looks healthy.
+	Signal           EmailCompetitiveCampaignSignal `json:"signal"`
+	WatchlistBrandId CompetitiveWatchlistBrandID    `json:"watchlist_brand_id"`
+}
+
+// EmailCompetitiveNotableClaim What the panel itself asserts about a campaign, in its own words. Present only on the campaigns the panel chose to make a claim about, which is a minority of them: a campaign can be surfaced as notable without the panel putting a headline on it, and that is an ordinary outcome rather than missing data.
+type EmailCompetitiveNotableClaim struct {
+	// Text The panel's own phrasing, which may name the window the claim was measured over ("Biggest send in 7 days") or not ("Best-read campaign"). Show it as written rather than rebuilding it from the signal, and do not parse a window out of it.
+	Text *string `json:"text,omitempty"`
+}
+
+// EmailCompetitiveNotableEvidence The figures behind a campaign's signal, for ordering or filtering the list yourself. Which field carries a value depends on the signal, and each is null both on the signals it does not describe and on a campaign of its own signal the panel published no figure for.
+type EmailCompetitiveNotableEvidence struct {
+	// MailboxProviderObservations How many observations at that provider `mailbox_provider_spam_rate` was measured over. Null on the same terms.
+	MailboxProviderObservations *int64 `json:"mailbox_provider_observations,omitempty"`
+
+	// MailboxProviderSpamRate Share of this campaign filed as spam at the one provider named in `mailbox_provider`, as a value between 0 and 1. A different measurement from the campaign's overall `spam_rate`, and the one this signal is about. Null on every signal other than `landing_in_spam`, and on a `landing_in_spam` campaign whose provider counts the panel did not publish, so a spam entry can arrive without the rate behind it.
+	MailboxProviderSpamRate *float32 `json:"mailbox_provider_spam_rate,omitempty"`
+
+	// RatioToMedian How many times the brand's own median volume this send was. A value of 29 means the send was twenty-nine times the brand's typical volume for the period. Null on every signal other than `biggest_send`, and on a `biggest_send` campaign the panel published no ratio for.
+	RatioToMedian *float32 `json:"ratio_to_median,omitempty"`
+
+	// ReadRateObservations How many panel observations `campaign.read_rate` was measured over. A rate over thirty observations and one over a hundred and forty are not equally worth showing, and this is what separates them. Null on every signal other than `read_rate_standout`, and on a `read_rate_standout` campaign the panel published no denominator for.
+	ReadRateObservations *int64 `json:"read_rate_observations,omitempty"`
+}
+
+// EmailCompetitiveNotableFeed Campaigns worth a second look across the brands a workspace watches.
+type EmailCompetitiveNotableFeed struct {
+	// Data Up to 100 campaigns selected across watched brands. Selection takes turns across
+	// brands in watchlist order until the response is full, prioritizing spam placement,
+	// biggest sends, then read-rate standouts within each brand. Within one signal, rows
+	// compare the matching spam rate, volume ratio, or read rate descending; missing values
+	// sort last and ties retain tracked-domain and source order. Selected rows are returned
+	// in watchlist order, then biggest-send, read-rate, and spam signal order, followed by
+	// tracked-domain and source order.
+	//
+	// One campaign may appear once per signal because each row carries different evidence.
+	// Empty when nothing qualified; check `panel_status` to distinguish that from an
+	// unavailable panel.
+	Data *[]EmailCompetitiveNotableCampaign `json:"data,omitempty"`
+
+	// PanelStatus Whether panel figures are available for a row, and when they are not, why.
+	//
+	// `ok` means the panel reported figures for the requested period. `not_in_panel`
+	// means the panel does not track the sending domain at all, which is common for
+	// smaller and newer senders. `no_data` means the panel tracks the domain but
+	// observed no mail from it in the period. `unavailable` means the figures could
+	// not be retrieved this time and the same request may well succeed on a retry.
+	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+
+	// Truncated Whether Bird omitted eligible panel findings to keep this response to 100 rows. False does not promise that the panel observed every qualifying campaign in the period.
+	Truncated *bool `json:"truncated,omitempty"`
+}
+
+// EmailCompetitivePanelMailboxProvider A mailbox provider, as the email panel identifies it. A lowercase identifier rather than a
+// display name, so pick your own label for it, and treat the set as open: the panel reports
+// whichever providers it observed, and `gmail`, `hotmail`, `yahoo`, `aol` and `comcast` are the
+// ones it returns most. Apple never appears, because the panel does not measure it, so a surface
+// offering an Apple row has no measurement behind it.
+//
+// The panel's buckets are not the same as the ones the [mailbox-provider stats
+// breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider) reports: Microsoft's
+// properties appear here as `hotmail` rather than `microsoft`, and Apple is absent, so the two
+// are not a joinable dimension.
+type EmailCompetitivePanelMailboxProvider = string
+
+// EmailCompetitivePanelStatus Whether panel figures are available for a row, and when they are not, why.
+//
+// `ok` means the panel reported figures for the requested period. `not_in_panel`
+// means the panel does not track the sending domain at all, which is common for
+// smaller and newer senders. `no_data` means the panel tracks the domain but
+// observed no mail from it in the period. `unavailable` means the figures could
+// not be retrieved this time and the same request may well succeed on a retry.
+type EmailCompetitivePanelStatus string
+
+// EmailCompetitivePeriod The period every figure in the response covers, echoed back from the request.
+//
+// Figures are fetched when the request is made, so they are current as of `to`.
+// The period always ends at the moment of the request rather than at a cached
+// boundary, which is why two requests a minute apart can differ slightly.
+type EmailCompetitivePeriod struct {
+	// Days Length of the period in days.
+	Days *int `json:"days,omitempty"`
+
+	// From Start of the period, inclusive.
+	From *time.Time `json:"from,omitempty"`
+
+	// To End of the period, exclusive. Daily figures therefore run through the previous whole UTC day and never include the one in progress.
+	To *time.Time `json:"to,omitempty"`
+}
+
+// EmailCompetitiveProviderPlacement How one mailbox provider treated a brand's mail, beside your own.
+type EmailCompetitiveProviderPlacement struct {
+	// InboxRate Share of the brand's mail this provider put in the inbox. Recomputed from what the panel observed across every domain the brand sends from, so a small subdomain cannot move it as much as the brand's main one.
+	InboxRate *float32 `json:"inbox_rate,omitempty"`
+
+	// MailboxProvider A mailbox provider, as the email panel identifies it. A lowercase identifier rather than a
+	// display name, so pick your own label for it, and treat the set as open: the panel reports
+	// whichever providers it observed, and `gmail`, `hotmail`, `yahoo`, `aol` and `comcast` are the
+	// ones it returns most. Apple never appears, because the panel does not measure it, so a surface
+	// offering an Apple row has no measurement behind it.
+	//
+	// The panel's buckets are not the same as the ones the [mailbox-provider stats
+	// breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider) reports: Microsoft's
+	// properties appear here as `hotmail` rather than `microsoft`, and Apple is absent, so the two
+	// are not a joinable dimension.
+	MailboxProvider *EmailCompetitivePanelMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// SpamRate Share of the brand's mail this provider put in spam.
+	SpamRate *float32 `json:"spam_rate,omitempty"`
+
+	// WorkspaceInboxRate Your own inbox rate at this provider, null when you have not sent or the panel has no breakdown for your sending domain. It is the panel's view of your sending rather than from our own measurement of it, because a measured rate and a rate the panel estimated are not comparable, and this figure exists to be compared with the brand's.
+	WorkspaceInboxRate *float32 `json:"workspace_inbox_rate,omitempty"`
+}
+
+// EmailCompetitiveSendTimeCell One weekday and hour of a brand's sending week.
+type EmailCompetitiveSendTimeCell struct {
+	// Hour The hour this cell covers, in the timezone the response reports. `13` covers 13:00 to 14:00.
+	Hour *int `json:"hour,omitempty"`
+
+	// Intensity How strongly the brand sends in this hour, against its own busiest hour at `1`.
+	// It is this cell's sending per `sample_days` divided by the busiest cell's, so it
+	// is derivable from the two numbers beside it and reconciles with them rather than
+	// competing: it is published because that correction is easy to get wrong, not
+	// because it knows anything they do not.
+	//
+	// Shade a cell by this rather than by `share_percent`: the period holds one more
+	// of some weekdays than others, so a share compares an hour that came round
+	// thirteen times against one that came round twelve.
+	Intensity *float32 `json:"intensity,omitempty"`
+
+	// SampleDays How many days of the period fell on this weekday, whether or not the brand sent on them. It is what separates an hour the brand is quiet in from one there was little chance to observe.
+	SampleDays *int `json:"sample_days,omitempty"`
+
+	// SharePercent Share of everything the brand sent over the period that fell in this hour. It is `0` for an hour the brand demonstrably did not send in, which on a disciplined sender is the most useful thing this grid says.
+	SharePercent *float32 `json:"share_percent,omitempty"`
+
+	// Weekday A day of the week. Named rather than numbered because the two common numberings disagree about which day the week starts on.
+	Weekday EmailCompetitiveWeekday `json:"weekday"`
+}
+
+// EmailCompetitiveSendTimeGrid When a watched brand sends, by weekday and hour of the day.
+type EmailCompetitiveSendTimeGrid struct {
+	// Cells Every weekday and hour of the week, Monday first and hour ascending: 168 in all, whether or not the brand sent in them, so the grid needs no filling in. Empty when there was nothing to read, which `panel_status` explains.
+	Cells *[]EmailCompetitiveSendTimeCell `json:"cells,omitempty"`
+
+	// PanelStatus Whether panel figures are available for a row, and when they are not, why.
+	//
+	// `ok` means the panel reported figures for the requested period. `not_in_panel`
+	// means the panel does not track the sending domain at all, which is common for
+	// smaller and newer senders. `no_data` means the panel tracks the domain but
+	// observed no mail from it in the period. `unavailable` means the figures could
+	// not be retrieved this time and the same request may well succeed on a retry.
+	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
+
+	// PeakSendWindow The hour of the day the brand sends most of its mail in, totalled across the whole week, or null when nothing was observed. It carries no weekday: for most brands the hour of the day is where the pattern is and the day of the week barely moves, so naming a busiest weekday would give a figure more meaning than it has. It is also not always the darkest cell, on the same reasoning: one busy Wednesday can outweigh the hour the brand mails in every single day.
+	PeakSendWindow *EmailCompetitiveSendTimePeak `json:"peak_send_window,omitempty"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+
+	// Timezone IANA timezone identifier, such as `America/New_York`, `Europe/Amsterdam`, or `UTC`.
+	Timezone Timezone `json:"timezone"`
+}
+
+// EmailCompetitiveSendTimePeak The hour of the day a brand sends most of its mail in.
+type EmailCompetitiveSendTimePeak struct {
+	// EndHour The hour the window ends at, exclusive: a window of `13` to `14` covers 13:00 to
+	// 14:00. The window is always one hour wide on this endpoint, so this is always the
+	// hour after `start_hour`. The pair is kept rather than collapsed because the panel
+	// computes the window at whatever width it was asked for, and only this endpoint
+	// pins that to an hour.
+	//
+	// It can therefore be lower than `start_hour` in exactly one case: a peak at 23:00,
+	// whose window runs past midnight and ends at `0`.
+	EndHour *int `json:"end_hour,omitempty"`
+
+	// SharePercent Share of everything the brand sent over the period that fell in this window.
+	//
+	// This is the panel's own figure, while a cell's `share_percent` is recomputed from
+	// the cells in the response. Adding up this hour's seven cells should therefore land
+	// on this number but is not guaranteed to; where they disagree, this one is the
+	// panel's answer about its own peak and the cells are the arithmetic behind the grid.
+	SharePercent *float32 `json:"share_percent,omitempty"`
+
+	// StartHour The first hour of the window, in the timezone the response reports.
+	StartHour *int `json:"start_hour,omitempty"`
+}
+
+// EmailCompetitiveVolumePoint One day of one line on the volume chart.
+type EmailCompetitiveVolumePoint struct {
+	// Date The UTC day this point covers.
+	Date *openapi_types.Date `json:"date,omitempty"`
+
+	// Sends Volume for the day. An estimate for a competitor and an exact count for your own line; `source` on the series records which. A day nothing was observed is `0` rather than a missing point, so every line shares one axis.
+	Sends *int64 `json:"sends,omitempty"`
+}
+
+// EmailCompetitiveVolumeSeries Volume over time for the requested watched brands, plus your own sending, on one shared daily axis.
+type EmailCompetitiveVolumeSeries struct {
+	// Data Your own line first, then the requested brands in the order they were asked for. Your line is present once your workspace has sent email. Every line carries the same days in the same order, so they can be plotted against one axis without aligning them first.
+	Data *[]EmailCompetitiveBrandSeries `json:"data,omitempty"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+}
+
+// EmailCompetitiveWatchlist The workspace's competitor watchlist with its figures for the requested period.
+//
+// The list is capped by the organization's competitor limit and is returned whole,
+// so it is not paginated. Your own row is included and is always first.
+type EmailCompetitiveWatchlist struct {
+	// Data Your own row first, then each watched brand in the order it was added. Your row is present once your workspace has sent email, since before that there is no sending of yours to compare against. Empty for a workspace that has neither sent nor added a brand.
+	Data *[]EmailCompetitiveWatchlistRow `json:"data,omitempty"`
+
+	// Period The period every figure in the response covers, echoed back from the request.
+	//
+	// Figures are fetched when the request is made, so they are current as of `to`.
+	// The period always ends at the moment of the request rather than at a cached
+	// boundary, which is why two requests a minute apart can differ slightly.
+	Period EmailCompetitivePeriod `json:"period"`
+
+	// Summary Where your sending sits against the brands you watch, over the same period as the
+	// rows.
+	//
+	// Every figure here is derived from those rows rather than measured separately, so
+	// the two always agree. As on a row, each is present and `null` when the rows cannot
+	// support it: the peer medians need at least one watched brand the panel reported
+	// on, and the share figures need sending of your own to compare.
+	Summary EmailCompetitiveWatchlistSummary `json:"summary"`
+}
+
+// EmailCompetitiveWatchlistBrand defines model for EmailCompetitiveWatchlistBrand.
+type EmailCompetitiveWatchlistBrand struct {
+	BrandId   *EmailCompetitiveBrandID    `json:"brand_id,omitempty"`
+	CreatedAt *time.Time                  `json:"created_at,omitempty"`
+	Id        CompetitiveWatchlistBrandID `json:"id"`
+
+	// Industry The brand's industry when it was added, or null when the brand is not classified.
+	Industry *string `json:"industry,omitempty"`
+
+	// Name The brand's name when it was added. It is kept as it was so the row still reads correctly if the brand is later renamed or stops being tracked.
+	Name *string `json:"name,omitempty"`
+
+	// SendingDomains The domains this brand's figures describe. Always one domain today, chosen as the one the panel sees the most of its mail from.
+	SendingDomains *[]string  `json:"sending_domains,omitempty"`
+	UpdatedAt      *time.Time `json:"updated_at,omitempty"`
+}
+
+// EmailCompetitiveWatchlistBrandCreate The brand to add to the watchlist. Obtained from a brand search, which only returns brands that can be watched.
+type EmailCompetitiveWatchlistBrandCreate struct {
+	// BrandId Identifier of the brand in the panel's catalog, used to add it to the watchlist. It is a string for the same reason a campaign id is: the values are wide enough that a client storing every number as a floating point value would round them, and a rounded identifier matches no brand at all.
+	BrandId EmailCompetitiveBrandID `json:"brand_id"`
+}
+
+// EmailCompetitiveWatchlistRow One brand on the watchlist, with its figures for the requested period. Your own
+// workspace appears as a row too, so the table can be read as a single ranking.
+//
+// Every metric is present on every row and is `null` when it is unavailable for
+// that brand, so a `0` is always a real measurement rather than a gap. Check
+// `panel_status` for why a metric is null.
+//
+// `esp` and `list_size` are the exception. They are populated only when you read a
+// single brand, and are always `null` on the watchlist whatever `panel_status`
+// reports.
+type EmailCompetitiveWatchlistRow struct {
+	// AudienceOverlapRate Share of your own audience the panel also sees receiving this brand's mail. Null on your own row, and null for a competitor the panel measured no overlap with, which is an answer rather than a gap.
+	AudienceOverlapRate *float32 `json:"audience_overlap_rate,omitempty"`
+
+	// CadencePerWeek Average campaigns sent per week over the period.
+	CadencePerWeek *float32 `json:"cadence_per_week,omitempty"`
+
+	// Esp A sending platform observed on the domain, or null when the panel has none on record. A brand sending through more than one platform reports one of them rather than the list. This is frequently unavailable and updates monthly at best, so treat its absence as normal rather than as pending. Populated only when you read a single brand; on the watchlist it is always null.
+	Esp *string `json:"esp,omitempty"`
+
+	// InboxPlacementRate Share of the brand's observed mail that reached an inbox rather than a spam folder.
+	InboxPlacementRate *float32 `json:"inbox_placement_rate,omitempty"`
+
+	// Industry The brand's industry as it was when the brand was added, or null when the brand is not classified.
+	Industry *string `json:"industry,omitempty"`
+
+	// IsWorkspace True on the row describing your own workspace's sending.
+	IsWorkspace *bool `json:"is_workspace,omitempty"`
+
+	// LastCampaign The most recent campaign observed in the period, or null when none was. Always null on your own row.
+	LastCampaign *EmailCompetitiveCampaignSummary `json:"last_campaign,omitempty"`
+
+	// ListSize Estimated number of addresses the brand mails, or null when the panel has no estimate. Populated only when you read a single brand; on the watchlist it is always null.
+	ListSize *int64 `json:"list_size,omitempty"`
+
+	// Name The brand's name as it was when the brand was added to the watchlist.
+	Name *string `json:"name,omitempty"`
+
+	// PanelStatus Whether panel figures are available for a row, and when they are not, why.
+	//
+	// `ok` means the panel reported figures for the requested period. `not_in_panel`
+	// means the panel does not track the sending domain at all, which is common for
+	// smaller and newer senders. `no_data` means the panel tracks the domain but
+	// observed no mail from it in the period. `unavailable` means the figures could
+	// not be retrieved this time and the same request may well succeed on a retry.
+	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
+
+	// Provenance Where each figure on the row came from, so a comparison can be labelled
+	// honestly. Every field on a competitor's row is a panel estimate. On your own
+	// row the source varies by field: what is counted directly is reported as measured,
+	// falls back to the panel for what is not, and reports `none` for a field this row
+	// never carries at all.
+	//
+	// Read rate is a panel estimate even on your own row. Comparing a measured rate
+	// against a panel estimate of the same rate is not a like for like
+	// comparison, because the two count an open differently, so both sides of the
+	// comparison come from the panel.
+	Provenance EmailCompetitiveWatchlistRowProvenance `json:"provenance"`
+
+	// ReadRate Share of delivered mail that was read.
+	ReadRate *float32 `json:"read_rate,omitempty"`
+
+	// SendingDomains The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume.
+	SendingDomains *[]string `json:"sending_domains,omitempty"`
+
+	// Sends Messages sent in the period.
+	Sends *int64 `json:"sends,omitempty"`
+
+	// SendsChangePercent Change in send volume against the period immediately before this one, as a percentage. Null when the earlier period has nothing to compare against.
+	SendsChangePercent *float32                     `json:"sends_change_percent,omitempty"`
+	WatchlistBrandId   *CompetitiveWatchlistBrandID `json:"watchlist_brand_id,omitempty"`
+}
+
+// EmailCompetitiveWatchlistRowProvenance Where each figure on the row came from, so a comparison can be labelled
+// honestly. Every field on a competitor's row is a panel estimate. On your own
+// row the source varies by field: what is counted directly is reported as measured,
+// falls back to the panel for what is not, and reports `none` for a field this row
+// never carries at all.
+//
+// Read rate is a panel estimate even on your own row. Comparing a measured rate
+// against a panel estimate of the same rate is not a like for like
+// comparison, because the two count an open differently, so both sides of the
+// comparison come from the panel.
+type EmailCompetitiveWatchlistRowProvenance struct {
+	// AudienceOverlapRate Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	AudienceOverlapRate EmailCompetitiveFieldSource `json:"audience_overlap_rate"`
+
+	// CadencePerWeek Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	CadencePerWeek EmailCompetitiveFieldSource `json:"cadence_per_week"`
+
+	// InboxPlacementRate Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	InboxPlacementRate EmailCompetitiveFieldSource `json:"inbox_placement_rate"`
+
+	// LastCampaign Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	LastCampaign EmailCompetitiveFieldSource `json:"last_campaign"`
+
+	// ReadRate Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	ReadRate EmailCompetitiveFieldSource `json:"read_rate"`
+
+	// Sends Where a figure came from. `measured` means it is counted from your own
+	// sending. `panel` means it is an estimate from an email panel, which observes a
+	// sample of real inboxes and scales what it sees up to a whole audience. `none`
+	// means there is no figure for this field on this row, so there is nothing to
+	// attribute a source to.
+	//
+	// Only your own row carries `measured` figures, and only where the metric is counted
+	// rather than estimated. Everything about a competitor is a panel estimate.
+	Sends EmailCompetitiveFieldSource `json:"sends"`
+}
+
+// EmailCompetitiveWatchlistSummary Where your sending sits against the brands you watch, over the same period as the
+// rows.
+//
+// Every figure here is derived from those rows rather than measured separately, so
+// the two always agree. As on a row, each is present and `null` when the rows cannot
+// support it: the peer medians need at least one watched brand the panel reported
+// on, and the share figures need sending of your own to compare.
+type EmailCompetitiveWatchlistSummary struct {
+	// CompetitorSends Estimated volume the watched brands sent between them, excluding your own sending. A panel estimate, so read it as an order of magnitude rather than a count.
+	CompetitorSends *int64 `json:"competitor_sends,omitempty"`
+
+	// CompetitorSendsChangePercent Change in that volume against the period immediately before.
+	CompetitorSendsChangePercent *float32 `json:"competitor_sends_change_percent,omitempty"`
+
+	// PeerCadenceMedianPerWeek Median campaigns per week across the brands you watch, per sending domain. Your own row is excluded, since it is the figure being held against this one.
+	PeerCadenceMedianPerWeek *float32 `json:"peer_cadence_median_per_week,omitempty"`
+
+	// PeerInboxPlacementMedianRate Median inbox placement across the brands you watch. Your own row is excluded, as with the cadence median.
+	PeerInboxPlacementMedianRate *float32 `json:"peer_inbox_placement_median_rate,omitempty"`
+
+	// ShareOfVolumeChangePoints How that share moved against the period immediately before, in percentage points. A share that went from 11.7 to 10.5 reports -1.2.
+	ShareOfVolumeChangePoints *float32 `json:"share_of_volume_change_points,omitempty"`
+
+	// ShareOfVolumePercent Your share of everything the watched set sent over the period, your own sending included in the total. Your half of the ratio is an exact count of your own sending while the rest is the panel's estimate, so the two sides are measured differently.
+	ShareOfVolumePercent *float32 `json:"share_of_volume_percent,omitempty"`
+}
+
+// EmailCompetitiveWeekday A day of the week. Named rather than numbered because the two common numberings disagree about which day the week starts on.
+type EmailCompetitiveWeekday string
+
 // EmailComplaintTypeStatsPoint Complaint counts for a single feedback-loop complaint type over the requested period. A complaint type is recorded only on spam-complaint events, so this breakdown reports the complained count for each type and nothing else. A complaint event has no delivery or engagement information attached to it, so no other count applies.
 type EmailComplaintTypeStatsPoint struct {
 	// Complained Distinct recipients who reported a message as spam with this complaint type at any point in the period.
@@ -7963,11 +9246,1127 @@ type EmailEventList struct {
 // We can add new event types to this list over time, so treat a value you do not recognize as a new type rather than as an error.
 type EmailEventType string
 
+// EmailHealth The workspace's current sending-health verdict over the requested window, plus reference deliverability limits and classification boundaries. Use it to render a health badge, the bounce-rate and complaint-rate limit labels, and the risk lines on deliverability charts without hard-coding any thresholds of your own.
+type EmailHealth struct {
+	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
+	Period EmailStatsPeriod `json:"period"`
+
+	// Signals The per-rate signals include `delivery_rate`, `open_rate`, `bounce_rate`, and `complaint_rate`. Read a signal by matching on its `metric`. Each entry carries its current value, a reference deliverability limit (null where no limit applies), and its own verdict. Delivery rate, bounce rate, and complaint rate also carry the thresholds their verdict was classified against; open rate does not, because a high open rate is never a risk.
+	Signals *[]EmailHealthSignal `json:"signals,omitempty"`
+
+	// Status Overall sending-health verdict for the window, taken as the worst status among the bounce-rate, complaint-rate, and delivery-rate signals. The open-rate signal, which can be `strong`, is not part of this roll-up. The overall verdict is one of `healthy`, `watching`, or `throttled`. It is `healthy` when the other three signals are each healthy or better. It is `watching` when at least one is watching, and `throttled` when at least one is throttled. This verdict describes deliverability risk. It never pauses your sending on its own.
+	Status *EmailHealthStatus `json:"status,omitempty"`
+}
+
+// EmailHealthStatus Overall sending-health verdict for the window, taken as the worst status among the bounce-rate, complaint-rate, and delivery-rate signals. The open-rate signal, which can be `strong`, is not part of this roll-up. The overall verdict is one of `healthy`, `watching`, or `throttled`. It is `healthy` when the other three signals are each healthy or better. It is `watching` when at least one is watching, and `throttled` when at least one is throttled. This verdict describes deliverability risk. It never pauses your sending on its own.
+type EmailHealthStatus string
+
+// EmailHealthSignal The current value and verdict for a single sending-health metric over the window.
+type EmailHealthSignal struct {
+	// Limit The reference deliverability limit for this rate, as a fraction (for example `0.005` for a 0.5% bounce-rate limit). Null for metrics that have no limit, such as delivery rate and open rate. The verdict is classified using `thresholds`, which can differ from this reference limit.
+	Limit *float32 `json:"limit,omitempty"`
+
+	// Metric Which rate this signal reports.
+	Metric *EmailHealthSignalMetric `json:"metric,omitempty"`
+
+	// Status This metric's individual verdict, ordered best to worst: `strong`, `healthy`, `watching`, `throttled`. `strong` applies only to `open_rate`, for an open rate well above typical. For the other rates, `healthy`, `watching`, and `throttled` indicate how close the rate is to a level that risks deliverability. The verdict follows the `thresholds` boundaries rather than the displayed reference `limit`. A signal whose `value` is null, because its denominator was zero in the window, is reported as `healthy`.
+	Status     *EmailHealthSignalStatus     `json:"status,omitempty"`
+	Thresholds *EmailHealthSignalThresholds `json:"thresholds,omitempty"`
+
+	// Value The current rate over the window, as a fraction. Null when its denominator is zero.
+	Value *float32 `json:"value,omitempty"`
+}
+
+// EmailHealthSignalMetric Which rate this signal reports.
+type EmailHealthSignalMetric string
+
+// EmailHealthSignalStatus This metric's individual verdict, ordered best to worst: `strong`, `healthy`, `watching`, `throttled`. `strong` applies only to `open_rate`, for an open rate well above typical. For the other rates, `healthy`, `watching`, and `throttled` indicate how close the rate is to a level that risks deliverability. The verdict follows the `thresholds` boundaries rather than the displayed reference `limit`. A signal whose `value` is null, because its denominator was zero in the window, is reported as `healthy`.
+type EmailHealthSignalStatus string
+
+// EmailHealthSignalThresholds The boundaries this signal's status was judged against. Use them to classify your own slices, such as per-domain or per-tag rates, against the same bands. The `direction` field identifies the risky side of the boundaries: `above` means the status degrades as the value rises past a boundary, as with bounce and complaint rates, and `below` means it degrades as the value falls, as with delivery rate. The boundaries are exclusive, so a value exactly on one keeps the better status. Omitted for a metric with no risk boundaries, such as open rate.
+type EmailHealthSignalThresholds struct {
+	// Direction Which side of the boundaries is at risk. `above` for higher-is-worse rates (bounce, complaint), `below` for lower-is-worse rates (delivery).
+	Direction *EmailHealthSignalThresholdsDirection `json:"direction,omitempty"`
+
+	// Throttled Crossing this boundary in the risk direction moves the signal to `throttled`, as a fraction.
+	Throttled *float32 `json:"throttled,omitempty"`
+
+	// Watching Crossing this boundary in the risk direction moves the signal to `watching`, as a fraction.
+	Watching *float32 `json:"watching,omitempty"`
+}
+
+// EmailHealthSignalThresholdsDirection Which side of the boundaries is at risk. `above` for higher-is-worse rates (bounce, complaint), `below` for lower-is-worse rates (delivery).
+type EmailHealthSignalThresholdsDirection string
+
 // EmailID defines model for EmailID.
 type EmailID = string
 
 // EmailInboundRouteID defines model for EmailInboundRouteID.
 type EmailInboundRouteID = string
+
+// EmailInboxInsightsAuthPassRate One authentication check's pass rate over the period.
+type EmailInboxInsightsAuthPassRate struct {
+	// DeltaPts How the pass rate moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence is not zero change.
+	DeltaPts *float32 `json:"delta_pts,omitempty"`
+
+	// PassRatePercent Share of the domain's measured mail that passed this check, as a percentage.
+	PassRatePercent *float32 `json:"pass_rate_percent,omitempty"`
+
+	// Source Where this figure comes from. `dmarc_rua` is authoritative aggregate
+	// reporting and covers every sender of the domain, forwarders included;
+	// `google_postmaster` is a fallback covering only mail Google received. It
+	// can differ from the source of the DMARC figures, so surface it per check
+	// rather than once per response.
+	//
+	// Null on a check that reports no figure at all, which is what a
+	// `not_configured` status means: there is no measurement, so there is no
+	// source to name.
+	Source *string `json:"source,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsAuthSource One system observed sending as this domain, with how its mail authenticates.
+type EmailInboxInsightsAuthSource struct {
+	// Category A coarse classification of the source. The set can grow; treat values as labels. Null when the measurement did not classify this sender.
+	Category *string `json:"category,omitempty"`
+
+	// DkimAlignedRatePercent Share of this source's mail that passed DKIM with alignment, as a percentage.
+	DkimAlignedRatePercent *float32 `json:"dkim_aligned_rate_percent,omitempty"`
+
+	// DmarcPassRatePercent Share of this source's mail that passed DMARC, as a percentage.
+	DmarcPassRatePercent *float32 `json:"dmarc_pass_rate_percent,omitempty"`
+
+	// Name The sending source as the reporting identifies it. Not a fixed list: unidentified senders, mostly forwarders, appear as a real category.
+	Name *string `json:"name,omitempty"`
+
+	// QualifiesForReadiness Whether this source counts toward the reject recommendation. A source that does not is excluded from that judgement, which is what lets this table explain a conservative recommendation instead of contradicting it.
+	QualifiesForReadiness *bool `json:"qualifies_for_readiness,omitempty"`
+
+	// SpfAlignedRatePercent Share of this source's mail that passed SPF with alignment, as a percentage.
+	SpfAlignedRatePercent *float32 `json:"spf_aligned_rate_percent,omitempty"`
+
+	// Verdict How a sending source's mail authenticates against the domain's DMARC policy. `aligned` passes with both SPF and DKIM aligned; `dkim_only` and `spf_only` pass on one mechanism; `fails_policy` passes neither. The reporting decides this set and can add to it, so treat an unrecognised value as a label to show rather than a case to exhaust. A source whose verdict is new still belongs in the table.
+	Verdict EmailInboxInsightsDmarcVerdict `json:"verdict"`
+
+	// Volume Messages the reporting attributes to this source over the period.
+	Volume *int64 `json:"volume,omitempty"`
+}
+
+// EmailInboxInsightsAuthSources Every system observed sending as this domain, with how each authenticates. This is the table that shows who else sends under the domain's name.
+type EmailInboxInsightsAuthSources struct {
+	// Items One row per observed sending source.
+	Items *[]EmailInboxInsightsAuthSource `json:"items,omitempty"`
+
+	// LatestDataDate The most recent UTC day the source reporting includes. Aggregate DMARC reports arrive on reporters' own schedules, routinely a day or more behind, so the newest days look sparse; label from this date rather than treating the dip as a regression.
+	LatestDataDate *openapi_types.Date `json:"latest_data_date,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsAuthentication defines model for EmailInboxInsightsAuthentication.
+type EmailInboxInsightsAuthentication struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Dkim One authentication check's pass rate over the period.
+	Dkim EmailInboxInsightsAuthPassRate `json:"dkim"`
+
+	// Dmarc The domain's DMARC standing over the period.
+	Dmarc EmailInboxInsightsDmarc `json:"dmarc"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Sources Every system observed sending as this domain, with how each authenticates. This is the table that shows who else sends under the domain's name.
+	Sources EmailInboxInsightsAuthSources `json:"sources"`
+
+	// Spf One authentication check's pass rate over the period.
+	Spf EmailInboxInsightsAuthPassRate `json:"spf"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
+
+// EmailInboxInsightsBlocklistListing One listing of a target on one blocklist.
+type EmailInboxInsightsBlocklistListing struct {
+	// FirstDetected When this listing was first observed.
+	FirstDetected *time.Time `json:"first_detected,omitempty"`
+
+	// IsActive Whether this listing is in force now. A false entry is history: it shows the target was listed and has since cleared, which is why the target's `is_listed` can be false while listings are present.
+	IsActive *bool `json:"is_active,omitempty"`
+
+	// LastDetected When this listing was most recently observed, or null while the listing is still in force. A provider records a last sighting only once one exists, so a null here reads as "still listed" rather than "never seen".
+	LastDetected *time.Time `json:"last_detected,omitempty"`
+
+	// Provider The blocklist that carries the listing. Providers publishing several lists are reported per list rather than under one combined name, because what a listing means and how it is cleared differ per list.
+	Provider *string `json:"provider,omitempty"`
+
+	// Reason The reason the provider gives for the listing, or null when it publishes none.
+	Reason *string `json:"reason,omitempty"`
+
+	// ReasonCode The provider's own short code for the listing reason, or null when it gives none. Stable where the prose in `reason` is not, so branch on this and display that.
+	ReasonCode *string `json:"reason_code,omitempty"`
+}
+
+// EmailInboxInsightsBlocklistTarget One checked target, whether it is listed now, and the listings seen against it.
+//
+// Read `status` before `is_listed`. Each target is looked up independently and
+// any one of them can fail while the rest succeed, so a target whose status is
+// not `ok` was not checked and `is_listed: false` on it means nothing. Rendering
+// that as "clear" is the one outcome this resource must never produce.
+type EmailInboxInsightsBlocklistTarget struct {
+	// CheckedAt When this target was looked up, or null when it was not. Per target rather than per response, because each is a separate live lookup.
+	CheckedAt *time.Time `json:"checked_at,omitempty"`
+
+	// IsListed Whether the target is on at least one blocklist right now. Meaningful only when `status` is `ok`: on any other status this target was not checked, so the value carries no finding either way.
+	IsListed *bool `json:"is_listed,omitempty"`
+
+	// Listings Listings seen against this target, including ones that have since cleared, so a recent history is visible even when nothing is active. Read each listing's `is_active` rather than assuming every entry is current.
+	Listings *[]EmailInboxInsightsBlocklistListing `json:"listings,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+
+	// Target The sending IP or domain that was checked.
+	Target *string `json:"target,omitempty"`
+
+	// TargetType Whether this target is an IP address or a hostname. Null when the measurement did not report a kind for it, which is possible on a target whose check did not complete.
+	TargetType *string `json:"target_type,omitempty"`
+}
+
+// EmailInboxInsightsBlocklists defines model for EmailInboxInsightsBlocklists.
+type EmailInboxInsightsBlocklists struct {
+	// ActiveCount How many of the checked targets currently carry an active listing. A count of targets, not of listings: a target on three blocklists counts once. Null when no target could be checked at all, which is not the same as zero. Zero means every target was checked and none of them is listed.
+	ActiveCount *int `json:"active_count,omitempty"`
+
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Targets One entry per sending IP or domain checked for this sending domain.
+	Targets *[]EmailInboxInsightsBlocklistTarget `json:"targets,omitempty"`
+}
+
+// EmailInboxInsightsCompare Set to `previous_period` to include the immediately preceding window of equal length in the same response, so deltas need no second request.
+type EmailInboxInsightsCompare string
+
+// EmailInboxInsightsComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+type EmailInboxInsightsComparedTo struct {
+	// End Last UTC day of the prior period, inclusive.
+	End *openapi_types.Date `json:"end,omitempty"`
+
+	// Start First UTC day of the prior period, inclusive.
+	Start *openapi_types.Date `json:"start,omitempty"`
+}
+
+// EmailInboxInsightsComplaintPeak The worst day for complaints in the period.
+type EmailInboxInsightsComplaintPeak struct {
+	// Date The UTC day the highest rate fell on.
+	Date *openapi_types.Date `json:"date,omitempty"`
+
+	// ValuePercent The rate on that day, as a percentage.
+	ValuePercent *float32 `json:"value_percent,omitempty"`
+}
+
+// EmailInboxInsightsComplaintRate The rate at which the domain's mail is reported as spam, as Google Postmaster measures it.
+type EmailInboxInsightsComplaintRate struct {
+	// DeltaPts How the rate moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence is not zero change.
+	DeltaPts *float32 `json:"delta_pts,omitempty"`
+
+	// GmailPostmasterSpamRatePercent Share of the domain's Gmail-received mail that recipients reported as spam, as a percentage, from Google Postmaster.
+	GmailPostmasterSpamRatePercent *float32 `json:"gmail_postmaster_spam_rate_percent,omitempty"`
+
+	// Peak The worst day for complaints in the period.
+	Peak *EmailInboxInsightsComplaintPeak `json:"peak,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsComplaintSeries The complaint-rate series, at the grain named in `window.group_by`. Index by date, never by position.
+type EmailInboxInsightsComplaintSeries struct {
+	// Items One point per bucket.
+	Items *[]EmailInboxInsightsComplaintSeriesPoint `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsComplaintSeriesPoint One bucket of the complaint-rate series.
+type EmailInboxInsightsComplaintSeriesPoint struct {
+	// Date First UTC day of the bucket.
+	Date *openapi_types.Date `json:"date,omitempty"`
+
+	// GmailPostmasterSpamRatePercent The bucket's Google Postmaster spam rate, as a percentage.
+	GmailPostmasterSpamRatePercent *float32 `json:"gmail_postmaster_spam_rate_percent,omitempty"`
+}
+
+// EmailInboxInsightsComplaints defines model for EmailInboxInsightsComplaints.
+type EmailInboxInsightsComplaints struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Rate The rate at which the domain's mail is reported as spam, as Google Postmaster measures it.
+	Rate EmailInboxInsightsComplaintRate `json:"rate"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Series The complaint-rate series, at the grain named in `window.group_by`. Index by date, never by position.
+	Series EmailInboxInsightsComplaintSeries `json:"series"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
+
+// EmailInboxInsightsDmarc The domain's DMARC standing over the period.
+type EmailInboxInsightsDmarc struct {
+	// AlignedRatePercent Share of the domain's measured mail that passed DMARC alignment, as a percentage.
+	AlignedRatePercent *float32 `json:"aligned_rate_percent,omitempty"`
+
+	// DeltaPts How the aligned rate moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence is not zero change.
+	DeltaPts *float32 `json:"delta_pts,omitempty"`
+
+	// Policy The policy published in the domain's DNS record, or null when the domain publishes no DMARC record at all. Null is not `none`: `none` is a policy, asking receivers to take no action while the domain monitors its reporting, and a domain that has one is already set up. A null asks for a record to be published, which is a different first step.
+	Policy *EmailInboxInsightsDmarcPolicy `json:"policy,omitempty"`
+
+	// ReadinessReasons Why `ready_for_reject` is false, so the answer is actionable rather than a bare refusal. Empty when nothing is holding the domain back, and null when readiness was not assessed, which pairs with `ready_for_reject`: an empty list alongside a null verdict would say the opposite of what was measured. Render these rather than a plain "not ready": the fix differs per reason, and a domain held back only by stale reporting needs no configuration change at all.
+	ReadinessReasons *[]EmailInboxInsightsDmarcReadinessReason `json:"readiness_reasons,omitempty"`
+
+	// ReadyForReject Whether the domain's authentication is consistent enough to move the policy to `reject` without losing legitimate mail. Deliberately conservative: false whenever the data is insufficient to be sure. Null when the measurement reached no verdict, which is what a `status` other than `ok` means here: false would read as a considered "not yet" rather than as no assessment having been made.
+	ReadyForReject *bool `json:"ready_for_reject,omitempty"`
+
+	// Source Where the DMARC figures come from. `dmarc_rua` is authoritative
+	// aggregate reporting and covers every sender of the domain, forwarders
+	// included; `google_postmaster` is a fallback covering only mail Google
+	// received. The two are not equivalent, so surface which one is shown.
+	//
+	// Null when the section reports no figures, which is what a
+	// `not_configured` status means for a domain with no aggregate reporting
+	// and no Postmaster connection.
+	Source *string `json:"source,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsDmarcPolicy The DMARC policy published in the domain's DNS record: what receivers are asked to do with mail that fails DMARC.
+type EmailInboxInsightsDmarcPolicy string
+
+// EmailInboxInsightsDmarcReadinessReason Why the domain is not yet ready to move its DMARC policy to `reject`. `source_below_threshold` means at least one legitimate sender is not authenticating well enough yet; `data_too_stale` means the reporting is too old to judge; `no_rua_data` means no aggregate reports have arrived at all; `no_policy` means the domain publishes no DMARC record to tighten. The reporting decides this set and can add to it, so show an unrecognised value rather than treating it as no reason at all.
+type EmailInboxInsightsDmarcReadinessReason string
+
+// EmailInboxInsightsDmarcVerdict How a sending source's mail authenticates against the domain's DMARC policy. `aligned` passes with both SPF and DKIM aligned; `dkim_only` and `spf_only` pass on one mechanism; `fails_policy` passes neither. The reporting decides this set and can add to it, so treat an unrecognised value as a label to show rather than a case to exhaust. A source whose verdict is new still belongs in the table.
+type EmailInboxInsightsDmarcVerdict string
+
+// EmailInboxInsightsDomain One of the workspace's verified sending domains, and whether Inbox Insights is switched on for it.
+type EmailInboxInsightsDomain struct {
+	// Domain The sending domain, lowercased, as it appears in your sending domains.
+	Domain *string `json:"domain,omitempty"`
+
+	// Monitored Whether Inbox Insights reports on this domain. Switching it off stops the reporting and keeps the measurement history, so switching it back on restores the full history rather than starting again.
+	Monitored *bool `json:"monitored,omitempty"`
+}
+
+// EmailInboxInsightsDomainMonitoringOutcome What switching on the main sending domain did.
+//
+//   - `enabled`: Inbox Insights is now switched on for the domain named alongside this.
+//   - `already_on`: at least one domain was already switched on, so nothing changed.
+//   - `choice_required`: the main sending domain could not be identified, most often
+//     because the workspace has several verified domains and no sending to rank them
+//     by. Ask the customer to choose.
+//   - `no_verified_domains`: the workspace has no verified sending domain, so there is
+//     nothing to report on until one is verified.
+type EmailInboxInsightsDomainMonitoringOutcome string
+
+// EmailInboxInsightsDomainMonitoringResult What switching on the workspace's main sending domain did. There are four outcomes, because each one leaves the customer somewhere different: one domain is now reporting, one already was, we could not tell which domain is the main one, or there is no verified domain to report on at all.
+type EmailInboxInsightsDomainMonitoringResult struct {
+	// Domain The sending domain this call switched on, lowercased. The server sends a domain with the `enabled` outcome and null with the other three, `already_on` included: that outcome says only that the workspace had already made its choice, not which domain it chose. Read the domain list for that. Check `outcome` first rather than treating a domain as present.
+	Domain *string `json:"domain,omitempty"`
+
+	// Outcome What switching on the main sending domain did.
+	//
+	// - `enabled`: Inbox Insights is now switched on for the domain named alongside this.
+	// - `already_on`: at least one domain was already switched on, so nothing changed.
+	// - `choice_required`: the main sending domain could not be identified, most often
+	//   because the workspace has several verified domains and no sending to rank them
+	//   by. Ask the customer to choose.
+	// - `no_verified_domains`: the workspace has no verified sending domain, so there is
+	//   nothing to report on until one is verified.
+	Outcome EmailInboxInsightsDomainMonitoringOutcome `json:"outcome"`
+}
+
+// EmailInboxInsightsDomainSort Field used to sort owned domains.
+type EmailInboxInsightsDomainSort string
+
+// EmailInboxInsightsDomainUpdate The Inbox Insights setting to change for a sending domain.
+type EmailInboxInsightsDomainUpdate struct {
+	// Monitored Whether the workspace wants this domain monitored. Enabling enrolls it with eDataSource; disabling removes only the workspace preference and preserves vendor enrollment and measurement history. Verified ownership governs report access.
+	Monitored bool `json:"monitored"`
+}
+
+// EmailInboxInsightsDomains defines model for EmailInboxInsightsDomains.
+type EmailInboxInsightsDomains struct {
+	// Data One entry per verified domain in this page, whether or not it is switched on. A domain that has not been verified does not appear, because verification is what proves the domain is yours to report on.
+	Data *[]EmailInboxInsightsDomain `json:"data,omitempty"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailInboxInsightsEnvelope defines model for EmailInboxInsightsEnvelope.
+type EmailInboxInsightsEnvelope struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
+
+// EmailInboxInsightsEnvelopeBase The meta every Inbox Insights resource carries, whatever it measures, so one client adapter serves them all.
+type EmailInboxInsightsEnvelopeBase struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+}
+
+// EmailInboxInsightsFreshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+type EmailInboxInsightsFreshness struct {
+	// AsOf The most recent UTC day the figures include, or null for a live lookup that has no measurement window.
+	AsOf *openapi_types.Date `json:"as_of,omitempty"`
+
+	// LagHint How far behind real time this resource usually runs. A lowercase
+	// identifier rather than a display label, so pick your own wording for it,
+	// and treat the set as open: the measurement names a hint per resource and
+	// can add one without notice.
+	//
+	// Null when the measurement reports no hint, which several resources do:
+	// show the figures without an age rather than inventing one.
+	LagHint *string `json:"lag_hint,omitempty"`
+}
+
+// EmailInboxInsightsGmailTab A Gmail tab, as the measurement identifies it. A lowercase identifier rather than a
+// display name, so pick your own label for it, and treat the set as open: these are
+// Gmail's own tabs, and the measurement reports whichever one it saw.
+//
+// `none` is a value rather than an absence: Gmail delivered the mail under no tab at all,
+// which is an ordinary outcome and not a gap in the measurement.
+type EmailInboxInsightsGmailTab string
+
+// EmailInboxInsightsGmailTabCategory How the domain's Gmail-placed mail split across one Gmail tab.
+type EmailInboxInsightsGmailTabCategory struct {
+	// Category A Gmail tab, as the measurement identifies it. A lowercase identifier rather than a
+	// display name, so pick your own label for it, and treat the set as open: these are
+	// Gmail's own tabs, and the measurement reports whichever one it saw.
+	//
+	// `none` is a value rather than an absence: Gmail delivered the mail under no tab at all,
+	// which is an ordinary outcome and not a gap in the measurement.
+	Category *EmailInboxInsightsGmailTab `json:"category,omitempty"`
+
+	// InboxPercent Share of this tab's mail that placed in the inbox, as a percentage.
+	InboxPercent *float32 `json:"inbox_percent,omitempty"`
+
+	// OverallPercent Share of the domain's Gmail-placed mail that landed under this tab, as a percentage.
+	OverallPercent *float32 `json:"overall_percent,omitempty"`
+
+	// SpamPercent Share of this tab's mail that placed in spam, as a percentage.
+	SpamPercent *float32 `json:"spam_percent,omitempty"`
+}
+
+// EmailInboxInsightsGmailTabs Where the domain's Gmail-placed mail landed across Gmail's tabs. The status is `not_applicable` when the domain had no Gmail placement in the period; hide the section rather than showing an empty split.
+type EmailInboxInsightsGmailTabs struct {
+	// Categories One entry per Gmail tab that received mail.
+	Categories *[]EmailInboxInsightsGmailTabCategory `json:"categories,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsGroupBy The bucket size a series is grouped by. Day suits the product's charts; wider grains suit long ranges.
+type EmailInboxInsightsGroupBy string
+
+// EmailInboxInsightsIndustry The industry a sending domain was classified into.
+type EmailInboxInsightsIndustry struct {
+	// Id The measurement's own identifier for this industry, carried through so a client can tell two cohorts apart without comparing labels. No operation accepts it.
+	Id *string `json:"id,omitempty"`
+
+	// Name Display name of the industry. The classification is broad, so bind this label rather than assuming a finer category exists.
+	Name *string `json:"name,omitempty"`
+}
+
+// EmailInboxInsightsIndustryBenchmark defines model for EmailInboxInsightsIndustryBenchmark.
+type EmailInboxInsightsIndustryBenchmark struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// CohortSize How many measured senders the median was computed across.
+	CohortSize *int `json:"cohort_size,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Industry The cohort the median describes, or null when the domain is not classified into an industry. This description already names that as a `no_data` cause and a normal state for a young cohort, so it needs a representation: without one the only way to report an unclassified domain is a cohort with a blank name.
+	Industry *EmailInboxInsightsIndustry `json:"industry,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// MedianInboxRatePercent The industry's median inbox rate, as a percentage.
+	MedianInboxRatePercent *float32 `json:"median_inbox_rate_percent,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+
+	// WindowDays How many days the cohort figure covers. Reported rather than assumed because the period is the one the nightly computation produced, not one the caller chose, so a label built from a requested window would be wrong. Absent when the computation does not report it, in which case a label must not name a period at all.
+	WindowDays *int `json:"window_days,omitempty"`
+}
+
+// EmailInboxInsightsMailboxProvider A mailbox provider, as the measurement identifies it. A lowercase identifier rather than
+// a display name, so pick your own label for it, and treat the set as open: this is a long
+// tail rather than a handful of household names, and some entries are domains
+// (`fastmail.com`, `seznam.cz`) rather than brands.
+//
+// The measurement places mail into its own seed lists, so its buckets are not the ones the
+// [mailbox-provider stats breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider)
+// reports: Microsoft's properties appear here as `hotmail` rather than `microsoft`, and
+// `apple` appears here where the Competitive Insights panel has no measurement for it at
+// all. None of the three is a joinable dimension against the others.
+type EmailInboxInsightsMailboxProvider = string
+
+// EmailInboxInsightsMeasurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+type EmailInboxInsightsMeasurement struct {
+	// Sources Identifiers of the measurement systems that contributed to these figures. The set grows as measurement coverage does, so treat the values as labels rather than a closed list.
+	Sources *[]string `json:"sources,omitempty"`
+
+	// Weighting How the placement figures in this response were weighted, so a number is
+	// self-describing wherever it is quoted or screenshotted.
+	//
+	// Placement rates are a weighted average of per-provider rates against an
+	// audience mix (the share of recipients expected at each mailbox provider)
+	// rather than a share of delivered volume.
+	Weighting *EmailInboxInsightsWeighting `json:"weighting,omitempty"`
+}
+
+// EmailInboxInsightsPlacement defines model for EmailInboxInsightsPlacement.
+type EmailInboxInsightsPlacement struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// GmailTabs Where the domain's Gmail-placed mail landed across Gmail's tabs. The status is `not_applicable` when the domain had no Gmail placement in the period; hide the section rather than showing an empty split.
+	GmailTabs EmailInboxInsightsGmailTabs `json:"gmail_tabs"`
+
+	// IpDetails Per-IP placement detail for the domain's sending infrastructure. Returned only when the request asked for IP detail.
+	IpDetails *EmailInboxInsightsPlacementIpDetails `json:"ip_details,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement EmailInboxInsightsMeasurement `json:"measurement"`
+
+	// Providers The per-provider placement table.
+	Providers EmailInboxInsightsPlacementProviders `json:"providers"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Series The placement time series, at the grain named in `window.group_by`.
+	//
+	// The series is sparse: buckets with no measured placement are omitted rather
+	// than returned as zeros, because an invented zero would be indistinguishable
+	// from a measured one. Index by date, never by position.
+	Series EmailInboxInsightsPlacementSeries `json:"series"`
+
+	// Summary The domain-wide placement figures for the period.
+	//
+	// These rates are weighted against the audience mix in `measurement.weighting`,
+	// so they can legitimately differ from any single provider row, which has no
+	// mix to weight. Rates are percentages of measured placements, never of
+	// delivered volume.
+	Summary EmailInboxInsightsPlacementSummary `json:"summary"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
+
+// EmailInboxInsightsPlacementCounts Raw measured placements behind a set of rates, before any weighting. A measured placement is one message whose mailbox destination the measurement observed.
+type EmailInboxInsightsPlacementCounts struct {
+	// Inbox Measured placements observed in the inbox.
+	Inbox *int `json:"inbox,omitempty"`
+
+	// Measured Total measured placements the rates were computed over.
+	Measured *int `json:"measured,omitempty"`
+
+	// Missing Measured sends that arrived in neither folder.
+	Missing *int `json:"missing,omitempty"`
+
+	// Spam Measured placements observed in spam.
+	Spam *int `json:"spam,omitempty"`
+}
+
+// EmailInboxInsightsPlacementDeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+type EmailInboxInsightsPlacementDeltaPts struct {
+	// Inbox Inbox-rate movement in percentage points; negative means it fell.
+	Inbox *float32 `json:"inbox,omitempty"`
+
+	// Spam Spam-rate movement in percentage points.
+	Spam *float32 `json:"spam,omitempty"`
+}
+
+// EmailInboxInsightsPlacementIpDetail One sending IP's placement and authentication pass rates for the period.
+type EmailInboxInsightsPlacementIpDetail struct {
+	// DkimPassRatePercent Share of this IP's measured mail that passed DKIM, as a percentage.
+	DkimPassRatePercent *float32 `json:"dkim_pass_rate_percent,omitempty"`
+
+	// InboxRatePercent Share of this IP's measured placements that landed in the inbox, as a percentage.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// Ip The sending IP address.
+	Ip *string `json:"ip,omitempty"`
+
+	// RawCounts Raw measured placements behind a set of rates, before any weighting. A measured placement is one message whose mailbox destination the measurement observed.
+	RawCounts EmailInboxInsightsPlacementCounts `json:"raw_counts"`
+
+	// SpfPassRatePercent Share of this IP's measured mail that passed SPF, as a percentage.
+	SpfPassRatePercent *float32 `json:"spf_pass_rate_percent,omitempty"`
+}
+
+// EmailInboxInsightsPlacementIpDetails Per-IP placement detail for the domain's sending infrastructure. Returned only when the request asked for IP detail.
+type EmailInboxInsightsPlacementIpDetails struct {
+	// Items One row per sending IP the measurement observed for this domain in the period.
+	Items *[]EmailInboxInsightsPlacementIpDetail `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsPlacementProvider One mailbox provider's placement for the period. Unlike the domain-wide summary, a single provider's rates are unweighted: there is no audience mix to weight within one provider.
+type EmailInboxInsightsPlacementProvider struct {
+	// DeltaPts Inbox-rate movement against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data for this provider; absence is not zero change.
+	DeltaPts *float32 `json:"delta_pts,omitempty"`
+
+	// InboxRatePercent Share of this provider's measured placements that landed in the inbox, as a percentage.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// MailboxProvider A mailbox provider, as the measurement identifies it. A lowercase identifier rather than
+	// a display name, so pick your own label for it, and treat the set as open: this is a long
+	// tail rather than a handful of household names, and some entries are domains
+	// (`fastmail.com`, `seznam.cz`) rather than brands.
+	//
+	// The measurement places mail into its own seed lists, so its buckets are not the ones the
+	// [mailbox-provider stats breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider)
+	// reports: Microsoft's properties appear here as `hotmail` rather than `microsoft`, and
+	// `apple` appears here where the Competitive Insights panel has no measurement for it at
+	// all. None of the three is a joinable dimension against the others.
+	MailboxProvider *EmailInboxInsightsMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// RawCounts Raw measured placements behind a set of rates, before any weighting. A measured placement is one message whose mailbox destination the measurement observed.
+	RawCounts EmailInboxInsightsPlacementCounts `json:"raw_counts"`
+
+	// ReadRatePercent Share of this provider's inbox-placed mail that was read, as a percentage.
+	ReadRatePercent *float32 `json:"read_rate_percent,omitempty"`
+
+	// SpamRatePercent Share of this provider's measured placements that landed in spam, as a percentage.
+	SpamRatePercent *float32 `json:"spam_rate_percent,omitempty"`
+}
+
+// EmailInboxInsightsPlacementProviders The per-provider placement table.
+type EmailInboxInsightsPlacementProviders struct {
+	// Items One row per mailbox provider the measurement observed for this domain in the period.
+	Items *[]EmailInboxInsightsPlacementProvider `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsPlacementSeries The placement time series, at the grain named in `window.group_by`.
+//
+// The series is sparse: buckets with no measured placement are omitted rather
+// than returned as zeros, because an invented zero would be indistinguishable
+// from a measured one. Index by date, never by position.
+type EmailInboxInsightsPlacementSeries struct {
+	// Items One point per bucket with measured placements. With providers named in the request, one point per bucket per provider.
+	Items *[]EmailInboxInsightsPlacementSeriesPoint `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsPlacementSeriesPoint One bucket of the placement series.
+type EmailInboxInsightsPlacementSeriesPoint struct {
+	// Date First UTC day of the bucket.
+	Date *openapi_types.Date `json:"date,omitempty"`
+
+	// InboxRatePercent Inbox share of the bucket's measured placements, as a percentage.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// InboxRawCount Measured placements observed in the inbox in this bucket.
+	InboxRawCount *int `json:"inbox_raw_count,omitempty"`
+
+	// MailboxProvider The provider this point describes, or null on the domain-wide line. Per-provider points appear only when the request named providers.
+	MailboxProvider *EmailInboxInsightsMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// SpamRatePercent Spam share of the bucket's measured placements, as a percentage.
+	SpamRatePercent *float32 `json:"spam_rate_percent,omitempty"`
+
+	// SpamRawCount Measured placements observed in spam in this bucket.
+	SpamRawCount *int `json:"spam_raw_count,omitempty"`
+}
+
+// EmailInboxInsightsPlacementSummary The domain-wide placement figures for the period.
+//
+// These rates are weighted against the audience mix in `measurement.weighting`,
+// so they can legitimately differ from any single provider row, which has no
+// mix to weight. Rates are percentages of measured placements, never of
+// delivered volume.
+type EmailInboxInsightsPlacementSummary struct {
+	// DeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+	DeltaPts *EmailInboxInsightsPlacementDeltaPts `json:"delta_pts,omitempty"`
+
+	// InboxRatePercent Estimated share of measured placements that landed in the inbox, as a percentage.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// MissingRatePercent Estimated share of measured sends that arrived in neither folder, as a percentage.
+	MissingRatePercent *float32 `json:"missing_rate_percent,omitempty"`
+
+	// RawCounts The measured placements the rates above were computed over, or null when the summary has none: a period with no measured mail reports null here rather than four zeros, because a zero count is a real measurement and would read as "we looked and found nothing" for a domain nothing looked at. Read `status` alongside it.
+	RawCounts *EmailInboxInsightsPlacementCounts `json:"raw_counts,omitempty"`
+
+	// ReadRatePercent Estimated share of inbox-placed mail that was read, as a percentage, measured by the panel's dwell time. This is not an open rate; the two count different things and are not interchangeable.
+	ReadRatePercent *float32 `json:"read_rate_percent,omitempty"`
+
+	// SpamRatePercent Estimated share of measured placements that landed in spam, as a percentage.
+	SpamRatePercent *float32 `json:"spam_rate_percent,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsSectionStatus Whether a section of the response carries figures, and when it does not, why.
+//
+// `ok` means the section is populated. `no_data` means the measurement ran and
+// observed nothing to report for this domain in the period. `not_configured`
+// means the section needs a setup step that has not been completed yet, such as
+// connecting Google Postmaster Tools; treat it as an invitation to finish
+// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+// the same request may well succeed on a retry; the rest of the response is
+// unaffected. `not_applicable` means the section is meaningless for this domain
+// in this period, so there is nothing to show or fix.
+//
+// A successful response never implies every section is populated; read each
+// section's status rather than assuming figures are present.
+type EmailInboxInsightsSectionStatus string
+
+// EmailInboxInsightsSpamTrapHit One trap address this domain's mail reached, with enough detail to trace where the address came from. A row can represent several hits on the same trap, so read `hit_count` rather than counting rows.
+type EmailInboxInsightsSpamTrapHit struct {
+	// FirstSeen When the trap network first observed mail from this domain at this trap.
+	FirstSeen *time.Time `json:"first_seen,omitempty"`
+
+	// HitCount How many times this trap was hit over the period, so rows do not sum to `total` on their own: one repeatedly hit trap is one row. Absent when the trap network does not break the count out, which is not the same as one hit. A row exists because the trap was reached at least once either way.
+	HitCount *int `json:"hit_count,omitempty"`
+
+	// IpAddress The sending IP the message came from.
+	IpAddress *string `json:"ip_address,omitempty"`
+
+	// LastSeen The most recent sighting, or null when the trap was seen only once. On a row with several hits this is the far end of the period they span.
+	LastSeen *time.Time `json:"last_seen,omitempty"`
+
+	// Source The trap network that observed a hit. The set grows as coverage does, so treat the values as labels rather than a closed list.
+	Source EmailInboxInsightsTrapSource `json:"source"`
+
+	// TrapAgeDays How long the trap address has been a trap, in days, or null when the network does not say. A high age on a recycled trap suggests the address has been dead in the list for a long time.
+	TrapAgeDays *int `json:"trap_age_days,omitempty"`
+
+	// Type What kind of spam trap was hit. `pristine` addresses were never used by a real person and never subscribed to anything, so a hit means the address was harvested or guessed rather than collected. `recycled` addresses belonged to a real person once and were retired, so hits point at stale list data. `typo` addresses catch misspellings of real domains, `parked` addresses sit on domains that are registered but not used for real mail, and `mixed` covers hits the trap network reports without a single kind. The trap network decides this set and can add to it, so treat an unrecognised value as a label to show rather than a case to exhaust. A hit whose kind is new is still a hit worth acting on.
+	Type EmailInboxInsightsTrapType `json:"type"`
+}
+
+// EmailInboxInsightsSpamTrapHits The individual trap hits behind the totals. A sample rather than a guaranteed complete list, and its rows do not count hits: one row is one trap address, carrying a `hit_count` for how many times that address was reached. Neither the number of rows nor the sum of `hit_count` reconstructs `total`, because that field is absent wherever the trap network does not break the figure out. Read `truncated_types` for what the measurement capped rather than inferring completeness by comparing counts.
+type EmailInboxInsightsSpamTrapHits struct {
+	// Items One entry per trap reached, newest first.
+	Items *[]EmailInboxInsightsSpamTrapHit `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+
+	// TruncatedTypes Trap kinds whose hits the measurement capped, so the rows shown for them are incomplete by design rather than by chance. Typo-trap hits, for instance, only ever cover the last seven days. An empty array means nothing was capped.
+	TruncatedTypes *[]EmailInboxInsightsTrapType `json:"truncated_types,omitempty"`
+}
+
+// EmailInboxInsightsSpamTrapSourceCount Trap hits attributed to one trap network.
+type EmailInboxInsightsSpamTrapSourceCount struct {
+	// Hits Hits this network observed over the period.
+	Hits *int `json:"hits,omitempty"`
+
+	// Source The trap network that observed a hit. The set grows as coverage does, so treat the values as labels rather than a closed list.
+	Source EmailInboxInsightsTrapSource `json:"source"`
+}
+
+// EmailInboxInsightsSpamTrapTypeCount Trap hits of one kind.
+type EmailInboxInsightsSpamTrapTypeCount struct {
+	// Hits Hits of this kind over the period. A zero is a measured zero, not missing data: no pristine hits is a genuinely good result rather than an empty state.
+	Hits *int `json:"hits,omitempty"`
+
+	// Type What kind of spam trap was hit. `pristine` addresses were never used by a real person and never subscribed to anything, so a hit means the address was harvested or guessed rather than collected. `recycled` addresses belonged to a real person once and were retired, so hits point at stale list data. `typo` addresses catch misspellings of real domains, `parked` addresses sit on domains that are registered but not used for real mail, and `mixed` covers hits the trap network reports without a single kind. The trap network decides this set and can add to it, so treat an unrecognised value as a label to show rather than a case to exhaust. A hit whose kind is new is still a hit worth acting on.
+	Type EmailInboxInsightsTrapType `json:"type"`
+}
+
+// EmailInboxInsightsSpamTraps defines model for EmailInboxInsightsSpamTraps.
+type EmailInboxInsightsSpamTraps struct {
+	// BySource Hits split by the trap network that observed them.
+	BySource *[]EmailInboxInsightsSpamTrapSourceCount `json:"by_source,omitempty"`
+
+	// ByType Hits split by kind, one entry per kind the trap network reported. Read counts from here rather than assuming a fixed set of kinds: the set can grow, and an entry that is absent was not reported rather than being a measured zero. These sum to `total`.
+	ByType *[]EmailInboxInsightsSpamTrapTypeCount `json:"by_type,omitempty"`
+
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Delta How the hit count moved against the prior period, as a change in the number of hits rather than in percentage points. Negative is an improvement. Present only when the request asked for a comparison and the prior period had data; absence is not zero change.
+	Delta *int `json:"delta,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When the measurement service computed these figures.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// HitRows The individual trap hits behind the totals. A sample rather than a guaranteed complete list, and its rows do not count hits: one row is one trap address, carrying a `hit_count` for how many times that address was reached. Neither the number of rows nor the sum of `hit_count` reconstructs `total`, because that field is absent wherever the trap network does not break the figure out. Read `truncated_types` for what the measurement capped rather than inferring completeness by comparing counts.
+	HitRows EmailInboxInsightsSpamTrapHits `json:"hit_rows"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Total Trap hits observed over the period, across every trap network. The authoritative count: `hit_rows` holds a sample of the rows behind it.
+	Total *int `json:"total,omitempty"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
+
+// EmailInboxInsightsTrapSource The trap network that observed a hit. The set grows as coverage does, so treat the values as labels rather than a closed list.
+type EmailInboxInsightsTrapSource string
+
+// EmailInboxInsightsTrapType What kind of spam trap was hit. `pristine` addresses were never used by a real person and never subscribed to anything, so a hit means the address was harvested or guessed rather than collected. `recycled` addresses belonged to a real person once and were retired, so hits point at stale list data. `typo` addresses catch misspellings of real domains, `parked` addresses sit on domains that are registered but not used for real mail, and `mixed` covers hits the trap network reports without a single kind. The trap network decides this set and can add to it, so treat an unrecognised value as a label to show rather than a case to exhaust. A hit whose kind is new is still a hit worth acting on.
+type EmailInboxInsightsTrapType string
+
+// EmailInboxInsightsWeighting How the placement figures in this response were weighted, so a number is
+// self-describing wherever it is quoted or screenshotted.
+//
+// Placement rates are a weighted average of per-provider rates against an
+// audience mix (the share of recipients expected at each mailbox provider)
+// rather than a share of delivered volume.
+type EmailInboxInsightsWeighting struct {
+	// Basis The weighting method behind the rates, as the measurement names it. A slug rather than a sentence, so render it as a label and do not expect it to read as English. Null when the measurement did not state one, which pairs with `source`: both describe the method, so neither can claim to know it when the measurement was silent.
+	Basis *string `json:"basis,omitempty"`
+
+	// Source Which audience mix the weighting used. Null when the measurement weighted these figures by a method this API does not model: the enum is closed so that a client can branch on it exhaustively, which means an unfamiliar method has to answer "not one of these" rather than be passed through. `basis` usually still describes the method in words when that happens.
+	Source *EmailInboxInsightsWeightingSource `json:"source,omitempty"`
+
+	// WeightSetId The measurement's own identifier for the audience mix, carried through so a client can tell two weightings apart without comparing `basis` strings. No operation accepts it.
+	WeightSetId *string `json:"weight_set_id,omitempty"`
+}
+
+// EmailInboxInsightsWeightingSource Where the audience mix behind the placement weighting came from: `account` when it was configured for this account, `global` when a general default was used instead.
+type EmailInboxInsightsWeightingSource string
+
+// EmailInboxInsightsWindow The period every figure in the response covers: whole UTC calendar days,
+// inclusive on both ends. The same window convention the email statistics
+// endpoints use, so figures from the two sources describe the same days and
+// can be combined without adjustment.
+type EmailInboxInsightsWindow struct {
+	// End Last UTC day of the period, inclusive.
+	End *openapi_types.Date `json:"end,omitempty"`
+
+	// GroupBy The bucket size a series is grouped by. Day suits the product's charts; wider grains suit long ranges.
+	GroupBy *EmailInboxInsightsGroupBy `json:"group_by,omitempty"`
+
+	// Start First UTC day of the period, inclusive.
+	Start *openapi_types.Date `json:"start,omitempty"`
+}
 
 // EmailLabelsUpdate Label changes to apply. Labels in `add` are applied and labels in `remove` are taken off; other labels are left untouched. Adding a label that is already present, or removing one that is not, has no effect. System labels express state changes. On a conversation, adding `spam` files it as spam. Adding `archive` files it away without deleting it. Adding `inbox`, or removing `spam`, `blocked`, or `archive`, returns it to the inbox. Removing `unread` marks all retained received messages as read in one call. On a message, adding or removing `unread` flips read state. Adding or removing `trash` moves it to or out of the trash. The API rejects changes that contradict this model. A request cannot add more than one placement label. It cannot add `blocked`, because blocking a sender is a receive-rule decision. Removing `inbox` requires adding a destination. A conversation cannot add `trash` or `unread`; removing `unread` is the mark-all-read shortcut, and `trash` uses the `DELETE` verb. A message cannot use placement labels; move its conversation instead. A sent message cannot use `unread`. Custom labels are 1-64 characters with no commas, control characters, or leading or trailing whitespace. System label names and a small reserved set (`all`, `archived`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `junk`, `muted`, `none`, `outbox`, `pinned`, `read`, `scheduled`, `snoozed`, `starred`) cannot be used as custom labels, in any casing. A conversation or message has at most 20 labels, system labels included.
 type EmailLabelsUpdate struct {
@@ -9963,7 +12362,7 @@ type EmailThread struct {
 	//
 	// - `inbox`: The conversation is in the inbox.
 	// - `archive`: The conversation was filed away and is done for now.
-	// - `spam`: The conversation's opening message failed sender authentication.
+	// - `spam`: The conversation's opening message is filed in Spam.
 	// - `blocked`: The conversation's opening message was rejected by the mailbox's receive policy or rules.
 	//
 	// Move a conversation by updating its labels. Add `spam` to file it as spam, add `archive` to clean it out of the inbox, and add `inbox`, or remove `spam`, `blocked`, or `archive`, to bring it back. An archived conversation returns to the inbox by itself when a new message arrives. Custom labels share the same list, and a conversation has at most 20 labels in total.
@@ -10026,12 +12425,13 @@ type EmailThreadMessage struct {
 	// AttachmentManifest Attachment metadata (filename, content type, size). Both the metadata and the attachment bytes stay available for the mailbox's retention tier.
 	AttachmentManifest *[]EmailThreadMessageAttachment `json:"attachment_manifest,omitempty"`
 
-	// Authentication Whether the sender of a received message was authenticated.
+	// Authentication DMARC result for the domain in the received message's `From` header.
 	//
-	// - `pass`: the sender's identity was verified.
-	// - `fail`: it was checked and did not verify.
-	// - `unknown`: no verdict could be determined, so do not treat the
-	//   sender as verified.
+	// - `pass`: SPF or DKIM passed and aligned with that domain.
+	// - `fail`: DMARC was evaluated and did not pass.
+	// - `unknown`: no trustworthy verdict is available.
+	//
+	// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 	//
 	// Null for sent messages. This field is readable for the mailbox's full
 	// retention tier, so the verdict is still available after the 30-day
@@ -10053,10 +12453,10 @@ type EmailThreadMessage struct {
 	// Direction Which way the message went. `inbound` means you received it, `outbound` means you sent it.
 	Direction *EmailThreadMessageDirection `json:"direction,omitempty"`
 
-	// DkimPass Whether DKIM passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+	// DkimPass Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
-	// DmarcPass Whether DMARC passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+	// DmarcPass Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
 	// ExtractedText Plain-text content of the message with quoted history stripped. Readable for the mailbox's full retention tier, in both directions. Always present when fetching a single message. On list endpoints it is included only when the request sets `include=extracted_text`. Null when no text could be extracted.
@@ -10072,7 +12472,7 @@ type EmailThreadMessage struct {
 	//
 	// - `inbox`: Accepted mail.
 	// - `archive`: The message's conversation was filed away.
-	// - `spam`: The message failed sender authentication.
+	// - `spam`: The message is filed in Spam.
 	// - `blocked`: The message was rejected by the mailbox's receive policy or rules.
 	//
 	// A received message also has `unread` until it is read. `trash` marks a message in the trash, in either direction. Custom labels share the same list, and a message has at most 20 labels in total.
@@ -10096,7 +12496,7 @@ type EmailThreadMessage struct {
 	// Source Link to the message's entry in the received-message or sent-message log, which has delivery analytics such as per-recipient events. Log entries expire 30 days after the message occurred.
 	Source EmailThreadMessageSource `json:"source"`
 
-	// SpfPass Whether SPF passed for the sender of a received message. Null for sent messages and when no verdict is available. This field is kept for the mailbox's retention tier.
+	// SpfPass Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`. Sent messages have `null` results. Kept for the mailbox retention tier.
 	SpfPass *bool `json:"spf_pass,omitempty"`
 
 	// Status Aggregate delivery status of a sent message:
@@ -10117,12 +12517,13 @@ type EmailThreadMessage struct {
 	To *[]openapi_types.Email `json:"to,omitempty"`
 }
 
-// EmailThreadMessageAuthentication Whether the sender of a received message was authenticated.
+// EmailThreadMessageAuthentication DMARC result for the domain in the received message's `From` header.
 //
-//   - `pass`: the sender's identity was verified.
-//   - `fail`: it was checked and did not verify.
-//   - `unknown`: no verdict could be determined, so do not treat the
-//     sender as verified.
+// - `pass`: SPF or DKIM passed and aligned with that domain.
+// - `fail`: DMARC was evaluated and did not pass.
+// - `unknown`: no trustworthy verdict is available.
+//
+// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 //
 // Null for sent messages. This field is readable for the mailbox's full
 // retention tier, so the verdict is still available after the 30-day
@@ -10698,18 +13099,19 @@ type EventEmailMailboxMessageReceivedData struct {
 	// AttachmentCount Number of attachments on the message. Attachment content remains available for the mailbox's retention tier.
 	AttachmentCount int `json:"attachment_count"`
 
-	// Authentication Whether the sender of the received message was authenticated.
+	// Authentication DMARC result for the domain in the received message's `From` header.
 	//
-	// - `pass`: the sender's identity was verified.
-	// - `fail`: it was checked and did not verify.
-	// - `unknown`: no verdict is available, so do not treat the sender
-	//   as verified.
+	// - `pass`: SPF or DKIM passed and aligned with that domain.
+	// - `fail`: DMARC was evaluated and did not pass.
+	// - `unknown`: no trustworthy verdict is available.
+	//
+	// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 	Authentication *EventEmailMailboxMessageReceivedDataAuthentication `json:"authentication,omitempty"`
 
-	// DkimPass Whether DKIM passed for the sender, or null when no verdict was computable.
+	// DkimPass Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
-	// DmarcPass Whether DMARC passed for the sender, or null when no verdict was computable.
+	// DmarcPass Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
 	// ExtractedText Plain-text body with quoted history removed, capped at 64 KB. See `truncated_text` to check whether the value was truncated. Null when extraction produces no text.
@@ -10723,7 +13125,7 @@ type EventEmailMailboxMessageReceivedData struct {
 	// RouteId ID (ein_…) of the explicit inbound route that matched, or null when the message was delivered by the virtual exact-address route.
 	RouteId *string `json:"route_id,omitempty"`
 
-	// SpfPass Whether SPF passed for the sender, or null when no verdict was computable.
+	// SpfPass Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`.
 	SpfPass *bool `json:"spf_pass,omitempty"`
 
 	// Subject Subject line as received, or null when the message had no subject.
@@ -10737,12 +13139,13 @@ type EventEmailMailboxMessageReceivedData struct {
 	TruncatedText *bool `json:"truncated_text,omitempty"`
 }
 
-// EventEmailMailboxMessageReceivedDataAuthentication Whether the sender of the received message was authenticated.
+// EventEmailMailboxMessageReceivedDataAuthentication DMARC result for the domain in the received message's `From` header.
 //
-//   - `pass`: the sender's identity was verified.
-//   - `fail`: it was checked and did not verify.
-//   - `unknown`: no verdict is available, so do not treat the sender
-//     as verified.
+// - `pass`: SPF or DKIM passed and aligned with that domain.
+// - `fail`: DMARC was evaluated and did not pass.
+// - `unknown`: no trustworthy verdict is available.
+//
+// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 type EventEmailMailboxMessageReceivedDataAuthentication string
 
 // EventEmailMailboxMessageSent A mailbox message was handed off for delivery. This event fires once per message. The same send also emits per-recipient `email.*` events. Choose one event family for each automation and deduplicate mailbox events by `message_id`.
@@ -10965,21 +13368,22 @@ type EventEmailReceivedType string
 
 // EventEmailReceivedData Payload of the email.received event.
 type EventEmailReceivedData struct {
-	// Authentication Whether the sender of the received message was authenticated.
+	// Authentication DMARC result for the domain in the received message's `From` header.
 	//
-	// - `pass`: the sender's identity was verified.
-	// - `fail`: it was checked and did not verify.
-	// - `unknown`: no verdict is available, so do not treat the sender
-	//   as verified.
+	// - `pass`: SPF or DKIM passed and aligned with that domain.
+	// - `fail`: DMARC was evaluated and did not pass.
+	// - `unknown`: no trustworthy verdict is available.
+	//
+	// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 	Authentication *EventEmailReceivedDataAuthentication `json:"authentication,omitempty"`
 
-	// DkimPass Whether DKIM passed for the sender, or null when the result did not carry a DKIM verdict.
+	// DkimPass Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`.
 	DkimPass *bool `json:"dkim_pass,omitempty"`
 
-	// DmarcPass Whether DMARC passed for the sender, or null when the result did not carry a DMARC verdict.
+	// DmarcPass Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
-	// From Envelope-from address.
+	// From Address from the message's From header, with the relay's parsed sender and then the SMTP envelope sender as fallbacks when that header cannot be read.
 	From openapi_types.Email `json:"from"`
 
 	// InReplyTo `In-Reply-To` header containing the `Message-ID` this message replies to, or null when it is not a reply.
@@ -10989,10 +13393,10 @@ type EventEmailReceivedData struct {
 	// MessageId RFC 5322 Message-ID header from the sender, or null when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
-	// SpamScore Spam score carried on the received message, or null when it carries no score.
+	// SpamScore Content spam score when available. The receiving provider currently supplies no score, so this is `null`.
 	SpamScore *float32 `json:"spam_score,omitempty"`
 
-	// SpfPass Whether SPF passed for the sender, or null when the result did not carry an SPF verdict.
+	// SpfPass Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`.
 	SpfPass *bool `json:"spf_pass,omitempty"`
 
 	// Subject Subject line as received, or null when the message had no subject.
@@ -11003,12 +13407,13 @@ type EventEmailReceivedData struct {
 	WorkspaceId WorkspaceID           `json:"workspace_id"`
 }
 
-// EventEmailReceivedDataAuthentication Whether the sender of the received message was authenticated.
+// EventEmailReceivedDataAuthentication DMARC result for the domain in the received message's `From` header.
 //
-//   - `pass`: the sender's identity was verified.
-//   - `fail`: it was checked and did not verify.
-//   - `unknown`: no verdict is available, so do not treat the sender
-//     as verified.
+// - `pass`: SPF or DKIM passed and aligned with that domain.
+// - `fail`: DMARC was evaluated and did not pass.
+// - `unknown`: no trustworthy verdict is available.
+//
+// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 type EventEmailReceivedDataAuthentication string
 
 // EventEmailRejected The API rejected the email before delivery because of suppression, transmission failure, content, or policy. Fires once per recipient.
@@ -11226,12 +13631,27 @@ type EventSMSAcceptedData struct {
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+
 	// Segments Segment breakdown for the message body. Segment count drives billing.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11248,10 +13668,25 @@ type EventSMSBase struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11289,10 +13724,25 @@ type EventSMSDeliveredData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11327,10 +13777,25 @@ type EventSMSExpiredData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11365,10 +13830,25 @@ type EventSMSFailedData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11404,6 +13884,12 @@ type EventSMSReceivedData struct {
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+
 	// Segments Segment breakdown for the message body. Segment count drives billing.
 	Segments SMSSegments  `json:"segments"`
 	SmsId    SMSMessageID `json:"sms_id"`
@@ -11413,6 +13899,15 @@ type EventSMSReceivedData struct {
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// Text The message body, so you can act on it without a follow-up read. Absent when the message carried only attachments and no text of its own.
 	Text *string `json:"text,omitempty"`
@@ -11450,10 +13945,25 @@ type EventSMSRejectedData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11491,10 +14001,25 @@ type EventSMSSentData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -11553,10 +14078,25 @@ type EventSMSUndeliveredData struct {
 
 	// Metadata The metadata object provided on the send request, echoed on every event for the message so you can correlate events with your own records. Null when the message carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
-	SmsId    SMSMessageID            `json:"sms_id"`
+
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language"`
+
+	// ResolvedLanguage The template language rendered at acceptance, in canonical form. Null when the send used no template.
+	ResolvedLanguage *LanguageTag `json:"resolved_language"`
+	SmsId            SMSMessageID `json:"sms_id"`
 
 	// Tags Tags provided on the send request, echoed on every event for the message so you can route and correlate without an extra lookup. Null when the message carried no tags.
 	Tags *[]Tag `json:"tags"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash"`
+
+	// TemplateId The template rendered at acceptance, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id"`
 
 	// To Where the message went. On an outbound message this is the recipient's phone number in E.164 format; on an inbound one it is your own number that received it.
 	To          string      `json:"to"`
@@ -12342,20 +14882,22 @@ type InboundEmailMessage struct {
 	// Attachments Metadata for each attachment found on the message. Empty when the message had no attachments.
 	Attachments []InboundAttachment `json:"attachments"`
 
-	// Authentication Whether the sender of the received message was authenticated:
+	// Authentication DMARC result for the domain in the received message's `From` header.
 	//
-	// - `pass`: The sender's identity was verified.
-	// - `fail`: The sender's identity was checked and did not verify.
-	// - `unknown`: No verdict is available, so the sender should not be treated as verified.
+	// - `pass`: SPF or DKIM passed and aligned with that domain.
+	// - `fail`: DMARC was evaluated and did not pass.
+	// - `unknown`: no trustworthy verdict is available.
+	//
+	// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 	Authentication *InboundEmailMessageAuthentication `json:"authentication"`
 
 	// Cc Recipients on the message's Cc header.
 	Cc []EmailAddress `json:"cc"`
 
-	// DkimPass Whether DKIM passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include a DKIM verdict.
+	// DkimPass Whether the receiving provider verified a DKIM signature. A passing signature makes this `true` even when another signature fails. Missing signatures and inconclusive verification results are `null`.
 	DkimPass *bool `json:"dkim_pass"`
 
-	// DmarcPass Whether DMARC passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include a DMARC verdict.
+	// DmarcPass Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`.
 	DmarcPass *bool `json:"dmarc_pass"`
 
 	// From An email address with an optional display name.
@@ -12374,10 +14916,10 @@ type InboundEmailMessage struct {
 	// References The References header, which holds every Message-ID in this conversation, oldest first. Left out when the message arrived without one.
 	References *[]string `json:"references,omitempty"`
 
-	// SpamScore Spam score on the received message, or `null` when no score is available.
+	// SpamScore Content spam score when available. The receiving provider currently supplies no score, so this is `null`.
 	SpamScore *float32 `json:"spam_score"`
 
-	// SpfPass Whether SPF passed for the sender, parsed from the message's authentication results. `null` when the authentication results did not include an SPF verdict.
+	// SpfPass Whether the receiving provider reports that SPF authorized the envelope sender for the sending server. A soft failure is `false`. Missing, neutral and inconclusive results are `null`.
 	SpfPass *bool `json:"spf_pass"`
 
 	// Subject Subject line as received, or `null` when the message had no subject.
@@ -12390,11 +14932,13 @@ type InboundEmailMessage struct {
 	To []EmailAddress `json:"to"`
 }
 
-// InboundEmailMessageAuthentication Whether the sender of the received message was authenticated:
+// InboundEmailMessageAuthentication DMARC result for the domain in the received message's `From` header.
 //
-// - `pass`: The sender's identity was verified.
-// - `fail`: The sender's identity was checked and did not verify.
-// - `unknown`: No verdict is available, so the sender should not be treated as verified.
+// - `pass`: SPF or DKIM passed and aligned with that domain.
+// - `fail`: DMARC was evaluated and did not pass.
+// - `unknown`: no trustworthy verdict is available.
+//
+// This follows `dmarc_pass` and does not verify a particular person. The receiving provider currently supplies no DMARC result, so received messages report `unknown`.
 type InboundEmailMessageAuthentication string
 
 // InboundEmailMessageBody The parsed body of a received email.
@@ -14210,7 +16754,7 @@ type SMSMessage struct {
 	// Carrier Carrier that handled the message. Absent until a delivery receipt identifies it, and on a received message the carrier reports it only where a carrier fee applies.
 	Carrier *string `json:"carrier,omitempty"`
 
-	// Category Content classification supplied on the send. Null for inbound messages.
+	// Category Content classification supplied for free text or derived from the template. Null for inbound messages.
 	Category *SMSMessageCategory `json:"category,omitempty"`
 
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
@@ -14241,6 +16785,12 @@ type SMSMessage struct {
 	// Options The settings applied to this message, with any option you omitted filled in with the default in force when you sent it. Absent on inbound messages, and on any outbound message for which no settings were recorded.
 	Options *SMSMessageEffectiveOptions `json:"options,omitempty"`
 
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// ResolvedLanguage The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
+	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
 	// Segments Segment breakdown for the message body. Segment count drives billing.
 	Segments SMSSegments `json:"segments"`
 
@@ -14250,6 +16800,15 @@ type SMSMessage struct {
 
 	// Tags Structured `{name, value}` filter labels applied to this message.
 	Tags *[]Tag `json:"tags,omitempty"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a free-text message.
+	TemplateContentHash *SMSTemplateContentHash `json:"template_content_hash,omitempty"`
+
+	// TemplateId The template rendered for this message, or null for a free-text message.
+	TemplateId *SMSTemplateID `json:"template_id,omitempty"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a free-text message. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *SMSTemplateVersionID `json:"template_version_id,omitempty"`
 
 	// Text The message body. Every message carries body text, attachments, or both, so this is absent only on a received message that carried attachments and no text. For a template send, this is the rendered text after parameter substitution. When `category` is `authentication` (a message carrying a one-time code), this is `**REDACTED**`: the code still reaches the recipient, but the API does not retain it for later reads.
 	Text *string `json:"text,omitempty"`
@@ -14323,7 +16882,7 @@ type SMSMessageSendRequest struct {
 	// ContactId Preview feature: contact-targeted sends. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
 	ContactId *string `json:"contact_id,omitempty"`
 
-	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send: omitting it returns a `422` `SMSNoEligibleSender`. Not accepted alongside `template`, which selects its sender automatically.
+	// From Sender to send from. It must be a sender the workspace holds: a number it owns in E.164, such as `+15557654321`, a short code it holds, such as `24680`, or an alphanumeric sender ID it has claimed, such as `MyBrand`. A sender the workspace does not hold returns a `422` `SMSSenderNotConfigured`, and an alphanumeric sender must also be permitted, and where required registered, for the destination country. Required on a free-text send and when sending a workspace template. Omitting it in either case returns `422`. A built-in template selects its sender automatically and rejects `from`.
 	From *string `json:"from,omitempty"`
 
 	// MediaUrls Preview feature: multimedia (MMS) attachments. Currently unavailable; supplying this field returns `422 SMSUnsupportedFeature`.
@@ -14347,7 +16906,7 @@ type SMSMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering and analytics. Tags become first-class query dimensions: filter the list endpoint by tag name, slice analytics by tag, and surface in webhook payloads. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template Send using a stored template instead of free text. Mutually exclusive with `text`; the message category is derived from the template, so `from`, `category`, and `media_urls` are not accepted alongside it.
+	// Template Send using a stored template instead of free text. The category is derived from the template, so `category` and `media_urls` are rejected. A workspace template requires `from`; a built-in template selects its sender and rejects `from`.
 	Template *SMSTemplateSend `json:"template,omitempty"`
 
 	// Text Free-text message body. Required unless `template` is supplied (the two are mutually exclusive). At least 1 character, up to a 12-segment cap (roughly 1836 GSM-7 or 804 UCS-2 characters). Bird does not truncate; a body exceeding 12 segments is rejected with a 422. The cap applies to segments because GSM-7 and UCS-2 encodings differ in characters per segment.
@@ -14773,59 +17332,56 @@ type SMSTagStatsPoint struct {
 	Trend *[]SMSStatsPoint `json:"trend,omitempty"`
 }
 
-// SMSTemplate A message template: one identity holding a copy of the message per language, resolved to one at send. It declares the variable slots a send fills in, so the parts that change travel with the request and the wording does not.
+// SMSTemplate One SMS template identity and its authoring state. Content and variables live on versions, so this resource stays shallow.
 type SMSTemplate struct {
-	// AvailableLanguages The languages a send can resolve right now, as BCP-47 tags. The set may shrink for reasons other than editing, so read it rather than assuming it matches what you last saw.
+	// AvailableLanguages Languages the live version can currently send. Empty before first publication.
 	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
 
-	// Body The template body in its default language, shown for preview. Variable placeholders appear inline (for example `{{ code }}`). Name a `language` on the send to have another one served.
-	Body *string `json:"body,omitempty"`
+	// Category Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
+	Category SMSTemplateCategory `json:"category"`
 
-	// Category Content classification applied to messages sent from this template.
-	Category *SMSMessageCategory `json:"category,omitempty"`
-
-	// CreatedAt When the template was created. Null for a built-in `system` template, which Bird ships rather than stores.
+	// CreatedAt When the template was created. Null for built-in templates.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
-	// DefaultLanguage The language a send uses when it names none, and the last resort when `on_missing_language` is `fallback` and the language asked for is not available.
-	DefaultLanguage *LanguageTag `json:"default_language,omitempty"`
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
 
-	// Description What the template is for. Null when unset.
-	Description *string `json:"description,omitempty"`
+	// Description What the template is for. Null if it has no description.
+	Description *string `json:"description"`
 
-	// DraftVersionId The current editable draft version, or null for a built-in `system` template, which has no draft.
+	// DraftVersionId The permanent editable draft version. Null for a built-in template.
 	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
 	Id             SMSTemplateID         `json:"id"`
 
-	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language.
+	// LanguageSourceRequired Whether each send must name a language instead of using the live version's default.
 	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
 
-	// Languages Where each of the template's languages stands, keyed by BCP-47 language tag. Content is not here: `body` previews the default language, and a send resolves the one it needs.
+	// Languages Each language the template has, keyed by canonical BCP-47 tag, with its live state and whether the draft contains unpublished changes. Content is available from version reads.
 	Languages *map[string]SMSTemplateLanguageState `json:"languages,omitempty"`
 
-	// LastSubmittedAt When this template was last submitted. Null for a built-in `system` template, which is already available to send.
+	// LastSubmittedAt When the template was last published. Null before first publication and for built-in templates.
 	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
 
-	// LiveVersionId The version a send resolves to, or null for a built-in `system` template, which Bird ships ready to send rather than versioning.
+	// LiveVersionId The version sends resolve to, or null before a workspace template is first published. A built-in template points to a synthetic published version that projects its current catalogue content.
 	LiveVersionId *SMSTemplateVersionID `json:"live_version_id,omitempty"`
 
-	// Name The template's display name, shown wherever the template is listed. Nothing resolves through it, so it is safe to show wherever a human reads the template.
-	Name *string `json:"name,omitempty"`
+	// Name The template's display name. It defaults to the slug and can be changed on workspace templates.
+	Name string `json:"name"`
 
-	// OnMissingLanguage What a send does when it asks for a language this template does not carry. Defaults to `fallback` on SMS.
+	// OnMissingLanguage How a send handles a requested language that the live version does not have.
 	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
 
-	// PublishedVersionId Deprecated: use `live_version_id` instead, which carries the same value.
+	// PublishedVersionId Deprecated. Use `live_version_id`, which carries the same value.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
 
-	// Revision The draft's revision counter. Null for a built-in `system` template, which is unversioned.
+	// Revision The draft revision to use for concurrent-edit checks. Null for a built-in template.
 	Revision *int `json:"revision,omitempty"`
 
-	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`). Every SMS template is `system`.
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
 	Scope *TemplateScope `json:"scope,omitempty"`
 
-	// Slug The template's permanent handle. Pass it (or the id) as the template reference when sending. Handles beginning with `bird_` are reserved for our built-in templates.
+	// Slug The immutable handle used to address and send the template. A built-in template's slug starts with `bird_`.
 	Slug *TemplateSlug `json:"slug,omitempty"`
 
 	// Status Where the template stands as a whole. The same five states on every channel.
@@ -14847,18 +17403,51 @@ type SMSTemplate struct {
 	// a template reaching either is not a breaking change.
 	Status *TemplateStatus `json:"status,omitempty"`
 
-	// UpdatedAt When the template was last modified. Null for a built-in `system` template, which Bird ships rather than stores.
+	// UpdatedAt When the template was last modified. Null for built-in templates.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 
-	// Variables The typed slots this template fills in from the values you supply in `parameters` when sending. Every language of a template declares the same slots, so this list holds for whichever one a send resolves to.
-	Variables *[]TemplateVariable `json:"variables,omitempty"`
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
 }
+
+// SMSTemplateCategory Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
+type SMSTemplateCategory string
+
+// SMSTemplateContentHash A fingerprint of SMS template text, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+type SMSTemplateContentHash = string
 
 // SMSTemplateID defines model for SMSTemplateID.
 type SMSTemplateID = string
 
-// SMSTemplateLanguageState One language's state on a template: whether it is live for sends. Content is not here; the template carries the body of its default language, and a send resolves the rest.
+// SMSTemplateLanguage One language's full SMS template text and revision metadata.
+type SMSTemplateLanguage struct {
+	// ContentHash A fingerprint of SMS template text, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *SMSTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter, used for concurrent-edit checks on draft writes.
+	Revision *int `json:"revision,omitempty"`
+
+	// Text SMS template text, limited to 16 KiB of UTF-8 source. Blank text can be saved in a draft but cannot be published. Workspace templates support scalar variables, conditional text, and bounded filters. Loops, assignments, captures, partials, collections, and string-expanding filters are rejected.
+	Text SMSTemplateText `json:"text"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// SMSTemplateLanguageList defines model for SMSTemplateLanguageList.
+type SMSTemplateLanguageList struct {
+	// Data The version's languages ordered by canonical tag, without text.
+	Data []SMSTemplateLanguageSummary `json:"data"`
+}
+
+// SMSTemplateLanguageState Whether a language is live and whether its draft has unpublished changes.
 type SMSTemplateLanguageState struct {
+	// Draft Whether the draft has an unpublished change for this language. When true beside `live`, sends keep using the older published text until submit.
+	Draft *bool `json:"draft,omitempty"`
+
 	// Status Status of one template language on channels without third-party review.
 	//
 	// - `draft`: it has never been published.
@@ -14869,27 +17458,51 @@ type SMSTemplateLanguageState struct {
 	Status *TemplateLanguageStatus `json:"status,omitempty"`
 }
 
-// SMSTemplateList defines model for SMSTemplateList.
-type SMSTemplateList struct {
-	// Data The templates available to your workspace. The catalog is returned in full and is not paginated.
-	Data []SMSTemplate `json:"data"`
+// SMSTemplateLanguageSummary One language of an SMS template version without its text.
+type SMSTemplateLanguageSummary struct {
+	// ContentHash A fingerprint of SMS template text, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *SMSTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
-// SMSTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and pass its variable values in `parameters`.
+// SMSTemplateList defines model for SMSTemplateList.
+type SMSTemplateList struct {
+	// Data One page of SMS templates.
+	Data []SMSTemplateSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// SMSTemplateSend A send-by-template reference. Identify the template by `id` or `slug`, or use the deprecated `name` for a legacy built-in template. Supply exactly one reference, optionally select a language, and pass variable values in `parameters`.
 type SMSTemplateSend struct {
 	Id *SMSTemplateID `json:"id,omitempty"`
 
 	// Language Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Name Deprecated: use `slug` instead. Resolved as a slug first, and only if that finds nothing, matched against the template's display name.
+	// Name Deprecated. Use `slug` instead. This resolves legacy built-in catalogue names and never matches a workspace template's display name.
 	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	Name *string `json:"name,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by variable name. The accepted keys and their formats are fixed per template (the template's `variables` on the templates endpoint). A missing required variable, an undeclared key, a value that does not match its variable's format, or a serialized payload over 16 KB each return a `422`.
+	// Parameters Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
-	// Slug The template to send, by its slug handle (for example `bird_otp_verification`). Browse the available templates and their variables with the templates endpoint.
+	// Slug The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
 	Slug  *TemplateSlug `json:"slug,omitempty"`
 	union json.RawMessage
 }
@@ -14903,14 +17516,183 @@ type SMSTemplateSend1 = interface{}
 // SMSTemplateSend2 defines model for .
 type SMSTemplateSend2 = interface{}
 
+// SMSTemplateSortField Field to sort SMS templates and their versions by.
+type SMSTemplateSortField string
+
+// SMSTemplateSummary An SMS template without content or draft concurrency settings.
+type SMSTemplateSummary struct {
+	// AvailableLanguages Languages the live version can currently send. Empty before first publication.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Why messages use this template. Use `authentication` for one-time codes, `marketing` for promotions, and `transactional` for service messages.
+	Category SMSTemplateCategory `json:"category"`
+
+	// CreatedAt When the template was created. Null for built-in templates.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for. Null if it has no description.
+	Description *string `json:"description"`
+
+	// DraftVersionId The permanent editable draft version. Null for a built-in template.
+	DraftVersionId *SMSTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             SMSTemplateID         `json:"id"`
+
+	// Languages Each language and its live or draft state, keyed by canonical BCP-47 tag.
+	Languages *map[string]SMSTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When the template was last published. Null before first publication and for built-in templates.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version sends resolve to, or null before first publication.
+	LiveVersionId *SMSTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name The template's display name.
+	Name string `json:"name"`
+
+	// PublishedVersionId Deprecated. Use `live_version_id`, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	PublishedVersionId *SMSTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The immutable handle used to address and send the template.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
+	//
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for built-in templates.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
+}
+
+// SMSTemplateText SMS template text, limited to 16 KiB of UTF-8 source. Blank text can be saved in a draft but cannot be published. Workspace templates support scalar variables, conditional text, and bounded filters. Loops, assignments, captures, partials, collections, and string-expanding filters are rejected.
+type SMSTemplateText = string
+
+// SMSTemplateVersion One SMS template version with its content. A workspace template keeps one editable draft and immutable published versions. A built-in template exposes its current catalogue content as one synthetic published version.
+type SMSTemplateVersion struct {
+	// CreatedAt When the version was created. Null for a built-in template's synthetic version.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag          `json:"default_language"`
+	Id              SMSTemplateVersionID `json:"id"`
+
+	// Languages Full content for each language, keyed by canonical BCP-47 tag.
+	Languages *map[string]SMSTemplateVersionLanguage `json:"languages,omitempty"`
+
+	// PublishedAt When the version was published. Null for the draft and for a built-in template's synthetic version.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version revision. A draft revision advances with each metadata or content change. Published workspace versions are frozen; a built-in template's synthetic version reports 0.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+	Status     *SMSTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId SMSTemplateID             `json:"template_id"`
+
+	// Variables Variables inferred from the version's text. Every language in a publishable SMS version uses the same set. Built-in templates may apply additional typed constraints described by each variable.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential publication number. Null for the draft; a built-in template reports 1.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
+
 // SMSTemplateVersionID defines model for SMSTemplateVersionID.
 type SMSTemplateVersionID = string
+
+// SMSTemplateVersionLanguage One language's content and revision metadata within a version.
+type SMSTemplateVersionLanguage struct {
+	// ContentHash A fingerprint of SMS template text, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *SMSTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Revision This language's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Text SMS template text, limited to 16 KiB of UTF-8 source. Blank text can be saved in a draft but cannot be published. Workspace templates support scalar variables, conditional text, and bounded filters. Loops, assignments, captures, partials, collections, and string-expanding filters are rejected.
+	Text SMSTemplateText `json:"text"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// SMSTemplateVersionList defines model for SMSTemplateVersionList.
+type SMSTemplateVersionList struct {
+	// Data One page of the template's versions, newest first.
+	Data []SMSTemplateVersionSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// SMSTemplateVersionStatus Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+type SMSTemplateVersionStatus string
+
+// SMSTemplateVersionSummary One SMS template version without its text.
+type SMSTemplateVersionSummary struct {
+	// AvailableLanguages Languages this version contains, without their text.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// CreatedAt When the version was created. Null for a built-in template's synthetic version.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag          `json:"default_language"`
+	Id              SMSTemplateVersionID `json:"id"`
+
+	// PublishedAt When the version was published. Null for the draft and for a built-in template's synthetic version.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+	Status     *SMSTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId SMSTemplateID             `json:"template_id"`
+
+	// Variables Variables inferred from the version's text and shared by each language.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential publication number. Null for the draft; a built-in template reports 1.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
 
 // ShareDomainDnsRequest defines model for ShareDomainDnsRequest.
 type ShareDomainDnsRequest struct {
 	// Emails Email recipients for the domain's current DNS records. The first address is the direct recipient and the rest are copied on the same email; duplicates are ignored. Any invalid address fails the whole request with `422`.
 	Emails []openapi_types.Email `json:"emails"`
 }
+
+// SortOrder Sort direction, ascending or descending.
+type SortOrder string
 
 // StatsComparePeriod Set to `previous_period` to also return the same figures for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 type StatsComparePeriod string
@@ -14949,6 +17731,8 @@ type Suppression struct {
 	// - `complaint_event`: Created from a spam complaint.
 	// - `api_key`: Added through the API with an API key.
 	// - `user`: Added by a user in the dashboard.
+	// - `unsubscribe_event`: The mailbox provider reported an opt-out. Deprecated with `reason: unsubscribe`.
+	// - `unsubscribe_link`: The recipient used a Bird unsubscribe link. Deprecated with `reason: unsubscribe`.
 	//
 	// This list grows over time. Treat unknown values as informational rather than rejecting the record.
 	Origin string `json:"origin"`
@@ -14958,6 +17742,7 @@ type Suppression struct {
 	// - `hard_bounce`: A delivery permanently failed.
 	// - `complaint`: The recipient reported a message as spam.
 	// - `manual`: Added through the API or dashboard.
+	// - `unsubscribe`: The recipient opted out. Deprecated, and no new record carries it: an opt-out is a messaging preference rather than a suppression. Legacy records remain visible until they are moved to messaging preferences.
 	//
 	// An address can hold one record per reason. This list grows over time. Treat unknown values as informational rather than rejecting the record.
 	Reason string           `json:"reason"`
@@ -14994,17 +17779,23 @@ type SuppressionList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// SuppressionReasonFilter defines model for SuppressionReasonFilter.
+type SuppressionReasonFilter string
+
 // SuppressionScope defines model for SuppressionScope.
 type SuppressionScope struct {
 	// Id Public ID or alias of the scoped resource. For workspace scope, this is the workspace ID.
 	Id string `json:"id"`
 
-	// Type How widely the email suppression applies. Responses currently use `workspace`, which blocks the address for every email sent by the workspace. WhatsApp suppressions use a separate list.
+	// Type How widely the email suppression applies. Responses use `workspace`. The values `category`, `audience`, `topic`, `contact`, and `domain` are reserved and have no records. The record's `applies_to` field determines which message categories are blocked.
 	Type SuppressionScopeType `json:"type"`
 }
 
-// SuppressionScopeType How widely the email suppression applies. Responses currently use `workspace`, which blocks the address for every email sent by the workspace. WhatsApp suppressions use a separate list.
+// SuppressionScopeType How widely the email suppression applies. Responses use `workspace`. The values `category`, `audience`, `topic`, `contact`, and `domain` are reserved and have no records. The record's `applies_to` field determines which message categories are blocked.
 type SuppressionScopeType string
+
+// SuppressionScopeTypeFilter defines model for SuppressionScopeTypeFilter.
+type SuppressionScopeTypeFilter string
 
 // Tag Structured key/value label attached to a message or a call. Use tags for low-cardinality filtering dimensions (category, experiment ID, template ID); they surface in the list filter of whatever carries them.
 //
@@ -15084,10 +17875,10 @@ type TemplateVariable struct {
 	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
 	Required *bool `json:"required,omitempty"`
 
-	// Sensitive Whether this slot's value is kept out of durable storage. A sensitive slot's rendered value never appears in message content read back through the API: a stand-in placeholder is stored instead.
+	// Sensitive Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
 	Sensitive *bool `json:"sensitive,omitempty"`
 
-	// Type The value type this slot accepts. SMS templates use the typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email and WhatsApp templates use `text`, which accepts any value. Open enum: treat an unrecognized value as a future type rather than an error.
+	// Type The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -15099,6 +17890,9 @@ type Timestamps struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
+
+// Timezone IANA timezone identifier, such as `America/New_York`, `Europe/Amsterdam`, or `UTC`.
+type Timezone = string
 
 // UserID defines model for UserID.
 type UserID = string
@@ -15447,7 +18241,6 @@ type VoiceCallRejectionReason string
 // - `reject`: refuses the call. This is where every number starts.
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
-// - `voicemail`: answers, plays your greeting, and records what the caller says.
 //
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.
@@ -18307,6 +21100,12 @@ type EmailBroadcastStatusFilter = []EmailBroadcastStatus
 // EmailBroadcastTagFilter defines model for EmailBroadcastTagFilter.
 type EmailBroadcastTagFilter = string
 
+// EmailCompetitiveRange defines model for EmailCompetitiveRange.
+type EmailCompetitiveRange int
+
+// EmailCompetitiveTimezone IANA timezone identifier, such as `America/New_York`, `Europe/Amsterdam`, or `UTC`.
+type EmailCompetitiveTimezone = Timezone
+
 // EmailStatsTemplateFilter defines model for EmailStatsTemplateFilter.
 type EmailStatsTemplateFilter = string
 
@@ -18319,8 +21118,11 @@ type IdempotencyKey = string
 // IncludeTotal defines model for IncludeTotal.
 type IncludeTotal = bool
 
-// OrderDesc defines model for OrderDesc.
-type OrderDesc string
+// OrderAsc Sort direction, ascending or descending.
+type OrderAsc = SortOrder
+
+// OrderDesc Sort direction, ascending or descending.
+type OrderDesc = SortOrder
 
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
@@ -19038,6 +21840,131 @@ type SendEmailBroadcastParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// SearchEmailCompetitiveBrandsParams defines parameters for SearchEmailCompetitiveBrands.
+type SearchEmailCompetitiveBrandsParams struct {
+	// Q A brand name, or a sending domain to look up the brand behind it.
+	Q string `form:"q" json:"q"`
+}
+
+// GetEmailCompetitiveVolumeSeriesParams defines parameters for GetEmailCompetitiveVolumeSeries.
+type GetEmailCompetitiveVolumeSeriesParams struct {
+	// Range How many days back the response covers, counting from now. One of three fixed trend windows rather than an open date range, matching how a competitive-intelligence chart is read. Defaults to 30.
+	Range *GetEmailCompetitiveVolumeSeriesParamsRange `form:"range,omitempty" json:"range,omitempty"`
+
+	// BrandIds Which watched brands to plot, in the order you want the lines. Omit to get only your own line. An id your workspace does not watch is rejected rather than skipped, so a chart cannot quietly lose a line.
+	BrandIds *[]CompetitiveWatchlistBrandID `form:"brand_ids,omitempty" json:"brand_ids,omitempty"`
+}
+
+// GetEmailCompetitiveVolumeSeriesParamsRange defines parameters for GetEmailCompetitiveVolumeSeries.
+type GetEmailCompetitiveVolumeSeriesParamsRange int
+
+// GetEmailCompetitiveWatchlistParams defines parameters for GetEmailCompetitiveWatchlist.
+type GetEmailCompetitiveWatchlistParams struct {
+	// Range How many days back the response covers, counting from now. One of three fixed trend windows rather than an open date range, matching how a competitive-intelligence chart is read. Defaults to 30.
+	Range *GetEmailCompetitiveWatchlistParamsRange `form:"range,omitempty" json:"range,omitempty"`
+}
+
+// GetEmailCompetitiveWatchlistParamsRange defines parameters for GetEmailCompetitiveWatchlist.
+type GetEmailCompetitiveWatchlistParamsRange int
+
+// CreateEmailCompetitiveWatchlistBrandParams defines parameters for CreateEmailCompetitiveWatchlistBrand.
+type CreateEmailCompetitiveWatchlistBrandParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteEmailCompetitiveWatchlistBrandParams defines parameters for DeleteEmailCompetitiveWatchlistBrand.
+type DeleteEmailCompetitiveWatchlistBrandParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetEmailCompetitiveBrandParams defines parameters for GetEmailCompetitiveBrand.
+type GetEmailCompetitiveBrandParams struct {
+	// Range How many days back the response covers, counting from now. One of three fixed trend windows rather than an open date range, matching how a competitive-intelligence chart is read. Defaults to 30.
+	Range *GetEmailCompetitiveBrandParamsRange `form:"range,omitempty" json:"range,omitempty"`
+}
+
+// GetEmailCompetitiveBrandParamsRange defines parameters for GetEmailCompetitiveBrand.
+type GetEmailCompetitiveBrandParamsRange int
+
+// GetEmailCompetitiveBrandCampaignsParams defines parameters for GetEmailCompetitiveBrandCampaigns.
+type GetEmailCompetitiveBrandCampaignsParams struct {
+	// Range How many days back the response covers, counting from now. One of three fixed trend windows rather than an open date range, matching how a competitive-intelligence chart is read. Defaults to 30.
+	Range *GetEmailCompetitiveBrandCampaignsParamsRange `form:"range,omitempty" json:"range,omitempty"`
+
+	// Sort Field to sort campaigns by.
+	Sort *EmailCompetitiveCampaignSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// GetEmailCompetitiveBrandCampaignsParamsRange defines parameters for GetEmailCompetitiveBrandCampaigns.
+type GetEmailCompetitiveBrandCampaignsParamsRange int
+
+// GetEmailCompetitiveBrandSendTimeParams defines parameters for GetEmailCompetitiveBrandSendTime.
+type GetEmailCompetitiveBrandSendTimeParams struct {
+	// Timezone IANA timezone identifier to report send times in; defaults to UTC. The grid is folded into this zone before it is summed, so a send lands on the weekday and hour it happened at locally rather than the one it happened at in UTC. A zone this API does not know returns 422 rather than falling back to UTC, so an axis is never labelled with a zone the figures were not folded into.
+	Timezone *EmailCompetitiveTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+}
+
+// GetEmailCompetitiveNotableCampaignsParams defines parameters for GetEmailCompetitiveNotableCampaigns.
+type GetEmailCompetitiveNotableCampaignsParams struct {
+	// Range How many days back the response covers, counting from now. One of three fixed trend windows rather than an open date range, matching how a competitive-intelligence chart is read. Defaults to 30.
+	Range *GetEmailCompetitiveNotableCampaignsParamsRange `form:"range,omitempty" json:"range,omitempty"`
+}
+
+// GetEmailCompetitiveNotableCampaignsParamsRange defines parameters for GetEmailCompetitiveNotableCampaigns.
+type GetEmailCompetitiveNotableCampaignsParamsRange int
+
 // ListDomainsParams defines parameters for ListDomains.
 type ListDomainsParams struct {
 	// Name Substring match against the domain name (case-insensitive).
@@ -19047,7 +21974,7 @@ type ListDomainsParams struct {
 	Sort *ListDomainsParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *ListDomainsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -19064,9 +21991,6 @@ type ListDomainsParams struct {
 
 // ListDomainsParamsSort defines parameters for ListDomains.
 type ListDomainsParamsSort string
-
-// ListDomainsParamsOrder defines parameters for ListDomains.
-type ListDomainsParamsOrder string
 
 // CreateDomainParams defines parameters for CreateDomain.
 type CreateDomainParams struct {
@@ -19166,6 +22090,205 @@ type VerifyDomainParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetEmailHealthParams defines parameters for GetEmailHealth.
+type GetEmailHealthParams struct {
+	// From Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 7 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days. Day boundaries are always UTC; unlike the statistics reads, this one takes no `timezone`.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+}
+
+// GetEmailInboxInsightsAuthenticationParams defines parameters for GetEmailInboxInsightsAuthentication.
+type GetEmailInboxInsightsAuthenticationParams struct {
+	// SendingDomain The sending domain to report on: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+
+	// From First UTC day of the period, inclusive, in YYYY-MM-DD: the same window
+	// convention as the email statistics endpoints. Defaults to 30 days
+	// before `to`.
+	//
+	// It may be at most 30 days before `to`, which is also the default, so a
+	// request naming neither date is already at the limit. Asking for more
+	// answers `422`: the page pairs these figures with Bird's own per-provider
+	// sending statistics, and those are kept for 30 days, so a longer period
+	// could only describe two different spans side by side.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Last UTC day of the period, inclusive, in YYYY-MM-DD. Defaults to today.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Compare Include the prior equal-length period, populating `compared_to`.
+	Compare *EmailInboxInsightsCompare `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// GetEmailInboxInsightsIndustryBenchmarkParams defines parameters for GetEmailInboxInsightsIndustryBenchmark.
+type GetEmailInboxInsightsIndustryBenchmarkParams struct {
+	// SendingDomain The sending domain whose industry to benchmark: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+}
+
+// GetEmailInboxInsightsBlocklistsParams defines parameters for GetEmailInboxInsightsBlocklists.
+type GetEmailInboxInsightsBlocklistsParams struct {
+	// SendingDomain The sending domain to check: one of the workspace's verified sending domains, exactly as it appears there. Every sending IP behind it is checked. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+}
+
+// GetEmailInboxInsightsComplaintsParams defines parameters for GetEmailInboxInsightsComplaints.
+type GetEmailInboxInsightsComplaintsParams struct {
+	// SendingDomain The sending domain to report on: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+
+	// From First UTC day of the period, inclusive, in YYYY-MM-DD: the same window
+	// convention as the email statistics endpoints. Defaults to 30 days
+	// before `to`.
+	//
+	// It may be at most 30 days before `to`, which is also the default, so a
+	// request naming neither date is already at the limit. Asking for more
+	// answers `422`: the page pairs these figures with Bird's own per-provider
+	// sending statistics, and those are kept for 30 days, so a longer period
+	// could only describe two different spans side by side.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Last UTC day of the period, inclusive, in YYYY-MM-DD. Defaults to today.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// GroupBy Bucket size for the series. Defaults to day.
+	GroupBy *EmailInboxInsightsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
+
+	// Compare Include the prior equal-length period, populating `compared_to` and the rate's delta.
+	Compare *EmailInboxInsightsCompare `form:"compare,omitempty" json:"compare,omitempty"`
+}
+
+// UpsertEmailInboxInsightsDomainMonitoringParams defines parameters for UpsertEmailInboxInsightsDomainMonitoring.
+type UpsertEmailInboxInsightsDomainMonitoringParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetEmailInboxInsightsDomainsParams defines parameters for GetEmailInboxInsightsDomains.
+type GetEmailInboxInsightsDomainsParams struct {
+	// SendingDomain Exact sending domain to return. Matching is case-insensitive.
+	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
+
+	// Search Substring match against the sending domain (case-insensitive).
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
+	// Sort Field to sort by. Defaults to `domain`.
+	Sort *EmailInboxInsightsDomainSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `asc`, which sorts alphabetically or from oldest to newest, depending on the selected sort field.
+	Order *OrderAsc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// UpdateEmailInboxInsightsDomainParams defines parameters for UpdateEmailInboxInsightsDomain.
+type UpdateEmailInboxInsightsDomainParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetEmailInboxInsightsPlacementParams defines parameters for GetEmailInboxInsightsPlacement.
+type GetEmailInboxInsightsPlacementParams struct {
+	// SendingDomain The sending domain to report on: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+
+	// From First UTC day of the period, inclusive, in YYYY-MM-DD: the same window
+	// convention as the email statistics endpoints, so figures from the two
+	// sources cover the same days. Defaults to 30 days before `to`.
+	//
+	// It may be at most 30 days before `to`, which is also the default, so a
+	// request naming neither date is already at the limit. Asking for more
+	// answers `422`: the page pairs these figures with Bird's own per-provider
+	// sending statistics, and those are kept for 30 days, so a longer period
+	// could only describe two different spans side by side.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Last UTC day of the period, inclusive, in YYYY-MM-DD. Defaults to today.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// GroupBy Bucket size for the series. Defaults to day.
+	GroupBy *EmailInboxInsightsGroupBy `form:"group_by,omitempty" json:"group_by,omitempty"`
+
+	// Compare Include the prior equal-length period, populating `compared_to` and every delta field.
+	Compare *EmailInboxInsightsCompare `form:"compare,omitempty" json:"compare,omitempty"`
+
+	// SeriesProviders Providers to break the series down by, named as the provider table names them. Each named provider adds one series line; without this, the series carries the domain-wide line only. The provider table is never filtered by this parameter.
+	SeriesProviders *[]string `form:"series_providers,omitempty" json:"series_providers,omitempty"`
+
+	// IncludeIpDetails Include per-IP placement detail for the domain's sending infrastructure. Off by default; only the sending-infrastructure view needs it.
+	IncludeIpDetails *bool `form:"include_ip_details,omitempty" json:"include_ip_details,omitempty"`
+}
+
+// GetEmailInboxInsightsSpamTrapsParams defines parameters for GetEmailInboxInsightsSpamTraps.
+type GetEmailInboxInsightsSpamTrapsParams struct {
+	// SendingDomain The sending domain to report on: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+
+	// From First UTC day of the period, inclusive, in YYYY-MM-DD: the same window
+	// convention as the email statistics endpoints. Defaults to 30 days
+	// before `to`.
+	//
+	// It may be at most 30 days before `to`, which is also the default, so a
+	// request naming neither date is already at the limit. Asking for more
+	// answers `422`: the page pairs these figures with Bird's own per-provider
+	// sending statistics, and those are kept for 30 days, so a longer period
+	// could only describe two different spans side by side.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Last UTC day of the period, inclusive, in YYYY-MM-DD. Defaults to today.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Compare Include the prior equal-length period, populating `compared_to` and `delta`.
+	Compare *EmailInboxInsightsCompare `form:"compare,omitempty" json:"compare,omitempty"`
 }
 
 // ListMailboxesParams defines parameters for ListMailboxes.
@@ -19950,6 +23073,90 @@ type GetEmailStatsByTemplateParams struct {
 
 	// TrendGrain Bucket grain for the `trend` series. Has no effect unless `include_trend=true`.
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
+}
+
+// ListSuppressionsParams defines parameters for ListSuppressions.
+type ListSuppressionsParams struct {
+	// Email Case-insensitive prefix filter on the address. Returns every suppression whose address starts with this value. A full address finds that address's records, while a fragment such as `alice` finds every address beginning with it. The same address can match several records, one per suppression reason.
+	Email *string `form:"email,omitempty" json:"email,omitempty"`
+
+	// Reason Return only suppressions with this reason:
+	//
+	// - `hard_bounce`: Delivery permanently failed.
+	// - `complaint`: The recipient reported a message as spam.
+	// - `unsubscribe`: The recipient opted out. Deprecated: unsubscribes are now
+	//   recorded as messaging preferences rather than suppressions, so no new
+	//   records carry this reason. The filter returns legacy records until they
+	//   are moved to messaging preferences.
+	// - `manual`: Added through the API or dashboard.
+	Reason *SuppressionReasonFilter `form:"reason,omitempty" json:"reason,omitempty"`
+
+	// ScopeType Return only suppressions with this scope.
+	//
+	// Every suppression is workspace-wide, so `workspace` returns all of
+	// them without narrowing the results. The other five values,
+	// `category`, `audience`, `topic`, `contact` and `domain`, always come
+	// back with an empty page.
+	ScopeType *SuppressionScopeTypeFilter `form:"scope_type,omitempty" json:"scope_type,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateSuppressionParams defines parameters for CreateSuppression.
+type CreateSuppressionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteSuppressionParams defines parameters for DeleteSuppression.
+type DeleteSuppressionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListEmailTemplatesParams defines parameters for ListEmailTemplates.
@@ -21428,14 +24635,53 @@ type DeleteSMSSuppressionParams struct {
 
 // ListSMSTemplatesParams defines parameters for ListSMSTemplates.
 type ListSMSTemplatesParams struct {
-	// Scope Keep only templates of this scope. Every SMS template is `system`, so `workspace` matches none. Omit for all.
+	// Scope Filter by who owns the template. Use `system` for built-in templates and `workspace` for templates your workspace created.
 	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
 
-	// Category Keep only templates whose `category` matches. Omit for all categories.
-	Category *SMSMessageCategory `form:"category,omitempty" json:"category,omitempty"`
+	// Category Return templates in this category.
+	Category *SMSTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
 
-	// Language Keep only templates available in this language, as a BCP-47 tag. Matches the template's `available_languages` entries exactly, with no fallback.
+	// Status Return templates with this lifecycle status.
+	Status *TemplateStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Language Return templates whose published content contains this language, after the tag is canonicalized. Draft-only languages do not match.
 	Language *LanguageTag `form:"language,omitempty" json:"language,omitempty"`
+
+	// Q A case-insensitive substring search across slug, name, and description.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Sort Field to sort by.
+	Sort *SMSTemplateSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListSMSTemplateVersionsParams defines parameters for ListSMSTemplateVersions.
+type ListSMSTemplateVersionsParams struct {
+	// Sort Field to sort by.
+	Sort *SMSTemplateSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
 // CreateVerificationParams defines parameters for CreateVerification.
@@ -21570,7 +24816,7 @@ type ListWebhooksParams struct {
 	Sort *WebhookSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *ListWebhooksParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -21584,9 +24830,6 @@ type ListWebhooksParams struct {
 	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
 	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
 }
-
-// ListWebhooksParamsOrder defines parameters for ListWebhooks.
-type ListWebhooksParamsOrder string
 
 // CreateWebhookParams defines parameters for CreateWebhook.
 type CreateWebhookParams struct {
@@ -21731,7 +24974,7 @@ type ListWhatsAppBusinessAccountsParams struct {
 	Sort *WhatsAppBusinessAccountSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *ListWhatsAppBusinessAccountsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -21742,9 +24985,6 @@ type ListWhatsAppBusinessAccountsParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
-
-// ListWhatsAppBusinessAccountsParamsOrder defines parameters for ListWhatsAppBusinessAccounts.
-type ListWhatsAppBusinessAccountsParamsOrder string
 
 // ListWhatsAppMessagesParams defines parameters for ListWhatsAppMessages.
 type ListWhatsAppMessagesParams struct {
@@ -21924,7 +25164,7 @@ type ListWhatsAppNumbersParams struct {
 	Sort *WhatsAppNumberSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *ListWhatsAppNumbersParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -21935,9 +25175,6 @@ type ListWhatsAppNumbersParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
-
-// ListWhatsAppNumbersParamsOrder defines parameters for ListWhatsAppNumbers.
-type ListWhatsAppNumbersParamsOrder string
 
 // ListWhatsAppNumberEventsParams defines parameters for ListWhatsAppNumberEvents.
 type ListWhatsAppNumberEventsParams struct {
@@ -21945,7 +25182,7 @@ type ListWhatsAppNumberEventsParams struct {
 	Sort *WhatsAppNumberEventSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *ListWhatsAppNumberEventsParamsOrder `form:"order,omitempty" json:"order,omitempty"`
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -21956,9 +25193,6 @@ type ListWhatsAppNumberEventsParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
-
-// ListWhatsAppNumberEventsParamsOrder defines parameters for ListWhatsAppNumberEvents.
-type ListWhatsAppNumberEventsParamsOrder string
 
 // GetWhatsAppStatsByCountryParams defines parameters for GetWhatsAppStatsByCountry.
 type GetWhatsAppStatsByCountryParams struct {
@@ -22257,11 +25491,17 @@ type UpdateEmailBroadcastJSONRequestBody = EmailBroadcastUpdateRequest
 // SendEmailBroadcastJSONRequestBody defines body for SendEmailBroadcast for application/json ContentType.
 type SendEmailBroadcastJSONRequestBody = EmailBroadcastSendNowRequest
 
+// CreateEmailCompetitiveWatchlistBrandJSONRequestBody defines body for CreateEmailCompetitiveWatchlistBrand for application/json ContentType.
+type CreateEmailCompetitiveWatchlistBrandJSONRequestBody = EmailCompetitiveWatchlistBrandCreate
+
 // CreateDomainJSONRequestBody defines body for CreateDomain for application/json ContentType.
 type CreateDomainJSONRequestBody = DomainCreate
 
 // UpdateDomainJSONRequestBody defines body for UpdateDomain for application/json ContentType.
 type UpdateDomainJSONRequestBody = DomainUpdate
+
+// UpdateEmailInboxInsightsDomainJSONRequestBody defines body for UpdateEmailInboxInsightsDomain for application/json ContentType.
+type UpdateEmailInboxInsightsDomainJSONRequestBody = EmailInboxInsightsDomainUpdate
 
 // CreateMailboxJSONRequestBody defines body for CreateMailbox for application/json ContentType.
 type CreateMailboxJSONRequestBody = MailboxCreate
@@ -22277,6 +25517,9 @@ type CreateMailboxReceiveRuleJSONRequestBody = ReceiveRuleCreate
 
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
+
+// CreateSuppressionJSONRequestBody defines body for CreateSuppression for application/json ContentType.
+type CreateSuppressionJSONRequestBody = SuppressionCreate
 
 // CreateEmailTemplateJSONRequestBody defines body for CreateEmailTemplate for application/json ContentType.
 type CreateEmailTemplateJSONRequestBody = EmailTemplateCreate
@@ -25961,6 +29204,38 @@ type ClientInterface interface {
 	// GetEmailBroadcastSendQuota request
 	GetEmailBroadcastSendQuota(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// SearchEmailCompetitiveBrands request
+	SearchEmailCompetitiveBrands(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveVolumeSeries request
+	GetEmailCompetitiveVolumeSeries(ctx context.Context, params *GetEmailCompetitiveVolumeSeriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveWatchlist request
+	GetEmailCompetitiveWatchlist(ctx context.Context, params *GetEmailCompetitiveWatchlistParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailCompetitiveWatchlistBrandWithBody request with any body
+	CreateEmailCompetitiveWatchlistBrandWithBody(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailCompetitiveWatchlistBrand(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, body CreateEmailCompetitiveWatchlistBrandJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEmailCompetitiveWatchlistBrand request
+	DeleteEmailCompetitiveWatchlistBrand(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *DeleteEmailCompetitiveWatchlistBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveBrand request
+	GetEmailCompetitiveBrand(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveBrandCampaigns request
+	GetEmailCompetitiveBrandCampaigns(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandCampaignsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveBrandCampaign request
+	GetEmailCompetitiveBrandCampaign(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, campaignId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveBrandSendTime request
+	GetEmailCompetitiveBrandSendTime(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandSendTimeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailCompetitiveNotableCampaigns request
+	GetEmailCompetitiveNotableCampaigns(ctx context.Context, params *GetEmailCompetitiveNotableCampaignsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListDomains request
 	ListDomains(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -25982,6 +29257,38 @@ type ClientInterface interface {
 
 	// VerifyDomain request
 	VerifyDomain(ctx context.Context, domainId DomainID, params *VerifyDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailHealth request
+	GetEmailHealth(ctx context.Context, params *GetEmailHealthParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsAuthentication request
+	GetEmailInboxInsightsAuthentication(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsIndustryBenchmark request
+	GetEmailInboxInsightsIndustryBenchmark(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsBlocklists request
+	GetEmailInboxInsightsBlocklists(ctx context.Context, params *GetEmailInboxInsightsBlocklistsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsComplaints request
+	GetEmailInboxInsightsComplaints(ctx context.Context, params *GetEmailInboxInsightsComplaintsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpsertEmailInboxInsightsDomainMonitoring request
+	UpsertEmailInboxInsightsDomainMonitoring(ctx context.Context, params *UpsertEmailInboxInsightsDomainMonitoringParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsDomains request
+	GetEmailInboxInsightsDomains(ctx context.Context, params *GetEmailInboxInsightsDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEmailInboxInsightsDomainWithBody request with any body
+	UpdateEmailInboxInsightsDomainWithBody(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEmailInboxInsightsDomain(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, body UpdateEmailInboxInsightsDomainJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsPlacement request
+	GetEmailInboxInsightsPlacement(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsSpamTraps request
+	GetEmailInboxInsightsSpamTraps(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListMailboxes request
 	ListMailboxes(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -26091,6 +29398,20 @@ type ClientInterface interface {
 
 	// GetEmailStatsByTemplate request
 	GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSuppressions request
+	ListSuppressions(ctx context.Context, params *ListSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateSuppressionWithBody request with any body
+	CreateSuppressionWithBody(ctx context.Context, params *CreateSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateSuppression(ctx context.Context, params *CreateSuppressionParams, body CreateSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSuppression request
+	DeleteSuppression(ctx context.Context, suppressionId SuppressionID, params *DeleteSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSuppression request
+	GetSuppression(ctx context.Context, suppressionId SuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListEmailTemplates request
 	ListEmailTemplates(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -26375,6 +29696,18 @@ type ClientInterface interface {
 
 	// GetSMSTemplate request
 	GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSTemplateVersions request
+	ListSMSTemplateVersions(ctx context.Context, templateRef string, params *ListSMSTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSTemplateVersion request
+	GetSMSTemplateVersion(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListSMSTemplateVersionLanguages request
+	ListSMSTemplateVersionLanguages(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSMSTemplateVersionLanguage request
+	GetSMSTemplateVersionLanguage(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateVerificationWithBody request with any body
 	CreateVerificationWithBody(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -27115,6 +30448,138 @@ func (c *Client) GetEmailBroadcastSendQuota(ctx context.Context, broadcastId Ema
 	return c.Client.Do(req)
 }
 
+func (c *Client) SearchEmailCompetitiveBrands(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSearchEmailCompetitiveBrandsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveVolumeSeries(ctx context.Context, params *GetEmailCompetitiveVolumeSeriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveVolumeSeriesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveWatchlist(ctx context.Context, params *GetEmailCompetitiveWatchlistParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveWatchlistRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailCompetitiveWatchlistBrandWithBody(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailCompetitiveWatchlistBrandRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailCompetitiveWatchlistBrand(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, body CreateEmailCompetitiveWatchlistBrandJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailCompetitiveWatchlistBrandRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEmailCompetitiveWatchlistBrand(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *DeleteEmailCompetitiveWatchlistBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEmailCompetitiveWatchlistBrandRequest(c.Server, watchlistBrandId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveBrand(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveBrandRequest(c.Server, watchlistBrandId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveBrandCampaigns(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandCampaignsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveBrandCampaignsRequest(c.Server, watchlistBrandId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveBrandCampaign(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, campaignId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveBrandCampaignRequest(c.Server, watchlistBrandId, campaignId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveBrandSendTime(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandSendTimeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveBrandSendTimeRequest(c.Server, watchlistBrandId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailCompetitiveNotableCampaigns(ctx context.Context, params *GetEmailCompetitiveNotableCampaignsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailCompetitiveNotableCampaignsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListDomains(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListDomainsRequest(c.Server, params)
 	if err != nil {
@@ -27201,6 +30666,138 @@ func (c *Client) UpdateDomain(ctx context.Context, domainId DomainID, params *Up
 
 func (c *Client) VerifyDomain(ctx context.Context, domainId DomainID, params *VerifyDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewVerifyDomainRequest(c.Server, domainId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailHealth(ctx context.Context, params *GetEmailHealthParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailHealthRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsAuthentication(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsAuthenticationRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsIndustryBenchmark(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsIndustryBenchmarkRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsBlocklists(ctx context.Context, params *GetEmailInboxInsightsBlocklistsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsBlocklistsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsComplaints(ctx context.Context, params *GetEmailInboxInsightsComplaintsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsComplaintsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpsertEmailInboxInsightsDomainMonitoring(ctx context.Context, params *UpsertEmailInboxInsightsDomainMonitoringParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpsertEmailInboxInsightsDomainMonitoringRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsDomains(ctx context.Context, params *GetEmailInboxInsightsDomainsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsDomainsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailInboxInsightsDomainWithBody(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailInboxInsightsDomainRequestWithBody(c.Server, sendingDomain, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEmailInboxInsightsDomain(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, body UpdateEmailInboxInsightsDomainJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEmailInboxInsightsDomainRequest(c.Server, sendingDomain, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsPlacement(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsPlacementRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsSpamTraps(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsSpamTrapsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -27657,6 +31254,66 @@ func (c *Client) GetEmailStatsByTag(ctx context.Context, params *GetEmailStatsBy
 
 func (c *Client) GetEmailStatsByTemplate(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailStatsByTemplateRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSuppressions(ctx context.Context, params *ListSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSuppressionsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSuppressionWithBody(ctx context.Context, params *CreateSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSuppressionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateSuppression(ctx context.Context, params *CreateSuppressionParams, body CreateSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateSuppressionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSuppression(ctx context.Context, suppressionId SuppressionID, params *DeleteSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSuppressionRequest(c.Server, suppressionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSuppression(ctx context.Context, suppressionId SuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSuppressionRequest(c.Server, suppressionId)
 	if err != nil {
 		return nil, err
 	}
@@ -28881,6 +32538,54 @@ func (c *Client) ListSMSTemplates(ctx context.Context, params *ListSMSTemplatesP
 
 func (c *Client) GetSMSTemplate(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetSMSTemplateRequest(c.Server, templateRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSTemplateVersions(ctx context.Context, templateRef string, params *ListSMSTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSTemplateVersionsRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSTemplateVersion(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSTemplateVersionRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListSMSTemplateVersionLanguages(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListSMSTemplateVersionLanguagesRequest(c.Server, templateRef, versionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSMSTemplateVersionLanguage(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSMSTemplateVersionLanguageRequest(c.Server, templateRef, versionId, language)
 	if err != nil {
 		return nil, err
 	}
@@ -31771,6 +35476,618 @@ func NewGetEmailBroadcastSendQuotaRequest(server string, broadcastId EmailBroadc
 	return req, nil
 }
 
+// NewSearchEmailCompetitiveBrandsRequest generates requests for SearchEmailCompetitiveBrands
+func NewSearchEmailCompetitiveBrandsRequest(server string, params *SearchEmailCompetitiveBrandsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/brands/search")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveVolumeSeriesRequest generates requests for GetEmailCompetitiveVolumeSeries
+func NewGetEmailCompetitiveVolumeSeriesRequest(server string, params *GetEmailCompetitiveVolumeSeriesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/volume-series")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Range != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "range", *params.Range, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BrandIds != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "brand_ids", *params.BrandIds, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveWatchlistRequest generates requests for GetEmailCompetitiveWatchlist
+func NewGetEmailCompetitiveWatchlistRequest(server string, params *GetEmailCompetitiveWatchlistParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Range != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "range", *params.Range, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailCompetitiveWatchlistBrandRequest calls the generic CreateEmailCompetitiveWatchlistBrand builder with application/json body
+func NewCreateEmailCompetitiveWatchlistBrandRequest(server string, params *CreateEmailCompetitiveWatchlistBrandParams, body CreateEmailCompetitiveWatchlistBrandJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailCompetitiveWatchlistBrandRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailCompetitiveWatchlistBrandRequestWithBody generates requests for CreateEmailCompetitiveWatchlistBrand with any type of body
+func NewCreateEmailCompetitiveWatchlistBrandRequestWithBody(server string, params *CreateEmailCompetitiveWatchlistBrandParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEmailCompetitiveWatchlistBrandRequest generates requests for DeleteEmailCompetitiveWatchlistBrand
+func NewDeleteEmailCompetitiveWatchlistBrandRequest(server string, watchlistBrandId CompetitiveWatchlistBrandID, params *DeleteEmailCompetitiveWatchlistBrandParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "watchlist_brand_id", watchlistBrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveBrandRequest generates requests for GetEmailCompetitiveBrand
+func NewGetEmailCompetitiveBrandRequest(server string, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "watchlist_brand_id", watchlistBrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Range != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "range", *params.Range, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveBrandCampaignsRequest generates requests for GetEmailCompetitiveBrandCampaigns
+func NewGetEmailCompetitiveBrandCampaignsRequest(server string, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandCampaignsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "watchlist_brand_id", watchlistBrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands/%s/campaigns", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Range != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "range", *params.Range, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveBrandCampaignRequest generates requests for GetEmailCompetitiveBrandCampaign
+func NewGetEmailCompetitiveBrandCampaignRequest(server string, watchlistBrandId CompetitiveWatchlistBrandID, campaignId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "watchlist_brand_id", watchlistBrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "campaign_id", campaignId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands/%s/campaigns/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveBrandSendTimeRequest generates requests for GetEmailCompetitiveBrandSendTime
+func NewGetEmailCompetitiveBrandSendTimeRequest(server string, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandSendTimeParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "watchlist_brand_id", watchlistBrandId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/brands/%s/send-time", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailCompetitiveNotableCampaignsRequest generates requests for GetEmailCompetitiveNotableCampaigns
+func NewGetEmailCompetitiveNotableCampaignsRequest(server string, params *GetEmailCompetitiveNotableCampaignsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/competitive/watchlist/notable")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Range != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "range", *params.Range, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListDomainsRequest generates requests for ListDomains
 func NewListDomainsRequest(server string, params *ListDomainsParams) (*http.Request, error) {
 	var err error
@@ -32141,6 +36458,794 @@ func NewVerifyDomainRequest(server string, domainId DomainID, params *VerifyDoma
 			req.Header.Set("Idempotency-Key", headerParam0)
 		}
 
+	}
+
+	return req, nil
+}
+
+// NewGetEmailHealthRequest generates requests for GetEmailHealth
+func NewGetEmailHealthRequest(server string, params *GetEmailHealthParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/health")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsAuthenticationRequest generates requests for GetEmailInboxInsightsAuthentication
+func NewGetEmailInboxInsightsAuthenticationRequest(server string, params *GetEmailInboxInsightsAuthenticationParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/authentication")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsIndustryBenchmarkRequest generates requests for GetEmailInboxInsightsIndustryBenchmark
+func NewGetEmailInboxInsightsIndustryBenchmarkRequest(server string, params *GetEmailInboxInsightsIndustryBenchmarkParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/benchmarks/industry")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsBlocklistsRequest generates requests for GetEmailInboxInsightsBlocklists
+func NewGetEmailInboxInsightsBlocklistsRequest(server string, params *GetEmailInboxInsightsBlocklistsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/blocklists")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsComplaintsRequest generates requests for GetEmailInboxInsightsComplaints
+func NewGetEmailInboxInsightsComplaintsRequest(server string, params *GetEmailInboxInsightsComplaintsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/complaints")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_by", *params.GroupBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpsertEmailInboxInsightsDomainMonitoringRequest generates requests for UpsertEmailInboxInsightsDomainMonitoring
+func NewUpsertEmailInboxInsightsDomainMonitoringRequest(server string, params *UpsertEmailInboxInsightsDomainMonitoringParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/domain-monitoring")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsDomainsRequest generates requests for GetEmailInboxInsightsDomains
+func NewGetEmailInboxInsightsDomainsRequest(server string, params *GetEmailInboxInsightsDomainsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/domains")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.SendingDomain != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", *params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateEmailInboxInsightsDomainRequest calls the generic UpdateEmailInboxInsightsDomain builder with application/json body
+func NewUpdateEmailInboxInsightsDomainRequest(server string, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, body UpdateEmailInboxInsightsDomainJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEmailInboxInsightsDomainRequestWithBody(server, sendingDomain, params, "application/json", bodyReader)
+}
+
+// NewUpdateEmailInboxInsightsDomainRequestWithBody generates requests for UpdateEmailInboxInsightsDomain with any type of body
+func NewUpdateEmailInboxInsightsDomainRequestWithBody(server string, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "sending_domain", sendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/domains/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsPlacementRequest generates requests for GetEmailInboxInsightsPlacement
+func NewGetEmailInboxInsightsPlacementRequest(server string, params *GetEmailInboxInsightsPlacementParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/placement")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupBy != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_by", *params.GroupBy, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SeriesProviders != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "series_providers", *params.SeriesProviders, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeIpDetails != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_ip_details", *params.IncludeIpDetails, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsSpamTrapsRequest generates requests for GetEmailInboxInsightsSpamTraps
+func NewGetEmailInboxInsightsSpamTrapsRequest(server string, params *GetEmailInboxInsightsSpamTrapsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/spam-traps")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
 	}
 
 	return req, nil
@@ -35443,6 +40548,258 @@ func NewGetEmailStatsByTemplateRequest(server string, params *GetEmailStatsByTem
 			rawQueryFragments = append(rawQueryFragments, encoded)
 		}
 		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSuppressionsRequest generates requests for ListSuppressions
+func NewListSuppressionsRequest(server string, params *ListSuppressionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Email != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "email", *params.Email, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reason != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reason", *params.Reason, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ScopeType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope_type", *params.ScopeType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateSuppressionRequest calls the generic CreateSuppression builder with application/json body
+func NewCreateSuppressionRequest(server string, params *CreateSuppressionParams, body CreateSuppressionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateSuppressionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateSuppressionRequestWithBody generates requests for CreateSuppression with any type of body
+func NewCreateSuppressionRequestWithBody(server string, params *CreateSuppressionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteSuppressionRequest generates requests for DeleteSuppression
+func NewDeleteSuppressionRequest(server string, suppressionId SuppressionID, params *DeleteSuppressionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetSuppressionRequest generates requests for GetSuppression
+func NewGetSuppressionRequest(server string, suppressionId SuppressionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -41643,9 +47000,93 @@ func NewListSMSTemplatesRequest(server string, params *ListSMSTemplatesParams) (
 
 		}
 
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Language != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "language", *params.Language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -41686,6 +47127,245 @@ func NewGetSMSTemplateRequest(server string, templateRef string) (*http.Request,
 	}
 
 	operationPath := fmt.Sprintf("/v1/sms/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSMSTemplateVersionsRequest generates requests for ListSMSTemplateVersions
+func NewListSMSTemplateVersionsRequest(server string, templateRef string, params *ListSMSTemplateVersionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates/%s/versions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSTemplateVersionRequest generates requests for GetSMSTemplateVersion
+func NewGetSMSTemplateVersionRequest(server string, templateRef string, versionId SMSTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListSMSTemplateVersionLanguagesRequest generates requests for ListSMSTemplateVersionLanguages
+func NewListSMSTemplateVersionLanguagesRequest(server string, templateRef string, versionId SMSTemplateVersionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates/%s/versions/%s/languages", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSMSTemplateVersionLanguageRequest generates requests for GetSMSTemplateVersionLanguage
+func NewGetSMSTemplateVersionLanguageRequest(server string, templateRef string, versionId SMSTemplateVersionID, language LanguageTag) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/sms/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -45607,6 +51287,38 @@ type ClientWithResponsesInterface interface {
 	// GetEmailBroadcastSendQuotaWithResponse request
 	GetEmailBroadcastSendQuotaWithResponse(ctx context.Context, broadcastId EmailBroadcastID, reqEditors ...RequestEditorFn) (*GetEmailBroadcastSendQuotaResponse, error)
 
+	// SearchEmailCompetitiveBrandsWithResponse request
+	SearchEmailCompetitiveBrandsWithResponse(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*SearchEmailCompetitiveBrandsResponse, error)
+
+	// GetEmailCompetitiveVolumeSeriesWithResponse request
+	GetEmailCompetitiveVolumeSeriesWithResponse(ctx context.Context, params *GetEmailCompetitiveVolumeSeriesParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveVolumeSeriesResponse, error)
+
+	// GetEmailCompetitiveWatchlistWithResponse request
+	GetEmailCompetitiveWatchlistWithResponse(ctx context.Context, params *GetEmailCompetitiveWatchlistParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveWatchlistResponse, error)
+
+	// CreateEmailCompetitiveWatchlistBrandWithBodyWithResponse request with any body
+	CreateEmailCompetitiveWatchlistBrandWithBodyWithResponse(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailCompetitiveWatchlistBrandResponse, error)
+
+	CreateEmailCompetitiveWatchlistBrandWithResponse(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, body CreateEmailCompetitiveWatchlistBrandJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailCompetitiveWatchlistBrandResponse, error)
+
+	// DeleteEmailCompetitiveWatchlistBrandWithResponse request
+	DeleteEmailCompetitiveWatchlistBrandWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *DeleteEmailCompetitiveWatchlistBrandParams, reqEditors ...RequestEditorFn) (*DeleteEmailCompetitiveWatchlistBrandResponse, error)
+
+	// GetEmailCompetitiveBrandWithResponse request
+	GetEmailCompetitiveBrandWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandResponse, error)
+
+	// GetEmailCompetitiveBrandCampaignsWithResponse request
+	GetEmailCompetitiveBrandCampaignsWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandCampaignsParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandCampaignsResponse, error)
+
+	// GetEmailCompetitiveBrandCampaignWithResponse request
+	GetEmailCompetitiveBrandCampaignWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, campaignId string, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandCampaignResponse, error)
+
+	// GetEmailCompetitiveBrandSendTimeWithResponse request
+	GetEmailCompetitiveBrandSendTimeWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandSendTimeParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandSendTimeResponse, error)
+
+	// GetEmailCompetitiveNotableCampaignsWithResponse request
+	GetEmailCompetitiveNotableCampaignsWithResponse(ctx context.Context, params *GetEmailCompetitiveNotableCampaignsParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveNotableCampaignsResponse, error)
+
 	// ListDomainsWithResponse request
 	ListDomainsWithResponse(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*ListDomainsResponse, error)
 
@@ -45628,6 +51340,38 @@ type ClientWithResponsesInterface interface {
 
 	// VerifyDomainWithResponse request
 	VerifyDomainWithResponse(ctx context.Context, domainId DomainID, params *VerifyDomainParams, reqEditors ...RequestEditorFn) (*VerifyDomainResponse, error)
+
+	// GetEmailHealthWithResponse request
+	GetEmailHealthWithResponse(ctx context.Context, params *GetEmailHealthParams, reqEditors ...RequestEditorFn) (*GetEmailHealthResponse, error)
+
+	// GetEmailInboxInsightsAuthenticationWithResponse request
+	GetEmailInboxInsightsAuthenticationWithResponse(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsAuthenticationResponse, error)
+
+	// GetEmailInboxInsightsIndustryBenchmarkWithResponse request
+	GetEmailInboxInsightsIndustryBenchmarkWithResponse(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error)
+
+	// GetEmailInboxInsightsBlocklistsWithResponse request
+	GetEmailInboxInsightsBlocklistsWithResponse(ctx context.Context, params *GetEmailInboxInsightsBlocklistsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsBlocklistsResponse, error)
+
+	// GetEmailInboxInsightsComplaintsWithResponse request
+	GetEmailInboxInsightsComplaintsWithResponse(ctx context.Context, params *GetEmailInboxInsightsComplaintsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsComplaintsResponse, error)
+
+	// UpsertEmailInboxInsightsDomainMonitoringWithResponse request
+	UpsertEmailInboxInsightsDomainMonitoringWithResponse(ctx context.Context, params *UpsertEmailInboxInsightsDomainMonitoringParams, reqEditors ...RequestEditorFn) (*UpsertEmailInboxInsightsDomainMonitoringResponse, error)
+
+	// GetEmailInboxInsightsDomainsWithResponse request
+	GetEmailInboxInsightsDomainsWithResponse(ctx context.Context, params *GetEmailInboxInsightsDomainsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsDomainsResponse, error)
+
+	// UpdateEmailInboxInsightsDomainWithBodyWithResponse request with any body
+	UpdateEmailInboxInsightsDomainWithBodyWithResponse(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailInboxInsightsDomainResponse, error)
+
+	UpdateEmailInboxInsightsDomainWithResponse(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, body UpdateEmailInboxInsightsDomainJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailInboxInsightsDomainResponse, error)
+
+	// GetEmailInboxInsightsPlacementWithResponse request
+	GetEmailInboxInsightsPlacementWithResponse(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsPlacementResponse, error)
+
+	// GetEmailInboxInsightsSpamTrapsWithResponse request
+	GetEmailInboxInsightsSpamTrapsWithResponse(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSpamTrapsResponse, error)
 
 	// ListMailboxesWithResponse request
 	ListMailboxesWithResponse(ctx context.Context, params *ListMailboxesParams, reqEditors ...RequestEditorFn) (*ListMailboxesResponse, error)
@@ -45737,6 +51481,20 @@ type ClientWithResponsesInterface interface {
 
 	// GetEmailStatsByTemplateWithResponse request
 	GetEmailStatsByTemplateWithResponse(ctx context.Context, params *GetEmailStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByTemplateResponse, error)
+
+	// ListSuppressionsWithResponse request
+	ListSuppressionsWithResponse(ctx context.Context, params *ListSuppressionsParams, reqEditors ...RequestEditorFn) (*ListSuppressionsResponse, error)
+
+	// CreateSuppressionWithBodyWithResponse request with any body
+	CreateSuppressionWithBodyWithResponse(ctx context.Context, params *CreateSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSuppressionResponse, error)
+
+	CreateSuppressionWithResponse(ctx context.Context, params *CreateSuppressionParams, body CreateSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSuppressionResponse, error)
+
+	// DeleteSuppressionWithResponse request
+	DeleteSuppressionWithResponse(ctx context.Context, suppressionId SuppressionID, params *DeleteSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteSuppressionResponse, error)
+
+	// GetSuppressionWithResponse request
+	GetSuppressionWithResponse(ctx context.Context, suppressionId SuppressionID, reqEditors ...RequestEditorFn) (*GetSuppressionResponse, error)
 
 	// ListEmailTemplatesWithResponse request
 	ListEmailTemplatesWithResponse(ctx context.Context, params *ListEmailTemplatesParams, reqEditors ...RequestEditorFn) (*ListEmailTemplatesResponse, error)
@@ -46021,6 +51779,18 @@ type ClientWithResponsesInterface interface {
 
 	// GetSMSTemplateWithResponse request
 	GetSMSTemplateWithResponse(ctx context.Context, templateRef string, reqEditors ...RequestEditorFn) (*GetSMSTemplateResponse, error)
+
+	// ListSMSTemplateVersionsWithResponse request
+	ListSMSTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListSMSTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListSMSTemplateVersionsResponse, error)
+
+	// GetSMSTemplateVersionWithResponse request
+	GetSMSTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*GetSMSTemplateVersionResponse, error)
+
+	// ListSMSTemplateVersionLanguagesWithResponse request
+	ListSMSTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*ListSMSTemplateVersionLanguagesResponse, error)
+
+	// GetSMSTemplateVersionLanguageWithResponse request
+	GetSMSTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetSMSTemplateVersionLanguageResponse, error)
 
 	// CreateVerificationWithBodyWithResponse request with any body
 	CreateVerificationWithBodyWithResponse(ctx context.Context, params *CreateVerificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationResponse, error)
@@ -47477,6 +53247,385 @@ func (r GetEmailBroadcastSendQuotaResponse) ContentType() string {
 	return ""
 }
 
+type SearchEmailCompetitiveBrandsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveBrandSearchResults
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SearchEmailCompetitiveBrandsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SearchEmailCompetitiveBrandsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SearchEmailCompetitiveBrandsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveVolumeSeriesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveVolumeSeries
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveVolumeSeriesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveVolumeSeriesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveVolumeSeriesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveWatchlistResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveWatchlist
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveWatchlistResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveWatchlistResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveWatchlistResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailCompetitiveWatchlistBrandResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailCompetitiveWatchlistBrand
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailCompetitiveWatchlistBrandResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailCompetitiveWatchlistBrandResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailCompetitiveWatchlistBrandResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEmailCompetitiveWatchlistBrandResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEmailCompetitiveWatchlistBrandResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEmailCompetitiveWatchlistBrandResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEmailCompetitiveWatchlistBrandResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveBrandResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveBrandProfile
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveBrandResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveBrandResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveBrandResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveBrandCampaignsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveCampaignFeed
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveBrandCampaignsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveBrandCampaignsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveBrandCampaignsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveBrandCampaignResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveCampaign
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveBrandCampaignResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveBrandCampaignResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveBrandCampaignResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveBrandSendTimeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveSendTimeGrid
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveBrandSendTimeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveBrandSendTimeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveBrandSendTimeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailCompetitiveNotableCampaignsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailCompetitiveNotableFeed
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailCompetitiveNotableCampaignsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailCompetitiveNotableCampaignsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailCompetitiveNotableCampaignsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListDomainsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -47693,6 +53842,393 @@ func (r VerifyDomainResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r VerifyDomainResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailHealthResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailHealth
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailHealthResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailHealthResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailHealthResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsAuthenticationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsAuthentication
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsAuthenticationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsAuthenticationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsAuthenticationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsIndustryBenchmarkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsIndustryBenchmark
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsIndustryBenchmarkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsIndustryBenchmarkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsIndustryBenchmarkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsBlocklistsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsBlocklists
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsBlocklistsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsBlocklistsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsBlocklistsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsComplaintsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsComplaints
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsComplaintsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsComplaintsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsComplaintsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpsertEmailInboxInsightsDomainMonitoringResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsDomainMonitoringResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpsertEmailInboxInsightsDomainMonitoringResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpsertEmailInboxInsightsDomainMonitoringResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpsertEmailInboxInsightsDomainMonitoringResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsDomainsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsDomains
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsDomainsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsDomainsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsDomainsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEmailInboxInsightsDomainResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsDomain
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEmailInboxInsightsDomainResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEmailInboxInsightsDomainResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEmailInboxInsightsDomainResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsPlacementResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsPlacement
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsPlacementResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsPlacementResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsPlacementResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsSpamTrapsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsSpamTraps
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsSpamTrapsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsSpamTrapsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsSpamTrapsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -48920,6 +55456,151 @@ func (r GetEmailStatsByTemplateResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSuppressionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SuppressionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSuppressionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSuppressionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSuppressionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Suppression
+	JSON201      *Suppression
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Suppression
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSuppressionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -51887,6 +58568,150 @@ func (r GetSMSTemplateResponse) ContentType() string {
 	return ""
 }
 
+type ListSMSTemplateVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplateVersionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSTemplateVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSTemplateVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSTemplateVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplateVersion
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListSMSTemplateVersionLanguagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplateLanguageList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListSMSTemplateVersionLanguagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListSMSTemplateVersionLanguagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListSMSTemplateVersionLanguagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSMSTemplateVersionLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *SMSTemplateLanguage
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSMSTemplateVersionLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSMSTemplateVersionLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSMSTemplateVersionLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateVerificationResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -54068,6 +60893,104 @@ func (c *ClientWithResponses) GetEmailBroadcastSendQuotaWithResponse(ctx context
 	return ParseGetEmailBroadcastSendQuotaResponse(rsp)
 }
 
+// SearchEmailCompetitiveBrandsWithResponse request returning *SearchEmailCompetitiveBrandsResponse
+func (c *ClientWithResponses) SearchEmailCompetitiveBrandsWithResponse(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*SearchEmailCompetitiveBrandsResponse, error) {
+	rsp, err := c.SearchEmailCompetitiveBrands(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSearchEmailCompetitiveBrandsResponse(rsp)
+}
+
+// GetEmailCompetitiveVolumeSeriesWithResponse request returning *GetEmailCompetitiveVolumeSeriesResponse
+func (c *ClientWithResponses) GetEmailCompetitiveVolumeSeriesWithResponse(ctx context.Context, params *GetEmailCompetitiveVolumeSeriesParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveVolumeSeriesResponse, error) {
+	rsp, err := c.GetEmailCompetitiveVolumeSeries(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveVolumeSeriesResponse(rsp)
+}
+
+// GetEmailCompetitiveWatchlistWithResponse request returning *GetEmailCompetitiveWatchlistResponse
+func (c *ClientWithResponses) GetEmailCompetitiveWatchlistWithResponse(ctx context.Context, params *GetEmailCompetitiveWatchlistParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveWatchlistResponse, error) {
+	rsp, err := c.GetEmailCompetitiveWatchlist(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveWatchlistResponse(rsp)
+}
+
+// CreateEmailCompetitiveWatchlistBrandWithBodyWithResponse request with arbitrary body returning *CreateEmailCompetitiveWatchlistBrandResponse
+func (c *ClientWithResponses) CreateEmailCompetitiveWatchlistBrandWithBodyWithResponse(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailCompetitiveWatchlistBrandResponse, error) {
+	rsp, err := c.CreateEmailCompetitiveWatchlistBrandWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailCompetitiveWatchlistBrandResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailCompetitiveWatchlistBrandWithResponse(ctx context.Context, params *CreateEmailCompetitiveWatchlistBrandParams, body CreateEmailCompetitiveWatchlistBrandJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailCompetitiveWatchlistBrandResponse, error) {
+	rsp, err := c.CreateEmailCompetitiveWatchlistBrand(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailCompetitiveWatchlistBrandResponse(rsp)
+}
+
+// DeleteEmailCompetitiveWatchlistBrandWithResponse request returning *DeleteEmailCompetitiveWatchlistBrandResponse
+func (c *ClientWithResponses) DeleteEmailCompetitiveWatchlistBrandWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *DeleteEmailCompetitiveWatchlistBrandParams, reqEditors ...RequestEditorFn) (*DeleteEmailCompetitiveWatchlistBrandResponse, error) {
+	rsp, err := c.DeleteEmailCompetitiveWatchlistBrand(ctx, watchlistBrandId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEmailCompetitiveWatchlistBrandResponse(rsp)
+}
+
+// GetEmailCompetitiveBrandWithResponse request returning *GetEmailCompetitiveBrandResponse
+func (c *ClientWithResponses) GetEmailCompetitiveBrandWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandResponse, error) {
+	rsp, err := c.GetEmailCompetitiveBrand(ctx, watchlistBrandId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveBrandResponse(rsp)
+}
+
+// GetEmailCompetitiveBrandCampaignsWithResponse request returning *GetEmailCompetitiveBrandCampaignsResponse
+func (c *ClientWithResponses) GetEmailCompetitiveBrandCampaignsWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandCampaignsParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandCampaignsResponse, error) {
+	rsp, err := c.GetEmailCompetitiveBrandCampaigns(ctx, watchlistBrandId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveBrandCampaignsResponse(rsp)
+}
+
+// GetEmailCompetitiveBrandCampaignWithResponse request returning *GetEmailCompetitiveBrandCampaignResponse
+func (c *ClientWithResponses) GetEmailCompetitiveBrandCampaignWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, campaignId string, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandCampaignResponse, error) {
+	rsp, err := c.GetEmailCompetitiveBrandCampaign(ctx, watchlistBrandId, campaignId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveBrandCampaignResponse(rsp)
+}
+
+// GetEmailCompetitiveBrandSendTimeWithResponse request returning *GetEmailCompetitiveBrandSendTimeResponse
+func (c *ClientWithResponses) GetEmailCompetitiveBrandSendTimeWithResponse(ctx context.Context, watchlistBrandId CompetitiveWatchlistBrandID, params *GetEmailCompetitiveBrandSendTimeParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveBrandSendTimeResponse, error) {
+	rsp, err := c.GetEmailCompetitiveBrandSendTime(ctx, watchlistBrandId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveBrandSendTimeResponse(rsp)
+}
+
+// GetEmailCompetitiveNotableCampaignsWithResponse request returning *GetEmailCompetitiveNotableCampaignsResponse
+func (c *ClientWithResponses) GetEmailCompetitiveNotableCampaignsWithResponse(ctx context.Context, params *GetEmailCompetitiveNotableCampaignsParams, reqEditors ...RequestEditorFn) (*GetEmailCompetitiveNotableCampaignsResponse, error) {
+	rsp, err := c.GetEmailCompetitiveNotableCampaigns(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailCompetitiveNotableCampaignsResponse(rsp)
+}
+
 // ListDomainsWithResponse request returning *ListDomainsResponse
 func (c *ClientWithResponses) ListDomainsWithResponse(ctx context.Context, params *ListDomainsParams, reqEditors ...RequestEditorFn) (*ListDomainsResponse, error) {
 	rsp, err := c.ListDomains(ctx, params, reqEditors...)
@@ -54136,6 +61059,104 @@ func (c *ClientWithResponses) VerifyDomainWithResponse(ctx context.Context, doma
 		return nil, err
 	}
 	return ParseVerifyDomainResponse(rsp)
+}
+
+// GetEmailHealthWithResponse request returning *GetEmailHealthResponse
+func (c *ClientWithResponses) GetEmailHealthWithResponse(ctx context.Context, params *GetEmailHealthParams, reqEditors ...RequestEditorFn) (*GetEmailHealthResponse, error) {
+	rsp, err := c.GetEmailHealth(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailHealthResponse(rsp)
+}
+
+// GetEmailInboxInsightsAuthenticationWithResponse request returning *GetEmailInboxInsightsAuthenticationResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsAuthenticationWithResponse(ctx context.Context, params *GetEmailInboxInsightsAuthenticationParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsAuthenticationResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsAuthentication(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsAuthenticationResponse(rsp)
+}
+
+// GetEmailInboxInsightsIndustryBenchmarkWithResponse request returning *GetEmailInboxInsightsIndustryBenchmarkResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsIndustryBenchmarkWithResponse(ctx context.Context, params *GetEmailInboxInsightsIndustryBenchmarkParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsIndustryBenchmark(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsIndustryBenchmarkResponse(rsp)
+}
+
+// GetEmailInboxInsightsBlocklistsWithResponse request returning *GetEmailInboxInsightsBlocklistsResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsBlocklistsWithResponse(ctx context.Context, params *GetEmailInboxInsightsBlocklistsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsBlocklistsResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsBlocklists(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsBlocklistsResponse(rsp)
+}
+
+// GetEmailInboxInsightsComplaintsWithResponse request returning *GetEmailInboxInsightsComplaintsResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsComplaintsWithResponse(ctx context.Context, params *GetEmailInboxInsightsComplaintsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsComplaintsResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsComplaints(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsComplaintsResponse(rsp)
+}
+
+// UpsertEmailInboxInsightsDomainMonitoringWithResponse request returning *UpsertEmailInboxInsightsDomainMonitoringResponse
+func (c *ClientWithResponses) UpsertEmailInboxInsightsDomainMonitoringWithResponse(ctx context.Context, params *UpsertEmailInboxInsightsDomainMonitoringParams, reqEditors ...RequestEditorFn) (*UpsertEmailInboxInsightsDomainMonitoringResponse, error) {
+	rsp, err := c.UpsertEmailInboxInsightsDomainMonitoring(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpsertEmailInboxInsightsDomainMonitoringResponse(rsp)
+}
+
+// GetEmailInboxInsightsDomainsWithResponse request returning *GetEmailInboxInsightsDomainsResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsDomainsWithResponse(ctx context.Context, params *GetEmailInboxInsightsDomainsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsDomainsResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsDomains(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsDomainsResponse(rsp)
+}
+
+// UpdateEmailInboxInsightsDomainWithBodyWithResponse request with arbitrary body returning *UpdateEmailInboxInsightsDomainResponse
+func (c *ClientWithResponses) UpdateEmailInboxInsightsDomainWithBodyWithResponse(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEmailInboxInsightsDomainResponse, error) {
+	rsp, err := c.UpdateEmailInboxInsightsDomainWithBody(ctx, sendingDomain, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailInboxInsightsDomainResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEmailInboxInsightsDomainWithResponse(ctx context.Context, sendingDomain string, params *UpdateEmailInboxInsightsDomainParams, body UpdateEmailInboxInsightsDomainJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEmailInboxInsightsDomainResponse, error) {
+	rsp, err := c.UpdateEmailInboxInsightsDomain(ctx, sendingDomain, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEmailInboxInsightsDomainResponse(rsp)
+}
+
+// GetEmailInboxInsightsPlacementWithResponse request returning *GetEmailInboxInsightsPlacementResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsPlacementWithResponse(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsPlacementResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsPlacement(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsPlacementResponse(rsp)
+}
+
+// GetEmailInboxInsightsSpamTrapsWithResponse request returning *GetEmailInboxInsightsSpamTrapsResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsSpamTrapsWithResponse(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSpamTrapsResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsSpamTraps(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsSpamTrapsResponse(rsp)
 }
 
 // ListMailboxesWithResponse request returning *ListMailboxesResponse
@@ -54473,6 +61494,50 @@ func (c *ClientWithResponses) GetEmailStatsByTemplateWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseGetEmailStatsByTemplateResponse(rsp)
+}
+
+// ListSuppressionsWithResponse request returning *ListSuppressionsResponse
+func (c *ClientWithResponses) ListSuppressionsWithResponse(ctx context.Context, params *ListSuppressionsParams, reqEditors ...RequestEditorFn) (*ListSuppressionsResponse, error) {
+	rsp, err := c.ListSuppressions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSuppressionsResponse(rsp)
+}
+
+// CreateSuppressionWithBodyWithResponse request with arbitrary body returning *CreateSuppressionResponse
+func (c *ClientWithResponses) CreateSuppressionWithBodyWithResponse(ctx context.Context, params *CreateSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateSuppressionResponse, error) {
+	rsp, err := c.CreateSuppressionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSuppressionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateSuppressionWithResponse(ctx context.Context, params *CreateSuppressionParams, body CreateSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateSuppressionResponse, error) {
+	rsp, err := c.CreateSuppression(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateSuppressionResponse(rsp)
+}
+
+// DeleteSuppressionWithResponse request returning *DeleteSuppressionResponse
+func (c *ClientWithResponses) DeleteSuppressionWithResponse(ctx context.Context, suppressionId SuppressionID, params *DeleteSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteSuppressionResponse, error) {
+	rsp, err := c.DeleteSuppression(ctx, suppressionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSuppressionResponse(rsp)
+}
+
+// GetSuppressionWithResponse request returning *GetSuppressionResponse
+func (c *ClientWithResponses) GetSuppressionWithResponse(ctx context.Context, suppressionId SuppressionID, reqEditors ...RequestEditorFn) (*GetSuppressionResponse, error) {
+	rsp, err := c.GetSuppression(ctx, suppressionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSuppressionResponse(rsp)
 }
 
 // ListEmailTemplatesWithResponse request returning *ListEmailTemplatesResponse
@@ -55369,6 +62434,42 @@ func (c *ClientWithResponses) GetSMSTemplateWithResponse(ctx context.Context, te
 		return nil, err
 	}
 	return ParseGetSMSTemplateResponse(rsp)
+}
+
+// ListSMSTemplateVersionsWithResponse request returning *ListSMSTemplateVersionsResponse
+func (c *ClientWithResponses) ListSMSTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListSMSTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListSMSTemplateVersionsResponse, error) {
+	rsp, err := c.ListSMSTemplateVersions(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSTemplateVersionsResponse(rsp)
+}
+
+// GetSMSTemplateVersionWithResponse request returning *GetSMSTemplateVersionResponse
+func (c *ClientWithResponses) GetSMSTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*GetSMSTemplateVersionResponse, error) {
+	rsp, err := c.GetSMSTemplateVersion(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSTemplateVersionResponse(rsp)
+}
+
+// ListSMSTemplateVersionLanguagesWithResponse request returning *ListSMSTemplateVersionLanguagesResponse
+func (c *ClientWithResponses) ListSMSTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, reqEditors ...RequestEditorFn) (*ListSMSTemplateVersionLanguagesResponse, error) {
+	rsp, err := c.ListSMSTemplateVersionLanguages(ctx, templateRef, versionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListSMSTemplateVersionLanguagesResponse(rsp)
+}
+
+// GetSMSTemplateVersionLanguageWithResponse request returning *GetSMSTemplateVersionLanguageResponse
+func (c *ClientWithResponses) GetSMSTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId SMSTemplateVersionID, language LanguageTag, reqEditors ...RequestEditorFn) (*GetSMSTemplateVersionLanguageResponse, error) {
+	rsp, err := c.GetSMSTemplateVersionLanguage(ctx, templateRef, versionId, language, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSMSTemplateVersionLanguageResponse(rsp)
 }
 
 // CreateVerificationWithBodyWithResponse request with arbitrary body returning *CreateVerificationResponse
@@ -58479,6 +65580,819 @@ func ParseGetEmailBroadcastSendQuotaResponse(rsp *http.Response) (*GetEmailBroad
 	return response, nil
 }
 
+// ParseSearchEmailCompetitiveBrandsResponse parses an HTTP response from a SearchEmailCompetitiveBrandsWithResponse call
+func ParseSearchEmailCompetitiveBrandsResponse(rsp *http.Response) (*SearchEmailCompetitiveBrandsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SearchEmailCompetitiveBrandsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveBrandSearchResults
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveVolumeSeriesResponse parses an HTTP response from a GetEmailCompetitiveVolumeSeriesWithResponse call
+func ParseGetEmailCompetitiveVolumeSeriesResponse(rsp *http.Response) (*GetEmailCompetitiveVolumeSeriesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveVolumeSeriesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveVolumeSeries
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveWatchlistResponse parses an HTTP response from a GetEmailCompetitiveWatchlistWithResponse call
+func ParseGetEmailCompetitiveWatchlistResponse(rsp *http.Response) (*GetEmailCompetitiveWatchlistResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveWatchlistResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveWatchlist
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailCompetitiveWatchlistBrandResponse parses an HTTP response from a CreateEmailCompetitiveWatchlistBrandWithResponse call
+func ParseCreateEmailCompetitiveWatchlistBrandResponse(rsp *http.Response) (*CreateEmailCompetitiveWatchlistBrandResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailCompetitiveWatchlistBrandResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailCompetitiveWatchlistBrand
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEmailCompetitiveWatchlistBrandResponse parses an HTTP response from a DeleteEmailCompetitiveWatchlistBrandWithResponse call
+func ParseDeleteEmailCompetitiveWatchlistBrandResponse(rsp *http.Response) (*DeleteEmailCompetitiveWatchlistBrandResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEmailCompetitiveWatchlistBrandResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveBrandResponse parses an HTTP response from a GetEmailCompetitiveBrandWithResponse call
+func ParseGetEmailCompetitiveBrandResponse(rsp *http.Response) (*GetEmailCompetitiveBrandResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveBrandResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveBrandProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveBrandCampaignsResponse parses an HTTP response from a GetEmailCompetitiveBrandCampaignsWithResponse call
+func ParseGetEmailCompetitiveBrandCampaignsResponse(rsp *http.Response) (*GetEmailCompetitiveBrandCampaignsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveBrandCampaignsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveCampaignFeed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveBrandCampaignResponse parses an HTTP response from a GetEmailCompetitiveBrandCampaignWithResponse call
+func ParseGetEmailCompetitiveBrandCampaignResponse(rsp *http.Response) (*GetEmailCompetitiveBrandCampaignResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveBrandCampaignResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveCampaign
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveBrandSendTimeResponse parses an HTTP response from a GetEmailCompetitiveBrandSendTimeWithResponse call
+func ParseGetEmailCompetitiveBrandSendTimeResponse(rsp *http.Response) (*GetEmailCompetitiveBrandSendTimeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveBrandSendTimeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveSendTimeGrid
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailCompetitiveNotableCampaignsResponse parses an HTTP response from a GetEmailCompetitiveNotableCampaignsWithResponse call
+func ParseGetEmailCompetitiveNotableCampaignsResponse(rsp *http.Response) (*GetEmailCompetitiveNotableCampaignsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailCompetitiveNotableCampaignsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailCompetitiveNotableFeed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListDomainsResponse parses an HTTP response from a ListDomainsWithResponse call
 func ParseListDomainsResponse(rsp *http.Response) (*ListDomainsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -58895,6 +66809,875 @@ func ParseVerifyDomainResponse(rsp *http.Response) (*VerifyDomainResponse, error
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailHealthResponse parses an HTTP response from a GetEmailHealthWithResponse call
+func ParseGetEmailHealthResponse(rsp *http.Response) (*GetEmailHealthResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailHealthResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailHealth
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsAuthenticationResponse parses an HTTP response from a GetEmailInboxInsightsAuthenticationWithResponse call
+func ParseGetEmailInboxInsightsAuthenticationResponse(rsp *http.Response) (*GetEmailInboxInsightsAuthenticationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsAuthenticationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsAuthentication
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsIndustryBenchmarkResponse parses an HTTP response from a GetEmailInboxInsightsIndustryBenchmarkWithResponse call
+func ParseGetEmailInboxInsightsIndustryBenchmarkResponse(rsp *http.Response) (*GetEmailInboxInsightsIndustryBenchmarkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsIndustryBenchmarkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsIndustryBenchmark
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsBlocklistsResponse parses an HTTP response from a GetEmailInboxInsightsBlocklistsWithResponse call
+func ParseGetEmailInboxInsightsBlocklistsResponse(rsp *http.Response) (*GetEmailInboxInsightsBlocklistsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsBlocklistsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsBlocklists
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsComplaintsResponse parses an HTTP response from a GetEmailInboxInsightsComplaintsWithResponse call
+func ParseGetEmailInboxInsightsComplaintsResponse(rsp *http.Response) (*GetEmailInboxInsightsComplaintsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsComplaintsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsComplaints
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpsertEmailInboxInsightsDomainMonitoringResponse parses an HTTP response from a UpsertEmailInboxInsightsDomainMonitoringWithResponse call
+func ParseUpsertEmailInboxInsightsDomainMonitoringResponse(rsp *http.Response) (*UpsertEmailInboxInsightsDomainMonitoringResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpsertEmailInboxInsightsDomainMonitoringResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsDomainMonitoringResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsDomainsResponse parses an HTTP response from a GetEmailInboxInsightsDomainsWithResponse call
+func ParseGetEmailInboxInsightsDomainsResponse(rsp *http.Response) (*GetEmailInboxInsightsDomainsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsDomainsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsDomains
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEmailInboxInsightsDomainResponse parses an HTTP response from a UpdateEmailInboxInsightsDomainWithResponse call
+func ParseUpdateEmailInboxInsightsDomainResponse(rsp *http.Response) (*UpdateEmailInboxInsightsDomainResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEmailInboxInsightsDomainResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsDomain
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsPlacementResponse parses an HTTP response from a GetEmailInboxInsightsPlacementWithResponse call
+func ParseGetEmailInboxInsightsPlacementResponse(rsp *http.Response) (*GetEmailInboxInsightsPlacementResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsPlacementResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsPlacement
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsSpamTrapsResponse parses an HTTP response from a GetEmailInboxInsightsSpamTrapsWithResponse call
+func ParseGetEmailInboxInsightsSpamTrapsResponse(rsp *http.Response) (*GetEmailInboxInsightsSpamTrapsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsSpamTrapsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsSpamTraps
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -61440,6 +70223,285 @@ func ParseGetEmailStatsByTemplateResponse(rsp *http.Response) (*GetEmailStatsByT
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSuppressionsResponse parses an HTTP response from a ListSuppressionsWithResponse call
+func ParseListSuppressionsResponse(rsp *http.Response) (*ListSuppressionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSuppressionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SuppressionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateSuppressionResponse parses an HTTP response from a CreateSuppressionWithResponse call
+func ParseCreateSuppressionResponse(rsp *http.Response) (*CreateSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Suppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest Suppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSuppressionResponse parses an HTTP response from a DeleteSuppressionWithResponse call
+func ParseDeleteSuppressionResponse(rsp *http.Response) (*DeleteSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSuppressionResponse parses an HTTP response from a GetSuppressionWithResponse call
+func ParseGetSuppressionResponse(rsp *http.Response) (*GetSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Suppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -67401,6 +76463,278 @@ func ParseGetSMSTemplateResponse(rsp *http.Response) (*GetSMSTemplateResponse, e
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SMSTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSTemplateVersionsResponse parses an HTTP response from a ListSMSTemplateVersionsWithResponse call
+func ParseListSMSTemplateVersionsResponse(rsp *http.Response) (*ListSMSTemplateVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSTemplateVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplateVersionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSTemplateVersionResponse parses an HTTP response from a GetSMSTemplateVersionWithResponse call
+func ParseGetSMSTemplateVersionResponse(rsp *http.Response) (*GetSMSTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListSMSTemplateVersionLanguagesResponse parses an HTTP response from a ListSMSTemplateVersionLanguagesWithResponse call
+func ParseListSMSTemplateVersionLanguagesResponse(rsp *http.Response) (*ListSMSTemplateVersionLanguagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListSMSTemplateVersionLanguagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplateLanguageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSMSTemplateVersionLanguageResponse parses an HTTP response from a GetSMSTemplateVersionLanguageWithResponse call
+func ParseGetSMSTemplateVersionLanguageResponse(rsp *http.Response) (*GetSMSTemplateVersionLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSMSTemplateVersionLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SMSTemplateLanguage
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
