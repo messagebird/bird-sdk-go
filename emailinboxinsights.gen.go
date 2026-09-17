@@ -108,7 +108,7 @@ func (p EmailInboxInsightsSpamTrapsParams) toWire() *oapi.GetEmailInboxInsightsS
 
 // EmailInboxInsightsBlocklistsParams filters the blocklists read.
 type EmailInboxInsightsBlocklistsParams struct {
-	// The sending domain to check: one of the workspace's verified sending domains, exactly as it appears there. Every sending IP behind it is checked. A domain that is not verified in this workspace answers not-found.
+	// The sending domain to check: one of the workspace's verified sending domains, exactly as it appears there. Inspect the returned targets and their statuses for lookup coverage. A domain that is not verified in this workspace answers not-found.
 	SendingDomain string
 }
 
@@ -178,7 +178,7 @@ func (s *EmailInboxInsightsService) SpamTraps(ctx context.Context, params EmailI
 	return &out, nil
 }
 
-// Blocklists Check blocklist standing for the sending infrastructure of a verified domain owned by the workspace. This is a current lookup and accepts no date window. Inspect each target status and checked_at; a null active_count means no target could be checked, not that every target is clear. API-key calls require Insights preview access for your organization.
+// Blocklists Check blocklist standing for the sending infrastructure of a verified domain owned by the workspace. This is a current lookup and accepts no date window. Inspect each target status and checked_at; a null active_count means the lookup service supplied no count. Zero and an empty target list do not establish complete coverage. API-key calls require Insights preview access for your organization.
 func (s *EmailInboxInsightsService) Blocklists(ctx context.Context, params EmailInboxInsightsBlocklistsParams, opts ...option.RequestOption) (*EmailInboxInsightsBlocklists, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailInboxInsightsBlocklists(ctx, params.toWire(), cfg...)

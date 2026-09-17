@@ -3578,9 +3578,9 @@ func (e NumberKind) Valid() bool {
 
 // Defines values for NumberStatus.
 const (
-	NumberStatusActive            NumberStatus = "active"
-	NumberStatusPendingCompliance NumberStatus = "pending_compliance"
-	NumberStatusReleased          NumberStatus = "released"
+	NumberStatusActive                       NumberStatus = "active"
+	NumberStatusPendingOwnershipRegistration NumberStatus = "pending_ownership_registration"
+	NumberStatusReleased                     NumberStatus = "released"
 )
 
 // Valid indicates whether the value is a known member of the NumberStatus enum.
@@ -3588,7 +3588,7 @@ func (e NumberStatus) Valid() bool {
 	switch e {
 	case NumberStatusActive:
 		return true
-	case NumberStatusPendingCompliance:
+	case NumberStatusPendingOwnershipRegistration:
 		return true
 	case NumberStatusReleased:
 		return true
@@ -6845,6 +6845,9 @@ type AvailableNumber struct {
 
 	// NumberType Physical type of this phone number.
 	NumberType NumberType `json:"number_type"`
+
+	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+	OwnershipRegistrationRequired bool `json:"ownership_registration_required"`
 }
 
 // AvailableNumberList defines model for AvailableNumberList.
@@ -9453,7 +9456,7 @@ type EmailInboxInsightsBlocklistListing struct {
 	ReasonCode *string `json:"reason_code,omitempty"`
 }
 
-// EmailInboxInsightsBlocklistTarget One checked target, whether it is listed now, and the listings seen against it.
+// EmailInboxInsightsBlocklistTarget One target lookup result, its current status, and the listings seen against it.
 //
 // Read `status` before `is_listed`. Each target is looked up independently and
 // any one of them can fail while the rest succeed, so a target whose status is
@@ -9484,7 +9487,7 @@ type EmailInboxInsightsBlocklistTarget struct {
 	// section's status rather than assuming figures are present.
 	Status EmailInboxInsightsSectionStatus `json:"status"`
 
-	// Target The sending IP or domain that was checked.
+	// Target The sending IP or domain selected for lookup.
 	Target *string `json:"target,omitempty"`
 
 	// TargetType Whether this target is an IP address or a hostname. Null when the measurement did not report a kind for it, which is possible on a target whose check did not complete.
@@ -9493,7 +9496,7 @@ type EmailInboxInsightsBlocklistTarget struct {
 
 // EmailInboxInsightsBlocklists defines model for EmailInboxInsightsBlocklists.
 type EmailInboxInsightsBlocklists struct {
-	// ActiveCount How many of the checked targets currently carry an active listing. A count of targets, not of listings: a target on three blocklists counts once. Null when no target could be checked at all, which is not the same as zero. Zero means every target was checked and none of them is listed.
+	// ActiveCount Number of successfully checked targets reported with an active listing. A target on three blocklists counts once. Null when the lookup service supplies no count; do not treat null as zero. Zero does not establish that the domain or its IPs were checked. Inspect `targets` and each target's `status` for lookup coverage, including partial failures.
 	ActiveCount *int `json:"active_count,omitempty"`
 
 	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
@@ -9514,7 +9517,7 @@ type EmailInboxInsightsBlocklists struct {
 	// Resource Which resource this response is, echoed for self-description.
 	Resource *string `json:"resource,omitempty"`
 
-	// Targets One entry per sending IP or domain checked for this sending domain.
+	// Targets Returned sending IP or domain lookup results, including failed lookups. An empty array does not establish that the domain or its IPs are clear.
 	Targets *[]EmailInboxInsightsBlocklistTarget `json:"targets,omitempty"`
 }
 
@@ -10639,7 +10642,7 @@ type EmailMailboxProviderStatsPoint struct {
 	Trend *[]EmailStatsSeriesPoint `json:"trend,omitempty"`
 }
 
-// EmailMessage defines model for EmailMessage.
+// EmailMessage An email message, including a recipient's copy of a broadcast. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 type EmailMessage struct {
 	// AcceptedCount How many recipients are in the `accepted` state, meaning we have the message and are getting ready to deliver it.
 	AcceptedCount *int `json:"accepted_count,omitempty"`
@@ -10651,7 +10654,8 @@ type EmailMessage struct {
 	Bcc *[]EmailAddress `json:"bcc,omitempty"`
 
 	// BouncedCount Number of recipients that resulted in a permanent delivery failure.
-	BouncedCount *int `json:"bounced_count,omitempty"`
+	BouncedCount *int              `json:"bounced_count,omitempty"`
+	BroadcastId  *EmailBroadcastID `json:"broadcast_id,omitempty"`
 
 	// Category Content classification, which controls suppression policy:
 	//
@@ -10944,10 +10948,8 @@ type EmailRecipient struct {
 	Name *string `json:"name,omitempty"`
 
 	// OpenCount Number of open events for this recipient.
-	OpenCount *int `json:"open_count,omitempty"`
-
-	// ParentId ID of the message or broadcast this recipient belongs to. For a message send, this is the message's `em_`-prefixed ID. For a broadcast, this field is also `em_`-prefixed, but currently does not resolve to a retrievable message.
-	ParentId string `json:"parent_id"`
+	OpenCount *int    `json:"open_count,omitempty"`
+	ParentId  EmailID `json:"parent_id"`
 
 	// ProcessedAt When the message was prepared and queued for delivery to the recipient's mail server, or null if that has not happened yet.
 	ProcessedAt *time.Time `json:"processed_at,omitempty"`
@@ -15555,18 +15557,19 @@ type Number struct {
 	// NumberType Physical type of this phone number.
 	NumberType *NumberType `json:"number_type,omitempty"`
 
-	// Ownership Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_compliance` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+	// Ownership Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
 	Ownership *NumberOwnership `json:"ownership,omitempty"`
 
 	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
 	ReleasedAt *time.Time `json:"released_at,omitempty"`
 
-	// Status Whether this number can carry traffic.
+	// Status The allocation and ownership-approval status of this number.
 	//
 	// - `active` means this number is allocated to your workspace and usable.
-	// - `pending_compliance` means this number is allocated to your workspace and billed,
-	//   but it cannot carry traffic until the ownership paperwork its country requires is
-	//   accepted. Read `ownership.next` for what advances it, and re-read later if
+	// - `pending_ownership_registration` means this number is allocated to your workspace and billed,
+	//   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
+	//   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
+	//   Read `ownership.next` for what advances it, and re-read later if
 	//   `ownership` is momentarily `null`.
 	// - `released` means this number is no longer allocated to your workspace.
 	//
@@ -15578,12 +15581,13 @@ type Number struct {
 // NumberKind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
 type NumberKind string
 
-// NumberStatus Whether this number can carry traffic.
+// NumberStatus The allocation and ownership-approval status of this number.
 //
 //   - `active` means this number is allocated to your workspace and usable.
-//   - `pending_compliance` means this number is allocated to your workspace and billed,
-//     but it cannot carry traffic until the ownership paperwork its country requires is
-//     accepted. Read `ownership.next` for what advances it, and re-read later if
+//   - `pending_ownership_registration` means this number is allocated to your workspace and billed,
+//     but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
+//     its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
+//     Read `ownership.next` for what advances it, and re-read later if
 //     `ownership` is momentarily `null`.
 //   - `released` means this number is no longer allocated to your workspace.
 //
@@ -22132,7 +22136,7 @@ type GetEmailInboxInsightsIndustryBenchmarkParams struct {
 
 // GetEmailInboxInsightsBlocklistsParams defines parameters for GetEmailInboxInsightsBlocklists.
 type GetEmailInboxInsightsBlocklistsParams struct {
-	// SendingDomain The sending domain to check: one of the workspace's verified sending domains, exactly as it appears there. Every sending IP behind it is checked. A domain that is not verified in this workspace answers not-found.
+	// SendingDomain The sending domain to check: one of the workspace's verified sending domains, exactly as it appears there. Inspect the returned targets and their statuses for lookup coverage. A domain that is not verified in this workspace answers not-found.
 	SendingDomain string `form:"sending_domain" json:"sending_domain"`
 }
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.69.0
+
+- Available-number responses now identify ownership registration prerequisites: `ownership_registration_required` in API JSON, Node.js, and Python; `OwnershipRegistrationRequired` in Go; and `getOwnershipRegistrationRequired()` in PHP. The CLI exposes the API JSON field.
+- **Breaking:** Assigned numbers awaiting ownership approval now return `pending_ownership_registration` instead of `pending_compliance`. Upgrade your Bird SDK package or Bird CLI to this release before consuming the new value, then update any status comparisons to handle it. The old status is removed from generated client types.
+- Email messages now carry `broadcast_id`, the broadcast that sent the message. The field is absent when the send was not part of a broadcast.
+- Clarify `active_count`, `targets`, and each target's `status` in the Inbox Insights blocklists response: zero active listings does not establish lookup coverage, and a target with an unfinished lookup has no finding even when `is_listed` is false.
+
 ## 0.68.1
 
 - Broadcast counter descriptions now distinguish measured zeros from unavailable counts.

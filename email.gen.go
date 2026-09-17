@@ -63,7 +63,7 @@ func (p EmailHealthParams) toWire() *oapi.GetEmailHealthParams {
 	}
 }
 
-// Get Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`.
+// Get Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 func (s *EmailService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*EmailMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailMessage(ctx, oapi.EmailID(messageId), cfg...)
@@ -94,7 +94,7 @@ func (s *EmailService) ListPage(ctx context.Context, params EmailListParams, sta
 	return &out, nil
 }
 
-// List List sent email messages, newest first, as a cursor page (`{data, next_cursor, …}`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by creation time with the half-open range `created_after` (inclusive) and `created_before` (exclusive). For a single UTC day, `created_after` is that day at 00:00:00Z and `created_before` is the next day at 00:00:00Z.
+// List List sent email messages, newest first, as a cursor page (`{data, next_cursor, …}`). Pass `next_cursor` back as `starting_after` to fetch the next page. Filter by creation time with the half-open range `created_after` (inclusive) and `created_before` (exclusive). For a single UTC day, `created_after` is that day at 00:00:00Z and `created_before` is the next day at 00:00:00Z. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailService) List(ctx context.Context, params EmailListParams, opts ...option.RequestOption) iter.Seq2[*EmailMessage, error] {
