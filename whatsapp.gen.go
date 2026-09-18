@@ -35,6 +35,8 @@ type WhatsappListParams struct {
 	Bsuid string
 	// Filter by category.
 	Category WhatsAppTemplateCategory
+	// Filter by the WhatsApp group the message belongs to, in either direction: the group an outbound message was addressed to, or the group an inbound message arrived through. Matches the `group_id` on each message's `to`. It names one group, so there is no way to ask for the messages that belong to no group: omit it to list group and one-to-one messages together.
+	GroupID string
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag []string
 }
@@ -52,6 +54,7 @@ func (p WhatsappListParams) toWire(startingAfter string) *oapi.ListWhatsAppMessa
 		PhoneNumber:   optStr(p.PhoneNumber),
 		Bsuid:         optStr(p.Bsuid),
 		Category:      optZero(p.Category),
+		GroupId:       optZero(p.GroupID),
 		Tag:           optSlice(p.Tag),
 		StartingAfter: optStr(startingAfter),
 	}
@@ -112,7 +115,7 @@ func (s *WhatsappService) ListPage(ctx context.Context, params WhatsappListParam
 	return &out, nil
 }
 
-// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards. An inbound tap on a reply button or list row carries interactive_reply instead. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, recipient (to), sender (from), business-scoped user ID (bsuid), template category, or tag. to and from each accept a phone number or a business-scoped user ID; pair either with direction to search a single side of the message. Use whatsapp_get for one message's current state.
+// List List WhatsApp messages, newest first, as a cursor page ({data, next_cursor, …}). Each message carries the one content it was built from: a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards. An inbound tap on a reply button or list row carries interactive_reply instead. Pass next_cursor back as starting_after to fetch the next page. Filter by direction, status, recipient (to), sender (from), business-scoped user ID (bsuid), group (group_id), template category, or tag. to and from each accept a phone number or a business-scoped user ID; pair either with direction to search a single side of the message. Neither matches a group, so group_id is what narrows the list to one group's messages. Use whatsapp_get for one message's current state.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *WhatsappService) List(ctx context.Context, params WhatsappListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppMessage, error] {

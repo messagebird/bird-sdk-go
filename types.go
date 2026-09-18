@@ -516,6 +516,15 @@ type (
 	WhatsAppBusinessAccountSortField = oapi.WhatsAppBusinessAccountSortField
 )
 
+// WhatsAppKeywordRule is one rule in the ladder that answers an inbound reply.
+// Keywords carries only what the rule adds; EffectiveKeywords is what actually
+// matches, Bird's set plus those additions.
+type (
+	WhatsAppKeywordRule      = oapi.WhatsAppKeywordRule
+	WhatsAppKeywordRuleList  = oapi.WhatsAppKeywordRuleList
+	WhatsAppKeywordRuleScope = oapi.WhatsAppKeywordRuleScope
+)
+
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the
 // verdict on an email address. Every block a phone lookup carries reports its
 // own status, so a partial answer is visible rather than silent.

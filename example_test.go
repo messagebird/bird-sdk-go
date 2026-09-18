@@ -3224,6 +3224,82 @@ func ExampleWhatsappBusinessAccountsService_Get() {
 	fmt.Println(account.Name, account.Status)
 }
 
+func ExampleWhatsappKeywordRulesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rules, err := client.Whatsapp.KeywordRules.List(context.Background(), bird.WhatsappKeywordRulesListParams{
+		Operation: "opt_out", // omit for both operations, Bird's rules and your own
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, rule := range rules.Data {
+		fmt.Println(rule.Scope, rule.EffectiveKeywords)
+	}
+}
+
+// Bird's own rules and a workspace's share the wkr_ id space; Scope tells them apart.
+func ExampleWhatsappKeywordRulesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rule, err := client.Whatsapp.KeywordRules.Get(context.Background(), "wkr_01m2kj8x4te9p0rr7e5w2n1abc")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(rule.Scope, rule.Reply)
+}
+
+func ExampleWhatsappKeywordRulesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	rule, err := client.Whatsapp.KeywordRules.Create(context.Background(), bird.WhatsappKeywordRulesCreateParams{
+		Operation: "opt_out",
+		Country:   bird.String("US"), // the SENDER's country, from their own number
+		Reply:     bird.String("You're off the list. ACME Courier won't message you again."),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// EffectiveKeywords is Bird's set plus any of your own.
+	fmt.Println(rule.Id, rule.EffectiveKeywords)
+}
+
+func ExampleWhatsappKeywordRulesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Omitting keywords leaves the set alone; an empty slice clears your
+	// additions back to Bird's.
+	rule, err := client.Whatsapp.KeywordRules.Update(context.Background(),
+		"wkr_01m2kj8x4te9p0rr7e5w2n1abc", bird.WhatsappKeywordRulesUpdateParams{
+			Keywords: []string{"no more texts", "remove me"},
+		})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(rule.EffectiveKeywords)
+}
+
+// The next rule in the ladder answers the scope, which is another rule of yours if you
+// hold a less specific one; STOP never stops working.
+func ExampleWhatsappKeywordRulesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.KeywordRules.Delete(context.Background(),
+		"wkr_01m2kj8x4te9p0rr7e5w2n1abc"); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func ExampleEmailCompetitiveBrandsService_Search() {
 	// Requires Insights preview access for the organization.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

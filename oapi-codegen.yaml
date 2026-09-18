@@ -145,6 +145,11 @@ output-options:
     - listWhatsAppBusinessAccounts
     - getWhatsAppNumberProfile
     - getWhatsAppBusinessAccount
+    - listWhatsAppKeywordRules
+    - getWhatsAppKeywordRule
+    - createWhatsAppKeywordRule
+    - updateWhatsAppKeywordRule
+    - deleteWhatsAppKeywordRule
     - getWhatsAppStatsSummary
     - getWhatsAppStatsDaily
     - getWhatsAppStatsHourly

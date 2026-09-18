@@ -618,6 +618,16 @@ const (
 	WhatsAppInteractiveTypeRequestContactInfo     = oapi.WhatsAppInteractiveTypeRequestContactInfo
 )
 
+// WhatsAppKeywordOperation is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppKeywordOperation* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppKeywordOperation = oapi.WhatsAppKeywordOperation
+
+const (
+	WhatsAppKeywordOperationOptIn  = oapi.WhatsAppKeywordOperationOptIn
+	WhatsAppKeywordOperationOptOut = oapi.WhatsAppKeywordOperationOptOut
+)
+
 // WhatsAppNumberErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppNumberErrorCode* constants with a
 // default branch rather than treating the set as closed.

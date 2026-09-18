@@ -30,6 +30,9 @@ type WhatsappService struct {
 
 	// BusinessAccounts reads the WhatsApp Business Accounts behind those senders.
 	BusinessAccounts *WhatsappBusinessAccountsService
+
+	// KeywordRules reads and configures what a reply to one of those senders does.
+	KeywordRules *WhatsappKeywordRulesService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind
@@ -37,8 +40,8 @@ type WhatsappService struct {
 // whether From is required for it, are the server's to decide, so this type
 // enforces neither. Zero-value fields are omitted from the request.
 type WhatsappSendParams struct {
-	To   string // required; recipient phone number in E.164 format, or a business-scoped user ID
-	From string // the business number to send from; omit only for a Bird-managed template
+	To   string // required; recipient phone number in E.164 format, a business-scoped user ID, or a group id (wag_…)
+	From string // the business number to send from; omit for a Bird-managed template or a group send
 
 	Template   string                             // the template's id (wat_…) or its slug (e.g. bird_otp)
 	Language   string                             // template language as a BCP-47 tag; omit when the template has a single language

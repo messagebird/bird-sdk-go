@@ -2919,6 +2919,24 @@ func (e EventWhatsAppDeliveredType) Valid() bool {
 	}
 }
 
+// Defines values for EventWhatsAppDeliveredDataDirection.
+const (
+	EventWhatsAppDeliveredDataDirectionInbound  EventWhatsAppDeliveredDataDirection = "inbound"
+	EventWhatsAppDeliveredDataDirectionOutbound EventWhatsAppDeliveredDataDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppDeliveredDataDirection enum.
+func (e EventWhatsAppDeliveredDataDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppDeliveredDataDirectionInbound:
+		return true
+	case EventWhatsAppDeliveredDataDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EventWhatsAppFailedType.
 const (
 	WhatsappFailed EventWhatsAppFailedType = "whatsapp.failed"
@@ -2961,6 +2979,24 @@ const (
 func (e EventWhatsAppReadType) Valid() bool {
 	switch e {
 	case WhatsappRead:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EventWhatsAppReadDataDirection.
+const (
+	EventWhatsAppReadDataDirectionInbound  EventWhatsAppReadDataDirection = "inbound"
+	EventWhatsAppReadDataDirectionOutbound EventWhatsAppReadDataDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the EventWhatsAppReadDataDirection enum.
+func (e EventWhatsAppReadDataDirection) Valid() bool {
+	switch e {
+	case EventWhatsAppReadDataDirectionInbound:
+		return true
+	case EventWhatsAppReadDataDirectionOutbound:
 		return true
 	default:
 		return false
@@ -5817,6 +5853,60 @@ func (e WhatsAppInteractiveTypeWrite) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppKeywordOperation.
+const (
+	WhatsAppKeywordOperationOptIn  WhatsAppKeywordOperation = "opt_in"
+	WhatsAppKeywordOperationOptOut WhatsAppKeywordOperation = "opt_out"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppKeywordOperation enum.
+func (e WhatsAppKeywordOperation) Valid() bool {
+	switch e {
+	case WhatsAppKeywordOperationOptIn:
+		return true
+	case WhatsAppKeywordOperationOptOut:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppKeywordOperationWrite.
+const (
+	WhatsAppKeywordOperationWriteOptIn  WhatsAppKeywordOperationWrite = "opt_in"
+	WhatsAppKeywordOperationWriteOptOut WhatsAppKeywordOperationWrite = "opt_out"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppKeywordOperationWrite enum.
+func (e WhatsAppKeywordOperationWrite) Valid() bool {
+	switch e {
+	case WhatsAppKeywordOperationWriteOptIn:
+		return true
+	case WhatsAppKeywordOperationWriteOptOut:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppKeywordRuleScope.
+const (
+	WhatsAppKeywordRuleScopeSystem    WhatsAppKeywordRuleScope = "system"
+	WhatsAppKeywordRuleScopeWorkspace WhatsAppKeywordRuleScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppKeywordRuleScope enum.
+func (e WhatsAppKeywordRuleScope) Valid() bool {
+	switch e {
+	case WhatsAppKeywordRuleScopeSystem:
+		return true
+	case WhatsAppKeywordRuleScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppMessageDirection.
 const (
 	Inbound  WhatsAppMessageDirection = "inbound"
@@ -6719,7 +6809,14 @@ type Actor struct {
 	// Id Actor identifier.
 	Id string `json:"id"`
 
-	// Type Who or what performed the action: `user` for a member's own session, `oauth_token` for a token issued to a caller on a member's behalf, `api_key` for a workspace API key, `system` for our own automation, `sso` for an organization's SSO connection, and `service_account` for a workspace's connected Integration acting with no member behind it. Open enum: new actor types may be added over time, so treat any unrecognized value as a future type rather than an error.
+	// Type New actor types may be added. Treat unrecognized values as future types, not errors.
+	// - `user`: a member's own session.
+	// - `api_key`: a workspace API key.
+	// - `oauth_token`: a token issued to a caller on a member's behalf.
+	// - `system`: an action we perform without a customer actor.
+	// - `sso`: an organization's SSO connection.
+	// - `service_account`: a workspace's connected Integration acting with no member behind it.
+	// - `automation`: an automation execution in your workspace.
 	Type string `json:"type"`
 }
 
@@ -13385,7 +13482,7 @@ type EventEmailReceivedData struct {
 	// DmarcPass Whether SPF or DKIM passed and aligned with the domain in the message's `From` header. The receiving provider currently supplies no DMARC result, so this is `null`.
 	DmarcPass *bool `json:"dmarc_pass,omitempty"`
 
-	// From Address from the message's From header, with the relay's parsed sender and then the SMTP envelope sender as fallbacks when that header cannot be read.
+	// From Address from the message's From header, with the relay's parsed sender and then the SMTP envelope sender as fallbacks when that header cannot be read. This field alone does not authenticate the sender.
 	From openapi_types.Email `json:"from"`
 
 	// InReplyTo `In-Reply-To` header containing the `Message-ID` this message replies to, or null when it is not a reply.
@@ -13404,7 +13501,7 @@ type EventEmailReceivedData struct {
 	// Subject Subject line as received, or null when the message had no subject.
 	Subject *string `json:"subject"`
 
-	// To Recipient addresses the message was sent to.
+	// To Parsed recipient addresses from the message headers, not the envelope recipient used to route this delivery.
 	To          []openapi_types.Email `json:"to"`
 	WorkspaceId WorkspaceID           `json:"workspace_id"`
 }
@@ -14561,8 +14658,34 @@ type EventWhatsAppDelivered struct {
 // EventWhatsAppDeliveredType Event type.
 type EventWhatsAppDeliveredType string
 
-// EventWhatsAppDeliveredData Identity fields shared by every WhatsApp lifecycle event payload.
-type EventWhatsAppDeliveredData = EventWhatsAppBase
+// EventWhatsAppDeliveredData defines model for EventWhatsAppDeliveredData.
+type EventWhatsAppDeliveredData struct {
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppDeliveredDataDirection `json:"direction"`
+
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
+	From WhatsAppAddress `json:"from"`
+
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Recipient The participant delivery was confirmed to, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
+	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppDeliveredDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppDeliveredDataDirection string
 
 // EventWhatsAppFailed Message delivery failed permanently.
 type EventWhatsAppFailed struct {
@@ -14649,8 +14772,34 @@ type EventWhatsAppRead struct {
 // EventWhatsAppReadType Event type.
 type EventWhatsAppReadType string
 
-// EventWhatsAppReadData Identity fields shared by every WhatsApp lifecycle event payload.
-type EventWhatsAppReadData = EventWhatsAppBase
+// EventWhatsAppReadData defines model for EventWhatsAppReadData.
+type EventWhatsAppReadData struct {
+	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+	Direction EventWhatsAppReadDataDirection `json:"direction"`
+
+	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
+	From WhatsAppAddress `json:"from"`
+
+	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Recipient The participant who opened the message, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
+	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
+
+	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	Tags *[]Tag `json:"tags"`
+
+	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
+	To          WhatsAppAddress   `json:"to"`
+	WhatsappId  WhatsAppMessageID `json:"whatsapp_id"`
+	WorkspaceId WorkspaceID       `json:"workspace_id"`
+}
+
+// EventWhatsAppReadDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
+type EventWhatsAppReadDataDirection string
 
 // EventWhatsAppReceived A contact sent the business a WhatsApp message.
 type EventWhatsAppReceived struct {
@@ -18565,6 +18714,9 @@ type WhatsAppAddress struct {
 	// DisplayName Present only on a message received from a WhatsApp user, on `from`; never on an outbound send's `to`, where the profile is not known. Absent when the message carries no profile, and on a message received before this workspace started recording them.
 	DisplayName *string `json:"display_name,omitempty"`
 
+	// GroupId The group this address was addressed as, or reached through. It appears on a message's `to` and nowhere else: never on `from`, and never on an event's `recipient`. Outbound, it stands in for the recipient, because a group send names no single phone number. Inbound, it qualifies one: `to` carries the business `phone_number` that received the message and the group it arrived through, while `from` stays the participant who wrote it. Its presence on `to` is what tells a group message from a one-to-one one, in either direction.
+	GroupId *WhatsAppGroupID `json:"group_id,omitempty"`
+
 	// PhoneNumber Phone number in E.164 format, when known.
 	PhoneNumber *string `json:"phone_number,omitempty"`
 
@@ -19042,6 +19194,9 @@ type WhatsAppEvent struct {
 	// OccurredAt When this event occurred.
 	OccurredAt *time.Time `json:"occurred_at,omitempty"`
 
+	// Recipient The participant this confirmation is about, on a group message. Present only on `whatsapp.delivered` and `whatsapp.read`, the two events a group send fans out: one per participant, so a group of eight produces up to eight of each. The rest describe the message as a whole and carry no recipient, because there is one hand-off to the WhatsApp network and one way for that to be refused. Absent on a one-to-one message, whose `to` already names its recipient. Never carries `group_id`: the group belongs to the message's `to`, not to a participant.
+	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
+
 	// Type Message timeline event type:
 	//
 	// - `whatsapp.accepted`: The API accepted the request.
@@ -19084,6 +19239,9 @@ type WhatsAppEventType string
 
 // WhatsAppFileID defines model for WhatsAppFileID.
 type WhatsAppFileID = string
+
+// WhatsAppGroupID defines model for WhatsAppGroupID.
+type WhatsAppGroupID = string
 
 // WhatsAppImage defines model for WhatsAppImage.
 type WhatsAppImage struct {
@@ -19614,6 +19772,135 @@ type WhatsAppInteractiveType string
 // than accepted and then failed asynchronously.
 type WhatsAppInteractiveTypeWrite string
 
+// WhatsAppKeywordOperation What Bird does when an inbound message matches the rule.
+//
+//   - `opt_out` records that the sender no longer consents to receive any messages from your
+//     WhatsApp Business Account, including transactional ones. Typing the word is the person's
+//     own statement, so it covers everything, unlike WhatsApp's built-in marketing opt-out
+//     control, which stops marketing alone.
+//   - `opt_in` records that they consent again.
+//
+// A rule's operation is fixed once created, and a keyword belongs to exactly one operation, so
+// a keyword Bird ships for `opt_out` cannot be reused for `opt_in`.
+//
+// This is an open enum. Accept unrecognized values: SMS already answers `help`, `info`, `confirm`
+// and `custom`, and WhatsApp gains an operation without a new API version. Sending one Bird does
+// not answer yet is refused with `E15082`.
+type WhatsAppKeywordOperation string
+
+// WhatsAppKeywordOperationWrite What Bird does when an inbound message matches the rule.
+//
+//   - `opt_out` records that the sender no longer consents to receive any messages from your
+//     WhatsApp Business Account, including transactional ones. Typing the word is the person's
+//     own statement, so it covers everything, unlike WhatsApp's built-in marketing opt-out
+//     control, which stops marketing alone.
+//   - `opt_in` records that they consent again.
+//
+// A rule's operation is fixed once created, and a keyword belongs to exactly one operation, so
+// a keyword Bird ships for `opt_out` cannot be reused for `opt_in`.
+//
+// Closed on the write side: an operation Bird does not answer is rejected here rather than
+// stored as a rule that never fires. The read side is open, because Bird can gain an operation
+// without a new API version.
+type WhatsAppKeywordOperationWrite string
+
+// WhatsAppKeywordRule defines model for WhatsAppKeywordRule.
+type WhatsAppKeywordRule struct {
+	// Country The country the rule applies in, as an ISO 3166-1 alpha-2 code. It is the country of the person who messaged you, worked out from their phone number, not the country of the account they messaged. Null means the rule applies worldwide, which is what Bird's own rules do. A rule for a country outranks a worldwide rule for the people it covers.
+	Country *string `json:"country,omitempty"`
+
+	// CreatedAt When the rule was created. On one of Bird's own rules this is when Bird last shipped a change to it.
+	CreatedAt time.Time `json:"created_at"`
+
+	// EffectiveKeywords Every keyword that matches this rule: Bird's keywords for the same operation and country, plus the ones you added. This is what an inbound message is compared against, and the whole message has to equal one of them. Keywords Bird adds later join it without you changing anything.
+	// For a rule of **yours** with no `country`, this list is not the whole set it matches: such a rule compares against Bird's keywords for the sender's country, which the list cannot show because it does not know who is writing, so it shows Bird's worldwide keywords instead. Which rule answers decides whether that matters. Yours with no `country` and no `waba` sits below Bird's own country rule, so a sender in a country Bird ships a rule for is answered by that rule and your reply is not used. Yours with a `waba` and no `country` sits above it, so those senders match that country's keywords and get your reply, which is more keywords than this list names. Set a `country` on your own rule to see and extend exactly the set those senders match. A `system` rule is unaffected: each matches only its own keywords, and the ladder checks Bird's country rules separately from its worldwide one.
+	EffectiveKeywords []string              `json:"effective_keywords"`
+	Id                WhatsAppKeywordRuleID `json:"id"`
+
+	// Keywords The keywords this rule adds. For one of Bird's own rules this is the full set Bird ships. For a rule you created it is only what you added on top: it never restates or removes Bird's keywords, so `effective_keywords` is what actually matches.
+	Keywords []string `json:"keywords"`
+
+	// Operation What Bird does when an inbound message matches the rule.
+	//
+	// - `opt_out` records that the sender no longer consents to receive any messages from your
+	//   WhatsApp Business Account, including transactional ones. Typing the word is the person's
+	//   own statement, so it covers everything, unlike WhatsApp's built-in marketing opt-out
+	//   control, which stops marketing alone.
+	// - `opt_in` records that they consent again.
+	//
+	// A rule's operation is fixed once created, and a keyword belongs to exactly one operation, so
+	// a keyword Bird ships for `opt_out` cannot be reused for `opt_in`.
+	//
+	// This is an open enum. Accept unrecognized values: SMS already answers `help`, `info`, `confirm`
+	// and `custom`, and WhatsApp gains an operation without a new API version. Sending one Bird does
+	// not answer yet is refused with `E15082`.
+	Operation WhatsAppKeywordOperation `json:"operation"`
+
+	// Reply The message sent back when one of the keywords matches, or null when no reply is sent. The reply goes out on the conversation the inbound message opened.
+	Reply *string `json:"reply,omitempty"`
+
+	// Scope Whether the rule is one Bird ships (`system`) or one your workspace created (`workspace`). Both kinds carry a `wkr_` ID and can be read; only a `workspace` rule can be changed or deleted. A `workspace` rule takes precedence over Bird's at the same grain, so it is how you replace a reply without losing the keywords Bird ships.
+	Scope WhatsAppKeywordRuleScope `json:"scope"`
+
+	// UpdatedAt When the rule was last changed. On one of Bird's own rules this is when Bird last shipped a change to it.
+	UpdatedAt time.Time `json:"updated_at"`
+
+	// Waba The WhatsApp Business Account the rule is limited to, identified by its WhatsApp-issued account ID, or null when it covers every account in your workspace. Bird's own rules are always null.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppKeywordRuleCreate defines model for WhatsAppKeywordRuleCreate.
+type WhatsAppKeywordRuleCreate struct {
+	// Country The country this rule applies in, as an ISO 3166-1 alpha-2 code. It matches the country of the person who messaged you, worked out from their phone number. Omit it to cover everyone, which is what Bird's own rules do.
+	Country *string `json:"country,omitempty"`
+
+	// Keywords Extra keywords to match, on top of the ones Bird already ships for this operation. Omit to keep Bird's keywords and change only the reply, including keywords Bird adds later. You cannot remove one of Bird's keywords, and a keyword Bird has bound to the other operation cannot be reused here.
+	Keywords *[]string `json:"keywords,omitempty"`
+
+	// Operation What Bird does when an inbound message matches the rule.
+	//
+	// - `opt_out` records that the sender no longer consents to receive any messages from your
+	//   WhatsApp Business Account, including transactional ones. Typing the word is the person's
+	//   own statement, so it covers everything, unlike WhatsApp's built-in marketing opt-out
+	//   control, which stops marketing alone.
+	// - `opt_in` records that they consent again.
+	//
+	// A rule's operation is fixed once created, and a keyword belongs to exactly one operation, so
+	// a keyword Bird ships for `opt_out` cannot be reused for `opt_in`.
+	//
+	// Closed on the write side: an operation Bird does not answer is rejected here rather than
+	// stored as a rule that never fires. The read side is open, because Bird can gain an operation
+	// without a new API version.
+	Operation WhatsAppKeywordOperationWrite `json:"operation"`
+
+	// Reply The message to send back when a keyword matches. Omit it to send nothing.
+	Reply *string `json:"reply,omitempty"`
+
+	// Waba Limit the rule to one WhatsApp Business Account, identified by its WhatsApp-issued account ID or by the `waa_` ID Bird gives it. Either form resolves to the same account, and the rule stores and returns the WhatsApp-issued one. Omit it to cover every account in your workspace. The account must be one of yours.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppKeywordRuleID defines model for WhatsAppKeywordRuleID.
+type WhatsAppKeywordRuleID = string
+
+// WhatsAppKeywordRuleList defines model for WhatsAppKeywordRuleList.
+type WhatsAppKeywordRuleList struct {
+	// Data The keyword rules that apply to your workspace, Bird's own included. Ordered most specific first, so the first rule whose keywords match an inbound message is the one that runs. The set is small and returned in full; this list is not paginated.
+	Data []WhatsAppKeywordRule `json:"data"`
+}
+
+// WhatsAppKeywordRuleScope Whether the rule is one Bird ships (`system`) or one your workspace created (`workspace`). Both kinds carry a `wkr_` ID and can be read; only a `workspace` rule can be changed or deleted. A `workspace` rule takes precedence over Bird's at the same grain, so it is how you replace a reply without losing the keywords Bird ships.
+type WhatsAppKeywordRuleScope string
+
+// WhatsAppKeywordRuleUpdate Changes the reply and the added keywords. What a rule applies to (its operation, country and WhatsApp Business Account) is fixed once created: those decide which inbound messages reach it, so changing one would make it a different rule. Delete it and create the one you want.
+type WhatsAppKeywordRuleUpdate struct {
+	// Keywords Replaces the extra keywords this rule matches, on top of the ones Bird ships. Send an empty array to keep Bird's keywords only. Omit to leave the current ones unchanged.
+	Keywords *[]string `json:"keywords,omitempty"`
+
+	// Reply Replaces the message sent back when a keyword matches. Set it to null to send nothing. Omit to leave it unchanged.
+	Reply nullable.Nullable[string] `json:"reply,omitempty"`
+}
+
 // WhatsAppLatencyQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
 type WhatsAppLatencyQuantiles struct {
 	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
@@ -19708,6 +19995,15 @@ type WhatsAppMessage struct {
 	// DeliveredAt When delivery was confirmed. Null until then.
 	DeliveredAt *time.Time `json:"delivered_at,omitempty"`
 
+	// DeliveredCount How many of the `recipient_count` recipients WhatsApp has confirmed the
+	// message reached. A recipient who reported only a read counts here too:
+	// WhatsApp skips the delivery receipt when someone is already looking at
+	// the chat, so waiting for one would leave that person uncounted for ever.
+	//
+	// Absent on a one-to-one message, which has no fan-out to count, and on a
+	// group message with no `recipient_count` to count against.
+	DeliveredCount *int `json:"delivered_count,omitempty"`
+
 	// Direction Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 	Direction *WhatsAppMessageDirection `json:"direction,omitempty"`
 
@@ -19744,6 +20040,41 @@ type WhatsAppMessage struct {
 
 	// ReadAt When the message was read. On an outbound message this is the recipient opening it. On an inbound one it is when Bird acknowledged the message to WhatsApp for the business, which a read receipt sets. Null until then.
 	ReadAt *time.Time `json:"read_at,omitempty"`
+
+	// ReadCount How many of the `recipient_count` recipients have opened the message.
+	// Read receipts do not move `status`, which has no `read` value; they
+	// surface here and in `read_at`.
+	//
+	// Absent on a one-to-one message, which has no fan-out to count, and on a
+	// group message with no `recipient_count` to count against.
+	ReadCount *int `json:"read_count,omitempty"`
+
+	// RecipientCount How many recipients a group send was addressed to, taken when the send
+	// was accepted. It is the group's membership at that moment, not its
+	// membership now: someone joining through the invite link while the message
+	// is in flight does not receive it and does not change this count.
+	//
+	// Absent on a one-to-one message, along with `delivered_count` and
+	// `read_count`. A message with one recipient has no fan-out to report, and
+	// its delivery is what `status`, `delivered_at` and `read_at` already say.
+	// Absent for the same reason on a group message sent before Bird recorded
+	// the count, and on a send to a group nobody had joined yet: there is no
+	// denominator to report, and none can be recovered after the fact, since
+	// membership has moved on. `to.group_id` is what tells a group message from
+	// a one-to-one one in every case, including those two. With no denominator
+	// to resolve against, `status` is read as stored, the way a one-to-one
+	// message's is: it reaches `sent` when the message is handed to WhatsApp and
+	// stops there, because delivery is confirmed per participant and a send with
+	// no participants collects no confirmations.
+	//
+	// It is also the denominator `status` is resolved against: on a group
+	// message `status` reports the furthest point *every* recipient has
+	// reached, so it turns `delivered` only once `delivered_count` equals this
+	// number, and stays `sent` while some have confirmed and others have not.
+	// `failed` and `rejected` are never per recipient: there is one hand-off to
+	// the WhatsApp network and one way for that to be refused. `delivered_at`
+	// and `read_at` are the first recipient's, not the last.
+	RecipientCount *int `json:"recipient_count,omitempty"`
 
 	// SentAt When the message was handed to the WhatsApp network. Null until then.
 	SentAt *time.Time             `json:"sent_at,omitempty"`
@@ -19803,7 +20134,7 @@ type WhatsAppMessageSendRequest struct {
 	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
 
-	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`.
+	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`. Omit it for a group send too: the group sends on its own number, so naming one returns a `422` `WhatsAppSenderNotAllowed`.
 	From *string `json:"from,omitempty"`
 
 	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
@@ -19812,7 +20143,7 @@ type WhatsAppMessageSendRequest struct {
 	// InReplyToMessageId Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Interactive Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Interactive Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
 	Interactive *WhatsAppInteractiveSend `json:"interactive,omitempty"`
 
 	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
@@ -19827,13 +20158,13 @@ type WhatsAppMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window.
+	// Template The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
 	// Text Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
 	Text *WhatsAppTextSend `json:"text,omitempty"`
 
-	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), or the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have. A value that is neither returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID.
+	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`), which sends to every participant of that group. A value that is none of these returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID. A group ID naming no group this workspace holds returns a `404` `WhatsAppGroupNotFound`, and one whose group is not active returns a `409` `WhatsAppGroupNotActive`. Content a group cannot take is refused ahead of both, so a group ID paired with interactive content returns the `422` below whether or not the group exists.
 	To string `json:"to"`
 
 	// Video A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
@@ -24990,6 +25321,114 @@ type ListWhatsAppBusinessAccountsParams struct {
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
+// ListWhatsAppKeywordRulesParams defines parameters for ListWhatsAppKeywordRules.
+type ListWhatsAppKeywordRulesParams struct {
+	// Country Keep only rules that apply to someone messaging from this country, as an ISO 3166-1 alpha-2 code. Omit for every rule, whichever country it covers.
+	Country *string `form:"country,omitempty" json:"country,omitempty"`
+
+	// Waba Keep only the rules that apply to this WhatsApp Business Account of yours, identified by its WhatsApp-issued account ID or by the `waa_` ID Bird gives it. Either form finds the same rules.
+	Waba *string `form:"waba,omitempty" json:"waba,omitempty"`
+
+	// Operation Keep only rules for this operation. Omit for all of them. Open on the same terms as the response, so an operation Bird gains later can be filtered for without a client update; one Bird does not answer matches nothing rather than failing.
+	Operation *WhatsAppKeywordOperation `form:"operation,omitempty" json:"operation,omitempty"`
+
+	// Scope Keep only Bird's own rules (`system`) or only the rules you created (`workspace`). Omit for both.
+	Scope *WhatsAppKeywordRuleScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateWhatsAppKeywordRuleParams defines parameters for CreateWhatsAppKeywordRule.
+type CreateWhatsAppKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteWhatsAppKeywordRuleParams defines parameters for DeleteWhatsAppKeywordRule.
+type DeleteWhatsAppKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetWhatsAppKeywordRuleParams defines parameters for GetWhatsAppKeywordRule.
+type GetWhatsAppKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateWhatsAppKeywordRuleParams defines parameters for UpdateWhatsAppKeywordRule.
+type UpdateWhatsAppKeywordRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListWhatsAppMessagesParams defines parameters for ListWhatsAppMessages.
 type ListWhatsAppMessagesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -25027,6 +25466,9 @@ type ListWhatsAppMessagesParams struct {
 
 	// Category Filter by category.
 	Category *WhatsAppTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// GroupId Filter by the WhatsApp group the message belongs to, in either direction: the group an outbound message was addressed to, or the group an inbound message arrived through. Matches the `group_id` on each message's `to`. It names one group, so there is no way to ask for the messages that belong to no group: omit it to list group and one-to-one messages together.
+	GroupId *WhatsAppGroupID `form:"group_id,omitempty" json:"group_id,omitempty"`
 
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
@@ -25608,6 +26050,12 @@ type UpdateWebhookJSONRequestBody = WebhookEndpointUpdate
 
 // TestWebhookJSONRequestBody defines body for TestWebhook for application/json ContentType.
 type TestWebhookJSONRequestBody = WebhookTestRequest
+
+// CreateWhatsAppKeywordRuleJSONRequestBody defines body for CreateWhatsAppKeywordRule for application/json ContentType.
+type CreateWhatsAppKeywordRuleJSONRequestBody = WhatsAppKeywordRuleCreate
+
+// UpdateWhatsAppKeywordRuleJSONRequestBody defines body for UpdateWhatsAppKeywordRule for application/json ContentType.
+type UpdateWhatsAppKeywordRuleJSONRequestBody = WhatsAppKeywordRuleUpdate
 
 // CreateWhatsAppMessageJSONRequestBody defines body for CreateWhatsAppMessage for application/json ContentType.
 type CreateWhatsAppMessageJSONRequestBody = WhatsAppMessageSendRequest
@@ -29770,6 +30218,25 @@ type ClientInterface interface {
 	// GetWhatsAppBusinessAccount request
 	GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListWhatsAppKeywordRules request
+	ListWhatsAppKeywordRules(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppKeywordRuleWithBody request with any body
+	CreateWhatsAppKeywordRuleWithBody(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppKeywordRule(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, body CreateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppKeywordRule request
+	DeleteWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *DeleteWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppKeywordRule request
+	GetWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *GetWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateWhatsAppKeywordRuleWithBody request with any body
+	UpdateWhatsAppKeywordRuleWithBody(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, body UpdateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListWhatsAppMessages request
 	ListWhatsAppMessages(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -32842,6 +33309,90 @@ func (c *Client) ListWhatsAppBusinessAccounts(ctx context.Context, params *ListW
 
 func (c *Client) GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppBusinessAccountRequest(c.Server, businessAccountRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppKeywordRules(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppKeywordRulesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppKeywordRuleWithBody(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppKeywordRuleRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppKeywordRule(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, body CreateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppKeywordRuleRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *DeleteWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppKeywordRuleRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *GetWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppKeywordRuleRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWhatsAppKeywordRuleWithBody(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWhatsAppKeywordRuleRequestWithBody(c.Server, id, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWhatsAppKeywordRule(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, body UpdateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWhatsAppKeywordRuleRequest(c.Server, id, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -48463,6 +49014,359 @@ func NewGetWhatsAppBusinessAccountRequest(server string, businessAccountRef stri
 	return req, nil
 }
 
+// NewListWhatsAppKeywordRulesRequest generates requests for ListWhatsAppKeywordRules
+func NewListWhatsAppKeywordRulesRequest(server string, params *ListWhatsAppKeywordRulesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/keyword-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Waba != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "waba", *params.Waba, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Operation != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "operation", *params.Operation, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppKeywordRuleRequest calls the generic CreateWhatsAppKeywordRule builder with application/json body
+func NewCreateWhatsAppKeywordRuleRequest(server string, params *CreateWhatsAppKeywordRuleParams, body CreateWhatsAppKeywordRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppKeywordRuleRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppKeywordRuleRequestWithBody generates requests for CreateWhatsAppKeywordRule with any type of body
+func NewCreateWhatsAppKeywordRuleRequestWithBody(server string, params *CreateWhatsAppKeywordRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/keyword-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteWhatsAppKeywordRuleRequest generates requests for DeleteWhatsAppKeywordRule
+func NewDeleteWhatsAppKeywordRuleRequest(server string, id WhatsAppKeywordRuleID, params *DeleteWhatsAppKeywordRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppKeywordRuleRequest generates requests for GetWhatsAppKeywordRule
+func NewGetWhatsAppKeywordRuleRequest(server string, id WhatsAppKeywordRuleID, params *GetWhatsAppKeywordRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateWhatsAppKeywordRuleRequest calls the generic UpdateWhatsAppKeywordRule builder with application/json body
+func NewUpdateWhatsAppKeywordRuleRequest(server string, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, body UpdateWhatsAppKeywordRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateWhatsAppKeywordRuleRequestWithBody(server, id, params, "application/json", bodyReader)
+}
+
+// NewUpdateWhatsAppKeywordRuleRequestWithBody generates requests for UpdateWhatsAppKeywordRule with any type of body
+func NewUpdateWhatsAppKeywordRuleRequestWithBody(server string, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/keyword-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppMessagesRequest generates requests for ListWhatsAppMessages
 func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesParams) (*http.Request, error) {
 	var err error
@@ -48626,6 +49530,18 @@ func NewListWhatsAppMessagesRequest(server string, params *ListWhatsAppMessagesP
 		if params.Category != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_id", *params.GroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -51852,6 +52768,25 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppBusinessAccountWithResponse request
 	GetWhatsAppBusinessAccountWithResponse(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppBusinessAccountResponse, error)
+
+	// ListWhatsAppKeywordRulesWithResponse request
+	ListWhatsAppKeywordRulesWithResponse(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppKeywordRulesResponse, error)
+
+	// CreateWhatsAppKeywordRuleWithBodyWithResponse request with any body
+	CreateWhatsAppKeywordRuleWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppKeywordRuleResponse, error)
+
+	CreateWhatsAppKeywordRuleWithResponse(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, body CreateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppKeywordRuleResponse, error)
+
+	// DeleteWhatsAppKeywordRuleWithResponse request
+	DeleteWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *DeleteWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppKeywordRuleResponse, error)
+
+	// GetWhatsAppKeywordRuleWithResponse request
+	GetWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *GetWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*GetWhatsAppKeywordRuleResponse, error)
+
+	// UpdateWhatsAppKeywordRuleWithBodyWithResponse request with any body
+	UpdateWhatsAppKeywordRuleWithBodyWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWhatsAppKeywordRuleResponse, error)
+
+	UpdateWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, body UpdateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWhatsAppKeywordRuleResponse, error)
 
 	// ListWhatsAppMessagesWithResponse request
 	ListWhatsAppMessagesWithResponse(ctx context.Context, params *ListWhatsAppMessagesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppMessagesResponse, error)
@@ -59267,6 +60202,195 @@ func (r GetWhatsAppBusinessAccountResponse) ContentType() string {
 	return ""
 }
 
+type ListWhatsAppKeywordRulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppKeywordRuleList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppKeywordRulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppKeywordRulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppKeywordRulesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *WhatsAppKeywordRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppKeywordRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateWhatsAppKeywordRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppKeywordRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateWhatsAppKeywordRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateWhatsAppKeywordRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateWhatsAppKeywordRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppMessagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -59312,6 +60436,7 @@ type CreateWhatsAppMessageResponse struct {
 	JSON402      *PaymentRequired
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -59458,6 +60583,7 @@ type DeleteWhatsAppMessageReactionResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -59496,6 +60622,7 @@ type UpsertWhatsAppMessageReactionResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -62657,6 +63784,67 @@ func (c *ClientWithResponses) GetWhatsAppBusinessAccountWithResponse(ctx context
 		return nil, err
 	}
 	return ParseGetWhatsAppBusinessAccountResponse(rsp)
+}
+
+// ListWhatsAppKeywordRulesWithResponse request returning *ListWhatsAppKeywordRulesResponse
+func (c *ClientWithResponses) ListWhatsAppKeywordRulesWithResponse(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppKeywordRulesResponse, error) {
+	rsp, err := c.ListWhatsAppKeywordRules(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppKeywordRulesResponse(rsp)
+}
+
+// CreateWhatsAppKeywordRuleWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppKeywordRuleResponse
+func (c *ClientWithResponses) CreateWhatsAppKeywordRuleWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.CreateWhatsAppKeywordRuleWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppKeywordRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppKeywordRuleWithResponse(ctx context.Context, params *CreateWhatsAppKeywordRuleParams, body CreateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.CreateWhatsAppKeywordRule(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppKeywordRuleResponse(rsp)
+}
+
+// DeleteWhatsAppKeywordRuleWithResponse request returning *DeleteWhatsAppKeywordRuleResponse
+func (c *ClientWithResponses) DeleteWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *DeleteWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.DeleteWhatsAppKeywordRule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppKeywordRuleResponse(rsp)
+}
+
+// GetWhatsAppKeywordRuleWithResponse request returning *GetWhatsAppKeywordRuleResponse
+func (c *ClientWithResponses) GetWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *GetWhatsAppKeywordRuleParams, reqEditors ...RequestEditorFn) (*GetWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.GetWhatsAppKeywordRule(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppKeywordRuleResponse(rsp)
+}
+
+// UpdateWhatsAppKeywordRuleWithBodyWithResponse request with arbitrary body returning *UpdateWhatsAppKeywordRuleResponse
+func (c *ClientWithResponses) UpdateWhatsAppKeywordRuleWithBodyWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.UpdateWhatsAppKeywordRuleWithBody(ctx, id, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWhatsAppKeywordRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateWhatsAppKeywordRuleWithResponse(ctx context.Context, id WhatsAppKeywordRuleID, params *UpdateWhatsAppKeywordRuleParams, body UpdateWhatsAppKeywordRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWhatsAppKeywordRuleResponse, error) {
+	rsp, err := c.UpdateWhatsAppKeywordRule(ctx, id, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWhatsAppKeywordRuleResponse(rsp)
 }
 
 // ListWhatsAppMessagesWithResponse request returning *ListWhatsAppMessagesResponse
@@ -77888,6 +79076,409 @@ func ParseGetWhatsAppBusinessAccountResponse(rsp *http.Response) (*GetWhatsAppBu
 	return response, nil
 }
 
+// ParseListWhatsAppKeywordRulesResponse parses an HTTP response from a ListWhatsAppKeywordRulesWithResponse call
+func ParseListWhatsAppKeywordRulesResponse(rsp *http.Response) (*ListWhatsAppKeywordRulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppKeywordRulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppKeywordRuleList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppKeywordRuleResponse parses an HTTP response from a CreateWhatsAppKeywordRuleWithResponse call
+func ParseCreateWhatsAppKeywordRuleResponse(rsp *http.Response) (*CreateWhatsAppKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest WhatsAppKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppKeywordRuleResponse parses an HTTP response from a DeleteWhatsAppKeywordRuleWithResponse call
+func ParseDeleteWhatsAppKeywordRuleResponse(rsp *http.Response) (*DeleteWhatsAppKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppKeywordRuleResponse parses an HTTP response from a GetWhatsAppKeywordRuleWithResponse call
+func ParseGetWhatsAppKeywordRuleResponse(rsp *http.Response) (*GetWhatsAppKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateWhatsAppKeywordRuleResponse parses an HTTP response from a UpdateWhatsAppKeywordRuleWithResponse call
+func ParseUpdateWhatsAppKeywordRuleResponse(rsp *http.Response) (*UpdateWhatsAppKeywordRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateWhatsAppKeywordRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppKeywordRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListWhatsAppMessagesResponse parses an HTTP response from a ListWhatsAppMessagesWithResponse call
 func ParseListWhatsAppMessagesResponse(rsp *http.Response) (*ListWhatsAppMessagesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -78011,6 +79602,13 @@ func ParseCreateWhatsAppMessageResponse(rsp *http.Response) (*CreateWhatsAppMess
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -78298,6 +79896,13 @@ func ParseDeleteWhatsAppMessageReactionResponse(rsp *http.Response) (*DeleteWhat
 		}
 		response.JSON404 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -78379,6 +79984,13 @@ func ParseUpsertWhatsAppMessageReactionResponse(rsp *http.Response) (*UpsertWhat
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
