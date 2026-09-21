@@ -3654,6 +3654,39 @@ func (e NumberCapability) Valid() bool {
 	}
 }
 
+// Defines values for NumberOwnershipStatus.
+const (
+	NumberOwnershipStatusApprovalPending NumberOwnershipStatus = "approval_pending"
+	NumberOwnershipStatusApproved        NumberOwnershipStatus = "approved"
+	NumberOwnershipStatusNeedsInput      NumberOwnershipStatus = "needs_input"
+	NumberOwnershipStatusNotRequired     NumberOwnershipStatus = "not_required"
+	NumberOwnershipStatusRejected        NumberOwnershipStatus = "rejected"
+	NumberOwnershipStatusUnderReview     NumberOwnershipStatus = "under_review"
+	NumberOwnershipStatusUnknown         NumberOwnershipStatus = "unknown"
+)
+
+// Valid indicates whether the value is a known member of the NumberOwnershipStatus enum.
+func (e NumberOwnershipStatus) Valid() bool {
+	switch e {
+	case NumberOwnershipStatusApprovalPending:
+		return true
+	case NumberOwnershipStatusApproved:
+		return true
+	case NumberOwnershipStatusNeedsInput:
+		return true
+	case NumberOwnershipStatusNotRequired:
+		return true
+	case NumberOwnershipStatusRejected:
+		return true
+	case NumberOwnershipStatusUnderReview:
+		return true
+	case NumberOwnershipStatusUnknown:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for NumberType.
 const (
 	NumberTypeLocal         NumberType = "local"
@@ -4487,16 +4520,16 @@ func (e SMSTemplateSortField) Valid() bool {
 
 // Defines values for SMSTemplateVersionStatus.
 const (
-	SMSTemplateVersionStatusDraft     SMSTemplateVersionStatus = "draft"
-	SMSTemplateVersionStatusPublished SMSTemplateVersionStatus = "published"
+	Draft     SMSTemplateVersionStatus = "draft"
+	Published SMSTemplateVersionStatus = "published"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateVersionStatus enum.
 func (e SMSTemplateVersionStatus) Valid() bool {
 	switch e {
-	case SMSTemplateVersionStatusDraft:
+	case Draft:
 		return true
-	case SMSTemplateVersionStatusPublished:
+	case Published:
 		return true
 	default:
 		return false
@@ -6963,6 +6996,9 @@ type AvailableNumberList struct {
 
 // CompetitiveWatchlistBrandID defines model for CompetitiveWatchlistBrandID.
 type CompetitiveWatchlistBrandID = string
+
+// ComplianceSubmissionID defines model for ComplianceSubmissionID.
+type ComplianceSubmissionID = string
 
 // Contact defines model for Contact.
 type Contact struct {
@@ -15706,7 +15742,7 @@ type Number struct {
 	// NumberType Physical type of this phone number.
 	NumberType *NumberType `json:"number_type,omitempty"`
 
-	// Ownership Where this number stands with the ownership paperwork its country requires. `null` when the country requires none, which is the usual case: a number with no `ownership` object is usable as soon as it is allocated. Also `null` when that standing cannot be established right now; `status` still reads `pending_ownership_registration` while the number is blocked, so re-read this field rather than caching its absence. We manage the paperwork for shared short codes, so this field is always `null` for them.
+	// Ownership Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
 	Ownership *NumberOwnership `json:"ownership,omitempty"`
 
 	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
@@ -15716,10 +15752,10 @@ type Number struct {
 	//
 	// - `active` means this number is allocated to your workspace and usable.
 	// - `pending_ownership_registration` means this number is allocated to your workspace and billed,
-	//   but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
-	//   its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
-	//   Read `ownership.next` for what advances it, and re-read later if
-	//   `ownership` is momentarily `null`.
+	//   but outbound SMS and both inbound and outbound voice calls are blocked until ownership registration
+	//   is approved and activation completes, or the ownership requirement is withdrawn.
+	//   This ownership status does not gate inbound SMS or WhatsApp.
+	//   Read `ownership.status` and `ownership.next` for the current decision and remaining work.
 	// - `released` means this number is no longer allocated to your workspace.
 	//
 	// An allocated number is not always enough to send from it: some destination
@@ -15734,10 +15770,10 @@ type NumberKind string
 //
 //   - `active` means this number is allocated to your workspace and usable.
 //   - `pending_ownership_registration` means this number is allocated to your workspace and billed,
-//     but outbound SMS and both inbound and outbound voice calls are blocked until the ownership paperwork
-//     its country requires is accepted. This ownership status does not gate inbound SMS or WhatsApp.
-//     Read `ownership.next` for what advances it, and re-read later if
-//     `ownership` is momentarily `null`.
+//     but outbound SMS and both inbound and outbound voice calls are blocked until ownership registration
+//     is approved and activation completes, or the ownership requirement is withdrawn.
+//     This ownership status does not gate inbound SMS or WhatsApp.
+//     Read `ownership.status` and `ownership.next` for the current decision and remaining work.
 //   - `released` means this number is no longer allocated to your workspace.
 //
 // An allocated number is not always enough to send from it: some destination
@@ -15761,17 +15797,44 @@ type NumberList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// NumberOwnership Where this number stands with the ownership paperwork its country requires before it may carry traffic. Present only for a number whose country requires any, so its absence means no paperwork was ever asked for and this number is unconditionally usable. Absent as well when the requirement cannot be established right now, since reporting either answer would state something about your paperwork that has not been checked.
+// NumberOwnership Ownership paperwork and registration approval progress for this number. Reported when ownership requirements or a recorded ownership block or decision apply. If requirements or progress cannot be read, a recorded block or decision preserves this object; without either, the object is absent. Other sending requirements can apply even when ownership is approved.
 type NumberOwnership struct {
-	// BlockedAt When the number stopped being able to carry traffic, and null while it can. Always null when `satisfied` is true, but null does not imply it: a number whose country began asking after you bought it is usable with its paperwork still outstanding. A number can also arrive blocked, and one that was usable can be blocked again if its approval is withdrawn.
+	// BlockedAt When ownership requirements began blocking outbound SMS and inbound and outbound voice calls. Null when that block is clear. Accepted paperwork can still await activation with a block in place. A number bought before ownership requirements were introduced can have outstanding paperwork without a block.
 	BlockedAt *time.Time `json:"blocked_at,omitempty"`
 
-	// Next What you do about it, in the order to do it. Empty only when `satisfied` is true, so while anything is outstanding there is always at least one step. When what you already sent is being reviewed and nothing is needed from you, that step has kind `wait` and says so. Re-read it after each call rather than caching the first list you saw.
-	Next *[]NextAction `json:"next,omitempty"`
+	// Next Actions that advance ownership registration or activation, in order. Empty when neither needs further action. A `wait` step means no customer action is needed now, including while accepted paperwork awaits activation. Read this list again after each change.
+	Next []NextAction `json:"next"`
 
-	// Satisfied Whether the paperwork is accepted. Read `next` for what advances it while this is false. Whether sending is currently refused is reported by `blocked_at` instead: a number bought before its country asked for anything is unsatisfied and still usable until a review says otherwise.
-	Satisfied *bool `json:"satisfied,omitempty"`
+	// Satisfied Whether the ownership paperwork is accepted or is no longer required. This can remain true while an external verifier asks for a correction or activation is pending. Read `status` and `next` for the current step, and `blocked_at` for the ownership block on outbound SMS and inbound and outbound voice.
+	Satisfied bool `json:"satisfied"`
+
+	// Status Current ownership registration approval status. Operational activation is separate:
+	// `blocked_at` records the ownership block on number use, and `next` describes remaining work.
+	//
+	// - `needs_input` means ownership details or a submission correction are needed.
+	// - `under_review` means your current answers are being reviewed.
+	// - `approval_pending` means your paperwork is accepted but registration approval is still pending.
+	// - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
+	// - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
+	// - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
+	// - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
+	Status *NumberOwnershipStatus `json:"status,omitempty"`
+
+	// SubmissionId The most recent ownership submission for this number, including after approval. Users with compliance read access can view the filed answers and their review status from the number's details in the dashboard. This may be a newer filing than the one that cleared the number for use. Absent when no submission was found or submission progress could not be read.
+	SubmissionId *ComplianceSubmissionID `json:"submission_id,omitempty"`
 }
+
+// NumberOwnershipStatus Current ownership registration approval status. Operational activation is separate:
+// `blocked_at` records the ownership block on number use, and `next` describes remaining work.
+//
+// - `needs_input` means ownership details or a submission correction are needed.
+// - `under_review` means your current answers are being reviewed.
+// - `approval_pending` means your paperwork is accepted but registration approval is still pending.
+// - `approved` means ownership registration is approved. Number activation can still be pending while `blocked_at` is non-null.
+// - `not_required` means no active ownership requirement applies, including after a requirement is withdrawn.
+// - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
+// - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
+type NumberOwnershipStatus string
 
 // NumberType Physical type of a phone number. New number types may be added over time, so treat unrecognized values as supported types rather than errors.
 type NumberType string
@@ -21551,7 +21614,7 @@ type CreateAudienceParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21576,7 +21639,7 @@ type DeleteAudienceParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21601,7 +21664,7 @@ type UpdateAudienceParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21641,7 +21704,7 @@ type AssignAudienceContactsParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21666,7 +21729,7 @@ type UnassignAudienceContactsParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21691,7 +21754,7 @@ type UnassignAudienceContactParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21728,7 +21791,7 @@ type CreateContactPropertyParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21753,7 +21816,7 @@ type UpdateContactPropertyParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21778,7 +21841,7 @@ type ArchiveContactPropertyParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21803,7 +21866,7 @@ type UnarchiveContactPropertyParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21858,7 +21921,7 @@ type CreateContactParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21883,7 +21946,7 @@ type CreateContactBatchParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21908,7 +21971,7 @@ type DeleteContactParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21933,7 +21996,7 @@ type UpdateContactParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -21970,7 +22033,7 @@ type CreateEmailMessageBatchParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22025,7 +22088,7 @@ type CreateEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22050,7 +22113,7 @@ type DeleteEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22075,7 +22138,7 @@ type UpdateEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22100,7 +22163,7 @@ type CancelEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22155,7 +22218,7 @@ type SendEmailBroadcastParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22207,7 +22270,7 @@ type CreateEmailCompetitiveWatchlistBrandParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22232,7 +22295,7 @@ type DeleteEmailCompetitiveWatchlistBrandParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22332,7 +22395,7 @@ type CreateDomainParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22357,7 +22420,7 @@ type DeleteDomainParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22382,7 +22445,7 @@ type UpdateDomainParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22407,7 +22470,7 @@ type VerifyDomainParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22502,7 +22565,7 @@ type UpsertEmailInboxInsightsDomainMonitoringParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22551,7 +22614,7 @@ type UpdateEmailInboxInsightsDomainParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22661,7 +22724,7 @@ type CreateMailboxParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22686,7 +22749,7 @@ type DeleteMailboxParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22714,7 +22777,7 @@ type UpdateMailboxParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22739,7 +22802,7 @@ type CreateMailboxMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22782,7 +22845,7 @@ type CreateMailboxReceiveRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22807,7 +22870,7 @@ type DeleteMailboxReceiveRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22832,7 +22895,7 @@ type RestoreMailboxParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22857,7 +22920,7 @@ type ResumeMailboxParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22933,7 +22996,7 @@ type CreateEmailMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -22958,7 +23021,7 @@ type CancelEmailMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23449,7 +23512,7 @@ type CreateSuppressionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23474,7 +23537,7 @@ type DeleteSuppressionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23526,7 +23589,7 @@ type CreateEmailTemplateParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23551,7 +23614,7 @@ type DeleteEmailTemplateParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23576,7 +23639,7 @@ type UpdateEmailTemplateParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23613,7 +23676,7 @@ type DuplicateEmailTemplateParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23638,7 +23701,7 @@ type GetEmailTemplatePreviewParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23675,7 +23738,7 @@ type DeleteEmailTemplateVersionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23700,7 +23763,7 @@ type DeleteEmailTemplateLanguageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23725,7 +23788,7 @@ type UpdateEmailTemplateLanguageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23750,7 +23813,7 @@ type UpsertEmailTemplateLanguageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23775,7 +23838,7 @@ type RollbackEmailTemplateParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23800,7 +23863,7 @@ type SubmitEmailTemplateVersionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23866,7 +23929,7 @@ type DeleteEmailThreadParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23891,7 +23954,7 @@ type UpdateEmailThreadParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23940,7 +24003,7 @@ type ReplyEmailThreadMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23968,7 +24031,7 @@ type CreateEmailLookupParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -23996,7 +24059,7 @@ type CreatePhoneNumberLookupParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24105,7 +24168,7 @@ type CreateNumbersOrderParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24139,7 +24202,7 @@ type ReleaseWorkspaceNumberParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24188,7 +24251,7 @@ type CreatePreferenceParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24213,7 +24276,7 @@ type DeletePreferenceParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24241,7 +24304,7 @@ type PublishRealtimeAppBatchParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24296,7 +24359,7 @@ type PublishRealtimeAppEventParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24324,7 +24387,7 @@ type DisconnectRealtimeAppMemberParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24352,7 +24415,7 @@ type SendRealtimeAppMemberEventParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24377,7 +24440,7 @@ type CreateSMSMessageBatchParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24426,7 +24489,7 @@ type CreateSMSKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24454,7 +24517,7 @@ type DeleteSMSKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24488,7 +24551,7 @@ type UpdateSMSKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24552,7 +24615,7 @@ type CreateSMSMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24923,7 +24986,7 @@ type CreateSMSSuppressionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -24948,7 +25011,7 @@ type DeleteSMSSuppressionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25027,7 +25090,7 @@ type CreateVerificationParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25055,7 +25118,7 @@ type CreateVerificationCheckParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25083,7 +25146,7 @@ type CreateVerificationNextChannelParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25171,7 +25234,7 @@ type CreateWebhookParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25196,7 +25259,7 @@ type DeleteWebhookParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25221,7 +25284,7 @@ type UpdateWebhookParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25258,7 +25321,7 @@ type RotateWebhookSecretParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25283,7 +25346,7 @@ type TestWebhookParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25347,7 +25410,7 @@ type CreateWhatsAppKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25375,7 +25438,7 @@ type DeleteWhatsAppKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25409,7 +25472,7 @@ type UpdateWhatsAppKeywordRuleParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25479,7 +25542,7 @@ type CreateWhatsAppMessageParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25510,7 +25573,7 @@ type DeleteWhatsAppMessageReactionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25535,7 +25598,7 @@ type UpsertWhatsAppMessageReactionParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//
@@ -25572,7 +25635,7 @@ type SendWhatsAppReadReceiptParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unauthenticated operations,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
 	// streams, and operations with a separate replay contract do not use this
 	// response replay.
 	//

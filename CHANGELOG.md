@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.71.0
+
+- Add `ownership.submission_id` to number responses to identify the latest ownership filing, including after verification.
+- Add `ownership.status` to distinguish ownership corrections, review, pending approval, final approval, withdrawn requirements, and closed rejections on numbers. Activation progress remains in `ownership.blocked_at` and `ownership.next`.
+- Add the WhatsApp keyword-rule methods under `whatsapp.keywordRules`: read what a reply of STOP or START does on your numbers, change the reply Bird sends, or add keywords of your own, per sender country, per business account, or worldwide. Your keywords are added to Bird's rather than replacing them, so a keyword Bird ships later starts matching with no change from you, and `effective_keywords` on a rule is the set an inbound message is compared against, except on a rule of yours with no `country`: there it lists Bird's worldwide set while matching uses Bird's set for the sender's country, which can be larger.
+- Document `automation` in the actor `type` values returned by the API.
+
 ## 0.70.0
 
 - Send a WhatsApp message to a group by passing the group's ID as `to` and leaving `from` unset: the group sends on its own number. WhatsApp delivers neither interactive content nor an authentication template to a group, and a group that is unknown or no longer active is refused before the message is created.
