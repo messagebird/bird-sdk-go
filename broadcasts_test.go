@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strings"
 	"testing"
 
 	bird "github.com/messagebird/bird-sdk-go"
@@ -103,5 +104,49 @@ func TestBroadcastsUpdateClearsCollections(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// A language travels inside the template reference, so clearing the template
+// in the same call leaves it nothing to select from; the SDK refuses rather
+// than dropping the language on the way to the wire.
+func TestBroadcastsUpdateRefusesALanguageOnAClearedTemplate(t *testing.T) {
+	t.Parallel()
+
+	server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+		t.Error("request reached the server")
+		w.WriteHeader(http.StatusInternalServerError)
+	})
+
+	_, err := newClient(t, server).Broadcasts.Update(
+		context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
+		bird.BroadcastsUpdateParams{Template: bird.Null[string](), Language: bird.Value("nl")})
+	if err == nil || !strings.Contains(err.Error(), "Language needs a Template") {
+		t.Fatalf("Update: got %v, want a Language needs a Template error", err)
+	}
+}
+
+// Clearing the template already clears its language, so a Null language sent
+// beside a Null template is the same request twice, and the wire carries one
+// null template.
+func TestBroadcastsUpdateClearsTemplateAndLanguageTogether(t *testing.T) {
+	t.Parallel()
+
+	var got map[string]json.RawMessage
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		if err := json.NewDecoder(r.Body).Decode(&got); err != nil {
+			t.Errorf("decode body: %v", err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"id":"eb_01krdgeqcxet5s7t44vh8rt9mg","status":"draft"}`))
+	})
+
+	if _, err := newClient(t, server).Broadcasts.Update(
+		context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
+		bird.BroadcastsUpdateParams{Template: bird.Null[string](), Language: bird.Null[string]()}); err != nil {
+		t.Fatalf("Update: %v", err)
+	}
+	if string(got["template"]) != "null" {
+		t.Fatalf("template: got %s, want null", got["template"])
 	}
 }

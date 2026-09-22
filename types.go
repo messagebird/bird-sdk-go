@@ -180,6 +180,10 @@ type (
 	StatsComparePeriod = oapi.StatsComparePeriod
 	// SMSSuppressionReasonFilter is why a suppression exists, used by the read filters.
 	SMSSuppressionReasonFilter = oapi.SMSSuppressionReasonFilter
+	// WhatsAppSuppressionReasonFilter is the same filter for WhatsApp, closed where
+	// the record's own reason is extensible: a reason the server does not know
+	// matches nothing, and an empty page reads as "not suppressed".
+	WhatsAppSuppressionReasonFilter = oapi.WhatsAppSuppressionReasonFilter
 	// SMSKeywordRuleScope distinguishes Bird's default keyword rules from a
 	// workspace's own.
 	SMSKeywordRuleScope        = oapi.SMSKeywordRuleScope
@@ -464,6 +468,35 @@ type (
 	WhatsAppEventList = oapi.WhatsAppEventList
 )
 
+// A WhatsApp group and the three things hung off it: participants, join
+// requests, and pinned messages.
+type (
+	WhatsAppGroup                          = oapi.WhatsAppGroup
+	WhatsAppGroupList                      = oapi.WhatsAppGroupList
+	WhatsAppGroupID                        = oapi.WhatsAppGroupID
+	WhatsAppGroupCreate                    = oapi.WhatsAppGroupCreate
+	WhatsAppGroupUpdate                    = oapi.WhatsAppGroupUpdate
+	WhatsAppGroupStatus                    = oapi.WhatsAppGroupStatus
+	WhatsAppGroupSortField                 = oapi.WhatsAppGroupSortField
+	WhatsAppGroupInviteLink                = oapi.WhatsAppGroupInviteLink
+	WhatsAppGroupJoinRequest               = oapi.WhatsAppGroupJoinRequest
+	WhatsAppGroupJoinRequestID             = oapi.WhatsAppGroupJoinRequestID
+	WhatsAppGroupJoinRequestList           = oapi.WhatsAppGroupJoinRequestList
+	WhatsAppGroupJoinRequestSortField      = oapi.WhatsAppGroupJoinRequestSortField
+	WhatsAppGroupJoinRequestDecision       = oapi.WhatsAppGroupJoinRequestDecision
+	WhatsAppGroupJoinRequestDecisionResult = oapi.WhatsAppGroupJoinRequestDecisionResult
+	WhatsAppGroupPinnedMessage             = oapi.WhatsAppGroupPinnedMessage
+	WhatsAppGroupPinnedMessageCreate       = oapi.WhatsAppGroupPinnedMessageCreate
+	WhatsAppGroupParticipant               = oapi.WhatsAppGroupParticipant
+	WhatsAppGroupJoinRequestFailure        = oapi.WhatsAppGroupJoinRequestFailure
+	WhatsAppGroupOperation                 = oapi.WhatsAppGroupOperation
+	WhatsAppGroupOperationField            = oapi.WhatsAppGroupOperationField
+	WhatsAppGroupOperationResult           = oapi.WhatsAppGroupOperationResult
+	WhatsAppGroupOperationStatus           = oapi.WhatsAppGroupOperationStatus
+	WhatsAppGroupOperationType             = oapi.WhatsAppGroupOperationType
+	WhatsAppGroupError                     = oapi.WhatsAppGroupError
+)
+
 // The template registry, read at three levels: a template is the handle a send
 // names, a version is one immutable submission of it, and a language is one
 // language's content within a version. The Summary forms carry no content.
@@ -523,6 +556,15 @@ type (
 	WhatsAppKeywordRule      = oapi.WhatsAppKeywordRule
 	WhatsAppKeywordRuleList  = oapi.WhatsAppKeywordRuleList
 	WhatsAppKeywordRuleScope = oapi.WhatsAppKeywordRuleScope
+)
+
+// WhatsAppSuppression is one period during which an address is not messaged;
+// WhatsAppSuppressionList is a page of the periods in force. EndedAt being nil
+// is what "in force" means, so an ended record reads back by ID but never from
+// the list.
+type (
+	WhatsAppSuppression     = oapi.WhatsAppSuppression
+	WhatsAppSuppressionList = oapi.WhatsAppSuppressionList
 )
 
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the
@@ -639,11 +681,9 @@ const (
 // WhatsAppTag is a structured {name, value} label on a WhatsApp send.
 type WhatsAppTag = oapi.Tag
 
-// VoiceCall is one call-detail record, in flight or settled; VoiceCallList is a
-// page of them.
 type (
-	VoiceCall     = oapi.VoiceCall
-	VoiceCallList = oapi.VoiceCallList
+	VoiceLeg     = oapi.VoiceLeg
+	VoiceLegList = oapi.VoiceLegList
 )
 
 // VoiceCallStatus is how a call ended, or that it is still ringing or connected.

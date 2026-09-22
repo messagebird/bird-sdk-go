@@ -139,6 +139,18 @@ output-options:
     - getWhatsAppTemplateVersion
     - listWhatsAppTemplateVersionLanguages
     - getWhatsAppTemplateVersionLanguage
+    - createWhatsAppGroup
+    - listWhatsAppGroups
+    - getWhatsAppGroup
+    - updateWhatsAppGroup
+    - deleteWhatsAppGroup
+    - rotateWhatsAppGroupInviteLink
+    - deleteWhatsAppGroupParticipant
+    - listWhatsAppGroupJoinRequests
+    - approveWhatsAppGroupJoinRequests
+    - rejectWhatsAppGroupJoinRequests
+    - createWhatsAppGroupPinnedMessage
+    - deleteWhatsAppGroupPinnedMessage
     - listWhatsAppNumbers
     - getWhatsAppNumber
     - listWhatsAppNumberEvents
@@ -150,6 +162,10 @@ output-options:
     - createWhatsAppKeywordRule
     - updateWhatsAppKeywordRule
     - deleteWhatsAppKeywordRule
+    - listWhatsAppSuppressions
+    - getWhatsAppSuppression
+    - createWhatsAppSuppression
+    - deleteWhatsAppSuppression
     - getWhatsAppStatsSummary
     - getWhatsAppStatsDaily
     - getWhatsAppStatsHourly
@@ -163,8 +179,8 @@ output-options:
     - getWhatsAppInboundStatsDaily
     - getWhatsAppInboundStatsHourly
     - getWhatsAppInboundStatsByPhoneNumber
-    - listVoiceCalls
-    - getVoiceCall
+    - listVoiceLegs
+    - getVoiceLeg
     - createVerification
     - createVerificationCheck
     - createVerificationNextChannel

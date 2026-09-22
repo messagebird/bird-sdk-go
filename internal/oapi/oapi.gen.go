@@ -4923,54 +4923,6 @@ func (e VoiceCallDirection) Valid() bool {
 	}
 }
 
-// Defines values for VoiceCallRejectionReason.
-const (
-	VoiceCallRejectionReasonCallNotPermitted           VoiceCallRejectionReason = "call_not_permitted"
-	VoiceCallRejectionReasonCallerIDNotVerified        VoiceCallRejectionReason = "caller_id_not_verified"
-	VoiceCallRejectionReasonCallsPerSecondExceeded     VoiceCallRejectionReason = "calls_per_second_exceeded"
-	VoiceCallRejectionReasonConcurrentCallsExceeded    VoiceCallRejectionReason = "concurrent_calls_exceeded"
-	VoiceCallRejectionReasonDailySpendExceeded         VoiceCallRejectionReason = "daily_spend_exceeded"
-	VoiceCallRejectionReasonDestinationBlocked         VoiceCallRejectionReason = "destination_blocked"
-	VoiceCallRejectionReasonDestinationNotEnabled      VoiceCallRejectionReason = "destination_not_enabled"
-	VoiceCallRejectionReasonInsufficientBalance        VoiceCallRejectionReason = "insufficient_balance"
-	VoiceCallRejectionReasonNoRouteFound               VoiceCallRejectionReason = "no_route_found"
-	VoiceCallRejectionReasonNumberOwnershipNotVerified VoiceCallRejectionReason = "number_ownership_not_verified"
-	VoiceCallRejectionReasonRoutingNotConfigured       VoiceCallRejectionReason = "routing_not_configured"
-	VoiceCallRejectionReasonSourceNotAllowed           VoiceCallRejectionReason = "source_not_allowed"
-)
-
-// Valid indicates whether the value is a known member of the VoiceCallRejectionReason enum.
-func (e VoiceCallRejectionReason) Valid() bool {
-	switch e {
-	case VoiceCallRejectionReasonCallNotPermitted:
-		return true
-	case VoiceCallRejectionReasonCallerIDNotVerified:
-		return true
-	case VoiceCallRejectionReasonCallsPerSecondExceeded:
-		return true
-	case VoiceCallRejectionReasonConcurrentCallsExceeded:
-		return true
-	case VoiceCallRejectionReasonDailySpendExceeded:
-		return true
-	case VoiceCallRejectionReasonDestinationBlocked:
-		return true
-	case VoiceCallRejectionReasonDestinationNotEnabled:
-		return true
-	case VoiceCallRejectionReasonInsufficientBalance:
-		return true
-	case VoiceCallRejectionReasonNoRouteFound:
-		return true
-	case VoiceCallRejectionReasonNumberOwnershipNotVerified:
-		return true
-	case VoiceCallRejectionReasonRoutingNotConfigured:
-		return true
-	case VoiceCallRejectionReasonSourceNotAllowed:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for VoiceCallRouteType.
 const (
 	Forward VoiceCallRouteType = "forward"
@@ -5043,6 +4995,54 @@ func (e VoiceInboundForwardAs) Valid() bool {
 	case CallingNumber:
 		return true
 	case DialedNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceLegRejectionReason.
+const (
+	VoiceCallRejectionReasonCallNotPermitted           VoiceLegRejectionReason = "call_not_permitted"
+	VoiceCallRejectionReasonCallerIDNotVerified        VoiceLegRejectionReason = "caller_id_not_verified"
+	VoiceCallRejectionReasonCallsPerSecondExceeded     VoiceLegRejectionReason = "calls_per_second_exceeded"
+	VoiceCallRejectionReasonConcurrentCallsExceeded    VoiceLegRejectionReason = "concurrent_calls_exceeded"
+	VoiceCallRejectionReasonDailySpendExceeded         VoiceLegRejectionReason = "daily_spend_exceeded"
+	VoiceCallRejectionReasonDestinationBlocked         VoiceLegRejectionReason = "destination_blocked"
+	VoiceCallRejectionReasonDestinationNotEnabled      VoiceLegRejectionReason = "destination_not_enabled"
+	VoiceCallRejectionReasonInsufficientBalance        VoiceLegRejectionReason = "insufficient_balance"
+	VoiceCallRejectionReasonNoRouteFound               VoiceLegRejectionReason = "no_route_found"
+	VoiceCallRejectionReasonNumberOwnershipNotVerified VoiceLegRejectionReason = "number_ownership_not_verified"
+	VoiceCallRejectionReasonRoutingNotConfigured       VoiceLegRejectionReason = "routing_not_configured"
+	VoiceCallRejectionReasonSourceNotAllowed           VoiceLegRejectionReason = "source_not_allowed"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegRejectionReason enum.
+func (e VoiceLegRejectionReason) Valid() bool {
+	switch e {
+	case VoiceCallRejectionReasonCallNotPermitted:
+		return true
+	case VoiceCallRejectionReasonCallerIDNotVerified:
+		return true
+	case VoiceCallRejectionReasonCallsPerSecondExceeded:
+		return true
+	case VoiceCallRejectionReasonConcurrentCallsExceeded:
+		return true
+	case VoiceCallRejectionReasonDailySpendExceeded:
+		return true
+	case VoiceCallRejectionReasonDestinationBlocked:
+		return true
+	case VoiceCallRejectionReasonDestinationNotEnabled:
+		return true
+	case VoiceCallRejectionReasonInsufficientBalance:
+		return true
+	case VoiceCallRejectionReasonNoRouteFound:
+		return true
+	case VoiceCallRejectionReasonNumberOwnershipNotVerified:
+		return true
+	case VoiceCallRejectionReasonRoutingNotConfigured:
+		return true
+	case VoiceCallRejectionReasonSourceNotAllowed:
 		return true
 	default:
 		return false
@@ -5724,6 +5724,147 @@ func (e WhatsAppEventType) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppGroupJoinApprovalMode.
+const (
+	ApprovalRequired WhatsAppGroupJoinApprovalMode = "approval_required"
+	AutoApprove      WhatsAppGroupJoinApprovalMode = "auto_approve"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupJoinApprovalMode enum.
+func (e WhatsAppGroupJoinApprovalMode) Valid() bool {
+	switch e {
+	case ApprovalRequired:
+		return true
+	case AutoApprove:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupJoinRequestSortField.
+const (
+	WhatsAppGroupJoinRequestSortFieldCreatedAt WhatsAppGroupJoinRequestSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupJoinRequestSortField enum.
+func (e WhatsAppGroupJoinRequestSortField) Valid() bool {
+	switch e {
+	case WhatsAppGroupJoinRequestSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupOperationField.
+const (
+	Description       WhatsAppGroupOperationField = "description"
+	ProfilePictureUrl WhatsAppGroupOperationField = "profile_picture_url"
+	Subject           WhatsAppGroupOperationField = "subject"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupOperationField enum.
+func (e WhatsAppGroupOperationField) Valid() bool {
+	switch e {
+	case Description:
+		return true
+	case ProfilePictureUrl:
+		return true
+	case Subject:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupOperationStatus.
+const (
+	WhatsAppGroupOperationStatusFailed  WhatsAppGroupOperationStatus = "failed"
+	WhatsAppGroupOperationStatusPending WhatsAppGroupOperationStatus = "pending"
+	WhatsAppGroupOperationStatusSuccess WhatsAppGroupOperationStatus = "success"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupOperationStatus enum.
+func (e WhatsAppGroupOperationStatus) Valid() bool {
+	switch e {
+	case WhatsAppGroupOperationStatusFailed:
+		return true
+	case WhatsAppGroupOperationStatusPending:
+		return true
+	case WhatsAppGroupOperationStatusSuccess:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupOperationType.
+const (
+	Create         WhatsAppGroupOperationType = "create"
+	Delete         WhatsAppGroupOperationType = "delete"
+	Remove         WhatsAppGroupOperationType = "remove"
+	SettingsUpdate WhatsAppGroupOperationType = "settings_update"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupOperationType enum.
+func (e WhatsAppGroupOperationType) Valid() bool {
+	switch e {
+	case Create:
+		return true
+	case Delete:
+		return true
+	case Remove:
+		return true
+	case SettingsUpdate:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupSortField.
+const (
+	WhatsAppGroupSortFieldCreatedAt WhatsAppGroupSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupSortField enum.
+func (e WhatsAppGroupSortField) Valid() bool {
+	switch e {
+	case WhatsAppGroupSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupStatus.
+const (
+	WhatsAppGroupStatusActive    WhatsAppGroupStatus = "active"
+	WhatsAppGroupStatusDeleted   WhatsAppGroupStatus = "deleted"
+	WhatsAppGroupStatusFailed    WhatsAppGroupStatus = "failed"
+	WhatsAppGroupStatusPending   WhatsAppGroupStatus = "pending"
+	WhatsAppGroupStatusSuspended WhatsAppGroupStatus = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupStatus enum.
+func (e WhatsAppGroupStatus) Valid() bool {
+	switch e {
+	case WhatsAppGroupStatusActive:
+		return true
+	case WhatsAppGroupStatusDeleted:
+		return true
+	case WhatsAppGroupStatusFailed:
+		return true
+	case WhatsAppGroupStatusPending:
+		return true
+	case WhatsAppGroupStatusSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppInteractiveButtonType.
 const (
 	WhatsAppInteractiveButtonTypeCtaUrl     WhatsAppInteractiveButtonType = "cta_url"
@@ -5994,9 +6135,58 @@ func (e WhatsAppMessageStatus) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppMetaHealthEntityType.
+const (
+	WhatsAppMetaHealthEntityTypeApp             WhatsAppMetaHealthEntityType = "app"
+	WhatsAppMetaHealthEntityTypeBusiness        WhatsAppMetaHealthEntityType = "business"
+	WhatsAppMetaHealthEntityTypeMessageTemplate WhatsAppMetaHealthEntityType = "message_template"
+	WhatsAppMetaHealthEntityTypePhoneNumber     WhatsAppMetaHealthEntityType = "phone_number"
+	WhatsAppMetaHealthEntityTypeWaba            WhatsAppMetaHealthEntityType = "waba"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppMetaHealthEntityType enum.
+func (e WhatsAppMetaHealthEntityType) Valid() bool {
+	switch e {
+	case WhatsAppMetaHealthEntityTypeApp:
+		return true
+	case WhatsAppMetaHealthEntityTypeBusiness:
+		return true
+	case WhatsAppMetaHealthEntityTypeMessageTemplate:
+		return true
+	case WhatsAppMetaHealthEntityTypePhoneNumber:
+		return true
+	case WhatsAppMetaHealthEntityTypeWaba:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppMetaHealthVerdict.
+const (
+	Available WhatsAppMetaHealthVerdict = "available"
+	Blocked   WhatsAppMetaHealthVerdict = "blocked"
+	Limited   WhatsAppMetaHealthVerdict = "limited"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppMetaHealthVerdict enum.
+func (e WhatsAppMetaHealthVerdict) Valid() bool {
+	switch e {
+	case Available:
+		return true
+	case Blocked:
+		return true
+	case Limited:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppNumberErrorCode.
 const (
 	WhatsAppNumberErrorCodeBusinessAccountLocked         WhatsAppNumberErrorCode = "business_account_locked"
+	WhatsAppNumberErrorCodeBusinessVerificationRequired  WhatsAppNumberErrorCode = "business_verification_required"
 	WhatsAppNumberErrorCodeCreditCurrencyMismatch        WhatsAppNumberErrorCode = "credit_currency_mismatch"
 	WhatsAppNumberErrorCodeInternalError                 WhatsAppNumberErrorCode = "internal_error"
 	WhatsAppNumberErrorCodeInvalidRequest                WhatsAppNumberErrorCode = "invalid_request"
@@ -6016,6 +6206,8 @@ const (
 func (e WhatsAppNumberErrorCode) Valid() bool {
 	switch e {
 	case WhatsAppNumberErrorCodeBusinessAccountLocked:
+		return true
+	case WhatsAppNumberErrorCodeBusinessVerificationRequired:
 		return true
 	case WhatsAppNumberErrorCodeCreditCurrencyMismatch:
 		return true
@@ -6230,22 +6422,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
-	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
-	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
-	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
+	Failed   WhatsAppReactionEventStatus = "failed"
+	Received WhatsAppReactionEventStatus = "received"
+	Rejected WhatsAppReactionEventStatus = "rejected"
+	Sent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case WhatsAppReactionEventStatusFailed:
+	case Failed:
 		return true
-	case WhatsAppReactionEventStatusReceived:
+	case Received:
 		return true
-	case WhatsAppReactionEventStatusRejected:
+	case Rejected:
 		return true
-	case WhatsAppReactionEventStatusSent:
+	case Sent:
 		return true
 	default:
 		return false
@@ -6276,6 +6468,21 @@ const (
 func (e WhatsAppSuppressionCreatedEventType) Valid() bool {
 	switch e {
 	case WhatsappSuppressionCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppSuppressionReasonFilter.
+const (
+	Manual WhatsAppSuppressionReasonFilter = "manual"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppSuppressionReasonFilter enum.
+func (e WhatsAppSuppressionReasonFilter) Valid() bool {
+	switch e {
+	case Manual:
 		return true
 	default:
 		return false
@@ -6599,16 +6806,16 @@ func (e ListDomainsParamsSort) Valid() bool {
 
 // Defines values for ListMailboxesParamsState.
 const (
-	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
-	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
+	Active    ListMailboxesParamsState = "active"
+	Suspended ListMailboxesParamsState = "suspended"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
 func (e ListMailboxesParamsState) Valid() bool {
 	switch e {
-	case ListMailboxesParamsStateActive:
+	case Active:
 		return true
-	case ListMailboxesParamsStateSuspended:
+	case Suspended:
 		return true
 	default:
 		return false
@@ -7902,14 +8109,15 @@ type EmailBroadcast struct {
 	//
 	// - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
 	// - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
-	// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
-	//   - The broadcast has no template, or its template has been deleted.
-	//   - The template has no published version, or no sendable content.
-	//   - The template uses a loop that a broadcast cannot fill.
-	//   - The template requires every send to name a language.
-	//   - The sending domain is no longer verified.
-	//   - The IP pool has nothing to send from.
-	//   - The message could not be handed off for delivery.
+	// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
+	//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+	//   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
+	//   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
+	//   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+	//   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
+	//   - The sending domain is no longer verified. Verify the domain again.
+	//   - The configured IP pool has no usable IP address.
+	//   - We could not hand the prepared message to the delivery system. This is a problem on our side.
 	// - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 	// - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
 	// - `internal_error`: Something went wrong on our side. Retry, and open a support ticket if it keeps happening.
@@ -7921,7 +8129,7 @@ type EmailBroadcast struct {
 	// Headers Any custom email headers set on the broadcast. Returned on a single broadcast read and on the broadcast that creating, updating, sending or canceling one returns, and absent from the list. The unsubscribe headers we add ourselves are not included.
 	Headers *map[string]string `json:"headers,omitempty"`
 
-	// HtmlBytes Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, so this is the real body we send and differs per recipient only by that recipient's own merge values. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
+	// HtmlBytes Size of the HTML body this broadcast sends, in bytes, or 0 when its content has no HTML part. Measured on the template version the broadcast sends, using the selected language. Recipient merge values can change its size. Returned on a single broadcast read, and absent from the list and from the broadcast that creating, updating, sending or canceling one returns, none of which measure the content. Absent too when the broadcast has no template or its content can no longer be read.
 	HtmlBytes *int64 `json:"html_bytes,omitempty"`
 
 	// Id Broadcast ID.
@@ -7971,7 +8179,7 @@ type EmailBroadcast struct {
 	// Tags Labels on this broadcast, each one a `name` and a `value`, that you can filter and search broadcasts by. Use tags for anything you want to find broadcasts by later, and `metadata` for data you only want handed back to you.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template this broadcast sends. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
+	// Template The template this broadcast sends, and the language it sends in. A broadcast sends the template's published version, and the exact version is fixed when the broadcast is prepared for sending, so publishing a new version afterwards does not change what this broadcast sends. Null on a draft that has not chosen a template yet.
 	Template *EmailBroadcastTemplate `json:"template,omitempty"`
 
 	// TextBytes Size of the plain-text body this broadcast sends, in bytes, or 0 when its content has no plain-text part. Measured, and absent, the same way as `html_bytes`.
@@ -7997,14 +8205,15 @@ type EmailBroadcastCategory string
 //
 // - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
 // - `audience_unavailable`: The audience no longer exists, so there was nothing to resolve.
-// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` says exactly what was wrong. It is one of these:
-//   - The broadcast has no template, or its template has been deleted.
-//   - The template has no published version, or no sendable content.
-//   - The template uses a loop that a broadcast cannot fill.
-//   - The template requires every send to name a language.
-//   - The sending domain is no longer verified.
-//   - The IP pool has nothing to send from.
-//   - The message could not be handed off for delivery.
+// - `content_invalid`: The broadcast could not be set up to send. `failure_detail` explains what went wrong. It is one of these:
+//   - The broadcast has no template, or the template it uses no longer exists. Choose an existing template and send the broadcast again.
+//   - The template has no published version, or its published version has no subject and no body. Publish the template, or add content and publish it.
+//   - The template uses a loop or reads a value that a broadcast cannot provide. Remove it, or use a contact property instead, then publish the template again.
+//   - The template requires a language, but the broadcast has not selected one. Set `template.language` to one of the template's languages and send the broadcast again.
+//   - The selected language is not available on the published template version. Choose one of that version's languages, or publish a version that includes the selected language.
+//   - The sending domain is no longer verified. Verify the domain again.
+//   - The configured IP pool has no usable IP address.
+//   - We could not hand the prepared message to the delivery system. This is a problem on our side.
 //
 // - `insufficient_funds`: There was not enough in the workspace balance to pay for the send.
 // - `quota_exceeded`: The send would have gone past your organization's daily or monthly email allowance, whichever runs out first. This can happen when the broadcast is being prepared, or partway through sending if the remaining recipients no longer fit. `failure_detail` gives you the count and the limit.
@@ -8097,8 +8306,8 @@ type EmailBroadcastCreateRequest struct {
 	// Tags Labels on this broadcast, each one a `name` and a `value`, up to 20 of them. You can filter the broadcast list by a tag, break your stats down by one, and read them back off webhook payloads. Use tags for anything you want to find broadcasts by later, and `metadata` for data you only want handed back to you.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
-	Template *EmailBroadcastTemplate `json:"template,omitempty"`
+	// Template The template a new broadcast sends, and which of that template's languages goes out.
+	Template *EmailBroadcastTemplateCreate `json:"template,omitempty"`
 
 	// TrackClicks Whether to track link clicks for this broadcast.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
@@ -8183,12 +8392,32 @@ type EmailBroadcastStatsPoint struct {
 // A draft is deleted rather than canceled, because it was never sent.
 type EmailBroadcastStatus string
 
-// EmailBroadcastTemplate The template a broadcast sends, and the exact version of it the broadcast is fixed to. The template cannot be one that requires every send to name a language, because a broadcast never names one, so a template that insists on it has nothing to work with.
+// EmailBroadcastTemplate The template a broadcast sends, the exact version of it the broadcast is fixed to, and which of that version's languages goes out.
 type EmailBroadcastTemplate struct {
 	Id EmailTemplateID `json:"id"`
 
+	// Language The BCP-47 language tag selected for the whole audience, such as `en` or `pt-BR`. `null` means no language is selected, so the broadcast uses the published version's default language, unless the template has `language_source_required` set. Send `template.language` in an update to change or clear the selection.
+	Language *LanguageTag `json:"language,omitempty"`
+
 	// VersionId The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
 	VersionId *EmailTemplateVersionID `json:"version_id,omitempty"`
+}
+
+// EmailBroadcastTemplateCreate The template a new broadcast sends, and which of that template's languages goes out.
+type EmailBroadcastTemplateCreate struct {
+	Id EmailTemplateID `json:"id"`
+
+	// Language The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. If you leave it out, the broadcast uses the version's default language, unless the template has `language_source_required` set, in which case sending fails until you select a language. Send `template.language` in an update to change or clear it later.
+	Language *LanguageTag `json:"language,omitempty"`
+}
+
+// EmailBroadcastTemplateUpdate A change to the template a broadcast sends, the language it sends in, or both. Each property is independent: what you leave out keeps the value the broadcast already had.
+type EmailBroadcastTemplateUpdate struct {
+	// Id Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+	Id *EmailTemplateID `json:"id,omitempty"`
+
+	// Language The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. Leave it out to keep the language already selected. If you change the template `id` in the same request, the old language is cleared with the old template. Set this to `null` to use the published version's default language, unless the template has `language_source_required` set.
+	Language nullable.Nullable[LanguageTag] `json:"language,omitempty"`
 }
 
 // EmailBroadcastUpdateRequest Changes a broadcast that is still a draft or is scheduled. Whatever you send here is applied, and anything you leave out keeps the value it already had. Once a broadcast has started sending it can no longer be edited.
@@ -8218,8 +8447,8 @@ type EmailBroadcastUpdateRequest struct {
 	// Tags Labels on this broadcast, each one a `name` and a `value`, that you can filter and search broadcasts by. What you send replaces the tags the draft already had rather than adding to them.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template the broadcast sends. Its published version is fixed when the broadcast is prepared for sending. Set this to null to take the template off a draft, or leave it out to keep the one already set.
-	Template nullable.Nullable[EmailBroadcastTemplate] `json:"template,omitempty"`
+	// Template The template the broadcast sends, and the language to send it in, each changeable on its own. Set this to null to take the template and its language off a draft, or leave it out to keep the template, language and fixed version already set.
+	Template nullable.Nullable[EmailBroadcastTemplateUpdate] `json:"template,omitempty"`
 
 	// TrackClicks Whether to track link clicks for this broadcast.
 	TrackClicks *bool `json:"track_clicks,omitempty"`
@@ -11723,7 +11952,7 @@ type EmailTemplate struct {
 	DraftVersionId *EmailTemplateVersionID `json:"draft_version_id,omitempty"`
 	Id             EmailTemplateID         `json:"id"`
 
-	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language, and the template cannot be used for a broadcast, which has no way to name one.
+	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language. A broadcast must select a template language when this is set.
 	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
 
 	// Languages Every language this template has, keyed by language tag in BCP-47 form
@@ -11834,7 +12063,7 @@ type EmailTemplateCreate struct {
 	// Description What the template is for, in your own words.
 	Description *string `json:"description,omitempty"`
 
-	// LanguageSourceRequired Whether a send has to name a language. Set it to true to reject a send that names none instead of serving the default language. Pair it with `on_missing_language: fail` when every send must pick a language deliberately: on its own, `fail` is bypassed by naming no language at all. A template with this set cannot be used for a broadcast, which has no way to name one. Defaults to false.
+	// LanguageSourceRequired Whether a send has to name a language. Set it to true to reject a send that names none instead of serving the default language. Pair it with `on_missing_language: fail` when every send must pick a language deliberately: on its own, `fail` is bypassed by naming no language at all. A broadcast must select a template language when this is set. Defaults to false.
 	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
 
 	// Languages The initial draft's content, keyed by language tag in BCP-47 form such as
@@ -12348,7 +12577,7 @@ type EmailTemplateUpdate struct {
 	// Description What the template is for, in your own words. Send `null` to clear it.
 	Description nullable.Nullable[string] `json:"description,omitempty"`
 
-	// LanguageSourceRequired Whether a send has to name a language. Turning it on rejects a send that names none instead of serving the default language, and makes the template unusable for a broadcast, which has no way to name one.
+	// LanguageSourceRequired Whether a send has to name a language. Turning it on rejects a send that names none instead of serving the default language. A broadcast must select a template language when this is set.
 	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
 
 	// Name New display name, in free text. The slug stays fixed at creation, so renaming the template does not break whatever refers to it by slug or id.
@@ -18273,184 +18502,11 @@ type VerificationTo struct {
 // VerifyVerificationFailedEventType Always `verify.verification.failed` for this event.
 type VerifyVerificationFailedEventType string
 
-// VoiceCall defines model for VoiceCall.
-type VoiceCall struct {
-	// Actor Who placed the call: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the call was admitted only by its source IP address, or when no actor was recorded.
-	Actor *Actor `json:"actor,omitempty"`
-
-	// AnsweredAt When the call was answered (`200` OK received). `null` for unanswered calls.
-	AnsweredAt *time.Time `json:"answered_at,omitempty"`
-
-	// BillableMs Billable duration in milliseconds, measured from answer to call end. Zero for unanswered calls, and `null` while the call is still in progress.
-	BillableMs *int `json:"billable_ms,omitempty"`
-
-	// Cost What was charged for a call, split into the components that make it up.
-	Cost      *VoiceCallCost      `json:"cost,omitempty"`
-	Direction *VoiceCallDirection `json:"direction,omitempty"`
-
-	// DurationMs Total call duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the call is still in progress and has no final duration yet.
-	DurationMs *int `json:"duration_ms,omitempty"`
-
-	// EndedAt When the call ended (BYE or final non-2xx response). `null` for calls that ended abnormally without a recorded end event.
-	EndedAt *time.Time `json:"ended_at,omitempty"`
-
-	// From Calling party number in E.164 format.
-	From         *string            `json:"from,omitempty"`
-	Id           VoiceCallID        `json:"id"`
-	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
-
-	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the call `not going through`. Absent when the call never rang, either because it failed first or because the carrier answered it immediately.
-	PddMs *int `json:"pdd_ms,omitempty"`
-
-	// RejectionReason Why we rejected the call. Absent on connected calls and calls rejected
-	// by the carrier or recipient. For carrier or recipient rejections, see
-	// `sip_response_code`; a `6xx` decline gives the call a `rejected` status.
-	//
-	// Read alongside `route` when present. A refusal caused by the number's
-	// configuration has no rejection reason; the route records that
-	// configuration.
-	RejectionReason *VoiceCallRejectionReason `json:"rejection_reason,omitempty"`
-
-	// Route Which answer your number gave an incoming call: a SIP trunk, a forward, or a refusal. Recorded when the call was handled, so changing the number's setup afterwards does not change what its past calls say. Absent on outbound calls, and on calls recorded before this field existed.
-	Route *VoiceCallInboundRoute `json:"route,omitempty"`
-
-	// SessionId Session identifier shared across all legs of a multi-party or transferred call. Use this to correlate related call records. `null` when session correlation is not available for the call.
-	SessionId *VoiceSessionID `json:"session_id,omitempty"`
-
-	// SipResponseCode Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
-	SipResponseCode *int `json:"sip_response_code,omitempty"`
-
-	// SipTrunkId Identifier of the SIP trunk that originated this call. `null` when no trunk is associated.
-	SipTrunkId *SIPTrunkID `json:"sip_trunk_id,omitempty"`
-
-	// StartedAt When the call was initiated.
-	StartedAt *time.Time       `json:"started_at,omitempty"`
-	Status    *VoiceCallStatus `json:"status,omitempty"`
-
-	// Tags Your own `{name, value}` labels for this call, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise calls by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a call is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the call still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the call carried none, and on calls recorded before this field existed.
-	Tags *[]Tag `json:"tags,omitempty"`
-
-	// To Called party number in E.164 format.
-	To          *string     `json:"to,omitempty"`
-	WorkspaceId WorkspaceID `json:"workspace_id"`
-}
-
-// VoiceCallCost What was charged for a call, split into the components that make it up.
-type VoiceCallCost struct {
-	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
-	Amount *string `json:"amount,omitempty"`
-
-	// CallHandlingAmount What we charged for handling the call itself, as a decimal string. A call is charged for handling once, however many legs it has, so only one leg's record carries it. `null` until this component is priced.
-	CallHandlingAmount *string `json:"call_handling_amount,omitempty"`
-
-	// CurrencyCode ISO 4217 three-letter currency code.
-	CurrencyCode CurrencyCode `json:"currency_code"`
-
-	// InboundAmount What we charged to receive the call from the originating network, as a decimal string. Only a call that arrived at your number can carry it. `null` until this component is priced.
-	InboundAmount *string `json:"inbound_amount,omitempty"`
-
-	// OutboundAmount What we charged to carry the call to the destination network, as a decimal string. `null` until this component is priced.
-	OutboundAmount *string `json:"outbound_amount,omitempty"`
-
-	// RecordingAmount What we charged to record the call, as a decimal string, billed per second over the same billable time as the rest of the call. `null` until this component is priced.
-	RecordingAmount *string `json:"recording_amount,omitempty"`
-
-	// TranscriptionAmount What we charged to transcribe the call's audio, as a decimal string, billed per second of recorded audio rather than for the length of the call. A transcript is produced after the call ends, so this can appear after the rest of the cost. `null` until this component is priced.
-	TranscriptionAmount *string `json:"transcription_amount,omitempty"`
-}
-
 // VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 type VoiceCallDirection string
 
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
-
-// VoiceCallInboundRoute The routing choice recorded for an incoming call. A recorded route does not
-// guarantee that the call connected. Check `status` for the outcome and
-// `rejection_reason` for the cause when present.
-type VoiceCallInboundRoute struct {
-	union json.RawMessage
-}
-
-// VoiceCallInboundRouteForward defines model for VoiceCallInboundRouteForward.
-type VoiceCallInboundRouteForward struct {
-	// ForwardAs Which of the call's two numbers the forwarded leg presented as its caller. The value that went on the wire, not the one the number is set to now.
-	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
-
-	// ForwardTo The number the call was forwarded to, in E.164 format. Recorded as it was at the time, so it may name a number you have since stopped verifying.
-	ForwardTo string `json:"forward_to"`
-
-	// Type The call was forwarded to another of your numbers.
-	Type VoiceCallRouteType `json:"type"`
-}
-
-// VoiceCallInboundRouteReject defines model for VoiceCallInboundRouteReject.
-type VoiceCallInboundRouteReject struct {
-	// Type The number turned the call away. This is where every number starts, so it covers a number nobody has configured as well as one set to reject.
-	Type VoiceCallRouteType `json:"type"`
-}
-
-// VoiceCallInboundRouteTrunk defines model for VoiceCallInboundRouteTrunk.
-type VoiceCallInboundRouteTrunk struct {
-	// TrunkId The SIP trunk the call was delivered to. Recorded as it was at the time, so it may name a trunk you have since changed or deleted.
-	TrunkId SIPTrunkID `json:"trunk_id"`
-
-	// Type The call was delivered to one of your SIP trunks.
-	Type VoiceCallRouteType `json:"type"`
-}
-
-// VoiceCallList defines model for VoiceCallList.
-type VoiceCallList struct {
-	Data []VoiceCall `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
-
-// VoiceCallRejectionReason Why we rejected the call. Use `rejection_reason` to identify the cause;
-// `sip_response_code` alone cannot distinguish these reasons.
-//
-// You can resolve these issues:
-//
-//   - `source_not_allowed`: The call came from an IP address that is not in the
-//     trunk's allowed-address list. Add the address your PBX sends from.
-//   - `caller_id_not_verified`: The number in the `From` header is not a verified
-//     caller ID for this workspace. Verify it or use a verified caller ID.
-//   - `number_ownership_not_verified`: The ownership documents for this purchased
-//     number have not yet been accepted under its country's requirements. We
-//     block outgoing and incoming calls on the number until verification is
-//     complete. Blocked incoming calls never reach your PBX, and their route type
-//     is `reject` regardless of the number's configuration. Open the number
-//     under **Numbers** and complete its ownership requirements, then retry
-//     the call.
-//   - `destination_not_enabled`: Calling to this destination country is disabled.
-//     Enable it in your voice destination settings.
-//   - `insufficient_balance`: Your wallet balance was too low for the call.
-//     Top up or enable automatic top-ups.
-//   - `daily_spend_exceeded`: The call would exceed your organization's daily
-//     voice spend limit. Retry after the limit resets at the start of the next
-//     UTC day.
-//   - `concurrent_calls_exceeded`: You already have as many calls in progress as
-//     your account allows. Wait for one to end or ask support to raise the limit.
-//   - `calls_per_second_exceeded`: You placed calls faster than your account
-//     allows. Reduce your dialing rate and retry.
-//
-// For all other reasons, contact support and provide the call `id`:
-//
-//   - `routing_not_configured`: This trunk has no dial plan, which can happen on
-//     a new trunk.
-//   - `no_route_found`: A dial plan is attached, but no rule in it covers this
-//     destination.
-//   - `destination_blocked`: The destination is blocked by our routing
-//     configuration.
-//   - `call_not_permitted`: The call could not be priced for your account.
-type VoiceCallRejectionReason string
 
 // VoiceCallRouteType Which answer a number carries.
 //
@@ -18499,6 +18555,179 @@ type VoiceCallStatus string
 // the number is not one you own, some carriers (most often in the US and parts of
 // Europe) mark such calls as unverified, replace the number, or screen them.
 type VoiceInboundForwardAs string
+
+// VoiceLeg defines model for VoiceLeg.
+type VoiceLeg struct {
+	// Actor Who placed the leg: the API key whose credentials it used, the integration acting for the workspace, or the user who placed it from a browser or the CLI. Absent when the leg was admitted only by its source IP address, or when no actor was recorded.
+	Actor *Actor `json:"actor,omitempty"`
+
+	// AnsweredAt When the leg was answered (`200` OK received). `null` for unanswered legs.
+	AnsweredAt *time.Time `json:"answered_at,omitempty"`
+
+	// BillableMs Billable duration in milliseconds, measured from answer to leg end. Zero for unanswered legs, and `null` while the leg is still in progress.
+	BillableMs *int `json:"billable_ms,omitempty"`
+
+	// CallId Call identifier shared across all legs of a multi-party or transferred call. Use this to correlate related leg records. `null` when call correlation is not available for the leg.
+	CallId *VoiceSessionID `json:"call_id,omitempty"`
+
+	// Cost What was charged for a leg, split into the components that make it up.
+	Cost      *VoiceLegCost       `json:"cost,omitempty"`
+	Direction *VoiceCallDirection `json:"direction,omitempty"`
+
+	// DurationMs Total leg duration in milliseconds, measured from the first INVITE to the BYE or final response. `null` while the leg is still in progress and has no final duration yet.
+	DurationMs *int `json:"duration_ms,omitempty"`
+
+	// EndedAt When the leg ended (BYE or final non-2xx response). `null` for legs that ended abnormally without a recorded end event.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// From Calling party number in E.164 format.
+	From         *string            `json:"from,omitempty"`
+	Id           VoiceCallID        `json:"id"`
+	MediaQuality *VoiceMediaQuality `json:"media_quality,omitempty"`
+
+	// PddMs Post-dial delay in milliseconds: how long the caller heard nothing between dialing and the phone starting to ring at the other end. High values are what callers experience as the leg `not going through`. Absent when the leg never rang, either because it failed first or because the carrier answered it immediately.
+	PddMs *int `json:"pdd_ms,omitempty"`
+
+	// RejectionReason Why we rejected the leg. Absent on connected legs and legs rejected
+	// by the carrier or recipient. For carrier or recipient rejections, see
+	// `sip_response_code`; a `6xx` decline gives the leg a `rejected` status.
+	//
+	// Read alongside `route` when present. A refusal caused by the number's
+	// configuration has no rejection reason; the route records that
+	// configuration.
+	RejectionReason *VoiceLegRejectionReason `json:"rejection_reason,omitempty"`
+
+	// Route Which answer your number gave an incoming leg: a SIP trunk, a forward, or a refusal. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
+	Route *VoiceLegInboundRoute `json:"route,omitempty"`
+
+	// SipResponseCode Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
+	SipResponseCode *int `json:"sip_response_code,omitempty"`
+
+	// SipTrunkId Identifier of the SIP trunk that originated this leg. `null` when no trunk is associated.
+	SipTrunkId *SIPTrunkID `json:"sip_trunk_id,omitempty"`
+
+	// StartedAt When the leg was initiated.
+	StartedAt *time.Time       `json:"started_at,omitempty"`
+	Status    *VoiceCallStatus `json:"status,omitempty"`
+
+	// Tags Your own `{name, value}` labels for this leg, taken from the `X-Bird-Call-Tag` headers on the INVITE that placed it. Set them to organise legs by a dimension of your own (campaign, queue, agent, cost centre), then filter this list by them with `tag`. Read-only here: a leg is labelled when it is placed, and never afterwards. What is here may be less than what was sent, and the leg still goes through either way: a tag whose name or value breaks the rules below is dropped, anything past the first five is ignored, and a name sent more than once keeps its first value. Absent when the leg carried none, and on legs recorded before this field existed.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// To Called party number in E.164 format.
+	To          *string     `json:"to,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceLegCost What was charged for a leg, split into the components that make it up.
+type VoiceLegCost struct {
+	// Amount Total charged, as a decimal string: the sum of the components below. Net of tax, which applies to your wallet balance rather than to an individual charge.
+	Amount *string `json:"amount,omitempty"`
+
+	// CallHandlingAmount What we charged for handling the call itself, as a decimal string. A call is charged for handling once, however many legs it has, so only one leg's record carries it. `null` until this component is priced.
+	CallHandlingAmount *string `json:"call_handling_amount,omitempty"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+
+	// InboundAmount What we charged to receive the leg from the originating network, as a decimal string. Only a leg that arrived at your number can carry it. `null` until this component is priced.
+	InboundAmount *string `json:"inbound_amount,omitempty"`
+
+	// OutboundAmount What we charged to carry the leg to the destination network, as a decimal string. `null` until this component is priced.
+	OutboundAmount *string `json:"outbound_amount,omitempty"`
+
+	// RecordingAmount What we charged to record the leg, as a decimal string, billed per second over the same billable time as the rest of the leg. `null` until this component is priced.
+	RecordingAmount *string `json:"recording_amount,omitempty"`
+
+	// TranscriptionAmount What we charged to transcribe the leg's audio, as a decimal string, billed per second of recorded audio rather than for the length of the leg. A transcript is produced after the leg ends, so this can appear after the rest of the cost. `null` until this component is priced.
+	TranscriptionAmount *string `json:"transcription_amount,omitempty"`
+}
+
+// VoiceLegInboundRoute The routing choice recorded for an incoming leg. A recorded route does not
+// guarantee that the leg connected. Check `status` for the outcome and
+// `rejection_reason` for the cause when present.
+type VoiceLegInboundRoute struct {
+	union json.RawMessage
+}
+
+// VoiceLegInboundRouteForward defines model for VoiceLegInboundRouteForward.
+type VoiceLegInboundRouteForward struct {
+	// ForwardAs Which of the leg's two numbers the forwarded leg presented as its caller. The value that went on the wire, not the one the number is set to now.
+	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
+
+	// ForwardTo The number the leg was forwarded to, in E.164 format. Recorded as it was at the time, so it may name a number you have since stopped verifying.
+	ForwardTo string `json:"forward_to"`
+
+	// Type The leg was forwarded to another of your numbers.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceLegInboundRouteReject defines model for VoiceLegInboundRouteReject.
+type VoiceLegInboundRouteReject struct {
+	// Type The number turned the leg away. This is where every number starts, so it covers a number nobody has configured as well as one set to reject.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceLegInboundRouteTrunk defines model for VoiceLegInboundRouteTrunk.
+type VoiceLegInboundRouteTrunk struct {
+	// TrunkId The SIP trunk the leg was delivered to. Recorded as it was at the time, so it may name a trunk you have since changed or deleted.
+	TrunkId SIPTrunkID `json:"trunk_id"`
+
+	// Type The leg was delivered to one of your SIP trunks.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceLegList defines model for VoiceLegList.
+type VoiceLegList struct {
+	Data []VoiceLeg `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceLegRejectionReason Why we rejected the leg. Use `rejection_reason` to identify the cause;
+// `sip_response_code` alone cannot distinguish these reasons.
+//
+// You can resolve these issues:
+//
+//   - `source_not_allowed`: The leg came from an IP address that is not in the
+//     trunk's allowed-address list. Add the address your PBX sends from.
+//   - `caller_id_not_verified`: The number in the `From` header is not a verified
+//     caller ID for this workspace. Verify it or use a verified caller ID.
+//   - `number_ownership_not_verified`: The ownership documents for this purchased
+//     number have not yet been accepted under its country's requirements. We
+//     block outgoing and incoming legs on the number until verification is
+//     complete. Blocked incoming legs never reach your PBX, and their route type
+//     is `reject` regardless of the number's configuration. Open the number
+//     under **Numbers** and complete its ownership requirements, then retry
+//     the leg.
+//   - `destination_not_enabled`: Calling to this destination country is disabled.
+//     Enable it in your voice destination settings.
+//   - `insufficient_balance`: Your wallet balance was too low for the leg.
+//     Top up or enable automatic top-ups.
+//   - `daily_spend_exceeded`: The leg would exceed your organization's daily
+//     voice spend limit. Retry after the limit resets at the start of the next
+//     UTC day.
+//   - `concurrent_calls_exceeded`: You already have as many legs in progress as
+//     your account allows. Wait for one to end or ask support to raise the limit.
+//   - `calls_per_second_exceeded`: You placed legs faster than your account
+//     allows. Reduce your dialing rate and retry.
+//
+// For all other reasons, contact support and provide the leg `id`:
+//
+//   - `routing_not_configured`: This trunk has no dial plan, which can happen on
+//     a new trunk.
+//   - `no_route_found`: A dial plan is attached, but no rule in it covers this
+//     destination.
+//   - `destination_blocked`: The destination is blocked by our routing
+//     configuration.
+//   - `call_not_permitted`: The leg could not be priced for your account.
+type VoiceLegRejectionReason string
 
 // VoiceMediaQuality defines model for VoiceMediaQuality.
 type VoiceMediaQuality struct {
@@ -18831,7 +19060,10 @@ type WhatsAppBusinessAccount struct {
 	// MarketingMessagesOnboardingStatus Whether this account can use WhatsApp's Marketing Messages API, as of `meta_synced_at`. Absent until WhatsApp has reported it. Distinct from the owning portfolio's `marketing_messages_onboarding_status` (`portfolio.marketing_messages_onboarding_status`), which Meta gives the same field name but a different vocabulary: this one is the account's own eligibility, that one is the portfolio's Terms-of-Service progress.
 	MarketingMessagesOnboardingStatus *WhatsAppBusinessAccountMarketingMessagesStatus `json:"marketing_messages_onboarding_status,omitempty"`
 
-	// MetaSyncedAt When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status` and `portfolio` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
+	// MetaHealthStatus Meta's own messaging health for this account as of `meta_synced_at`. Absent until Bird has read it, and absent again when the stored reading did not parse at all. An entity whose verdict falls outside this vocabulary is dropped on its own and the rest of the report still ships, so `entities` can be shorter than Meta's. A `blocked` verdict on the `waba` entity is why template sends fail with Meta's `#200` even though the number reads `active`: for example `error_code` `141006` names a payment method Meta rejected on the account.
+	MetaHealthStatus *WhatsAppMetaHealthStatus `json:"meta_health_status,omitempty"`
+
+	// MetaSyncedAt When Bird last read this account's state from WhatsApp. `status`, `account_review_status`, `business_verification_status`, `marketing_messages_onboarding_status`, `portfolio` and `meta_health_status` are all that reading rather than live values; Bird re-reads roughly hourly. Absent for an account Bird has never read back.
 	MetaSyncedAt *time.Time `json:"meta_synced_at,omitempty"`
 
 	// Name The account's name, as WhatsApp reports it.
@@ -19303,8 +19535,283 @@ type WhatsAppEventType string
 // WhatsAppFileID defines model for WhatsAppFileID.
 type WhatsAppFileID = string
 
+// WhatsAppGroup defines model for WhatsAppGroup.
+type WhatsAppGroup struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description The group's description, shown alongside the subject. Null when the group has none.
+	Description *string `json:"description,omitempty"`
+
+	// Id Unique identifier for the group. Accepted by every `/v1/whatsapp/groups/{group_id}` operation, and as `to` when sending a message to the group.
+	Id *WhatsAppGroupID `json:"id,omitempty"`
+
+	// InviteLink The link that lets someone join the group, which is the only way in. A group has one link at a time. Null while the group is `pending`, since WhatsApp issues the link when it confirms the group. Rotating it through `POST /v1/whatsapp/groups/{group_id}/invite-link/rotate` replaces it, and every link the group had before then stops working.
+	InviteLink *string `json:"invite_link,omitempty"`
+
+	// JoinApprovalMode Whether opening the invite link joins the group outright or raises a join request to approve.
+	JoinApprovalMode *WhatsAppGroupJoinApprovalMode `json:"join_approval_mode,omitempty"`
+
+	// LastOperation The last change asked of this group or participant, and where it got to. WhatsApp confirms a change on a webhook rather than in its reply, so an operation is `pending` until that arrives. While it is, another change to the same thing is refused with a `409` `WhatsAppGroupUpdateInProgress`; a change to a different participant is not, so several removals can be in flight at once. Absent on something nothing has been asked of yet.
+	LastOperation *WhatsAppGroupOperation `json:"last_operation,omitempty"`
+
+	// ParticipantCount How many people are in the group, excluding your business.
+	ParticipantCount *int `json:"participant_count,omitempty"`
+
+	// Participants Who is in the group, as of the last update WhatsApp sent, and the whole set rather than a page: WhatsApp holds a group to a handful of people, so there is never a page's worth to return. The business number that created the group is its admin and is not listed.
+	Participants *[]WhatsAppGroupParticipant `json:"participants,omitempty"`
+
+	// PinnedMessages The group's pins, newest first. WhatsApp holds a few at once, and pinning past that unpins the oldest rather than refusing. No entry here is merely requested. An entry stays listed until it is unpinned, so one whose `pinned_until` has passed is still listed after WhatsApp has taken it off the chat.
+	PinnedMessages *[]WhatsAppGroupPinnedMessage `json:"pinned_messages,omitempty"`
+
+	// ProfilePictureUrl Address of the group's picture, as WhatsApp serves it. Null when the group has none.
+	ProfilePictureUrl *string `json:"profile_picture_url,omitempty"`
+
+	// Status Where the group stands. A group is messageable only while it is `active`.
+	Status *WhatsAppGroupStatus `json:"status,omitempty"`
+
+	// Subject The group's name, shown to participants and to anyone who opens the invite link.
+	Subject string `json:"subject"`
+
+	// SuspendedAt When WhatsApp suspended the group. Present only while the group is `suspended`, and gone once WhatsApp lifts the suspension.
+	SuspendedAt *time.Time `json:"suspended_at,omitempty"`
+	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
+
+	// Waba Meta's identifier for the WhatsApp Business Account recorded when the group was created. This is a historical snapshot, not a live account directory projection. Null for a number we operate on your behalf, whose account is not yours to see.
+	Waba *string `json:"waba,omitempty"`
+
+	// WhatsappNumberId The business number that created the group. It is the group's admin and the number every message to the group is sent from. Fixed when the group is created.
+	WhatsappNumberId *WhatsAppNumberID `json:"whatsapp_number_id,omitempty"`
+}
+
+// WhatsAppGroupCreate The group to create. WhatsApp issues the invite link, and people join by opening it, so a create request names no participants.
+type WhatsAppGroupCreate struct {
+	// Description The group's description, shown alongside the subject.
+	Description *string `json:"description,omitempty"`
+
+	// JoinApprovalMode Whether opening the invite link joins the group outright, or raises a join request for you to approve. Defaults to `auto_approve`. It cannot be changed once the group exists.
+	JoinApprovalMode *WhatsAppGroupJoinApprovalMode `json:"join_approval_mode,omitempty"`
+
+	// Subject The group's name, shown to participants and to anyone who opens the invite link. Surrounding whitespace is trimmed.
+	Subject string `json:"subject"`
+
+	// WhatsappNumberId The business number that will own and administer the group, as its id in `GET /v1/whatsapp/numbers`. It must be a number your workspace can send from, and WhatsApp must have granted it Official Business Account status; a number without that status returns a `412` `WhatsAppGroupsNotEligible`. The number cannot be changed afterwards, and every message to the group is sent from it.
+	WhatsappNumberId WhatsAppNumberID `json:"whatsapp_number_id"`
+}
+
+// WhatsAppGroupError Why a change to a group did not take effect. Meta documents no code vocabulary for a group refusal, since every sample payload carries an undocumented `code` beside its message, so this relays what it said rather than classifying it, the way a template submission failure does.
+type WhatsAppGroupError struct {
+	// Description WhatsApp's own explanation of the refusal, passed through. Show it to the person who asked for the change; never match on its text. Carries Bird's own words instead when the failure was Bird's verdict, such as a confirmation that never arrived.
+	Description *string `json:"description,omitempty"`
+
+	// MetaErrorCode WhatsApp's most specific code for the refusal: its error subcode where it sent one, otherwise its top-level code. Treat it as an opaque string. Null when the failure was Bird's own verdict rather than a WhatsApp refusal.
+	MetaErrorCode *string `json:"meta_error_code,omitempty"`
+}
+
 // WhatsAppGroupID defines model for WhatsAppGroupID.
 type WhatsAppGroupID = string
+
+// WhatsAppGroupInviteLink A group's invite link.
+type WhatsAppGroupInviteLink struct {
+	// InviteLink The group's one invite link. Every link the group had before this one stops working.
+	InviteLink *string `json:"invite_link,omitempty"`
+}
+
+// WhatsAppGroupJoinApprovalMode How someone opening the invite link gets in:
+//
+// - `auto_approve` means they join the moment they open the link. This is the default when the group is created.
+// - `approval_required` means opening the link raises a join request you approve or reject.
+//
+// Fixed when the group is created.
+type WhatsAppGroupJoinApprovalMode string
+
+// WhatsAppGroupJoinRequest Someone waiting to be let into a group that requires approval.
+type WhatsAppGroupJoinRequest struct {
+	// Bsuid Business-scoped user ID, Meta's identifier for this person against your business. The one identifier every request has, and the one that carries over to `participants` if you approve it.
+	Bsuid *string `json:"bsuid,omitempty"`
+
+	// CreatedAt When the request was made.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Id Unique identifier for the join request. Pass it to the batch-approve and batch-reject operations.
+	Id *WhatsAppGroupJoinRequestID `json:"id,omitempty"`
+
+	// PhoneNumber Phone number in E.164 format. Absent when WhatsApp withholds it, which it does for anyone who has not shared their number with your business.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Username The WhatsApp username this person chose. Absent when they have none, and theirs to change, so it names them in a list rather than keying anything.
+	Username *string `json:"username,omitempty"`
+}
+
+// WhatsAppGroupJoinRequestDecision The join requests to decide on.
+type WhatsAppGroupJoinRequestDecision struct {
+	// JoinRequestIds The join requests to act on, as returned by `GET /v1/whatsapp/groups/{group_id}/join-requests`. Each is decided on its own, so one can fail while the rest succeed. An ID that names no waiting request returns a `422` `WhatsAppGroupJoinRequestNotFound`. The 50 is Bird's own request bound, not a WhatsApp one: how many people the group can hold does not limit how many can queue at its link, so a rejection sweep is not held to the size of the group it is refusing entry to.
+	JoinRequestIds []WhatsAppGroupJoinRequestID `json:"join_request_ids"`
+}
+
+// WhatsAppGroupJoinRequestDecisionResult What happened to each join request in the batch. WhatsApp decides them one by one, so a batch can be part-applied: the requests it accepted are in `decided`, and the rest are in `failed` with the reason.
+type WhatsAppGroupJoinRequestDecisionResult struct {
+	// Decided The join requests WhatsApp accepted the decision for. A person approved here can enter the group; a person rejected here sees the join button again.
+	Decided *[]WhatsAppGroupJoinRequestID `json:"decided,omitempty"`
+
+	// Failed The join requests WhatsApp refused, each with its reason. Empty when the whole batch was applied.
+	Failed *[]WhatsAppGroupJoinRequestFailure `json:"failed,omitempty"`
+}
+
+// WhatsAppGroupJoinRequestFailure A join request the decision could not be applied to.
+type WhatsAppGroupJoinRequestFailure struct {
+	// Error Why WhatsApp refused. The common one is a person who has not accepted WhatsApp's current terms, which no retry fixes.
+	Error *WhatsAppGroupError `json:"error,omitempty"`
+
+	// JoinRequestId The join request that was not decided.
+	JoinRequestId *WhatsAppGroupJoinRequestID `json:"join_request_id,omitempty"`
+}
+
+// WhatsAppGroupJoinRequestID defines model for WhatsAppGroupJoinRequestID.
+type WhatsAppGroupJoinRequestID = string
+
+// WhatsAppGroupJoinRequestList defines model for WhatsAppGroupJoinRequestList.
+type WhatsAppGroupJoinRequestList struct {
+	// Data The join requests still waiting for a decision, oldest first.
+	Data []WhatsAppGroupJoinRequest `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppGroupJoinRequestSortField Sortable fields for a WhatsApp group join-request list.
+type WhatsAppGroupJoinRequestSortField string
+
+// WhatsAppGroupList defines model for WhatsAppGroupList.
+type WhatsAppGroupList struct {
+	// Data The groups your workspace created, newest first.
+	Data []WhatsAppGroup `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppGroupOperation The last change asked of this group or participant, and where it got to. WhatsApp confirms a change on a webhook rather than in its reply, so an operation is `pending` until that arrives. While it is, another change to the same thing is refused with a `409` `WhatsAppGroupUpdateInProgress`; a change to a different participant is not, so several removals can be in flight at once. Absent on something nothing has been asked of yet.
+type WhatsAppGroupOperation struct {
+	// LastError Why a change to a group did not take effect. Meta documents no code vocabulary for a group refusal, since every sample payload carries an undocumented `code` beside its message, so this relays what it said rather than classifying it, the way a template submission failure does.
+	LastError *WhatsAppGroupError `json:"last_error,omitempty"`
+
+	// RequestedAt When Bird accepted the request.
+	RequestedAt *time.Time `json:"requested_at,omitempty"`
+
+	// Results Per-field outcomes, on a `settings_update` that has settled. One entry per field the update carried, so a client can put a refusal next to the input it came from. Absent on every other operation type, which change one thing and report it on `status`.
+	Results *[]WhatsAppGroupOperationResult `json:"results,omitempty"`
+
+	// SettledAt When WhatsApp reported the outcome. Null while `pending`.
+	SettledAt *time.Time `json:"settled_at,omitempty"`
+
+	// Status Where it got to. `pending` is what a client shows as in-progress, and what refuses the next change.
+	Status *WhatsAppGroupOperationStatus `json:"status,omitempty"`
+
+	// Type What was asked.
+	Type *WhatsAppGroupOperationType `json:"type,omitempty"`
+}
+
+// WhatsAppGroupOperationField Which of the group's settings a `settings_update` result reports on.
+type WhatsAppGroupOperationField string
+
+// WhatsAppGroupOperationResult What became of one field in a `settings_update`. WhatsApp applies each field separately, so a single update can leave some applied and others refused.
+type WhatsAppGroupOperationResult struct {
+	// Applied Whether WhatsApp applied this field. False when it refused this one, whatever it did with the others.
+	Applied *bool `json:"applied,omitempty"`
+
+	// Error Why a change to a group did not take effect. Meta documents no code vocabulary for a group refusal, since every sample payload carries an undocumented `code` beside its message, so this relays what it said rather than classifying it, the way a template submission failure does.
+	Error *WhatsAppGroupError `json:"error,omitempty"`
+
+	// Field The setting this result reports on.
+	Field *WhatsAppGroupOperationField `json:"field,omitempty"`
+}
+
+// WhatsAppGroupOperationStatus How the operation ended:
+//
+//   - `pending` means WhatsApp accepted the request and has not reported back. Another
+//     operation on the same thing is refused while this lasts.
+//   - `success` means WhatsApp applied everything asked of it. A change whose success
+//     removes its own carrier is never seen in this state: a removed participant and an
+//     unpinned message leave their lists, and the entry going away is the confirmation.
+//   - `failed` means WhatsApp applied none of it, or only part: `last_error` says why,
+//     and on a `settings_update` the per-field `results` say which fields did apply.
+type WhatsAppGroupOperationStatus string
+
+// WhatsAppGroupOperationType What was asked of the thing carrying the operation:
+//
+// - `create` and `delete` act on the group itself.
+// - `settings_update` changes the group's subject, description or picture.
+// - `remove` takes one participant out of the group.
+type WhatsAppGroupOperationType string
+
+// WhatsAppGroupParticipant Someone who joined the group. The business number that created the group is its admin and is not listed.
+type WhatsAppGroupParticipant struct {
+	// Bsuid Business-scoped user ID, Meta's identifier for this person against your business. The one identifier every participant has: WhatsApp always sends it, and it is stable for as long as they are in the group.
+	Bsuid *string `json:"bsuid,omitempty"`
+
+	// LastOperation The last change asked of this group or participant, and where it got to. WhatsApp confirms a change on a webhook rather than in its reply, so an operation is `pending` until that arrives. While it is, another change to the same thing is refused with a `409` `WhatsAppGroupUpdateInProgress`; a change to a different participant is not, so several removals can be in flight at once. Absent on something nothing has been asked of yet.
+	LastOperation *WhatsAppGroupOperation `json:"last_operation,omitempty"`
+
+	// PhoneNumber Phone number in E.164 format. Absent when WhatsApp withholds it, which it does for anyone who has not shared their number with your business, so a group is normally a mix of participants with one and without.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Username The WhatsApp username this person chose. Absent when they have none, and not an identifier to address them by: it is theirs to change, so it names them in a list rather than keying anything.
+	Username *string `json:"username,omitempty"`
+}
+
+// WhatsAppGroupPinnedMessage A message pinned at the top of a group's chat.
+type WhatsAppGroupPinnedMessage struct {
+	// MessageId The pinned message, as returned in the send response's `id`.
+	MessageId *WhatsAppMessageID `json:"message_id,omitempty"`
+
+	// PinnedUntil When the pin is due to lapse, projected from the `duration_days` the pin was asked for. An entry stays listed until it is unpinned, so a time in the past means WhatsApp has already taken the message off the chat.
+	PinnedUntil *time.Time `json:"pinned_until,omitempty"`
+}
+
+// WhatsAppGroupPinnedMessageCreate A message to pin at the top of the group's chat.
+type WhatsAppGroupPinnedMessageCreate struct {
+	// DurationDays How many days the message stays pinned before WhatsApp unpins it, from 1 to 30.
+	DurationDays *int `json:"duration_days,omitempty"`
+
+	// MessageId The message to pin. It has to be one this group carries: a message in another group, or a one-to-one message, returns a `422` `WhatsAppMessageNotInGroup`.
+	MessageId WhatsAppMessageID `json:"message_id"`
+}
+
+// WhatsAppGroupSortField Sortable fields for a WhatsApp group list.
+type WhatsAppGroupSortField string
+
+// WhatsAppGroupStatus Where the group stands. Values, in lifecycle order:
+//
+// - `pending` means the request to create the group has been accepted and WhatsApp has not confirmed it yet. The group has no invite link, and it cannot be messaged or changed.
+// - `active` means the group exists at WhatsApp and carries an invite link. Only an active group can be messaged.
+// - `suspended` means WhatsApp has stopped activity in the group, which it does when a group breaks its policies. Sends fail while it lasts, and WhatsApp can lift it on its own.
+// - `deleted` means the group is gone, either because you deleted it or because WhatsApp removed it. Every participant lost access, and the state is terminal.
+// - `failed` means WhatsApp refused to create the group; `last_operation.last_error` says why. The state is terminal, so create another group rather than retrying this one.
+type WhatsAppGroupStatus string
+
+// WhatsAppGroupUpdate The changes to make. Fields you omit are left as they are. WhatsApp applies each field separately, so one can be rejected while the others take effect; the group's `updated_at` moves when a change lands.
+type WhatsAppGroupUpdate struct {
+	// Description A new description for the group. Send `null` to clear it; an empty string is a `422` rather than a second way to clear.
+	Description nullable.Nullable[string] `json:"description,omitempty"`
+
+	// ProfilePictureUrl A new picture for the group, naming a file in your workspace's media library. WhatsApp takes a square JPEG of at least 192 by 192 pixels and up to 5 MB; anything else returns a `422`. Sending `null` clears the picture Bird stores, and an empty string is a `422` rather than a second way to clear it; WhatsApp has no operation for removing a group's photo, so the one participants see stays until another picture replaces it.
+	ProfilePictureUrl nullable.Nullable[string] `json:"profile_picture_url,omitempty"`
+
+	// Subject A new name for the group. Participants see the change in the group's chat.
+	Subject *string `json:"subject,omitempty"`
+}
 
 // WhatsAppImage defines model for WhatsAppImage.
 type WhatsAppImage struct {
@@ -20319,6 +20826,65 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// WhatsAppMetaHealthEntity Meta's verdict for one node in the chain a message passes through.
+type WhatsAppMetaHealthEntity struct {
+	// AdditionalInfo Meta's own notes on a `limited` verdict. Absent on an account read: Meta reports it only when a phone number or template is the node asked about.
+	AdditionalInfo *[]string `json:"additional_info,omitempty"`
+
+	// CanReceiveCallSip Whether this node can receive a WhatsApp call over SIP, which Meta reports on `phone_number` and `app` entities. Absent on an account read: Meta reports it only when a phone number or template is the node asked about.
+	CanReceiveCallSip *WhatsAppMetaHealthVerdict `json:"can_receive_call_sip,omitempty"`
+
+	// CanSendMessage Whether this node lets messages through.
+	CanSendMessage *WhatsAppMetaHealthVerdict    `json:"can_send_message,omitempty"`
+	EntityType     *WhatsAppMetaHealthEntityType `json:"entity_type,omitempty"`
+
+	// Errors Why this node is not `available`. Absent when Meta gave no reason.
+	Errors *[]WhatsAppMetaHealthError `json:"errors,omitempty"`
+
+	// MetaId Meta's identifier for the node. Treat it as an opaque string.
+	MetaId *string `json:"meta_id,omitempty"`
+}
+
+// WhatsAppMetaHealthEntityType Which node in Meta's messaging chain an entry describes. Values are Meta's own tokens,
+// lower-cased.
+//
+// - `waba`: the WhatsApp Business Account.
+// - `business`: the Meta business portfolio that owns the account.
+// - `app`: the app the account messages through.
+// - `phone_number`: a business phone number. An account read never carries one: Meta reports it only when a phone number is the node asked about.
+// - `message_template`: a message template. An account read never carries one: Meta reports it only when a template is the node asked about.
+type WhatsAppMetaHealthEntityType string
+
+// WhatsAppMetaHealthError One reason Meta gives for a verdict that is not `available`. Field names are Meta's own. They are not Bird error codes and do not appear in Bird's error catalog.
+type WhatsAppMetaHealthError struct {
+	// ErrorCode Meta's numeric health error code, for example `141006` (payment method error), `141010` (business not verified), `141014` (account banned).
+	ErrorCode *int `json:"error_code,omitempty"`
+
+	// ErrorDescription Meta's own sentence describing the block.
+	ErrorDescription *string `json:"error_description,omitempty"`
+
+	// PossibleSolution Meta's own suggested remedy. Absent when Meta gave none.
+	PossibleSolution *string `json:"possible_solution,omitempty"`
+}
+
+// WhatsAppMetaHealthStatus Meta's own messaging health for this account. `can_send_message` is Meta's aggregate: `blocked` if any entity is blocked, else `limited` if any is limited, else `available`. Read `entities` to see which node carries the verdict and why.
+type WhatsAppMetaHealthStatus struct {
+	CanSendMessage *WhatsAppMetaHealthVerdict `json:"can_send_message,omitempty"`
+
+	// Entities One entry per node Meta evaluated. Order is Meta's.
+	Entities *[]WhatsAppMetaHealthEntity `json:"entities,omitempty"`
+}
+
+// WhatsAppMetaHealthVerdict Meta's health verdict for one entity, or for the whole chain when read at the top
+// level. Values are Meta's own tokens, lower-cased:
+//
+//   - `available`: the entity meets every messaging or calling requirement.
+//   - `limited`: it can be used, but with a limitation Meta describes in `additional_info`
+//     when it gave one.
+//   - `blocked`: it cannot be used. `errors` says why when Meta named a reason, and each
+//     error carries `possible_solution` when Meta suggested one.
+type WhatsAppMetaHealthVerdict string
+
 // WhatsAppNumber defines model for WhatsAppNumber.
 type WhatsAppNumber struct {
 	// CreatedAt When this number was submitted for connection.
@@ -20403,7 +20969,7 @@ type WhatsAppNumberError struct {
 //
 // - `registration_pin_rejected`: WhatsApp refused the two-step verification PIN.
 // - `registration_pin_rate_limited`: Too many PIN attempts occurred recently.
-// - `registration_attempts_exhausted`: Registration is blocked for 72 hours.
+// - `registration_attempts_exhausted`: The number has no registration attempts left. WhatsApp's own lockout clears after 72 hours; the number's attempt budget does not, so contact support if repair keeps ending here.
 // - `number_verification_required`: WhatsApp requires the number to be verified again.
 // - `number_not_registered`: WhatsApp does not hold the number as registered.
 // - `number_already_linked`: Another WhatsApp integration uses the number.
@@ -20411,6 +20977,7 @@ type WhatsAppNumberError struct {
 // - `verification_code_not_received`: The verification text did not arrive.
 // - `verification_rate_limited`: WhatsApp declined to send this number another verification code, having been asked too often. It clears with time; retrying sooner extends it.
 // - `business_account_locked`: WhatsApp locked the business account.
+// - `business_verification_required`: WhatsApp refused to register the number because the business portfolio is not verified, usually because an unverified portfolio may hold only a few registered numbers. Verify the business or free a registered number on the portfolio, then repair the number.
 // - `credit_currency_mismatch`: WhatsApp bills the business account in a currency your organization is not billed in. Connect the number under a business account WhatsApp bills in that same currency, or one WhatsApp has set no currency on: an account's billing currency cannot be changed once WhatsApp sets it.
 // - `permission_denied`: WhatsApp refused access to the account.
 // - `invalid_request`: WhatsApp rejected the connection details.
@@ -20829,11 +21396,68 @@ type WhatsAppStickerSend struct {
 	Url string `json:"url"`
 }
 
+// WhatsAppSuppression One period during which an address is suppressed: when it started and, once it is over, what ended it. An address suppressed, ended and suppressed again has two of these on record rather than one current state. The list returns the periods in force; fetch one by ID to read one that has ended.
+type WhatsAppSuppression struct {
+	// Address The suppressed WhatsApp address. For a phone number this is canonical E.164 with a leading plus sign, such as `+5511977670804`.
+	Address string `json:"address"`
+
+	// AppliesTo Blocking policy. `all` blocks every message category. Treat an unrecognized value as blocking.
+	AppliesTo string `json:"applies_to"`
+
+	// CreatedAt When the suppression was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// EndedAt When this stopped applying. Null while it is still stopping messages, which is the case for every record in the list.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// EndedReason What ended it: `api_key` (deleted through the API with an API key) or `user` (deleted by a user in the dashboard). Null while it is still stopping messages. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	EndedReason *string               `json:"ended_reason,omitempty"`
+	Id          WhatsAppSuppressionID `json:"id"`
+
+	// Origin How the suppression came to exist: `api_key` (added through the API with an API key) or `user` (added by a user in the dashboard). This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	Origin string `json:"origin"`
+
+	// Reason Why the address is suppressed. `manual` means it was added directly rather than created automatically from a delivery outcome. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	Reason string `json:"reason"`
+
+	// SourceWhatsappId ID of the WhatsApp message that caused this address to be suppressed, when the suppression was created automatically. Omitted for addresses added manually.
+	SourceWhatsappId *WhatsAppMessageID `json:"source_whatsapp_id,omitempty"`
+
+	// Waba The WhatsApp Business Account the suppression is limited to, identified by its WhatsApp-issued account ID, or null when it covers the whole workspace.
+	Waba *string `json:"waba,omitempty"`
+}
+
+// WhatsAppSuppressionCreate defines model for WhatsAppSuppressionCreate.
+type WhatsAppSuppressionCreate struct {
+	// Address WhatsApp address to suppress. For a phone number, supply canonical E.164 with a leading plus sign, such as `+5511977670804`. A value that is not a valid phone number returns a `422`.
+	Address string `json:"address"`
+
+	// Waba Limit the suppression to messages sent from this WhatsApp Business Account, identified by its WhatsApp-issued account ID. Omit it to block the address for the whole workspace, whichever account sends.
+	Waba *string `json:"waba,omitempty"`
+}
+
 // WhatsAppSuppressionCreatedEventType Always `whatsapp_suppression.created` for this event.
 type WhatsAppSuppressionCreatedEventType string
 
 // WhatsAppSuppressionID defines model for WhatsAppSuppressionID.
 type WhatsAppSuppressionID = string
+
+// WhatsAppSuppressionList defines model for WhatsAppSuppressionList.
+type WhatsAppSuppressionList struct {
+	Data []WhatsAppSuppression `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppSuppressionReasonFilter defines model for WhatsAppSuppressionReasonFilter.
+type WhatsAppSuppressionReasonFilter string
 
 // WhatsAppTagStatsPoint Lifecycle counts, derived rates, and engagement for a single tag (name:value) over the requested period.
 type WhatsAppTagStatsPoint struct {
@@ -25166,37 +25790,37 @@ type CreateVerificationNextChannelParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
-// ListVoiceCallsParams defines parameters for ListVoiceCalls.
-type ListVoiceCallsParams struct {
-	// Direction Return only calls in this direction.
+// ListVoiceLegsParams defines parameters for ListVoiceLegs.
+type ListVoiceLegsParams struct {
+	// Direction Return only legs in this direction.
 	Direction *VoiceCallDirection `form:"direction,omitempty" json:"direction,omitempty"`
 
-	// Status Return only calls with one of these statuses, comma-separated.
+	// Status Return only legs with one of these statuses, comma-separated.
 	// In-flight and final statuses may be combined freely.
 	Status *[]VoiceCallStatus `form:"status,omitempty" json:"status,omitempty"`
 
-	// SessionId Return only calls belonging to this session, which is how the legs of one multi-party or transferred call are correlated.
-	SessionId *VoiceSessionID `form:"session_id,omitempty" json:"session_id,omitempty"`
+	// CallId Return only legs belonging to this call, which is how the legs of one multi-party or transferred call are correlated.
+	CallId *VoiceSessionID `form:"call_id,omitempty" json:"call_id,omitempty"`
 
-	// SipTrunkId Return only calls carried by this SIP trunk.
+	// SipTrunkId Return only legs carried by this SIP trunk.
 	SipTrunkId *SIPTrunkID `form:"sip_trunk_id,omitempty" json:"sip_trunk_id,omitempty"`
 
-	// From Return only calls placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
+	// From Return only legs placed from this calling party number, matched as a whole number rather than as a fragment. Give it in international form: `+14155551234`, `14155551234`, and `0014155551234` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the leg.
 	From *string `form:"from,omitempty" json:"from,omitempty"`
 
-	// To Return only calls placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same calls. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the call.
+	// To Return only legs placed to this called party number, matched as a whole number rather than as a fragment. Give it in international form: `+16505559876`, `16505559876`, and `0016505559876` all select the same legs. A number given without a country code is read as an international one, so give the country code to be sure of what you are matching. Use `number` instead to match part of a number, or either side of the leg.
 	To *string `form:"to,omitempty" json:"to,omitempty"`
 
-	// Number Return only calls where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every call to or from it. Combines with `from`/`to`, which match one side exactly.
+	// Number Return only legs where the calling or called number contains this value. Matches a partial number, so a country or area-code prefix returns every leg to or from it. Combines with `from`/`to`, which match one side exactly.
 	Number *string `form:"number,omitempty" json:"number,omitempty"`
 
 	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
 	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// StartedAfter Return only calls that started at or after this instant, inclusive. RFC 3339 timestamp.
+	// StartedAfter Return only legs that started at or after this instant, inclusive. RFC 3339 timestamp.
 	StartedAfter *time.Time `form:"started_after,omitempty" json:"started_after,omitempty"`
 
-	// StartedBefore Return only calls that started at or before this instant, inclusive. RFC 3339 timestamp.
+	// StartedBefore Return only legs that started at or before this instant, inclusive. RFC 3339 timestamp.
 	StartedBefore *time.Time `form:"started_before,omitempty" json:"started_before,omitempty"`
 
 	// Limit Maximum number of items to return per page.
@@ -25382,6 +26006,285 @@ type ListWhatsAppBusinessAccountsParams struct {
 
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListWhatsAppGroupsParams defines parameters for ListWhatsAppGroups.
+type ListWhatsAppGroupsParams struct {
+	// Sort Field to sort by.
+	Sort *WhatsAppGroupSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Number Filter by the business number that administers the group, as either the number in E.164 format or the number's `id` (`wan_` prefix). A value that parses as a valid ID resolves by ID; any other value must be an E.164 number, and anything else is a `422`. The E.164 form is matched against the group's stored record of the number it was created on.
+	Number *string `form:"number,omitempty" json:"number,omitempty"`
+
+	// Waba Filter by the WABA identifier returned on the group. Groups with `waba: null` do not match this filter.
+	Waba *string `form:"waba,omitempty" json:"waba,omitempty"`
+
+	// Q Case-insensitive substring match against the group's subject or description.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Status Filter by status. Repeat the parameter to match any of several statuses.
+	Status *[]WhatsAppGroupStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+}
+
+// CreateWhatsAppGroupParams defines parameters for CreateWhatsAppGroup.
+type CreateWhatsAppGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteWhatsAppGroupParams defines parameters for DeleteWhatsAppGroup.
+type DeleteWhatsAppGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateWhatsAppGroupParams defines parameters for UpdateWhatsAppGroup.
+type UpdateWhatsAppGroupParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// RotateWhatsAppGroupInviteLinkParams defines parameters for RotateWhatsAppGroupInviteLink.
+type RotateWhatsAppGroupInviteLinkParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListWhatsAppGroupJoinRequestsParams defines parameters for ListWhatsAppGroupJoinRequests.
+type ListWhatsAppGroupJoinRequestsParams struct {
+	// Sort Field to sort by.
+	Sort *WhatsAppGroupJoinRequestSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `asc`, which sorts alphabetically or from oldest to newest, depending on the selected sort field.
+	Order *OrderAsc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ApproveWhatsAppGroupJoinRequestsParams defines parameters for ApproveWhatsAppGroupJoinRequests.
+type ApproveWhatsAppGroupJoinRequestsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// RejectWhatsAppGroupJoinRequestsParams defines parameters for RejectWhatsAppGroupJoinRequests.
+type RejectWhatsAppGroupJoinRequestsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteWhatsAppGroupParticipantParams defines parameters for DeleteWhatsAppGroupParticipant.
+type DeleteWhatsAppGroupParticipantParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateWhatsAppGroupPinnedMessageParams defines parameters for CreateWhatsAppGroupPinnedMessage.
+type CreateWhatsAppGroupPinnedMessageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteWhatsAppGroupPinnedMessageParams defines parameters for DeleteWhatsAppGroupPinnedMessage.
+type DeleteWhatsAppGroupPinnedMessageParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListWhatsAppKeywordRulesParams defines parameters for ListWhatsAppKeywordRules.
@@ -25922,6 +26825,76 @@ type GetWhatsAppStatsByTemplateParams struct {
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
+// ListWhatsAppSuppressionsParams defines parameters for ListWhatsAppSuppressions.
+type ListWhatsAppSuppressionsParams struct {
+	// Address Address prefix filter (case-insensitive). A complete address returns only that address; a partial value returns all matches.
+	Address *string `form:"address,omitempty" json:"address,omitempty"`
+
+	// Reason Return only suppressions with this reason:
+	//
+	// - `manual`: Added through the API or dashboard.
+	Reason *WhatsAppSuppressionReasonFilter `form:"reason,omitempty" json:"reason,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateWhatsAppSuppressionParams defines parameters for CreateWhatsAppSuppression.
+type CreateWhatsAppSuppressionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteWhatsAppSuppressionParams defines parameters for DeleteWhatsAppSuppression.
+type DeleteWhatsAppSuppressionParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListWhatsAppTemplatesParams defines parameters for ListWhatsAppTemplates.
 type ListWhatsAppTemplatesParams struct {
 	// Waba Filter to a single WhatsApp Business Account by its Meta WABA ID: the same value each template reports in its own `waba` field. Our built-in templates belong to no account and are never returned when this is set, and an account your workspace does not hold returns an empty page.
@@ -26114,6 +27087,21 @@ type UpdateWebhookJSONRequestBody = WebhookEndpointUpdate
 // TestWebhookJSONRequestBody defines body for TestWebhook for application/json ContentType.
 type TestWebhookJSONRequestBody = WebhookTestRequest
 
+// CreateWhatsAppGroupJSONRequestBody defines body for CreateWhatsAppGroup for application/json ContentType.
+type CreateWhatsAppGroupJSONRequestBody = WhatsAppGroupCreate
+
+// UpdateWhatsAppGroupJSONRequestBody defines body for UpdateWhatsAppGroup for application/json ContentType.
+type UpdateWhatsAppGroupJSONRequestBody = WhatsAppGroupUpdate
+
+// ApproveWhatsAppGroupJoinRequestsJSONRequestBody defines body for ApproveWhatsAppGroupJoinRequests for application/json ContentType.
+type ApproveWhatsAppGroupJoinRequestsJSONRequestBody = WhatsAppGroupJoinRequestDecision
+
+// RejectWhatsAppGroupJoinRequestsJSONRequestBody defines body for RejectWhatsAppGroupJoinRequests for application/json ContentType.
+type RejectWhatsAppGroupJoinRequestsJSONRequestBody = WhatsAppGroupJoinRequestDecision
+
+// CreateWhatsAppGroupPinnedMessageJSONRequestBody defines body for CreateWhatsAppGroupPinnedMessage for application/json ContentType.
+type CreateWhatsAppGroupPinnedMessageJSONRequestBody = WhatsAppGroupPinnedMessageCreate
+
 // CreateWhatsAppKeywordRuleJSONRequestBody defines body for CreateWhatsAppKeywordRule for application/json ContentType.
 type CreateWhatsAppKeywordRuleJSONRequestBody = WhatsAppKeywordRuleCreate
 
@@ -26128,6 +27116,9 @@ type UpsertWhatsAppMessageReactionJSONRequestBody = WhatsAppReactionUpsert
 
 // SendWhatsAppReadReceiptJSONRequestBody defines body for SendWhatsAppReadReceipt for application/json ContentType.
 type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
+
+// CreateWhatsAppSuppressionJSONRequestBody defines body for CreateWhatsAppSuppression for application/json ContentType.
+type CreateWhatsAppSuppressionJSONRequestBody = WhatsAppSuppressionCreate
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
@@ -26839,23 +27830,23 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 	return err
 }
 
-// AsVoiceCallInboundRouteReject returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteReject
-func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteReject() (VoiceCallInboundRouteReject, error) {
-	var body VoiceCallInboundRouteReject
+// AsVoiceLegInboundRouteReject returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteReject
+func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteReject() (VoiceLegInboundRouteReject, error) {
+	var body VoiceLegInboundRouteReject
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromVoiceCallInboundRouteReject overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteReject
-func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteReject(v VoiceCallInboundRouteReject) error {
+// FromVoiceLegInboundRouteReject overwrites any union data inside the VoiceLegInboundRoute as the provided VoiceLegInboundRouteReject
+func (t *VoiceLegInboundRoute) FromVoiceLegInboundRouteReject(v VoiceLegInboundRouteReject) error {
 	v.Type = "reject"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeVoiceCallInboundRouteReject performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteReject
-func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteReject(v VoiceCallInboundRouteReject) error {
+// MergeVoiceLegInboundRouteReject performs a merge with any union data inside the VoiceLegInboundRoute, using the provided VoiceLegInboundRouteReject
+func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteReject(v VoiceLegInboundRouteReject) error {
 	v.Type = "reject"
 	b, err := json.Marshal(v)
 	if err != nil {
@@ -26867,23 +27858,23 @@ func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteReject(v VoiceCallInbo
 	return err
 }
 
-// AsVoiceCallInboundRouteTrunk returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteTrunk
-func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteTrunk() (VoiceCallInboundRouteTrunk, error) {
-	var body VoiceCallInboundRouteTrunk
+// AsVoiceLegInboundRouteTrunk returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteTrunk
+func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteTrunk() (VoiceLegInboundRouteTrunk, error) {
+	var body VoiceLegInboundRouteTrunk
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromVoiceCallInboundRouteTrunk overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteTrunk
-func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteTrunk(v VoiceCallInboundRouteTrunk) error {
+// FromVoiceLegInboundRouteTrunk overwrites any union data inside the VoiceLegInboundRoute as the provided VoiceLegInboundRouteTrunk
+func (t *VoiceLegInboundRoute) FromVoiceLegInboundRouteTrunk(v VoiceLegInboundRouteTrunk) error {
 	v.Type = "trunk"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeVoiceCallInboundRouteTrunk performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteTrunk
-func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteTrunk(v VoiceCallInboundRouteTrunk) error {
+// MergeVoiceLegInboundRouteTrunk performs a merge with any union data inside the VoiceLegInboundRoute, using the provided VoiceLegInboundRouteTrunk
+func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteTrunk(v VoiceLegInboundRouteTrunk) error {
 	v.Type = "trunk"
 	b, err := json.Marshal(v)
 	if err != nil {
@@ -26895,23 +27886,23 @@ func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteTrunk(v VoiceCallInbou
 	return err
 }
 
-// AsVoiceCallInboundRouteForward returns the union data inside the VoiceCallInboundRoute as a VoiceCallInboundRouteForward
-func (t VoiceCallInboundRoute) AsVoiceCallInboundRouteForward() (VoiceCallInboundRouteForward, error) {
-	var body VoiceCallInboundRouteForward
+// AsVoiceLegInboundRouteForward returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteForward
+func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteForward() (VoiceLegInboundRouteForward, error) {
+	var body VoiceLegInboundRouteForward
 	err := json.Unmarshal(t.union, &body)
 	return body, err
 }
 
-// FromVoiceCallInboundRouteForward overwrites any union data inside the VoiceCallInboundRoute as the provided VoiceCallInboundRouteForward
-func (t *VoiceCallInboundRoute) FromVoiceCallInboundRouteForward(v VoiceCallInboundRouteForward) error {
+// FromVoiceLegInboundRouteForward overwrites any union data inside the VoiceLegInboundRoute as the provided VoiceLegInboundRouteForward
+func (t *VoiceLegInboundRoute) FromVoiceLegInboundRouteForward(v VoiceLegInboundRouteForward) error {
 	v.Type = "forward"
 	b, err := json.Marshal(v)
 	t.union = b
 	return err
 }
 
-// MergeVoiceCallInboundRouteForward performs a merge with any union data inside the VoiceCallInboundRoute, using the provided VoiceCallInboundRouteForward
-func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteForward(v VoiceCallInboundRouteForward) error {
+// MergeVoiceLegInboundRouteForward performs a merge with any union data inside the VoiceLegInboundRoute, using the provided VoiceLegInboundRouteForward
+func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteForward(v VoiceLegInboundRouteForward) error {
 	v.Type = "forward"
 	b, err := json.Marshal(v)
 	if err != nil {
@@ -26923,7 +27914,7 @@ func (t *VoiceCallInboundRoute) MergeVoiceCallInboundRouteForward(v VoiceCallInb
 	return err
 }
 
-func (t VoiceCallInboundRoute) Discriminator() (string, error) {
+func (t VoiceLegInboundRoute) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
 	}
@@ -26931,29 +27922,29 @@ func (t VoiceCallInboundRoute) Discriminator() (string, error) {
 	return discriminator.Discriminator, err
 }
 
-func (t VoiceCallInboundRoute) ValueByDiscriminator() (interface{}, error) {
+func (t VoiceLegInboundRoute) ValueByDiscriminator() (interface{}, error) {
 	discriminator, err := t.Discriminator()
 	if err != nil {
 		return nil, err
 	}
 	switch discriminator {
 	case "forward":
-		return t.AsVoiceCallInboundRouteForward()
+		return t.AsVoiceLegInboundRouteForward()
 	case "reject":
-		return t.AsVoiceCallInboundRouteReject()
+		return t.AsVoiceLegInboundRouteReject()
 	case "trunk":
-		return t.AsVoiceCallInboundRouteTrunk()
+		return t.AsVoiceLegInboundRouteTrunk()
 	default:
 		return nil, errors.New("unknown discriminator value: " + discriminator)
 	}
 }
 
-func (t VoiceCallInboundRoute) MarshalJSON() ([]byte, error) {
+func (t VoiceLegInboundRoute) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	return b, err
 }
 
-func (t *VoiceCallInboundRoute) UnmarshalJSON(b []byte) error {
+func (t *VoiceLegInboundRoute) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -30239,11 +31230,11 @@ type ClientInterface interface {
 
 	CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListVoiceCalls request
-	ListVoiceCalls(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// ListVoiceLegs request
+	ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetVoiceCall request
-	GetVoiceCall(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// GetVoiceLeg request
+	GetVoiceLeg(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWebhooks request
 	ListWebhooks(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -30280,6 +31271,52 @@ type ClientInterface interface {
 
 	// GetWhatsAppBusinessAccount request
 	GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppGroups request
+	ListWhatsAppGroups(ctx context.Context, params *ListWhatsAppGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppGroupWithBody request with any body
+	CreateWhatsAppGroupWithBody(ctx context.Context, params *CreateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppGroup(ctx context.Context, params *CreateWhatsAppGroupParams, body CreateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppGroup request
+	DeleteWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, params *DeleteWhatsAppGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppGroup request
+	GetWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateWhatsAppGroupWithBody request with any body
+	UpdateWhatsAppGroupWithBody(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, body UpdateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RotateWhatsAppGroupInviteLink request
+	RotateWhatsAppGroupInviteLink(ctx context.Context, groupId WhatsAppGroupID, params *RotateWhatsAppGroupInviteLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppGroupJoinRequests request
+	ListWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *ListWhatsAppGroupJoinRequestsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ApproveWhatsAppGroupJoinRequestsWithBody request with any body
+	ApproveWhatsAppGroupJoinRequestsWithBody(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ApproveWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, body ApproveWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RejectWhatsAppGroupJoinRequestsWithBody request with any body
+	RejectWhatsAppGroupJoinRequestsWithBody(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	RejectWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, body RejectWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppGroupParticipant request
+	DeleteWhatsAppGroupParticipant(ctx context.Context, groupId WhatsAppGroupID, participantRef string, params *DeleteWhatsAppGroupParticipantParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppGroupPinnedMessageWithBody request with any body
+	CreateWhatsAppGroupPinnedMessageWithBody(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppGroupPinnedMessage(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, body CreateWhatsAppGroupPinnedMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppGroupPinnedMessage request
+	DeleteWhatsAppGroupPinnedMessage(ctx context.Context, groupId WhatsAppGroupID, messageId WhatsAppMessageID, params *DeleteWhatsAppGroupPinnedMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppKeywordRules request
 	ListWhatsAppKeywordRules(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -30383,6 +31420,20 @@ type ClientInterface interface {
 
 	// GetWhatsAppStatsByTemplate request
 	GetWhatsAppStatsByTemplate(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppSuppressions request
+	ListWhatsAppSuppressions(ctx context.Context, params *ListWhatsAppSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppSuppressionWithBody request with any body
+	CreateWhatsAppSuppressionWithBody(ctx context.Context, params *CreateWhatsAppSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppSuppression(ctx context.Context, params *CreateWhatsAppSuppressionParams, body CreateWhatsAppSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteWhatsAppSuppression request
+	DeleteWhatsAppSuppression(ctx context.Context, suppressionId WhatsAppSuppressionID, params *DeleteWhatsAppSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppSuppression request
+	GetWhatsAppSuppression(ctx context.Context, suppressionId WhatsAppSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppTemplates request
 	ListWhatsAppTemplates(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -33202,8 +34253,8 @@ func (c *Client) CreateVerificationNextChannel(ctx context.Context, params *Crea
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListVoiceCalls(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListVoiceCallsRequest(c.Server, params)
+func (c *Client) ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceLegsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -33214,8 +34265,8 @@ func (c *Client) ListVoiceCalls(ctx context.Context, params *ListVoiceCallsParam
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetVoiceCall(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetVoiceCallRequest(c.Server, callId)
+func (c *Client) GetVoiceLeg(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceLegRequest(c.Server, legId)
 	if err != nil {
 		return nil, err
 	}
@@ -33372,6 +34423,210 @@ func (c *Client) ListWhatsAppBusinessAccounts(ctx context.Context, params *ListW
 
 func (c *Client) GetWhatsAppBusinessAccount(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppBusinessAccountRequest(c.Server, businessAccountRef)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppGroups(ctx context.Context, params *ListWhatsAppGroupsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppGroupsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppGroupWithBody(ctx context.Context, params *CreateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppGroupRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppGroup(ctx context.Context, params *CreateWhatsAppGroupParams, body CreateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppGroupRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, params *DeleteWhatsAppGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppGroupRequest(c.Server, groupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppGroupRequest(c.Server, groupId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWhatsAppGroupWithBody(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWhatsAppGroupRequestWithBody(c.Server, groupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWhatsAppGroup(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, body UpdateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWhatsAppGroupRequest(c.Server, groupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RotateWhatsAppGroupInviteLink(ctx context.Context, groupId WhatsAppGroupID, params *RotateWhatsAppGroupInviteLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRotateWhatsAppGroupInviteLinkRequest(c.Server, groupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *ListWhatsAppGroupJoinRequestsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppGroupJoinRequestsRequest(c.Server, groupId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ApproveWhatsAppGroupJoinRequestsWithBody(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewApproveWhatsAppGroupJoinRequestsRequestWithBody(c.Server, groupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ApproveWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, body ApproveWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewApproveWhatsAppGroupJoinRequestsRequest(c.Server, groupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RejectWhatsAppGroupJoinRequestsWithBody(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRejectWhatsAppGroupJoinRequestsRequestWithBody(c.Server, groupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RejectWhatsAppGroupJoinRequests(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, body RejectWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRejectWhatsAppGroupJoinRequestsRequest(c.Server, groupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppGroupParticipant(ctx context.Context, groupId WhatsAppGroupID, participantRef string, params *DeleteWhatsAppGroupParticipantParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppGroupParticipantRequest(c.Server, groupId, participantRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppGroupPinnedMessageWithBody(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppGroupPinnedMessageRequestWithBody(c.Server, groupId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppGroupPinnedMessage(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, body CreateWhatsAppGroupPinnedMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppGroupPinnedMessageRequest(c.Server, groupId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppGroupPinnedMessage(ctx context.Context, groupId WhatsAppGroupID, messageId WhatsAppMessageID, params *DeleteWhatsAppGroupPinnedMessageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppGroupPinnedMessageRequest(c.Server, groupId, messageId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -33804,6 +35059,66 @@ func (c *Client) GetWhatsAppStatsByTemplateCategory(ctx context.Context, params 
 
 func (c *Client) GetWhatsAppStatsByTemplate(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppStatsByTemplateRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppSuppressions(ctx context.Context, params *ListWhatsAppSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppSuppressionsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppSuppressionWithBody(ctx context.Context, params *CreateWhatsAppSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppSuppressionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppSuppression(ctx context.Context, params *CreateWhatsAppSuppressionParams, body CreateWhatsAppSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppSuppressionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteWhatsAppSuppression(ctx context.Context, suppressionId WhatsAppSuppressionID, params *DeleteWhatsAppSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteWhatsAppSuppressionRequest(c.Server, suppressionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppSuppression(ctx context.Context, suppressionId WhatsAppSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppSuppressionRequest(c.Server, suppressionId)
 	if err != nil {
 		return nil, err
 	}
@@ -48199,8 +49514,8 @@ func NewCreateVerificationNextChannelRequestWithBody(server string, params *Crea
 	return req, nil
 }
 
-// NewListVoiceCallsRequest generates requests for ListVoiceCalls
-func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*http.Request, error) {
+// NewListVoiceLegsRequest generates requests for ListVoiceLegs
+func NewListVoiceLegsRequest(server string, params *ListVoiceLegsParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -48208,7 +49523,7 @@ func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*htt
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/v1/voice/calls")
+	operationPath := fmt.Sprintf("/v1/voice/legs")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -48251,9 +49566,9 @@ func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*htt
 
 		}
 
-		if params.SessionId != nil {
+		if params.CallId != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "session_id", *params.SessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "call_id", *params.CallId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -48397,13 +49712,13 @@ func NewListVoiceCallsRequest(server string, params *ListVoiceCallsParams) (*htt
 	return req, nil
 }
 
-// NewGetVoiceCallRequest generates requests for GetVoiceCall
-func NewGetVoiceCallRequest(server string, callId VoiceCallID) (*http.Request, error) {
+// NewGetVoiceLegRequest generates requests for GetVoiceLeg
+func NewGetVoiceLegRequest(server string, legId VoiceCallID) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "call_id", callId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "leg_id", legId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
 	if err != nil {
 		return nil, err
 	}
@@ -48413,7 +49728,7 @@ func NewGetVoiceCallRequest(server string, callId VoiceCallID) (*http.Request, e
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/v1/voice/calls/%s", pathParam0)
+	operationPath := fmt.Sprintf("/v1/voice/legs/%s", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -49072,6 +50387,836 @@ func NewGetWhatsAppBusinessAccountRequest(server string, businessAccountRef stri
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppGroupsRequest generates requests for ListWhatsAppGroups
+func NewListWhatsAppGroupsRequest(server string, params *ListWhatsAppGroupsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Number != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Waba != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "waba", *params.Waba, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppGroupRequest calls the generic CreateWhatsAppGroup builder with application/json body
+func NewCreateWhatsAppGroupRequest(server string, params *CreateWhatsAppGroupParams, body CreateWhatsAppGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppGroupRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppGroupRequestWithBody generates requests for CreateWhatsAppGroup with any type of body
+func NewCreateWhatsAppGroupRequestWithBody(server string, params *CreateWhatsAppGroupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteWhatsAppGroupRequest generates requests for DeleteWhatsAppGroup
+func NewDeleteWhatsAppGroupRequest(server string, groupId WhatsAppGroupID, params *DeleteWhatsAppGroupParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppGroupRequest generates requests for GetWhatsAppGroup
+func NewGetWhatsAppGroupRequest(server string, groupId WhatsAppGroupID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateWhatsAppGroupRequest calls the generic UpdateWhatsAppGroup builder with application/json body
+func NewUpdateWhatsAppGroupRequest(server string, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, body UpdateWhatsAppGroupJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateWhatsAppGroupRequestWithBody(server, groupId, params, "application/json", bodyReader)
+}
+
+// NewUpdateWhatsAppGroupRequestWithBody generates requests for UpdateWhatsAppGroup with any type of body
+func NewUpdateWhatsAppGroupRequestWithBody(server string, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRotateWhatsAppGroupInviteLinkRequest generates requests for RotateWhatsAppGroupInviteLink
+func NewRotateWhatsAppGroupInviteLinkRequest(server string, groupId WhatsAppGroupID, params *RotateWhatsAppGroupInviteLinkParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/invite-link/rotate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppGroupJoinRequestsRequest generates requests for ListWhatsAppGroupJoinRequests
+func NewListWhatsAppGroupJoinRequestsRequest(server string, groupId WhatsAppGroupID, params *ListWhatsAppGroupJoinRequestsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/join-requests", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewApproveWhatsAppGroupJoinRequestsRequest calls the generic ApproveWhatsAppGroupJoinRequests builder with application/json body
+func NewApproveWhatsAppGroupJoinRequestsRequest(server string, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, body ApproveWhatsAppGroupJoinRequestsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewApproveWhatsAppGroupJoinRequestsRequestWithBody(server, groupId, params, "application/json", bodyReader)
+}
+
+// NewApproveWhatsAppGroupJoinRequestsRequestWithBody generates requests for ApproveWhatsAppGroupJoinRequests with any type of body
+func NewApproveWhatsAppGroupJoinRequestsRequestWithBody(server string, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/join-requests/batch-approve", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRejectWhatsAppGroupJoinRequestsRequest calls the generic RejectWhatsAppGroupJoinRequests builder with application/json body
+func NewRejectWhatsAppGroupJoinRequestsRequest(server string, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, body RejectWhatsAppGroupJoinRequestsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewRejectWhatsAppGroupJoinRequestsRequestWithBody(server, groupId, params, "application/json", bodyReader)
+}
+
+// NewRejectWhatsAppGroupJoinRequestsRequestWithBody generates requests for RejectWhatsAppGroupJoinRequests with any type of body
+func NewRejectWhatsAppGroupJoinRequestsRequestWithBody(server string, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/join-requests/batch-reject", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteWhatsAppGroupParticipantRequest generates requests for DeleteWhatsAppGroupParticipant
+func NewDeleteWhatsAppGroupParticipantRequest(server string, groupId WhatsAppGroupID, participantRef string, params *DeleteWhatsAppGroupParticipantParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "participant_ref", participantRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/participants/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppGroupPinnedMessageRequest calls the generic CreateWhatsAppGroupPinnedMessage builder with application/json body
+func NewCreateWhatsAppGroupPinnedMessageRequest(server string, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, body CreateWhatsAppGroupPinnedMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppGroupPinnedMessageRequestWithBody(server, groupId, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppGroupPinnedMessageRequestWithBody generates requests for CreateWhatsAppGroupPinnedMessage with any type of body
+func NewCreateWhatsAppGroupPinnedMessageRequestWithBody(server string, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/pinned-messages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteWhatsAppGroupPinnedMessageRequest generates requests for DeleteWhatsAppGroupPinnedMessage
+func NewDeleteWhatsAppGroupPinnedMessageRequest(server string, groupId WhatsAppGroupID, messageId WhatsAppMessageID, params *DeleteWhatsAppGroupPinnedMessageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "group_id", groupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/groups/%s/pinned-messages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
 	}
 
 	return req, nil
@@ -51682,6 +53827,246 @@ func NewGetWhatsAppStatsByTemplateRequest(server string, params *GetWhatsAppStat
 	return req, nil
 }
 
+// NewListWhatsAppSuppressionsRequest generates requests for ListWhatsAppSuppressions
+func NewListWhatsAppSuppressionsRequest(server string, params *ListWhatsAppSuppressionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Address != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "address", *params.Address, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reason != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reason", *params.Reason, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppSuppressionRequest calls the generic CreateWhatsAppSuppression builder with application/json body
+func NewCreateWhatsAppSuppressionRequest(server string, params *CreateWhatsAppSuppressionParams, body CreateWhatsAppSuppressionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppSuppressionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppSuppressionRequestWithBody generates requests for CreateWhatsAppSuppression with any type of body
+func NewCreateWhatsAppSuppressionRequestWithBody(server string, params *CreateWhatsAppSuppressionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteWhatsAppSuppressionRequest generates requests for DeleteWhatsAppSuppression
+func NewDeleteWhatsAppSuppressionRequest(server string, suppressionId WhatsAppSuppressionID, params *DeleteWhatsAppSuppressionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppSuppressionRequest generates requests for GetWhatsAppSuppression
+func NewGetWhatsAppSuppressionRequest(server string, suppressionId WhatsAppSuppressionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppTemplatesRequest generates requests for ListWhatsAppTemplates
 func NewListWhatsAppTemplatesRequest(server string, params *ListWhatsAppTemplatesParams) (*http.Request, error) {
 	var err error
@@ -52790,11 +55175,11 @@ type ClientWithResponsesInterface interface {
 
 	CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
 
-	// ListVoiceCallsWithResponse request
-	ListVoiceCallsWithResponse(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallsResponse, error)
+	// ListVoiceLegsWithResponse request
+	ListVoiceLegsWithResponse(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*ListVoiceLegsResponse, error)
 
-	// GetVoiceCallWithResponse request
-	GetVoiceCallWithResponse(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceCallResponse, error)
+	// GetVoiceLegWithResponse request
+	GetVoiceLegWithResponse(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceLegResponse, error)
 
 	// ListWebhooksWithResponse request
 	ListWebhooksWithResponse(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error)
@@ -52831,6 +55216,52 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppBusinessAccountWithResponse request
 	GetWhatsAppBusinessAccountWithResponse(ctx context.Context, businessAccountRef string, reqEditors ...RequestEditorFn) (*GetWhatsAppBusinessAccountResponse, error)
+
+	// ListWhatsAppGroupsWithResponse request
+	ListWhatsAppGroupsWithResponse(ctx context.Context, params *ListWhatsAppGroupsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppGroupsResponse, error)
+
+	// CreateWhatsAppGroupWithBodyWithResponse request with any body
+	CreateWhatsAppGroupWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupResponse, error)
+
+	CreateWhatsAppGroupWithResponse(ctx context.Context, params *CreateWhatsAppGroupParams, body CreateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupResponse, error)
+
+	// DeleteWhatsAppGroupWithResponse request
+	DeleteWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *DeleteWhatsAppGroupParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupResponse, error)
+
+	// GetWhatsAppGroupWithResponse request
+	GetWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, reqEditors ...RequestEditorFn) (*GetWhatsAppGroupResponse, error)
+
+	// UpdateWhatsAppGroupWithBodyWithResponse request with any body
+	UpdateWhatsAppGroupWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWhatsAppGroupResponse, error)
+
+	UpdateWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, body UpdateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWhatsAppGroupResponse, error)
+
+	// RotateWhatsAppGroupInviteLinkWithResponse request
+	RotateWhatsAppGroupInviteLinkWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RotateWhatsAppGroupInviteLinkParams, reqEditors ...RequestEditorFn) (*RotateWhatsAppGroupInviteLinkResponse, error)
+
+	// ListWhatsAppGroupJoinRequestsWithResponse request
+	ListWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ListWhatsAppGroupJoinRequestsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppGroupJoinRequestsResponse, error)
+
+	// ApproveWhatsAppGroupJoinRequestsWithBodyWithResponse request with any body
+	ApproveWhatsAppGroupJoinRequestsWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ApproveWhatsAppGroupJoinRequestsResponse, error)
+
+	ApproveWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, body ApproveWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*ApproveWhatsAppGroupJoinRequestsResponse, error)
+
+	// RejectWhatsAppGroupJoinRequestsWithBodyWithResponse request with any body
+	RejectWhatsAppGroupJoinRequestsWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RejectWhatsAppGroupJoinRequestsResponse, error)
+
+	RejectWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, body RejectWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*RejectWhatsAppGroupJoinRequestsResponse, error)
+
+	// DeleteWhatsAppGroupParticipantWithResponse request
+	DeleteWhatsAppGroupParticipantWithResponse(ctx context.Context, groupId WhatsAppGroupID, participantRef string, params *DeleteWhatsAppGroupParticipantParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupParticipantResponse, error)
+
+	// CreateWhatsAppGroupPinnedMessageWithBodyWithResponse request with any body
+	CreateWhatsAppGroupPinnedMessageWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupPinnedMessageResponse, error)
+
+	CreateWhatsAppGroupPinnedMessageWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, body CreateWhatsAppGroupPinnedMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupPinnedMessageResponse, error)
+
+	// DeleteWhatsAppGroupPinnedMessageWithResponse request
+	DeleteWhatsAppGroupPinnedMessageWithResponse(ctx context.Context, groupId WhatsAppGroupID, messageId WhatsAppMessageID, params *DeleteWhatsAppGroupPinnedMessageParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupPinnedMessageResponse, error)
 
 	// ListWhatsAppKeywordRulesWithResponse request
 	ListWhatsAppKeywordRulesWithResponse(ctx context.Context, params *ListWhatsAppKeywordRulesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppKeywordRulesResponse, error)
@@ -52934,6 +55365,20 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppStatsByTemplateWithResponse request
 	GetWhatsAppStatsByTemplateWithResponse(ctx context.Context, params *GetWhatsAppStatsByTemplateParams, reqEditors ...RequestEditorFn) (*GetWhatsAppStatsByTemplateResponse, error)
+
+	// ListWhatsAppSuppressionsWithResponse request
+	ListWhatsAppSuppressionsWithResponse(ctx context.Context, params *ListWhatsAppSuppressionsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppSuppressionsResponse, error)
+
+	// CreateWhatsAppSuppressionWithBodyWithResponse request with any body
+	CreateWhatsAppSuppressionWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppSuppressionResponse, error)
+
+	CreateWhatsAppSuppressionWithResponse(ctx context.Context, params *CreateWhatsAppSuppressionParams, body CreateWhatsAppSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppSuppressionResponse, error)
+
+	// DeleteWhatsAppSuppressionWithResponse request
+	DeleteWhatsAppSuppressionWithResponse(ctx context.Context, suppressionId WhatsAppSuppressionID, params *DeleteWhatsAppSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppSuppressionResponse, error)
+
+	// GetWhatsAppSuppressionWithResponse request
+	GetWhatsAppSuppressionWithResponse(ctx context.Context, suppressionId WhatsAppSuppressionID, reqEditors ...RequestEditorFn) (*GetWhatsAppSuppressionResponse, error)
 
 	// ListWhatsAppTemplatesWithResponse request
 	ListWhatsAppTemplatesWithResponse(ctx context.Context, params *ListWhatsAppTemplatesParams, reqEditors ...RequestEditorFn) (*ListWhatsAppTemplatesResponse, error)
@@ -59829,10 +62274,10 @@ func (r CreateVerificationNextChannelResponse) ContentType() string {
 	return ""
 }
 
-type ListVoiceCallsResponse struct {
+type ListVoiceLegsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *VoiceCallList
+	JSON200      *VoiceLegList
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON422      *Unprocessable
@@ -59841,7 +62286,7 @@ type ListVoiceCallsResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r ListVoiceCallsResponse) Status() string {
+func (r ListVoiceLegsResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -59849,7 +62294,7 @@ func (r ListVoiceCallsResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r ListVoiceCallsResponse) StatusCode() int {
+func (r ListVoiceLegsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -59857,17 +62302,17 @@ func (r ListVoiceCallsResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListVoiceCallsResponse) ContentType() string {
+func (r ListVoiceLegsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
 	return ""
 }
 
-type GetVoiceCallResponse struct {
+type GetVoiceLegResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *VoiceCall
+	JSON200      *VoiceLeg
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
@@ -59877,7 +62322,7 @@ type GetVoiceCallResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r GetVoiceCallResponse) Status() string {
+func (r GetVoiceLegResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -59885,7 +62330,7 @@ func (r GetVoiceCallResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetVoiceCallResponse) StatusCode() int {
+func (r GetVoiceLegResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -59893,7 +62338,7 @@ func (r GetVoiceCallResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetVoiceCallResponse) ContentType() string {
+func (r GetVoiceLegResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -60259,6 +62704,460 @@ func (r GetWhatsAppBusinessAccountResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetWhatsAppBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppGroupsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroupList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppGroupsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppGroupsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppGroupsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroup
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroup
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateWhatsAppGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroup
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateWhatsAppGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateWhatsAppGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateWhatsAppGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RotateWhatsAppGroupInviteLinkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroupInviteLink
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RotateWhatsAppGroupInviteLinkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RotateWhatsAppGroupInviteLinkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RotateWhatsAppGroupInviteLinkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppGroupJoinRequestsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroupJoinRequestList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppGroupJoinRequestsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppGroupJoinRequestsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppGroupJoinRequestsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ApproveWhatsAppGroupJoinRequestsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroupJoinRequestDecisionResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ApproveWhatsAppGroupJoinRequestsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ApproveWhatsAppGroupJoinRequestsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ApproveWhatsAppGroupJoinRequestsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RejectWhatsAppGroupJoinRequestsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroupJoinRequestDecisionResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RejectWhatsAppGroupJoinRequestsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RejectWhatsAppGroupJoinRequestsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RejectWhatsAppGroupJoinRequestsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppGroupParticipantResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppGroup
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppGroupParticipantResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppGroupParticipantResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppGroupParticipantResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppGroupPinnedMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroupPinnedMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppGroupPinnedMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppGroupPinnedMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppGroupPinnedMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppGroupPinnedMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppGroup
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppGroupPinnedMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppGroupPinnedMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppGroupPinnedMessageResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -61411,6 +64310,151 @@ func (r GetWhatsAppStatsByTemplateResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetWhatsAppStatsByTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppSuppressionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppSuppressionList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppSuppressionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppSuppressionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppSuppressionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppSuppression
+	JSON201      *WhatsAppSuppression
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteWhatsAppSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteWhatsAppSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteWhatsAppSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteWhatsAppSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppSuppression
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppSuppressionResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -63717,22 +66761,22 @@ func (c *ClientWithResponses) CreateVerificationNextChannelWithResponse(ctx cont
 	return ParseCreateVerificationNextChannelResponse(rsp)
 }
 
-// ListVoiceCallsWithResponse request returning *ListVoiceCallsResponse
-func (c *ClientWithResponses) ListVoiceCallsWithResponse(ctx context.Context, params *ListVoiceCallsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallsResponse, error) {
-	rsp, err := c.ListVoiceCalls(ctx, params, reqEditors...)
+// ListVoiceLegsWithResponse request returning *ListVoiceLegsResponse
+func (c *ClientWithResponses) ListVoiceLegsWithResponse(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*ListVoiceLegsResponse, error) {
+	rsp, err := c.ListVoiceLegs(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseListVoiceCallsResponse(rsp)
+	return ParseListVoiceLegsResponse(rsp)
 }
 
-// GetVoiceCallWithResponse request returning *GetVoiceCallResponse
-func (c *ClientWithResponses) GetVoiceCallWithResponse(ctx context.Context, callId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceCallResponse, error) {
-	rsp, err := c.GetVoiceCall(ctx, callId, reqEditors...)
+// GetVoiceLegWithResponse request returning *GetVoiceLegResponse
+func (c *ClientWithResponses) GetVoiceLegWithResponse(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceLegResponse, error) {
+	rsp, err := c.GetVoiceLeg(ctx, legId, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetVoiceCallResponse(rsp)
+	return ParseGetVoiceLegResponse(rsp)
 }
 
 // ListWebhooksWithResponse request returning *ListWebhooksResponse
@@ -63847,6 +66891,154 @@ func (c *ClientWithResponses) GetWhatsAppBusinessAccountWithResponse(ctx context
 		return nil, err
 	}
 	return ParseGetWhatsAppBusinessAccountResponse(rsp)
+}
+
+// ListWhatsAppGroupsWithResponse request returning *ListWhatsAppGroupsResponse
+func (c *ClientWithResponses) ListWhatsAppGroupsWithResponse(ctx context.Context, params *ListWhatsAppGroupsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppGroupsResponse, error) {
+	rsp, err := c.ListWhatsAppGroups(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppGroupsResponse(rsp)
+}
+
+// CreateWhatsAppGroupWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppGroupResponse
+func (c *ClientWithResponses) CreateWhatsAppGroupWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupResponse, error) {
+	rsp, err := c.CreateWhatsAppGroupWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppGroupWithResponse(ctx context.Context, params *CreateWhatsAppGroupParams, body CreateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupResponse, error) {
+	rsp, err := c.CreateWhatsAppGroup(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppGroupResponse(rsp)
+}
+
+// DeleteWhatsAppGroupWithResponse request returning *DeleteWhatsAppGroupResponse
+func (c *ClientWithResponses) DeleteWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *DeleteWhatsAppGroupParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupResponse, error) {
+	rsp, err := c.DeleteWhatsAppGroup(ctx, groupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppGroupResponse(rsp)
+}
+
+// GetWhatsAppGroupWithResponse request returning *GetWhatsAppGroupResponse
+func (c *ClientWithResponses) GetWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, reqEditors ...RequestEditorFn) (*GetWhatsAppGroupResponse, error) {
+	rsp, err := c.GetWhatsAppGroup(ctx, groupId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppGroupResponse(rsp)
+}
+
+// UpdateWhatsAppGroupWithBodyWithResponse request with arbitrary body returning *UpdateWhatsAppGroupResponse
+func (c *ClientWithResponses) UpdateWhatsAppGroupWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWhatsAppGroupResponse, error) {
+	rsp, err := c.UpdateWhatsAppGroupWithBody(ctx, groupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWhatsAppGroupResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateWhatsAppGroupWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *UpdateWhatsAppGroupParams, body UpdateWhatsAppGroupJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWhatsAppGroupResponse, error) {
+	rsp, err := c.UpdateWhatsAppGroup(ctx, groupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWhatsAppGroupResponse(rsp)
+}
+
+// RotateWhatsAppGroupInviteLinkWithResponse request returning *RotateWhatsAppGroupInviteLinkResponse
+func (c *ClientWithResponses) RotateWhatsAppGroupInviteLinkWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RotateWhatsAppGroupInviteLinkParams, reqEditors ...RequestEditorFn) (*RotateWhatsAppGroupInviteLinkResponse, error) {
+	rsp, err := c.RotateWhatsAppGroupInviteLink(ctx, groupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRotateWhatsAppGroupInviteLinkResponse(rsp)
+}
+
+// ListWhatsAppGroupJoinRequestsWithResponse request returning *ListWhatsAppGroupJoinRequestsResponse
+func (c *ClientWithResponses) ListWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ListWhatsAppGroupJoinRequestsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppGroupJoinRequestsResponse, error) {
+	rsp, err := c.ListWhatsAppGroupJoinRequests(ctx, groupId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppGroupJoinRequestsResponse(rsp)
+}
+
+// ApproveWhatsAppGroupJoinRequestsWithBodyWithResponse request with arbitrary body returning *ApproveWhatsAppGroupJoinRequestsResponse
+func (c *ClientWithResponses) ApproveWhatsAppGroupJoinRequestsWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ApproveWhatsAppGroupJoinRequestsResponse, error) {
+	rsp, err := c.ApproveWhatsAppGroupJoinRequestsWithBody(ctx, groupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseApproveWhatsAppGroupJoinRequestsResponse(rsp)
+}
+
+func (c *ClientWithResponses) ApproveWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *ApproveWhatsAppGroupJoinRequestsParams, body ApproveWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*ApproveWhatsAppGroupJoinRequestsResponse, error) {
+	rsp, err := c.ApproveWhatsAppGroupJoinRequests(ctx, groupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseApproveWhatsAppGroupJoinRequestsResponse(rsp)
+}
+
+// RejectWhatsAppGroupJoinRequestsWithBodyWithResponse request with arbitrary body returning *RejectWhatsAppGroupJoinRequestsResponse
+func (c *ClientWithResponses) RejectWhatsAppGroupJoinRequestsWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*RejectWhatsAppGroupJoinRequestsResponse, error) {
+	rsp, err := c.RejectWhatsAppGroupJoinRequestsWithBody(ctx, groupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRejectWhatsAppGroupJoinRequestsResponse(rsp)
+}
+
+func (c *ClientWithResponses) RejectWhatsAppGroupJoinRequestsWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *RejectWhatsAppGroupJoinRequestsParams, body RejectWhatsAppGroupJoinRequestsJSONRequestBody, reqEditors ...RequestEditorFn) (*RejectWhatsAppGroupJoinRequestsResponse, error) {
+	rsp, err := c.RejectWhatsAppGroupJoinRequests(ctx, groupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRejectWhatsAppGroupJoinRequestsResponse(rsp)
+}
+
+// DeleteWhatsAppGroupParticipantWithResponse request returning *DeleteWhatsAppGroupParticipantResponse
+func (c *ClientWithResponses) DeleteWhatsAppGroupParticipantWithResponse(ctx context.Context, groupId WhatsAppGroupID, participantRef string, params *DeleteWhatsAppGroupParticipantParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupParticipantResponse, error) {
+	rsp, err := c.DeleteWhatsAppGroupParticipant(ctx, groupId, participantRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppGroupParticipantResponse(rsp)
+}
+
+// CreateWhatsAppGroupPinnedMessageWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppGroupPinnedMessageResponse
+func (c *ClientWithResponses) CreateWhatsAppGroupPinnedMessageWithBodyWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupPinnedMessageResponse, error) {
+	rsp, err := c.CreateWhatsAppGroupPinnedMessageWithBody(ctx, groupId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppGroupPinnedMessageResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppGroupPinnedMessageWithResponse(ctx context.Context, groupId WhatsAppGroupID, params *CreateWhatsAppGroupPinnedMessageParams, body CreateWhatsAppGroupPinnedMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppGroupPinnedMessageResponse, error) {
+	rsp, err := c.CreateWhatsAppGroupPinnedMessage(ctx, groupId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppGroupPinnedMessageResponse(rsp)
+}
+
+// DeleteWhatsAppGroupPinnedMessageWithResponse request returning *DeleteWhatsAppGroupPinnedMessageResponse
+func (c *ClientWithResponses) DeleteWhatsAppGroupPinnedMessageWithResponse(ctx context.Context, groupId WhatsAppGroupID, messageId WhatsAppMessageID, params *DeleteWhatsAppGroupPinnedMessageParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppGroupPinnedMessageResponse, error) {
+	rsp, err := c.DeleteWhatsAppGroupPinnedMessage(ctx, groupId, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppGroupPinnedMessageResponse(rsp)
 }
 
 // ListWhatsAppKeywordRulesWithResponse request returning *ListWhatsAppKeywordRulesResponse
@@ -64166,6 +67358,50 @@ func (c *ClientWithResponses) GetWhatsAppStatsByTemplateWithResponse(ctx context
 		return nil, err
 	}
 	return ParseGetWhatsAppStatsByTemplateResponse(rsp)
+}
+
+// ListWhatsAppSuppressionsWithResponse request returning *ListWhatsAppSuppressionsResponse
+func (c *ClientWithResponses) ListWhatsAppSuppressionsWithResponse(ctx context.Context, params *ListWhatsAppSuppressionsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppSuppressionsResponse, error) {
+	rsp, err := c.ListWhatsAppSuppressions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppSuppressionsResponse(rsp)
+}
+
+// CreateWhatsAppSuppressionWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppSuppressionResponse
+func (c *ClientWithResponses) CreateWhatsAppSuppressionWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppSuppressionResponse, error) {
+	rsp, err := c.CreateWhatsAppSuppressionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppSuppressionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppSuppressionWithResponse(ctx context.Context, params *CreateWhatsAppSuppressionParams, body CreateWhatsAppSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppSuppressionResponse, error) {
+	rsp, err := c.CreateWhatsAppSuppression(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppSuppressionResponse(rsp)
+}
+
+// DeleteWhatsAppSuppressionWithResponse request returning *DeleteWhatsAppSuppressionResponse
+func (c *ClientWithResponses) DeleteWhatsAppSuppressionWithResponse(ctx context.Context, suppressionId WhatsAppSuppressionID, params *DeleteWhatsAppSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteWhatsAppSuppressionResponse, error) {
+	rsp, err := c.DeleteWhatsAppSuppression(ctx, suppressionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteWhatsAppSuppressionResponse(rsp)
+}
+
+// GetWhatsAppSuppressionWithResponse request returning *GetWhatsAppSuppressionResponse
+func (c *ClientWithResponses) GetWhatsAppSuppressionWithResponse(ctx context.Context, suppressionId WhatsAppSuppressionID, reqEditors ...RequestEditorFn) (*GetWhatsAppSuppressionResponse, error) {
+	rsp, err := c.GetWhatsAppSuppression(ctx, suppressionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppSuppressionResponse(rsp)
 }
 
 // ListWhatsAppTemplatesWithResponse request returning *ListWhatsAppTemplatesResponse
@@ -78295,22 +81531,22 @@ func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVeri
 	return response, nil
 }
 
-// ParseListVoiceCallsResponse parses an HTTP response from a ListVoiceCallsWithResponse call
-func ParseListVoiceCallsResponse(rsp *http.Response) (*ListVoiceCallsResponse, error) {
+// ParseListVoiceLegsResponse parses an HTTP response from a ListVoiceLegsWithResponse call
+func ParseListVoiceLegsResponse(rsp *http.Response) (*ListVoiceLegsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &ListVoiceCallsResponse{
+	response := &ListVoiceLegsResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest VoiceCallList
+		var dest VoiceLegList
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -78356,22 +81592,22 @@ func ParseListVoiceCallsResponse(rsp *http.Response) (*ListVoiceCallsResponse, e
 	return response, nil
 }
 
-// ParseGetVoiceCallResponse parses an HTTP response from a GetVoiceCallWithResponse call
-func ParseGetVoiceCallResponse(rsp *http.Response) (*GetVoiceCallResponse, error) {
+// ParseGetVoiceLegResponse parses an HTTP response from a GetVoiceLegWithResponse call
+func ParseGetVoiceLegResponse(rsp *http.Response) (*GetVoiceLegResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetVoiceCallResponse{
+	response := &GetVoiceLegResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest VoiceCall
+		var dest VoiceLeg
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -79133,6 +82369,976 @@ func ParseGetWhatsAppBusinessAccountResponse(rsp *http.Response) (*GetWhatsAppBu
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppGroupsResponse parses an HTTP response from a ListWhatsAppGroupsWithResponse call
+func ParseListWhatsAppGroupsResponse(rsp *http.Response) (*ListWhatsAppGroupsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppGroupsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroupList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppGroupResponse parses an HTTP response from a CreateWhatsAppGroupWithResponse call
+func ParseCreateWhatsAppGroupResponse(rsp *http.Response) (*CreateWhatsAppGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppGroupResponse parses an HTTP response from a DeleteWhatsAppGroupWithResponse call
+func ParseDeleteWhatsAppGroupResponse(rsp *http.Response) (*DeleteWhatsAppGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppGroupResponse parses an HTTP response from a GetWhatsAppGroupWithResponse call
+func ParseGetWhatsAppGroupResponse(rsp *http.Response) (*GetWhatsAppGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateWhatsAppGroupResponse parses an HTTP response from a UpdateWhatsAppGroupWithResponse call
+func ParseUpdateWhatsAppGroupResponse(rsp *http.Response) (*UpdateWhatsAppGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateWhatsAppGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRotateWhatsAppGroupInviteLinkResponse parses an HTTP response from a RotateWhatsAppGroupInviteLinkWithResponse call
+func ParseRotateWhatsAppGroupInviteLinkResponse(rsp *http.Response) (*RotateWhatsAppGroupInviteLinkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RotateWhatsAppGroupInviteLinkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroupInviteLink
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppGroupJoinRequestsResponse parses an HTTP response from a ListWhatsAppGroupJoinRequestsWithResponse call
+func ParseListWhatsAppGroupJoinRequestsResponse(rsp *http.Response) (*ListWhatsAppGroupJoinRequestsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppGroupJoinRequestsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroupJoinRequestList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseApproveWhatsAppGroupJoinRequestsResponse parses an HTTP response from a ApproveWhatsAppGroupJoinRequestsWithResponse call
+func ParseApproveWhatsAppGroupJoinRequestsResponse(rsp *http.Response) (*ApproveWhatsAppGroupJoinRequestsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ApproveWhatsAppGroupJoinRequestsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroupJoinRequestDecisionResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRejectWhatsAppGroupJoinRequestsResponse parses an HTTP response from a RejectWhatsAppGroupJoinRequestsWithResponse call
+func ParseRejectWhatsAppGroupJoinRequestsResponse(rsp *http.Response) (*RejectWhatsAppGroupJoinRequestsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RejectWhatsAppGroupJoinRequestsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroupJoinRequestDecisionResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppGroupParticipantResponse parses an HTTP response from a DeleteWhatsAppGroupParticipantWithResponse call
+func ParseDeleteWhatsAppGroupParticipantResponse(rsp *http.Response) (*DeleteWhatsAppGroupParticipantResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppGroupParticipantResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppGroupPinnedMessageResponse parses an HTTP response from a CreateWhatsAppGroupPinnedMessageWithResponse call
+func ParseCreateWhatsAppGroupPinnedMessageResponse(rsp *http.Response) (*CreateWhatsAppGroupPinnedMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppGroupPinnedMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroupPinnedMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppGroupPinnedMessageResponse parses an HTTP response from a DeleteWhatsAppGroupPinnedMessageWithResponse call
+func ParseDeleteWhatsAppGroupPinnedMessageResponse(rsp *http.Response) (*DeleteWhatsAppGroupPinnedMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppGroupPinnedMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppGroup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -81493,6 +85699,285 @@ func ParseGetWhatsAppStatsByTemplateResponse(rsp *http.Response) (*GetWhatsAppSt
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppSuppressionsResponse parses an HTTP response from a ListWhatsAppSuppressionsWithResponse call
+func ParseListWhatsAppSuppressionsResponse(rsp *http.Response) (*ListWhatsAppSuppressionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppSuppressionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppSuppressionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppSuppressionResponse parses an HTTP response from a CreateWhatsAppSuppressionWithResponse call
+func ParseCreateWhatsAppSuppressionResponse(rsp *http.Response) (*CreateWhatsAppSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest WhatsAppSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteWhatsAppSuppressionResponse parses an HTTP response from a DeleteWhatsAppSuppressionWithResponse call
+func ParseDeleteWhatsAppSuppressionResponse(rsp *http.Response) (*DeleteWhatsAppSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteWhatsAppSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppSuppressionResponse parses an HTTP response from a GetWhatsAppSuppressionWithResponse call
+func ParseGetWhatsAppSuppressionResponse(rsp *http.Response) (*GetWhatsAppSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 

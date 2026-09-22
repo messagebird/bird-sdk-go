@@ -1968,30 +1968,27 @@ func ExampleRealtimeMembersService_Disconnect() {
 	}
 }
 
-// List the workspace's calls. Filtering to the in-flight statuses gives the
-// calls happening right now; omit the filter for completed records.
-func ExampleVoiceService_List() {
+// List the workspace's completed legs.
+func ExampleVoiceLegsService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	for call, err := range client.Voice.List(context.Background(), bird.VoiceListParams{
-		Status: []bird.VoiceCallStatus{"ringing", "in_progress"},
-	}) {
+	for leg, err := range client.Voice.Legs.List(context.Background(), bird.VoiceLegsListParams{}) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(call.Id, call.Status)
+		fmt.Println(leg.Id, leg.Status)
 	}
 }
 
 // Get returns one call at any point in its lifecycle, settled or still up.
-func ExampleVoiceService_Get() {
+func ExampleVoiceLegsService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	call, err := client.Voice.Get(context.Background(), "vcl_01k0p3v9wera3v6q6xw3e9y2mh")
+	call, err := client.Voice.Legs.Get(context.Background(), "vcl_01k0p3v9wera3v6q6xw3e9y2mh")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -3851,4 +3848,240 @@ func ExampleEmailInboxInsightsBenchmarksService_Industry() {
 		log.Fatal(err)
 	}
 	fmt.Println(string(encoded))
+}
+
+// Create a group on a business number that holds Official Business Account
+// status; the group starts pending and gains its invite link when WhatsApp
+// confirms it.
+func ExampleWhatsappGroupsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Create(context.Background(), bird.WhatsappGroupsCreateParams{
+		WhatsappNumberID: "wan_01krdgeqcxet5s7t44vh8rt9mg",
+		Subject:          "Norwood Fleet — Tuesday route",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.Id, group.Status) // pending; read it back for the invite link
+}
+
+// Walk the workspace's groups, newest first.
+func ExampleWhatsappGroupsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for group, err := range client.Whatsapp.Groups.List(context.Background(), bird.WhatsappGroupsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(group.Id, group.Subject, group.ParticipantCount)
+	}
+}
+
+// Read one group back until it is active, which is when the invite link exists.
+func ExampleWhatsappGroupsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Get(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.Status, len(*group.Participants))
+}
+
+// Rename a group. The change is accepted here and applied at WhatsApp, so read
+// the group back to see it land.
+func ExampleWhatsappGroupsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Update(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappGroupsUpdateParams{
+		Subject: bird.String("Norwood Fleet — Wednesday route"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.LastOperation.Status) // pending until WhatsApp reports back
+}
+
+// Delete a group. Everyone loses access, including your own business number.
+func ExampleWhatsappGroupsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Delete(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(group.LastOperation.Status)
+}
+
+// Issue a new invite link, invalidating every link handed out before.
+func ExampleWhatsappGroupsInviteLinkService_Rotate() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	link, err := client.Whatsapp.Groups.InviteLink.Rotate(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(link.InviteLink) // every earlier link has stopped working
+}
+
+// Remove someone from a group. This cannot be undone: WhatsApp blocks them from
+// rejoining by invite link, and nothing adds a participant back.
+func ExampleWhatsappGroupsParticipantsService_Remove() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Participants.Remove(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", "BR.1566655121691972")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(len(*group.Participants))
+}
+
+// List the people waiting to be let into a group, oldest first.
+func ExampleWhatsappGroupsJoinRequestsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for request, err := range client.Whatsapp.Groups.JoinRequests.List(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappGroupsJoinRequestsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(request.Id, request.Bsuid)
+	}
+}
+
+// Approve join requests in a batch. Each is decided on its own, so read the
+// result rather than the status code.
+func ExampleWhatsappGroupsJoinRequestsService_Approve() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Whatsapp.Groups.JoinRequests.Approve(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappGroupsJoinRequestsApproveParams{
+		JoinRequestIDs: []string{"wgj_01krdgeqcxet5s7t44vh8rt9mg"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(len(*result.Decided), len(*result.Failed))
+}
+
+// Reject join requests in a batch, with the same part-applied result.
+func ExampleWhatsappGroupsJoinRequestsService_Reject() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Whatsapp.Groups.JoinRequests.Reject(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappGroupsJoinRequestsRejectParams{
+		JoinRequestIDs: []string{"wgj_01krdgeqcxet5s7t44vh8rt9mg"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, failure := range *result.Failed {
+		fmt.Println(failure.JoinRequestId, failure.Error.Description)
+	}
+}
+
+// Pin a message to the top of the group's chat. A group holds 3 pins; a fourth
+// unpins the oldest rather than failing.
+func ExampleWhatsappGroupsPinsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	pin, err := client.Whatsapp.Groups.Pins.Create(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappGroupsPinsCreateParams{
+		MessageID: "wam_01kya19eknftrs2s6p82asmvnh",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(pin.PinnedUntil)
+}
+
+// Unpin a message early. Repeating the call is safe.
+func ExampleWhatsappGroupsPinsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	group, err := client.Whatsapp.Groups.Pins.Delete(context.Background(), "wag_01krdgeqcxet5s7t44vh8rt9mg", "wam_01kya19eknftrs2s6p82asmvnh")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(len(*group.PinnedMessages))
+}
+
+func ExampleWhatsappSuppressionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for suppression, err := range client.Whatsapp.Suppressions.List(context.Background(), bird.WhatsappSuppressionsListParams{
+		Address: "+1555", // a prefix, so a partial value matches every address under it
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(suppression.Address, suppression.Reason)
+	}
+}
+
+// Resolves a record that has already ended, which the list leaves out.
+func ExampleWhatsappSuppressionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	suppression, err := client.Whatsapp.Suppressions.Get(context.Background(), "was_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Reason, suppression.EndedAt)
+}
+
+func ExampleWhatsappSuppressionsService_Add() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	waba := "102290129340398"
+	suppression, err := client.Whatsapp.Suppressions.Add(context.Background(), bird.WhatsappSuppressionsAddParams{
+		Address: "+15550001234",
+		// Omit Waba to block the address for the whole workspace, whichever account
+		// sends. With it, your other accounts keep reaching them, and the same
+		// address for two accounts is two records.
+		Waba: &waba,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(suppression.Id, suppression.AppliesTo)
+}
+
+// Only a manual suppression can be ended; a recipient's own opt-out is theirs
+// to reverse. The record is kept and still reads back by id.
+func ExampleWhatsappSuppressionsService_Remove() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Whatsapp.Suppressions.Remove(context.Background(), "was_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
 }

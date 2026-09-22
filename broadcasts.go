@@ -2,6 +2,7 @@ package bird
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"time"
 
@@ -27,11 +28,13 @@ type BroadcastsService struct{ resource }
 // From and ReplyTo accept either a bare email address or RFC 5322 mailbox
 // syntax with a display name: "Newsletter <news@example.com>".
 type BroadcastsCreateParams struct {
+	// One of the template version's languages to send to the whole audience, empty for the version's default. It travels inside Template, so it is only sent alongside one.
+	Language string
 	// The address the broadcast sends from. The domain has to be one this workspace has verified.
 	From string
 	// The audience this broadcast sends to. Its contacts are taken as they stand when the send starts, minus any suppressed addresses.
 	AudienceID string
-	// The template the broadcast sends, as its ID (`emt_…`). A draft can leave it out, but a broadcast cannot send without one. Its published version is fixed when the broadcast is prepared for sending.
+	// The template the broadcast sends, as its ID (`emt_…`). A draft can leave it out, but a broadcast cannot send without one. Its published version is fixed when the broadcast is prepared for sending. Language selects one of that version's languages and needs a Template to sit on.
 	Template string
 	// Where replies to this broadcast should go. Up to 25 addresses.
 	ReplyTo []string
@@ -66,12 +69,18 @@ func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
 		TrackClicks: p.TrackClicks,
 		ScheduledAt: optTime(p.ScheduledAt),
 	}
+
 	if p.From != "" {
 		from := addressInput(p.From)
 		body.From = &from
 	}
 	if p.Template != "" {
-		body.Template = &oapi.EmailBroadcastTemplate{Id: p.Template}
+		template := oapi.EmailBroadcastTemplateCreate{Id: p.Template}
+		if p.Language != "" {
+			lang := oapi.LanguageTag(p.Language)
+			template.Language = &lang
+		}
+		body.Template = &template
 	}
 	if len(p.ReplyTo) > 0 {
 		replyTo := addressInputs(p.ReplyTo)
@@ -155,6 +164,11 @@ func (s *BroadcastsService) Create(ctx context.Context, params BroadcastsCreateP
 	if err != nil {
 		return nil, err
 	}
+	// The language is one of the template's own languages, so on its own it has
+	// nothing to select from and would otherwise be dropped from the wire body.
+	if params.Language != "" && params.Template == "" {
+		return nil, errors.New("bird: Language needs a Template: the language is chosen from the template it belongs to")
+	}
 	wire := params.withDefaults(cfg.EmailDefaults).toWire()
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
 		op := &oapi.CreateEmailBroadcastParams{}
@@ -175,14 +189,18 @@ func (s *BroadcastsService) Create(ctx context.Context, params BroadcastsCreateP
 
 // BroadcastsUpdateParams changes a broadcast that is still a draft or is
 // scheduled. Whatever it sets is applied; anything left at its zero value keeps
-// the value the broadcast already had. Template, ReplyTo and IPPoolID are
-// clearable: build them with Value to set and Null to clear.
+// the value the broadcast already had. Template, ReplyTo, Language and IPPoolID are
+// clearable: build them with Value to set and Null to clear. Setting Template
+// releases the version the broadcast is fixed to, so change Language on its own
+// to keep it.
 type BroadcastsUpdateParams struct {
+	// One of the template version's languages to send to the whole audience. Value selects it, Null clears it so the version's default language sends, and leaving it unspecified keeps the current selection. On its own it keeps the template and the version the broadcast is fixed to.
+	Language Nullable[string]
 	// The address the broadcast sends from. The domain has to be one this workspace has verified.
 	From string
 	// The audience this broadcast sends to.
 	AudienceID string
-	// The template the broadcast sends, as its ID (`emt_…`). Null takes the template off a draft.
+	// The template the broadcast sends, as its ID (`emt_…`). Setting it releases the version the broadcast is fixed to, and repeating the current ID is how a caller takes a newly published one. Null takes the template and its language off a draft.
 	Template Nullable[string]
 	// Where replies to this broadcast should go. Null removes the addresses already set.
 	ReplyTo Nullable[[]string]
@@ -238,18 +256,23 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 		TrackOpens:  p.TrackOpens,
 		TrackClicks: p.TrackClicks,
 	}
+
 	if p.From != "" {
 		from := addressInput(p.From)
 		body.From = &from
 	}
-	// The wire nests the template reference in an object, so a set and a clear
-	// have to be rebuilt rather than passed through as the string Nullable.
-	if p.Template.IsSpecified() {
-		if p.Template.IsNull() {
-			body.Template = Null[oapi.EmailBroadcastTemplate]()
-		} else {
-			body.Template = Value(oapi.EmailBroadcastTemplate{Id: p.Template.MustGet()})
-		}
+	// The wire nests the template reference and the language in one object, so a
+	// set and a clear have to be rebuilt rather than passed through as the string
+	// Nullables. An id there releases the version the broadcast is fixed to, so a
+	// language on its own is sent without one.
+	switch {
+	case p.Template.IsSpecified() && p.Template.IsNull():
+		body.Template = Null[oapi.EmailBroadcastTemplateUpdate]()
+	case p.Template.IsSpecified():
+		id := p.Template.MustGet()
+		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Id: &id, Language: p.Language})
+	case p.Language.IsSpecified():
+		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Language: p.Language})
 	}
 	if p.ReplyTo.IsSpecified() {
 		if p.ReplyTo.IsNull() {
@@ -270,6 +293,13 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 // stands. A broadcast that has started sending can no longer be edited and is
 // refused with a 409. Retried safely with a reused idempotency key.
 func (s *BroadcastsService) Update(ctx context.Context, broadcastId string, params BroadcastsUpdateParams, opts ...option.RequestOption) (*EmailBroadcast, error) {
+	// Clearing the template takes its language with it, so a language sent in the
+	// same call has nothing to select from and would otherwise be dropped from
+	// the wire body. A Null language beside a Null template asks for the same
+	// clear twice and goes through.
+	if params.Template.IsSpecified() && params.Template.IsNull() && params.Language.IsSpecified() && !params.Language.IsNull() {
+		return nil, errors.New("bird: Language needs a Template: the language is chosen from the template it belongs to")
+	}
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailBroadcastParams{}
 		if idempotencyKey != "" {

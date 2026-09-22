@@ -628,6 +628,19 @@ const (
 	WhatsAppKeywordOperationOptOut = oapi.WhatsAppKeywordOperationOptOut
 )
 
+// WhatsAppMetaHealthEntityType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppMetaHealthEntityType* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppMetaHealthEntityType = oapi.WhatsAppMetaHealthEntityType
+
+const (
+	WhatsAppMetaHealthEntityTypeApp             = oapi.WhatsAppMetaHealthEntityTypeApp
+	WhatsAppMetaHealthEntityTypeBusiness        = oapi.WhatsAppMetaHealthEntityTypeBusiness
+	WhatsAppMetaHealthEntityTypeMessageTemplate = oapi.WhatsAppMetaHealthEntityTypeMessageTemplate
+	WhatsAppMetaHealthEntityTypePhoneNumber     = oapi.WhatsAppMetaHealthEntityTypePhoneNumber
+	WhatsAppMetaHealthEntityTypeWaba            = oapi.WhatsAppMetaHealthEntityTypeWaba
+)
+
 // WhatsAppNumberErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppNumberErrorCode* constants with a
 // default branch rather than treating the set as closed.
@@ -635,6 +648,7 @@ type WhatsAppNumberErrorCode = oapi.WhatsAppNumberErrorCode
 
 const (
 	WhatsAppNumberErrorCodeBusinessAccountLocked         = oapi.WhatsAppNumberErrorCodeBusinessAccountLocked
+	WhatsAppNumberErrorCodeBusinessVerificationRequired  = oapi.WhatsAppNumberErrorCodeBusinessVerificationRequired
 	WhatsAppNumberErrorCodeCreditCurrencyMismatch        = oapi.WhatsAppNumberErrorCodeCreditCurrencyMismatch
 	WhatsAppNumberErrorCodeInternalError                 = oapi.WhatsAppNumberErrorCodeInternalError
 	WhatsAppNumberErrorCodeInvalidRequest                = oapi.WhatsAppNumberErrorCodeInvalidRequest
