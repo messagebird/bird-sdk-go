@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.73.0
+
+- Select one existing template language for an email broadcast, as `template.language`. On an update the template and its language change independently: send `template.language` on its own to keep the template and the version the broadcast is fixed to, and send `template.id` to move the broadcast to a template and let the next send fix on that template's published version.
+- WhatsApp business accounts now carry `meta_health_status`, Meta's own verdict on whether the account and each underlying entity can send, `available`, `limited` or `blocked`, with the reasons Meta gave for a verdict that is not `available`; WhatsApp numbers can report the new connection error `business_verification_required`, which `repair` re-drives once the business is verified.
+
 ## 0.72.0
 
 - **Breaking:** SMS sender requirements and registrations now report `program` as `short_code` for every short-code destination, replacing `ctia_short_code`; update any check that matched the old value.
