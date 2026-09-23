@@ -1418,6 +1418,7 @@ func (e EmailLookupFlag) Valid() bool {
 
 // Defines values for EmailLookupReason.
 const (
+	EmailLookupReasonDisposableDomain EmailLookupReason = "disposable_domain"
 	EmailLookupReasonInvalidDomain    EmailLookupReason = "invalid_domain"
 	EmailLookupReasonInvalidRecipient EmailLookupReason = "invalid_recipient"
 	EmailLookupReasonInvalidSyntax    EmailLookupReason = "invalid_syntax"
@@ -1426,6 +1427,8 @@ const (
 // Valid indicates whether the value is a known member of the EmailLookupReason enum.
 func (e EmailLookupReason) Valid() bool {
 	switch e {
+	case EmailLookupReasonDisposableDomain:
+		return true
 	case EmailLookupReasonInvalidDomain:
 		return true
 	case EmailLookupReasonInvalidRecipient:
@@ -2162,22 +2165,23 @@ func (e EmailThreadMessageRecipientStatus) Valid() bool {
 
 // Defines values for ErrorBodyType.
 const (
-	ErrorBodyTypeAuthError               ErrorBodyType = "auth_error"
-	ErrorBodyTypeBadRequestError         ErrorBodyType = "bad_request_error"
-	ErrorBodyTypeBillingError            ErrorBodyType = "billing_error"
-	ErrorBodyTypeConflictError           ErrorBodyType = "conflict_error"
-	ErrorBodyTypeGoneError               ErrorBodyType = "gone_error"
-	ErrorBodyTypeInternalError           ErrorBodyType = "internal_error"
-	ErrorBodyTypeMisdirectedError        ErrorBodyType = "misdirected_error"
-	ErrorBodyTypeNotFoundError           ErrorBodyType = "not_found_error"
-	ErrorBodyTypeNotImplementedError     ErrorBodyType = "not_implemented_error"
-	ErrorBodyTypePayloadTooLargeError    ErrorBodyType = "payload_too_large_error"
-	ErrorBodyTypePermissionError         ErrorBodyType = "permission_error"
-	ErrorBodyTypePreconditionError       ErrorBodyType = "precondition_error"
-	ErrorBodyTypeRateLimitError          ErrorBodyType = "rate_limit_error"
-	ErrorBodyTypeServiceUnavailableError ErrorBodyType = "service_unavailable_error"
-	ErrorBodyTypeTooEarlyError           ErrorBodyType = "too_early_error"
-	ErrorBodyTypeValidationError         ErrorBodyType = "validation_error"
+	ErrorBodyTypeAuthError                ErrorBodyType = "auth_error"
+	ErrorBodyTypeBadRequestError          ErrorBodyType = "bad_request_error"
+	ErrorBodyTypeBillingError             ErrorBodyType = "billing_error"
+	ErrorBodyTypeClientClosedRequestError ErrorBodyType = "client_closed_request_error"
+	ErrorBodyTypeConflictError            ErrorBodyType = "conflict_error"
+	ErrorBodyTypeGoneError                ErrorBodyType = "gone_error"
+	ErrorBodyTypeInternalError            ErrorBodyType = "internal_error"
+	ErrorBodyTypeMisdirectedError         ErrorBodyType = "misdirected_error"
+	ErrorBodyTypeNotFoundError            ErrorBodyType = "not_found_error"
+	ErrorBodyTypeNotImplementedError      ErrorBodyType = "not_implemented_error"
+	ErrorBodyTypePayloadTooLargeError     ErrorBodyType = "payload_too_large_error"
+	ErrorBodyTypePermissionError          ErrorBodyType = "permission_error"
+	ErrorBodyTypePreconditionError        ErrorBodyType = "precondition_error"
+	ErrorBodyTypeRateLimitError           ErrorBodyType = "rate_limit_error"
+	ErrorBodyTypeServiceUnavailableError  ErrorBodyType = "service_unavailable_error"
+	ErrorBodyTypeTooEarlyError            ErrorBodyType = "too_early_error"
+	ErrorBodyTypeValidationError          ErrorBodyType = "validation_error"
 )
 
 // Valid indicates whether the value is a known member of the ErrorBodyType enum.
@@ -2188,6 +2192,8 @@ func (e ErrorBodyType) Valid() bool {
 	case ErrorBodyTypeBadRequestError:
 		return true
 	case ErrorBodyTypeBillingError:
+		return true
+	case ErrorBodyTypeClientClosedRequestError:
 		return true
 	case ErrorBodyTypeConflictError:
 		return true
@@ -7287,7 +7293,7 @@ type ContactMatchedOn string
 
 // ContactProperty defines model for ContactProperty.
 type ContactProperty struct {
-	// Archived Whether the property is archived. An archived property is rejected in new contact writes and stops rendering in templates, but every value already stored on contacts is preserved. Reactivate it with unarchive.
+	// Archived Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
 	Archived  *bool      `json:"archived,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
@@ -9775,7 +9781,7 @@ type EmailInboxInsightsAuthentication struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
@@ -9870,7 +9876,7 @@ type EmailInboxInsightsBlocklists struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
@@ -9975,7 +9981,7 @@ type EmailInboxInsightsComplaints struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
@@ -10124,7 +10130,7 @@ type EmailInboxInsightsEnvelope struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
@@ -10151,7 +10157,7 @@ type EmailInboxInsightsEnvelopeBase struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
@@ -10251,7 +10257,7 @@ type EmailInboxInsightsIndustryBenchmark struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// Industry The cohort the median describes, or null when the domain is not classified into an industry. This description already names that as a `no_data` cause and a normal state for a young cohort, so it needs a representation: without one the only way to report an unclassified domain is a cohort with a blank name.
@@ -10325,7 +10331,7 @@ type EmailInboxInsightsPlacement struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// GmailTabs Where the domain's Gmail-placed mail landed across Gmail's tabs. The status is `not_applicable` when the domain had no Gmail placement in the period; hide the section rather than showing an empty split.
@@ -10670,7 +10676,7 @@ type EmailInboxInsightsSpamTraps struct {
 	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
 	Freshness EmailInboxInsightsFreshness `json:"freshness"`
 
-	// GeneratedAt When the measurement service computed these figures.
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
 	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 
 	// HitRows The individual trap hits behind the totals. A sample rather than a guaranteed complete list, and its rows do not count hits: one row is one trap address, carrying a `hit_count` for how many times that address was reached. Neither the number of rows nor the sum of `hit_count` reconstructs `total`, because that field is absent wherever the trap network does not break the figure out. Read `truncated_types` for what the measurement capped rather than inferring completeness by comparing counts.
@@ -10812,12 +10818,54 @@ type EmailLookup struct {
 	// Flags Notable characteristics of the address. Empty when none apply.
 	Flags *[]EmailLookupFlag `json:"flags,omitempty"`
 
-	// Reason Why the address cannot receive mail. Absent unless `result` is `undeliverable`.
+	// Reason An explanation for the assessment. Can accompany an undeliverable, risky, or typo result; omitted when no recognized reason is available.
 	Reason *EmailLookupReason `json:"reason,omitempty"`
 	Result *EmailLookupResult `json:"result,omitempty"`
 
-	// Valid Whether the address is well-formed and its domain is set up to receive mail at all. It says nothing about the mailbox itself, so a `valid` domain with no such mailbox is `true` here and `undeliverable` in `result`.
+	// Valid The provider's validity assessment for the address. Read it with `result` and `delivery_confidence` when deciding whether to send; it does not guarantee delivery.
 	Valid *bool `json:"valid,omitempty"`
+}
+
+// EmailLookupBatchItem Assessment of whether an email address accepts mail, the confidence and reason for that
+// assessment, and a suggested correction when the address appears misspelled.
+//
+// `result` is the field to decide on; `delivery_confidence` grades it, and
+// `flags` describes the address itself rather than its deliverability, so a
+// perfectly valid address can still have `role` or `disposable`.
+//
+// Fields without resolved values are omitted rather than sent as null. Every
+// field present in the response was resolved.
+type EmailLookupBatchItem struct {
+	// DeliveryConfidence How likely mail to this address is to be delivered, from 0 (certain not to be) to 100 (certain to be). Read it alongside `result` rather than instead of it, because the same score can sit under `neutral` or `risky` for different reasons.
+	DeliveryConfidence *int `json:"delivery_confidence,omitempty"`
+
+	// DidYouMean The address this one looks like a misspelling of. Absent unless a correction was found, which in practice means `result` is `typo`. Offer it to whoever typed the original rather than sending to it unasked, because it is a guess and the address they meant may be neither one.
+	DidYouMean *string `json:"did_you_mean,omitempty"`
+
+	// Email The submitted value after trimming surrounding whitespace. May be empty or malformed.
+	Email *string `json:"email,omitempty"`
+
+	// Flags Notable characteristics of the address. Empty when none apply.
+	Flags *[]EmailLookupFlag `json:"flags,omitempty"`
+
+	// Reason An explanation for the assessment. Can accompany an undeliverable, risky, or typo result; omitted when no recognized reason is available.
+	Reason *EmailLookupReason `json:"reason,omitempty"`
+	Result *EmailLookupResult `json:"result,omitempty"`
+
+	// Valid The provider's validity assessment for the address. Read it with `result` and `delivery_confidence` when deciding whether to send; it does not guarantee delivery.
+	Valid *bool `json:"valid,omitempty"`
+}
+
+// EmailLookupBatchRequest defines model for EmailLookupBatchRequest.
+type EmailLookupBatchRequest struct {
+	// Emails Addresses to assess in submission order. Surrounding whitespace is trimmed and case is preserved. Malformed addresses receive individual assessments. Duplicates are assessed and billed at each position. The request must also fit within the 128 KiB request-body limit.
+	Emails []string `json:"emails"`
+}
+
+// EmailLookupBatchResponse defines model for EmailLookupBatchResponse.
+type EmailLookupBatchResponse struct {
+	// Data One assessment per submitted address, in submission order, including duplicates.
+	Data *[]EmailLookupBatchItem `json:"data,omitempty"`
 }
 
 // EmailLookupFlag A notable characteristic of an email address.
@@ -10835,12 +10883,14 @@ type EmailLookup struct {
 // as a future flag rather than an error.
 type EmailLookupFlag string
 
-// EmailLookupReason Why an address cannot receive mail.
+// EmailLookupReason An explanation for the assessment, when available.
 //
 //   - `invalid_syntax`: the address is malformed.
 //   - `invalid_domain`: the domain does not accept mail.
 //   - `invalid_recipient`: the domain accepts mail but this mailbox does
 //     not exist.
+//
+// - `disposable_domain`: the domain belongs to a disposable-address provider.
 //
 // Open enum: further reasons may be added over time, so treat an unrecognized
 // value as a future one rather than an error. `result` is what to branch on; this
@@ -18597,7 +18647,7 @@ type VoiceLeg struct {
 	// configuration.
 	RejectionReason *VoiceLegRejectionReason `json:"rejection_reason,omitempty"`
 
-	// Route Which answer your number gave an incoming leg: a SIP trunk, a forward, or a refusal. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
+	// Route Which answer your number gave an incoming leg. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can receive. Recorded when the leg was handled, so changing the number's setup afterwards does not change what its past legs say. Absent on outbound legs, and on legs recorded before this field existed.
 	Route *VoiceLegInboundRoute `json:"route,omitempty"`
 
 	// SipResponseCode Final SIP response code received from the carrier. `null` when no SIP response was received, for example on timeout or DNS failure.
@@ -18774,9 +18824,10 @@ type WebhookAttempt struct {
 	//
 	// - `delivered`: your endpoint accepted it with a `2xx` response.
 	// - `pending`: the attempt is still in flight.
-	// - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
-	//   attempt is not final for the event: automatic retries appear as further
-	//   attempts with the same `event_id`.
+	// - `failed`: it returned a non-`2xx` response or no response at all. Automatic
+	//   retries appear as further attempts with the same `event_id`, so a `failed`
+	//   attempt is final for the event only once the retry schedule is spent. A
+	//   replayed delivery takes a single attempt and is never retried.
 	Status WebhookAttemptStatus `json:"status"`
 
 	// Url URL the request was sent to: the endpoint's `url` at the time of the attempt, which can differ from the current configuration after an update.
@@ -18787,9 +18838,10 @@ type WebhookAttempt struct {
 //
 //   - `delivered`: your endpoint accepted it with a `2xx` response.
 //   - `pending`: the attempt is still in flight.
-//   - `failed`: it returned a non-`2xx` response or no response at all. A `failed`
-//     attempt is not final for the event: automatic retries appear as further
-//     attempts with the same `event_id`.
+//   - `failed`: it returned a non-`2xx` response or no response at all. Automatic
+//     retries appear as further attempts with the same `event_id`, so a `failed`
+//     attempt is final for the event only once the retry schedule is spent. A
+//     replayed delivery takes a single attempt and is never retried.
 type WebhookAttemptStatus string
 
 // WebhookAttemptList defines model for WebhookAttemptList.
@@ -18818,9 +18870,10 @@ type WebhookEndpoint struct {
 	// - `paused`: All delivery is stopped, either because an update set `status` to
 	//   `paused` or automatically after sustained delivery failures. A paused endpoint
 	//   never resumes on its own: re-enable it with
-	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-	//   the missed events with
-	//   [Replay missed events](/docs/api/reference/create-webhook-replay).
+	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+	//   [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+	//   recover the deliveries that failed before the pause. Events that arrived
+	//   while it was paused were never attempted, so a replay does not reach them.
 	Status    *WebhookEndpointStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time             `json:"updated_at,omitempty"`
 
@@ -18837,9 +18890,10 @@ type WebhookEndpoint struct {
 //   - `paused`: All delivery is stopped, either because an update set `status` to
 //     `paused` or automatically after sustained delivery failures. A paused endpoint
 //     never resumes on its own: re-enable it with
-//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-//     the missed events with
-//     [Replay missed events](/docs/api/reference/create-webhook-replay).
+//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+//     [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+//     recover the deliveries that failed before the pause. Events that arrived
+//     while it was paused were never attempted, so a replay does not reach them.
 type WebhookEndpointStatus string
 
 // WebhookEndpointCreate defines model for WebhookEndpointCreate.
@@ -18877,9 +18931,10 @@ type WebhookEndpointCreated struct {
 	// - `paused`: All delivery is stopped, either because an update set `status` to
 	//   `paused` or automatically after sustained delivery failures. A paused endpoint
 	//   never resumes on its own: re-enable it with
-	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-	//   the missed events with
-	//   [Replay missed events](/docs/api/reference/create-webhook-replay).
+	//   [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+	//   [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+	//   recover the deliveries that failed before the pause. Events that arrived
+	//   while it was paused were never attempted, so a replay does not reach them.
 	Status    *WebhookEndpointCreatedStatus `json:"status,omitempty"`
 	UpdatedAt *time.Time                    `json:"updated_at,omitempty"`
 
@@ -18896,9 +18951,10 @@ type WebhookEndpointCreated struct {
 //   - `paused`: All delivery is stopped, either because an update set `status` to
 //     `paused` or automatically after sustained delivery failures. A paused endpoint
 //     never resumes on its own: re-enable it with
-//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then recover
-//     the missed events with
-//     [Replay missed events](/docs/api/reference/create-webhook-replay).
+//     [Update a webhook endpoint](/docs/api/reference/update-webhook), then
+//     [Replay failed deliveries](/docs/api/reference/create-webhook-replay) to
+//     recover the deliveries that failed before the pause. Events that arrived
+//     while it was paused were never attempted, so a replay does not reach them.
 type WebhookEndpointCreatedStatus string
 
 // WebhookEndpointID defines model for WebhookEndpointID.
@@ -18929,14 +18985,14 @@ type WebhookEndpointUpdate struct {
 	// Events Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events *[]WebhookEventType `json:"events,omitempty"`
 
-	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
+	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 	Status *WebhookEndpointUpdateStatus `json:"status,omitempty"`
 
 	// Url Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
 	Url *string `json:"url,omitempty"`
 }
 
-// WebhookEndpointUpdateStatus `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered; after re-enabling, recover them with [Replay missed events](/docs/api/reference/create-webhook-replay). A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
+// WebhookEndpointUpdateStatus `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 type WebhookEndpointUpdateStatus string
 
 // WebhookEvent Webhook delivery body. `type` identifies the event variant, `timestamp` is when the event occurred, and `data` contains the event-specific payload. See the [webhooks guide](/docs/guides/webhooks) for signature verification.
@@ -18952,10 +19008,10 @@ type WebhookEventType string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
 type WebhookReplayRequest struct {
-	// Since Replay events that occurred at or after this timestamp. Defaults to 24 hours before the request when omitted.
+	// Since Replay events whose delivery attempt failed at or after this timestamp. The bound is inclusive and applies to attempt time, not to when the event occurred, so a retry that trailed its event by a day falls in the window by the hour it was attempted. Defaults to 24 hours before the request when omitted. Attempts are retained for three days, so that is the oldest history a replay reaches: an earlier `since` widens the window without recovering anything older.
 	Since *time.Time `json:"since,omitempty"`
 
-	// Until Replay events that occurred before or at this timestamp. Omit to bound the window only by `since`.
+	// Until Replay events whose delivery attempt failed at or before this timestamp, on the same attempt-time bound as `since`. Omitted, it resolves to the time of the request.
 	Until *time.Time `json:"until,omitempty"`
 }
 
@@ -24675,6 +24731,34 @@ type CreateEmailLookupParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// CreateEmailLookupBatchParams defines parameters for CreateEmailLookupBatch.
+type CreateEmailLookupBatchParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // CreatePhoneNumberLookupParams defines parameters for CreatePhoneNumberLookup.
 type CreatePhoneNumberLookupParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
@@ -27035,6 +27119,9 @@ type ReplyEmailThreadMessageJSONRequestBody = EmailThreadMessageReplyRequest
 
 // CreateEmailLookupJSONRequestBody defines body for CreateEmailLookup for application/json ContentType.
 type CreateEmailLookupJSONRequestBody = EmailLookupRequest
+
+// CreateEmailLookupBatchJSONRequestBody defines body for CreateEmailLookupBatch for application/json ContentType.
+type CreateEmailLookupBatchJSONRequestBody = EmailLookupBatchRequest
 
 // CreatePhoneNumberLookupJSONRequestBody defines body for CreatePhoneNumberLookup for application/json ContentType.
 type CreatePhoneNumberLookupJSONRequestBody = PhoneNumberLookupRequest
@@ -31025,6 +31112,11 @@ type ClientInterface interface {
 
 	CreateEmailLookup(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateEmailLookupBatchWithBody request with any body
+	CreateEmailLookupBatchWithBody(ctx context.Context, params *CreateEmailLookupBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailLookupBatch(ctx context.Context, params *CreateEmailLookupBatchParams, body CreateEmailLookupBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreatePhoneNumberLookupWithBody request with any body
 	CreatePhoneNumberLookupWithBody(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -33367,6 +33459,30 @@ func (c *Client) CreateEmailLookupWithBody(ctx context.Context, params *CreateEm
 
 func (c *Client) CreateEmailLookup(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateEmailLookupRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailLookupBatchWithBody(ctx context.Context, params *CreateEmailLookupBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailLookupBatchRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailLookupBatch(ctx context.Context, params *CreateEmailLookupBatchParams, body CreateEmailLookupBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailLookupBatchRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -44639,6 +44755,72 @@ func NewCreateEmailLookupRequestWithBody(server string, params *CreateEmailLooku
 	return req, nil
 }
 
+// NewCreateEmailLookupBatchRequest calls the generic CreateEmailLookupBatch builder with application/json body
+func NewCreateEmailLookupBatchRequest(server string, params *CreateEmailLookupBatchParams, body CreateEmailLookupBatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailLookupBatchRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailLookupBatchRequestWithBody generates requests for CreateEmailLookupBatch with any type of body
+func NewCreateEmailLookupBatchRequestWithBody(server string, params *CreateEmailLookupBatchParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/lookup/email/batch")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewCreatePhoneNumberLookupRequest calls the generic CreatePhoneNumberLookup builder with application/json body
 func NewCreatePhoneNumberLookupRequest(server string, params *CreatePhoneNumberLookupParams, body CreatePhoneNumberLookupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -54970,6 +55152,11 @@ type ClientWithResponsesInterface interface {
 
 	CreateEmailLookupWithResponse(ctx context.Context, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error)
 
+	// CreateEmailLookupBatchWithBodyWithResponse request with any body
+	CreateEmailLookupBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupBatchResponse, error)
+
+	CreateEmailLookupBatchWithResponse(ctx context.Context, params *CreateEmailLookupBatchParams, body CreateEmailLookupBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailLookupBatchResponse, error)
+
 	// CreatePhoneNumberLookupWithBodyWithResponse request with any body
 	CreatePhoneNumberLookupWithBodyWithResponse(ctx context.Context, params *CreatePhoneNumberLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreatePhoneNumberLookupResponse, error)
 
@@ -60095,6 +60282,46 @@ func (r CreateEmailLookupResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r CreateEmailLookupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailLookupBatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailLookupBatchResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON413      *PayloadTooLarge
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailLookupBatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailLookupBatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailLookupBatchResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -66116,6 +66343,23 @@ func (c *ClientWithResponses) CreateEmailLookupWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseCreateEmailLookupResponse(rsp)
+}
+
+// CreateEmailLookupBatchWithBodyWithResponse request with arbitrary body returning *CreateEmailLookupBatchResponse
+func (c *ClientWithResponses) CreateEmailLookupBatchWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupBatchParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupBatchResponse, error) {
+	rsp, err := c.CreateEmailLookupBatchWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailLookupBatchResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailLookupBatchWithResponse(ctx context.Context, params *CreateEmailLookupBatchParams, body CreateEmailLookupBatchJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailLookupBatchResponse, error) {
+	rsp, err := c.CreateEmailLookupBatch(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailLookupBatchResponse(rsp)
 }
 
 // CreatePhoneNumberLookupWithBodyWithResponse request with arbitrary body returning *CreatePhoneNumberLookupResponse
@@ -77142,6 +77386,102 @@ func ParseCreateEmailLookupResponse(rsp *http.Response) (*CreateEmailLookupRespo
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailLookupBatchResponse parses an HTTP response from a CreateEmailLookupBatchWithResponse call
+func ParseCreateEmailLookupBatchResponse(rsp *http.Response) (*CreateEmailLookupBatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailLookupBatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailLookupBatchResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

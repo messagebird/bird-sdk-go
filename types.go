@@ -571,8 +571,10 @@ type (
 // verdict on an email address. Every block a phone lookup carries reports its
 // own status, so a partial answer is visible rather than silent.
 type (
-	PhoneNumberLookup = oapi.PhoneNumberLookup
-	EmailLookup       = oapi.EmailLookup
+	PhoneNumberLookup        = oapi.PhoneNumberLookup
+	EmailLookup              = oapi.EmailLookup
+	EmailLookupBatchResponse = oapi.EmailLookupBatchResponse
+	EmailLookupBatchItem     = oapi.EmailLookupBatchItem
 )
 
 // WhatsApp statistics responses, returned by the Client.Whatsapp.Stats methods.

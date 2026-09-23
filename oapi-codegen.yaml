@@ -186,6 +186,7 @@ output-options:
     - createVerificationNextChannel
     - createPhoneNumberLookup
     - createEmailLookup
+    - createEmailLookupBatch
     - listWorkspaceNumbers
     - getWorkspaceNumber
     - releaseWorkspaceNumber

@@ -186,6 +186,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Verify.Verifications.NextChannel
 	_ = c.Lookup.PhoneNumber
 	_ = c.Lookup.Email
+	_ = c.Lookup.EmailBatch
 	_ = c.Numbers.List
 	_ = c.Numbers.Get
 	_ = c.Numbers.Release

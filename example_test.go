@@ -4085,3 +4085,19 @@ func ExampleWhatsappSuppressionsService_Remove() {
 		log.Fatal(err)
 	}
 }
+
+func ExampleLookupService_EmailBatch() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	answer, err := client.Lookup.EmailBatch(context.Background(), bird.LookupEmailBatchParams{
+		Emails: []string{"aisha.khan@example.com", "not-an-email"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, item := range *answer.Data {
+		fmt.Println(*item.Email, *item.Result)
+	}
+}

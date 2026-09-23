@@ -183,6 +183,7 @@ const (
 type EmailLookupReason = oapi.EmailLookupReason
 
 const (
+	EmailLookupReasonDisposableDomain = oapi.EmailLookupReasonDisposableDomain
 	EmailLookupReasonInvalidDomain    = oapi.EmailLookupReasonInvalidDomain
 	EmailLookupReasonInvalidRecipient = oapi.EmailLookupReasonInvalidRecipient
 	EmailLookupReasonInvalidSyntax    = oapi.EmailLookupReasonInvalidSyntax

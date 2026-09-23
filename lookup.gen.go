@@ -44,6 +44,18 @@ func (p LookupEmailParams) toWire() oapi.EmailLookupRequest {
 	return body
 }
 
+// LookupEmailBatchParams is the request body for email_batch.
+type LookupEmailBatchParams struct {
+	// Addresses to assess in submission order. Surrounding whitespace is trimmed and case is preserved. Malformed addresses receive individual assessments. Duplicates are assessed and billed at each position. The request must also fit within the 128 KiB request-body limit.
+	Emails []string
+}
+
+func (p LookupEmailBatchParams) toWire() oapi.EmailLookupBatchRequest {
+	body := oapi.EmailLookupBatchRequest{}
+	body.Emails = p.Emails
+	return body
+}
+
 // PhoneNumber Create a lookup for a phone number's networks, porting state, country, and line type. Pass `type` to request separately billed `classification`, `porting`, `presence`, `roaming`, `sim_swap`, or `score` blocks. Each block reports its own status, and only blocks with an `ok` status add a charge; the lookup does not contact the number.
 func (s *LookupService) PhoneNumber(ctx context.Context, params LookupPhoneNumberParams, opts ...option.RequestOption) (*PhoneNumberLookup, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
@@ -63,7 +75,7 @@ func (s *LookupService) PhoneNumber(ctx context.Context, params LookupPhoneNumbe
 	return &out, nil
 }
 
-// Email Create a deliverability lookup for one email address. Returns `result`, `delivery_confidence`, address `flags`, an undeliverable `reason`, and `did_you_mean` when a correction is available. Treat unknown `result` and `reason` values as valid additions and use `delivery_confidence` as the fallback; each completed lookup incurs the same charge.
+// Email Create a deliverability lookup for one email address. Returns `result`, `delivery_confidence`, address `flags`, an assessment `reason`, and `did_you_mean` when a correction is available. Treat unknown `result` and `reason` values as valid additions and use `delivery_confidence` as the fallback; each completed lookup incurs the same charge.
 func (s *LookupService) Email(ctx context.Context, params LookupEmailParams, opts ...option.RequestOption) (*EmailLookup, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateEmailLookupParams{}
@@ -76,6 +88,25 @@ func (s *LookupService) Email(ctx context.Context, params LookupEmailParams, opt
 		return nil, err
 	}
 	var out EmailLookup
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// EmailBatch Assess up to 1,000 email addresses in one request. Results preserve input order and duplicates; malformed addresses receive individual assessments. Each answered entry is billed. Use a separate idempotency key per batch and reuse it for retries. Requests are limited to 128 KiB; responses over 256 KiB cannot be replayed and a retry can incur another charge.
+func (s *LookupService) EmailBatch(ctx context.Context, params LookupEmailBatchParams, opts ...option.RequestOption) (*EmailLookupBatchResponse, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateEmailLookupBatchParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateEmailLookupBatch(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailLookupBatchResponse
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}
