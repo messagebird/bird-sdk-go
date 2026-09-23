@@ -5055,6 +5055,36 @@ func (e VoiceLegRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for VoicePartyEndpointType.
+const (
+	VoicePartyEndpointTypeBridgePstn VoicePartyEndpointType = "bridge_pstn"
+	VoicePartyEndpointTypeBridgeSip  VoicePartyEndpointType = "bridge_sip"
+	VoicePartyEndpointTypePstn       VoicePartyEndpointType = "pstn"
+	VoicePartyEndpointTypeSip        VoicePartyEndpointType = "sip"
+	VoicePartyEndpointTypeVoicemail  VoicePartyEndpointType = "voicemail"
+	VoicePartyEndpointTypeWebhook    VoicePartyEndpointType = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the VoicePartyEndpointType enum.
+func (e VoicePartyEndpointType) Valid() bool {
+	switch e {
+	case VoicePartyEndpointTypeBridgePstn:
+		return true
+	case VoicePartyEndpointTypeBridgeSip:
+		return true
+	case VoicePartyEndpointTypePstn:
+		return true
+	case VoicePartyEndpointTypeSip:
+		return true
+	case VoicePartyEndpointTypeVoicemail:
+		return true
+	case VoicePartyEndpointTypeWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookAttemptStatus.
 const (
 	WebhookAttemptStatusDelivered WebhookAttemptStatus = "delivered"
@@ -7453,6 +7483,29 @@ type ContactUpsertResultItemStatus string
 
 // CountryCode ISO 3166-1 alpha-2 country code.
 type CountryCode = string
+
+// CreateVoiceCallRequest defines model for CreateVoiceCallRequest.
+type CreateVoiceCallRequest struct {
+	// From Canonical E.164 phone number, with a leading plus sign and four to fifteen digits.
+	From VoiceSequencePhoneNumber `json:"from"`
+
+	// RingingTimeoutSeconds Maximum ringing time for the original dialing attempt, shared across routing candidates.
+	RingingTimeoutSeconds *int                           `json:"ringing_timeout_seconds,omitempty"`
+	Sequence              CreateVoiceCallSequenceRequest `json:"sequence"`
+
+	// To Canonical E.164 phone number, with a leading plus sign and four to fifteen digits.
+	To VoiceSequencePhoneNumber `json:"to"`
+}
+
+// CreateVoiceCallSequenceRequest defines model for CreateVoiceCallSequenceRequest.
+type CreateVoiceCallSequenceRequest struct {
+	// EntryNodeId Stable identifier for a node within one sequence definition.
+	EntryNodeId VoiceSequenceNodeID `json:"entry_node_id"`
+	Id          VoiceSequenceID     `json:"id"`
+
+	// TriggerData Data matching the selected entry's configured schema, limited to 16 KiB before and after normalization. Use an empty object when the entry needs no data. Fields remain application data and cannot provide trusted call identity or routing authority.
+	TriggerData map[string]interface{} `json:"trigger_data"`
+}
 
 // CurrencyCode ISO 4217 three-letter currency code.
 type CurrencyCode = string
@@ -18552,6 +18605,34 @@ type VerificationTo struct {
 // VerifyVerificationFailedEventType Always `verify.verification.failed` for this event.
 type VerifyVerificationFailedEventType string
 
+// VoiceCall A call summary. Call reads report observed state. Call creation returns an immutable acceptance snapshot: `started_at` and `ended_at` are `null`, the boolean observation fields are `false`, and `parties` is empty. Replays return that same snapshot after the call progresses.
+type VoiceCall struct {
+	// Direction Direction of the initial leg.
+	Direction *VoiceCallDirection `json:"direction,omitempty"`
+
+	// EndedAt When the call's last leg ended. `null` while any leg is still in progress. Recordings and transcripts can still arrive after this instant, so it does not mean the call is finished being written.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// HasRecording Whether the call ever produced a recording. It stays `true` for the life of the call, so it records that a recording was made rather than promising one can still be fetched.
+	HasRecording *bool `json:"has_recording,omitempty"`
+
+	// HasTranscript Whether the call ever produced a transcript. A failed transcription attempt does not set it, and a later failure does not clear it.
+	HasTranscript *bool          `json:"has_transcript,omitempty"`
+	Id            VoiceSessionID `json:"id"`
+	InitialLegId  VoiceCallID    `json:"initial_leg_id"`
+
+	// Live Whether any leg in the call currently holds a lease. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
+	Live *bool `json:"live,omitempty"`
+
+	// Parties The distinct participant observations the call's legs recorded, for display beside the call. The length is not a count of people and not a reconstruction of the leg graph.
+	Parties  *[]VoiceParty      `json:"parties,omitempty"`
+	Sequence *VoiceCallSequence `json:"sequence,omitempty"`
+
+	// StartedAt When the initial leg started. `null` in the acceptance snapshot returned by call creation.
+	StartedAt   *time.Time  `json:"started_at,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
 // VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
 type VoiceCallDirection string
 
@@ -18567,6 +18648,12 @@ type VoiceCallID = string
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.
 type VoiceCallRouteType string
+
+// VoiceCallSequence defines model for VoiceCallSequence.
+type VoiceCallSequence struct {
+	Id    VoiceSequenceID    `json:"id"`
+	RunId VoiceSequenceRunID `json:"run_id"`
+}
 
 // VoiceCallStatus Call status.
 //
@@ -18793,6 +18880,76 @@ type VoiceMediaQuality struct {
 	// RoundTripTimeMs Round-trip time between the two ends, in milliseconds. It does not distort the audio. Above roughly 300 ms, the two parties start talking over each other.
 	RoundTripTimeMs *int `json:"round_trip_time_ms,omitempty"`
 }
+
+// VoiceParty defines model for VoiceParty.
+type VoiceParty struct {
+	// Address This side's own address, in E.164 or as a `sip:` URI. `null` when the observation carried none, which does not say whether one was withheld, missing, or nonexistent.
+	Address *string `json:"address,omitempty"`
+
+	// Endpoint What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
+	// `null` on an observation this API could not read. The entry stays, because the session counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
+	Endpoint *VoicePartyEndpoint `json:"endpoint,omitempty"`
+
+	// TrunkId The workspace trunk on this side of the leg. `null` when this side sat behind no trunk.
+	TrunkId *SIPTrunkID `json:"trunk_id,omitempty"`
+}
+
+// VoicePartyBridgePSTNEndpoint defines model for VoicePartyBridgePSTNEndpoint.
+type VoicePartyBridgePSTNEndpoint struct {
+	// ForwardAs Which of a forwarded call's two numbers it shows as the caller.
+	//
+	// "dialed_number" is the number the caller dialled, which is one of yours.
+	// Carriers treat it as fully yours, so it is the least likely to be altered or
+	// screened. Whoever answers sees which of your numbers was called, not who called
+	// it. It needs your workspace approved to place calls from numbers you bought from
+	// us; where it is not, this value is refused and the call shows the calling
+	// number.
+	//
+	// "calling_number" is the caller's own number, so the phone rings as though they
+	// had dialled it directly and the call can be returned from the call log. Because
+	// the number is not one you own, some carriers (most often in the US and parts of
+	// Europe) mark such calls as unverified, replace the number, or screen them.
+	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
+
+	// ForwardTo The number the platform placed the leg onward to, in E.164. The party's own `address` is the number that was dialled, so the two together are one hop of the call.
+	ForwardTo string `json:"forward_to"`
+}
+
+// VoicePartyBridgeSIPEndpoint defines model for VoicePartyBridgeSIPEndpoint.
+type VoicePartyBridgeSIPEndpoint struct {
+	TrunkId SIPTrunkID `json:"trunk_id"`
+}
+
+// VoicePartyEndpoint defines model for VoicePartyEndpoint.
+type VoicePartyEndpoint struct {
+	BridgePstn *VoicePartyBridgePSTNEndpoint `json:"bridge_pstn,omitempty"`
+	BridgeSip  *VoicePartyBridgeSIPEndpoint  `json:"bridge_sip,omitempty"`
+	Sip        *VoicePartySIPEndpoint        `json:"sip,omitempty"`
+
+	// Type The technical participant observed on one side of a call. Additional endpoint types may appear in retained observations.
+	Type VoicePartyEndpointType `json:"type"`
+}
+
+// VoicePartyEndpointType The technical participant observed on one side of a call. Additional endpoint types may appear in retained observations.
+type VoicePartyEndpointType string
+
+// VoicePartySIPEndpoint defines model for VoicePartySIPEndpoint.
+type VoicePartySIPEndpoint struct {
+	// Contact The address the user agent registered, as a `sip:` or `sips:` URI. It is where the endpoint asked to be reached, which is not always the address that was dialled.
+	Contact string `json:"contact"`
+}
+
+// VoiceSequenceID defines model for VoiceSequenceID.
+type VoiceSequenceID = string
+
+// VoiceSequenceNodeID Stable identifier for a node within one sequence definition.
+type VoiceSequenceNodeID = string
+
+// VoiceSequencePhoneNumber Canonical E.164 phone number, with a leading plus sign and four to fifteen digits.
+type VoiceSequencePhoneNumber = string
+
+// VoiceSequenceRunID defines model for VoiceSequenceRunID.
+type VoiceSequenceRunID = string
 
 // VoiceSessionID defines model for VoiceSessionID.
 type VoiceSessionID = string
@@ -22204,6 +22361,9 @@ type OrderDesc = SortOrder
 
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
+
+// RequiredIdempotencyKey defines model for RequiredIdempotencyKey.
+type RequiredIdempotencyKey = string
 
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
@@ -25874,6 +26034,15 @@ type CreateVerificationNextChannelParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// CreateVoiceCallParams defines parameters for CreateVoiceCall.
+type CreateVoiceCallParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Required client-supplied deduplication key for this write. Reuse it for retries of the same intent. Successful results replay within the configured idempotency window (three hours by default); selected connected-app writes also replay uncertain-write conflicts. Use a new key only after confirming the prior result and beginning a different action.
+	IdempotencyKey RequiredIdempotencyKey `json:"Idempotency-Key"`
+}
+
 // ListVoiceLegsParams defines parameters for ListVoiceLegs.
 type ListVoiceLegsParams struct {
 	// Direction Return only legs in this direction.
@@ -27164,6 +27333,9 @@ type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 
 // CreateVerificationNextChannelJSONRequestBody defines body for CreateVerificationNextChannel for application/json ContentType.
 type CreateVerificationNextChannelJSONRequestBody = VerificationNextChannelRequest
+
+// CreateVoiceCallJSONRequestBody defines body for CreateVoiceCall for application/json ContentType.
+type CreateVoiceCallJSONRequestBody = CreateVoiceCallRequest
 
 // CreateWebhookJSONRequestBody defines body for CreateWebhook for application/json ContentType.
 type CreateWebhookJSONRequestBody = WebhookEndpointCreate
@@ -31322,6 +31494,11 @@ type ClientInterface interface {
 
 	CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateVoiceCallWithBody request with any body
+	CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceCall(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListVoiceLegs request
 	ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -34359,6 +34536,30 @@ func (c *Client) CreateVerificationNextChannelWithBody(ctx context.Context, para
 
 func (c *Client) CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateVerificationNextChannelRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceCallRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceCall(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceCallRequest(c.Server, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -49696,6 +49897,70 @@ func NewCreateVerificationNextChannelRequestWithBody(server string, params *Crea
 	return req, nil
 }
 
+// NewCreateVoiceCallRequest calls the generic CreateVoiceCall builder with application/json body
+func NewCreateVoiceCallRequest(server string, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceCallRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceCallRequestWithBody generates requests for CreateVoiceCall with any type of body
+func NewCreateVoiceCallRequestWithBody(server string, params *CreateVoiceCallParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/calls")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		var headerParam1 string
+
+		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("Idempotency-Key", headerParam1)
+
+	}
+
+	return req, nil
+}
+
 // NewListVoiceLegsRequest generates requests for ListVoiceLegs
 func NewListVoiceLegsRequest(server string, params *ListVoiceLegsParams) (*http.Request, error) {
 	var err error
@@ -55361,6 +55626,11 @@ type ClientWithResponsesInterface interface {
 	CreateVerificationNextChannelWithBodyWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
 
 	CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
+
+	// CreateVoiceCallWithBodyWithResponse request with any body
+	CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
+
+	CreateVoiceCallWithResponse(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
 
 	// ListVoiceLegsWithResponse request
 	ListVoiceLegsWithResponse(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*ListVoiceLegsResponse, error)
@@ -62501,6 +62771,45 @@ func (r CreateVerificationNextChannelResponse) ContentType() string {
 	return ""
 }
 
+type CreateVoiceCallResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *VoiceCall
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceCallResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceCallResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceCallResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListVoiceLegsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -67003,6 +67312,23 @@ func (c *ClientWithResponses) CreateVerificationNextChannelWithResponse(ctx cont
 		return nil, err
 	}
 	return ParseCreateVerificationNextChannelResponse(rsp)
+}
+
+// CreateVoiceCallWithBodyWithResponse request with arbitrary body returning *CreateVoiceCallResponse
+func (c *ClientWithResponses) CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error) {
+	rsp, err := c.CreateVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceCallResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceCallWithResponse(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error) {
+	rsp, err := c.CreateVoiceCall(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceCallResponse(rsp)
 }
 
 // ListVoiceLegsWithResponse request returning *ListVoiceLegsResponse
@@ -81837,6 +82163,95 @@ func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVeri
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceCallResponse parses an HTTP response from a CreateVoiceCallWithResponse call
+func ParseCreateVoiceCallResponse(rsp *http.Response) (*CreateVoiceCallResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceCallResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest VoiceCall
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

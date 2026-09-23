@@ -4101,3 +4101,23 @@ func ExampleLookupService_EmailBatch() {
 		fmt.Println(*item.Email, *item.Result)
 	}
 }
+
+func ExampleVoiceCallsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	call, err := client.Voice.Calls.Create(context.Background(), bird.VoiceCallsCreateParams{
+		From: "+12025550100",
+		To:   "+12025550101",
+		Sequence: bird.CreateVoiceCallSequenceRequest{
+			Id:          "vsq_01krdgeqcxet5s7t44vh8rt9mg",
+			EntryNodeId: "start",
+			TriggerData: map[string]any{},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(call.Id, call.InitialLegId)
+}

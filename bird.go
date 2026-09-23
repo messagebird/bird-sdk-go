@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.74.0"
+	version = "0.75.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -170,7 +170,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Whatsapp.BusinessAccounts = &WhatsappBusinessAccountsService{resource{client: c}}
 	c.Whatsapp.KeywordRules = &WhatsappKeywordRulesService{resource{client: c}}
 	c.Whatsapp.Suppressions = &WhatsappSuppressionsService{resource{client: c}}
-	c.Voice = &VoiceService{Legs: &VoiceLegsService{resource{client: c}}}
+	c.Voice = &VoiceService{Legs: &VoiceLegsService{resource{client: c}}, Calls: &VoiceCallsService{resource{client: c}}}
 	c.Verify = &VerifyService{Verifications: &VerifyVerificationsService{resource{client: c}}}
 	c.Webhooks = &WebhooksService{resource{client: c}}
 	c.Contacts = &ContactsService{resource: resource{client: c}}

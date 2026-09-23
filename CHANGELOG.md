@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.75.0
+
+- Create outbound voice calls using an active published sequence, with entry data and idempotent retries.
+
 ## 0.74.0
 
 - Add batch email lookup for up to 1,000 addresses, with ordered assessments and per-address billing.

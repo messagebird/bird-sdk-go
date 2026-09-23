@@ -438,6 +438,20 @@ const (
 	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
 )
 
+// VoicePartyEndpointType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the VoicePartyEndpointType* constants with a
+// default branch rather than treating the set as closed.
+type VoicePartyEndpointType = oapi.VoicePartyEndpointType
+
+const (
+	VoicePartyEndpointTypeBridgePstn = oapi.VoicePartyEndpointTypeBridgePstn
+	VoicePartyEndpointTypeBridgeSip  = oapi.VoicePartyEndpointTypeBridgeSip
+	VoicePartyEndpointTypePstn       = oapi.VoicePartyEndpointTypePstn
+	VoicePartyEndpointTypeSip        = oapi.VoicePartyEndpointTypeSip
+	VoicePartyEndpointTypeVoicemail  = oapi.VoicePartyEndpointTypeVoicemail
+	VoicePartyEndpointTypeWebhook    = oapi.VoicePartyEndpointTypeWebhook
+)
+
 // WhatsAppBusinessAccountMarketingMessagesStatus is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppBusinessAccountMarketingMessagesStatus* constants with a
 // default branch rather than treating the set as closed.

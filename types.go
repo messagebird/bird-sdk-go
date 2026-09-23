@@ -934,3 +934,5 @@ type (
 )
 
 type CompetitiveWatchlistBrandID = oapi.CompetitiveWatchlistBrandID
+
+type VoiceCall = oapi.VoiceCall

@@ -179,6 +179,7 @@ output-options:
     - getWhatsAppInboundStatsDaily
     - getWhatsAppInboundStatsHourly
     - getWhatsAppInboundStatsByPhoneNumber
+    - createVoiceCall
     - listVoiceLegs
     - getVoiceLeg
     - createVerification
