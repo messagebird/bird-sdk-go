@@ -3,12 +3,80 @@ package bird
 
 import (
 	"context"
+	"iter"
 	"net/http"
 	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
 )
+
+type EmailStatsQueryDimension = oapi.EmailStatsQueryDimension
+
+type EmailStatsQueryFilters = oapi.EmailStatsQueryFilters
+
+type EmailStatsQueryGrain = oapi.EmailStatsQueryGrain
+
+type EmailStatsQueryMetric = oapi.EmailStatsQueryMetric
+
+// EmailStatsQueryParams is the request body for query.
+type EmailStatsQueryParams struct {
+	// Inclusive start, as a calendar date or RFC 3339 instant. Use the same form for from and to. Instants round down to a local quarter-hour; use Z when timezone is supplied.
+	From string
+	// Inclusive end. Dates include the whole local day; instants round down to a local quarter-hour and include that quarter-hour. Dates allow up to 365 local days; instants allow up to 720 hours, subject to available history. Preserve this original bound when following cursors.
+	To string
+	// IANA timezone for dates and bucket boundaries. Defaults to UTC.
+	Timezone *string
+	// Distinct metrics to return. Unselected metrics are absent.
+	Metrics []EmailStatsQueryMetric
+	// Group by this dimension. Omit for a single ungrouped summary with optional series.
+	GroupBy *EmailStatsQueryDimension
+	// Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
+	Grain *EmailStatsQueryGrain
+	// Predicates on the context recorded for each event. Dimensions combine with AND. Unsupported metric and dimension combinations return 422, including for an empty workspace.
+	Filters *EmailStatsQueryFilters
+	// Grouped requests only. Rank groups by this selected metric; defaults to the first metrics entry. Undefined values sort last in either direction. Ties use the dimension value ascending, with null last.
+	Sort *EmailStatsQueryMetric
+	// Grouped requests only. Defaults to desc.
+	Order *SortOrder
+	// Grouped requests only. Maximum groups per page; defaults to 25. Each group retains its complete series.
+	Limit *int
+	// Grouped requests only. Opaque next_cursor from the previous response. Mutually exclusive with ending_before.
+	StartingAfter *string
+	// Grouped requests only. Opaque prev_cursor for backward navigation, or refresh_cursor to read groups before the anchor in the current sort order. Mutually exclusive with starting_after.
+	EndingBefore *string
+}
+
+func (p EmailStatsQueryParams) toWire() oapi.EmailStatsQueryRequest {
+	body := oapi.EmailStatsQueryRequest{}
+	body.From = p.From
+	body.To = p.To
+	body.Timezone = p.Timezone
+	metrics := make([]oapi.EmailStatsQueryMetric, len(p.Metrics))
+	for i, v := range p.Metrics {
+		metrics[i] = oapi.EmailStatsQueryMetric(v)
+	}
+	body.Metrics = metrics
+	if p.GroupBy != nil {
+		body.GroupBy = p.GroupBy
+	}
+	if p.Grain != nil {
+		body.Grain = p.Grain
+	}
+	if p.Filters != nil {
+		body.Filters = p.Filters
+	}
+	if p.Sort != nil {
+		body.Sort = p.Sort
+	}
+	if p.Order != nil {
+		body.Order = p.Order
+	}
+	body.Limit = p.Limit
+	body.StartingAfter = p.StartingAfter
+	body.EndingBefore = p.EndingBefore
+	return body
+}
 
 // EmailStatsSummaryParams filters the summary read.
 type EmailStatsSummaryParams struct {
@@ -18,17 +86,17 @@ type EmailStatsSummaryParams struct {
 	To string
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain string
-	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
-	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 	// Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
 	Compare string
@@ -57,17 +125,17 @@ type EmailStatsDailyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain string
-	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
-	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 }
 
@@ -93,17 +161,17 @@ type EmailStatsHourlyParams struct {
 	To time.Time
 	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone string
-	// Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category string
-	// Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain string
-	// Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag string
-	// Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIP string
-	// Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain string
-	// Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template string
 }
 
@@ -121,8 +189,12 @@ func (p EmailStatsHourlyParams) toWire() *oapi.GetEmailStatsHourlyParams {
 	}
 }
 
-// EmailStatsByTagParams filters the by_tag read.
+// EmailStatsByTagParams filters the list. Zero-value fields are omitted.
 type EmailStatsByTagParams struct {
+	// Restrict the breakdown to this tag name. Names match case-sensitively.
+	Name string
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -141,21 +213,26 @@ type EmailStatsByTagParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByTagParams) toWire() *oapi.GetEmailStatsByTagParams {
+func (p EmailStatsByTagParams) toWire(startingAfter string) *oapi.GetEmailStatsByTagParams {
 	return &oapi.GetEmailStatsByTagParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		Name:          optStr(p.Name),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByCategoryParams filters the by_category read.
+// EmailStatsByCategoryParams filters the list. Zero-value fields are omitted.
 type EmailStatsByCategoryParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -172,20 +249,24 @@ type EmailStatsByCategoryParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByCategoryParams) toWire() *oapi.GetEmailStatsByCategoryParams {
+func (p EmailStatsByCategoryParams) toWire(startingAfter string) *oapi.GetEmailStatsByCategoryParams {
 	return &oapi.GetEmailStatsByCategoryParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsBySendingIPParams filters the by_sending_ip read.
+// EmailStatsBySendingIPParams filters the list. Zero-value fields are omitted.
 type EmailStatsBySendingIPParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -204,21 +285,25 @@ type EmailStatsBySendingIPParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsBySendingIPParams) toWire() *oapi.GetEmailStatsBySendingIpParams {
+func (p EmailStatsBySendingIPParams) toWire(startingAfter string) *oapi.GetEmailStatsBySendingIpParams {
 	return &oapi.GetEmailStatsBySendingIpParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optEnum[oapi.GetEmailStatsBySendingIpParamsSort](p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optEnum[oapi.GetEmailStatsBySendingIpParamsSort](p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsBySendingDomainParams filters the by_sending_domain read.
+// EmailStatsBySendingDomainParams filters the list. Zero-value fields are omitted.
 type EmailStatsBySendingDomainParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -237,21 +322,25 @@ type EmailStatsBySendingDomainParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsBySendingDomainParams) toWire() *oapi.GetEmailStatsBySendingDomainParams {
+func (p EmailStatsBySendingDomainParams) toWire(startingAfter string) *oapi.GetEmailStatsBySendingDomainParams {
 	return &oapi.GetEmailStatsBySendingDomainParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByRecipientDomainParams filters the by_recipient_domain read.
+// EmailStatsByRecipientDomainParams filters the list. Zero-value fields are omitted.
 type EmailStatsByRecipientDomainParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -270,21 +359,25 @@ type EmailStatsByRecipientDomainParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByRecipientDomainParams) toWire() *oapi.GetEmailStatsByRecipientDomainParams {
+func (p EmailStatsByRecipientDomainParams) toWire(startingAfter string) *oapi.GetEmailStatsByRecipientDomainParams {
 	return &oapi.GetEmailStatsByRecipientDomainParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByMailboxProviderParams filters the by_mailbox_provider read.
+// EmailStatsByMailboxProviderParams filters the list. Zero-value fields are omitted.
 type EmailStatsByMailboxProviderParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -303,21 +396,25 @@ type EmailStatsByMailboxProviderParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByMailboxProviderParams) toWire() *oapi.GetEmailStatsByMailboxProviderParams {
+func (p EmailStatsByMailboxProviderParams) toWire(startingAfter string) *oapi.GetEmailStatsByMailboxProviderParams {
 	return &oapi.GetEmailStatsByMailboxProviderParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByMailboxProviderRegionParams filters the by_mailbox_provider_region read.
+// EmailStatsByMailboxProviderRegionParams filters the list. Zero-value fields are omitted.
 type EmailStatsByMailboxProviderRegionParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -336,21 +433,25 @@ type EmailStatsByMailboxProviderRegionParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByMailboxProviderRegionParams) toWire() *oapi.GetEmailStatsByMailboxProviderRegionParams {
+func (p EmailStatsByMailboxProviderRegionParams) toWire(startingAfter string) *oapi.GetEmailStatsByMailboxProviderRegionParams {
 	return &oapi.GetEmailStatsByMailboxProviderRegionParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByTemplateParams filters the by_template read.
+// EmailStatsByTemplateParams filters the list. Zero-value fields are omitted.
 type EmailStatsByTemplateParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -369,21 +470,25 @@ type EmailStatsByTemplateParams struct {
 	TrendGrain StatsTrendGrain
 }
 
-func (p EmailStatsByTemplateParams) toWire() *oapi.GetEmailStatsByTemplateParams {
+func (p EmailStatsByTemplateParams) toWire(startingAfter string) *oapi.GetEmailStatsByTemplateParams {
 	return &oapi.GetEmailStatsByTemplateParams{
-		From:         optDate(p.From),
-		To:           optDate(p.To),
-		Timezone:     optStr(p.Timezone),
-		Category:     optStr(p.Category),
-		Sort:         optZero(p.Sort),
-		Limit:        optInt(p.Limit),
-		IncludeTrend: optBool(p.IncludeTrend),
-		TrendGrain:   optZero(p.TrendGrain),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		IncludeTrend:  optBool(p.IncludeTrend),
+		TrendGrain:    optZero(p.TrendGrain),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByLocationParams filters the by_location read.
+// EmailStatsByLocationParams filters the list. Zero-value fields are omitted.
 type EmailStatsByLocationParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -400,20 +505,24 @@ type EmailStatsByLocationParams struct {
 	Limit int
 }
 
-func (p EmailStatsByLocationParams) toWire() *oapi.GetEmailStatsByLocationParams {
+func (p EmailStatsByLocationParams) toWire(startingAfter string) *oapi.GetEmailStatsByLocationParams {
 	return &oapi.GetEmailStatsByLocationParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Category: optStr(p.Category),
-		GroupBy:  optEnum[oapi.GetEmailStatsByLocationParamsGroupBy](p.GroupBy),
-		Sort:     optZero(p.Sort),
-		Limit:    optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		GroupBy:       optEnum[oapi.GetEmailStatsByLocationParamsGroupBy](p.GroupBy),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByClientParams filters the by_client read.
+// EmailStatsByClientParams filters the list. Zero-value fields are omitted.
 type EmailStatsByClientParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -430,20 +539,24 @@ type EmailStatsByClientParams struct {
 	Limit int
 }
 
-func (p EmailStatsByClientParams) toWire() *oapi.GetEmailStatsByClientParams {
+func (p EmailStatsByClientParams) toWire(startingAfter string) *oapi.GetEmailStatsByClientParams {
 	return &oapi.GetEmailStatsByClientParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Category: optStr(p.Category),
-		GroupBy:  optEnum[oapi.GetEmailStatsByClientParamsGroupBy](p.GroupBy),
-		Sort:     optZero(p.Sort),
-		Limit:    optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		GroupBy:       optEnum[oapi.GetEmailStatsByClientParamsGroupBy](p.GroupBy),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByBounceCodeParams filters the by_bounce_code read.
+// EmailStatsByBounceCodeParams filters the list. Zero-value fields are omitted.
 type EmailStatsByBounceCodeParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -458,19 +571,23 @@ type EmailStatsByBounceCodeParams struct {
 	Limit int
 }
 
-func (p EmailStatsByBounceCodeParams) toWire() *oapi.GetEmailStatsByBounceCodeParams {
+func (p EmailStatsByBounceCodeParams) toWire(startingAfter string) *oapi.GetEmailStatsByBounceCodeParams {
 	return &oapi.GetEmailStatsByBounceCodeParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Category: optStr(p.Category),
-		Sort:     optEnum[oapi.GetEmailStatsByBounceCodeParamsSort](p.Sort),
-		Limit:    optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optEnum[oapi.GetEmailStatsByBounceCodeParamsSort](p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByComplaintTypeParams filters the by_complaint_type read.
+// EmailStatsByComplaintTypeParams filters the list. Zero-value fields are omitted.
 type EmailStatsByComplaintTypeParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
@@ -485,19 +602,23 @@ type EmailStatsByComplaintTypeParams struct {
 	Limit int
 }
 
-func (p EmailStatsByComplaintTypeParams) toWire() *oapi.GetEmailStatsByComplaintTypeParams {
+func (p EmailStatsByComplaintTypeParams) toWire(startingAfter string) *oapi.GetEmailStatsByComplaintTypeParams {
 	return &oapi.GetEmailStatsByComplaintTypeParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Timezone: optStr(p.Timezone),
-		Category: optStr(p.Category),
-		Sort:     optEnum[oapi.GetEmailStatsByComplaintTypeParamsSort](p.Sort),
-		Limit:    optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
+		Category:      optStr(p.Category),
+		Sort:          optEnum[oapi.GetEmailStatsByComplaintTypeParamsSort](p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
 }
 
-// EmailStatsByBroadcastParams filters the by_broadcast read.
+// EmailStatsByBroadcastParams filters the list. Zero-value fields are omitted.
 type EmailStatsByBroadcastParams struct {
+	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore string
 	// Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
 	From time.Time
 	// End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
@@ -510,14 +631,52 @@ type EmailStatsByBroadcastParams struct {
 	Limit int
 }
 
-func (p EmailStatsByBroadcastParams) toWire() *oapi.GetEmailStatsByBroadcastParams {
+func (p EmailStatsByBroadcastParams) toWire(startingAfter string) *oapi.GetEmailStatsByBroadcastParams {
 	return &oapi.GetEmailStatsByBroadcastParams{
-		From:     optDate(p.From),
-		To:       optDate(p.To),
-		Category: optStr(p.Category),
-		Sort:     optZero(p.Sort),
-		Limit:    optInt(p.Limit),
+		EndingBefore:  optStr(p.EndingBefore),
+		From:          optDate(p.From),
+		To:            optDate(p.To),
+		Category:      optStr(p.Category),
+		Sort:          optZero(p.Sort),
+		Limit:         optInt(p.Limit),
+		StartingAfter: optStr(startingAfter),
 	}
+}
+
+func (s *EmailStatsService) QueryPage(ctx context.Context, params EmailStatsQueryParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsQueryResponse, error) {
+	if startingAfter != "" {
+		params.StartingAfter = &startingAfter
+		params.EndingBefore = nil
+	}
+	opts = bodyPageOptions(opts, startingAfter)
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.GetEmailStatsQueryParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.GetEmailStatsQuery(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailStatsQueryResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Query Select email metrics over a date or instant window, optionally grouped by one dimension with complete time series per group. Events are selected and bucketed by when they occurred, including activity on messages sent earlier. Filters match recorded event context. Unsupported combinations and unavailable history return 422. Follow cursors by replaying the original body and changing its cursor fields; the response period has an exclusive end and must not replace the request end. Use a new idempotency key for each continuation page; reuse a key only to retry the same page.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) Query(ctx context.Context, params EmailStatsQueryParams, opts ...option.RequestOption) iter.Seq2[*EmailStatsQueryGroup, error] {
+	return paginate(func(cursor string) ([]EmailStatsQueryGroup, *string, error) {
+		page, err := s.QueryPage(ctx, params, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		return page.Data, page.NextCursor, nil
+	})
 }
 
 // Summary Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. The `from` and `to` values are both `YYYY-MM-DD` days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`.
@@ -567,8 +726,14 @@ func (s *EmailStatsService) Hourly(ctx context.Context, params EmailStatsHourlyP
 
 // ByTag Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
 func (s *EmailStatsService) ByTag(ctx context.Context, params EmailStatsByTagParams, opts ...option.RequestOption) (*EmailStatsTagsResponse, error) {
+	return s.ByTagPage(ctx, params, "", opts...)
+}
+
+// ByTagPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByTagPage(ctx context.Context, params EmailStatsByTagParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsTagsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByTag(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByTag(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -580,10 +745,36 @@ func (s *EmailStatsService) ByTag(ctx context.Context, params EmailStatsByTagPar
 	return &out, nil
 }
 
+// ByTagAll Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByTagAll(ctx context.Context, params EmailStatsByTagParams, opts ...option.RequestOption) iter.Seq2[*EmailTagStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailTagStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByTagPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByCategory Email delivery and engagement stats grouped by category, meaning `transactional` compared with `marketing`. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
 func (s *EmailStatsService) ByCategory(ctx context.Context, params EmailStatsByCategoryParams, opts ...option.RequestOption) (*EmailStatsByCategoryResponse, error) {
+	return s.ByCategoryPage(ctx, params, "", opts...)
+}
+
+// ByCategoryPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByCategoryPage(ctx context.Context, params EmailStatsByCategoryParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByCategoryResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByCategory(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByCategory(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -595,10 +786,36 @@ func (s *EmailStatsService) ByCategory(ctx context.Context, params EmailStatsByC
 	return &out, nil
 }
 
+// ByCategoryAll Email delivery and engagement stats grouped by category, meaning `transactional` compared with `marketing`. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByCategoryAll(ctx context.Context, params EmailStatsByCategoryParams, opts ...option.RequestOption) iter.Seq2[*EmailCategoryStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailCategoryStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByCategoryPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // BySendingIP Delivery and bounce stats grouped by sending IP, with deferral counts alongside them. `sort=bounces.block` surfaces reputation-damaged IPs first. Engagement, accepted, and processed counts aren't available per IP, and complaint and out-of-band bounce counts always read `0` here. For workspace-wide figures, use `email.stats.daily`.
 func (s *EmailStatsService) BySendingIP(ctx context.Context, params EmailStatsBySendingIPParams, opts ...option.RequestOption) (*EmailStatsBySendingIPResponse, error) {
+	return s.BySendingIPPage(ctx, params, "", opts...)
+}
+
+// BySendingIPPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) BySendingIPPage(ctx context.Context, params EmailStatsBySendingIPParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsBySendingIPResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsBySendingIp(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsBySendingIp(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -610,10 +827,36 @@ func (s *EmailStatsService) BySendingIP(ctx context.Context, params EmailStatsBy
 	return &out, nil
 }
 
+// BySendingIPAll Delivery and bounce stats grouped by sending IP, with deferral counts alongside them. `sort=bounces.block` surfaces reputation-damaged IPs first. Engagement, accepted, and processed counts aren't available per IP, and complaint and out-of-band bounce counts always read `0` here. For workspace-wide figures, use `email.stats.daily`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) BySendingIPAll(ctx context.Context, params EmailStatsBySendingIPParams, opts ...option.RequestOption) iter.Seq2[*EmailSendingIPStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailSendingIPStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.BySendingIPPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // BySendingDomain Email delivery and engagement stats grouped by sending (`From`) domain, so you can compare deliverability across your workspace's verified domains. For per-IP reputation instead, use `email.stats.by_sending_ip`.
 func (s *EmailStatsService) BySendingDomain(ctx context.Context, params EmailStatsBySendingDomainParams, opts ...option.RequestOption) (*EmailStatsBySendingDomainResponse, error) {
+	return s.BySendingDomainPage(ctx, params, "", opts...)
+}
+
+// BySendingDomainPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) BySendingDomainPage(ctx context.Context, params EmailStatsBySendingDomainParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsBySendingDomainResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsBySendingDomain(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsBySendingDomain(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -625,10 +868,36 @@ func (s *EmailStatsService) BySendingDomain(ctx context.Context, params EmailSta
 	return &out, nil
 }
 
+// BySendingDomainAll Email delivery and engagement stats grouped by sending (`From`) domain, so you can compare deliverability across your workspace's verified domains. For per-IP reputation instead, use `email.stats.by_sending_ip`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) BySendingDomainAll(ctx context.Context, params EmailStatsBySendingDomainParams, opts ...option.RequestOption) iter.Seq2[*EmailSendingDomainStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailSendingDomainStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.BySendingDomainPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByRecipientDomain Email delivery and engagement stats grouped by exact recipient mailbox domain, for example `gmail.com`. Finer-grained than `email.stats.by_mailbox_provider`, which buckets domains into providers.
 func (s *EmailStatsService) ByRecipientDomain(ctx context.Context, params EmailStatsByRecipientDomainParams, opts ...option.RequestOption) (*EmailStatsByRecipientDomainResponse, error) {
+	return s.ByRecipientDomainPage(ctx, params, "", opts...)
+}
+
+// ByRecipientDomainPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByRecipientDomainPage(ctx context.Context, params EmailStatsByRecipientDomainParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByRecipientDomainResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByRecipientDomain(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByRecipientDomain(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -640,10 +909,36 @@ func (s *EmailStatsService) ByRecipientDomain(ctx context.Context, params EmailS
 	return &out, nil
 }
 
+// ByRecipientDomainAll Email delivery and engagement stats grouped by exact recipient mailbox domain, for example `gmail.com`. Finer-grained than `email.stats.by_mailbox_provider`, which buckets domains into providers.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByRecipientDomainAll(ctx context.Context, params EmailStatsByRecipientDomainParams, opts ...option.RequestOption) iter.Seq2[*EmailRecipientDomainStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailRecipientDomainStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByRecipientDomainPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByMailboxProvider Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward and omits accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
 func (s *EmailStatsService) ByMailboxProvider(ctx context.Context, params EmailStatsByMailboxProviderParams, opts ...option.RequestOption) (*EmailStatsByMailboxProviderResponse, error) {
+	return s.ByMailboxProviderPage(ctx, params, "", opts...)
+}
+
+// ByMailboxProviderPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByMailboxProviderPage(ctx context.Context, params EmailStatsByMailboxProviderParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByMailboxProviderResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByMailboxProvider(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByMailboxProvider(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -655,10 +950,36 @@ func (s *EmailStatsService) ByMailboxProvider(ctx context.Context, params EmailS
 	return &out, nil
 }
 
+// ByMailboxProviderAll Email delivery and engagement stats grouped by recipient mailbox provider, for example `gmail`, `microsoft`, or `yahoo`. It covers the delivery stage onward and omits accepted or processed counts. For a per-region split within a provider, use `email.stats.by_mailbox_provider_region`; for exact destination domains instead, use `email.stats.by_recipient_domain`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByMailboxProviderAll(ctx context.Context, params EmailStatsByMailboxProviderParams, opts ...option.RequestOption) iter.Seq2[*EmailMailboxProviderStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailMailboxProviderStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByMailboxProviderPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByMailboxProviderRegion Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward and omits accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
 func (s *EmailStatsService) ByMailboxProviderRegion(ctx context.Context, params EmailStatsByMailboxProviderRegionParams, opts ...option.RequestOption) (*EmailStatsByMailboxProviderRegionResponse, error) {
+	return s.ByMailboxProviderRegionPage(ctx, params, "", opts...)
+}
+
+// ByMailboxProviderRegionPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByMailboxProviderRegionPage(ctx context.Context, params EmailStatsByMailboxProviderRegionParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByMailboxProviderRegionResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByMailboxProviderRegion(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByMailboxProviderRegion(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -670,10 +991,36 @@ func (s *EmailStatsService) ByMailboxProviderRegion(ctx context.Context, params 
 	return &out, nil
 }
 
+// ByMailboxProviderRegionAll Email delivery and engagement stats grouped by a mailbox provider and provider region pair, for example `gmail` in `NA`. It covers the delivery stage onward and omits accepted or processed counts. For the provider-level view without the region split, use `email.stats.by_mailbox_provider`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByMailboxProviderRegionAll(ctx context.Context, params EmailStatsByMailboxProviderRegionParams, opts ...option.RequestOption) iter.Seq2[*EmailMailboxProviderRegionStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailMailboxProviderRegionStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByMailboxProviderRegionPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByTemplate Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter.
 func (s *EmailStatsService) ByTemplate(ctx context.Context, params EmailStatsByTemplateParams, opts ...option.RequestOption) (*EmailStatsByTemplateResponse, error) {
+	return s.ByTemplatePage(ctx, params, "", opts...)
+}
+
+// ByTemplatePage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByTemplatePage(ctx context.Context, params EmailStatsByTemplateParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByTemplateResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByTemplate(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByTemplate(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -685,10 +1032,36 @@ func (s *EmailStatsService) ByTemplate(ctx context.Context, params EmailStatsByT
 	return &out, nil
 }
 
+// ByTemplateAll Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByTemplateAll(ctx context.Context, params EmailStatsByTemplateParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailTemplateStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByTemplatePage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByLocation Opens and clicks grouped by country, region, or city, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by mail client or device instead, use `email.stats.by_client`.
 func (s *EmailStatsService) ByLocation(ctx context.Context, params EmailStatsByLocationParams, opts ...option.RequestOption) (*EmailStatsByLocationResponse, error) {
+	return s.ByLocationPage(ctx, params, "", opts...)
+}
+
+// ByLocationPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByLocationPage(ctx context.Context, params EmailStatsByLocationParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByLocationResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByLocation(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByLocation(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -700,10 +1073,36 @@ func (s *EmailStatsService) ByLocation(ctx context.Context, params EmailStatsByL
 	return &out, nil
 }
 
+// ByLocationAll Opens and clicks grouped by country, region, or city, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by mail client or device instead, use `email.stats.by_client`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByLocationAll(ctx context.Context, params EmailStatsByLocationParams, opts ...option.RequestOption) iter.Seq2[*EmailLocationStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailLocationStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByLocationPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByClient Opens and clicks grouped by mail client, operating system, or device type, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by geography instead, use `email.stats.by_location`.
 func (s *EmailStatsService) ByClient(ctx context.Context, params EmailStatsByClientParams, opts ...option.RequestOption) (*EmailStatsByClientResponse, error) {
+	return s.ByClientPage(ctx, params, "", opts...)
+}
+
+// ByClientPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByClientPage(ctx context.Context, params EmailStatsByClientParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByClientResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByClient(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByClient(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -715,10 +1114,36 @@ func (s *EmailStatsService) ByClient(ctx context.Context, params EmailStatsByCli
 	return &out, nil
 }
 
+// ByClientAll Opens and clicks grouped by mail client, operating system, or device type, whichever you choose with `group_by`. It only has engagement counts, no delivery counts or rates. For engagement grouped by geography instead, use `email.stats.by_location`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByClientAll(ctx context.Context, params EmailStatsByClientParams, opts ...option.RequestOption) iter.Seq2[*EmailClientStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailClientStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByClientPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByBounceCode Bounce counts grouped by the SMTP error code the receiving mail server returned. Each row also breaks the bounce down into its hard, soft, admin, block, and undetermined split. It omits delivered, open, and click counts because a bounce code only appears on a bounce event. For bounces broken down by destination instead, use `email.stats.by_recipient_domain` or `email.stats.by_mailbox_provider`.
 func (s *EmailStatsService) ByBounceCode(ctx context.Context, params EmailStatsByBounceCodeParams, opts ...option.RequestOption) (*EmailStatsByBounceCodeResponse, error) {
+	return s.ByBounceCodePage(ctx, params, "", opts...)
+}
+
+// ByBounceCodePage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByBounceCodePage(ctx context.Context, params EmailStatsByBounceCodeParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByBounceCodeResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByBounceCode(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByBounceCode(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -730,10 +1155,36 @@ func (s *EmailStatsService) ByBounceCode(ctx context.Context, params EmailStatsB
 	return &out, nil
 }
 
+// ByBounceCodeAll Bounce counts grouped by the SMTP error code the receiving mail server returned. Each row also breaks the bounce down into its hard, soft, admin, block, and undetermined split. It omits delivered, open, and click counts because a bounce code only appears on a bounce event. For bounces broken down by destination instead, use `email.stats.by_recipient_domain` or `email.stats.by_mailbox_provider`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByBounceCodeAll(ctx context.Context, params EmailStatsByBounceCodeParams, opts ...option.RequestOption) iter.Seq2[*EmailBounceCodeStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailBounceCodeStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByBounceCodePage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByComplaintType Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. This complaint-only breakdown omits delivery and engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
 func (s *EmailStatsService) ByComplaintType(ctx context.Context, params EmailStatsByComplaintTypeParams, opts ...option.RequestOption) (*EmailStatsByComplaintTypeResponse, error) {
+	return s.ByComplaintTypePage(ctx, params, "", opts...)
+}
+
+// ByComplaintTypePage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByComplaintTypePage(ctx context.Context, params EmailStatsByComplaintTypeParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByComplaintTypeResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByComplaintType(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByComplaintType(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -745,10 +1196,36 @@ func (s *EmailStatsService) ByComplaintType(ctx context.Context, params EmailSta
 	return &out, nil
 }
 
+// ByComplaintTypeAll Spam-complaint counts grouped by the feedback-loop complaint type, for example `abuse`, `fraud`, or `virus`. This complaint-only breakdown omits delivery and engagement counts. For complaints broken down by destination instead, use `email.stats.by_mailbox_provider` or `email.stats.by_recipient_domain`.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByComplaintTypeAll(ctx context.Context, params EmailStatsByComplaintTypeParams, opts ...option.RequestOption) iter.Seq2[*EmailComplaintTypeStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailComplaintTypeStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByComplaintTypePage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
+}
+
 // ByBroadcast Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity.
 func (s *EmailStatsService) ByBroadcast(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) (*EmailStatsByBroadcastResponse, error) {
+	return s.ByBroadcastPage(ctx, params, "", opts...)
+}
+
+// ByBroadcastPage fetches one page of results. Pass the previous page's NextCursor as
+// startingAfter to advance; "" starts from the first page.
+func (s *EmailStatsService) ByBroadcastPage(ctx context.Context, params EmailStatsByBroadcastParams, startingAfter string, opts ...option.RequestOption) (*EmailStatsByBroadcastResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailStatsByBroadcast(ctx, params.toWire(), cfg...)
+		return s.client.oapi.GetEmailStatsByBroadcast(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -758,4 +1235,24 @@ func (s *EmailStatsService) ByBroadcast(ctx context.Context, params EmailStatsBy
 		return nil, err
 	}
 	return &out, nil
+}
+
+// ByBroadcastAll Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity.
+// Range over it; the second value is non-nil only on the iteration where a
+// fetch failed.
+func (s *EmailStatsService) ByBroadcastAll(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) iter.Seq2[*EmailBroadcastStatsPoint, error] {
+	return paginate(func(cursor string) ([]EmailBroadcastStatsPoint, *string, error) {
+		pageParams := params
+		if cursor != "" {
+			pageParams.EndingBefore = ""
+		}
+		page, err := s.ByBroadcastPage(ctx, pageParams, cursor, opts...)
+		if err != nil {
+			return nil, nil, err
+		}
+		if page.Data == nil {
+			return nil, page.NextCursor, nil
+		}
+		return *page.Data, page.NextCursor, nil
+	})
 }

@@ -224,6 +224,31 @@ type (
 	EmailStatsByBounceCodeResponse            = oapi.EmailStatsByBounceCodeResponse
 	EmailStatsByComplaintTypeResponse         = oapi.EmailStatsByComplaintTypeResponse
 	EmailStatsByBroadcastResponse             = oapi.EmailStatsByBroadcastResponse
+	EmailStatsQueryResponse                   = oapi.EmailStatsQueryResponse
+	EmailStatsQueryGroup                      = oapi.EmailStatsQueryGroup
+	EmailStatsQueryDimensions                 = oapi.EmailStatsQueryDimensions
+	EmailStatsQueryMetrics                    = oapi.EmailStatsQueryMetrics
+	EmailStatsQueryPeriod                     = oapi.EmailStatsQueryPeriod
+	EmailStatsQueryPoint                      = oapi.EmailStatsQueryPoint
+	EmailStatsQueryStringFilter               = oapi.EmailStatsQueryStringFilter
+	EmailStatsQueryCategoryFilter             = oapi.EmailStatsQueryCategoryFilter
+	EmailStatsQueryTemplateFilter             = oapi.EmailStatsQueryTemplateFilter
+	EmailStatsQueryIPPoolFilter               = oapi.EmailStatsQueryIPPoolFilter
+	EmailStatsQueryBroadcastFilter            = oapi.EmailStatsQueryBroadcastFilter
+	EmailStatsQueryTagFilter                  = oapi.EmailStatsQueryTagFilter
+	EmailTagStatsPoint                        = oapi.EmailTagStatsPoint
+	EmailCategoryStatsPoint                   = oapi.EmailCategoryStatsPoint
+	EmailSendingIPStatsPoint                  = oapi.EmailSendingIpStatsPoint
+	EmailSendingDomainStatsPoint              = oapi.EmailSendingDomainStatsPoint
+	EmailRecipientDomainStatsPoint            = oapi.EmailRecipientDomainStatsPoint
+	EmailMailboxProviderStatsPoint            = oapi.EmailMailboxProviderStatsPoint
+	EmailMailboxProviderRegionStatsPoint      = oapi.EmailMailboxProviderRegionStatsPoint
+	EmailTemplateStatsPoint                   = oapi.EmailTemplateStatsPoint
+	EmailLocationStatsPoint                   = oapi.EmailLocationStatsPoint
+	EmailClientStatsPoint                     = oapi.EmailClientStatsPoint
+	EmailBounceCodeStatsPoint                 = oapi.EmailBounceCodeStatsPoint
+	EmailComplaintTypeStatsPoint              = oapi.EmailComplaintTypeStatsPoint
+	EmailBroadcastStatsPoint                  = oapi.EmailBroadcastStatsPoint
 )
 
 type EmailHealth = oapi.EmailHealth
@@ -684,8 +709,10 @@ const (
 type WhatsAppTag = oapi.Tag
 
 type (
-	VoiceLeg     = oapi.VoiceLeg
-	VoiceLegList = oapi.VoiceLegList
+	VoiceLeg              = oapi.VoiceLeg
+	VoiceLegList          = oapi.VoiceLegList
+	VoiceTrunkGateway     = oapi.VoiceTrunkGateway
+	VoiceTrunkGatewayList = oapi.VoiceTrunkGatewayList
 )
 
 // VoiceCallStatus is how a call ended, or that it is still ringing or connected.

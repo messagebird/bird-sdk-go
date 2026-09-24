@@ -1,6 +1,10 @@
 package bird
 
-import "iter"
+import (
+	"iter"
+
+	"github.com/messagebird/bird-sdk-go/option"
+)
 
 // paginate turns a cursor-paged fetch into a lazy item iterator. fetchPage
 // returns one page's items and the next cursor (nil or "" to stop). A fetch
@@ -25,4 +29,11 @@ func paginate[T any](fetchPage func(cursor string) ([]T, *string, error)) iter.S
 			cursor = *next
 		}
 	}
+}
+
+func bodyPageOptions(opts []option.RequestOption, cursor string) []option.RequestOption {
+	if cursor == "" {
+		return opts
+	}
+	return append(append([]option.RequestOption{}, opts...), option.WithIdempotencyKey(""))
 }

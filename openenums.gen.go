@@ -6,6 +6,39 @@ import (
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 )
 
+// DestinationRegion is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the DestinationRegion* constants with a
+// default branch rather than treating the set as closed.
+type DestinationRegion = oapi.DestinationRegion
+
+const (
+	DestinationRegionCentralAsiaCaucasus   = oapi.DestinationRegionCentralAsiaCaucasus
+	DestinationRegionCentralEasternEurope  = oapi.DestinationRegionCentralEasternEurope
+	DestinationRegionEastAsia              = oapi.DestinationRegionEastAsia
+	DestinationRegionLatinAmericaCaribbean = oapi.DestinationRegionLatinAmericaCaribbean
+	DestinationRegionMiddleEastNorthAfrica = oapi.DestinationRegionMiddleEastNorthAfrica
+	DestinationRegionNordicsBaltics        = oapi.DestinationRegionNordicsBaltics
+	DestinationRegionNorthAmerica          = oapi.DestinationRegionNorthAmerica
+	DestinationRegionOceania               = oapi.DestinationRegionOceania
+	DestinationRegionSouthAsia             = oapi.DestinationRegionSouthAsia
+	DestinationRegionSouthEastAsia         = oapi.DestinationRegionSouthEastAsia
+	DestinationRegionSouthernEurope        = oapi.DestinationRegionSouthernEurope
+	DestinationRegionSubSaharanAfrica      = oapi.DestinationRegionSubSaharanAfrica
+	DestinationRegionWesternEurope         = oapi.DestinationRegionWesternEurope
+)
+
+// DestinationSuperRegion is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the DestinationSuperRegion* constants with a
+// default branch rather than treating the set as closed.
+type DestinationSuperRegion = oapi.DestinationSuperRegion
+
+const (
+	DestinationSuperRegionAmericas         = oapi.DestinationSuperRegionAmericas
+	DestinationSuperRegionAsiaPacific      = oapi.DestinationSuperRegionAsiaPacific
+	DestinationSuperRegionEurope           = oapi.DestinationSuperRegionEurope
+	DestinationSuperRegionMiddleEastAfrica = oapi.DestinationSuperRegionMiddleEastAfrica
+)
+
 // EmailClientFamily is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailClientFamily* constants with a
 // default branch rather than treating the set as closed.
@@ -436,6 +469,17 @@ const (
 	VerificationTerminalReasonAttemptsExhausted = oapi.VerificationTerminalReasonAttemptsExhausted
 	VerificationTerminalReasonTtlElapsed        = oapi.VerificationTerminalReasonTtlElapsed
 	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
+)
+
+// VoiceCallerIDStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the VoiceCallerIDStatus* constants with a
+// default branch rather than treating the set as closed.
+type VoiceCallerIDStatus = oapi.VoiceCallerIDStatus
+
+const (
+	VoiceCallerIDStatusFailed   = oapi.VoiceCallerIDStatusFailed
+	VoiceCallerIDStatusPending  = oapi.VoiceCallerIDStatusPending
+	VoiceCallerIDStatusVerified = oapi.VoiceCallerIDStatusVerified
 )
 
 // VoicePartyEndpointType is an open string on the wire: a value added by a newer server

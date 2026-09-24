@@ -23,6 +23,7 @@ output-options:
     - listEmailMessages
     - cancelEmailMessage
     - getEmailHealth
+    - getEmailStatsQuery
     - getEmailStatsSummary
     - getEmailStatsDaily
     - getEmailStatsHourly
@@ -182,6 +183,25 @@ output-options:
     - createVoiceCall
     - listVoiceLegs
     - getVoiceLeg
+    - createVoiceSessionCredential
+    - listVoiceTrunks
+    - getVoiceTrunk
+    - createVoiceTrunk
+    - updateVoiceTrunk
+    - deleteVoiceTrunk
+    - listVoiceTrunkGateways
+    - getVoiceTrunkGateway
+    - createVoiceTrunkGateway
+    - updateVoiceTrunkGateway
+    - deleteVoiceTrunkGateway
+    - listVoiceNumbers
+    - getVoiceNumber
+    - updateVoiceNumber
+    - listVoiceCallerIDs
+    - getVoiceCallerID
+    - verifyVoiceCallerID
+    - listVoiceDestinations
+    - updateVoiceDestinations
     - createVerification
     - createVerificationCheck
     - createVerificationNextChannel

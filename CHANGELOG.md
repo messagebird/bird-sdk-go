@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.76.0
+
+- Add the WhatsApp group join-request webhook events `whatsapp.group.join_request_created` and `whatsapp.group.join_request_revoked`, fired when someone asks to join a group that requires approval and when they withdraw the request before you decide it. Both carry the group, the business number administering it, the workspace, and a `join_request` object naming the request and who made it. Approving or rejecting a request fires no event: the outcome is on the response to your own call.
+- The `voice` resource gains trunks, numbers, caller IDs, destination countries and session credentials, so you can list and configure the SIP trunks calls arrive on, point a number at a trunk or a forward, set which countries the workspace may call, and mint a short-lived SIP credential.
+
 ## 0.75.0
 
 - Create outbound voice calls using an active published sequence, with entry data and idempotent retries.

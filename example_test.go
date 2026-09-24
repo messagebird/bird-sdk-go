@@ -111,7 +111,7 @@ func ExampleEmailService_Send_rich() {
 		Tags:        []bird.EmailTag{{Name: "category", Value: "billing"}},
 		Metadata:    map[string]any{"invoice_id": "inv_123"},
 		TrackClicks: bird.Bool(false),
-	}, option.WithIdempotencyKey("invoice-march/cust_1"))
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -1995,6 +1995,68 @@ func ExampleVoiceLegsService_Get() {
 	// A call still ringing or connected carries no economics yet.
 	fmt.Println(call.Status, call.DurationMs)
 }
+
+// List the workspace's SIP trunks.
+func ExampleVoiceTrunksService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for trunk, err := range client.Voice.Trunks.List(context.Background(), bird.VoiceTrunksListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		// A trunk with no allow list and no session credentials admits nothing.
+		fmt.Println(trunk.Id, trunk.Domain, trunk.InboundEnabled)
+	}
+}
+
+// Update replaces a trunk's access lists wholesale.
+func ExampleVoiceTrunksService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	trunk, err := client.Voice.Trunks.Update(context.Background(), "spt_01krdgeqcxet5s7t44vh8rt9mg", bird.VoiceTrunksUpdateParams{
+		// Each list replaces the previous one, so send what you want to end up with.
+		IPACLs: []bird.VoiceTrunkIPACLCreate{{Cidr: "203.0.113.0/24"}},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(trunk.IpAcls)
+}
+
+// List the destination countries and your workspace's setting for each.
+func ExampleVoiceDestinationsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	destinations, err := client.Voice.Destinations.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, destination := range destinations.Data {
+		fmt.Println(destination.CountryCode, destination.Enabled, destination.Status)
+	}
+}
+
+// Create mints a short-lived SIP digest credential.
+func ExampleVoiceSessionCredentialsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	credential, err := client.Voice.SessionCredentials.Create(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	// The password is returned once. Until ExpiresAt it can place billed calls.
+	fmt.Println(credential.Username, credential.Realm, credential.ExpiresAt)
+}
+
+// Summary aggregates call quality over one window.
 
 // Email tells you whether an address is worth sending to before you send.
 func ExampleLookupService_Email() {
@@ -4102,6 +4164,202 @@ func ExampleLookupService_EmailBatch() {
 	}
 }
 
+func ExampleVoiceTrunksService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	trunk, err := client.Voice.Trunks.Create(context.Background(), bird.VoiceTrunksCreateParams{
+		Name:            "Lisbon office",
+		OutboundEnabled: bird.Ptr(true),
+		InboundEnabled:  bird.Ptr(true),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(trunk.Id, trunk.Domain)
+}
+
+func ExampleVoiceTrunksService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	trunk, err := client.Voice.Trunks.Get(context.Background(), "trunk-id")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(trunk.Name, trunk.InboundEnabled, trunk.OutboundEnabled)
+}
+
+func ExampleVoiceTrunksService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Voice.Trunks.Delete(context.Background(), "trunk-id"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleVoiceTrunksGatewaysService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	gateways, err := client.Voice.Trunks.Gateways.List(context.Background(), "TRUNK_ID")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, gateway := range gateways.Data {
+		fmt.Println(gateway.Id, gateway.Priority)
+	}
+}
+
+func ExampleVoiceTrunksGatewaysService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	gateway, err := client.Voice.Trunks.Gateways.Get(context.Background(), "TRUNK_ID", "GATEWAY_ID")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(gateway.Id, gateway.Priority)
+}
+
+func ExampleVoiceTrunksGatewaysService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	gateway, err := client.Voice.Trunks.Gateways.Create(context.Background(), "TRUNK_ID", bird.VoiceTrunksGatewaysCreateParams{
+		SipURI:            "sip:pbx.example.com:5060",
+		Priority:          0,
+		DestinationFormat: bird.Ptr("1234#{number}"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(gateway.Id, gateway.Priority)
+}
+
+func ExampleVoiceTrunksGatewaysService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	gateway, err := client.Voice.Trunks.Gateways.Update(context.Background(), "TRUNK_ID", "GATEWAY_ID", bird.VoiceTrunksGatewaysUpdateParams{
+		Priority: bird.Ptr(10),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(gateway.Id, gateway.Priority)
+}
+
+func ExampleVoiceTrunksGatewaysService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Voice.Trunks.Gateways.Delete(context.Background(), "TRUNK_ID", "GATEWAY_ID"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleVoiceNumbersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for number, err := range client.Voice.Numbers.List(context.Background(), bird.VoiceNumbersListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(number.Id, number.PhoneNumber, number.CountryCode)
+	}
+}
+
+func ExampleVoiceNumbersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	number, err := client.Voice.Numbers.Get(context.Background(), "number-id")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(number.PhoneNumber, number.Directions)
+}
+
+func ExampleVoiceNumbersService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	number, err := client.Voice.Numbers.Update(context.Background(), "number-id", bird.VoiceNumbersUpdateParams{
+		Name: bird.Value("Support line"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(number.Id, number.Name)
+}
+
+func ExampleVoiceCallerIDsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for callerID, err := range client.Voice.CallerIDs.List(context.Background(), bird.VoiceCallerIDsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(callerID.Id, callerID.PhoneNumber, callerID.Status)
+	}
+}
+
+func ExampleVoiceCallerIDsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	callerID, err := client.Voice.CallerIDs.Get(context.Background(), "caller-id")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(callerID.PhoneNumber, callerID.Status, callerID.VerifiedAt)
+}
+
+func ExampleVoiceCallerIDsService_Verify() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	callerID, err := client.Voice.CallerIDs.Verify(context.Background(), "CALLER_ID", bird.VoiceCallerIDsVerifyParams{
+		Code: "123456",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(callerID.Id, callerID.Status)
+}
+
+func ExampleVoiceDestinationsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	destinations, err := client.Voice.Destinations.Update(context.Background(), bird.VoiceDestinationsUpdateParams{
+		Destinations: []bird.DestinationSetting{{CountryCode: "PT", Enabled: true}},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(len(destinations.Data))
+}
+
 func ExampleVoiceCallsService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -4120,4 +4378,24 @@ func ExampleVoiceCallsService_Create() {
 		log.Fatal(err)
 	}
 	fmt.Println(call.Id, call.InitialLegId)
+}
+
+func ExampleEmailStatsService_Query() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for group, err := range client.Email.Stats.Query(context.Background(), bird.EmailStatsQueryParams{
+		From:    "2026-08-03",
+		To:      "2026-08-16",
+		Metrics: []bird.EmailStatsQueryMetric{"delivered", "bounce_rate"},
+		GroupBy: bird.Ptr(bird.EmailStatsQueryDimension("recipient_domain")),
+		Grain:   bird.Ptr(bird.EmailStatsQueryGrain("week")),
+		Limit:   bird.Ptr(25),
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(group.Dimensions, group.Metrics, group.Series)
+	}
 }

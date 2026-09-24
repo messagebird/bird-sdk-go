@@ -276,6 +276,81 @@ func (e DNSRecordType) Valid() bool {
 	}
 }
 
+// Defines values for DestinationRegion.
+const (
+	DestinationRegionCentralAsiaCaucasus   DestinationRegion = "central_asia_caucasus"
+	DestinationRegionCentralEasternEurope  DestinationRegion = "central_eastern_europe"
+	DestinationRegionEastAsia              DestinationRegion = "east_asia"
+	DestinationRegionLatinAmericaCaribbean DestinationRegion = "latin_america_caribbean"
+	DestinationRegionMiddleEastNorthAfrica DestinationRegion = "middle_east_north_africa"
+	DestinationRegionNordicsBaltics        DestinationRegion = "nordics_baltics"
+	DestinationRegionNorthAmerica          DestinationRegion = "north_america"
+	DestinationRegionOceania               DestinationRegion = "oceania"
+	DestinationRegionSouthAsia             DestinationRegion = "south_asia"
+	DestinationRegionSouthEastAsia         DestinationRegion = "south_east_asia"
+	DestinationRegionSouthernEurope        DestinationRegion = "southern_europe"
+	DestinationRegionSubSaharanAfrica      DestinationRegion = "sub_saharan_africa"
+	DestinationRegionWesternEurope         DestinationRegion = "western_europe"
+)
+
+// Valid indicates whether the value is a known member of the DestinationRegion enum.
+func (e DestinationRegion) Valid() bool {
+	switch e {
+	case DestinationRegionCentralAsiaCaucasus:
+		return true
+	case DestinationRegionCentralEasternEurope:
+		return true
+	case DestinationRegionEastAsia:
+		return true
+	case DestinationRegionLatinAmericaCaribbean:
+		return true
+	case DestinationRegionMiddleEastNorthAfrica:
+		return true
+	case DestinationRegionNordicsBaltics:
+		return true
+	case DestinationRegionNorthAmerica:
+		return true
+	case DestinationRegionOceania:
+		return true
+	case DestinationRegionSouthAsia:
+		return true
+	case DestinationRegionSouthEastAsia:
+		return true
+	case DestinationRegionSouthernEurope:
+		return true
+	case DestinationRegionSubSaharanAfrica:
+		return true
+	case DestinationRegionWesternEurope:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DestinationSuperRegion.
+const (
+	DestinationSuperRegionAmericas         DestinationSuperRegion = "americas"
+	DestinationSuperRegionAsiaPacific      DestinationSuperRegion = "asia_pacific"
+	DestinationSuperRegionEurope           DestinationSuperRegion = "europe"
+	DestinationSuperRegionMiddleEastAfrica DestinationSuperRegion = "middle_east_africa"
+)
+
+// Valid indicates whether the value is a known member of the DestinationSuperRegion enum.
+func (e DestinationSuperRegion) Valid() bool {
+	switch e {
+	case DestinationSuperRegionAmericas:
+		return true
+	case DestinationSuperRegionAsiaPacific:
+		return true
+	case DestinationSuperRegionEurope:
+		return true
+	case DestinationSuperRegionMiddleEastAfrica:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for DomainStatus.
 const (
 	DomainStatusFailed           DomainStatus = "failed"
@@ -1854,6 +1929,231 @@ func (e EmailSmtpConfigUpdateCategory) Valid() bool {
 	case EmailSmtpConfigUpdateCategoryMarketing:
 		return true
 	case EmailSmtpConfigUpdateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailStatsQueryDimension.
+const (
+	EmailStatsQueryDimensionAgentFamily           EmailStatsQueryDimension = "agent_family"
+	EmailStatsQueryDimensionBroadcastId           EmailStatsQueryDimension = "broadcast_id"
+	EmailStatsQueryDimensionCategory              EmailStatsQueryDimension = "category"
+	EmailStatsQueryDimensionCity                  EmailStatsQueryDimension = "city"
+	EmailStatsQueryDimensionCountry               EmailStatsQueryDimension = "country"
+	EmailStatsQueryDimensionDeviceFamily          EmailStatsQueryDimension = "device_family"
+	EmailStatsQueryDimensionFeedbackType          EmailStatsQueryDimension = "feedback_type"
+	EmailStatsQueryDimensionIpPoolId              EmailStatsQueryDimension = "ip_pool_id"
+	EmailStatsQueryDimensionMailboxProvider       EmailStatsQueryDimension = "mailbox_provider"
+	EmailStatsQueryDimensionMailboxProviderRegion EmailStatsQueryDimension = "mailbox_provider_region"
+	EmailStatsQueryDimensionOsFamily              EmailStatsQueryDimension = "os_family"
+	EmailStatsQueryDimensionRecipientDomain       EmailStatsQueryDimension = "recipient_domain"
+	EmailStatsQueryDimensionRegion                EmailStatsQueryDimension = "region"
+	EmailStatsQueryDimensionSendingDomain         EmailStatsQueryDimension = "sending_domain"
+	EmailStatsQueryDimensionSendingIp             EmailStatsQueryDimension = "sending_ip"
+	EmailStatsQueryDimensionSmtpErrorCode         EmailStatsQueryDimension = "smtp_error_code"
+	EmailStatsQueryDimensionTag                   EmailStatsQueryDimension = "tag"
+	EmailStatsQueryDimensionTemplateId            EmailStatsQueryDimension = "template_id"
+)
+
+// Valid indicates whether the value is a known member of the EmailStatsQueryDimension enum.
+func (e EmailStatsQueryDimension) Valid() bool {
+	switch e {
+	case EmailStatsQueryDimensionAgentFamily:
+		return true
+	case EmailStatsQueryDimensionBroadcastId:
+		return true
+	case EmailStatsQueryDimensionCategory:
+		return true
+	case EmailStatsQueryDimensionCity:
+		return true
+	case EmailStatsQueryDimensionCountry:
+		return true
+	case EmailStatsQueryDimensionDeviceFamily:
+		return true
+	case EmailStatsQueryDimensionFeedbackType:
+		return true
+	case EmailStatsQueryDimensionIpPoolId:
+		return true
+	case EmailStatsQueryDimensionMailboxProvider:
+		return true
+	case EmailStatsQueryDimensionMailboxProviderRegion:
+		return true
+	case EmailStatsQueryDimensionOsFamily:
+		return true
+	case EmailStatsQueryDimensionRecipientDomain:
+		return true
+	case EmailStatsQueryDimensionRegion:
+		return true
+	case EmailStatsQueryDimensionSendingDomain:
+		return true
+	case EmailStatsQueryDimensionSendingIp:
+		return true
+	case EmailStatsQueryDimensionSmtpErrorCode:
+		return true
+	case EmailStatsQueryDimensionTag:
+		return true
+	case EmailStatsQueryDimensionTemplateId:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailStatsQueryGrain.
+const (
+	EmailStatsQueryGrainDay         EmailStatsQueryGrain = "day"
+	EmailStatsQueryGrainHalfDay     EmailStatsQueryGrain = "half_day"
+	EmailStatsQueryGrainHour        EmailStatsQueryGrain = "hour"
+	EmailStatsQueryGrainMonth       EmailStatsQueryGrain = "month"
+	EmailStatsQueryGrainQuarterHour EmailStatsQueryGrain = "quarter_hour"
+	EmailStatsQueryGrainWeek        EmailStatsQueryGrain = "week"
+)
+
+// Valid indicates whether the value is a known member of the EmailStatsQueryGrain enum.
+func (e EmailStatsQueryGrain) Valid() bool {
+	switch e {
+	case EmailStatsQueryGrainDay:
+		return true
+	case EmailStatsQueryGrainHalfDay:
+		return true
+	case EmailStatsQueryGrainHour:
+		return true
+	case EmailStatsQueryGrainMonth:
+		return true
+	case EmailStatsQueryGrainQuarterHour:
+		return true
+	case EmailStatsQueryGrainWeek:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailStatsQueryMetric.
+const (
+	EmailStatsQueryMetricAccepted                          EmailStatsQueryMetric = "accepted"
+	EmailStatsQueryMetricAdminBounced                      EmailStatsQueryMetric = "admin_bounced"
+	EmailStatsQueryMetricAllBounces                        EmailStatsQueryMetric = "all_bounces"
+	EmailStatsQueryMetricBlockBounced                      EmailStatsQueryMetric = "block_bounced"
+	EmailStatsQueryMetricBounceRate                        EmailStatsQueryMetric = "bounce_rate"
+	EmailStatsQueryMetricBounced                           EmailStatsQueryMetric = "bounced"
+	EmailStatsQueryMetricClickRate                         EmailStatsQueryMetric = "click_rate"
+	EmailStatsQueryMetricClicks                            EmailStatsQueryMetric = "clicks"
+	EmailStatsQueryMetricComplained                        EmailStatsQueryMetric = "complained"
+	EmailStatsQueryMetricComplaintRate                     EmailStatsQueryMetric = "complaint_rate"
+	EmailStatsQueryMetricConfirmedUniqueOpens              EmailStatsQueryMetric = "confirmed_unique_opens"
+	EmailStatsQueryMetricConfirmedUniqueOpensNonPrefetched EmailStatsQueryMetric = "confirmed_unique_opens_non_prefetched"
+	EmailStatsQueryMetricDeferralRate                      EmailStatsQueryMetric = "deferral_rate"
+	EmailStatsQueryMetricDeferred                          EmailStatsQueryMetric = "deferred"
+	EmailStatsQueryMetricDelivered                         EmailStatsQueryMetric = "delivered"
+	EmailStatsQueryMetricDeliveryRate                      EmailStatsQueryMetric = "delivery_rate"
+	EmailStatsQueryMetricEffectiveDelivered                EmailStatsQueryMetric = "effective_delivered"
+	EmailStatsQueryMetricHardBounced                       EmailStatsQueryMetric = "hard_bounced"
+	EmailStatsQueryMetricOobBounces                        EmailStatsQueryMetric = "oob_bounces"
+	EmailStatsQueryMetricOobRate                           EmailStatsQueryMetric = "oob_rate"
+	EmailStatsQueryMetricOpenRate                          EmailStatsQueryMetric = "open_rate"
+	EmailStatsQueryMetricOpens                             EmailStatsQueryMetric = "opens"
+	EmailStatsQueryMetricOpensNonPrefetched                EmailStatsQueryMetric = "opens_non_prefetched"
+	EmailStatsQueryMetricProcessed                         EmailStatsQueryMetric = "processed"
+	EmailStatsQueryMetricProcessingP50Ms                   EmailStatsQueryMetric = "processing_p50_ms"
+	EmailStatsQueryMetricProcessingP95Ms                   EmailStatsQueryMetric = "processing_p95_ms"
+	EmailStatsQueryMetricProcessingP99Ms                   EmailStatsQueryMetric = "processing_p99_ms"
+	EmailStatsQueryMetricRejected                          EmailStatsQueryMetric = "rejected"
+	EmailStatsQueryMetricSendsAccepted                     EmailStatsQueryMetric = "sends_accepted"
+	EmailStatsQueryMetricSoftBounced                       EmailStatsQueryMetric = "soft_bounced"
+	EmailStatsQueryMetricTotalP50Ms                        EmailStatsQueryMetric = "total_p50_ms"
+	EmailStatsQueryMetricTotalP95Ms                        EmailStatsQueryMetric = "total_p95_ms"
+	EmailStatsQueryMetricTotalP99Ms                        EmailStatsQueryMetric = "total_p99_ms"
+	EmailStatsQueryMetricUndeterminedBounced               EmailStatsQueryMetric = "undetermined_bounced"
+	EmailStatsQueryMetricUniqueClicks                      EmailStatsQueryMetric = "unique_clicks"
+	EmailStatsQueryMetricUniqueOpens                       EmailStatsQueryMetric = "unique_opens"
+	EmailStatsQueryMetricUniqueOpensNonPrefetched          EmailStatsQueryMetric = "unique_opens_non_prefetched"
+	EmailStatsQueryMetricUnsubscribeRate                   EmailStatsQueryMetric = "unsubscribe_rate"
+	EmailStatsQueryMetricUnsubscribes                      EmailStatsQueryMetric = "unsubscribes"
+)
+
+// Valid indicates whether the value is a known member of the EmailStatsQueryMetric enum.
+func (e EmailStatsQueryMetric) Valid() bool {
+	switch e {
+	case EmailStatsQueryMetricAccepted:
+		return true
+	case EmailStatsQueryMetricAdminBounced:
+		return true
+	case EmailStatsQueryMetricAllBounces:
+		return true
+	case EmailStatsQueryMetricBlockBounced:
+		return true
+	case EmailStatsQueryMetricBounceRate:
+		return true
+	case EmailStatsQueryMetricBounced:
+		return true
+	case EmailStatsQueryMetricClickRate:
+		return true
+	case EmailStatsQueryMetricClicks:
+		return true
+	case EmailStatsQueryMetricComplained:
+		return true
+	case EmailStatsQueryMetricComplaintRate:
+		return true
+	case EmailStatsQueryMetricConfirmedUniqueOpens:
+		return true
+	case EmailStatsQueryMetricConfirmedUniqueOpensNonPrefetched:
+		return true
+	case EmailStatsQueryMetricDeferralRate:
+		return true
+	case EmailStatsQueryMetricDeferred:
+		return true
+	case EmailStatsQueryMetricDelivered:
+		return true
+	case EmailStatsQueryMetricDeliveryRate:
+		return true
+	case EmailStatsQueryMetricEffectiveDelivered:
+		return true
+	case EmailStatsQueryMetricHardBounced:
+		return true
+	case EmailStatsQueryMetricOobBounces:
+		return true
+	case EmailStatsQueryMetricOobRate:
+		return true
+	case EmailStatsQueryMetricOpenRate:
+		return true
+	case EmailStatsQueryMetricOpens:
+		return true
+	case EmailStatsQueryMetricOpensNonPrefetched:
+		return true
+	case EmailStatsQueryMetricProcessed:
+		return true
+	case EmailStatsQueryMetricProcessingP50Ms:
+		return true
+	case EmailStatsQueryMetricProcessingP95Ms:
+		return true
+	case EmailStatsQueryMetricProcessingP99Ms:
+		return true
+	case EmailStatsQueryMetricRejected:
+		return true
+	case EmailStatsQueryMetricSendsAccepted:
+		return true
+	case EmailStatsQueryMetricSoftBounced:
+		return true
+	case EmailStatsQueryMetricTotalP50Ms:
+		return true
+	case EmailStatsQueryMetricTotalP95Ms:
+		return true
+	case EmailStatsQueryMetricTotalP99Ms:
+		return true
+	case EmailStatsQueryMetricUndeterminedBounced:
+		return true
+	case EmailStatsQueryMetricUniqueClicks:
+		return true
+	case EmailStatsQueryMetricUniqueOpens:
+		return true
+	case EmailStatsQueryMetricUniqueOpensNonPrefetched:
+		return true
+	case EmailStatsQueryMetricUnsubscribeRate:
+		return true
+	case EmailStatsQueryMetricUnsubscribes:
 		return true
 	default:
 		return false
@@ -4526,16 +4826,16 @@ func (e SMSTemplateSortField) Valid() bool {
 
 // Defines values for SMSTemplateVersionStatus.
 const (
-	Draft     SMSTemplateVersionStatus = "draft"
-	Published SMSTemplateVersionStatus = "published"
+	SMSTemplateVersionStatusDraft     SMSTemplateVersionStatus = "draft"
+	SMSTemplateVersionStatusPublished SMSTemplateVersionStatus = "published"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateVersionStatus enum.
 func (e SMSTemplateVersionStatus) Valid() bool {
 	switch e {
-	case Draft:
+	case SMSTemplateVersionStatusDraft:
 		return true
-	case Published:
+	case SMSTemplateVersionStatusPublished:
 		return true
 	default:
 		return false
@@ -4931,19 +5231,22 @@ func (e VoiceCallDirection) Valid() bool {
 
 // Defines values for VoiceCallRouteType.
 const (
-	Forward VoiceCallRouteType = "forward"
-	Reject  VoiceCallRouteType = "reject"
-	Trunk   VoiceCallRouteType = "trunk"
+	VoiceCallRouteTypeForward  VoiceCallRouteType = "forward"
+	VoiceCallRouteTypeReject   VoiceCallRouteType = "reject"
+	VoiceCallRouteTypeSequence VoiceCallRouteType = "sequence"
+	VoiceCallRouteTypeTrunk    VoiceCallRouteType = "trunk"
 )
 
 // Valid indicates whether the value is a known member of the VoiceCallRouteType enum.
 func (e VoiceCallRouteType) Valid() bool {
 	switch e {
-	case Forward:
+	case VoiceCallRouteTypeForward:
 		return true
-	case Reject:
+	case VoiceCallRouteTypeReject:
 		return true
-	case Trunk:
+	case VoiceCallRouteTypeSequence:
+		return true
+	case VoiceCallRouteTypeTrunk:
 		return true
 	default:
 		return false
@@ -4989,6 +5292,57 @@ func (e VoiceCallStatus) Valid() bool {
 	}
 }
 
+// Defines values for VoiceCallerIDSortField.
+const (
+	VoiceCallerIDSortFieldCreatedAt VoiceCallerIDSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallerIDSortField enum.
+func (e VoiceCallerIDSortField) Valid() bool {
+	switch e {
+	case VoiceCallerIDSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceCallerIDStatus.
+const (
+	VoiceCallerIDStatusFailed   VoiceCallerIDStatus = "failed"
+	VoiceCallerIDStatusPending  VoiceCallerIDStatus = "pending"
+	VoiceCallerIDStatusVerified VoiceCallerIDStatus = "verified"
+)
+
+// Valid indicates whether the value is a known member of the VoiceCallerIDStatus enum.
+func (e VoiceCallerIDStatus) Valid() bool {
+	switch e {
+	case VoiceCallerIDStatusFailed:
+		return true
+	case VoiceCallerIDStatusPending:
+		return true
+	case VoiceCallerIDStatusVerified:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceInboundConfigurationError.
+const (
+	UnsupportedRouteType VoiceInboundConfigurationError = "unsupported_route_type"
+)
+
+// Valid indicates whether the value is a known member of the VoiceInboundConfigurationError enum.
+func (e VoiceInboundConfigurationError) Valid() bool {
+	switch e {
+	case UnsupportedRouteType:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceInboundForwardAs.
 const (
 	CallingNumber VoiceInboundForwardAs = "calling_number"
@@ -5001,6 +5355,30 @@ func (e VoiceInboundForwardAs) Valid() bool {
 	case CallingNumber:
 		return true
 	case DialedNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceLegInboundRouteType.
+const (
+	VoiceLegInboundRouteTypeForward  VoiceLegInboundRouteType = "forward"
+	VoiceLegInboundRouteTypeReject   VoiceLegInboundRouteType = "reject"
+	VoiceLegInboundRouteTypeSequence VoiceLegInboundRouteType = "sequence"
+	VoiceLegInboundRouteTypeTrunk    VoiceLegInboundRouteType = "trunk"
+)
+
+// Valid indicates whether the value is a known member of the VoiceLegInboundRouteType enum.
+func (e VoiceLegInboundRouteType) Valid() bool {
+	switch e {
+	case VoiceLegInboundRouteTypeForward:
+		return true
+	case VoiceLegInboundRouteTypeReject:
+		return true
+	case VoiceLegInboundRouteTypeSequence:
+		return true
+	case VoiceLegInboundRouteTypeTrunk:
 		return true
 	default:
 		return false
@@ -5055,6 +5433,39 @@ func (e VoiceLegRejectionReason) Valid() bool {
 	}
 }
 
+// Defines values for VoiceNumberProviderType.
+const (
+	Allocation     VoiceNumberProviderType = "allocation"
+	VerifiedNumber VoiceNumberProviderType = "verified_number"
+)
+
+// Valid indicates whether the value is a known member of the VoiceNumberProviderType enum.
+func (e VoiceNumberProviderType) Valid() bool {
+	switch e {
+	case Allocation:
+		return true
+	case VerifiedNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceNumberSortField.
+const (
+	PhoneNumber VoiceNumberSortField = "phone_number"
+)
+
+// Valid indicates whether the value is a known member of the VoiceNumberSortField enum.
+func (e VoiceNumberSortField) Valid() bool {
+	switch e {
+	case PhoneNumber:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoicePartyEndpointType.
 const (
 	VoicePartyEndpointTypeBridgePstn VoicePartyEndpointType = "bridge_pstn"
@@ -5079,6 +5490,39 @@ func (e VoicePartyEndpointType) Valid() bool {
 	case VoicePartyEndpointTypeVoicemail:
 		return true
 	case VoicePartyEndpointTypeWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceSIPDigestAlgorithm.
+const (
+	MD5    VoiceSIPDigestAlgorithm = "MD5"
+	SHA256 VoiceSIPDigestAlgorithm = "SHA-256"
+)
+
+// Valid indicates whether the value is a known member of the VoiceSIPDigestAlgorithm enum.
+func (e VoiceSIPDigestAlgorithm) Valid() bool {
+	switch e {
+	case MD5:
+		return true
+	case SHA256:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceTrunkSortField.
+const (
+	VoiceTrunkSortFieldCreatedAt VoiceTrunkSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the VoiceTrunkSortField enum.
+func (e VoiceTrunkSortField) Valid() bool {
+	switch e {
+	case VoiceTrunkSortFieldCreatedAt:
 		return true
 	default:
 		return false
@@ -5168,60 +5612,62 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 
 // Defines values for WebhookEventType.
 const (
-	EventTypeDomainFailed                 WebhookEventType = "domain.failed"
-	EventTypeDomainVerified               WebhookEventType = "domain.verified"
-	EventTypeEmailAccepted                WebhookEventType = "email.accepted"
-	EventTypeEmailBounced                 WebhookEventType = "email.bounced"
-	EventTypeEmailCanceled                WebhookEventType = "email.canceled"
-	EventTypeEmailClicked                 WebhookEventType = "email.clicked"
-	EventTypeEmailComplained              WebhookEventType = "email.complained"
-	EventTypeEmailDeferred                WebhookEventType = "email.deferred"
-	EventTypeEmailDelivered               WebhookEventType = "email.delivered"
-	EventTypeEmailListUnsubscribed        WebhookEventType = "email.list_unsubscribed"
-	EventTypeEmailMailboxMessageDelivered WebhookEventType = "email_mailbox.message_delivered"
-	EventTypeEmailMailboxMessageFailed    WebhookEventType = "email_mailbox.message_failed"
-	EventTypeEmailMailboxMessageReceived  WebhookEventType = "email_mailbox.message_received"
-	EventTypeEmailMailboxMessageSent      WebhookEventType = "email_mailbox.message_sent"
-	EventTypeEmailMailboxSuspended        WebhookEventType = "email_mailbox.suspended"
-	EventTypeEmailMailboxThreadCreated    WebhookEventType = "email_mailbox.thread_created"
-	EventTypeEmailOpened                  WebhookEventType = "email.opened"
-	EventTypeEmailOutOfBandBounce         WebhookEventType = "email.out_of_band_bounce"
-	EventTypeEmailProcessed               WebhookEventType = "email.processed"
-	EventTypeEmailReceived                WebhookEventType = "email.received"
-	EventTypeEmailRejected                WebhookEventType = "email.rejected"
-	EventTypeEmailScheduled               WebhookEventType = "email.scheduled"
-	EventTypeEmailSuppressionCreated      WebhookEventType = "email_suppression.created"
-	EventTypeEmailUnsubscribed            WebhookEventType = "email.unsubscribed"
-	EventTypePreferenceDeleted            WebhookEventType = "preference.deleted"
-	EventTypePreferenceGranted            WebhookEventType = "preference.granted"
-	EventTypePreferenceRevoked            WebhookEventType = "preference.revoked"
-	EventTypeSmsAccepted                  WebhookEventType = "sms.accepted"
-	EventTypeSmsDelivered                 WebhookEventType = "sms.delivered"
-	EventTypeSmsExpired                   WebhookEventType = "sms.expired"
-	EventTypeSmsFailed                    WebhookEventType = "sms.failed"
-	EventTypeSmsReceived                  WebhookEventType = "sms.received"
-	EventTypeSmsRejected                  WebhookEventType = "sms.rejected"
-	EventTypeSmsSent                      WebhookEventType = "sms.sent"
-	EventTypeSmsSuppressionCreated        WebhookEventType = "sms_suppression.created"
-	EventTypeSmsUndelivered               WebhookEventType = "sms.undelivered"
-	EventTypeVerifyAttemptDelivered       WebhookEventType = "verify.attempt.delivered"
-	EventTypeVerifyAttemptSent            WebhookEventType = "verify.attempt.sent"
-	EventTypeVerifyAttemptUndelivered     WebhookEventType = "verify.attempt.undelivered"
-	EventTypeVerifyVerificationCreated    WebhookEventType = "verify.verification.created"
-	EventTypeVerifyVerificationFailed     WebhookEventType = "verify.verification.failed"
-	EventTypeVerifyVerificationVerified   WebhookEventType = "verify.verification.verified"
-	EventTypeVoiceCallAnswered            WebhookEventType = "voice_call.answered"
-	EventTypeVoiceCallEnded               WebhookEventType = "voice_call.ended"
-	EventTypeVoiceCallInitiated           WebhookEventType = "voice_call.initiated"
-	EventTypeWhatsappAccepted             WebhookEventType = "whatsapp.accepted"
-	EventTypeWhatsappDelivered            WebhookEventType = "whatsapp.delivered"
-	EventTypeWhatsappFailed               WebhookEventType = "whatsapp.failed"
-	EventTypeWhatsappReacted              WebhookEventType = "whatsapp.reacted"
-	EventTypeWhatsappRead                 WebhookEventType = "whatsapp.read"
-	EventTypeWhatsappReceived             WebhookEventType = "whatsapp.received"
-	EventTypeWhatsappRejected             WebhookEventType = "whatsapp.rejected"
-	EventTypeWhatsappSent                 WebhookEventType = "whatsapp.sent"
-	EventTypeWhatsappSuppressionCreated   WebhookEventType = "whatsapp_suppression.created"
+	EventTypeDomainFailed                    WebhookEventType = "domain.failed"
+	EventTypeDomainVerified                  WebhookEventType = "domain.verified"
+	EventTypeEmailAccepted                   WebhookEventType = "email.accepted"
+	EventTypeEmailBounced                    WebhookEventType = "email.bounced"
+	EventTypeEmailCanceled                   WebhookEventType = "email.canceled"
+	EventTypeEmailClicked                    WebhookEventType = "email.clicked"
+	EventTypeEmailComplained                 WebhookEventType = "email.complained"
+	EventTypeEmailDeferred                   WebhookEventType = "email.deferred"
+	EventTypeEmailDelivered                  WebhookEventType = "email.delivered"
+	EventTypeEmailListUnsubscribed           WebhookEventType = "email.list_unsubscribed"
+	EventTypeEmailMailboxMessageDelivered    WebhookEventType = "email_mailbox.message_delivered"
+	EventTypeEmailMailboxMessageFailed       WebhookEventType = "email_mailbox.message_failed"
+	EventTypeEmailMailboxMessageReceived     WebhookEventType = "email_mailbox.message_received"
+	EventTypeEmailMailboxMessageSent         WebhookEventType = "email_mailbox.message_sent"
+	EventTypeEmailMailboxSuspended           WebhookEventType = "email_mailbox.suspended"
+	EventTypeEmailMailboxThreadCreated       WebhookEventType = "email_mailbox.thread_created"
+	EventTypeEmailOpened                     WebhookEventType = "email.opened"
+	EventTypeEmailOutOfBandBounce            WebhookEventType = "email.out_of_band_bounce"
+	EventTypeEmailProcessed                  WebhookEventType = "email.processed"
+	EventTypeEmailReceived                   WebhookEventType = "email.received"
+	EventTypeEmailRejected                   WebhookEventType = "email.rejected"
+	EventTypeEmailScheduled                  WebhookEventType = "email.scheduled"
+	EventTypeEmailSuppressionCreated         WebhookEventType = "email_suppression.created"
+	EventTypeEmailUnsubscribed               WebhookEventType = "email.unsubscribed"
+	EventTypePreferenceDeleted               WebhookEventType = "preference.deleted"
+	EventTypePreferenceGranted               WebhookEventType = "preference.granted"
+	EventTypePreferenceRevoked               WebhookEventType = "preference.revoked"
+	EventTypeSmsAccepted                     WebhookEventType = "sms.accepted"
+	EventTypeSmsDelivered                    WebhookEventType = "sms.delivered"
+	EventTypeSmsExpired                      WebhookEventType = "sms.expired"
+	EventTypeSmsFailed                       WebhookEventType = "sms.failed"
+	EventTypeSmsReceived                     WebhookEventType = "sms.received"
+	EventTypeSmsRejected                     WebhookEventType = "sms.rejected"
+	EventTypeSmsSent                         WebhookEventType = "sms.sent"
+	EventTypeSmsSuppressionCreated           WebhookEventType = "sms_suppression.created"
+	EventTypeSmsUndelivered                  WebhookEventType = "sms.undelivered"
+	EventTypeVerifyAttemptDelivered          WebhookEventType = "verify.attempt.delivered"
+	EventTypeVerifyAttemptSent               WebhookEventType = "verify.attempt.sent"
+	EventTypeVerifyAttemptUndelivered        WebhookEventType = "verify.attempt.undelivered"
+	EventTypeVerifyVerificationCreated       WebhookEventType = "verify.verification.created"
+	EventTypeVerifyVerificationFailed        WebhookEventType = "verify.verification.failed"
+	EventTypeVerifyVerificationVerified      WebhookEventType = "verify.verification.verified"
+	EventTypeVoiceCallAnswered               WebhookEventType = "voice_call.answered"
+	EventTypeVoiceCallEnded                  WebhookEventType = "voice_call.ended"
+	EventTypeVoiceCallInitiated              WebhookEventType = "voice_call.initiated"
+	EventTypeWhatsappAccepted                WebhookEventType = "whatsapp.accepted"
+	EventTypeWhatsappDelivered               WebhookEventType = "whatsapp.delivered"
+	EventTypeWhatsappFailed                  WebhookEventType = "whatsapp.failed"
+	EventTypeWhatsappGroupJoinRequestCreated WebhookEventType = "whatsapp.group.join_request_created"
+	EventTypeWhatsappGroupJoinRequestRevoked WebhookEventType = "whatsapp.group.join_request_revoked"
+	EventTypeWhatsappReacted                 WebhookEventType = "whatsapp.reacted"
+	EventTypeWhatsappRead                    WebhookEventType = "whatsapp.read"
+	EventTypeWhatsappReceived                WebhookEventType = "whatsapp.received"
+	EventTypeWhatsappRejected                WebhookEventType = "whatsapp.rejected"
+	EventTypeWhatsappSent                    WebhookEventType = "whatsapp.sent"
+	EventTypeWhatsappSuppressionCreated      WebhookEventType = "whatsapp_suppression.created"
 )
 
 // Valid indicates whether the value is a known member of the WebhookEventType enum.
@@ -5322,6 +5768,10 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeWhatsappDelivered:
 		return true
 	case EventTypeWhatsappFailed:
+		return true
+	case EventTypeWhatsappGroupJoinRequestCreated:
+		return true
+	case EventTypeWhatsappGroupJoinRequestRevoked:
 		return true
 	case EventTypeWhatsappReacted:
 		return true
@@ -5772,6 +6222,36 @@ func (e WhatsAppGroupJoinApprovalMode) Valid() bool {
 	case ApprovalRequired:
 		return true
 	case AutoApprove:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupJoinRequestCreatedEventType.
+const (
+	WhatsappGroupJoinRequestCreated WhatsAppGroupJoinRequestCreatedEventType = "whatsapp.group.join_request_created"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupJoinRequestCreatedEventType enum.
+func (e WhatsAppGroupJoinRequestCreatedEventType) Valid() bool {
+	switch e {
+	case WhatsappGroupJoinRequestCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WhatsAppGroupJoinRequestRevokedEventType.
+const (
+	WhatsappGroupJoinRequestRevoked WhatsAppGroupJoinRequestRevokedEventType = "whatsapp.group.join_request_revoked"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppGroupJoinRequestRevokedEventType enum.
+func (e WhatsAppGroupJoinRequestRevokedEventType) Valid() bool {
+	switch e {
+	case WhatsappGroupJoinRequestRevoked:
 		return true
 	default:
 		return false
@@ -6878,16 +7358,16 @@ func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 
 // Defines values for GetMailboxStatsParamsGranularity.
 const (
-	Day  GetMailboxStatsParamsGranularity = "day"
-	Hour GetMailboxStatsParamsGranularity = "hour"
+	GetMailboxStatsParamsGranularityDay  GetMailboxStatsParamsGranularity = "day"
+	GetMailboxStatsParamsGranularityHour GetMailboxStatsParamsGranularity = "hour"
 )
 
 // Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
 func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	switch e {
-	case Day:
+	case GetMailboxStatsParamsGranularityDay:
 		return true
-	case Hour:
+	case GetMailboxStatsParamsGranularityHour:
 		return true
 	default:
 		return false
@@ -7622,6 +8102,21 @@ type DNSRecordStatus string
 // - `CNAME`: used for the `return_path` and `tracking` purposes.
 // - `MX`: used for the `inbound_mx` purpose.
 type DNSRecordType string
+
+// DestinationRegion The commercial region this country belongs to, for grouping a destination list the way it is bought rather than alphabetically. `null` for a country we have not assigned yet. Bird defines these regions independently of ISO and UN M49. A country can move between them, so treat the set as open.
+type DestinationRegion string
+
+// DestinationSetting defines model for DestinationSetting.
+type DestinationSetting struct {
+	// CountryCode ISO 3166-1 alpha-2 country code.
+	CountryCode CountryCode `json:"country_code"`
+
+	// Enabled Whether to enable (`true`) or disable (`false`) this destination country.
+	Enabled bool `json:"enabled"`
+}
+
+// DestinationSuperRegion The continent-scale group the region rolls up into. Derived from `region`, and `null` whenever that is. Treat the set as open.
+type DestinationSuperRegion string
 
 // DocsPage defines model for DocsPage.
 type DocsPage struct {
@@ -11697,147 +12192,255 @@ type EmailSmtpConfigUpdate struct {
 // Omit to leave unchanged.
 type EmailSmtpConfigUpdateCategory string
 
-// EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByBounceCodeResponse Per-SMTP-code bounce breakdown for the requested period, ranked by the `sort` metric (default `bounced`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByBounceCodeResponse struct {
 	// Data Bounce-code breakdown rows, ranked by the `sort` metric (default `bounced`) descending. Empty when no bounces occurred in the period.
 	Data *[]EmailBounceCodeStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct SMTP error codes with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByBroadcastResponse Per-broadcast breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByBroadcastResponse Per-broadcast breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByBroadcastResponse struct {
 	// Data Broadcast breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no broadcast messages were active in the period.
 	Data *[]EmailBroadcastStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct broadcasts with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByCategoryResponse Per-category breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByCategoryResponse Per-category breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByCategoryResponse struct {
 	// Data Category breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no sends occurred in the period.
 	Data *[]EmailCategoryStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct categories with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct categories with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByClientResponse Per-client engagement breakdown for the requested period, grouped by the requested `group_by` facet, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByClientResponse Per-client engagement breakdown for the requested period, grouped by the requested `group_by` facet, ranked by the `sort` metric (default `unique_opens`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByClientResponse struct {
 	// Data Client breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a detected client occurred in the period.
 	Data *[]EmailClientStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct values of the requested `group_by` facet with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByComplaintTypeResponse Per-complaint-type breakdown for the requested period, ranked by `complained` descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByComplaintTypeResponse Per-complaint-type breakdown for the requested period, ranked by `complained` descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByComplaintTypeResponse struct {
 	// Data Complaint-type breakdown rows, ranked by `complained` descending. Empty when no complaints occurred in the period.
 	Data *[]EmailComplaintTypeStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct feedback types with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByLocationResponse Per-location engagement breakdown for the requested period, grouped at the requested `group_by` granularity, ranked by the `sort` metric (default `unique_opens`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByLocationResponse Per-location engagement breakdown for the requested period, grouped at the requested `group_by` granularity, ranked by the `sort` metric (default `unique_opens`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByLocationResponse struct {
 	// Data Location breakdown rows, ranked by the `sort` metric (default `unique_opens`) descending. Empty when no opens or clicks with a resolved location occurred in the period.
 	Data *[]EmailLocationStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct locations at the requested `group_by` level with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByMailboxProviderRegionResponse Per-(mailbox provider, provider region) breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByMailboxProviderRegionResponse Per-(mailbox provider, provider region) breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByMailboxProviderRegionResponse struct {
 	// Data Provider-region breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no deliveries occurred in the period.
 	Data *[]EmailMailboxProviderRegionStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct mailbox provider and region pairs with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByMailboxProviderResponse Per-mailbox-provider breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByMailboxProviderResponse Per-mailbox-provider breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByMailboxProviderResponse struct {
 	// Data Mailbox-provider breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailMailboxProviderStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct mailbox providers with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByRecipientDomainResponse Per-recipient-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByRecipientDomainResponse Per-recipient-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByRecipientDomainResponse struct {
 	// Data Recipient-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailRecipientDomainStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct recipient domains with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsBySendingDomainResponse Per-sending-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsBySendingDomainResponse Per-sending-domain breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsBySendingDomainResponse struct {
 	// Data Sending-domain breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no eligible activity occurred in the period.
 	Data *[]EmailSendingDomainStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct sending domains with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsBySendingIpResponse Per-sending-IP breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsBySendingIpResponse Per-sending-IP breakdown for the requested period, ranked by the `sort` metric (default `delivered`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsBySendingIpResponse struct {
 	// Data Sending-IP breakdown rows, ranked by the `sort` metric (default `delivered`) descending. Empty when no per-IP-attributable activity (delivery, bounce, deferral, or late bounce) occurred in the period.
 	Data *[]EmailSendingIpStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct sending IP addresses with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
-// EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsByTemplateResponse Per-template breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsByTemplateResponse struct {
 	// Data Template breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no messages were sent with a template in the period.
 	Data *[]EmailTemplateStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct templates with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct templates with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -11913,6 +12516,413 @@ type EmailStatsPoint struct {
 
 	// SendsAccepted Distinct email messages accepted in this bucket, counted at the message level (one per accepted send regardless of how many recipients it addresses). Every other metric in `delivery` and `engagement` is recipient-level or event-level.
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
+}
+
+// EmailStatsQueryBroadcastFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryBroadcastFilter struct {
+	Exclude *[]EmailBroadcastID `json:"exclude,omitempty"`
+	Include *[]EmailBroadcastID `json:"include,omitempty"`
+}
+
+// EmailStatsQueryCategoryFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryCategoryFilter struct {
+	Exclude *[]EmailMessageCategory `json:"exclude,omitempty"`
+	Include *[]EmailMessageCategory `json:"include,omitempty"`
+}
+
+// EmailStatsQueryDimension Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
+// Missing values form a null group when the metric supports that dimension.
+//
+// Every selected metric must support the grouping dimension and every filter dimension.
+// Unsupported combinations return validation error `E04074`, even when the workspace has no events.
+//
+//   - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+//   - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
+//   - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
+//   - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
+//     `undetermined_bounced`, `deferred`, `oob_bounces`, `effective_delivered`, `all_bounces`, `delivery_rate`,
+//     `bounce_rate`, `deferral_rate`, `oob_rate`, `total_p50_ms`, `total_p95_ms`, and `total_p99_ms`.
+//   - `country`, `region`, `city`, `agent_family`, `os_family`, `device_family`: `opens`, `opens_non_prefetched`,
+//     `clicks`, `unique_opens`, `unique_opens_non_prefetched`, `unique_clicks`, `confirmed_unique_opens`,
+//     and `confirmed_unique_opens_non_prefetched`.
+//   - `smtp_error_code`: `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, and `undetermined_bounced`.
+//   - `feedback_type`: `complained`.
+type EmailStatsQueryDimension string
+
+// EmailStatsQueryDimensions Contains the requested group_by property, including a null value when context is missing. Ungrouped results use an empty object.
+type EmailStatsQueryDimensions struct {
+	// AgentFamily Recorded agent family value. Null represents missing context and differs from an empty string.
+	AgentFamily *string `json:"agent_family,omitempty"`
+
+	// BroadcastId Recorded broadcast id value. Null represents missing context and differs from an empty string.
+	BroadcastId *EmailBroadcastID `json:"broadcast_id,omitempty"`
+
+	// Category Recorded category value. Null represents missing context and differs from an empty string.
+	Category *string `json:"category,omitempty"`
+
+	// City Recorded city value. Null represents missing context and differs from an empty string.
+	City *string `json:"city,omitempty"`
+
+	// Country Recorded country value. Null represents missing context and differs from an empty string.
+	Country *string `json:"country,omitempty"`
+
+	// DeviceFamily Recorded device family value. Null represents missing context and differs from an empty string.
+	DeviceFamily *string `json:"device_family,omitempty"`
+
+	// FeedbackType Recorded feedback type value. Null represents missing context and differs from an empty string.
+	FeedbackType *string `json:"feedback_type,omitempty"`
+
+	// IpPoolId Recorded ip pool id value. Null represents missing context and differs from an empty string.
+	IpPoolId *IPPoolID `json:"ip_pool_id,omitempty"`
+
+	// MailboxProvider Recorded mailbox provider value. Null represents missing context and differs from an empty string.
+	MailboxProvider *string `json:"mailbox_provider,omitempty"`
+
+	// MailboxProviderRegion Recorded mailbox provider region value. Null represents missing context and differs from an empty string.
+	MailboxProviderRegion *string `json:"mailbox_provider_region,omitempty"`
+
+	// OsFamily Recorded os family value. Null represents missing context and differs from an empty string.
+	OsFamily *string `json:"os_family,omitempty"`
+
+	// RecipientDomain Recorded recipient domain value. Null represents missing context and differs from an empty string.
+	RecipientDomain *string `json:"recipient_domain,omitempty"`
+
+	// Region Recorded region value. Null represents missing context and differs from an empty string.
+	Region *string `json:"region,omitempty"`
+
+	// SendingDomain Recorded sending domain value. Null represents missing context and differs from an empty string.
+	SendingDomain *string `json:"sending_domain,omitempty"`
+
+	// SendingIp Recorded sending ip value. Null represents missing context and differs from an empty string.
+	SendingIp *string `json:"sending_ip,omitempty"`
+
+	// SmtpErrorCode Recorded smtp error code value. Null represents missing context and differs from an empty string.
+	SmtpErrorCode *string `json:"smtp_error_code,omitempty"`
+
+	// Tag Recorded tag value. Null represents missing context and differs from an empty string.
+	Tag *string `json:"tag,omitempty"`
+
+	// TemplateId Recorded template id value. Null represents missing context and differs from an empty string.
+	TemplateId *EmailTemplateID `json:"template_id,omitempty"`
+}
+
+// EmailStatsQueryFilters Predicates on the context recorded for each event. Dimensions combine with AND. Unsupported metric and dimension combinations return 422, including for an empty workspace.
+type EmailStatsQueryFilters struct {
+	// AgentFamily Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	AgentFamily *EmailStatsQueryStringFilter `json:"agent_family,omitempty"`
+
+	// BroadcastId Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	BroadcastId *EmailStatsQueryBroadcastFilter `json:"broadcast_id,omitempty"`
+
+	// Category Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	Category *EmailStatsQueryCategoryFilter `json:"category,omitempty"`
+
+	// City Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	City *EmailStatsQueryStringFilter `json:"city,omitempty"`
+
+	// Country Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	Country *EmailStatsQueryStringFilter `json:"country,omitempty"`
+
+	// DeviceFamily Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	DeviceFamily *EmailStatsQueryStringFilter `json:"device_family,omitempty"`
+
+	// FeedbackType Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	FeedbackType *EmailStatsQueryStringFilter `json:"feedback_type,omitempty"`
+
+	// IpPoolId Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	IpPoolId *EmailStatsQueryIPPoolFilter `json:"ip_pool_id,omitempty"`
+
+	// MailboxProvider Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	MailboxProvider *EmailStatsQueryStringFilter `json:"mailbox_provider,omitempty"`
+
+	// MailboxProviderRegion Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	MailboxProviderRegion *EmailStatsQueryStringFilter `json:"mailbox_provider_region,omitempty"`
+
+	// OsFamily Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	OsFamily *EmailStatsQueryStringFilter `json:"os_family,omitempty"`
+
+	// RecipientDomain Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	RecipientDomain *EmailStatsQueryStringFilter `json:"recipient_domain,omitempty"`
+
+	// Region Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	Region *EmailStatsQueryStringFilter `json:"region,omitempty"`
+
+	// SendingDomain Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	SendingDomain *EmailStatsQueryStringFilter `json:"sending_domain,omitempty"`
+
+	// SendingIp Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	SendingIp *EmailStatsQueryStringFilter `json:"sending_ip,omitempty"`
+
+	// SmtpErrorCode Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	SmtpErrorCode *EmailStatsQueryStringFilter `json:"smtp_error_code,omitempty"`
+
+	// Tag Select one case-sensitive tag name. A name without values requires that tag to exist. Exclude-only predicates retain events without that tag. Include and exclude together accept at most 20 distinct normalized values with no overlap.
+	Tag *EmailStatsQueryTagFilter `json:"tag,omitempty"`
+
+	// TemplateId Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+	TemplateId *EmailStatsQueryTemplateFilter `json:"template_id,omitempty"`
+}
+
+// EmailStatsQueryGrain Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
+type EmailStatsQueryGrain string
+
+// EmailStatsQueryGroup One group ranked over the whole requested period. Its optional series contains complete chronological buckets, including zero counts and null undefined values for empty buckets.
+type EmailStatsQueryGroup struct {
+	// Dimensions Contains the requested group_by property, including a null value when context is missing. Ungrouped results use an empty object.
+	Dimensions EmailStatsQueryDimensions `json:"dimensions,omitempty"`
+
+	// Metrics Selected metric values. Counts are nonnegative approximate distinct counts. Period uniques and rates are computed independently of buckets; summing bucket or group values does not reconstruct period totals. Zero means a supported empty population; undefined rates and empty latency samples are null.
+	Metrics EmailStatsQueryMetrics `json:"metrics,omitempty"`
+
+	// Series Present when grain is requested; absent otherwise.
+	Series *[]EmailStatsQueryPoint `json:"series,omitempty"`
+}
+
+// EmailStatsQueryIPPoolFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryIPPoolFilter struct {
+	Exclude *[]IPPoolID `json:"exclude,omitempty"`
+	Include *[]IPPoolID `json:"include,omitempty"`
+}
+
+// EmailStatsQueryMetric Metric selected for period totals, time buckets, or group ranking. Counts estimate distinct identities; rates are ratios. Latency metrics measure milliseconds from Bird acceptance to processing or delivery.
+type EmailStatsQueryMetric string
+
+// EmailStatsQueryMetrics Selected metric values. Counts are nonnegative approximate distinct counts. Period uniques and rates are computed independently of buckets; summing bucket or group values does not reconstruct period totals. Zero means a supported empty population; undefined rates and empty latency samples are null.
+type EmailStatsQueryMetrics struct {
+	// Accepted Distinct message recipients accepted by Bird.
+	Accepted *int64 `json:"accepted,omitempty"`
+
+	// AdminBounced Distinct message recipients with admin bounced events.
+	AdminBounced *int64 `json:"admin_bounced,omitempty"`
+
+	// AllBounces In-band bounced recipients plus out-of-band bounce events, calculated as `bounced + oob_bounces`.
+	AllBounces *int64 `json:"all_bounces,omitempty"`
+
+	// BlockBounced Distinct message recipients with block bounced events.
+	BlockBounced *int64 `json:"block_bounced,omitempty"`
+
+	// BounceRate Ratio of `all_bounces / (delivered + bounced)`, capped at 1. Null when `delivered + bounced` is zero.
+	BounceRate *float64 `json:"bounce_rate,omitempty"`
+
+	// Bounced Distinct message recipients with bounced events.
+	Bounced *int64 `json:"bounced,omitempty"`
+
+	// ClickRate Ratio of `unique_clicks / effective_delivered`. Uncapped and can exceed 1 when clicks and deliveries fall in different windows. Null when `effective_delivered` is zero.
+	ClickRate *float64 `json:"click_rate,omitempty"`
+
+	// Clicks Distinct click events.
+	Clicks *int64 `json:"clicks,omitempty"`
+
+	// Complained Distinct message recipients with complained events.
+	Complained *int64 `json:"complained,omitempty"`
+
+	// ComplaintRate Ratio of `complained / effective_delivered`. Uncapped and can exceed 1 when complaints and deliveries fall in different windows. Null when `effective_delivered` is zero.
+	ComplaintRate *float64 `json:"complaint_rate,omitempty"`
+
+	// ConfirmedUniqueOpens Distinct message recipients with an open or click event, deduplicated across both.
+	ConfirmedUniqueOpens *int64 `json:"confirmed_unique_opens,omitempty"`
+
+	// ConfirmedUniqueOpensNonPrefetched Distinct message recipients with a non-prefetched open or click event, deduplicated across both.
+	ConfirmedUniqueOpensNonPrefetched *int64 `json:"confirmed_unique_opens_non_prefetched,omitempty"`
+
+	// DeferralRate Ratio of `deferred / (delivered + bounced)`, capped at 1. Null when `delivered + bounced` is zero.
+	DeferralRate *float64 `json:"deferral_rate,omitempty"`
+
+	// Deferred Distinct message recipients with a deferral event.
+	Deferred *int64 `json:"deferred,omitempty"`
+
+	// Delivered Distinct message recipients with a delivery event.
+	Delivered *int64 `json:"delivered,omitempty"`
+
+	// DeliveryRate Ratio of `effective_delivered / (delivered + bounced)`, from 0 to 1. Null when `delivered + bounced` is zero.
+	DeliveryRate *float64 `json:"delivery_rate,omitempty"`
+
+	// EffectiveDelivered Delivered recipients less out-of-band bounce events, calculated as `max(delivered - oob_bounces, 0)`.
+	EffectiveDelivered *int64 `json:"effective_delivered,omitempty"`
+
+	// HardBounced Distinct message recipients with hard bounced events.
+	HardBounced *int64 `json:"hard_bounced,omitempty"`
+
+	// OobBounces Distinct out-of-band bounce events.
+	OobBounces *int64 `json:"oob_bounces,omitempty"`
+
+	// OobRate Ratio of `oob_bounces / (delivered + bounced)`, using distinct out-of-band bounce events as the numerator. Uncapped and can exceed 1. Null when `delivered + bounced` is zero.
+	OobRate *float64 `json:"oob_rate,omitempty"`
+
+	// OpenRate Ratio of `unique_opens_non_prefetched / effective_delivered`. Uncapped and can exceed 1 when opens and deliveries fall in different windows. Null when `effective_delivered` is zero.
+	OpenRate *float64 `json:"open_rate,omitempty"`
+
+	// Opens Distinct open events, including prefetched opens.
+	Opens *int64 `json:"opens,omitempty"`
+
+	// OpensNonPrefetched Distinct open events excluding prefetched opens. An absent prefetch flag counts as false.
+	OpensNonPrefetched *int64 `json:"opens_non_prefetched,omitempty"`
+
+	// Processed Distinct message recipients processed for delivery.
+	Processed *int64 `json:"processed,omitempty"`
+
+	// ProcessingP50Ms Processing latency at the 50th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	ProcessingP50Ms *int64 `json:"processing_p50_ms,omitempty"`
+
+	// ProcessingP95Ms Processing latency at the 95th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	ProcessingP95Ms *int64 `json:"processing_p95_ms,omitempty"`
+
+	// ProcessingP99Ms Processing latency at the 99th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	ProcessingP99Ms *int64 `json:"processing_p99_ms,omitempty"`
+
+	// Rejected Distinct message recipients rejected before provider delivery.
+	Rejected *int64 `json:"rejected,omitempty"`
+
+	// SendsAccepted Distinct sends accepted by Bird, counted by email identity.
+	SendsAccepted *int64 `json:"sends_accepted,omitempty"`
+
+	// SoftBounced Distinct message recipients with soft bounced events.
+	SoftBounced *int64 `json:"soft_bounced,omitempty"`
+
+	// TotalP50Ms Delivery latency at the 50th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	TotalP50Ms *int64 `json:"total_p50_ms,omitempty"`
+
+	// TotalP95Ms Delivery latency at the 95th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	TotalP95Ms *int64 `json:"total_p95_ms,omitempty"`
+
+	// TotalP99Ms Delivery latency at the 99th percentile, in integer milliseconds from Bird acceptance. One sample per logical event; null when no eligible sample exists.
+	TotalP99Ms *int64 `json:"total_p99_ms,omitempty"`
+
+	// UndeterminedBounced Distinct message recipients with undetermined bounced events.
+	UndeterminedBounced *int64 `json:"undetermined_bounced,omitempty"`
+
+	// UniqueClicks Distinct message recipients with a click event.
+	UniqueClicks *int64 `json:"unique_clicks,omitempty"`
+
+	// UniqueOpens Distinct message recipients with an open event.
+	UniqueOpens *int64 `json:"unique_opens,omitempty"`
+
+	// UniqueOpensNonPrefetched Distinct message recipients with a non-prefetched open event.
+	UniqueOpensNonPrefetched *int64 `json:"unique_opens_non_prefetched,omitempty"`
+
+	// UnsubscribeRate Ratio of `unsubscribes / effective_delivered`, using distinct unsubscribe events as the numerator. Uncapped and can exceed 1. Null when `effective_delivered` is zero.
+	UnsubscribeRate *float64 `json:"unsubscribe_rate,omitempty"`
+
+	// Unsubscribes Distinct unsubscribe events.
+	Unsubscribes *int64 `json:"unsubscribes,omitempty"`
+}
+
+// EmailStatsQueryPeriod Normalized half-open period. The response end is exclusive; replay the original inclusive request bounds when following cursors.
+type EmailStatsQueryPeriod struct {
+	// From Inclusive normalized start as a UTC instant.
+	From time.Time `json:"from"`
+
+	// Grain Requested grain, or null when no series was requested.
+	Grain *EmailStatsQueryGrain `json:"grain"`
+
+	// Timezone Timezone used to normalize bounds and buckets.
+	Timezone string `json:"timezone"`
+
+	// To Exclusive normalized end as a UTC instant.
+	To time.Time `json:"to"`
+}
+
+// EmailStatsQueryPoint One time bucket with the selected metrics. Bucket timestamps label nominal boundaries; edge buckets count events inside the normalized period.
+type EmailStatsQueryPoint struct {
+	// Bucket Nominal bucket start as a UTC RFC 3339 instant.
+	Bucket time.Time `json:"bucket"`
+
+	// Metrics Selected metric values. Counts are nonnegative approximate distinct counts. Period uniques and rates are computed independently of buckets; summing bucket or group values does not reconstruct period totals. Zero means a supported empty population; undefined rates and empty latency samples are null.
+	Metrics EmailStatsQueryMetrics `json:"metrics,omitempty"`
+}
+
+// EmailStatsQueryRequest Select email metrics for one workspace and one time window. Group-only fields require group_by; defaults apply after grouping is selected. Queries are limited to 20,000 series points, 1,000,000 selected metric cells including period rows, and a 4 MiB JSON response. Unsupported combinations or unavailable history return 422.
+type EmailStatsQueryRequest struct {
+	// EndingBefore Grouped requests only. Opaque prev_cursor for backward navigation, or refresh_cursor to read groups before the anchor in the current sort order. Mutually exclusive with starting_after.
+	EndingBefore *string `json:"ending_before,omitempty"`
+
+	// Filters Predicates on the context recorded for each event. Dimensions combine with AND. Unsupported metric and dimension combinations return 422, including for an empty workspace.
+	Filters *EmailStatsQueryFilters `json:"filters,omitempty"`
+
+	// From Inclusive start, as a calendar date or RFC 3339 instant. Use the same form for from and to. Instants round down to a local quarter-hour; use Z when timezone is supplied.
+	From string `json:"from"`
+
+	// Grain Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
+	Grain *EmailStatsQueryGrain `json:"grain,omitempty"`
+
+	// GroupBy Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
+	// Missing values form a null group when the metric supports that dimension.
+	//
+	// Every selected metric must support the grouping dimension and every filter dimension.
+	// Unsupported combinations return validation error `E04074`, even when the workspace has no events.
+	//
+	// - `sending_domain`, `category`, `template_id`, `tag`: all metrics.
+	// - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`.
+	// - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`.
+	// - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`,
+	//   `undetermined_bounced`, `deferred`, `oob_bounces`, `effective_delivered`, `all_bounces`, `delivery_rate`,
+	//   `bounce_rate`, `deferral_rate`, `oob_rate`, `total_p50_ms`, `total_p95_ms`, and `total_p99_ms`.
+	// - `country`, `region`, `city`, `agent_family`, `os_family`, `device_family`: `opens`, `opens_non_prefetched`,
+	//   `clicks`, `unique_opens`, `unique_opens_non_prefetched`, `unique_clicks`, `confirmed_unique_opens`,
+	//   and `confirmed_unique_opens_non_prefetched`.
+	// - `smtp_error_code`: `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, and `undetermined_bounced`.
+	// - `feedback_type`: `complained`.
+	GroupBy *EmailStatsQueryDimension `json:"group_by,omitempty"`
+
+	// Limit Grouped requests only. Maximum groups per page; defaults to 25. Each group retains its complete series.
+	Limit *int `json:"limit,omitempty"`
+
+	// Metrics Distinct metrics to return. Unselected metrics are absent.
+	Metrics []EmailStatsQueryMetric `json:"metrics"`
+
+	// Order Sort direction, ascending or descending.
+	Order *SortOrder `json:"order,omitempty"`
+
+	// Sort Metric selected for period totals, time buckets, or group ranking. Counts estimate distinct identities; rates are ratios. Latency metrics measure milliseconds from Bird acceptance to processing or delivery.
+	Sort *EmailStatsQueryMetric `json:"sort,omitempty"`
+
+	// StartingAfter Grouped requests only. Opaque next_cursor from the previous response. Mutually exclusive with ending_before.
+	StartingAfter *string `json:"starting_after,omitempty"`
+
+	// Timezone IANA timezone for dates and bucket boundaries. Defaults to UTC.
+	Timezone *string `json:"timezone,omitempty"`
+
+	// To Inclusive end. Dates include the whole local day; instants round down to a local quarter-hour and include that quarter-hour. Dates allow up to 365 local days; instants allow up to 720 hours, subject to available history. Preserve this original bound when following cursors.
+	To string `json:"to"`
+}
+
+// EmailStatsQueryResponse Selected email metrics with normalized bounds. Ungrouped requests return one group and null cursors, including empty windows. Grouped requests without observed groups return an empty data array. Live page reads can reflect new events or changed ranking.
+type EmailStatsQueryResponse struct {
+	Data []EmailStatsQueryGroup `json:"data"`
+
+	// DataAsOf Always null for this endpoint. It does not report a refresh boundary, claim completeness, or record request time.
+	DataAsOf *time.Time `json:"data_as_of"`
+
+	// NextCursor Pass as starting_after for the next grouped page. Null when no next page exists or the request is ungrouped.
+	NextCursor *string `json:"next_cursor"`
+
+	// Period Normalized half-open period. The response end is exclusive; replay the original inclusive request bounds when following cursors.
+	Period EmailStatsQueryPeriod `json:"period,omitempty"`
+
+	// PrevCursor Pass as ending_before for the previous grouped page. Null when no previous page exists or the request is ungrouped.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Anchor for the first group. Pass as ending_before to read groups sorting before it. Null for empty or ungrouped results. Ranking can change between reads; refresh by repeating the original query.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EmailStatsQueryStringFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryStringFilter struct {
+	Exclude *[]string `json:"exclude,omitempty"`
+	Include *[]string `json:"include,omitempty"`
+}
+
+// EmailStatsQueryTagFilter Select one case-sensitive tag name. A name without values requires that tag to exist. Exclude-only predicates retain events without that tag. Include and exclude together accept at most 20 distinct normalized values with no overlap.
+type EmailStatsQueryTagFilter struct {
+	Exclude *[]string `json:"exclude,omitempty"`
+	Include *[]string `json:"include,omitempty"`
+	Name    string    `json:"name"`
+}
+
+// EmailStatsQueryTemplateFilter Match recorded values using include or exclude. Include values combine with OR; exclusions remove matches. Missing values survive exclude-only predicates. Supply a nonempty array; at most 20 distinct values across both arrays are accepted after normalization, with no overlap.
+type EmailStatsQueryTemplateFilter struct {
+	Exclude *[]EmailTemplateID `json:"exclude,omitempty"`
+	Include *[]EmailTemplateID `json:"include,omitempty"`
 }
 
 // EmailStatsResponse Time-series stats payload. `period` echoes the range and bucket grain actually computed against. `data` is one row per bucket in chronological order.
@@ -12009,15 +13019,24 @@ type EmailStatsSummaryPeriod struct {
 	To *string `json:"to,omitempty"`
 }
 
-// EmailStatsTagsResponse Per-tag breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and capped at the requested `limit` (default 50, max 200).
+// EmailStatsTagsResponse Per-tag breakdown for the requested period, ranked by the `sort` metric (default `processed`) descending and paginated with the requested `limit` (default 50, max 200).
 type EmailStatsTagsResponse struct {
 	// Data Tag breakdown rows, ranked by the `sort` metric (default `processed`) descending. Empty when no tagged sends occurred in the period.
 	Data *[]EmailTagStatsPoint `json:"data,omitempty"`
 
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
 	// Period The date range this response was actually computed against. Echoed back so clients can render the period without tracking it themselves and so cached responses can be keyed by what was queried.
 	Period EmailStatsPeriod `json:"period"`
 
-	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. When it exceeds the number of rows returned, the ranking was capped. Raise `limit` (up to 200) or narrow the window to see more.
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of distinct tags (name and value pairs) with activity in the period, regardless of `limit`. Pass `next_cursor` as `starting_after` to request the next page.
 	Total *int `json:"total,omitempty"`
 }
 
@@ -15099,6 +16118,45 @@ type EventWhatsAppFailedData struct {
 // EventWhatsAppFailedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type EventWhatsAppFailedDataDirection string
 
+// EventWhatsAppGroupJoinRequestCreated Someone asked to join a group that requires approval.
+type EventWhatsAppGroupJoinRequestCreated struct {
+	// Data Payload shared by the whatsapp.group.join_request_created and whatsapp.group.join_request_revoked events. Everything about the person who asked is nested under `join_request`; the sibling identifiers name the business side.
+	Data EventWhatsAppGroupJoinRequestData `json:"data"`
+
+	// Timestamp When the person asked to join.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `whatsapp.group.join_request_created` for this event.
+	Type WhatsAppGroupJoinRequestCreatedEventType `json:"type"`
+}
+
+// EventWhatsAppGroupJoinRequestData Payload shared by the whatsapp.group.join_request_created and whatsapp.group.join_request_revoked events. Everything about the person who asked is nested under `join_request`; the sibling identifiers name the business side.
+type EventWhatsAppGroupJoinRequestData struct {
+	// GroupId The group the person asked to join.
+	GroupId WhatsAppGroupID `json:"group_id"`
+
+	// JoinRequest Someone who asked to be let into a group, as named by a join-request webhook event.
+	JoinRequest WhatsAppGroupJoinRequestSummary `json:"join_request"`
+
+	// WhatsappNumberId The business number that created the group and administers it.
+	WhatsappNumberId WhatsAppNumberID `json:"whatsapp_number_id"`
+
+	// WorkspaceId The workspace that owns the group.
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventWhatsAppGroupJoinRequestRevoked Someone withdrew their request to join a group before it was decided.
+type EventWhatsAppGroupJoinRequestRevoked struct {
+	// Data Payload shared by the whatsapp.group.join_request_created and whatsapp.group.join_request_revoked events. Everything about the person who asked is nested under `join_request`; the sibling identifiers name the business side.
+	Data EventWhatsAppGroupJoinRequestData `json:"data"`
+
+	// Timestamp When the person withdrew their request.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `whatsapp.group.join_request_revoked` for this event.
+	Type WhatsAppGroupJoinRequestRevokedEventType `json:"type"`
+}
+
 // EventWhatsAppReacted A contact placed, changed or took back a reaction on a message.
 type EventWhatsAppReacted struct {
 	// Data Payload of the whatsapp.reacted event. Names the message the contact reacted to, not the reaction, because a reaction is an annotation on a message rather than a message of its own.
@@ -16834,6 +17892,9 @@ type RecipientRole string
 
 // Region Deployment region identifier.
 type Region string
+
+// SIPTrunkACLID defines model for SIPTrunkACLID.
+type SIPTrunkACLID = string
 
 // SIPTrunkID defines model for SIPTrunkID.
 type SIPTrunkID = string
@@ -18639,15 +19700,103 @@ type VoiceCallDirection string
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
 
+// VoiceCallRoute What happens to a call arriving for this number, as it is configured now. Its `type` selects the shape, and each answer carries its own fields. An unconfigured number answers with "reject". Setting a route is a separate shape, and it does not offer every variant reported here.
+type VoiceCallRoute struct {
+	union json.RawMessage
+}
+
+// VoiceCallRouteForward defines model for VoiceCallRouteForward.
+type VoiceCallRouteForward struct {
+	// ForwardAs Which of a forwarded call's two numbers it shows as the caller.
+	//
+	// `dialed_number` presents the Bird number the caller dialed. Whoever answers
+	// sees which of your numbers was called. Older configurations without a stored
+	// choice use this value. Carrier screening can still affect delivery.
+	//
+	// `calling_number` presents the caller's own number, so the phone rings as though
+	// they had dialed it directly and the call can be returned from the call log. Because
+	// the number is not one you own, some carriers (most often in the US and parts of
+	// Europe) mark such calls as unverified, replace the number, or screen them.
+	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
+
+	// ForwardTo The number calls are forwarded to, in E.164 format. It has to be one of your verified caller IDs. That is checked when you set it and again on every call it forwards, so a caller ID you later remove stops forwarding rather than carrying on.
+	ForwardTo string `json:"forward_to"`
+
+	// Type Which answer a number carries.
+	//
+	// - `reject`: refuses the call. This is where every number starts.
+	// - `trunk`: delivers the call to one of your SIP trunks.
+	// - `forward`: places a call to one of your verified caller IDs and connects the two.
+	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	//
+	// It selects the answer's own shape, so a new way to answer a call arrives as a
+	// new value alongside a new set of fields.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallRouteReject defines model for VoiceCallRouteReject.
+type VoiceCallRouteReject struct {
+	// Type Which answer a number carries.
+	//
+	// - `reject`: refuses the call. This is where every number starts.
+	// - `trunk`: delivers the call to one of your SIP trunks.
+	// - `forward`: places a call to one of your verified caller IDs and connects the two.
+	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	//
+	// It selects the answer's own shape, so a new way to answer a call arrives as a
+	// new value alongside a new set of fields.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallRouteSequence defines model for VoiceCallRouteSequence.
+type VoiceCallRouteSequence struct {
+	// EntryNodeId Stable identifier for a node within one sequence definition.
+	EntryNodeId VoiceSequenceNodeID `json:"entry_node_id"`
+	SequenceId  VoiceSequenceID     `json:"sequence_id"`
+
+	// Type Which answer a number carries.
+	//
+	// - `reject`: refuses the call. This is where every number starts.
+	// - `trunk`: delivers the call to one of your SIP trunks.
+	// - `forward`: places a call to one of your verified caller IDs and connects the two.
+	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	//
+	// It selects the answer's own shape, so a new way to answer a call arrives as a
+	// new value alongside a new set of fields.
+	Type VoiceCallRouteType `json:"type"`
+}
+
+// VoiceCallRouteTrunk defines model for VoiceCallRouteTrunk.
+type VoiceCallRouteTrunk struct {
+	TrunkId SIPTrunkID `json:"trunk_id"`
+
+	// Type Which answer a number carries.
+	//
+	// - `reject`: refuses the call. This is where every number starts.
+	// - `trunk`: delivers the call to one of your SIP trunks.
+	// - `forward`: places a call to one of your verified caller IDs and connects the two.
+	// - `sequence`: runs the configured sequence from its selected voice-call entry.
+	//
+	// It selects the answer's own shape, so a new way to answer a call arrives as a
+	// new value alongside a new set of fields.
+	Type VoiceCallRouteType `json:"type"`
+}
+
 // VoiceCallRouteType Which answer a number carries.
 //
 // - `reject`: refuses the call. This is where every number starts.
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
+// - `sequence`: runs the configured sequence from its selected voice-call entry.
 //
 // It selects the answer's own shape, so a new way to answer a call arrives as a
 // new value alongside a new set of fields.
 type VoiceCallRouteType string
+
+// VoiceCallRouteWritable What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+type VoiceCallRouteWritable struct {
+	union json.RawMessage
+}
 
 // VoiceCallSequence defines model for VoiceCallSequence.
 type VoiceCallSequence struct {
@@ -18678,17 +19827,134 @@ type VoiceCallSequence struct {
 // both outcomes are reported as `failed` today.
 type VoiceCallStatus string
 
+// VoiceCallerID defines model for VoiceCallerID.
+type VoiceCallerID struct {
+	CreatedAt *time.Time      `json:"created_at,omitempty"`
+	Id        VoiceCallerIDID `json:"id"`
+
+	// Name Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
+	Name *string `json:"name,omitempty"`
+
+	// PhoneNumber The phone number in E.164 format registered as a caller ID.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Status Verification state of the caller ID.
+	//
+	// - `pending`: the number is registered but ownership has not yet been proven.
+	// - `verified`: the workspace completed the verification call, so the number can
+	//   be presented as the outbound caller ID.
+	// - `failed`: terminal because the verification challenge expired or the attempt
+	//   limit was exhausted. Use the dashboard to remove and register the caller ID
+	//   again to retry.
+	Status    VoiceCallerIDStatus `json:"status"`
+	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
+
+	// VerifiedAt When the caller ID was verified. `null` when its status is `pending` or `failed`.
+	VerifiedAt  *time.Time  `json:"verified_at,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceCallerIDID defines model for VoiceCallerIDID.
+type VoiceCallerIDID = string
+
+// VoiceCallerIDList defines model for VoiceCallerIDList.
+type VoiceCallerIDList struct {
+	Data []VoiceCallerID `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceCallerIDSortField Field used to sort the list.
+type VoiceCallerIDSortField string
+
+// VoiceCallerIDStatus Verification state of the caller ID.
+//
+//   - `pending`: the number is registered but ownership has not yet been proven.
+//   - `verified`: the workspace completed the verification call, so the number can
+//     be presented as the outbound caller ID.
+//   - `failed`: terminal because the verification challenge expired or the attempt
+//     limit was exhausted. Use the dashboard to remove and register the caller ID
+//     again to retry.
+type VoiceCallerIDStatus string
+
+// VoiceCallerIDVerifyRequest defines model for VoiceCallerIDVerifyRequest.
+type VoiceCallerIDVerifyRequest struct {
+	// Code The 6-digit verification code read out by the verification call.
+	Code string `json:"code" pii:"true"`
+}
+
+// VoiceDestination defines model for VoiceDestination.
+type VoiceDestination struct {
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// CountryName Full English country name.
+	CountryName *string `json:"country_name,omitempty"`
+
+	// DialCode International dialling prefix, without the leading plus. Absent for countries that have none.
+	DialCode *string `json:"dial_code,omitempty"`
+
+	// Enabled Whether your workspace has enabled calling to this country.
+	Enabled bool `json:"enabled"`
+
+	// HighRiskDestination Whether we treat this country as a high-risk calling destination.
+	HighRiskDestination *bool              `json:"high_risk_destination,omitempty"`
+	Region              *DestinationRegion `json:"region,omitempty"`
+
+	// Status This country's Voice callability at the destination level, independent of your enabled setting. `available` means we place calls there; `not_supported` means we do not.
+	Status      *string                 `json:"status,omitempty"`
+	SuperRegion *DestinationSuperRegion `json:"super_region,omitempty"`
+}
+
+// VoiceDestinationList defines model for VoiceDestinationList.
+type VoiceDestinationList struct {
+	// Data The Voice destination countries, each annotated with your workspace's enabled setting.
+	Data []VoiceDestination `json:"data"`
+
+	// Total Total number of destination countries.
+	Total int64 `json:"total"`
+}
+
+// VoiceDestinationsUpdate defines model for VoiceDestinationsUpdate.
+type VoiceDestinationsUpdate struct {
+	// Destinations The destination countries to enable or disable. Only the countries listed here change; any country you do not list keeps its current setting.
+	Destinations []DestinationSetting `json:"destinations"`
+}
+
+// VoiceInboundConfiguration defines model for VoiceInboundConfiguration.
+type VoiceInboundConfiguration struct {
+	ConfigurationError *VoiceInboundConfigurationError `json:"configuration_error,omitempty"`
+
+	// ForwardAsOptions Caller identities available when configuring a forward. Use these values to populate the choice in your editor. The current choices are `dialed_number` and `calling_number`.
+	ForwardAsOptions *[]VoiceInboundForwardAs `json:"forward_as_options,omitempty"`
+
+	// Route Null when the stored route type is unsupported; inspect configuration_error before changing it.
+	Route *VoiceCallRoute `json:"route"`
+}
+
+// VoiceInboundConfigurationError defines model for VoiceInboundConfigurationError.
+type VoiceInboundConfigurationError string
+
+// VoiceInboundConfigurationPut defines model for VoiceInboundConfigurationPut.
+type VoiceInboundConfigurationPut struct {
+	// Route What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+	Route VoiceCallRouteWritable `json:"route"`
+}
+
 // VoiceInboundForwardAs Which of a forwarded call's two numbers it shows as the caller.
 //
-// "dialed_number" is the number the caller dialled, which is one of yours.
-// Carriers treat it as fully yours, so it is the least likely to be altered or
-// screened. Whoever answers sees which of your numbers was called, not who called
-// it. It needs your workspace approved to place calls from numbers you bought from
-// us; where it is not, this value is refused and the call shows the calling
-// number.
+// `dialed_number` presents the Bird number the caller dialed. Whoever answers
+// sees which of your numbers was called. Older configurations without a stored
+// choice use this value. Carrier screening can still affect delivery.
 //
-// "calling_number" is the caller's own number, so the phone rings as though they
-// had dialled it directly and the call can be returned from the call log. Because
+// `calling_number` presents the caller's own number, so the phone rings as though
+// they had dialed it directly and the call can be returned from the call log. Because
 // the number is not one you own, some carriers (most often in the US and parts of
 // Europe) mark such calls as unverified, replace the number, or screen them.
 type VoiceInboundForwardAs string
@@ -18795,13 +20061,30 @@ type VoiceLegInboundRouteForward struct {
 	ForwardTo string `json:"forward_to"`
 
 	// Type The leg was forwarded to another of your numbers.
-	Type VoiceCallRouteType `json:"type"`
+	Type VoiceLegInboundRouteType `json:"type"`
 }
 
 // VoiceLegInboundRouteReject defines model for VoiceLegInboundRouteReject.
 type VoiceLegInboundRouteReject struct {
 	// Type The number turned the leg away. This is where every number starts, so it covers a number nobody has configured as well as one set to reject.
-	Type VoiceCallRouteType `json:"type"`
+	Type VoiceLegInboundRouteType `json:"type"`
+}
+
+// VoiceLegInboundRouteSequence defines model for VoiceLegInboundRouteSequence.
+type VoiceLegInboundRouteSequence struct {
+	// EntryNodeId The entry the leg started from in the publication that handled it. Recorded as it was at the time, so it may name an entry the sequence no longer has.
+	EntryNodeId VoiceSequenceNodeID `json:"entry_node_id"`
+
+	// SequenceId The sequence that handled the leg. Recorded as it was at the time, so it may name a sequence you have since changed or deleted.
+	SequenceId VoiceSequenceID `json:"sequence_id"`
+
+	// Type Which answer handled this incoming leg.
+	//
+	// - `reject`: the call was refused.
+	// - `trunk`: the call was delivered to one of your SIP trunks.
+	// - `forward`: the call was forwarded to one of your verified caller IDs.
+	// - `sequence`: the call was handled by one of your sequences.
+	Type VoiceLegInboundRouteType `json:"type"`
 }
 
 // VoiceLegInboundRouteTrunk defines model for VoiceLegInboundRouteTrunk.
@@ -18810,8 +20093,16 @@ type VoiceLegInboundRouteTrunk struct {
 	TrunkId SIPTrunkID `json:"trunk_id"`
 
 	// Type The leg was delivered to one of your SIP trunks.
-	Type VoiceCallRouteType `json:"type"`
+	Type VoiceLegInboundRouteType `json:"type"`
 }
+
+// VoiceLegInboundRouteType Which answer handled this incoming leg.
+//
+// - `reject`: the call was refused.
+// - `trunk`: the call was delivered to one of your SIP trunks.
+// - `forward`: the call was forwarded to one of your verified caller IDs.
+// - `sequence`: the call was handled by one of your sequences.
+type VoiceLegInboundRouteType string
 
 // VoiceLegList defines model for VoiceLegList.
 type VoiceLegList struct {
@@ -18881,6 +20172,100 @@ type VoiceMediaQuality struct {
 	RoundTripTimeMs *int `json:"round_trip_time_ms,omitempty"`
 }
 
+// VoiceNumber defines model for VoiceNumber.
+type VoiceNumber struct {
+	// CountryCode Country the number belongs to. Null when the number is not geographic or its country cannot be determined.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// CreatedAt When this number became usable for voice: when it was allocated to you, or when you first registered it, whichever this number is.
+	CreatedAt            *time.Time                `json:"created_at,omitempty"`
+	Directions           VoiceNumberDirections     `json:"directions"`
+	Id                   VoiceNumberID             `json:"id"`
+	InboundConfiguration VoiceInboundConfiguration `json:"inbound_configuration"`
+
+	// Name Your own label for this number, to tell several apart. Null when it has none. Only you see it, so it never affects what a caller sees.
+	Name *string `json:"name,omitempty"`
+
+	// PhoneNumber The phone number in E.164 format.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Provider Where this number came from, and the facts that belong to that answer. The type selects the shape. `allocation` is a number we allocated to your workspace, and it carries that allocation's identifier. `verified_number` is a number from another carrier, and it carries how far proving control of it has got.
+	Provider VoiceNumberProvider `json:"provider"`
+}
+
+// VoiceNumberDirections defines model for VoiceNumberDirections.
+type VoiceNumberDirections struct {
+	// Inbound Whether calls to this number arrive here. False for a number from another carrier, whose calls that carrier routes, and for one allocated to you that cannot carry calls.
+	Inbound *bool `json:"inbound,omitempty"`
+
+	// Outbound Whether this number can be presented on a call you place. Buying a number does not grant this on its own: proving control of it does.
+	Outbound *bool `json:"outbound,omitempty"`
+}
+
+// VoiceNumberID defines model for VoiceNumberID.
+type VoiceNumberID = string
+
+// VoiceNumberList defines model for VoiceNumberList.
+type VoiceNumberList struct {
+	Data []VoiceNumber `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceNumberProvider Where this number came from, and the facts that belong to that answer. The type selects the shape. `allocation` is a number we allocated to your workspace, and it carries that allocation's identifier. `verified_number` is a number from another carrier, and it carries how far proving control of it has got.
+type VoiceNumberProvider struct {
+	union json.RawMessage
+}
+
+// VoiceNumberProviderAllocation defines model for VoiceNumberProviderAllocation.
+type VoiceNumberProviderAllocation struct {
+	// NumberId Identifier of this number's allocation, to pass to the numbers operations. Null when the allocation behind this number cannot be resolved.
+	NumberId *AllocatedNumberID `json:"number_id,omitempty"`
+
+	// Type Where a number came from. `allocation` is a number we allocated to your workspace, and the only kind whose calls reach us. `verified_number` is a number from another carrier that you registered and proved you control, so it can be presented on a call you place.
+	Type VoiceNumberProviderType `json:"type"`
+}
+
+// VoiceNumberProviderType Where a number came from. `allocation` is a number we allocated to your workspace, and the only kind whose calls reach us. `verified_number` is a number from another carrier that you registered and proved you control, so it can be presented on a call you place.
+type VoiceNumberProviderType string
+
+// VoiceNumberProviderVerifiedNumber defines model for VoiceNumberProviderVerifiedNumber.
+type VoiceNumberProviderVerifiedNumber struct {
+	// Status Verification state of the caller ID.
+	//
+	// - `pending`: the number is registered but ownership has not yet been proven.
+	// - `verified`: the workspace completed the verification call, so the number can
+	//   be presented as the outbound caller ID.
+	// - `failed`: terminal because the verification challenge expired or the attempt
+	//   limit was exhausted. Use the dashboard to remove and register the caller ID
+	//   again to retry.
+	Status VoiceCallerIDStatus `json:"status"`
+
+	// Type Where a number came from. `allocation` is a number we allocated to your workspace, and the only kind whose calls reach us. `verified_number` is a number from another carrier that you registered and proved you control, so it can be presented on a call you place.
+	Type VoiceNumberProviderType `json:"type"`
+
+	// VerifiedAt When control of this number was last proven. Null until it is.
+	VerifiedAt *time.Time `json:"verified_at,omitempty"`
+}
+
+// VoiceNumberSortField Field used to sort the list.
+type VoiceNumberSortField string
+
+// VoiceNumberUpdate defines model for VoiceNumberUpdate.
+type VoiceNumberUpdate struct {
+	InboundConfiguration *VoiceInboundConfigurationPut `json:"inbound_configuration,omitempty"`
+
+	// Name Your own label for this number. Send null to remove the one it has. Omit the field to leave it alone.
+	Name nullable.Nullable[string] `json:"name,omitempty"`
+}
+
 // VoiceParty defines model for VoiceParty.
 type VoiceParty struct {
 	// Address This side's own address, in E.164 or as a `sip:` URI. `null` when the observation carried none, which does not say whether one was withheld, missing, or nonexistent.
@@ -18898,15 +20283,12 @@ type VoiceParty struct {
 type VoicePartyBridgePSTNEndpoint struct {
 	// ForwardAs Which of a forwarded call's two numbers it shows as the caller.
 	//
-	// "dialed_number" is the number the caller dialled, which is one of yours.
-	// Carriers treat it as fully yours, so it is the least likely to be altered or
-	// screened. Whoever answers sees which of your numbers was called, not who called
-	// it. It needs your workspace approved to place calls from numbers you bought from
-	// us; where it is not, this value is refused and the call shows the calling
-	// number.
+	// `dialed_number` presents the Bird number the caller dialed. Whoever answers
+	// sees which of your numbers was called. Older configurations without a stored
+	// choice use this value. Carrier screening can still affect delivery.
 	//
-	// "calling_number" is the caller's own number, so the phone rings as though they
-	// had dialled it directly and the call can be returned from the call log. Because
+	// `calling_number` presents the caller's own number, so the phone rings as though
+	// they had dialed it directly and the call can be returned from the call log. Because
 	// the number is not one you own, some carriers (most often in the US and parts of
 	// Europe) mark such calls as unverified, replace the number, or screen them.
 	ForwardAs VoiceInboundForwardAs `json:"forward_as"`
@@ -18939,6 +20321,9 @@ type VoicePartySIPEndpoint struct {
 	Contact string `json:"contact"`
 }
 
+// VoiceSIPDigestAlgorithm A hash algorithm for SIP Digest authentication, spelled as it appears in the `algorithm=` parameter on the wire. `SHA-256` is the stronger option and is offered first; `MD5` is the algorithm most PBX and ITSP equipment implements.
+type VoiceSIPDigestAlgorithm string
+
 // VoiceSequenceID defines model for VoiceSequenceID.
 type VoiceSequenceID = string
 
@@ -18951,8 +20336,304 @@ type VoiceSequencePhoneNumber = string
 // VoiceSequenceRunID defines model for VoiceSequenceRunID.
 type VoiceSequenceRunID = string
 
+// VoiceSessionCredential A short-lived SIP digest credential for a calling client. The `password` is returned once and cannot be recovered. Create a new credential if you lose it.
+type VoiceSessionCredential struct {
+	// ExpiresAt When the credential stops authenticating, five minutes after creation. Existing calls may continue; use a fresh credential for later authentication.
+	ExpiresAt time.Time `json:"expires_at"`
+
+	// HandshakeToken Short-lived token required when upgrading the WebSocket connection. The token authorizes the connection only; each call still authenticates with `password`.
+	HandshakeToken *string `json:"handshake_token,omitempty" pii:"true"`
+
+	// Password SIP digest password, returned once. Treat it as a bearer secret: until it expires it can place calls billed to this workspace.
+	Password string `json:"password" pii:"true"`
+
+	// Realm SIP digest realm to authenticate against. Workspace-scoped, so a credential minted for one workspace cannot authenticate against another.
+	Realm string `json:"realm"`
+
+	// Username SIP digest username. Always `bird`. The credential identifies the workspace through `realm`. The username does not identify the workspace.
+	Username string `json:"username"`
+}
+
 // VoiceSessionID defines model for VoiceSessionID.
 type VoiceSessionID = string
+
+// VoiceTrunk defines model for VoiceTrunk.
+type VoiceTrunk struct {
+	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
+	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
+	CreatedAt        *time.Time  `json:"created_at,omitempty"`
+
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
+
+	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
+	Domain *string    `json:"domain,omitempty"`
+	Id     SIPTrunkID `json:"id"`
+
+	// InboundEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `inbound_enabled` through the trunk update operation.
+	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
+
+	// IneligibleApiKeyIds The entries in `allowed_api_key_ids` that cannot authenticate this trunk right now because the key lacks `voice` at write level, has expired, or was revoked. The bindings remain until you remove them from the trunk. Restoring `voice` at write level makes a key eligible again if it is still unexpired and unrevoked, without changing its secret or trunk binding. Empty when every allowed key can authenticate.
+	IneligibleApiKeyIds *[]APIKeyID `json:"ineligible_api_key_ids,omitempty"`
+
+	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `session_credentials_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
+	IpAcls *[]VoiceTrunkIPACL `json:"ip_acls,omitempty"`
+
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk: your equipment and the originating carrier exchange audio directly, and only the call signalling passes through us. Off by default. It applies to inbound calls alone (calls this trunk places are always carried through us, whatever this says). While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped. Your equipment must be reachable for audio from the public internet. Set `media_bypass` through the trunk update operation.
+	MediaBypass *bool `json:"media_bypass,omitempty"`
+
+	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
+	Name string `json:"name"`
+
+	// OutboundEnabled Whether this trunk may place calls: your PBX connects to us to dial out. Off on a new trunk. While it is off the trunk refuses every call attempt no matter what its allow lists say, and the connection and authentication settings below have no effect. Set `outbound_enabled` through the trunk update operation.
+	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
+
+	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP, alongside whatever the allow lists admit. Off by default. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `session_credentials_enabled` through the trunk update operation.
+	SessionCredentialsEnabled *bool       `json:"session_credentials_enabled,omitempty"`
+	UpdatedAt                 *time.Time  `json:"updated_at,omitempty"`
+	WorkspaceId               WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceTrunkCore A SIP trunk's identity and access-control settings.
+type VoiceTrunkCore struct {
+	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
+	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
+
+	// DigestAlgorithms The Digest hash algorithms this trunk offers, in the order they are offered. We send one challenge line per algorithm and your PBX answers with the first it supports, so the order decides what most equipment picks. Always populated: a trunk with no explicit setting reports the default, `["SHA-256", "MD5"]`. A trunk answering with an algorithm that is not on this list is rejected, so narrowing the list also narrows what the trunk accepts. Replace `digest_algorithms` through the trunk update operation.
+	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
+
+	// Domain Full SIP address for this trunk, generated as `{trunk-id}.trunk.{region}.sip.bird.com`. This is the trunk's identity, so configure your PBX or SIP client to send calls to this address. It is derived from the trunk id and cannot be chosen or changed.
+	Domain *string    `json:"domain,omitempty"`
+	Id     SIPTrunkID `json:"id"`
+
+	// InboundEnabled Whether this trunk may receive calls: we dial the addresses you declared, for the numbers this trunk answers. Off on a new trunk. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. Set `inbound_enabled` through the trunk update operation.
+	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
+
+	// IneligibleApiKeyIds The entries in `allowed_api_key_ids` that cannot authenticate this trunk right now because the key lacks `voice` at write level, has expired, or was revoked. The bindings remain until you remove them from the trunk. Restoring `voice` at write level makes a key eligible again if it is still unexpired and unrevoked, without changing its secret or trunk binding. Empty when every allowed key can authenticate.
+	IneligibleApiKeyIds *[]APIKeyID `json:"ineligible_api_key_ids,omitempty"`
+
+	// IpAcls The trunk's IP allow list. IP filtering is active whenever this has at least one entry: calls admitted through the allow lists must come from those CIDR ranges. This restriction does not apply to session credentials when `session_credentials_enabled` is true. An empty list means no IP restriction. Replace the whole `ip_acls` list through the trunk update operation.
+	IpAcls *[]VoiceTrunkIPACL `json:"ip_acls,omitempty"`
+
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk: your equipment and the originating carrier exchange audio directly, and only the call signalling passes through us. Off by default. It applies to inbound calls alone (calls this trunk places are always carried through us, whatever this says). While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped. Your equipment must be reachable for audio from the public internet. Set `media_bypass` through the trunk update operation.
+	MediaBypass *bool `json:"media_bypass,omitempty"`
+
+	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
+	Name string `json:"name"`
+
+	// OutboundEnabled Whether this trunk may place calls: your PBX connects to us to dial out. Off on a new trunk. While it is off the trunk refuses every call attempt no matter what its allow lists say, and the connection and authentication settings below have no effect. Set `outbound_enabled` through the trunk update operation.
+	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
+
+	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP, alongside whatever the allow lists admit. Off by default. It grants nothing on its own: a call still has to present a credential issued to this workspace, and each one expires within minutes. Set `session_credentials_enabled` through the trunk update operation.
+	SessionCredentialsEnabled *bool       `json:"session_credentials_enabled,omitempty"`
+	WorkspaceId               WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceTrunkCreate defines model for VoiceTrunkCreate.
+type VoiceTrunkCreate struct {
+	// DigestAlgorithms The Digest hash algorithms to offer, in the order they should be offered. Omit this to use the default of `["SHA-256", "MD5"]`, which suits most equipment. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. This can be changed later without re-issuing credentials.
+	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
+
+	// InboundEnabled Whether the new trunk may receive calls. Omit it to create a trunk that does neither direction yet. A trunk receives no calls until it also has at least one gateway and at least one number, both added after create.
+	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
+
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Omit it to create the trunk with this off, which is what suits equipment behind NAT and any account that wants call recording. It is an inbound setting, so `true` is accepted only alongside `inbound_enabled: true`; `false` is always accepted. It can be changed later.
+	MediaBypass *bool `json:"media_bypass,omitempty"`
+
+	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
+	Name string `json:"name"`
+
+	// OutboundEnabled Whether the new trunk may place calls. Omit it to create a trunk that does neither direction yet, and enable the ones you want once you know what the trunk is for. The settings below configure outbound, so send this as `true` alongside them.
+	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
+
+	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Omit it to create the trunk with this off, which is what a trunk reached only by a PBX wants. It can be changed later.
+	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+}
+
+// VoiceTrunkGateway defines model for VoiceTrunkGateway.
+type VoiceTrunkGateway struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DestinationFormat How this gateway formats the dialed number. In the template,
+	// `{number}` represents the number without its leading `+`. The result
+	// is placed before the `sip_uri` host. For example, `1234#{number}`
+	// formats `+31201234567` as
+	// `sip:1234#31201234567@pbx.example.com:5060`.
+	//
+	// A gateway that has not asked for anything else reports `+{number}`,
+	// which is E.164. A format with no `{number}` is dialed as it stands, so
+	// every number the trunk answers reaches that one number.
+	DestinationFormat string              `json:"destination_format"`
+	Id                VoiceTrunkGatewayID `json:"id"`
+
+	// OriginationFormat How the calling number is spelled to this gateway, as a template whose
+	// `{number}` stands for the number without its leading `+`. It is stated
+	// in the `P-Asserted-Identity` header of the delivered call.
+	//
+	// A gateway that has not asked for anything else reports `+{number}`,
+	// which is E.164. A format with no `{number}` states that same identity on
+	// every call, whoever called.
+	OriginationFormat string `json:"origination_format"`
+
+	// Priority The order gateways are tried in, lowest first. Gateways sharing a priority take an equal share of calls, and any of them may be tried first on a given call.
+	Priority int `json:"priority"`
+
+	// SipUri SIP URI an inbound call to this trunk is forwarded to. The host only: which number is dialed at that host comes from `destination_format`, because it changes with every call.
+	SipUri    string     `json:"sip_uri"`
+	TrunkId   SIPTrunkID `json:"trunk_id"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// VoiceTrunkGatewayCreate defines model for VoiceTrunkGatewayCreate.
+type VoiceTrunkGatewayCreate struct {
+	// DestinationFormat How this gateway formats the dialed number. In the template, `{number}`
+	// represents the number without its leading `+`. The result is placed before
+	// the `sip_uri` host. For example, `1234#{number}` formats `+31201234567` as
+	// `sip:1234#31201234567@pbx.example.com:5060`.
+	//
+	// Omit it for E.164, which is `+{number}`. A format with no `{number}` at all
+	// sends every number this trunk answers to one fixed number, so
+	// `777000447973` reaches `sip:777000447973@pbx.example.com:5060` whatever was
+	// dialed. The same rules as `origination_format` apply to what the template
+	// may contain.
+	DestinationFormat *string `json:"destination_format,omitempty"`
+
+	// OriginationFormat How this gateway wants the calling number spelled. Write a template whose
+	// `{number}` stands for the number without its leading `+`; the result is
+	// stated in the `P-Asserted-Identity` header of the delivered call.
+	//
+	// Omit it for E.164, which is `+{number}`. The template may add digits,
+	// letters and the characters `-_.!~*'()&=+$,;?/%#` around `{number}`, which
+	// may appear at most once, and anything else in braces is rejected so a
+	// misspelled placeholder cannot reach a call.
+	//
+	// A format with no `{number}` at all states the same identity on every call,
+	// which is what a peer that only accepts one authorized number wants. The
+	// call then carries nothing about who really called.
+	OriginationFormat *string `json:"origination_format,omitempty"`
+
+	// Priority The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	Priority int `json:"priority"`
+
+	// SipUri SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
+	SipUri string `json:"sip_uri"`
+}
+
+// VoiceTrunkGatewayID defines model for VoiceTrunkGatewayID.
+type VoiceTrunkGatewayID = string
+
+// VoiceTrunkGatewayList The trunk's gateways. Not paginated: a trunk holds a small, hand-managed set of dial targets, and the order across the whole set is what decides hunt order, so a partial page would misrepresent it.
+type VoiceTrunkGatewayList struct {
+	// Data The trunk's gateways, in priority order.
+	Data []VoiceTrunkGateway `json:"data"`
+}
+
+// VoiceTrunkGatewayUpdate A change to the gateway's address, its place in the order, or how it wants numbers spelled. Every field is optional; an omitted field is left unchanged.
+type VoiceTrunkGatewayUpdate struct {
+	// DestinationFormat How this gateway formats the dialed number. In the template, `{number}`
+	// represents the number without its leading `+`. The result is placed before
+	// the `sip_uri` host. For example, `1234#{number}` formats `+31201234567` as
+	// `sip:1234#31201234567@pbx.example.com:5060`.
+	//
+	// Send an empty string to go back to E.164, which is `+{number}`. A format
+	// with no `{number}` at all sends every number this trunk answers to one fixed
+	// number, so `777000447973` reaches `sip:777000447973@pbx.example.com:5060`
+	// whatever was dialed. The same rules as `origination_format` apply to what
+	// the template may contain.
+	DestinationFormat *string `json:"destination_format,omitempty"`
+
+	// OriginationFormat How this gateway wants the calling number spelled, as a template whose
+	// `{number}` stands for the number without its leading `+`. The result is
+	// stated in the `P-Asserted-Identity` header of the delivered call.
+	//
+	// Send an empty string to go back to E.164, which is `+{number}`. The template
+	// may add digits, letters and the characters `-_.!~*'()&=+$,;?/%#` around
+	// `{number}`, which may appear at most once, and anything else in braces is
+	// rejected so a misspelled placeholder cannot reach a call.
+	//
+	// A format with no `{number}` at all states the same identity on every call,
+	// which is what a peer that only accepts one authorized number wants. The
+	// call then carries nothing about who really called.
+	OriginationFormat *string `json:"origination_format,omitempty"`
+
+	// Priority The order gateways are tried in, lowest first. Give two gateways the same priority to share calls between them evenly.
+	Priority *int `json:"priority,omitempty"`
+
+	// SipUri SIP URI an inbound call to this trunk should be forwarded to. Give the host only, with an optional port: which number is dialed there comes from `destination_format`, so a URI carrying a user part is rejected.
+	SipUri *string `json:"sip_uri,omitempty"`
+}
+
+// VoiceTrunkIPACL defines model for VoiceTrunkIPACL.
+type VoiceTrunkIPACL struct {
+	// Cidr IPv4 or IPv6 CIDR block that is allowed to send SIP traffic to this trunk.
+	Cidr      *string    `json:"cidr,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description Optional human-readable label for this ACL entry.
+	Description *string       `json:"description,omitempty"`
+	Id          SIPTrunkACLID `json:"id"`
+	TrunkId     SIPTrunkID    `json:"trunk_id"`
+}
+
+// VoiceTrunkIPACLCreate defines model for VoiceTrunkIPACLCreate.
+type VoiceTrunkIPACLCreate struct {
+	// Cidr IPv4 or IPv6 CIDR block to allow. Use /32 for a single IPv4 address or /128 for a single IPv6 address.
+	Cidr string `json:"cidr"`
+
+	// Description Optional human-readable label for this ACL entry.
+	Description *string `json:"description,omitempty"`
+}
+
+// VoiceTrunkList defines model for VoiceTrunkList.
+type VoiceTrunkList struct {
+	Data []VoiceTrunk `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceTrunkSortField Field used to sort the list.
+type VoiceTrunkSortField string
+
+// VoiceTrunkUpdate A change to the trunk's directions, name, access control, and Digest algorithm
+// offer. Every field is optional. An omitted field is left unchanged. The
+// `ip_acls`, `allowed_api_key_ids`, and `digest_algorithms` fields each replace
+// their whole list when present. Send an empty array to clear one. This lets you
+// commit the trunk's entire access configuration in one update.
+//
+// A direction has to be enabled before its settings can be set, but one update
+// can do both: enable a direction and send its configuration together.
+type VoiceTrunkUpdate struct {
+	// AllowedApiKeyIds Replaces the trunk's entire set of allowed API keys. When present, exactly these keys may authenticate the trunk over SIP Digest. Each key you ADD must belong to this workspace and hold `voice` at write level; a key that does not is refused and the whole update is rolled back. A key already on the list that has since lost the permission or expired does not block the update, so you can keep editing the trunk while you put its permission back. A non-empty list turns API-key authentication on; send an empty array to turn it off. Omit the field to leave the allowed keys unchanged.
+	AllowedApiKeyIds *[]APIKeyID `json:"allowed_api_key_ids,omitempty"`
+
+	// DigestAlgorithms Replaces the Digest hash algorithms this trunk offers, in the order they should be offered. Send `["MD5"]` for a PBX that only implements MD5 and rejects or ignores a challenge offering SHA-256 first. Send an empty array to return to the default of `["SHA-256", "MD5"]`. The offer is never empty, because a trunk that offered nothing could not be authenticated at all. Narrowing the list also narrows what the trunk accepts: an answer using an algorithm no longer offered is rejected. Takes effect on the next call setup; no credential is re-issued. Omit the field to leave the offer unchanged.
+	DigestAlgorithms *[]VoiceSIPDigestAlgorithm `json:"digest_algorithms,omitempty"`
+
+	// InboundEnabled Whether this trunk may receive calls. Turning it off resets number routes that use this trunk to reject incoming calls. Turning it back on does not restore those routes. The gateways remain configured. Omit the field to leave it unchanged.
+	InboundEnabled *bool `json:"inbound_enabled,omitempty"`
+
+	// IpAcls Replaces the trunk's entire IP allow list. When present, the allow list is set to exactly these CIDR blocks: ranges not listed are removed and new ones are added. Send an empty array to clear the list, turning IP filtering off. Omit the field to leave the allow list unchanged.
+	IpAcls *[]VoiceTrunkIPACLCreate `json:"ip_acls,omitempty"`
+
+	// MediaBypass Whether we take ourselves out of the audio path for calls we forward to this trunk. Turning it on takes effect at the next call setup and leaves calls already up untouched. It is an inbound setting, so the trunk must have `inbound_enabled` on; one update can do both. While it is on we cannot record those calls, report their audio quality, or end one because its audio stopped, and your equipment must be reachable for audio from the public internet. Turning it off puts us back in the path at the next call setup. Omit the field to leave it unchanged.
+	MediaBypass *bool `json:"media_bypass,omitempty"`
+
+	// Name A human-readable label for this SIP trunk. Mutable, and distinct from the generated wire domain.
+	Name *string `json:"name,omitempty"`
+
+	// OutboundEnabled Whether this trunk may place calls. Turning it off stops the trunk admitting call attempts at the next call setup and leaves its connection and authentication settings stored, so turning it back on restores a working trunk. Omit the field to leave it unchanged.
+	OutboundEnabled *bool `json:"outbound_enabled,omitempty"`
+
+	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
+	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+}
 
 // WebhookAttempt defines model for WebhookAttempt.
 type WebhookAttempt struct {
@@ -19855,6 +21536,9 @@ type WhatsAppGroupJoinRequest struct {
 	Username *string `json:"username,omitempty"`
 }
 
+// WhatsAppGroupJoinRequestCreatedEventType Always `whatsapp.group.join_request_created` for this event.
+type WhatsAppGroupJoinRequestCreatedEventType string
+
 // WhatsAppGroupJoinRequestDecision The join requests to decide on.
 type WhatsAppGroupJoinRequestDecision struct {
 	// JoinRequestIds The join requests to act on, as returned by `GET /v1/whatsapp/groups/{group_id}/join-requests`. Each is decided on its own, so one can fail while the rest succeed. An ID that names no waiting request returns a `422` `WhatsAppGroupJoinRequestNotFound`. The 50 is Bird's own request bound, not a WhatsApp one: how many people the group can hold does not limit how many can queue at its link, so a rejection sweep is not held to the size of the group it is refusing entry to.
@@ -19897,8 +21581,26 @@ type WhatsAppGroupJoinRequestList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// WhatsAppGroupJoinRequestRevokedEventType Always `whatsapp.group.join_request_revoked` for this event.
+type WhatsAppGroupJoinRequestRevokedEventType string
+
 // WhatsAppGroupJoinRequestSortField Sortable fields for a WhatsApp group join-request list.
 type WhatsAppGroupJoinRequestSortField string
+
+// WhatsAppGroupJoinRequestSummary Someone who asked to be let into a group, as named by a join-request webhook event.
+type WhatsAppGroupJoinRequestSummary struct {
+	// Bsuid Business-scoped user ID, Meta's identifier for this person against your business. The one identifier every request has, and the one that carries over to `participants` if you approve it.
+	Bsuid string `json:"bsuid"`
+
+	// Id Unique identifier for the join request. Pass it to the batch-approve and batch-reject operations.
+	Id WhatsAppGroupJoinRequestID `json:"id"`
+
+	// PhoneNumber Phone number in E.164 format. Null when WhatsApp withholds it, which it does for anyone who has not shared their number with your business.
+	PhoneNumber *string `json:"phone_number"`
+
+	// Username The WhatsApp username this person chose. Null when they have none, and theirs to change, so it names them in a list rather than keying anything.
+	Username *string `json:"username"`
+}
 
 // WhatsAppGroupList defines model for WhatsAppGroupList.
 type WhatsAppGroupList struct {
@@ -22362,9 +24064,6 @@ type OrderDesc = SortOrder
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
 
-// RequiredIdempotencyKey defines model for RequiredIdempotencyKey.
-type RequiredIdempotencyKey = string
-
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
 
@@ -23883,6 +25582,12 @@ type CancelEmailMessageParams struct {
 
 // GetEmailStatsByBounceCodeParams defines parameters for GetEmailStatsByBounceCode.
 type GetEmailStatsByBounceCodeParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -23907,6 +25612,12 @@ type GetEmailStatsByBounceCodeParamsSort string
 
 // GetEmailStatsByBroadcastParams defines parameters for GetEmailStatsByBroadcast.
 type GetEmailStatsByBroadcastParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -23925,6 +25636,12 @@ type GetEmailStatsByBroadcastParams struct {
 
 // GetEmailStatsByCategoryParams defines parameters for GetEmailStatsByCategory.
 type GetEmailStatsByCategoryParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -23949,6 +25666,12 @@ type GetEmailStatsByCategoryParams struct {
 
 // GetEmailStatsByClientParams defines parameters for GetEmailStatsByClient.
 type GetEmailStatsByClientParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -23976,6 +25699,12 @@ type GetEmailStatsByClientParamsGroupBy string
 
 // GetEmailStatsByComplaintTypeParams defines parameters for GetEmailStatsByComplaintType.
 type GetEmailStatsByComplaintTypeParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24009,22 +25738,22 @@ type GetEmailStatsDailyParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Category Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// SendingDomain Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
 
-	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Tag Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// SendingIp Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
-	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// RecipientDomain Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Template Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 }
 
@@ -24039,27 +25768,33 @@ type GetEmailStatsHourlyParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Category Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// SendingDomain Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
 
-	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Tag Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// SendingIp Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
-	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// RecipientDomain Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Template Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 }
 
 // GetEmailStatsByLocationParams defines parameters for GetEmailStatsByLocation.
 type GetEmailStatsByLocationParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24087,6 +25822,12 @@ type GetEmailStatsByLocationParamsGroupBy string
 
 // GetEmailStatsByMailboxProviderRegionParams defines parameters for GetEmailStatsByMailboxProviderRegion.
 type GetEmailStatsByMailboxProviderRegionParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24114,6 +25855,12 @@ type GetEmailStatsByMailboxProviderRegionParams struct {
 
 // GetEmailStatsByMailboxProviderParams defines parameters for GetEmailStatsByMailboxProvider.
 type GetEmailStatsByMailboxProviderParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24139,8 +25886,39 @@ type GetEmailStatsByMailboxProviderParams struct {
 	TrendGrain *StatsTrendGrain `form:"trend_grain,omitempty" json:"trend_grain,omitempty"`
 }
 
+// GetEmailStatsQueryParams defines parameters for GetEmailStatsQuery.
+type GetEmailStatsQueryParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // GetEmailStatsByRecipientDomainParams defines parameters for GetEmailStatsByRecipientDomain.
 type GetEmailStatsByRecipientDomainParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24168,6 +25946,12 @@ type GetEmailStatsByRecipientDomainParams struct {
 
 // GetEmailStatsBySendingDomainParams defines parameters for GetEmailStatsBySendingDomain.
 type GetEmailStatsBySendingDomainParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24195,6 +25979,12 @@ type GetEmailStatsBySendingDomainParams struct {
 
 // GetEmailStatsBySendingIpParams defines parameters for GetEmailStatsBySendingIp.
 type GetEmailStatsBySendingIpParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24234,22 +26024,22 @@ type GetEmailStatsSummaryParams struct {
 	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
 	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
-	// Category Restrict the statistics to a single category: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Category Restrict the statistics to a category or a comma-separated union of categories: `transactional` or `marketing`. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
 
-	// SendingDomain Restrict the statistics to a single sending domain (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// SendingDomain Restrict the statistics to a sending domain or a comma-separated union of sending domains (the part of the From address after @). Mutually exclusive with the other dimension filters; only one may be set per request.
 	SendingDomain *string `form:"sending_domain,omitempty" json:"sending_domain,omitempty"`
 
-	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// Tag Restrict the statistics to a tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). To combine values of one tag name, separate complete pairs with commas, such as `campaign:spring,campaign:summer`. Different tag names cannot be combined. Mutually exclusive with the other dimension filters; only one may be set per request.
 	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// SendingIp Restrict the statistics to a single sending IP. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
+	// SendingIp Restrict the statistics to a sending IP or a comma-separated union of IPs. Mutually exclusive with the other dimension filters; only one may be set per request. A sending IP is assigned only after a message reaches delivery, so this filter reports delivery-side metrics only. Accepted, processed, rejected, complaint, and engagement counts are `0`, and processing latency is `null`. Complaint, open, and click rates are `0` when deliveries exist and `null` otherwise.
 	SendingIp *string `form:"sending_ip,omitempty" json:"sending_ip,omitempty"`
 
-	// RecipientDomain Restrict the statistics to a single recipient mailbox domain (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
+	// RecipientDomain Restrict the statistics to a recipient mailbox domain or a comma-separated union of domains (the part of the recipient address after the `@`, for example `gmail.com`). Mutually exclusive with the other dimension filters; only one may be set per request.
 	RecipientDomain *string `form:"recipient_domain,omitempty" json:"recipient_domain,omitempty"`
 
-	// Template Restricts the statistics to one template, identified by its ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
+	// Template Restricts the statistics to a template or a comma-separated union of templates, identified by ID (`emt_…`) or name. This parameter is mutually exclusive with other dimension filters.
 	Template *EmailStatsTemplateFilter `form:"template,omitempty" json:"template,omitempty"`
 
 	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
@@ -24261,6 +26051,15 @@ type GetEmailStatsSummaryParamsCompare string
 
 // GetEmailStatsByTagParams defines parameters for GetEmailStatsByTag.
 type GetEmailStatsByTagParams struct {
+	// Name Restrict the breakdown to this tag name. Names match case-sensitively.
+	Name *string `form:"name,omitempty" json:"name,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). It defaults to 30 days before `to` when you leave it out. When `include_trend=true` and `trend_grain=hourly`, that default tightens to 29 days before `to` instead, so the defaulted window still fits inside the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -24288,6 +26087,12 @@ type GetEmailStatsByTagParams struct {
 
 // GetEmailStatsByTemplateParams defines parameters for GetEmailStatsByTemplate.
 type GetEmailStatsByTemplateParams struct {
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
 	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). Defaults to 30 days before `to` when omitted; with `include_trend=true` and `trend_grain=hourly` the default tightens to 29 days before `to`, keeping the defaulted window within the 720-hour trend cap.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
@@ -26034,13 +27839,121 @@ type CreateVerificationNextChannelParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
+// ListVoiceCallerIDsParams defines parameters for ListVoiceCallerIDs.
+type ListVoiceCallerIDsParams struct {
+	// Sort Field to sort by.
+	Sort *VoiceCallerIDSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetVoiceCallerIDParams defines parameters for GetVoiceCallerID.
+type GetVoiceCallerIDParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// VerifyVoiceCallerIDParams defines parameters for VerifyVoiceCallerID.
+type VerifyVoiceCallerIDParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // CreateVoiceCallParams defines parameters for CreateVoiceCall.
 type CreateVoiceCallParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
-	// IdempotencyKey Required client-supplied deduplication key for this write. Reuse it for retries of the same intent. Successful results replay within the configured idempotency window (three hours by default); selected connected-app writes also replay uncertain-write conflicts. Use a new key only after confirming the prior result and beginning a different action.
-	IdempotencyKey RequiredIdempotencyKey `json:"Idempotency-Key"`
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListVoiceDestinationsParams defines parameters for ListVoiceDestinations.
+type ListVoiceDestinationsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateVoiceDestinationsParams defines parameters for UpdateVoiceDestinations.
+type UpdateVoiceDestinationsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListVoiceLegsParams defines parameters for ListVoiceLegs.
@@ -26084,6 +27997,277 @@ type ListVoiceLegsParams struct {
 
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// ListVoiceNumbersParams defines parameters for ListVoiceNumbers.
+type ListVoiceNumbersParams struct {
+	// Sort Field to sort by.
+	Sort *VoiceNumberSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `asc`, which sorts alphabetically or from oldest to newest, depending on the selected sort field.
+	Order *OrderAsc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetVoiceNumberParams defines parameters for GetVoiceNumber.
+type GetVoiceNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateVoiceNumberParams defines parameters for UpdateVoiceNumber.
+type UpdateVoiceNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// CreateVoiceSessionCredentialParams defines parameters for CreateVoiceSessionCredential.
+type CreateVoiceSessionCredentialParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Does not deduplicate this operation. Every successful attempt creates a fresh credential.
+	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+}
+
+// ListVoiceTrunksParams defines parameters for ListVoiceTrunks.
+type ListVoiceTrunksParams struct {
+	// Sort Field to sort by.
+	Sort *VoiceTrunkSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateVoiceTrunkParams defines parameters for CreateVoiceTrunk.
+type CreateVoiceTrunkParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteVoiceTrunkParams defines parameters for DeleteVoiceTrunk.
+type DeleteVoiceTrunkParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetVoiceTrunkParams defines parameters for GetVoiceTrunk.
+type GetVoiceTrunkParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateVoiceTrunkParams defines parameters for UpdateVoiceTrunk.
+type UpdateVoiceTrunkParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListVoiceTrunkGatewaysParams defines parameters for ListVoiceTrunkGateways.
+type ListVoiceTrunkGatewaysParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateVoiceTrunkGatewayParams defines parameters for CreateVoiceTrunkGateway.
+type CreateVoiceTrunkGatewayParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteVoiceTrunkGatewayParams defines parameters for DeleteVoiceTrunkGateway.
+type DeleteVoiceTrunkGatewayParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetVoiceTrunkGatewayParams defines parameters for GetVoiceTrunkGateway.
+type GetVoiceTrunkGatewayParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateVoiceTrunkGatewayParams defines parameters for UpdateVoiceTrunkGateway.
+type UpdateVoiceTrunkGatewayParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListWebhooksParams defines parameters for ListWebhooks.
@@ -27253,6 +29437,9 @@ type CreateMailboxReceiveRuleJSONRequestBody = ReceiveRuleCreate
 // CreateEmailMessageJSONRequestBody defines body for CreateEmailMessage for application/json ContentType.
 type CreateEmailMessageJSONRequestBody = EmailMessageSendRequest
 
+// GetEmailStatsQueryJSONRequestBody defines body for GetEmailStatsQuery for application/json ContentType.
+type GetEmailStatsQueryJSONRequestBody = EmailStatsQueryRequest
+
 // CreateSuppressionJSONRequestBody defines body for CreateSuppression for application/json ContentType.
 type CreateSuppressionJSONRequestBody = SuppressionCreate
 
@@ -27334,8 +29521,29 @@ type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 // CreateVerificationNextChannelJSONRequestBody defines body for CreateVerificationNextChannel for application/json ContentType.
 type CreateVerificationNextChannelJSONRequestBody = VerificationNextChannelRequest
 
+// VerifyVoiceCallerIDJSONRequestBody defines body for VerifyVoiceCallerID for application/json ContentType.
+type VerifyVoiceCallerIDJSONRequestBody = VoiceCallerIDVerifyRequest
+
 // CreateVoiceCallJSONRequestBody defines body for CreateVoiceCall for application/json ContentType.
 type CreateVoiceCallJSONRequestBody = CreateVoiceCallRequest
+
+// UpdateVoiceDestinationsJSONRequestBody defines body for UpdateVoiceDestinations for application/json ContentType.
+type UpdateVoiceDestinationsJSONRequestBody = VoiceDestinationsUpdate
+
+// UpdateVoiceNumberJSONRequestBody defines body for UpdateVoiceNumber for application/json ContentType.
+type UpdateVoiceNumberJSONRequestBody = VoiceNumberUpdate
+
+// CreateVoiceTrunkJSONRequestBody defines body for CreateVoiceTrunk for application/json ContentType.
+type CreateVoiceTrunkJSONRequestBody = VoiceTrunkCreate
+
+// UpdateVoiceTrunkJSONRequestBody defines body for UpdateVoiceTrunk for application/json ContentType.
+type UpdateVoiceTrunkJSONRequestBody = VoiceTrunkUpdate
+
+// CreateVoiceTrunkGatewayJSONRequestBody defines body for CreateVoiceTrunkGateway for application/json ContentType.
+type CreateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayCreate
+
+// UpdateVoiceTrunkGatewayJSONRequestBody defines body for UpdateVoiceTrunkGateway for application/json ContentType.
+type UpdateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayUpdate
 
 // CreateWebhookJSONRequestBody defines body for CreateWebhook for application/json ContentType.
 type CreateWebhookJSONRequestBody = WebhookEndpointCreate
@@ -28089,6 +30297,274 @@ func (t *SMSTemplateSend) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsVoiceCallRouteReject returns the union data inside the VoiceCallRoute as a VoiceCallRouteReject
+func (t VoiceCallRoute) AsVoiceCallRouteReject() (VoiceCallRouteReject, error) {
+	var body VoiceCallRouteReject
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteReject overwrites any union data inside the VoiceCallRoute as the provided VoiceCallRouteReject
+func (t *VoiceCallRoute) FromVoiceCallRouteReject(v VoiceCallRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteReject performs a merge with any union data inside the VoiceCallRoute, using the provided VoiceCallRouteReject
+func (t *VoiceCallRoute) MergeVoiceCallRouteReject(v VoiceCallRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallRouteTrunk returns the union data inside the VoiceCallRoute as a VoiceCallRouteTrunk
+func (t VoiceCallRoute) AsVoiceCallRouteTrunk() (VoiceCallRouteTrunk, error) {
+	var body VoiceCallRouteTrunk
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteTrunk overwrites any union data inside the VoiceCallRoute as the provided VoiceCallRouteTrunk
+func (t *VoiceCallRoute) FromVoiceCallRouteTrunk(v VoiceCallRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteTrunk performs a merge with any union data inside the VoiceCallRoute, using the provided VoiceCallRouteTrunk
+func (t *VoiceCallRoute) MergeVoiceCallRouteTrunk(v VoiceCallRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallRouteForward returns the union data inside the VoiceCallRoute as a VoiceCallRouteForward
+func (t VoiceCallRoute) AsVoiceCallRouteForward() (VoiceCallRouteForward, error) {
+	var body VoiceCallRouteForward
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteForward overwrites any union data inside the VoiceCallRoute as the provided VoiceCallRouteForward
+func (t *VoiceCallRoute) FromVoiceCallRouteForward(v VoiceCallRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteForward performs a merge with any union data inside the VoiceCallRoute, using the provided VoiceCallRouteForward
+func (t *VoiceCallRoute) MergeVoiceCallRouteForward(v VoiceCallRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallRouteSequence returns the union data inside the VoiceCallRoute as a VoiceCallRouteSequence
+func (t VoiceCallRoute) AsVoiceCallRouteSequence() (VoiceCallRouteSequence, error) {
+	var body VoiceCallRouteSequence
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteSequence overwrites any union data inside the VoiceCallRoute as the provided VoiceCallRouteSequence
+func (t *VoiceCallRoute) FromVoiceCallRouteSequence(v VoiceCallRouteSequence) error {
+	v.Type = "sequence"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteSequence performs a merge with any union data inside the VoiceCallRoute, using the provided VoiceCallRouteSequence
+func (t *VoiceCallRoute) MergeVoiceCallRouteSequence(v VoiceCallRouteSequence) error {
+	v.Type = "sequence"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceCallRoute) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t VoiceCallRoute) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "forward":
+		return t.AsVoiceCallRouteForward()
+	case "reject":
+		return t.AsVoiceCallRouteReject()
+	case "sequence":
+		return t.AsVoiceCallRouteSequence()
+	case "trunk":
+		return t.AsVoiceCallRouteTrunk()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t VoiceCallRoute) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceCallRoute) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsVoiceCallRouteReject returns the union data inside the VoiceCallRouteWritable as a VoiceCallRouteReject
+func (t VoiceCallRouteWritable) AsVoiceCallRouteReject() (VoiceCallRouteReject, error) {
+	var body VoiceCallRouteReject
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteReject overwrites any union data inside the VoiceCallRouteWritable as the provided VoiceCallRouteReject
+func (t *VoiceCallRouteWritable) FromVoiceCallRouteReject(v VoiceCallRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteReject performs a merge with any union data inside the VoiceCallRouteWritable, using the provided VoiceCallRouteReject
+func (t *VoiceCallRouteWritable) MergeVoiceCallRouteReject(v VoiceCallRouteReject) error {
+	v.Type = "reject"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallRouteTrunk returns the union data inside the VoiceCallRouteWritable as a VoiceCallRouteTrunk
+func (t VoiceCallRouteWritable) AsVoiceCallRouteTrunk() (VoiceCallRouteTrunk, error) {
+	var body VoiceCallRouteTrunk
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteTrunk overwrites any union data inside the VoiceCallRouteWritable as the provided VoiceCallRouteTrunk
+func (t *VoiceCallRouteWritable) FromVoiceCallRouteTrunk(v VoiceCallRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteTrunk performs a merge with any union data inside the VoiceCallRouteWritable, using the provided VoiceCallRouteTrunk
+func (t *VoiceCallRouteWritable) MergeVoiceCallRouteTrunk(v VoiceCallRouteTrunk) error {
+	v.Type = "trunk"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceCallRouteForward returns the union data inside the VoiceCallRouteWritable as a VoiceCallRouteForward
+func (t VoiceCallRouteWritable) AsVoiceCallRouteForward() (VoiceCallRouteForward, error) {
+	var body VoiceCallRouteForward
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceCallRouteForward overwrites any union data inside the VoiceCallRouteWritable as the provided VoiceCallRouteForward
+func (t *VoiceCallRouteWritable) FromVoiceCallRouteForward(v VoiceCallRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceCallRouteForward performs a merge with any union data inside the VoiceCallRouteWritable, using the provided VoiceCallRouteForward
+func (t *VoiceCallRouteWritable) MergeVoiceCallRouteForward(v VoiceCallRouteForward) error {
+	v.Type = "forward"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceCallRouteWritable) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t VoiceCallRouteWritable) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "forward":
+		return t.AsVoiceCallRouteForward()
+	case "reject":
+		return t.AsVoiceCallRouteReject()
+	case "trunk":
+		return t.AsVoiceCallRouteTrunk()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t VoiceCallRouteWritable) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceCallRouteWritable) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
 // AsVoiceLegInboundRouteReject returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteReject
 func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteReject() (VoiceLegInboundRouteReject, error) {
 	var body VoiceLegInboundRouteReject
@@ -28173,6 +30649,34 @@ func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteForward(v VoiceLegInboun
 	return err
 }
 
+// AsVoiceLegInboundRouteSequence returns the union data inside the VoiceLegInboundRoute as a VoiceLegInboundRouteSequence
+func (t VoiceLegInboundRoute) AsVoiceLegInboundRouteSequence() (VoiceLegInboundRouteSequence, error) {
+	var body VoiceLegInboundRouteSequence
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceLegInboundRouteSequence overwrites any union data inside the VoiceLegInboundRoute as the provided VoiceLegInboundRouteSequence
+func (t *VoiceLegInboundRoute) FromVoiceLegInboundRouteSequence(v VoiceLegInboundRouteSequence) error {
+	v.Type = "sequence"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceLegInboundRouteSequence performs a merge with any union data inside the VoiceLegInboundRoute, using the provided VoiceLegInboundRouteSequence
+func (t *VoiceLegInboundRoute) MergeVoiceLegInboundRouteSequence(v VoiceLegInboundRouteSequence) error {
+	v.Type = "sequence"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t VoiceLegInboundRoute) Discriminator() (string, error) {
 	var discriminator struct {
 		Discriminator string `json:"type"`
@@ -28191,6 +30695,8 @@ func (t VoiceLegInboundRoute) ValueByDiscriminator() (interface{}, error) {
 		return t.AsVoiceLegInboundRouteForward()
 	case "reject":
 		return t.AsVoiceLegInboundRouteReject()
+	case "sequence":
+		return t.AsVoiceLegInboundRouteSequence()
 	case "trunk":
 		return t.AsVoiceLegInboundRouteTrunk()
 	default:
@@ -28204,6 +30710,95 @@ func (t VoiceLegInboundRoute) MarshalJSON() ([]byte, error) {
 }
 
 func (t *VoiceLegInboundRoute) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsVoiceNumberProviderAllocation returns the union data inside the VoiceNumberProvider as a VoiceNumberProviderAllocation
+func (t VoiceNumberProvider) AsVoiceNumberProviderAllocation() (VoiceNumberProviderAllocation, error) {
+	var body VoiceNumberProviderAllocation
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceNumberProviderAllocation overwrites any union data inside the VoiceNumberProvider as the provided VoiceNumberProviderAllocation
+func (t *VoiceNumberProvider) FromVoiceNumberProviderAllocation(v VoiceNumberProviderAllocation) error {
+	v.Type = "allocation"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceNumberProviderAllocation performs a merge with any union data inside the VoiceNumberProvider, using the provided VoiceNumberProviderAllocation
+func (t *VoiceNumberProvider) MergeVoiceNumberProviderAllocation(v VoiceNumberProviderAllocation) error {
+	v.Type = "allocation"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceNumberProviderVerifiedNumber returns the union data inside the VoiceNumberProvider as a VoiceNumberProviderVerifiedNumber
+func (t VoiceNumberProvider) AsVoiceNumberProviderVerifiedNumber() (VoiceNumberProviderVerifiedNumber, error) {
+	var body VoiceNumberProviderVerifiedNumber
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceNumberProviderVerifiedNumber overwrites any union data inside the VoiceNumberProvider as the provided VoiceNumberProviderVerifiedNumber
+func (t *VoiceNumberProvider) FromVoiceNumberProviderVerifiedNumber(v VoiceNumberProviderVerifiedNumber) error {
+	v.Type = "verified_number"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceNumberProviderVerifiedNumber performs a merge with any union data inside the VoiceNumberProvider, using the provided VoiceNumberProviderVerifiedNumber
+func (t *VoiceNumberProvider) MergeVoiceNumberProviderVerifiedNumber(v VoiceNumberProviderVerifiedNumber) error {
+	v.Type = "verified_number"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceNumberProvider) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t VoiceNumberProvider) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "allocation":
+		return t.AsVoiceNumberProviderAllocation()
+	case "verified_number":
+		return t.AsVoiceNumberProviderVerifiedNumber()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t VoiceNumberProvider) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceNumberProvider) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -29552,6 +32147,62 @@ func (t *WebhookEvent) MergeEventWhatsAppFailed(v EventWhatsAppFailed) error {
 	return err
 }
 
+// AsEventWhatsAppGroupJoinRequestCreated returns the union data inside the WebhookEvent as a EventWhatsAppGroupJoinRequestCreated
+func (t WebhookEvent) AsEventWhatsAppGroupJoinRequestCreated() (EventWhatsAppGroupJoinRequestCreated, error) {
+	var body EventWhatsAppGroupJoinRequestCreated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppGroupJoinRequestCreated overwrites any union data inside the WebhookEvent as the provided EventWhatsAppGroupJoinRequestCreated
+func (t *WebhookEvent) FromEventWhatsAppGroupJoinRequestCreated(v EventWhatsAppGroupJoinRequestCreated) error {
+	v.Type = "whatsapp.group.join_request_created"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppGroupJoinRequestCreated performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppGroupJoinRequestCreated
+func (t *WebhookEvent) MergeEventWhatsAppGroupJoinRequestCreated(v EventWhatsAppGroupJoinRequestCreated) error {
+	v.Type = "whatsapp.group.join_request_created"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventWhatsAppGroupJoinRequestRevoked returns the union data inside the WebhookEvent as a EventWhatsAppGroupJoinRequestRevoked
+func (t WebhookEvent) AsEventWhatsAppGroupJoinRequestRevoked() (EventWhatsAppGroupJoinRequestRevoked, error) {
+	var body EventWhatsAppGroupJoinRequestRevoked
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventWhatsAppGroupJoinRequestRevoked overwrites any union data inside the WebhookEvent as the provided EventWhatsAppGroupJoinRequestRevoked
+func (t *WebhookEvent) FromEventWhatsAppGroupJoinRequestRevoked(v EventWhatsAppGroupJoinRequestRevoked) error {
+	v.Type = "whatsapp.group.join_request_revoked"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventWhatsAppGroupJoinRequestRevoked performs a merge with any union data inside the WebhookEvent, using the provided EventWhatsAppGroupJoinRequestRevoked
+func (t *WebhookEvent) MergeEventWhatsAppGroupJoinRequestRevoked(v EventWhatsAppGroupJoinRequestRevoked) error {
+	v.Type = "whatsapp.group.join_request_revoked"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 // AsEventWhatsAppReacted returns the union data inside the WebhookEvent as a EventWhatsAppReacted
 func (t WebhookEvent) AsEventWhatsAppReacted() (EventWhatsAppReacted, error) {
 	var body EventWhatsAppReacted
@@ -29830,6 +32481,10 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return t.AsEventWhatsAppDelivered()
 	case "whatsapp.failed":
 		return t.AsEventWhatsAppFailed()
+	case "whatsapp.group.join_request_created":
+		return t.AsEventWhatsAppGroupJoinRequestCreated()
+	case "whatsapp.group.join_request_revoked":
+		return t.AsEventWhatsAppGroupJoinRequestRevoked()
 	case "whatsapp.reacted":
 		return t.AsEventWhatsAppReacted()
 	case "whatsapp.read":
@@ -31146,6 +33801,11 @@ type ClientInterface interface {
 	// GetEmailStatsByMailboxProvider request
 	GetEmailStatsByMailboxProvider(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetEmailStatsQueryWithBody request with any body
+	GetEmailStatsQueryWithBody(ctx context.Context, params *GetEmailStatsQueryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	GetEmailStatsQuery(ctx context.Context, params *GetEmailStatsQueryParams, body GetEmailStatsQueryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetEmailStatsByRecipientDomain request
 	GetEmailStatsByRecipientDomain(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -31494,16 +34154,87 @@ type ClientInterface interface {
 
 	CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListVoiceCallerIDs request
+	ListVoiceCallerIDs(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceCallerID request
+	GetVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// VerifyVoiceCallerIDWithBody request with any body
+	VerifyVoiceCallerIDWithBody(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	VerifyVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateVoiceCallWithBody request with any body
 	CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	CreateVoiceCall(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceDestinations request
+	ListVoiceDestinations(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceDestinationsWithBody request with any body
+	UpdateVoiceDestinationsWithBody(ctx context.Context, params *UpdateVoiceDestinationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceDestinations(ctx context.Context, params *UpdateVoiceDestinationsParams, body UpdateVoiceDestinationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListVoiceLegs request
 	ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetVoiceLeg request
 	GetVoiceLeg(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceNumbers request
+	ListVoiceNumbers(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceNumber request
+	GetVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *GetVoiceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceNumberWithBody request with any body
+	UpdateVoiceNumberWithBody(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVoiceSessionCredential request
+	CreateVoiceSessionCredential(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceTrunks request
+	ListVoiceTrunks(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVoiceTrunkWithBody request with any body
+	CreateVoiceTrunkWithBody(ctx context.Context, params *CreateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceTrunk(ctx context.Context, params *CreateVoiceTrunkParams, body CreateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteVoiceTrunk request
+	DeleteVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *DeleteVoiceTrunkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceTrunk request
+	GetVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *GetVoiceTrunkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceTrunkWithBody request with any body
+	UpdateVoiceTrunkWithBody(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, body UpdateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceTrunkGateways request
+	ListVoiceTrunkGateways(ctx context.Context, trunkId SIPTrunkID, params *ListVoiceTrunkGatewaysParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateVoiceTrunkGatewayWithBody request with any body
+	CreateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, body CreateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteVoiceTrunkGateway request
+	DeleteVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *DeleteVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceTrunkGateway request
+	GetVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *GetVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceTrunkGatewayWithBody request with any body
+	UpdateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWebhooks request
 	ListWebhooks(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -33046,6 +35777,30 @@ func (c *Client) GetEmailStatsByMailboxProvider(ctx context.Context, params *Get
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetEmailStatsQueryWithBody(ctx context.Context, params *GetEmailStatsQueryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsQueryRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailStatsQuery(ctx context.Context, params *GetEmailStatsQueryParams, body GetEmailStatsQueryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailStatsQueryRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) GetEmailStatsByRecipientDomain(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailStatsByRecipientDomainRequest(c.Server, params)
 	if err != nil {
@@ -34546,6 +37301,54 @@ func (c *Client) CreateVerificationNextChannel(ctx context.Context, params *Crea
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListVoiceCallerIDs(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceCallerIDsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceCallerIDRequest(c.Server, callerId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) VerifyVoiceCallerIDWithBody(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyVoiceCallerIDRequestWithBody(c.Server, callerId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) VerifyVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyVoiceCallerIDRequest(c.Server, callerId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateVoiceCallRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
@@ -34570,6 +37373,42 @@ func (c *Client) CreateVoiceCall(ctx context.Context, params *CreateVoiceCallPar
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListVoiceDestinations(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceDestinationsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceDestinationsWithBody(ctx context.Context, params *UpdateVoiceDestinationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceDestinationsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceDestinations(ctx context.Context, params *UpdateVoiceDestinationsParams, body UpdateVoiceDestinationsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceDestinationsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListVoiceLegsRequest(c.Server, params)
 	if err != nil {
@@ -34584,6 +37423,234 @@ func (c *Client) ListVoiceLegs(ctx context.Context, params *ListVoiceLegsParams,
 
 func (c *Client) GetVoiceLeg(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetVoiceLegRequest(c.Server, legId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceNumbers(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceNumbersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *GetVoiceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceNumberRequest(c.Server, numberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceNumberWithBody(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceNumberRequestWithBody(c.Server, numberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceNumber(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceNumberRequest(c.Server, numberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceSessionCredential(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceSessionCredentialRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceTrunks(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceTrunksRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceTrunkWithBody(ctx context.Context, params *CreateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceTrunkRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceTrunk(ctx context.Context, params *CreateVoiceTrunkParams, body CreateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceTrunkRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *DeleteVoiceTrunkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceTrunkRequest(c.Server, trunkId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *GetVoiceTrunkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceTrunkRequest(c.Server, trunkId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceTrunkWithBody(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceTrunkRequestWithBody(c.Server, trunkId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceTrunk(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, body UpdateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceTrunkRequest(c.Server, trunkId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceTrunkGateways(ctx context.Context, trunkId SIPTrunkID, params *ListVoiceTrunkGatewaysParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceTrunkGatewaysRequest(c.Server, trunkId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceTrunkGatewayRequestWithBody(c.Server, trunkId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, body CreateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceTrunkGatewayRequest(c.Server, trunkId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *DeleteVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceTrunkGatewayRequest(c.Server, trunkId, gatewayId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *GetVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceTrunkGatewayRequest(c.Server, trunkId, gatewayId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceTrunkGatewayRequestWithBody(c.Server, trunkId, gatewayId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceTrunkGatewayRequest(c.Server, trunkId, gatewayId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -40700,6 +43767,30 @@ func NewGetEmailStatsByBounceCodeRequest(server string, params *GetEmailStatsByB
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -40814,6 +43905,30 @@ func NewGetEmailStatsByBroadcastRequest(server string, params *GetEmailStatsByBr
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -40915,6 +44030,30 @@ func NewGetEmailStatsByCategoryRequest(server string, params *GetEmailStatsByCat
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -41042,6 +44181,30 @@ func NewGetEmailStatsByClientRequest(server string, params *GetEmailStatsByClien
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -41167,6 +44330,30 @@ func NewGetEmailStatsByComplaintTypeRequest(server string, params *GetEmailStats
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -41582,6 +44769,30 @@ func NewGetEmailStatsByLocationRequest(server string, params *GetEmailStatsByLoc
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -41707,6 +44918,30 @@ func NewGetEmailStatsByMailboxProviderRegionRequest(server string, params *GetEm
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -41846,6 +45081,30 @@ func NewGetEmailStatsByMailboxProviderRequest(server string, params *GetEmailSta
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -41956,6 +45215,61 @@ func NewGetEmailStatsByMailboxProviderRequest(server string, params *GetEmailSta
 	return req, nil
 }
 
+// NewGetEmailStatsQueryRequest calls the generic GetEmailStatsQuery builder with application/json body
+func NewGetEmailStatsQueryRequest(server string, params *GetEmailStatsQueryParams, body GetEmailStatsQueryJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewGetEmailStatsQueryRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewGetEmailStatsQueryRequestWithBody generates requests for GetEmailStatsQuery with any type of body
+func NewGetEmailStatsQueryRequestWithBody(server string, params *GetEmailStatsQueryParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/stats/query")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewGetEmailStatsByRecipientDomainRequest generates requests for GetEmailStatsByRecipientDomain
 func NewGetEmailStatsByRecipientDomainRequest(server string, params *GetEmailStatsByRecipientDomainParams) (*http.Request, error) {
 	var err error
@@ -41983,6 +45297,30 @@ func NewGetEmailStatsByRecipientDomainRequest(server string, params *GetEmailSta
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -42122,6 +45460,30 @@ func NewGetEmailStatsBySendingDomainRequest(server string, params *GetEmailStats
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -42259,6 +45621,30 @@ func NewGetEmailStatsBySendingIpRequest(server string, params *GetEmailStatsBySe
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -42560,6 +45946,42 @@ func NewGetEmailStatsByTagRequest(server string, params *GetEmailStatsByTagParam
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "name", *params.Name, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.From != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
@@ -42697,6 +46119,30 @@ func NewGetEmailStatsByTemplateRequest(server string, params *GetEmailStatsByTem
 		// styled parameters, preserving literal commas as delimiters
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
 
 		if params.From != nil {
 
@@ -49897,6 +53343,245 @@ func NewCreateVerificationNextChannelRequestWithBody(server string, params *Crea
 	return req, nil
 }
 
+// NewListVoiceCallerIDsRequest generates requests for ListVoiceCallerIDs
+func NewListVoiceCallerIDsRequest(server string, params *ListVoiceCallerIDsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/caller-ids")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceCallerIDRequest generates requests for GetVoiceCallerID
+func NewGetVoiceCallerIDRequest(server string, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "caller_id", callerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/caller-ids/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewVerifyVoiceCallerIDRequest calls the generic VerifyVoiceCallerID builder with application/json body
+func NewVerifyVoiceCallerIDRequest(server string, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewVerifyVoiceCallerIDRequestWithBody(server, callerId, params, "application/json", bodyReader)
+}
+
+// NewVerifyVoiceCallerIDRequestWithBody generates requests for VerifyVoiceCallerID with any type of body
+func NewVerifyVoiceCallerIDRequestWithBody(server string, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "caller_id", callerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/caller-ids/%s/verify", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewCreateVoiceCallRequest calls the generic CreateVoiceCall builder with application/json body
 func NewCreateVoiceCallRequest(server string, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -49947,14 +53632,124 @@ func NewCreateVoiceCallRequestWithBody(server string, params *CreateVoiceCallPar
 			req.Header.Set("X-Workspace-Id", headerParam0)
 		}
 
-		var headerParam1 string
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
 
-		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-		if err != nil {
-			return nil, err
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
-		req.Header.Set("Idempotency-Key", headerParam1)
+	}
+
+	return req, nil
+}
+
+// NewListVoiceDestinationsRequest generates requests for ListVoiceDestinations
+func NewListVoiceDestinationsRequest(server string, params *ListVoiceDestinationsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/destinations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceDestinationsRequest calls the generic UpdateVoiceDestinations builder with application/json body
+func NewUpdateVoiceDestinationsRequest(server string, params *UpdateVoiceDestinationsParams, body UpdateVoiceDestinationsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceDestinationsRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceDestinationsRequestWithBody generates requests for UpdateVoiceDestinations with any type of body
+func NewUpdateVoiceDestinationsRequestWithBody(server string, params *UpdateVoiceDestinationsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/destinations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
 
 	}
 
@@ -50188,6 +53983,988 @@ func NewGetVoiceLegRequest(server string, legId VoiceCallID) (*http.Request, err
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListVoiceNumbersRequest generates requests for ListVoiceNumbers
+func NewListVoiceNumbersRequest(server string, params *ListVoiceNumbersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceNumberRequest generates requests for GetVoiceNumber
+func NewGetVoiceNumberRequest(server string, numberId VoiceNumberID, params *GetVoiceNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceNumberRequest calls the generic UpdateVoiceNumber builder with application/json body
+func NewUpdateVoiceNumberRequest(server string, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceNumberRequestWithBody(server, numberId, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceNumberRequestWithBody generates requests for UpdateVoiceNumber with any type of body
+func NewUpdateVoiceNumberRequestWithBody(server string, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVoiceSessionCredentialRequest generates requests for CreateVoiceSessionCredential
+func NewCreateVoiceSessionCredentialRequest(server string, params *CreateVoiceSessionCredentialParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/session-credentials")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListVoiceTrunksRequest generates requests for ListVoiceTrunks
+func NewListVoiceTrunksRequest(server string, params *ListVoiceTrunksParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVoiceTrunkRequest calls the generic CreateVoiceTrunk builder with application/json body
+func NewCreateVoiceTrunkRequest(server string, params *CreateVoiceTrunkParams, body CreateVoiceTrunkJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceTrunkRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceTrunkRequestWithBody generates requests for CreateVoiceTrunk with any type of body
+func NewCreateVoiceTrunkRequestWithBody(server string, params *CreateVoiceTrunkParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteVoiceTrunkRequest generates requests for DeleteVoiceTrunk
+func NewDeleteVoiceTrunkRequest(server string, trunkId SIPTrunkID, params *DeleteVoiceTrunkParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceTrunkRequest generates requests for GetVoiceTrunk
+func NewGetVoiceTrunkRequest(server string, trunkId SIPTrunkID, params *GetVoiceTrunkParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceTrunkRequest calls the generic UpdateVoiceTrunk builder with application/json body
+func NewUpdateVoiceTrunkRequest(server string, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, body UpdateVoiceTrunkJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceTrunkRequestWithBody(server, trunkId, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceTrunkRequestWithBody generates requests for UpdateVoiceTrunk with any type of body
+func NewUpdateVoiceTrunkRequestWithBody(server string, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListVoiceTrunkGatewaysRequest generates requests for ListVoiceTrunkGateways
+func NewListVoiceTrunkGatewaysRequest(server string, trunkId SIPTrunkID, params *ListVoiceTrunkGatewaysParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s/gateways", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateVoiceTrunkGatewayRequest calls the generic CreateVoiceTrunkGateway builder with application/json body
+func NewCreateVoiceTrunkGatewayRequest(server string, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, body CreateVoiceTrunkGatewayJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceTrunkGatewayRequestWithBody(server, trunkId, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceTrunkGatewayRequestWithBody generates requests for CreateVoiceTrunkGateway with any type of body
+func NewCreateVoiceTrunkGatewayRequestWithBody(server string, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s/gateways", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteVoiceTrunkGatewayRequest generates requests for DeleteVoiceTrunkGateway
+func NewDeleteVoiceTrunkGatewayRequest(server string, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *DeleteVoiceTrunkGatewayParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "gateway_id", gatewayId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s/gateways/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceTrunkGatewayRequest generates requests for GetVoiceTrunkGateway
+func NewGetVoiceTrunkGatewayRequest(server string, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *GetVoiceTrunkGatewayParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "gateway_id", gatewayId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s/gateways/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceTrunkGatewayRequest calls the generic UpdateVoiceTrunkGateway builder with application/json body
+func NewUpdateVoiceTrunkGatewayRequest(server string, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceTrunkGatewayRequestWithBody(server, trunkId, gatewayId, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceTrunkGatewayRequestWithBody generates requests for UpdateVoiceTrunkGateway with any type of body
+func NewUpdateVoiceTrunkGatewayRequestWithBody(server string, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "trunk_id", trunkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "gateway_id", gatewayId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/trunks/%s/gateways/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
 	}
 
 	return req, nil
@@ -55279,6 +60056,11 @@ type ClientWithResponsesInterface interface {
 	// GetEmailStatsByMailboxProviderWithResponse request
 	GetEmailStatsByMailboxProviderWithResponse(ctx context.Context, params *GetEmailStatsByMailboxProviderParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByMailboxProviderResponse, error)
 
+	// GetEmailStatsQueryWithBodyWithResponse request with any body
+	GetEmailStatsQueryWithBodyWithResponse(ctx context.Context, params *GetEmailStatsQueryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetEmailStatsQueryResponse, error)
+
+	GetEmailStatsQueryWithResponse(ctx context.Context, params *GetEmailStatsQueryParams, body GetEmailStatsQueryJSONRequestBody, reqEditors ...RequestEditorFn) (*GetEmailStatsQueryResponse, error)
+
 	// GetEmailStatsByRecipientDomainWithResponse request
 	GetEmailStatsByRecipientDomainWithResponse(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByRecipientDomainResponse, error)
 
@@ -55627,16 +60409,87 @@ type ClientWithResponsesInterface interface {
 
 	CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
 
+	// ListVoiceCallerIDsWithResponse request
+	ListVoiceCallerIDsWithResponse(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallerIDsResponse, error)
+
+	// GetVoiceCallerIDWithResponse request
+	GetVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*GetVoiceCallerIDResponse, error)
+
+	// VerifyVoiceCallerIDWithBodyWithResponse request with any body
+	VerifyVoiceCallerIDWithBodyWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error)
+
+	VerifyVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error)
+
 	// CreateVoiceCallWithBodyWithResponse request with any body
 	CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
 
 	CreateVoiceCallWithResponse(ctx context.Context, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
+
+	// ListVoiceDestinationsWithResponse request
+	ListVoiceDestinationsWithResponse(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*ListVoiceDestinationsResponse, error)
+
+	// UpdateVoiceDestinationsWithBodyWithResponse request with any body
+	UpdateVoiceDestinationsWithBodyWithResponse(ctx context.Context, params *UpdateVoiceDestinationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceDestinationsResponse, error)
+
+	UpdateVoiceDestinationsWithResponse(ctx context.Context, params *UpdateVoiceDestinationsParams, body UpdateVoiceDestinationsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceDestinationsResponse, error)
 
 	// ListVoiceLegsWithResponse request
 	ListVoiceLegsWithResponse(ctx context.Context, params *ListVoiceLegsParams, reqEditors ...RequestEditorFn) (*ListVoiceLegsResponse, error)
 
 	// GetVoiceLegWithResponse request
 	GetVoiceLegWithResponse(ctx context.Context, legId VoiceCallID, reqEditors ...RequestEditorFn) (*GetVoiceLegResponse, error)
+
+	// ListVoiceNumbersWithResponse request
+	ListVoiceNumbersWithResponse(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceNumbersResponse, error)
+
+	// GetVoiceNumberWithResponse request
+	GetVoiceNumberWithResponse(ctx context.Context, numberId VoiceNumberID, params *GetVoiceNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceNumberResponse, error)
+
+	// UpdateVoiceNumberWithBodyWithResponse request with any body
+	UpdateVoiceNumberWithBodyWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error)
+
+	UpdateVoiceNumberWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error)
+
+	// CreateVoiceSessionCredentialWithResponse request
+	CreateVoiceSessionCredentialWithResponse(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*CreateVoiceSessionCredentialResponse, error)
+
+	// ListVoiceTrunksWithResponse request
+	ListVoiceTrunksWithResponse(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunksResponse, error)
+
+	// CreateVoiceTrunkWithBodyWithResponse request with any body
+	CreateVoiceTrunkWithBodyWithResponse(ctx context.Context, params *CreateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkResponse, error)
+
+	CreateVoiceTrunkWithResponse(ctx context.Context, params *CreateVoiceTrunkParams, body CreateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkResponse, error)
+
+	// DeleteVoiceTrunkWithResponse request
+	DeleteVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *DeleteVoiceTrunkParams, reqEditors ...RequestEditorFn) (*DeleteVoiceTrunkResponse, error)
+
+	// GetVoiceTrunkWithResponse request
+	GetVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *GetVoiceTrunkParams, reqEditors ...RequestEditorFn) (*GetVoiceTrunkResponse, error)
+
+	// UpdateVoiceTrunkWithBodyWithResponse request with any body
+	UpdateVoiceTrunkWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkResponse, error)
+
+	UpdateVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, body UpdateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkResponse, error)
+
+	// ListVoiceTrunkGatewaysWithResponse request
+	ListVoiceTrunkGatewaysWithResponse(ctx context.Context, trunkId SIPTrunkID, params *ListVoiceTrunkGatewaysParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunkGatewaysResponse, error)
+
+	// CreateVoiceTrunkGatewayWithBodyWithResponse request with any body
+	CreateVoiceTrunkGatewayWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkGatewayResponse, error)
+
+	CreateVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, body CreateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkGatewayResponse, error)
+
+	// DeleteVoiceTrunkGatewayWithResponse request
+	DeleteVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *DeleteVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*DeleteVoiceTrunkGatewayResponse, error)
+
+	// GetVoiceTrunkGatewayWithResponse request
+	GetVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *GetVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*GetVoiceTrunkGatewayResponse, error)
+
+	// UpdateVoiceTrunkGatewayWithBodyWithResponse request with any body
+	UpdateVoiceTrunkGatewayWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error)
+
+	UpdateVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error)
 
 	// ListWebhooksWithResponse request
 	ListWebhooksWithResponse(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error)
@@ -59138,6 +63991,44 @@ func (r GetEmailStatsByMailboxProviderResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailStatsByMailboxProviderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailStatsQueryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailStatsQueryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailStatsQueryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailStatsQueryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailStatsQueryResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -62771,6 +67662,119 @@ func (r CreateVerificationNextChannelResponse) ContentType() string {
 	return ""
 }
 
+type ListVoiceCallerIDsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCallerIDList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceCallerIDsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceCallerIDsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceCallerIDsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceCallerIDResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCallerID
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceCallerIDResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceCallerIDResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceCallerIDResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type VerifyVoiceCallerIDResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceCallerID
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r VerifyVoiceCallerIDResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r VerifyVoiceCallerIDResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r VerifyVoiceCallerIDResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateVoiceCallResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -62804,6 +67808,80 @@ func (r CreateVoiceCallResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r CreateVoiceCallResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceDestinationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceDestinationList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceDestinationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceDestinationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceDestinationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceDestinationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceDestinationList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceDestinationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceDestinationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceDestinationsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -62875,6 +67953,538 @@ func (r GetVoiceLegResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetVoiceLegResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceNumbersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceNumberList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceNumbersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceNumbersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceNumbersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVoiceSessionCredentialResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceSessionCredential
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceSessionCredentialResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceSessionCredentialResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceSessionCredentialResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceTrunksResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunkList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceTrunksResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceTrunksResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceTrunksResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVoiceTrunkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceTrunk
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceTrunkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceTrunkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceTrunkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteVoiceTrunkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteVoiceTrunkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteVoiceTrunkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteVoiceTrunkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceTrunkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunk
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceTrunkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceTrunkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceTrunkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceTrunkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunk
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceTrunkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceTrunkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceTrunkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceTrunkGatewaysResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunkGatewayList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceTrunkGatewaysResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceTrunkGatewaysResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceTrunkGatewaysResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateVoiceTrunkGatewayResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceTrunkGateway
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceTrunkGatewayResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceTrunkGatewayResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceTrunkGatewayResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteVoiceTrunkGatewayResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteVoiceTrunkGatewayResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteVoiceTrunkGatewayResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteVoiceTrunkGatewayResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceTrunkGatewayResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunkGateway
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceTrunkGatewayResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceTrunkGatewayResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceTrunkGatewayResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceTrunkGatewayResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceTrunkGateway
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceTrunkGatewayResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceTrunkGatewayResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceTrunkGatewayResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -66216,6 +71826,23 @@ func (c *ClientWithResponses) GetEmailStatsByMailboxProviderWithResponse(ctx con
 	return ParseGetEmailStatsByMailboxProviderResponse(rsp)
 }
 
+// GetEmailStatsQueryWithBodyWithResponse request with arbitrary body returning *GetEmailStatsQueryResponse
+func (c *ClientWithResponses) GetEmailStatsQueryWithBodyWithResponse(ctx context.Context, params *GetEmailStatsQueryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetEmailStatsQueryResponse, error) {
+	rsp, err := c.GetEmailStatsQueryWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsQueryResponse(rsp)
+}
+
+func (c *ClientWithResponses) GetEmailStatsQueryWithResponse(ctx context.Context, params *GetEmailStatsQueryParams, body GetEmailStatsQueryJSONRequestBody, reqEditors ...RequestEditorFn) (*GetEmailStatsQueryResponse, error) {
+	rsp, err := c.GetEmailStatsQuery(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailStatsQueryResponse(rsp)
+}
+
 // GetEmailStatsByRecipientDomainWithResponse request returning *GetEmailStatsByRecipientDomainResponse
 func (c *ClientWithResponses) GetEmailStatsByRecipientDomainWithResponse(ctx context.Context, params *GetEmailStatsByRecipientDomainParams, reqEditors ...RequestEditorFn) (*GetEmailStatsByRecipientDomainResponse, error) {
 	rsp, err := c.GetEmailStatsByRecipientDomain(ctx, params, reqEditors...)
@@ -67314,6 +72941,41 @@ func (c *ClientWithResponses) CreateVerificationNextChannelWithResponse(ctx cont
 	return ParseCreateVerificationNextChannelResponse(rsp)
 }
 
+// ListVoiceCallerIDsWithResponse request returning *ListVoiceCallerIDsResponse
+func (c *ClientWithResponses) ListVoiceCallerIDsWithResponse(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallerIDsResponse, error) {
+	rsp, err := c.ListVoiceCallerIDs(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceCallerIDsResponse(rsp)
+}
+
+// GetVoiceCallerIDWithResponse request returning *GetVoiceCallerIDResponse
+func (c *ClientWithResponses) GetVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*GetVoiceCallerIDResponse, error) {
+	rsp, err := c.GetVoiceCallerID(ctx, callerId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceCallerIDResponse(rsp)
+}
+
+// VerifyVoiceCallerIDWithBodyWithResponse request with arbitrary body returning *VerifyVoiceCallerIDResponse
+func (c *ClientWithResponses) VerifyVoiceCallerIDWithBodyWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error) {
+	rsp, err := c.VerifyVoiceCallerIDWithBody(ctx, callerId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseVerifyVoiceCallerIDResponse(rsp)
+}
+
+func (c *ClientWithResponses) VerifyVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error) {
+	rsp, err := c.VerifyVoiceCallerID(ctx, callerId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseVerifyVoiceCallerIDResponse(rsp)
+}
+
 // CreateVoiceCallWithBodyWithResponse request with arbitrary body returning *CreateVoiceCallResponse
 func (c *ClientWithResponses) CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error) {
 	rsp, err := c.CreateVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
@@ -67329,6 +72991,32 @@ func (c *ClientWithResponses) CreateVoiceCallWithResponse(ctx context.Context, p
 		return nil, err
 	}
 	return ParseCreateVoiceCallResponse(rsp)
+}
+
+// ListVoiceDestinationsWithResponse request returning *ListVoiceDestinationsResponse
+func (c *ClientWithResponses) ListVoiceDestinationsWithResponse(ctx context.Context, params *ListVoiceDestinationsParams, reqEditors ...RequestEditorFn) (*ListVoiceDestinationsResponse, error) {
+	rsp, err := c.ListVoiceDestinations(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceDestinationsResponse(rsp)
+}
+
+// UpdateVoiceDestinationsWithBodyWithResponse request with arbitrary body returning *UpdateVoiceDestinationsResponse
+func (c *ClientWithResponses) UpdateVoiceDestinationsWithBodyWithResponse(ctx context.Context, params *UpdateVoiceDestinationsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceDestinationsResponse, error) {
+	rsp, err := c.UpdateVoiceDestinationsWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceDestinationsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceDestinationsWithResponse(ctx context.Context, params *UpdateVoiceDestinationsParams, body UpdateVoiceDestinationsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceDestinationsResponse, error) {
+	rsp, err := c.UpdateVoiceDestinations(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceDestinationsResponse(rsp)
 }
 
 // ListVoiceLegsWithResponse request returning *ListVoiceLegsResponse
@@ -67347,6 +73035,172 @@ func (c *ClientWithResponses) GetVoiceLegWithResponse(ctx context.Context, legId
 		return nil, err
 	}
 	return ParseGetVoiceLegResponse(rsp)
+}
+
+// ListVoiceNumbersWithResponse request returning *ListVoiceNumbersResponse
+func (c *ClientWithResponses) ListVoiceNumbersWithResponse(ctx context.Context, params *ListVoiceNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceNumbersResponse, error) {
+	rsp, err := c.ListVoiceNumbers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceNumbersResponse(rsp)
+}
+
+// GetVoiceNumberWithResponse request returning *GetVoiceNumberResponse
+func (c *ClientWithResponses) GetVoiceNumberWithResponse(ctx context.Context, numberId VoiceNumberID, params *GetVoiceNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceNumberResponse, error) {
+	rsp, err := c.GetVoiceNumber(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceNumberResponse(rsp)
+}
+
+// UpdateVoiceNumberWithBodyWithResponse request with arbitrary body returning *UpdateVoiceNumberResponse
+func (c *ClientWithResponses) UpdateVoiceNumberWithBodyWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error) {
+	rsp, err := c.UpdateVoiceNumberWithBody(ctx, numberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceNumberWithResponse(ctx context.Context, numberId VoiceNumberID, params *UpdateVoiceNumberParams, body UpdateVoiceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceNumberResponse, error) {
+	rsp, err := c.UpdateVoiceNumber(ctx, numberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceNumberResponse(rsp)
+}
+
+// CreateVoiceSessionCredentialWithResponse request returning *CreateVoiceSessionCredentialResponse
+func (c *ClientWithResponses) CreateVoiceSessionCredentialWithResponse(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*CreateVoiceSessionCredentialResponse, error) {
+	rsp, err := c.CreateVoiceSessionCredential(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceSessionCredentialResponse(rsp)
+}
+
+// ListVoiceTrunksWithResponse request returning *ListVoiceTrunksResponse
+func (c *ClientWithResponses) ListVoiceTrunksWithResponse(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunksResponse, error) {
+	rsp, err := c.ListVoiceTrunks(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceTrunksResponse(rsp)
+}
+
+// CreateVoiceTrunkWithBodyWithResponse request with arbitrary body returning *CreateVoiceTrunkResponse
+func (c *ClientWithResponses) CreateVoiceTrunkWithBodyWithResponse(ctx context.Context, params *CreateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkResponse, error) {
+	rsp, err := c.CreateVoiceTrunkWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceTrunkResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceTrunkWithResponse(ctx context.Context, params *CreateVoiceTrunkParams, body CreateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkResponse, error) {
+	rsp, err := c.CreateVoiceTrunk(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceTrunkResponse(rsp)
+}
+
+// DeleteVoiceTrunkWithResponse request returning *DeleteVoiceTrunkResponse
+func (c *ClientWithResponses) DeleteVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *DeleteVoiceTrunkParams, reqEditors ...RequestEditorFn) (*DeleteVoiceTrunkResponse, error) {
+	rsp, err := c.DeleteVoiceTrunk(ctx, trunkId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteVoiceTrunkResponse(rsp)
+}
+
+// GetVoiceTrunkWithResponse request returning *GetVoiceTrunkResponse
+func (c *ClientWithResponses) GetVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *GetVoiceTrunkParams, reqEditors ...RequestEditorFn) (*GetVoiceTrunkResponse, error) {
+	rsp, err := c.GetVoiceTrunk(ctx, trunkId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceTrunkResponse(rsp)
+}
+
+// UpdateVoiceTrunkWithBodyWithResponse request with arbitrary body returning *UpdateVoiceTrunkResponse
+func (c *ClientWithResponses) UpdateVoiceTrunkWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkResponse, error) {
+	rsp, err := c.UpdateVoiceTrunkWithBody(ctx, trunkId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceTrunkResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceTrunkWithResponse(ctx context.Context, trunkId SIPTrunkID, params *UpdateVoiceTrunkParams, body UpdateVoiceTrunkJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkResponse, error) {
+	rsp, err := c.UpdateVoiceTrunk(ctx, trunkId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceTrunkResponse(rsp)
+}
+
+// ListVoiceTrunkGatewaysWithResponse request returning *ListVoiceTrunkGatewaysResponse
+func (c *ClientWithResponses) ListVoiceTrunkGatewaysWithResponse(ctx context.Context, trunkId SIPTrunkID, params *ListVoiceTrunkGatewaysParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunkGatewaysResponse, error) {
+	rsp, err := c.ListVoiceTrunkGateways(ctx, trunkId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceTrunkGatewaysResponse(rsp)
+}
+
+// CreateVoiceTrunkGatewayWithBodyWithResponse request with arbitrary body returning *CreateVoiceTrunkGatewayResponse
+func (c *ClientWithResponses) CreateVoiceTrunkGatewayWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.CreateVoiceTrunkGatewayWithBody(ctx, trunkId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceTrunkGatewayResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, params *CreateVoiceTrunkGatewayParams, body CreateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.CreateVoiceTrunkGateway(ctx, trunkId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceTrunkGatewayResponse(rsp)
+}
+
+// DeleteVoiceTrunkGatewayWithResponse request returning *DeleteVoiceTrunkGatewayResponse
+func (c *ClientWithResponses) DeleteVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *DeleteVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*DeleteVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.DeleteVoiceTrunkGateway(ctx, trunkId, gatewayId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteVoiceTrunkGatewayResponse(rsp)
+}
+
+// GetVoiceTrunkGatewayWithResponse request returning *GetVoiceTrunkGatewayResponse
+func (c *ClientWithResponses) GetVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *GetVoiceTrunkGatewayParams, reqEditors ...RequestEditorFn) (*GetVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.GetVoiceTrunkGateway(ctx, trunkId, gatewayId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceTrunkGatewayResponse(rsp)
+}
+
+// UpdateVoiceTrunkGatewayWithBodyWithResponse request with arbitrary body returning *UpdateVoiceTrunkGatewayResponse
+func (c *ClientWithResponses) UpdateVoiceTrunkGatewayWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.UpdateVoiceTrunkGatewayWithBody(ctx, trunkId, gatewayId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceTrunkGatewayResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error) {
+	rsp, err := c.UpdateVoiceTrunkGateway(ctx, trunkId, gatewayId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceTrunkGatewayResponse(rsp)
 }
 
 // ListWebhooksWithResponse request returning *ListWebhooksResponse
@@ -74840,6 +80694,88 @@ func ParseGetEmailStatsByMailboxProviderResponse(rsp *http.Response) (*GetEmailS
 	return response, nil
 }
 
+// ParseGetEmailStatsQueryResponse parses an HTTP response from a GetEmailStatsQueryWithResponse call
+func ParseGetEmailStatsQueryResponse(rsp *http.Response) (*GetEmailStatsQueryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailStatsQueryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailStatsQueryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetEmailStatsByRecipientDomainResponse parses an HTTP response from a GetEmailStatsByRecipientDomainWithResponse call
 func ParseGetEmailStatsByRecipientDomainResponse(rsp *http.Response) (*GetEmailStatsByRecipientDomainResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -82197,6 +88133,245 @@ func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVeri
 	return response, nil
 }
 
+// ParseListVoiceCallerIDsResponse parses an HTTP response from a ListVoiceCallerIDsWithResponse call
+func ParseListVoiceCallerIDsResponse(rsp *http.Response) (*ListVoiceCallerIDsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceCallerIDsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCallerIDList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceCallerIDResponse parses an HTTP response from a GetVoiceCallerIDWithResponse call
+func ParseGetVoiceCallerIDResponse(rsp *http.Response) (*GetVoiceCallerIDResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceCallerIDResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCallerID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseVerifyVoiceCallerIDResponse parses an HTTP response from a VerifyVoiceCallerIDWithResponse call
+func ParseVerifyVoiceCallerIDResponse(rsp *http.Response) (*VerifyVoiceCallerIDResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &VerifyVoiceCallerIDResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceCallerID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseCreateVoiceCallResponse parses an HTTP response from a CreateVoiceCallWithResponse call
 func ParseCreateVoiceCallResponse(rsp *http.Response) (*CreateVoiceCallResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -82245,6 +88420,156 @@ func ParseCreateVoiceCallResponse(rsp *http.Response) (*CreateVoiceCallResponse,
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceDestinationsResponse parses an HTTP response from a ListVoiceDestinationsWithResponse call
+func ParseListVoiceDestinationsResponse(rsp *http.Response) (*ListVoiceDestinationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceDestinationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceDestinationList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceDestinationsResponse parses an HTTP response from a UpdateVoiceDestinationsWithResponse call
+func ParseUpdateVoiceDestinationsResponse(rsp *http.Response) (*UpdateVoiceDestinationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceDestinationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceDestinationList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
 		var dest Conflict
@@ -82409,6 +88734,1154 @@ func ParseGetVoiceLegResponse(rsp *http.Response) (*GetVoiceLegResponse, error) 
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceNumbersResponse parses an HTTP response from a ListVoiceNumbersWithResponse call
+func ParseListVoiceNumbersResponse(rsp *http.Response) (*ListVoiceNumbersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceNumbersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceNumberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceNumberResponse parses an HTTP response from a GetVoiceNumberWithResponse call
+func ParseGetVoiceNumberResponse(rsp *http.Response) (*GetVoiceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceNumberResponse parses an HTTP response from a UpdateVoiceNumberWithResponse call
+func ParseUpdateVoiceNumberResponse(rsp *http.Response) (*UpdateVoiceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceSessionCredentialResponse parses an HTTP response from a CreateVoiceSessionCredentialWithResponse call
+func ParseCreateVoiceSessionCredentialResponse(rsp *http.Response) (*CreateVoiceSessionCredentialResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceSessionCredentialResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceSessionCredential
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceTrunksResponse parses an HTTP response from a ListVoiceTrunksWithResponse call
+func ParseListVoiceTrunksResponse(rsp *http.Response) (*ListVoiceTrunksResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceTrunksResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunkList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceTrunkResponse parses an HTTP response from a CreateVoiceTrunkWithResponse call
+func ParseCreateVoiceTrunkResponse(rsp *http.Response) (*CreateVoiceTrunkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceTrunkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceTrunk
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteVoiceTrunkResponse parses an HTTP response from a DeleteVoiceTrunkWithResponse call
+func ParseDeleteVoiceTrunkResponse(rsp *http.Response) (*DeleteVoiceTrunkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteVoiceTrunkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceTrunkResponse parses an HTTP response from a GetVoiceTrunkWithResponse call
+func ParseGetVoiceTrunkResponse(rsp *http.Response) (*GetVoiceTrunkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceTrunkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunk
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceTrunkResponse parses an HTTP response from a UpdateVoiceTrunkWithResponse call
+func ParseUpdateVoiceTrunkResponse(rsp *http.Response) (*UpdateVoiceTrunkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceTrunkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunk
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceTrunkGatewaysResponse parses an HTTP response from a ListVoiceTrunkGatewaysWithResponse call
+func ParseListVoiceTrunkGatewaysResponse(rsp *http.Response) (*ListVoiceTrunkGatewaysResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceTrunkGatewaysResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunkGatewayList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateVoiceTrunkGatewayResponse parses an HTTP response from a CreateVoiceTrunkGatewayWithResponse call
+func ParseCreateVoiceTrunkGatewayResponse(rsp *http.Response) (*CreateVoiceTrunkGatewayResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceTrunkGatewayResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceTrunkGateway
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteVoiceTrunkGatewayResponse parses an HTTP response from a DeleteVoiceTrunkGatewayWithResponse call
+func ParseDeleteVoiceTrunkGatewayResponse(rsp *http.Response) (*DeleteVoiceTrunkGatewayResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteVoiceTrunkGatewayResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceTrunkGatewayResponse parses an HTTP response from a GetVoiceTrunkGatewayWithResponse call
+func ParseGetVoiceTrunkGatewayResponse(rsp *http.Response) (*GetVoiceTrunkGatewayResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceTrunkGatewayResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunkGateway
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceTrunkGatewayResponse parses an HTTP response from a UpdateVoiceTrunkGatewayWithResponse call
+func ParseUpdateVoiceTrunkGatewayResponse(rsp *http.Response) (*UpdateVoiceTrunkGatewayResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceTrunkGatewayResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceTrunkGateway
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

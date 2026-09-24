@@ -35,7 +35,9 @@ func (p VoiceCallsCreateParams) toWire() oapi.CreateVoiceCallRequest {
 func (s *VoiceCallsService) Create(ctx context.Context, params VoiceCallsCreateParams, opts ...option.RequestOption) (*VoiceCall, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateVoiceCallParams{}
-		op.IdempotencyKey = idempotencyKey
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
 		return s.client.oapi.CreateVoiceCall(ctx, op, params.toWire(), cfg...)
 	})
 	if err != nil {
