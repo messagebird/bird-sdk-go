@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.77.0
+
+- Add flexible email metrics queries with combined filters, grouped summaries, time series, and automatic cursor pagination.
+- Add cursor navigation for email statistics breakdowns while preserving existing response envelopes.
+- The `voice` resource gains a trunk's inbound gateways and caller-ID verification, so you can list, add, change and remove the gateways a SIP trunk delivers through, and submit the code from a verification call to prove you own a caller ID. Registration and deletion remain in the dashboard. Verification recovery can place another call to the registered number and requires the organization to remain eligible for registration.
+- Caller-ID verification documentation now explains how to renew an expired code in the dashboard and use the replacement caller ID.
+- Voice leg `forward_as` documentation now describes both caller identity choices and the default used by older forwarding configurations.
+
 ## 0.76.0
 
 - Add the WhatsApp group join-request webhook events `whatsapp.group.join_request_created` and `whatsapp.group.join_request_revoked`, fired when someone asks to join a group that requires approval and when they withdraw the request before you decide it. Both carry the group, the business number administering it, the workspace, and a `join_request` object naming the request and who made it. Approving or rejecting a request fires no event: the outcome is on the response to your own call.
