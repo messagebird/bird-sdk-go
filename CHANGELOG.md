@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.77.2
+
+- Email send requests support `template` with `scheduled_at`. The request pins the published version, language and parameter values, and a template deleted before the due time rejects the message with `generation_failure`.
+
 ## 0.77.1
 
 - Creating an eSIM subscriber now requires Contacts read permission and explicitly explains that its link cannot yet be removed. Contact deletion documents the resulting `409` refusal, including after an assigned eSIM ends.
