@@ -231,7 +231,7 @@ func (s *ContactsService) Update(ctx context.Context, contactId string, params C
 	return &out, nil
 }
 
-// Delete Delete a contact and remove it from every audience it belongs to. Suppression records for the address are unaffected.
+// Delete Delete a contact and remove it from every audience it belongs to. Refused when an eSIM subscriber links to the contact. Suppression records for the address are unaffected.
 func (s *ContactsService) Delete(ctx context.Context, contactId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteContactParams{}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.77.1
+
+- Creating an eSIM subscriber now requires Contacts read permission and explicitly explains that its link cannot yet be removed. Contact deletion documents the resulting `409` refusal, including after an assigned eSIM ends.
+
 ## 0.77.0
 
 - Add flexible email metrics queries with combined filters, grouped summaries, time series, and automatic cursor pagination.

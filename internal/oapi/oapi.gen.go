@@ -61380,6 +61380,7 @@ type DeleteContactResponse struct {
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
 	JSON404      *NotFound
+	JSON409      *Conflict
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -75247,6 +75248,13 @@ func ParseDeleteContactResponse(rsp *http.Response) (*DeleteContactResponse, err
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
