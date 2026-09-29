@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.79.0
+
+- Add a `replay` method to the webhooks resource that queues redelivery of an endpoint's failed deliveries, optionally bounded by `since` and `until`.
+
 ## 0.78.0
 
 - Add the `amb` channel with reply, business-account, suppression, and statistics methods, invitation consent, and webhook types. Business accounts use `name` and `business_account_id`; suppressions use `address` and `address_type`.

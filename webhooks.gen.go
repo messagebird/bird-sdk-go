@@ -91,6 +91,21 @@ func (p WebhooksAttemptsParams) toWire() *oapi.ListWebhookAttemptsParams {
 	}
 }
 
+// WebhooksReplayParams is the request body for replay.
+type WebhooksReplayParams struct {
+	// Replay events whose delivery attempt failed at or after this timestamp. The bound is inclusive and applies to attempt time, not to when the event occurred, so a retry that trailed its event by a day falls in the window by the hour it was attempted. Defaults to 24 hours before the request when omitted. Attempts are retained for three days, so that is the oldest history a replay reaches: an earlier `since` widens the window without recovering anything older.
+	Since time.Time
+	// Replay events whose delivery attempt failed at or before this timestamp, on the same attempt-time bound as `since`. Omitted, it resolves to the time of the request.
+	Until time.Time
+}
+
+func (p WebhooksReplayParams) toWire() oapi.WebhookReplayRequest {
+	body := oapi.WebhookReplayRequest{}
+	body.Since = optTime(p.Since)
+	body.Until = optTime(p.Until)
+	return body
+}
+
 // WebhooksUpdateParams is the request body for update.
 type WebhooksUpdateParams struct {
 	// Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
@@ -231,6 +246,18 @@ func (s *WebhooksService) Attempts(ctx context.Context, webhookId string, params
 		return nil, err
 	}
 	return &out, nil
+}
+
+// Replay Queue redelivery of this endpoint's failed attempts in a window (default: the last 24 hours). An event is skipped only if one of its attempts inside the window was delivered, so re-running a replay whose `until` has passed redelivers everything the first one sent; the receiver must deduplicate on `webhook-id`. Only failed attempts are replayed, the window reaches back at most three days, and a paused endpoint redelivers nothing until it is re-enabled. One replay covers at most the oldest 10,000 events in the window. Nothing is returned beyond acceptance; each redelivery is one attempt, so check the outcome with the delivery attempts list. Limited to 20 per organization per UTC day.
+func (s *WebhooksService) Replay(ctx context.Context, webhookId string, params WebhooksReplayParams, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateWebhookReplayParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateWebhookReplay(ctx, oapi.WebhookEndpointID(webhookId), op, params.toWire(), cfg...)
+	})
+	return err
 }
 
 // RotateSecret Mint a new signing secret and return it exactly once; it cannot be retrieved afterward. Both the old and new secrets sign every delivery for 24 hours, after which the old one stops signing. An endpoint holds at most 5 valid secrets, so rotating repeatedly inside that window fails.

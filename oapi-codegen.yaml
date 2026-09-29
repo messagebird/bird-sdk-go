@@ -232,6 +232,7 @@ output-options:
     - testWebhook
     - deleteWebhook
     - listWebhookAttempts
+    - createWebhookReplay
     - rotateWebhookSecret
     - updateWebhook
     - getCurrentWorkspace

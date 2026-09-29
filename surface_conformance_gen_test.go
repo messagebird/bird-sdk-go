@@ -232,6 +232,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Webhooks.Test
 	_ = c.Webhooks.Delete
 	_ = c.Webhooks.Attempts
+	_ = c.Webhooks.Replay
 	_ = c.Webhooks.RotateSecret
 	_ = c.Webhooks.Update
 	_ = c.Workspace.Get

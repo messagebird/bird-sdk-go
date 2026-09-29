@@ -2848,6 +2848,21 @@ func ExampleWebhooksService_Attempts() {
 	}
 }
 
+// Replay queues redelivery of the endpoint's failed attempts in a window; it
+// returns nothing, so the outcome is read back from Attempts.
+func ExampleWebhooksService_Replay() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Webhooks.Replay(context.Background(), "whk_123", bird.WebhooksReplayParams{
+		Since: time.Now().Add(-6 * time.Hour),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 // RotateSecret mints a new secret; both old and new sign deliveries for 24
 // hours, after which the old one stops.
 func ExampleWebhooksService_RotateSecret() {

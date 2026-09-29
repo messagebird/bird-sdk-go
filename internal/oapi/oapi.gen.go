@@ -32774,6 +32774,31 @@ type ListWebhookAttemptsParams struct {
 	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
 }
 
+// CreateWebhookReplayParams defines parameters for CreateWebhookReplay.
+type CreateWebhookReplayParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // RotateWebhookSecretParams defines parameters for RotateWebhookSecret.
 type RotateWebhookSecretParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
@@ -33977,6 +34002,9 @@ type CreateWebhookJSONRequestBody = WebhookEndpointCreate
 
 // UpdateWebhookJSONRequestBody defines body for UpdateWebhook for application/json ContentType.
 type UpdateWebhookJSONRequestBody = WebhookEndpointUpdate
+
+// CreateWebhookReplayJSONRequestBody defines body for CreateWebhookReplay for application/json ContentType.
+type CreateWebhookReplayJSONRequestBody = WebhookReplayRequest
 
 // TestWebhookJSONRequestBody defines body for TestWebhook for application/json ContentType.
 type TestWebhookJSONRequestBody = WebhookTestRequest
@@ -41100,6 +41128,11 @@ type ClientInterface interface {
 	// ListWebhookAttempts request
 	ListWebhookAttempts(ctx context.Context, webhookId WebhookEndpointID, params *ListWebhookAttemptsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateWebhookReplayWithBody request with any body
+	CreateWebhookReplayWithBody(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWebhookReplay(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, body CreateWebhookReplayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// RotateWebhookSecret request
 	RotateWebhookSecret(ctx context.Context, webhookId WebhookEndpointID, params *RotateWebhookSecretParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -45273,6 +45306,30 @@ func (c *Client) UpdateWebhook(ctx context.Context, webhookId WebhookEndpointID,
 
 func (c *Client) ListWebhookAttempts(ctx context.Context, webhookId WebhookEndpointID, params *ListWebhookAttemptsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListWebhookAttemptsRequest(c.Server, webhookId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWebhookReplayWithBody(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWebhookReplayRequestWithBody(c.Server, webhookId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWebhookReplay(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, body CreateWebhookReplayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWebhookReplayRequest(c.Server, webhookId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -67294,6 +67351,68 @@ func NewListWebhookAttemptsRequest(server string, webhookId WebhookEndpointID, p
 	return req, nil
 }
 
+// NewCreateWebhookReplayRequest calls the generic CreateWebhookReplay builder with application/json body
+func NewCreateWebhookReplayRequest(server string, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, body CreateWebhookReplayJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWebhookReplayRequestWithBody(server, webhookId, params, "application/json", bodyReader)
+}
+
+// NewCreateWebhookReplayRequestWithBody generates requests for CreateWebhookReplay with any type of body
+func NewCreateWebhookReplayRequestWithBody(server string, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "webhook_id", webhookId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/webhooks/%s/replay", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewRotateWebhookSecretRequest generates requests for RotateWebhookSecret
 func NewRotateWebhookSecretRequest(server string, webhookId WebhookEndpointID, params *RotateWebhookSecretParams) (*http.Request, error) {
 	var err error
@@ -72598,6 +72717,11 @@ type ClientWithResponsesInterface interface {
 
 	// ListWebhookAttemptsWithResponse request
 	ListWebhookAttemptsWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *ListWebhookAttemptsParams, reqEditors ...RequestEditorFn) (*ListWebhookAttemptsResponse, error)
+
+	// CreateWebhookReplayWithBodyWithResponse request with any body
+	CreateWebhookReplayWithBodyWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWebhookReplayResponse, error)
+
+	CreateWebhookReplayWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, body CreateWebhookReplayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWebhookReplayResponse, error)
 
 	// RotateWebhookSecretWithResponse request
 	RotateWebhookSecretWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *RotateWebhookSecretParams, reqEditors ...RequestEditorFn) (*RotateWebhookSecretResponse, error)
@@ -82582,6 +82706,43 @@ func (r ListWebhookAttemptsResponse) ContentType() string {
 	return ""
 }
 
+type CreateWebhookReplayResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWebhookReplayResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWebhookReplayResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWebhookReplayResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type RotateWebhookSecretResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -87647,6 +87808,23 @@ func (c *ClientWithResponses) ListWebhookAttemptsWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseListWebhookAttemptsResponse(rsp)
+}
+
+// CreateWebhookReplayWithBodyWithResponse request with arbitrary body returning *CreateWebhookReplayResponse
+func (c *ClientWithResponses) CreateWebhookReplayWithBodyWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWebhookReplayResponse, error) {
+	rsp, err := c.CreateWebhookReplayWithBody(ctx, webhookId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWebhookReplayResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWebhookReplayWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *CreateWebhookReplayParams, body CreateWebhookReplayJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWebhookReplayResponse, error) {
+	rsp, err := c.CreateWebhookReplay(ctx, webhookId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWebhookReplayResponse(rsp)
 }
 
 // RotateWebhookSecretWithResponse request returning *RotateWebhookSecretResponse
@@ -108541,6 +108719,81 @@ func ParseListWebhookAttemptsResponse(rsp *http.Response) (*ListWebhookAttemptsR
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWebhookReplayResponse parses an HTTP response from a CreateWebhookReplayWithResponse call
+func ParseCreateWebhookReplayResponse(rsp *http.Response) (*CreateWebhookReplayResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWebhookReplayResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
