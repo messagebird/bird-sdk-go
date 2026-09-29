@@ -34,8 +34,8 @@ func (p VoiceCallerIDsListParams) toWire(startingAfter string) *oapi.ListVoiceCa
 
 // VoiceCallerIDsVerifyParams is the request body for verify.
 type VoiceCallerIDsVerifyParams struct {
-	// The 6-digit verification code read out by the verification call.
-	Code string
+	// The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
+	Code *string
 }
 
 func (p VoiceCallerIDsVerifyParams) toWire() oapi.VoiceCallerIDVerifyRequest {
@@ -92,7 +92,7 @@ func (s *VoiceCallerIDsService) Get(ctx context.Context, callerId string, opts .
 	return &out, nil
 }
 
-// Verify Complete a caller-ID verification challenge started in the dashboard. Recovery can place another verification call to the same number and requires the organization to remain eligible to register caller IDs. For expired or exhausted challenges, ask the user to select Get a new code in the dashboard. List caller IDs again to obtain the replacement registration ID before submitting its code. Read Voice destinations separately to confirm whether the number's country is enabled.
+// Verify Complete a caller-ID verification challenge started in the dashboard. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For expired or exhausted challenges, use Get a new code in the dashboard and list caller IDs to obtain the replacement ID.
 func (s *VoiceCallerIDsService) Verify(ctx context.Context, callerId string, params VoiceCallerIDsVerifyParams, opts ...option.RequestOption) (*VoiceCallerID, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.VerifyVoiceCallerIDParams{}

@@ -27,6 +27,876 @@ const (
 	RealtimeSecretScopes realtimeSecretContextKey = "RealtimeSecret.Scopes"
 )
 
+// Defines values for AMBAcceptedEventType.
+const (
+	AmbAccepted AMBAcceptedEventType = "amb.accepted"
+)
+
+// Valid indicates whether the value is a known member of the AMBAcceptedEventType enum.
+func (e AMBAcceptedEventType) Valid() bool {
+	switch e {
+	case AmbAccepted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountEventSort.
+const (
+	AMBBusinessAccountEventSortCreatedAt AMBBusinessAccountEventSort = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountEventSort enum.
+func (e AMBBusinessAccountEventSort) Valid() bool {
+	switch e {
+	case AMBBusinessAccountEventSortCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountReviewStatus.
+const (
+	AMBBusinessAccountReviewStatusApproved AMBBusinessAccountReviewStatus = "approved"
+	AMBBusinessAccountReviewStatusPending  AMBBusinessAccountReviewStatus = "pending"
+	AMBBusinessAccountReviewStatusRejected AMBBusinessAccountReviewStatus = "rejected"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountReviewStatus enum.
+func (e AMBBusinessAccountReviewStatus) Valid() bool {
+	switch e {
+	case AMBBusinessAccountReviewStatusApproved:
+		return true
+	case AMBBusinessAccountReviewStatusPending:
+		return true
+	case AMBBusinessAccountReviewStatusRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountSort.
+const (
+	AMBBusinessAccountSortCreatedAt AMBBusinessAccountSort = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountSort enum.
+func (e AMBBusinessAccountSort) Valid() bool {
+	switch e {
+	case AMBBusinessAccountSortCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountStatus.
+const (
+	AMBBusinessAccountStatusActive       AMBBusinessAccountStatus = "active"
+	AMBBusinessAccountStatusDisconnected AMBBusinessAccountStatus = "disconnected"
+	AMBBusinessAccountStatusPending      AMBBusinessAccountStatus = "pending"
+	AMBBusinessAccountStatusSuspended    AMBBusinessAccountStatus = "suspended"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountStatus enum.
+func (e AMBBusinessAccountStatus) Valid() bool {
+	switch e {
+	case AMBBusinessAccountStatusActive:
+		return true
+	case AMBBusinessAccountStatusDisconnected:
+		return true
+	case AMBBusinessAccountStatusPending:
+		return true
+	case AMBBusinessAccountStatusSuspended:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountSubmissionSort.
+const (
+	AMBBusinessAccountSubmissionSortCreatedAt AMBBusinessAccountSubmissionSort = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountSubmissionSort enum.
+func (e AMBBusinessAccountSubmissionSort) Valid() bool {
+	switch e {
+	case AMBBusinessAccountSubmissionSortCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBBusinessAccountSubmissionStatus.
+const (
+	AMBBusinessAccountSubmissionStatusApproved  AMBBusinessAccountSubmissionStatus = "approved"
+	AMBBusinessAccountSubmissionStatusInReview  AMBBusinessAccountSubmissionStatus = "in_review"
+	AMBBusinessAccountSubmissionStatusRejected  AMBBusinessAccountSubmissionStatus = "rejected"
+	AMBBusinessAccountSubmissionStatusSubmitted AMBBusinessAccountSubmissionStatus = "submitted"
+)
+
+// Valid indicates whether the value is a known member of the AMBBusinessAccountSubmissionStatus enum.
+func (e AMBBusinessAccountSubmissionStatus) Valid() bool {
+	switch e {
+	case AMBBusinessAccountSubmissionStatusApproved:
+		return true
+	case AMBBusinessAccountSubmissionStatusInReview:
+		return true
+	case AMBBusinessAccountSubmissionStatusRejected:
+		return true
+	case AMBBusinessAccountSubmissionStatusSubmitted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBContentKind.
+const (
+	AMBContentKindApplePay     AMBContentKind = "apple_pay"
+	AMBContentKindAttachment   AMBContentKind = "attachment"
+	AMBContentKindAuthenticate AMBContentKind = "authenticate"
+	AMBContentKindForm         AMBContentKind = "form"
+	AMBContentKindImessageApp  AMBContentKind = "imessage_app"
+	AMBContentKindInteractive  AMBContentKind = "interactive"
+	AMBContentKindListPicker   AMBContentKind = "list_picker"
+	AMBContentKindQuickReply   AMBContentKind = "quick_reply"
+	AMBContentKindRichLink     AMBContentKind = "rich_link"
+	AMBContentKindText         AMBContentKind = "text"
+	AMBContentKindTimePicker   AMBContentKind = "time_picker"
+)
+
+// Valid indicates whether the value is a known member of the AMBContentKind enum.
+func (e AMBContentKind) Valid() bool {
+	switch e {
+	case AMBContentKindApplePay:
+		return true
+	case AMBContentKindAttachment:
+		return true
+	case AMBContentKindAuthenticate:
+		return true
+	case AMBContentKindForm:
+		return true
+	case AMBContentKindImessageApp:
+		return true
+	case AMBContentKindInteractive:
+		return true
+	case AMBContentKindListPicker:
+		return true
+	case AMBContentKindQuickReply:
+		return true
+	case AMBContentKindRichLink:
+		return true
+	case AMBContentKindText:
+		return true
+	case AMBContentKindTimePicker:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationClosedEventType.
+const (
+	AmbConversationClosed AMBConversationClosedEventType = "amb.conversation_closed"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationClosedEventType enum.
+func (e AMBConversationClosedEventType) Valid() bool {
+	switch e {
+	case AmbConversationClosed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationClosedReason.
+const (
+	AMBConversationClosedReasonGone      AMBConversationClosedReason = "gone"
+	AMBConversationClosedReasonUserClose AMBConversationClosedReason = "user_close"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationClosedReason enum.
+func (e AMBConversationClosedReason) Valid() bool {
+	switch e {
+	case AMBConversationClosedReasonGone:
+		return true
+	case AMBConversationClosedReasonUserClose:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationOrigin.
+const (
+	EntryPoint AMBConversationOrigin = "entry_point"
+	Invitation AMBConversationOrigin = "invitation"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationOrigin enum.
+func (e AMBConversationOrigin) Valid() bool {
+	switch e {
+	case EntryPoint:
+		return true
+	case Invitation:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationReopenedEventType.
+const (
+	AmbConversationReopened AMBConversationReopenedEventType = "amb.conversation_reopened"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationReopenedEventType enum.
+func (e AMBConversationReopenedEventType) Valid() bool {
+	switch e {
+	case AmbConversationReopened:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationStartedEventType.
+const (
+	AmbConversationStarted AMBConversationStartedEventType = "amb.conversation_started"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationStartedEventType enum.
+func (e AMBConversationStartedEventType) Valid() bool {
+	switch e {
+	case AmbConversationStarted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationStatus.
+const (
+	AMBConversationStatusClosed AMBConversationStatus = "closed"
+	AMBConversationStatusOpen   AMBConversationStatus = "open"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationStatus enum.
+func (e AMBConversationStatus) Valid() bool {
+	switch e {
+	case AMBConversationStatusClosed:
+		return true
+	case AMBConversationStatusOpen:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBConversationTypingEvent.
+const (
+	TypingEnd   AMBConversationTypingEvent = "typing_end"
+	TypingStart AMBConversationTypingEvent = "typing_start"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationTypingEvent enum.
+func (e AMBConversationTypingEvent) Valid() bool {
+	switch e {
+	case TypingEnd:
+		return true
+	case TypingStart:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormDatePickerPageType.
+const (
+	AMBFormDatePickerPageTypeDatePicker AMBFormDatePickerPageType = "date_picker"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormDatePickerPageType enum.
+func (e AMBFormDatePickerPageType) Valid() bool {
+	switch e {
+	case AMBFormDatePickerPageTypeDatePicker:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormInputPageType.
+const (
+	Input AMBFormInputPageType = "input"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormInputPageType enum.
+func (e AMBFormInputPageType) Valid() bool {
+	switch e {
+	case Input:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormInputType.
+const (
+	Multiline  AMBFormInputType = "multiline"
+	Singleline AMBFormInputType = "singleline"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormInputType enum.
+func (e AMBFormInputType) Valid() bool {
+	switch e {
+	case Multiline:
+		return true
+	case Singleline:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormKeyboardType.
+const (
+	AMBFormKeyboardTypeAsciiCapable          AMBFormKeyboardType = "asciiCapable"
+	AMBFormKeyboardTypeDecimalPad            AMBFormKeyboardType = "decimalPad"
+	AMBFormKeyboardTypeDefault               AMBFormKeyboardType = "default"
+	AMBFormKeyboardTypeEmailAddress          AMBFormKeyboardType = "emailAddress"
+	AMBFormKeyboardTypeNamePhonePad          AMBFormKeyboardType = "namePhonePad"
+	AMBFormKeyboardTypeNumberPad             AMBFormKeyboardType = "numberPad"
+	AMBFormKeyboardTypeNumbersAndPunctuation AMBFormKeyboardType = "numbersAndPunctuation"
+	AMBFormKeyboardTypePhonePad              AMBFormKeyboardType = "phonePad"
+	AMBFormKeyboardTypeURL                   AMBFormKeyboardType = "URL"
+	AMBFormKeyboardTypeWebSearch             AMBFormKeyboardType = "webSearch"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormKeyboardType enum.
+func (e AMBFormKeyboardType) Valid() bool {
+	switch e {
+	case AMBFormKeyboardTypeAsciiCapable:
+		return true
+	case AMBFormKeyboardTypeDecimalPad:
+		return true
+	case AMBFormKeyboardTypeDefault:
+		return true
+	case AMBFormKeyboardTypeEmailAddress:
+		return true
+	case AMBFormKeyboardTypeNamePhonePad:
+		return true
+	case AMBFormKeyboardTypeNumberPad:
+		return true
+	case AMBFormKeyboardTypeNumbersAndPunctuation:
+		return true
+	case AMBFormKeyboardTypePhonePad:
+		return true
+	case AMBFormKeyboardTypeURL:
+		return true
+	case AMBFormKeyboardTypeWebSearch:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormPageType.
+const (
+	AMBFormPageTypeDatePicker AMBFormPageType = "date_picker"
+	AMBFormPageTypeInput      AMBFormPageType = "input"
+	AMBFormPageTypePicker     AMBFormPageType = "picker"
+	AMBFormPageTypeSelect     AMBFormPageType = "select"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormPageType enum.
+func (e AMBFormPageType) Valid() bool {
+	switch e {
+	case AMBFormPageTypeDatePicker:
+		return true
+	case AMBFormPageTypeInput:
+		return true
+	case AMBFormPageTypePicker:
+		return true
+	case AMBFormPageTypeSelect:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormPickerPageType.
+const (
+	Picker AMBFormPickerPageType = "picker"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormPickerPageType enum.
+func (e AMBFormPickerPageType) Valid() bool {
+	switch e {
+	case Picker:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormSelectPageType.
+const (
+	Select AMBFormSelectPageType = "select"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormSelectPageType enum.
+func (e AMBFormSelectPageType) Valid() bool {
+	switch e {
+	case Select:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBFormTextContentType.
+const (
+	AMBFormTextContentTypeAddressCity         AMBFormTextContentType = "addressCity"
+	AMBFormTextContentTypeAddressCityAndState AMBFormTextContentType = "addressCityAndState"
+	AMBFormTextContentTypeAddressState        AMBFormTextContentType = "addressState"
+	AMBFormTextContentTypeCountryName         AMBFormTextContentType = "countryName"
+	AMBFormTextContentTypeCreditCardNumber    AMBFormTextContentType = "creditCardNumber"
+	AMBFormTextContentTypeEmailAddress        AMBFormTextContentType = "emailAddress"
+	AMBFormTextContentTypeFamilyName          AMBFormTextContentType = "familyName"
+	AMBFormTextContentTypeFullStreetAddress   AMBFormTextContentType = "fullStreetAddress"
+	AMBFormTextContentTypeGivenName           AMBFormTextContentType = "givenName"
+	AMBFormTextContentTypeJobTitle            AMBFormTextContentType = "jobTitle"
+	AMBFormTextContentTypeLocation            AMBFormTextContentType = "location"
+	AMBFormTextContentTypeMiddleName          AMBFormTextContentType = "middleName"
+	AMBFormTextContentTypeName                AMBFormTextContentType = "name"
+	AMBFormTextContentTypeNamePrefix          AMBFormTextContentType = "namePrefix"
+	AMBFormTextContentTypeNameSuffix          AMBFormTextContentType = "nameSuffix"
+	AMBFormTextContentTypeNewPassword         AMBFormTextContentType = "newPassword"
+	AMBFormTextContentTypeNickname            AMBFormTextContentType = "nickname"
+	AMBFormTextContentTypeOneTimeCode         AMBFormTextContentType = "oneTimeCode"
+	AMBFormTextContentTypeOrganizationName    AMBFormTextContentType = "organizationName"
+	AMBFormTextContentTypePassword            AMBFormTextContentType = "password"
+	AMBFormTextContentTypePostalCode          AMBFormTextContentType = "postalCode"
+	AMBFormTextContentTypeStreetAddressLine1  AMBFormTextContentType = "streetAddressLine1"
+	AMBFormTextContentTypeStreetAddressLine2  AMBFormTextContentType = "streetAddressLine2"
+	AMBFormTextContentTypeSublocality         AMBFormTextContentType = "sublocality"
+	AMBFormTextContentTypeTelephoneNumber     AMBFormTextContentType = "telephoneNumber"
+	AMBFormTextContentTypeURL                 AMBFormTextContentType = "URL"
+	AMBFormTextContentTypeUsername            AMBFormTextContentType = "username"
+)
+
+// Valid indicates whether the value is a known member of the AMBFormTextContentType enum.
+func (e AMBFormTextContentType) Valid() bool {
+	switch e {
+	case AMBFormTextContentTypeAddressCity:
+		return true
+	case AMBFormTextContentTypeAddressCityAndState:
+		return true
+	case AMBFormTextContentTypeAddressState:
+		return true
+	case AMBFormTextContentTypeCountryName:
+		return true
+	case AMBFormTextContentTypeCreditCardNumber:
+		return true
+	case AMBFormTextContentTypeEmailAddress:
+		return true
+	case AMBFormTextContentTypeFamilyName:
+		return true
+	case AMBFormTextContentTypeFullStreetAddress:
+		return true
+	case AMBFormTextContentTypeGivenName:
+		return true
+	case AMBFormTextContentTypeJobTitle:
+		return true
+	case AMBFormTextContentTypeLocation:
+		return true
+	case AMBFormTextContentTypeMiddleName:
+		return true
+	case AMBFormTextContentTypeName:
+		return true
+	case AMBFormTextContentTypeNamePrefix:
+		return true
+	case AMBFormTextContentTypeNameSuffix:
+		return true
+	case AMBFormTextContentTypeNewPassword:
+		return true
+	case AMBFormTextContentTypeNickname:
+		return true
+	case AMBFormTextContentTypeOneTimeCode:
+		return true
+	case AMBFormTextContentTypeOrganizationName:
+		return true
+	case AMBFormTextContentTypePassword:
+		return true
+	case AMBFormTextContentTypePostalCode:
+		return true
+	case AMBFormTextContentTypeStreetAddressLine1:
+		return true
+	case AMBFormTextContentTypeStreetAddressLine2:
+		return true
+	case AMBFormTextContentTypeSublocality:
+		return true
+	case AMBFormTextContentTypeTelephoneNumber:
+		return true
+	case AMBFormTextContentTypeURL:
+		return true
+	case AMBFormTextContentTypeUsername:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageBubbleStyle.
+const (
+	Icon  AMBMessageBubbleStyle = "icon"
+	Large AMBMessageBubbleStyle = "large"
+	Small AMBMessageBubbleStyle = "small"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageBubbleStyle enum.
+func (e AMBMessageBubbleStyle) Valid() bool {
+	switch e {
+	case Icon:
+		return true
+	case Large:
+		return true
+	case Small:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageDirection.
+const (
+	AMBMessageDirectionInbound  AMBMessageDirection = "inbound"
+	AMBMessageDirectionOutbound AMBMessageDirection = "outbound"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageDirection enum.
+func (e AMBMessageDirection) Valid() bool {
+	switch e {
+	case AMBMessageDirectionInbound:
+		return true
+	case AMBMessageDirectionOutbound:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageEventType.
+const (
+	AMBMessageEventTypeAmbAccepted   AMBMessageEventType = "amb.accepted"
+	AMBMessageEventTypeAmbReceived   AMBMessageEventType = "amb.received"
+	AMBMessageEventTypeAmbRejected   AMBMessageEventType = "amb.rejected"
+	AMBMessageEventTypeAmbSendFailed AMBMessageEventType = "amb.send_failed"
+	AMBMessageEventTypeAmbSent       AMBMessageEventType = "amb.sent"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageEventType enum.
+func (e AMBMessageEventType) Valid() bool {
+	switch e {
+	case AMBMessageEventTypeAmbAccepted:
+		return true
+	case AMBMessageEventTypeAmbReceived:
+		return true
+	case AMBMessageEventTypeAmbRejected:
+		return true
+	case AMBMessageEventTypeAmbSendFailed:
+		return true
+	case AMBMessageEventTypeAmbSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageSource.
+const (
+	Api        AMBMessageSource = "api"
+	Automation AMBMessageSource = "automation"
+	Operator   AMBMessageSource = "operator"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageSource enum.
+func (e AMBMessageSource) Valid() bool {
+	switch e {
+	case Api:
+		return true
+	case Automation:
+		return true
+	case Operator:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageStatus.
+const (
+	AMBMessageStatusAccepted   AMBMessageStatus = "accepted"
+	AMBMessageStatusReceived   AMBMessageStatus = "received"
+	AMBMessageStatusRejected   AMBMessageStatus = "rejected"
+	AMBMessageStatusSendFailed AMBMessageStatus = "send_failed"
+	AMBMessageStatusSent       AMBMessageStatus = "sent"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageStatus enum.
+func (e AMBMessageStatus) Valid() bool {
+	switch e {
+	case AMBMessageStatusAccepted:
+		return true
+	case AMBMessageStatusReceived:
+		return true
+	case AMBMessageStatusRejected:
+		return true
+	case AMBMessageStatusSendFailed:
+		return true
+	case AMBMessageStatusSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBMessageType.
+const (
+	AMBMessageTypeInteractive AMBMessageType = "interactive"
+	AMBMessageTypeRichLink    AMBMessageType = "rich_link"
+	AMBMessageTypeText        AMBMessageType = "text"
+)
+
+// Valid indicates whether the value is a known member of the AMBMessageType enum.
+func (e AMBMessageType) Valid() bool {
+	switch e {
+	case AMBMessageTypeInteractive:
+		return true
+	case AMBMessageTypeRichLink:
+		return true
+	case AMBMessageTypeText:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBNativeRichLinkImageMimeType.
+const (
+	Imagepng AMBNativeRichLinkImageMimeType = "image/png"
+)
+
+// Valid indicates whether the value is a known member of the AMBNativeRichLinkImageMimeType enum.
+func (e AMBNativeRichLinkImageMimeType) Valid() bool {
+	switch e {
+	case Imagepng:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBReceivedEventType.
+const (
+	AmbReceived AMBReceivedEventType = "amb.received"
+)
+
+// Valid indicates whether the value is a known member of the AMBReceivedEventType enum.
+func (e AMBReceivedEventType) Valid() bool {
+	switch e {
+	case AmbReceived:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBRejectedEventType.
+const (
+	AmbRejected AMBRejectedEventType = "amb.rejected"
+)
+
+// Valid indicates whether the value is a known member of the AMBRejectedEventType enum.
+func (e AMBRejectedEventType) Valid() bool {
+	switch e {
+	case AmbRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBRoutingRuleMatchKind.
+const (
+	Both   AMBRoutingRuleMatchKind = "both"
+	Group  AMBRoutingRuleMatchKind = "group"
+	Intent AMBRoutingRuleMatchKind = "intent"
+)
+
+// Valid indicates whether the value is a known member of the AMBRoutingRuleMatchKind enum.
+func (e AMBRoutingRuleMatchKind) Valid() bool {
+	switch e {
+	case Both:
+		return true
+	case Group:
+		return true
+	case Intent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSendFailedEventType.
+const (
+	AmbSendFailed AMBSendFailedEventType = "amb.send_failed"
+)
+
+// Valid indicates whether the value is a known member of the AMBSendFailedEventType enum.
+func (e AMBSendFailedEventType) Valid() bool {
+	switch e {
+	case AmbSendFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSentEventType.
+const (
+	AmbSent AMBSentEventType = "amb.sent"
+)
+
+// Valid indicates whether the value is a known member of the AMBSentEventType enum.
+func (e AMBSentEventType) Valid() bool {
+	switch e {
+	case AmbSent:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBStatsAttribution.
+const (
+	AcceptedTime AMBStatsAttribution = "accepted_time"
+	EventTime    AMBStatsAttribution = "event_time"
+)
+
+// Valid indicates whether the value is a known member of the AMBStatsAttribution enum.
+func (e AMBStatsAttribution) Valid() bool {
+	switch e {
+	case AcceptedTime:
+		return true
+	case EventTime:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSuppressionAddressType.
+const (
+	AMBSuppressionAddressTypeOpaqueUserId AMBSuppressionAddressType = "opaque_user_id"
+	AMBSuppressionAddressTypePhoneNumber  AMBSuppressionAddressType = "phone_number"
+)
+
+// Valid indicates whether the value is a known member of the AMBSuppressionAddressType enum.
+func (e AMBSuppressionAddressType) Valid() bool {
+	switch e {
+	case AMBSuppressionAddressTypeOpaqueUserId:
+		return true
+	case AMBSuppressionAddressTypePhoneNumber:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSuppressionCreatedEventType.
+const (
+	AmbSuppressionCreated AMBSuppressionCreatedEventType = "amb_suppression.created"
+)
+
+// Valid indicates whether the value is a known member of the AMBSuppressionCreatedEventType enum.
+func (e AMBSuppressionCreatedEventType) Valid() bool {
+	switch e {
+	case AmbSuppressionCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSuppressionOrigin.
+const (
+	AMBSuppressionOriginApiKey       AMBSuppressionOrigin = "api_key"
+	AMBSuppressionOriginCloseSession AMBSuppressionOrigin = "close_session"
+	AMBSuppressionOriginGone         AMBSuppressionOrigin = "gone"
+	AMBSuppressionOriginUser         AMBSuppressionOrigin = "user"
+)
+
+// Valid indicates whether the value is a known member of the AMBSuppressionOrigin enum.
+func (e AMBSuppressionOrigin) Valid() bool {
+	switch e {
+	case AMBSuppressionOriginApiKey:
+		return true
+	case AMBSuppressionOriginCloseSession:
+		return true
+	case AMBSuppressionOriginGone:
+		return true
+	case AMBSuppressionOriginUser:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBSuppressionReason.
+const (
+	AMBSuppressionReasonManual   AMBSuppressionReason = "manual"
+	AMBSuppressionReasonOptedOut AMBSuppressionReason = "opted_out"
+)
+
+// Valid indicates whether the value is a known member of the AMBSuppressionReason enum.
+func (e AMBSuppressionReason) Valid() bool {
+	switch e {
+	case AMBSuppressionReasonManual:
+		return true
+	case AMBSuppressionReasonOptedOut:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AttachmentStatus.
+const (
+	AttachmentStatusAttached AttachmentStatus = "attached"
+	AttachmentStatusDraft    AttachmentStatus = "draft"
+)
+
+// Valid indicates whether the value is a known member of the AttachmentStatus enum.
+func (e AttachmentStatus) Valid() bool {
+	switch e {
+	case AttachmentStatusAttached:
+		return true
+	case AttachmentStatusDraft:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AudienceType.
 const (
 	AudienceTypeAudienceTypeStatic AudienceType = "static"
@@ -3839,22 +4709,22 @@ func (e MailboxOwnerType) Valid() bool {
 
 // Defines values for MailboxUpdateReceivePolicy.
 const (
-	MailboxUpdateReceivePolicyAllowlist   MailboxUpdateReceivePolicy = "allowlist"
-	MailboxUpdateReceivePolicyDrop        MailboxUpdateReceivePolicy = "drop"
-	MailboxUpdateReceivePolicyOpen        MailboxUpdateReceivePolicy = "open"
-	MailboxUpdateReceivePolicyRepliesOnly MailboxUpdateReceivePolicy = "replies_only"
+	Allowlist   MailboxUpdateReceivePolicy = "allowlist"
+	Drop        MailboxUpdateReceivePolicy = "drop"
+	Open        MailboxUpdateReceivePolicy = "open"
+	RepliesOnly MailboxUpdateReceivePolicy = "replies_only"
 )
 
 // Valid indicates whether the value is a known member of the MailboxUpdateReceivePolicy enum.
 func (e MailboxUpdateReceivePolicy) Valid() bool {
 	switch e {
-	case MailboxUpdateReceivePolicyAllowlist:
+	case Allowlist:
 		return true
-	case MailboxUpdateReceivePolicyDrop:
+	case Drop:
 		return true
-	case MailboxUpdateReceivePolicyOpen:
+	case Open:
 		return true
-	case MailboxUpdateReceivePolicyRepliesOnly:
+	case RepliesOnly:
 		return true
 	default:
 		return false
@@ -4052,6 +4922,7 @@ func (e NumbersOrderStatus) Valid() bool {
 
 // Defines values for PreferenceChannel.
 const (
+	PreferenceChannelAmb      PreferenceChannel = "amb"
 	PreferenceChannelEmail    PreferenceChannel = "email"
 	PreferenceChannelSms      PreferenceChannel = "sms"
 	PreferenceChannelWhatsapp PreferenceChannel = "whatsapp"
@@ -4060,6 +4931,8 @@ const (
 // Valid indicates whether the value is a known member of the PreferenceChannel enum.
 func (e PreferenceChannel) Valid() bool {
 	switch e {
+	case PreferenceChannelAmb:
+		return true
 	case PreferenceChannelEmail:
 		return true
 	case PreferenceChannelSms:
@@ -4790,19 +5663,19 @@ func (e SMSSuppressionReasonFilter) Valid() bool {
 
 // Defines values for SMSTemplateCategory.
 const (
-	SMSTemplateCategoryAuthentication SMSTemplateCategory = "authentication"
-	SMSTemplateCategoryMarketing      SMSTemplateCategory = "marketing"
-	SMSTemplateCategoryTransactional  SMSTemplateCategory = "transactional"
+	Authentication SMSTemplateCategory = "authentication"
+	Marketing      SMSTemplateCategory = "marketing"
+	Transactional  SMSTemplateCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateCategory enum.
 func (e SMSTemplateCategory) Valid() bool {
 	switch e {
-	case SMSTemplateCategoryAuthentication:
+	case Authentication:
 		return true
-	case SMSTemplateCategoryMarketing:
+	case Marketing:
 		return true
-	case SMSTemplateCategoryTransactional:
+	case Transactional:
 		return true
 	default:
 		return false
@@ -5612,6 +6485,15 @@ func (e WebhookEndpointUpdateStatus) Valid() bool {
 
 // Defines values for WebhookEventType.
 const (
+	EventTypeAmbAccepted                     WebhookEventType = "amb.accepted"
+	EventTypeAmbConversationClosed           WebhookEventType = "amb.conversation_closed"
+	EventTypeAmbConversationReopened         WebhookEventType = "amb.conversation_reopened"
+	EventTypeAmbConversationStarted          WebhookEventType = "amb.conversation_started"
+	EventTypeAmbReceived                     WebhookEventType = "amb.received"
+	EventTypeAmbRejected                     WebhookEventType = "amb.rejected"
+	EventTypeAmbSendFailed                   WebhookEventType = "amb.send_failed"
+	EventTypeAmbSent                         WebhookEventType = "amb.sent"
+	EventTypeAmbSuppressionCreated           WebhookEventType = "amb_suppression.created"
 	EventTypeDomainFailed                    WebhookEventType = "domain.failed"
 	EventTypeDomainVerified                  WebhookEventType = "domain.verified"
 	EventTypeEmailAccepted                   WebhookEventType = "email.accepted"
@@ -5673,6 +6555,24 @@ const (
 // Valid indicates whether the value is a known member of the WebhookEventType enum.
 func (e WebhookEventType) Valid() bool {
 	switch e {
+	case EventTypeAmbAccepted:
+		return true
+	case EventTypeAmbConversationClosed:
+		return true
+	case EventTypeAmbConversationReopened:
+		return true
+	case EventTypeAmbConversationStarted:
+		return true
+	case EventTypeAmbReceived:
+		return true
+	case EventTypeAmbRejected:
+		return true
+	case EventTypeAmbSendFailed:
+		return true
+	case EventTypeAmbSent:
+		return true
+	case EventTypeAmbSuppressionCreated:
+		return true
 	case EventTypeDomainFailed:
 		return true
 	case EventTypeDomainVerified:
@@ -6599,16 +7499,16 @@ func (e WhatsAppKeywordRuleScope) Valid() bool {
 
 // Defines values for WhatsAppMessageDirection.
 const (
-	Inbound  WhatsAppMessageDirection = "inbound"
-	Outbound WhatsAppMessageDirection = "outbound"
+	WhatsAppMessageDirectionInbound  WhatsAppMessageDirection = "inbound"
+	WhatsAppMessageDirectionOutbound WhatsAppMessageDirection = "outbound"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMessageDirection enum.
 func (e WhatsAppMessageDirection) Valid() bool {
 	switch e {
-	case Inbound:
+	case WhatsAppMessageDirectionInbound:
 		return true
-	case Outbound:
+	case WhatsAppMessageDirectionOutbound:
 		return true
 	default:
 		return false
@@ -7304,16 +8204,16 @@ func (e GetEmailCompetitiveNotableCampaignsParamsRange) Valid() bool {
 
 // Defines values for ListDomainsParamsSort.
 const (
-	CreatedAt ListDomainsParamsSort = "created_at"
-	Name      ListDomainsParamsSort = "name"
+	ListDomainsParamsSortCreatedAt ListDomainsParamsSort = "created_at"
+	ListDomainsParamsSortName      ListDomainsParamsSort = "name"
 )
 
 // Valid indicates whether the value is a known member of the ListDomainsParamsSort enum.
 func (e ListDomainsParamsSort) Valid() bool {
 	switch e {
-	case CreatedAt:
+	case ListDomainsParamsSortCreatedAt:
 		return true
-	case Name:
+	case ListDomainsParamsSortName:
 		return true
 	default:
 		return false
@@ -7554,6 +8454,2300 @@ func (e ListEmailThreadMessagesParamsInclude) Valid() bool {
 	}
 }
 
+// AMBAcceptedEventType Always `amb.accepted` for this event.
+type AMBAcceptedEventType string
+
+// AMBAuthenticationID defines model for AMBAuthenticationID.
+type AMBAuthenticationID = string
+
+// AMBBusinessAccount defines model for AMBBusinessAccount.
+type AMBBusinessAccount struct {
+	// AccountReviewStatus Latest review outcome recorded by Bird staff.
+	AccountReviewStatus *AMBBusinessAccountReviewStatus `json:"account_review_status,omitempty"`
+
+	// AppleBusinessId Apple business UUID, or null until supplied. Adding this identifier does not submit the account for review.
+	AppleBusinessId *openapi_types.UUID `json:"apple_business_id,omitempty"`
+
+	// CreatedAt When the business record was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// FinishSetupUrl Bird dashboard URL for completing setup. Present only when customer action is available.
+	FinishSetupUrl *string       `json:"finish_setup_url,omitempty"`
+	Id             AMBBusinessID `json:"id"`
+
+	// InvitationsEnabled Whether Apple has granted invitation access. Sending also requires a configured, connected account and eligible recipient.
+	InvitationsEnabled *bool `json:"invitations_enabled,omitempty"`
+
+	// Name Customer-supplied account name used in Bird. Apple controls the name shown to customers in Messages.
+	Name string `json:"name"`
+
+	// Next Next setup actions on create, update and single-account reads. Active accounts return an empty array. Lists omit this field.
+	Next *[]NextAction `json:"next,omitempty"`
+
+	// Status Pending accounts need setup or review. Active accounts have recorded approval. Suspended accounts retain their recorded suspension. Configured, connected accounts can exchange messages regardless of review status; Apple decides whether to accept outgoing requests. Disconnected accounts retain their identity and history but cannot exchange new messages until reconnected.
+	Status AMBBusinessAccountStatus `json:"status"`
+
+	// StatusReason Reason for the current operational suspension, when recorded. Review feedback is retained on the submission.
+	StatusReason *string `json:"status_reason,omitempty"`
+
+	// UpdatedAt When the business record was last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBBusinessAccountAttachmentUpload defines model for AMBBusinessAccountAttachmentUpload.
+type AMBBusinessAccountAttachmentUpload struct {
+	// File A PDF up to 10 MiB or an MP4 video up to 25,000,000 bytes. Bird determines the type from the file contents.
+	File openapi_types.File `json:"file"`
+}
+
+// AMBBusinessAccountCreate defines model for AMBBusinessAccountCreate.
+type AMBBusinessAccountCreate struct {
+	// AppleBusinessId The Business ID Apple issued for this brand, if you already have it. Supplying it identifies the draft. Submit the completed evidence requirements explicitly when the business is ready for review.
+	AppleBusinessId *openapi_types.UUID `json:"apple_business_id,omitempty"`
+
+	// Name The brand name shown for this business record inside Bird.
+	Name string `json:"name"`
+}
+
+// AMBBusinessAccountEvent defines model for AMBBusinessAccountEvent.
+type AMBBusinessAccountEvent struct {
+	CreatedAt *time.Time                `json:"created_at,omitempty"`
+	Id        AMBBusinessAccountEventID `json:"id"`
+
+	// Metadata Details of the change. source identifies whether a customer or Bird staff recorded it.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Summary  *string                 `json:"summary,omitempty"`
+	Type     *string                 `json:"type,omitempty"`
+}
+
+// AMBBusinessAccountEventID defines model for AMBBusinessAccountEventID.
+type AMBBusinessAccountEventID = string
+
+// AMBBusinessAccountEventList defines model for AMBBusinessAccountEventList.
+type AMBBusinessAccountEventList struct {
+	Data []AMBBusinessAccountEvent `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AMBBusinessAccountEventSort Account event ordering field.
+type AMBBusinessAccountEventSort string
+
+// AMBBusinessAccountList defines model for AMBBusinessAccountList.
+type AMBBusinessAccountList struct {
+	// Data The business records your workspace holds.
+	Data []AMBBusinessAccount `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AMBBusinessAccountReviewStatus Latest review outcome recorded by Bird staff.
+type AMBBusinessAccountReviewStatus string
+
+// AMBBusinessAccountSort Field used to order the records.
+type AMBBusinessAccountSort string
+
+// AMBBusinessAccountStatsPoint Outbound counts and latency percentiles for a single business over the requested period.
+type AMBBusinessAccountStatsPoint struct {
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBBusinessAccountStatus Pending accounts need setup or review. Active accounts have recorded approval. Suspended accounts retain their recorded suspension. Configured, connected accounts can exchange messages regardless of review status; Apple decides whether to accept outgoing requests. Disconnected accounts retain their identity and history but cannot exchange new messages until reconnected.
+type AMBBusinessAccountStatus string
+
+// AMBBusinessAccountSubmission defines model for AMBBusinessAccountSubmission.
+type AMBBusinessAccountSubmission struct {
+	// AppleBusinessId The Apple business UUID frozen when this attempt was submitted.
+	AppleBusinessId   *openapi_types.UUID      `json:"apple_business_id,omitempty"`
+	BusinessAccountId *AMBBusinessID           `json:"business_account_id,omitempty"`
+	CreatedAt         *time.Time               `json:"created_at,omitempty"`
+	Id                *AMBBusinessSubmissionID `json:"id,omitempty"`
+
+	// Name The customer-supplied Bird account name frozen when this attempt was submitted.
+	Name *string `json:"name,omitempty"`
+
+	// Next Read the parent business account for current eligibility and next actions. Present on create responses and each customer submission-list item; historical attempts do not establish current account state.
+	Next                *[]NextAction `json:"next,omitempty"`
+	ReadinessAttachment *Attachment   `json:"readiness_attachment,omitempty"`
+
+	// Status The review outcome of this attempt. Earlier attempts retain their outcome when a new attempt is submitted.
+	Status             *AMBBusinessAccountSubmissionStatus `json:"status,omitempty"`
+	StatusReason       *string                             `json:"status_reason,omitempty"`
+	UpdatedAt          *time.Time                          `json:"updated_at,omitempty"`
+	UseCasesAttachment *Attachment                         `json:"use_cases_attachment,omitempty"`
+	VideoAttachment    *Attachment                         `json:"video_attachment,omitempty"`
+}
+
+// AMBBusinessAccountSubmissionCreate The submission commits three distinct attachments uploaded to this workspace. `readiness_attachment_id` identifies the PDF business readiness assessment; `use_cases_attachment_id` identifies the PDF describing proposed customer use cases; `video_attachment_id` identifies the MP4 demonstration of the customer experience. Invalid or duplicate evidence returns 422.
+type AMBBusinessAccountSubmissionCreate struct {
+	ReadinessAttachmentId AttachmentID `json:"readiness_attachment_id"`
+	UseCasesAttachmentId  AttachmentID `json:"use_cases_attachment_id"`
+	VideoAttachmentId     AttachmentID `json:"video_attachment_id"`
+}
+
+// AMBBusinessAccountSubmissionList defines model for AMBBusinessAccountSubmissionList.
+type AMBBusinessAccountSubmissionList struct {
+	Data []AMBBusinessAccountSubmission `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AMBBusinessAccountSubmissionSort Field used to order the records.
+type AMBBusinessAccountSubmissionSort string
+
+// AMBBusinessAccountSubmissionStatus State of this review attempt. Later suspension or disconnection does not change an approved attempt.
+type AMBBusinessAccountSubmissionStatus string
+
+// AMBBusinessAccountUpdate defines model for AMBBusinessAccountUpdate.
+type AMBBusinessAccountUpdate struct {
+	// AppleBusinessId The Business ID Apple issued for this brand. Accepted only while the account has not yet been submitted and is connected. Updating it does not submit the business.
+	AppleBusinessId *openapi_types.UUID `json:"apple_business_id,omitempty"`
+
+	// Name The brand name shown for this business record inside Bird.
+	Name *string `json:"name,omitempty"`
+}
+
+// AMBBusinessID defines model for AMBBusinessID.
+type AMBBusinessID = string
+
+// AMBBusinessSubmissionID defines model for AMBBusinessSubmissionID.
+type AMBBusinessSubmissionID = string
+
+// AMBCategoryStatsPoint Outbound counts and latency percentiles for a single message category over the requested period.
+type AMBCategoryStatsPoint struct {
+	// Category The category these messages were sent with. Defaults to an empty string when a send names no category.
+	Category *string `json:"category,omitempty"`
+
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBChannelSettings A business's entry points, default locale, and landing-page brand settings. OpenID Connect providers use separate business authentication provider operations. Apple Pay merchant settings use the separate business Apple Pay configuration operations. Supply custom iMessage app metadata on each message.
+type AMBChannelSettings struct {
+	// BrandName The brand name shown on the Bird-hosted landing page customers use to connect this business.
+	BrandName string `json:"brand_name"`
+
+	// DefaultLocale The locale used for this business when a conversation reports none of its own, in canonical BCP-47 form. Null until you set one or after you clear it. Bird converts a configured default to Apple's locale form when sending a message without a conversation locale.
+	DefaultLocale *string `json:"default_locale,omitempty"`
+
+	// EntryPoints The entry points customers can use to open a conversation with this business, each matched against the group and intent an inbound message reports.
+	EntryPoints []AMBEntryPoint `json:"entry_points"`
+
+	// LogoAssetId The business's logo, as an asset in your media library. Null until one is set, either from Apple's own redirect or from a later change here.
+	LogoAssetId *AssetID `json:"logo_asset_id"`
+}
+
+// AMBChannelSettingsUpdate defines model for AMBChannelSettingsUpdate.
+type AMBChannelSettingsUpdate struct {
+	// BrandName The brand name shown on the Bird-hosted landing page customers use to connect this business.
+	BrandName *string `json:"brand_name,omitempty"`
+
+	// DefaultLocale The locale used for this business when a conversation reports none of its own, in BCP-47 form. Omit this field to keep the current default, or send null to clear it. Bird converts a configured default to Apple's locale form when sending a message without a conversation locale.
+	DefaultLocale nullable.Nullable[string] `json:"default_locale,omitempty"`
+
+	// EntryPoints The entry points customers can use to open a conversation with this business. Sending this replaces the entire set; there is no way to add or remove a single entry point without resending the rest.
+	EntryPoints *[]AMBEntryPoint `json:"entry_points,omitempty"`
+
+	// LogoAssetId The business's logo, as an asset in your media library. Send null to clear it.
+	LogoAssetId nullable.Nullable[AssetID] `json:"logo_asset_id,omitempty"`
+}
+
+// AMBContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+//
+// - text: Text, optionally with a subject.
+// - attachment: One or more files, images, audio clips, or videos.
+// - rich_link: A link with a preview card.
+// - quick_reply: Two to five reply choices.
+// - list_picker: A grouped menu of choices.
+// - time_picker: Appointment time slots; a reply may contain only a selected label.
+// - form: A multi-page form.
+// - imessage_app: A custom iMessage app interaction on a compatible device.
+// - interactive: An opaque interactive reference whose subtype is unknown.
+// - apple_pay: An Apple Pay request created through the conversation payment operations.
+// - authenticate: An identity verification request created through the conversation authentication operations.
+type AMBContentKind string
+
+// AMBConversation A conversation between your business and one customer on Apple Messages for Business. It holds the customer's device capabilities, the console's read state, assignment, and labels, and the routing queue the conversation is in.
+type AMBConversation struct {
+	// AssignedTo The user this conversation is assigned to, or null when unassigned. Assignment is not rechecked against workspace membership on read, so it can still name a user whose access was removed.
+	AssignedTo        *UserID       `json:"assigned_to"`
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// ClosedAt When this conversation was closed. Null while it is open.
+	ClosedAt *time.Time `json:"closed_at,omitempty"`
+
+	// ClosedReason Why this conversation was closed. Null while it is open.
+	ClosedReason *AMBConversationClosedReason `json:"closed_reason,omitempty"`
+
+	// CreatedAt When this conversation was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DeviceCapabilities The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
+	DeviceCapabilities *[]string `json:"device_capabilities,omitempty"`
+
+	// EntryPoint The entry point in your channel settings whose group and intent matched the inbound message that opened or most recently reopened the conversation. Null when no configured entry point matched.
+	EntryPoint *string `json:"entry_point,omitempty"`
+
+	// GroupId The `group` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `intent_id` to route the conversation. Null when that message carried none.
+	GroupId *string           `json:"group_id,omitempty"`
+	Id      AMBConversationID `json:"id"`
+
+	// IntentId The `intent` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `group_id` to route the conversation. Null when that message carried none.
+	IntentId *string `json:"intent_id,omitempty"`
+
+	// Labels Operator-set tags on this conversation. Unlike email, there are no system placement labels: every value here is one an operator chose.
+	Labels []string `json:"labels"`
+
+	// LastDirection Whether a message was sent by the business or received from the customer:
+	//
+	// - `outbound`: A reply the business sent into the conversation.
+	// - `inbound`: A message the customer sent.
+	LastDirection AMBMessageDirection `json:"last_direction"`
+
+	// LastMessageAt When the most recent message in this conversation was sent or received.
+	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
+
+	// Locale The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
+	Locale *string `json:"locale,omitempty"`
+
+	// MessageCount Number of messages in this conversation, both directions.
+	MessageCount *int `json:"message_count,omitempty"`
+
+	// OpaqueUserId Apple's opaque identifier for the customer with this business. The customer must send a message before a conversation is created. Null when no identifier is recorded.
+	OpaqueUserId *string `json:"opaque_user_id,omitempty"`
+
+	// OpenCount Number of times this conversation has been opened, starting at 1 and incremented on each reopen. A closed conversation reopens on the next inbound message rather than creating a new conversation.
+	OpenCount *int `json:"open_count,omitempty"`
+
+	// Origin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+	Origin AMBConversationOrigin `json:"origin"`
+
+	// PhoneNumber Customer phone number, when recorded. Null when unknown. Read the invitation's `to` field for the number an invitation was sent to.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// Queue The console queue this conversation is routed to. Empty when no routing rule matched, which the console lists as unrouted.
+	Queue *string `json:"queue,omitempty"`
+
+	// Status Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+	Status AMBConversationStatus `json:"status"`
+
+	// SupportedContentKinds Implemented baseline types plus interactive types confirmed by `device_capabilities`. An empty capability list yields text, attachments and rich links; it does not establish support for other types. Unadvertised quick replies, list pickers, time pickers and forms are refused when capabilities are known. Custom apps and opaque interactive references are not included because their device support cannot be inferred from these tokens. Unsupported roadmap types cannot be sent.
+	SupportedContentKinds *[]AMBContentKind `json:"supported_content_kinds,omitempty"`
+
+	// UnreadCount Number of inbound messages since this conversation was last marked read. Incremented once per inbound message, reset to zero by marking the conversation read and by any outbound message your workspace sends.
+	UnreadCount *int `json:"unread_count,omitempty"`
+
+	// UpdatedAt When this conversation last changed.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBConversationClosedEventType Always `amb.conversation_closed` for this event.
+type AMBConversationClosedEventType string
+
+// AMBConversationClosedReason Why a closed conversation was closed. `user_close` means the customer sent a close message from their device. `gone` means Apple returned a 410 for the conversation. The console renders this as a banner on a closed conversation.
+type AMBConversationClosedReason string
+
+// AMBConversationID defines model for AMBConversationID.
+type AMBConversationID = string
+
+// AMBConversationList defines model for AMBConversationList.
+type AMBConversationList struct {
+	// Data Page of conversations, newest first by last message.
+	Data []AMBConversation `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AMBConversationOrigin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
+type AMBConversationOrigin string
+
+// AMBConversationReopenedEventType Always `amb.conversation_reopened` for this event.
+type AMBConversationReopenedEventType string
+
+// AMBConversationStartedEventType Always `amb.conversation_started` for this event.
+type AMBConversationStartedEventType string
+
+// AMBConversationStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type AMBConversationStatsComparison struct {
+	// Counts Conversation lifecycle counts for the requested scope, attributed to when each event occurred. A conversation can start, reopen, and close more than once over its life, so `started`, `reopened`, and `closed` can each exceed `conversations`, the number of distinct conversations touched in scope. Very large counts are close estimates rather than exact tallies.
+	Counts *AMBConversationStatsCounts `json:"counts,omitempty"`
+
+	// Delta Changes from the previous period. Each value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero.
+	Delta *AMBConversationStatsComparisonDelta `json:"delta,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+}
+
+// AMBConversationStatsComparisonDelta Changes from the previous period. Each value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero.
+type AMBConversationStatsComparisonDelta struct {
+	// ClosedPctChange Relative change in conversation closes (`counts.closed`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ClosedPctChange *float32 `json:"closed_pct_change,omitempty"`
+
+	// ConversationsPctChange Relative change in distinct conversations touched (`counts.conversations`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ConversationsPctChange *float32 `json:"conversations_pct_change,omitempty"`
+
+	// ReopenedPctChange Relative change in conversation reopens (`counts.reopened`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	ReopenedPctChange *float32 `json:"reopened_pct_change,omitempty"`
+
+	// StartedPctChange Relative change in conversation starts (`counts.started`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	StartedPctChange *float32 `json:"started_pct_change,omitempty"`
+}
+
+// AMBConversationStatsCounts Conversation lifecycle counts for the requested scope, attributed to when each event occurred. A conversation can start, reopen, and close more than once over its life, so `started`, `reopened`, and `closed` can each exceed `conversations`, the number of distinct conversations touched in scope. Very large counts are close estimates rather than exact tallies.
+type AMBConversationStatsCounts struct {
+	// Closed Count of conversation-closed events in scope.
+	Closed *int `json:"closed,omitempty"`
+
+	// Conversations Distinct conversations with at least one lifecycle event in scope.
+	Conversations *int `json:"conversations,omitempty"`
+
+	// Reopened Count of conversation-reopened events in scope.
+	Reopened *int `json:"reopened,omitempty"`
+
+	// Started Count of conversation-started events in scope.
+	Started *int `json:"started,omitempty"`
+}
+
+// AMBConversationStatsPoint Conversation lifecycle counts for one time bucket (a calendar day or hour), bucketed by when each event occurred.
+type AMBConversationStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the period's grain.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Counts Conversation lifecycle counts for the requested scope, attributed to when each event occurred. A conversation can start, reopen, and close more than once over its life, so `started`, `reopened`, and `closed` can each exceed `conversations`, the number of distinct conversations touched in scope. Very large counts are close estimates rather than exact tallies.
+	Counts *AMBConversationStatsCounts `json:"counts,omitempty"`
+}
+
+// AMBConversationStatsResponse Conversation lifecycle time series. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type AMBConversationStatsResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data One row per day or hour in chronological order. Buckets with no activity contain zero counts.
+	Data *[]AMBConversationStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period AMBStatsSeriesPeriod `json:"period"`
+}
+
+// AMBConversationStatsSummary Conversation lifecycle counts for the full requested period. Counts aggregate the time buckets.
+type AMBConversationStatsSummary struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Comparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+	Comparison *AMBConversationStatsComparison `json:"comparison,omitempty"`
+
+	// Counts Conversation lifecycle counts for the requested scope, attributed to when each event occurred. A conversation can start, reopen, and close more than once over its life, so `started`, `reopened`, and `closed` can each exceed `conversations`, the number of distinct conversations touched in scope. Very large counts are close estimates rather than exact tallies.
+	Counts *AMBConversationStatsCounts `json:"counts,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+}
+
+// AMBConversationStatus Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+type AMBConversationStatus string
+
+// AMBConversationTypingEvent The typing signal to send. `typing_start` tells the customer's device that an operator is composing a reply. `typing_end` tells it composition stopped without a message following. Apple expects at most one `typing_start` before the reply it precedes; sending it again before that reply is not meaningful and may be dropped. `typing_end`'s behavior against a live conversation is unproven: the legacy platform's implementation was disabled after it caused issues, so treat it as best-effort.
+type AMBConversationTypingEvent string
+
+// AMBConversationTypingRequest A typing indicator to send to the customer's device on this conversation.
+type AMBConversationTypingRequest struct {
+	// Event The typing signal to send. `typing_start` tells the customer's device that an operator is composing a reply. `typing_end` tells it composition stopped without a message following. Apple expects at most one `typing_start` before the reply it precedes; sending it again before that reply is not meaningful and may be dropped. `typing_end`'s behavior against a live conversation is unproven: the legacy platform's implementation was disabled after it caused issues, so treat it as best-effort.
+	Event AMBConversationTypingEvent `json:"event"`
+}
+
+// AMBConversationUpdate Assignment, labels, and read state on a conversation. There is no close action here: only the customer closes a conversation, from their device. Every field is optional; omit a field to leave it unchanged.
+type AMBConversationUpdate struct {
+	// AssignedTo User to assign this conversation to. Pass null to unassign it.
+	AssignedTo nullable.Nullable[UserID] `json:"assigned_to,omitempty"`
+
+	// Labels Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
+	Labels *[]string `json:"labels,omitempty"`
+
+	// Read Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
+	Read *bool `json:"read,omitempty"`
+}
+
+// AMBEntryPoint defines model for AMBEntryPoint.
+type AMBEntryPoint struct {
+	// Body The message text pre-filled for the customer when they open a conversation through this entry point.
+	Body string `json:"body"`
+
+	// Group The group value Apple reports on a conversation opened through this entry point. Matched against the `group` the first inbound message carries.
+	Group string `json:"group"`
+
+	// Id Identifier for this entry point, chosen by you and unique within the business's entry points. A conversation opened through this entry point carries it as `entry_point`.
+	Id string `json:"id"`
+
+	// Intent The intent value Apple reports on a conversation opened through this entry point. Matched against the `intent` the first inbound message carries, together with `group`.
+	Intent string `json:"intent"`
+}
+
+// AMBError Failure detail for a message or invitation that could not be sent or was rejected.
+type AMBError struct {
+	// Code Machine-readable reason a send failed, in one of two namespaces: `bird:` for a reason Bird's own pipeline assigned (for example `bird:business_not_registered`), or `apple:` followed by the HTTP status Apple's API returned for the send attempt (for example `apple:404`). This is an open, growing set in both namespaces; accept unrecognized values.
+	Code AMBStatsErrorCode `json:"code"`
+
+	// Description The failure in words. Free-form, so branch on `code` and show this to a human.
+	Description string `json:"description"`
+
+	// OccurredAt When the failure occurred.
+	OccurredAt time.Time `json:"occurred_at"`
+}
+
+// AMBErrorCodeStatsPoint Outbound counts and latency percentiles for a single failure reason over the requested period.
+type AMBErrorCodeStatsPoint struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// ErrorCode Machine-readable reason a send failed, in one of two namespaces: `bird:` for a reason Bird's own pipeline assigned (for example `bird:business_not_registered`), or `apple:` followed by the HTTP status Apple's API returned for the send attempt (for example `apple:404`). This is an open, growing set in both namespaces; accept unrecognized values.
+	ErrorCode AMBStatsErrorCode `json:"error_code"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBEventID defines model for AMBEventID.
+type AMBEventID = string
+
+// AMBFormDatePickerOptions Apple defaults to UTC when interpreting these dates.
+type AMBFormDatePickerOptions struct {
+	// DateFormat Format used to read the date values in these options. Defaults to `MM/dd/yyyy`.
+	DateFormat *string `json:"date_format,omitempty"`
+
+	// LabelText Label beside the date field. Defaults to `Date`.
+	LabelText *string `json:"label_text,omitempty"`
+
+	// MaximumDate Latest date the picker shows, written in `date_format`. Defaults to the current date.
+	MaximumDate *string `json:"maximum_date,omitempty"`
+
+	// MinimumDate Earliest date the picker shows, written in `date_format`.
+	MinimumDate *string `json:"minimum_date,omitempty"`
+
+	// StartDate Date initially shown by the picker, written in `date_format`. Defaults to the current date.
+	StartDate *string `json:"start_date,omitempty"`
+}
+
+// AMBFormDatePickerPage defines model for AMBFormDatePickerPage.
+type AMBFormDatePickerPage struct {
+	HintText *string `json:"hint_text,omitempty"`
+
+	// NextPageIdentifier Next page to show. Omit to finish the form. Single-select pages route through their items instead.
+	NextPageIdentifier *string `json:"next_page_identifier,omitempty"`
+
+	// Options Apple defaults to UTC when interpreting these dates.
+	Options *AMBFormDatePickerOptions `json:"options,omitempty"`
+
+	// PageIdentifier Unique identifier for this page.
+	PageIdentifier string `json:"page_identifier"`
+
+	// SubmitForm Marks this page as an end page for the form. A page with no next page also finishes the form.
+	SubmitForm *bool `json:"submit_form,omitempty"`
+
+	// Subtitle Question shown on this page.
+	Subtitle string                    `json:"subtitle"`
+	Title    *string                   `json:"title,omitempty"`
+	Type     AMBFormDatePickerPageType `json:"type"`
+}
+
+// AMBFormDatePickerPageType defines model for AMBFormDatePickerPage.Type.
+type AMBFormDatePickerPageType string
+
+// AMBFormInputOptions defines model for AMBFormInputOptions.
+type AMBFormInputOptions struct {
+	InputType *AMBFormInputType `json:"input_type,omitempty"`
+
+	// KeyboardType Apple UIKit value, passed through without changing its spelling.
+	KeyboardType *AMBFormKeyboardType `json:"keyboard_type,omitempty"`
+
+	// LabelText Label for `singleline` input only. Omit for no label.
+	LabelText *string `json:"label_text,omitempty"`
+
+	// MaximumCharacterCount Defaults to 30 for `singleline` input and 300 for `multiline` input.
+	MaximumCharacterCount *int `json:"maximum_character_count,omitempty"`
+
+	// Placeholder Shown when the field is empty. Defaults to `Required` when `required` is true, otherwise `Optional`.
+	Placeholder *string `json:"placeholder,omitempty"`
+
+	// PrefixText Text beside `singleline` input only, such as a currency symbol. Omit for no prefix.
+	PrefixText *string `json:"prefix_text,omitempty"`
+
+	// Regex Pattern Apple uses to validate the input. Use JSON string escaping for backslashes.
+	Regex *string `json:"regex,omitempty"`
+
+	// Required Disables the next-page button until the customer enters a value.
+	Required *bool `json:"required,omitempty"`
+
+	// TextContentType Apple UIKit value, passed through without changing its spelling.
+	TextContentType *AMBFormTextContentType `json:"text_content_type,omitempty"`
+}
+
+// AMBFormInputPage defines model for AMBFormInputPage.
+type AMBFormInputPage struct {
+	HintText *string `json:"hint_text,omitempty"`
+
+	// NextPageIdentifier Next page to show. Omit to finish the form. Single-select pages route through their items instead.
+	NextPageIdentifier *string              `json:"next_page_identifier,omitempty"`
+	Options            *AMBFormInputOptions `json:"options,omitempty"`
+
+	// PageIdentifier Unique identifier for this page.
+	PageIdentifier string `json:"page_identifier"`
+
+	// SubmitForm Marks this page as an end page for the form. A page with no next page also finishes the form.
+	SubmitForm *bool `json:"submit_form,omitempty"`
+
+	// Subtitle Question shown on this page.
+	Subtitle string               `json:"subtitle"`
+	Title    *string              `json:"title,omitempty"`
+	Type     AMBFormInputPageType `json:"type"`
+}
+
+// AMBFormInputPageType defines model for AMBFormInputPage.Type.
+type AMBFormInputPageType string
+
+// AMBFormInputType defines model for AMBFormInputType.
+type AMBFormInputType string
+
+// AMBFormKeyboardType Apple UIKit value, passed through without changing its spelling.
+type AMBFormKeyboardType string
+
+// AMBFormPage defines model for AMBFormPage.
+type AMBFormPage struct {
+	union json.RawMessage
+}
+
+// AMBFormPageCommon defines model for AMBFormPageCommon.
+type AMBFormPageCommon struct {
+	// NextPageIdentifier Next page to show. Omit to finish the form. Single-select pages route through their items instead.
+	NextPageIdentifier *string `json:"next_page_identifier,omitempty"`
+
+	// PageIdentifier Unique identifier for this page.
+	PageIdentifier string `json:"page_identifier"`
+
+	// SubmitForm Marks this page as an end page for the form. A page with no next page also finishes the form.
+	SubmitForm *bool `json:"submit_form,omitempty"`
+
+	// Subtitle Question shown on this page.
+	Subtitle string  `json:"subtitle"`
+	Title    *string `json:"title,omitempty"`
+	Type     string  `json:"type"`
+}
+
+// AMBFormPageType defines model for AMBFormPageType.
+type AMBFormPageType string
+
+// AMBFormPickerItem defines model for AMBFormPickerItem.
+type AMBFormPickerItem struct {
+	Identifier string `json:"identifier"`
+	Title      string `json:"title"`
+	Value      string `json:"value"`
+}
+
+// AMBFormPickerPage defines model for AMBFormPickerPage.
+type AMBFormPickerPage struct {
+	Items []AMBFormPickerItem `json:"items"`
+
+	// NextPageIdentifier Next page to show. Omit to finish the form. Single-select pages route through their items instead.
+	NextPageIdentifier *string `json:"next_page_identifier,omitempty"`
+
+	// PageIdentifier Unique identifier for this page.
+	PageIdentifier string `json:"page_identifier"`
+
+	// PickerTitle Text beside the picker field. Omit to center the field without a label.
+	PickerTitle *string `json:"picker_title,omitempty"`
+
+	// SelectedItemIndex Zero-based index into `items`. Defaults to `0`. Must be less than the number of items; otherwise sending returns `422` `AMBFormPagesInvalid`.
+	SelectedItemIndex *int `json:"selected_item_index,omitempty"`
+
+	// SubmitForm Marks this page as an end page for the form. A page with no next page also finishes the form.
+	SubmitForm *bool `json:"submit_form,omitempty"`
+
+	// Subtitle Question shown on this page.
+	Subtitle string                `json:"subtitle"`
+	Title    *string               `json:"title,omitempty"`
+	Type     AMBFormPickerPageType `json:"type"`
+}
+
+// AMBFormPickerPageType defines model for AMBFormPickerPage.Type.
+type AMBFormPickerPageType string
+
+// AMBFormSelectItem defines model for AMBFormSelectItem.
+type AMBFormSelectItem struct {
+	Identifier         string  `json:"identifier"`
+	ImageIdentifier    *string `json:"image_identifier,omitempty"`
+	NextPageIdentifier *string `json:"next_page_identifier,omitempty"`
+	Title              string  `json:"title"`
+	Value              string  `json:"value"`
+}
+
+// AMBFormSelectPage defines model for AMBFormSelectPage.
+type AMBFormSelectPage struct {
+	Items             []AMBFormSelectItem `json:"items"`
+	MultipleSelection *bool               `json:"multiple_selection,omitempty"`
+
+	// NextPageIdentifier Next page to show. Omit to finish the form. Single-select pages route through their items instead.
+	NextPageIdentifier *string `json:"next_page_identifier,omitempty"`
+
+	// PageIdentifier Unique identifier for this page.
+	PageIdentifier string `json:"page_identifier"`
+
+	// SubmitForm Marks this page as an end page for the form. A page with no next page also finishes the form.
+	SubmitForm *bool `json:"submit_form,omitempty"`
+
+	// Subtitle Question shown on this page.
+	Subtitle string                `json:"subtitle"`
+	Title    *string               `json:"title,omitempty"`
+	Type     AMBFormSelectPageType `json:"type"`
+}
+
+// AMBFormSelectPageType defines model for AMBFormSelectPage.Type.
+type AMBFormSelectPageType string
+
+// AMBFormSplash defines model for AMBFormSplash.
+type AMBFormSplash struct {
+	ButtonTitle     string  `json:"button_title"`
+	Header          *string `json:"header,omitempty"`
+	ImageIdentifier *string `json:"image_identifier,omitempty"`
+	SplashText      *string `json:"splash_text,omitempty"`
+}
+
+// AMBFormTextContentType Apple UIKit value, passed through without changing its spelling.
+type AMBFormTextContentType string
+
+// AMBGroupStatsPoint Outbound counts and latency percentiles for a single entry-point group over the requested period.
+type AMBGroupStatsPoint struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Group The group these messages were routed under, as configured in the business's entry points. Groups are workspace-defined and have no fixed vocabulary.
+	Group *string `json:"group,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBInboundBusinessStatsPoint Received-message count for a single business over the requested period.
+type AMBInboundBusinessStatsPoint struct {
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// Received Distinct messages received by this business in the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// AMBInboundContent Received text, attachments, and interactive replies, preserving Apple message structure.
+type AMBInboundContent struct {
+	union json.RawMessage
+}
+
+// AMBInboundFormItem defines model for AMBInboundFormItem.
+type AMBInboundFormItem struct {
+	Identifier string `json:"identifier"`
+
+	// Title Display value Apple returned, including any input prefix. May be empty for an optional input.
+	Title string          `json:"title" pii:"true"`
+	Type  AMBFormPageType `json:"type"`
+
+	// Value Machine value Apple returned for the selection or input. May be empty for an optional input.
+	Value string `json:"value" pii:"true"`
+}
+
+// AMBInboundFormSelection defines model for AMBInboundFormSelection.
+type AMBInboundFormSelection struct {
+	Items          []AMBInboundFormItem `json:"items"`
+	PageIdentifier string               `json:"page_identifier"`
+	Subtitle       string               `json:"subtitle"`
+
+	// Title Page title returned by Apple. Empty when the page has no title.
+	Title string `json:"title"`
+}
+
+// AMBInboundIntentStatsPoint Received-message count for a single entry-point intent over the requested period.
+type AMBInboundIntentStatsPoint struct {
+	// Intent The intent these messages arrived under, as configured in the business's entry points. Intents are workspace-defined and have no fixed vocabulary.
+	Intent *string `json:"intent,omitempty"`
+
+	// Received Distinct messages received under this intent in the period.
+	Received *int `json:"received,omitempty"`
+}
+
+// AMBInboundStatsByBusinessResponse Per-business breakdown of received messages for the requested period, ranked by volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBInboundStatsByBusinessResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Business rows ranked by received-message volume descending, capped at the requested `limit`. A business with no received messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]AMBInboundBusinessStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct businesses with received messages in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBInboundStatsByIntentResponse Per-intent breakdown of received messages for the requested period, ranked by volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBInboundStatsByIntentResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Intent rows ranked by received-message volume descending, capped at the requested `limit`. An intent with no received messages in the period is absent rather than zero-filled, because unlike a time bucket it is not part of a continuous axis.
+	Data *[]AMBInboundIntentStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct intents with received messages in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBInboundStatsComparison The received-message count for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type AMBInboundStatsComparison struct {
+	// Delta The change from the preceding period to the requested one. The `received_pct_change` field is a signed relative change, computed as `(current - previous) / previous`. A value of `0.5` means 50% higher, and `-0.2` means 20% lower. The field is null when the previous period received none.
+	Delta *AMBInboundStatsComparisonDelta `json:"delta,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the preceding period.
+	Received *int `json:"received,omitempty"`
+}
+
+// AMBInboundStatsComparisonDelta The change from the preceding period to the requested one. The `received_pct_change` field is a signed relative change, computed as `(current - previous) / previous`. A value of `0.5` means 50% higher, and `-0.2` means 20% lower. The field is null when the previous period received none.
+type AMBInboundStatsComparisonDelta struct {
+	// ReceivedPctChange Relative change in received messages versus the previous period, as a signed fraction. Null when the previous period received none.
+	ReceivedPctChange *float32 `json:"received_pct_change,omitempty"`
+}
+
+// AMBInboundStatsPoint Received-message count for one time bucket (a calendar day or hour), bucketed by the time each message occurred.
+type AMBInboundStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the request's grain.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Received Distinct messages received in this bucket.
+	Received *int `json:"received,omitempty"`
+}
+
+// AMBInboundStatsResponse Received-message time series. `period` echoes the range the server computed against; `data` is one row per bucket in chronological order.
+type AMBInboundStatsResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data One row per bucket (day or hour, matching the request) in the period, in chronological order. Buckets with no activity are included with a count of zero, so the series charts continuously without client-side gap handling.
+	Data *[]AMBInboundStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period AMBStatsSeriesPeriod `json:"period"`
+}
+
+// AMBInboundStatsSummary Total inbound Apple Messages for Business messages for the requested period.
+type AMBInboundStatsSummary struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Comparison The received-message count for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+	Comparison *AMBInboundStatsComparison `json:"comparison,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Received Distinct messages received in the period, counted by the time each message occurred. Computed across the whole window rather than summed from the daily or hourly series, so it can sit slightly below the sum of those rows.
+	Received *int `json:"received,omitempty"`
+}
+
+// AMBIntentStatsPoint Outbound counts and latency percentiles for a single entry-point intent over the requested period.
+type AMBIntentStatsPoint struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Intent The intent these messages were routed under, as configured in the business's entry points. Intents are workspace-defined and have no fixed vocabulary.
+	Intent *string `json:"intent,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBListPickerItem defines model for AMBListPickerItem.
+type AMBListPickerItem struct {
+	// Identifier Opaque item identifier returned in interactive_data.data.list_picker.sections.
+	Identifier string `json:"identifier"`
+
+	// ImageIdentifier Identifier of an image in interactive_data.data.images, shown next to this row. A key with no matching entry in `images` is refused with a `422` `AMBInteractiveImageInvalid`.
+	ImageIdentifier *string `json:"image_identifier,omitempty"`
+
+	// Order Position within the section, ascending. Defaults to the row's array position.
+	Order *int `json:"order,omitempty"`
+
+	// Subtitle Secondary line shown under the title.
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// Title Label shown on the row.
+	Title string `json:"title"`
+}
+
+// AMBListPickerSection defines model for AMBListPickerSection.
+type AMBListPickerSection struct {
+	// Items The rows in this section.
+	Items []AMBListPickerItem `json:"items"`
+
+	// MultipleSelection Whether the customer can select more than one row in this section.
+	MultipleSelection *bool `json:"multiple_selection,omitempty"`
+
+	// Order Where this section sits relative to its siblings, ascending. Sections omitting it are laid out in list order, after any that specify one.
+	Order *int `json:"order,omitempty"`
+
+	// Title Heading shown above this section's rows.
+	Title string `json:"title"`
+}
+
+// AMBLocation defines model for AMBLocation.
+type AMBLocation struct {
+	// Latitude Latitude in degrees. Set together with `longitude`.
+	Latitude *float64 `json:"latitude,omitempty"`
+
+	// Longitude Longitude in degrees. Set together with `latitude`.
+	Longitude *float64 `json:"longitude,omitempty"`
+
+	// Radius Location radius in meters. Apple ignores it without coordinates.
+	Radius *float64 `json:"radius,omitempty"`
+
+	// Title Name shown for the appointment location.
+	Title *string `json:"title,omitempty"`
+}
+
+// AMBMessage defines model for AMBMessage.
+type AMBMessage struct {
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// Category The category this message was sent with, for reporting only. It does not affect sending or suppression policy, or select an Apple department or purpose. Defaults to an empty string when a send names no category. Absent on an inbound message, which has no category to report.
+	Category *string `json:"category,omitempty"`
+
+	// Content Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
+	Content        *AMBMessage_Content `json:"content,omitempty" pii:"true"`
+	ConversationId AMBConversationID   `json:"conversation_id"`
+
+	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
+	Cost *MessageCost `json:"cost"`
+
+	// CreatedAt The moment this message was accepted (outbound) or received (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
+	DataRef *AMBRichLinkReference `json:"data_ref,omitempty" pii:"true"`
+
+	// Direction Whether a message was sent by the business or received from the customer:
+	//
+	// - `outbound`: A reply the business sent into the conversation.
+	// - `inbound`: A message the customer sent.
+	Direction AMBMessageDirection `json:"direction"`
+
+	// From Apple business identifier on outbound messages, or the customer's opaque Apple identifier on inbound messages. Omitted when that address is unavailable on a historical record.
+	From *string `json:"from,omitempty"`
+
+	// Group Apple department identifier carried by this message. Omitted when absent from the message or unavailable on a historical record.
+	Group              *string       `json:"group,omitempty"`
+	Id                 AMBMessageID  `json:"id"`
+	InReplyToMessageId *AMBMessageID `json:"in_reply_to_message_id,omitempty"`
+
+	// Intent Apple purpose identifier carried by this message. Omitted when absent from the message or unavailable on a historical record.
+	Intent *string `json:"intent,omitempty"`
+
+	// Kind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	//
+	// - text: Text, optionally with a subject.
+	// - attachment: One or more files, images, audio clips, or videos.
+	// - rich_link: A link with a preview card.
+	// - quick_reply: Two to five reply choices.
+	// - list_picker: A grouped menu of choices.
+	// - time_picker: Appointment time slots; a reply may contain only a selected label.
+	// - form: A multi-page form.
+	// - imessage_app: A custom iMessage app interaction on a compatible device.
+	// - interactive: An opaque interactive reference whose subtype is unknown.
+	// - apple_pay: An Apple Pay request created through the conversation payment operations.
+	// - authenticate: An identity verification request created through the conversation authentication operations.
+	Kind AMBContentKind `json:"kind"`
+
+	// LastError Failure detail for a message or invitation that could not be sent or was rejected.
+	LastError *AMBError `json:"last_error,omitempty"`
+
+	// Locale Locale for this message, preserved in Apple’s format, for example en_US. Outbound messages use the request override, then the conversation locale, then the business default. Inbound messages preserve the locale in Apple’s callback. Null when unknown.
+	Locale *string `json:"locale,omitempty"`
+
+	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// SentAt When the selected sending outcome occurred. Null unless the current status is `sent` and the message is outbound. For older messages without a retained sending event, the stored record time is used.
+	SentAt *time.Time `json:"sent_at,omitempty"`
+
+	// Source Who sent an outbound message:
+	//
+	// - `operator`: A person, through a signed-in dashboard session.
+	// - `automation`: A workflow or bot acting on the workspace's behalf,
+	//   through a signed-in session.
+	// - `api`: A direct API call, authenticated with an API key.
+	//
+	// A credential can send only the sources it is permitted; naming one
+	// outside that set is refused with a `422` `AMBMessageSourceNotPermitted`.
+	//
+	// This is not `from`, which a send carries alongside it. That names
+	// the brand the message goes out as; this names who composed it.
+	Source *AMBMessageSource `json:"source,omitempty"`
+
+	// Status Send status:
+	//
+	// - `accepted`: Accepted and queued for delivery to Apple.
+	// - `sent`: Handed to Apple. There is no delivery or read receipt on this
+	//   channel, so `sent` is the furthest an outbound message's status
+	//   advances.
+	// - `send_failed`: Sending stopped because of a business or conversation
+	//   restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
+	//   An earlier attempt may have reached Apple if its response or the local
+	//   record of success was lost. See `last_error` for why sending stopped.
+	// - `rejected`: Refused by Bird before any send attempt and never charged:
+	//   the destination has no price, the wallet could not fund the send, or the
+	//   content cannot be sent yet. See `last_error`.
+	// - `received`: Received as an inbound message.
+	Status AMBMessageStatus `json:"status"`
+
+	// Tags Structured `{name, value}` filter labels applied to this message. Absent on an inbound message.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// To Customer's opaque Apple identifier on outbound messages, or the Apple business identifier on inbound messages. Omitted when that address is unavailable on a historical record.
+	To *string `json:"to,omitempty"`
+}
+
+// AMBMessage_Content Native message content. Outgoing interactions contain requests; incoming interactions contain replies.
+type AMBMessage_Content struct {
+	union json.RawMessage
+}
+
+// AMBMessageBubble defines model for AMBMessageBubble.
+type AMBMessageBubble struct {
+	// ImageIdentifier Identifier of an image in interactive_data.data.images. Apple ignores it for custom iMessage apps.
+	ImageIdentifier *string `json:"image_identifier,omitempty"`
+
+	// ImageSubtitle Subtitle shown over an attached image in a custom iMessage app bubble.
+	ImageSubtitle *string `json:"image_subtitle,omitempty"`
+
+	// ImageTitle Title shown over an attached image in a custom iMessage app bubble.
+	ImageTitle *string `json:"image_title,omitempty"`
+
+	// SecondarySubtitle Right-aligned title in a custom iMessage app bubble.
+	SecondarySubtitle *string `json:"secondary_subtitle,omitempty"`
+
+	// Style Layout of an Apple interactive message bubble.
+	Style *AMBMessageBubbleStyle `json:"style,omitempty"`
+
+	// Subtitle Secondary text shown below the title.
+	Subtitle *string `json:"subtitle,omitempty"`
+
+	// TertiarySubtitle Right-aligned subtitle in a custom iMessage app bubble.
+	TertiarySubtitle *string `json:"tertiary_subtitle,omitempty"`
+
+	// Title Text shown on the message bubble.
+	Title string `json:"title"`
+}
+
+// AMBMessageBubbleStyle Layout of an Apple interactive message bubble.
+type AMBMessageBubbleStyle string
+
+// AMBMessageContent Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+type AMBMessageContent struct {
+	union json.RawMessage
+}
+
+// AMBMessageDirection Whether a message was sent by the business or received from the customer:
+//
+// - `outbound`: A reply the business sent into the conversation.
+// - `inbound`: A message the customer sent.
+type AMBMessageDirection string
+
+// AMBMessageEvent defines model for AMBMessageEvent.
+type AMBMessageEvent struct {
+	// Error Failure detail for a message or invitation that could not be sent or was rejected.
+	Error *AMBError  `json:"error,omitempty"`
+	Id    AMBEventID `json:"id"`
+
+	// OccurredAt When this event occurred.
+	OccurredAt *time.Time `json:"occurred_at,omitempty"`
+
+	// Type Message timeline event type:
+	//
+	// - `amb.accepted`: The API accepted the request.
+	// - `amb.sent`: The message was handed to Apple.
+	// - `amb.send_failed`: Apple refused the message, or its send attempts were exhausted.
+	// - `amb.rejected`: Bird refused the message before any send attempt.
+	// - `amb.received`: An inbound message arrived from the customer.
+	//
+	// This is an open enum. Accept unrecognized values.
+	Type AMBMessageEventType `json:"type"`
+}
+
+// AMBMessageEventList defines model for AMBMessageEventList.
+type AMBMessageEventList struct {
+	// Data The message's events, oldest first. Not paginated: a message's timeline is bounded and returned in full.
+	Data []AMBMessageEvent `json:"data"`
+}
+
+// AMBMessageEventType Message timeline event type:
+//
+// - `amb.accepted`: The API accepted the request.
+// - `amb.sent`: The message was handed to Apple.
+// - `amb.send_failed`: Apple refused the message, or its send attempts were exhausted.
+// - `amb.rejected`: Bird refused the message before any send attempt.
+// - `amb.received`: An inbound message arrived from the customer.
+//
+// This is an open enum. Accept unrecognized values.
+type AMBMessageEventType string
+
+// AMBMessageID defines model for AMBMessageID.
+type AMBMessageID = string
+
+// AMBMessageKindStatsPoint Outbound counts and latency percentiles for a single message content kind over the requested period.
+type AMBMessageKindStatsPoint struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// MessageKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	//
+	// - text: Text, optionally with a subject.
+	// - attachment: One or more files, images, audio clips, or videos.
+	// - rich_link: A link with a preview card.
+	// - quick_reply: Two to five reply choices.
+	// - list_picker: A grouped menu of choices.
+	// - time_picker: Appointment time slots; a reply may contain only a selected label.
+	// - form: A multi-page form.
+	// - imessage_app: A custom iMessage app interaction on a compatible device.
+	// - interactive: An opaque interactive reference whose subtype is unknown.
+	// - apple_pay: An Apple Pay request created through the conversation payment operations.
+	// - authenticate: An identity verification request created through the conversation authentication operations.
+	MessageKind AMBContentKind `json:"message_kind"`
+}
+
+// AMBMessageList defines model for AMBMessageList.
+type AMBMessageList struct {
+	// Data Page of Apple Messages for Business messages, newest first.
+	Data []AMBMessage `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AMBMessageSendRequest defines model for AMBMessageSendRequest.
+type AMBMessageSendRequest struct {
+	// Category Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category.
+	Category *string `json:"category,omitempty"`
+
+	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+	Content AMBMessageContent `json:"content" pii:"true"`
+
+	// From Apple business identifier of the brand sending the message. Read it from the business’s apple_business_id. The customer must have opened the conversation with this business.
+	From string `json:"from"`
+
+	// Group Department identifier for this message.
+	Group *string `json:"group,omitempty"`
+
+	// Intent Purpose of this conversation.
+	Intent *string `json:"intent,omitempty"`
+
+	// Locale Apple locale identifier, for example en_US. Defaults to the conversation locale.
+	Locale *string `json:"locale,omitempty"`
+
+	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Source Who sent an outbound message:
+	//
+	// - `operator`: A person, through a signed-in dashboard session.
+	// - `automation`: A workflow or bot acting on the workspace's behalf,
+	//   through a signed-in session.
+	// - `api`: A direct API call, authenticated with an API key.
+	//
+	// A credential can send only the sources it is permitted; naming one
+	// outside that set is refused with a `422` `AMBMessageSourceNotPermitted`.
+	//
+	// This is not `from`, which a send carries alongside it. That names
+	// the brand the message goes out as; this names who composed it.
+	Source *AMBMessageSource `json:"source,omitempty"`
+
+	// Tags Structured `{name, value}` labels for filtering. Maximum 20 tags per send.
+	Tags *[]Tag `json:"tags,omitempty"`
+
+	// To Apple’s opaque customer identifier for this business, available as the conversation’s opaque_user_id. The conversation must exist and be open.
+	To string `json:"to"`
+}
+
+// AMBMessageSource Who sent an outbound message:
+//
+//   - `operator`: A person, through a signed-in dashboard session.
+//   - `automation`: A workflow or bot acting on the workspace's behalf,
+//     through a signed-in session.
+//   - `api`: A direct API call, authenticated with an API key.
+//
+// A credential can send only the sources it is permitted; naming one
+// outside that set is refused with a `422` `AMBMessageSourceNotPermitted`.
+//
+// This is not `from`, which a send carries alongside it. That names
+// the brand the message goes out as; this names who composed it.
+type AMBMessageSource string
+
+// AMBMessageStatus Send status:
+//
+//   - `accepted`: Accepted and queued for delivery to Apple.
+//   - `sent`: Handed to Apple. There is no delivery or read receipt on this
+//     channel, so `sent` is the furthest an outbound message's status
+//     advances.
+//   - `send_failed`: Sending stopped because of a business or conversation
+//     restriction, a recipient opt-out, an Apple refusal, or exhausted attempts.
+//     An earlier attempt may have reached Apple if its response or the local
+//     record of success was lost. See `last_error` for why sending stopped.
+//   - `rejected`: Refused by Bird before any send attempt and never charged:
+//     the destination has no price, the wallet could not fund the send, or the
+//     content cannot be sent yet. See `last_error`.
+//   - `received`: Received as an inbound message.
+type AMBMessageStatus string
+
+// AMBMessageType Apple message family.
+type AMBMessageType string
+
+// AMBNativeAttachment Provide source_url or the complete encrypted reference, never both.
+type AMBNativeAttachment struct {
+	// Key Attachment decryption key returned by Apple.
+	Key *string `json:"key,omitempty"`
+
+	// MimeType Media type of the attachment.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Name Display filename.
+	Name *string `json:"name,omitempty"`
+
+	// Owner Opaque owner value returned by Apple.
+	Owner *string `json:"owner,omitempty"`
+
+	// SignatureBase64 Attachment authorization signature returned by Apple.
+	SignatureBase64 *string `json:"signature_base64,omitempty"`
+
+	// Size Attachment size in bytes.
+	Size *int64 `json:"size,omitempty"`
+
+	// SourceUrl HTTPS URL Bird downloads and uploads to Apple.
+	SourceUrl *string `json:"source_url,omitempty" pii:"true"`
+
+	// Url Encrypted attachment URL returned by Apple.
+	Url   *string `json:"url,omitempty"`
+	union json.RawMessage
+}
+
+// AMBNativeAttachment0 defines model for .
+type AMBNativeAttachment0 = interface{}
+
+// AMBNativeAttachment1 defines model for .
+type AMBNativeAttachment1 = interface{}
+
+// AMBNativeAuthentication Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+type AMBNativeAuthentication struct {
+	AuthenticationId AMBAuthenticationID `json:"authentication_id"`
+}
+
+// AMBNativeDynamic Form content. Bird supplies Apple’s messageForms template and protocol version.
+type AMBNativeDynamic struct {
+	Data AMBNativeFormData `json:"data"`
+}
+
+// AMBNativeEvent defines model for AMBNativeEvent.
+type AMBNativeEvent struct {
+	// Identifier Your identifier for the event. Defaults to the message identifier.
+	Identifier *string `json:"identifier,omitempty"`
+
+	// ImageIdentifier Identifier of the event image in interactive_data.data.images.
+	ImageIdentifier *string      `json:"image_identifier,omitempty"`
+	Location        *AMBLocation `json:"location,omitempty"`
+
+	// Timeslots Appointment times with RFC 3339 timestamps and duration in seconds.
+	Timeslots []AMBTimeSlot `json:"timeslots"`
+
+	// TimezoneOffset Minutes from GMT at the event location. Omit to use the customer's time zone.
+	TimezoneOffset *int `json:"timezone_offset,omitempty"`
+
+	// Title Event title.
+	Title *string `json:"title,omitempty"`
+}
+
+// AMBNativeFormData defines model for AMBNativeFormData.
+type AMBNativeFormData struct {
+	// Pages Form pages referenced by the start page and navigation identifiers.
+	Pages []AMBFormPage `json:"pages"`
+
+	// Private Whether Apple marks the submitted response as private.
+	Private *bool `json:"private,omitempty"`
+
+	// ShowSummary Whether Apple shows a summary before the customer submits.
+	ShowSummary *bool          `json:"show_summary,omitempty"`
+	Splash      *AMBFormSplash `json:"splash,omitempty"`
+
+	// StartPageIdentifier Identifier of the first page to show.
+	StartPageIdentifier string `json:"start_page_identifier"`
+}
+
+// AMBNativeImage defines model for AMBNativeImage.
+type AMBNativeImage struct {
+	// Description Accessibility description read by VoiceOver.
+	Description *string `json:"description,omitempty" pii:"true"`
+
+	// Identifier Identifier referenced by a bubble, item, or event.
+	Identifier string `json:"identifier"`
+
+	// SourceUrl HTTPS URL of a PNG image up to 200 kB. Total interactive image data must not exceed 5 MB.
+	SourceUrl string `json:"source_url" pii:"true"`
+}
+
+// AMBNativeInboundAuthentication defines model for AMBNativeInboundAuthentication.
+type AMBNativeInboundAuthentication struct {
+	// Status Authentication status reported by Apple. This does not establish an authenticated Bird session.
+	Status *string `json:"status,omitempty"`
+}
+
+// AMBNativeInboundDynamic defines model for AMBNativeInboundDynamic.
+type AMBNativeInboundDynamic struct {
+	Data AMBNativeInboundFormData `json:"data"`
+}
+
+// AMBNativeInboundEvent defines model for AMBNativeInboundEvent.
+type AMBNativeInboundEvent struct {
+	// Identifier Event identifier returned by Apple, when provided.
+	Identifier *string `json:"identifier,omitempty"`
+
+	// ImageIdentifier Identifier of the event image in interactive_data.data.images.
+	ImageIdentifier *string      `json:"image_identifier,omitempty"`
+	Location        *AMBLocation `json:"location,omitempty"`
+
+	// Timeslots Time slots returned by Apple. May be empty when the device supplies only a selected label.
+	Timeslots *[]AMBTimeSlot `json:"timeslots,omitempty"`
+
+	// TimezoneOffset Minutes from GMT at the event location. Omit to use the customer's time zone.
+	TimezoneOffset *int `json:"timezone_offset,omitempty"`
+
+	// Title Event title.
+	Title *string `json:"title,omitempty"`
+}
+
+// AMBNativeInboundFormData defines model for AMBNativeInboundFormData.
+type AMBNativeInboundFormData struct {
+	// Private Whether the sender asked the MSP to treat this form response as private.
+	Private    *bool                     `json:"private,omitempty"`
+	Selections []AMBInboundFormSelection `json:"selections"`
+}
+
+// AMBNativeInboundImage defines model for AMBNativeInboundImage.
+type AMBNativeInboundImage struct {
+	// Description Accessibility description supplied by Apple.
+	Description *string `json:"description,omitempty" pii:"true"`
+
+	// DownloadUrl Relative Bird API URL for downloading the image with the same authentication and workspace as the message.
+	DownloadUrl string `json:"download_url"`
+
+	// Identifier Identifier used by the received message.
+	Identifier string `json:"identifier"`
+}
+
+// AMBNativeInboundInteractiveContent defines model for AMBNativeInboundInteractiveContent.
+type AMBNativeInboundInteractiveContent struct {
+	// Attachments Ordered attachments supplied by Apple.
+	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
+
+	// Body Message body supplied by Apple.
+	Body            *string                         `json:"body,omitempty" pii:"true"`
+	InteractiveData AMBNativeInboundInteractiveData `json:"interactive_data"`
+
+	// Subject Message subject supplied by Apple.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+
+	// Type Apple message family.
+	Type AMBMessageType `json:"type"`
+}
+
+// AMBNativeInboundInteractiveData defines model for AMBNativeInboundInteractiveData.
+type AMBNativeInboundInteractiveData struct {
+	// AppIconUrl Relative Bird API URL for downloading the custom app icon with the same authentication and workspace as the message.
+	AppIconUrl *string `json:"app_icon_url,omitempty"`
+
+	// AppId Custom app identifier.
+	AppId *string `json:"app_id,omitempty"`
+
+	// AppName Custom app name.
+	AppName *string `json:"app_name,omitempty"`
+
+	// Bid Apple extension identifier.
+	Bid             *string                  `json:"bid,omitempty"`
+	Data            *AMBNativeInboundPayload `json:"data,omitempty"`
+	ReceivedMessage *AMBMessageBubble        `json:"received_message,omitempty"`
+	ReplyMessage    *AMBMessageBubble        `json:"reply_message,omitempty"`
+
+	// SessionIdentifier Apple interaction session identifier.
+	SessionIdentifier *string `json:"session_identifier,omitempty"`
+
+	// Url Opaque custom app response URL.
+	Url *string `json:"url,omitempty" pii:"true"`
+
+	// UseLiveLayout Whether the app uses live layout.
+	UseLiveLayout *bool `json:"use_live_layout,omitempty"`
+}
+
+// AMBNativeInboundListPicker defines model for AMBNativeInboundListPicker.
+type AMBNativeInboundListPicker struct {
+	// Sections Sections and selected rows returned by Apple.
+	Sections []AMBNativeInboundListPickerSection `json:"sections"`
+}
+
+// AMBNativeInboundListPickerSection defines model for AMBNativeInboundListPickerSection.
+type AMBNativeInboundListPickerSection struct {
+	// Items The rows in this section.
+	Items []AMBListPickerItem `json:"items"`
+
+	// MultipleSelection Whether the customer can select more than one row in this section.
+	MultipleSelection *bool `json:"multiple_selection,omitempty"`
+
+	// Order Where this section sits relative to its siblings, ascending. Sections omitting it are laid out in list order, after any that specify one.
+	Order *int `json:"order,omitempty"`
+
+	// Title Heading shown above this section's rows.
+	Title *string `json:"title,omitempty"`
+}
+
+// AMBNativeInboundPayload defines model for AMBNativeInboundPayload.
+type AMBNativeInboundPayload struct {
+	Authenticate *AMBNativeInboundAuthentication `json:"authenticate,omitempty" pii:"true"`
+	Dynamic      *AMBNativeInboundDynamic        `json:"dynamic,omitempty"`
+	Event        *AMBNativeInboundEvent          `json:"event,omitempty"`
+
+	// Images Images returned by Apple, with authenticated download URLs.
+	Images     *[]AMBNativeInboundImage    `json:"images,omitempty"`
+	ListPicker *AMBNativeInboundListPicker `json:"list_picker,omitempty"`
+	Payment    *AMBNativeInboundPayment    `json:"payment,omitempty" pii:"true"`
+	QuickReply *AMBNativeInboundQuickReply `json:"quick_reply,omitempty"`
+
+	// RequestIdentifier Correlation identifier reported by Apple.
+	RequestIdentifier *string `json:"request_identifier,omitempty"`
+}
+
+// AMBNativeInboundPayment defines model for AMBNativeInboundPayment.
+type AMBNativeInboundPayment struct {
+	// State Payment state reported by Apple. This does not confirm that a payment settled.
+	State *string `json:"state,omitempty"`
+}
+
+// AMBNativeInboundQuickReply defines model for AMBNativeInboundQuickReply.
+type AMBNativeInboundQuickReply struct {
+	// Items Items returned by the customer device.
+	Items *[]AMBQuickReplyItem `json:"items,omitempty"`
+
+	// SelectedIdentifier Identifier selected by the customer.
+	SelectedIdentifier string `json:"selected_identifier"`
+
+	// SelectedIndex Index reported by Apple.
+	SelectedIndex *int `json:"selected_index,omitempty"`
+}
+
+// AMBNativeInteractiveContent defines model for AMBNativeInteractiveContent.
+type AMBNativeInteractiveContent struct {
+	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
+
+	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
+	Body *string `json:"body,omitempty" pii:"true"`
+
+	// InteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
+	InteractiveData *AMBNativeInteractiveData `json:"interactive_data,omitempty"`
+
+	// InteractiveDataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
+	InteractiveDataRef *AMBRichLinkReference `json:"interactive_data_ref,omitempty" pii:"true"`
+
+	// Subject Subject displayed above the message body.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+
+	// Type Apple message family.
+	Type  AMBMessageType `json:"type"`
+	union json.RawMessage
+}
+
+// AMBNativeInteractiveContent0 defines model for .
+type AMBNativeInteractiveContent0 = interface{}
+
+// AMBNativeInteractiveContent1 defines model for .
+type AMBNativeInteractiveContent1 = interface{}
+
+// AMBNativeInteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
+type AMBNativeInteractiveData struct {
+	// AppIconSourceUrl Publicly accessible HTTPS URL of the app's PNG icon. The icon must be smaller than 15 kB. We fetch and include it in the request to Apple.
+	AppIconSourceUrl *string `json:"app_icon_source_url,omitempty" pii:"true"`
+
+	// AppId App Store identifier of the iMessage app.
+	AppId *string `json:"app_id,omitempty"`
+
+	// AppName Name of the iMessage app.
+	AppName *string `json:"app_name,omitempty"`
+
+	// Bid Identifier of the iMessage extension, in Apple's `com.apple.messages.MSMessageExtensionBalloonPlugin:team-id:extension-id` format.
+	Bid *string `json:"bid,omitempty"`
+
+	// Data Exactly one built-in interaction. Protocol versions are managed by Bird.
+	Data            *AMBNativeInteractivePayload `json:"data,omitempty"`
+	ReceivedMessage *AMBMessageBubble            `json:"received_message,omitempty"`
+	ReplyMessage    *AMBMessageBubble            `json:"reply_message,omitempty"`
+
+	// SessionIdentifier Session UUID to preserve across interactions. Apple creates one when omitted.
+	SessionIdentifier *string `json:"session_identifier,omitempty"`
+
+	// Url Opaque URL string that Messages passes to the iMessage app.
+	Url *string `json:"url,omitempty" pii:"true"`
+
+	// UseLiveLayout Whether Messages renders the received and reply bubbles using Live Layout.
+	UseLiveLayout *bool `json:"use_live_layout,omitempty"`
+	union         json.RawMessage
+}
+
+// AMBNativeInteractiveData0 defines model for .
+type AMBNativeInteractiveData0 = interface{}
+
+// AMBNativeInteractiveData1 defines model for .
+type AMBNativeInteractiveData1 = interface{}
+
+// AMBNativeInteractivePayload Exactly one built-in interaction. Protocol versions are managed by Bird.
+type AMBNativeInteractivePayload struct {
+	// Authenticate Authentication attempt created through the conversation authentication endpoint. Contains no authorization parameters or credentials.
+	Authenticate *AMBNativeAuthentication `json:"authenticate,omitempty"`
+
+	// Dynamic Form content. Bird supplies Apple’s messageForms template and protocol version.
+	Dynamic *AMBNativeDynamic `json:"dynamic,omitempty"`
+	Event   *AMBNativeEvent   `json:"event,omitempty"`
+
+	// Images Images referenced by identifier.
+	Images     *[]AMBNativeImage    `json:"images,omitempty"`
+	ListPicker *AMBNativeListPicker `json:"list_picker,omitempty"`
+
+	// Payment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+	Payment    *AMBNativePayment    `json:"payment,omitempty"`
+	QuickReply *AMBNativeQuickReply `json:"quick_reply,omitempty"`
+
+	// RequestIdentifier Correlation identifier for this interaction. Bird generates one when omitted.
+	RequestIdentifier *string `json:"request_identifier,omitempty"`
+	union             json.RawMessage
+}
+
+// AMBNativeInteractivePayload0 defines model for .
+type AMBNativeInteractivePayload0 = interface{}
+
+// AMBNativeInteractivePayload1 defines model for .
+type AMBNativeInteractivePayload1 = interface{}
+
+// AMBNativeInteractivePayload2 defines model for .
+type AMBNativeInteractivePayload2 = interface{}
+
+// AMBNativeInteractivePayload3 defines model for .
+type AMBNativeInteractivePayload3 = interface{}
+
+// AMBNativeInteractivePayload4 defines model for .
+type AMBNativeInteractivePayload4 = interface{}
+
+// AMBNativeInteractivePayload5 defines model for .
+type AMBNativeInteractivePayload5 = interface{}
+
+// AMBNativeListPicker defines model for AMBNativeListPicker.
+type AMBNativeListPicker struct {
+	// Sections The menu's sections, each with its own heading and rows.
+	Sections []AMBListPickerSection `json:"sections"`
+}
+
+// AMBNativePayment Apple Pay request created through the conversation payment endpoint. Contains no payment token or provider credentials.
+type AMBNativePayment struct {
+	PaymentId AMBPaymentID `json:"payment_id"`
+}
+
+// AMBNativeQuickReply defines model for AMBNativeQuickReply.
+type AMBNativeQuickReply struct {
+	// Items The buttons offered to the customer. Apple requires between two and five; outside that range the request is refused with a `422` `AMBQuickReplyItemsInvalid`. For more choices, send `list_picker` content instead.
+	Items []AMBQuickReplyItem `json:"items"`
+
+	// SummaryText Text used for the device notification and shown in the transcript after the customer chooses an item. Send a separate text message to introduce the choices.
+	SummaryText string `json:"summary_text" pii:"true"`
+}
+
+// AMBNativeRichLinkAssets defines model for AMBNativeRichLinkAssets.
+type AMBNativeRichLinkAssets struct {
+	Image AMBNativeRichLinkImage  `json:"image"`
+	Video *AMBNativeRichLinkVideo `json:"video,omitempty"`
+}
+
+// AMBNativeRichLinkContent defines model for AMBNativeRichLinkContent.
+type AMBNativeRichLinkContent struct {
+	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
+
+	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
+	Body         *string                `json:"body,omitempty" pii:"true"`
+	RichLinkData *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
+
+	// RichLinkDataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
+	RichLinkDataRef *AMBRichLinkReference `json:"rich_link_data_ref,omitempty" pii:"true"`
+
+	// Subject Subject displayed above the message body.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+
+	// Type Apple message family.
+	Type  AMBMessageType `json:"type"`
+	union json.RawMessage
+}
+
+// AMBNativeRichLinkContent0 defines model for .
+type AMBNativeRichLinkContent0 = interface{}
+
+// AMBNativeRichLinkContent1 defines model for .
+type AMBNativeRichLinkContent1 = interface{}
+
+// AMBNativeRichLinkData defines model for AMBNativeRichLinkData.
+type AMBNativeRichLinkData struct {
+	Assets AMBNativeRichLinkAssets `json:"assets"`
+
+	// Title Preview title.
+	Title string `json:"title"`
+
+	// Url HTTPS URL opened by the preview.
+	Url string `json:"url" pii:"true"`
+}
+
+// AMBNativeRichLinkImage defines model for AMBNativeRichLinkImage.
+type AMBNativeRichLinkImage struct {
+	// MimeType PNG media type required by Apple. Defaults to image/png.
+	MimeType *AMBNativeRichLinkImageMimeType `json:"mime_type,omitempty"`
+
+	// SourceUrl HTTPS URL of a PNG preview image up to 200 kB. Bird fetches and encodes it when sending.
+	SourceUrl string `json:"source_url" pii:"true"`
+}
+
+// AMBNativeRichLinkImageMimeType PNG media type required by Apple. Defaults to image/png.
+type AMBNativeRichLinkImageMimeType string
+
+// AMBNativeRichLinkVideo defines model for AMBNativeRichLinkVideo.
+type AMBNativeRichLinkVideo struct {
+	// MimeType Media type of the video. Defaults to video/mp4; supply the actual type for other formats.
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// Url HTTPS video URL fetched by Apple.
+	Url string `json:"url" pii:"true"`
+}
+
+// AMBNativeTextContent defines model for AMBNativeTextContent.
+type AMBNativeTextContent struct {
+	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
+	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
+
+	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
+	Body *string `json:"body,omitempty" pii:"true"`
+
+	// Subject Subject displayed above the message body.
+	Subject *string `json:"subject,omitempty" pii:"true"`
+
+	// Type Apple message family.
+	Type  AMBMessageType `json:"type"`
+	union json.RawMessage
+}
+
+// AMBNativeTextContent0 defines model for .
+type AMBNativeTextContent0 = interface{}
+
+// AMBNativeTextContent1 defines model for .
+type AMBNativeTextContent1 struct {
+	Attachments interface{} `json:"attachments"`
+}
+
+// AMBOutboundStatsCounts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+type AMBOutboundStatsCounts struct {
+	// Accepted Distinct messages accepted for sending after admission checks. This is the denominator for `sent_rate` and `send_failure_rate`.
+	Accepted *int `json:"accepted,omitempty"`
+
+	// Rejected Distinct messages refused before any send attempt, because the destination has no price, the wallet could not fund the send, or the content cannot be sent yet. Rejected messages are never charged and are not counted in `accepted`, so the total addressed is `accepted + rejected`. Excluded from `send_failure_rate`, which covers send failures only.
+	Rejected *int `json:"rejected,omitempty"`
+
+	// SendFailed Distinct accepted messages that Apple refused or that exhausted their send attempts. See `last_error.code` on the message for the reason; a refused charge is not a send failure, it is `rejected`.
+	SendFailed *int `json:"send_failed,omitempty"`
+
+	// SendFailureRate Share of accepted messages that failed to send, computed as `send_failed / accepted`. Null when no messages were accepted in scope.
+	SendFailureRate *float32 `json:"send_failure_rate,omitempty"`
+
+	// Sent Distinct messages handed off to Apple.
+	Sent *int `json:"sent,omitempty"`
+
+	// SentRate Share of accepted messages Apple acknowledged, computed as `sent / accepted`. Null when no messages were accepted in scope. This stands where other channels report a delivery rate.
+	SentRate *float32 `json:"sent_rate,omitempty"`
+}
+
+// AMBPaymentID defines model for AMBPaymentID.
+type AMBPaymentID = string
+
+// AMBQueue Queue label used for routing and filtering conversations.
+type AMBQueue = string
+
+// AMBQuickReplyItem defines model for AMBQuickReplyItem.
+type AMBQuickReplyItem struct {
+	// Identifier Opaque choice identifier returned in interactive_data.data.quick_reply.selected_identifier.
+	Identifier string `json:"identifier"`
+
+	// Title Label shown on the button.
+	Title string `json:"title"`
+}
+
+// AMBReceivedEventType Always `amb.received` for this event.
+type AMBReceivedEventType string
+
+// AMBRejectedEventType Always `amb.rejected` for this event.
+type AMBRejectedEventType string
+
+// AMBRichLinkReference Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
+type AMBRichLinkReference struct {
+	// Bid Messages extension identifier supplied by Apple, when present.
+	Bid *string `json:"bid,omitempty"`
+
+	// DataRefSig Signature binding the reference to the business, when supplied by Apple.
+	DataRefSig *string `json:"data_ref_sig,omitempty"`
+
+	// Key Decryption key supplied by Apple.
+	Key *string `json:"key,omitempty"`
+
+	// Owner Owner identifier supplied by Apple.
+	Owner string `json:"owner"`
+
+	// SignatureBase64 Signature supplied by Apple.
+	SignatureBase64 string `json:"signature_base64"`
+
+	// Size Size of the encrypted preview in bytes.
+	Size int64 `json:"size"`
+
+	// Title Title supplied by Apple for the preview.
+	Title *string `json:"title,omitempty"`
+
+	// Url Location of the encrypted preview.
+	Url   string `json:"url"`
+	union json.RawMessage
+}
+
+// AMBRichLinkReference0 defines model for .
+type AMBRichLinkReference0 = interface{}
+
+// AMBRichLinkReference1 defines model for .
+type AMBRichLinkReference1 = interface{}
+
+// AMBRoutingRule defines model for AMBRoutingRule.
+type AMBRoutingRule struct {
+	BusinessAccountId AMBBusinessID    `json:"business_account_id"`
+	CreatedAt         *time.Time       `json:"created_at,omitempty"`
+	Id                AMBRoutingRuleID `json:"id"`
+
+	// IsDefault Whether this rule catches a conversation that matches nothing else. A business has at most one. A conversation created or reopened while none exists routes to an empty queue, which the console lists as unrouted.
+	IsDefault bool `json:"is_default"`
+
+	// MatchGroupId The entry point group this rule matches, as sent in Apple's `groupID`. Set when `match_kind` is `group` or `both`, null when it is `intent`.
+	MatchGroupId *string `json:"match_group_id,omitempty"`
+
+	// MatchIntentId The entry point intent this rule matches, as sent in Apple's `intentID`. Set when `match_kind` is `intent` or `both`, null when it is `group`.
+	MatchIntentId *string `json:"match_intent_id,omitempty"`
+
+	// MatchKind What a routing rule matches against the entry point that started the conversation.
+	//
+	// - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+	// - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+	// - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+	MatchKind AMBRoutingRuleMatchKind `json:"match_kind"`
+
+	// Precedence Evaluation order among this business's rules. The highest-precedence rule a conversation matches wins; rules tied on precedence are evaluated by their `id`.
+	Precedence int32 `json:"precedence"`
+
+	// Queue The queue a matching conversation is filed into. A queue is a label your console filters by rather than a resource you create ahead of time, so any value routes.
+	Queue     string     `json:"queue"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBRoutingRuleCreate defines model for AMBRoutingRuleCreate.
+type AMBRoutingRuleCreate struct {
+	BusinessAccountId AMBBusinessID `json:"business_account_id"`
+
+	// IsDefault Set to make this the rule that catches a conversation matching nothing else. A business can have only one; creating a second while one exists returns a `409`.
+	IsDefault *bool `json:"is_default,omitempty"`
+
+	// MatchGroupId The entry point group to match, as sent in Apple's `groupID`. Required when `match_kind` is `group` or `both`, and rejected when it is `intent`.
+	MatchGroupId nullable.Nullable[string] `json:"match_group_id,omitempty"`
+
+	// MatchIntentId The entry point intent to match, as sent in Apple's `intentID`. Required when `match_kind` is `intent` or `both`, and rejected when it is `group`.
+	MatchIntentId nullable.Nullable[string] `json:"match_intent_id,omitempty"`
+
+	// MatchKind What a routing rule matches against the entry point that started the conversation.
+	//
+	// - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+	// - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+	// - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+	MatchKind AMBRoutingRuleMatchKind `json:"match_kind"`
+
+	// Precedence Evaluation order among this business's rules. The highest-precedence rule a conversation matches wins. Omit it to default to 0.
+	Precedence *int32 `json:"precedence,omitempty"`
+
+	// Queue Queue label used for routing and filtering conversations.
+	Queue AMBQueue `json:"queue"`
+	union json.RawMessage
+}
+
+// AMBRoutingRuleCreate0 defines model for .
+type AMBRoutingRuleCreate0 struct {
+	MatchIntentId string      `json:"match_intent_id"`
+	MatchKind     interface{} `json:"match_kind,omitempty"`
+}
+
+// AMBRoutingRuleCreate1 defines model for .
+type AMBRoutingRuleCreate1 struct {
+	MatchGroupId string      `json:"match_group_id"`
+	MatchKind    interface{} `json:"match_kind,omitempty"`
+}
+
+// AMBRoutingRuleCreate2 defines model for .
+type AMBRoutingRuleCreate2 struct {
+	MatchGroupId  string      `json:"match_group_id"`
+	MatchIntentId string      `json:"match_intent_id"`
+	MatchKind     interface{} `json:"match_kind,omitempty"`
+}
+
+// AMBRoutingRuleID defines model for AMBRoutingRuleID.
+type AMBRoutingRuleID = string
+
+// AMBRoutingRuleList defines model for AMBRoutingRuleList.
+type AMBRoutingRuleList struct {
+	// Data The workspace's routing rules, optionally filtered by business, highest precedence first and ties broken by `id`. Rules are evaluated within their business in this order. The set is returned in full; this list is not paginated.
+	Data []AMBRoutingRule `json:"data"`
+}
+
+// AMBRoutingRuleMatchKind What a routing rule matches against the entry point that started the conversation.
+//
+// - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+// - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+// - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+type AMBRoutingRuleMatchKind string
+
+// AMBRoutingRuleUpdate defines model for AMBRoutingRuleUpdate.
+type AMBRoutingRuleUpdate struct {
+	// IsDefault Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default. Setting it true while the business already has a different default rule returns a `409`.
+	IsDefault *bool `json:"is_default,omitempty"`
+
+	// Precedence Change this rule's evaluation order among the business's other rules.
+	Precedence *int32 `json:"precedence,omitempty"`
+
+	// Queue Queue label used for routing and filtering conversations.
+	Queue *AMBQueue `json:"queue,omitempty"`
+}
+
+// AMBSendFailedEventType Always `amb.send_failed` for this event.
+type AMBSendFailedEventType string
+
+// AMBSentEventType Always `amb.sent` for this event.
+type AMBSentEventType string
+
+// AMBStatsAttribution Which timestamp a statistics response buckets its rows and totals by:
+//
+// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+//
+// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+type AMBStatsAttribution string
+
+// AMBStatsByBusinessResponse Per-business breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBStatsByBusinessResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Business rows ranked by accepted volume descending.
+	Data *[]AMBBusinessAccountStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct businesses with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByCategoryResponse Per-category breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBStatsByCategoryResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Category rows ranked by accepted volume descending.
+	Data *[]AMBCategoryStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct categories with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByErrorCodeResponse Per-failure-reason breakdown for the requested period, ranked by `send_failed + rejected` descending and capped at the requested `limit` (default 50, max 200). Only messages carrying an error code appear: a `bird:` code is usually a rejection, an `apple:` code a send failure.
+type AMBStatsByErrorCodeResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Error-code rows ranked by `send_failed + rejected` descending.
+	Data *[]AMBErrorCodeStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct error codes with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByGroupResponse Per-group breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBStatsByGroupResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Group rows ranked by accepted volume descending.
+	Data *[]AMBGroupStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct groups with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByIntentResponse Per-intent breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBStatsByIntentResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Intent rows ranked by accepted volume descending.
+	Data *[]AMBIntentStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct intents with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByMessageKindResponse Per-content-kind breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200).
+type AMBStatsByMessageKindResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Content-kind rows ranked by accepted volume descending.
+	Data *[]AMBMessageKindStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct content kinds with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsByTagResponse Per-tag breakdown for the requested period, ranked by accepted volume descending and capped at the requested `limit` (default 50, max 200). Only tagged messages appear.
+type AMBStatsByTagResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data Tag rows ranked by accepted volume descending.
+	Data *[]AMBTagStatsPoint `json:"data,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+
+	// Total Total distinct tags with activity in the period, regardless of `limit`.
+	Total *int `json:"total,omitempty"`
+}
+
+// AMBStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+type AMBStatsComparison struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// Delta Changes from the previous period. Each value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero.
+	Delta *AMBStatsComparisonDelta `json:"delta,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+}
+
+// AMBStatsComparisonDelta Changes from the previous period. Each value is the signed relative change `(current - previous) / previous` and is null when the previous count is zero.
+type AMBStatsComparisonDelta struct {
+	// AcceptedPctChange Relative change in accepted messages (`counts.accepted`) versus the previous period, as a signed fraction. Null when the previous period accepted none.
+	AcceptedPctChange *float32 `json:"accepted_pct_change,omitempty"`
+
+	// RejectedPctChange Relative change in rejected messages (`counts.rejected`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	RejectedPctChange *float32 `json:"rejected_pct_change,omitempty"`
+
+	// SendFailedPctChange Relative change in send failures (`counts.send_failed`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	SendFailedPctChange *float32 `json:"send_failed_pct_change,omitempty"`
+
+	// SentPctChange Relative change in sent messages (`counts.sent`) versus the previous period, as a signed fraction. Null when the previous period had none.
+	SentPctChange *float32 `json:"sent_pct_change,omitempty"`
+}
+
+// AMBStatsErrorCode Machine-readable reason a send failed, in one of two namespaces: `bird:` for a reason Bird's own pipeline assigned (for example `bird:business_not_registered`), or `apple:` followed by the HTTP status Apple's API returned for the send attempt (for example `apple:404`). This is an open, growing set in both namespaces; accept unrecognized values.
+type AMBStatsErrorCode = string
+
+// AMBStatsLatency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+type AMBStatsLatency struct {
+	// Processing Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	Processing *AMBStatsQuantiles `json:"processing,omitempty"`
+}
+
+// AMBStatsPoint Outbound Apple Messages for Business counts and processing-latency percentiles for one time bucket (a calendar day or hour), bucketed by acceptance time. Every count in a bucket describes the messages accepted in it, regardless of when their later events arrived. There is no `first_response` here. Read first-response latency from the summary or a breakdown endpoint.
+type AMBStatsPoint struct {
+	// Bucket The day (YYYY-MM-DD) or hour (RFC 3339, on the hour) this point covers, matching the period's grain.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+}
+
+// AMBStatsQuantiles Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+type AMBStatsQuantiles struct {
+	// P50Ms Median (50th percentile) latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P50Ms *int `json:"p50_ms,omitempty"`
+
+	// P95Ms 95th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P95Ms *int `json:"p95_ms,omitempty"`
+
+	// P99Ms 99th percentile latency in milliseconds. Null when no qualifying event contributed a measurement.
+	P99Ms *int `json:"p99_ms,omitempty"`
+}
+
+// AMBStatsResponse Time-series stats payload. `period` echoes the range and bucket grain the server computed against; `data` is one row per bucket in chronological order.
+type AMBStatsResponse struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Data One row per day or hour in chronological order. Buckets with no activity contain zero counts.
+	Data *[]AMBStatsPoint `json:"data,omitempty"`
+
+	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+	Period AMBStatsSeriesPeriod `json:"period"`
+}
+
+// AMBStatsSeriesPeriod The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
+type AMBStatsSeriesPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant on the hour grain. Historical starts are preserved; the maximum request length does not impose a historical cutoff.
+	From *string `json:"from,omitempty"`
+
+	// Grain The bucket grain of the series, either `day` or `hour`.
+	Grain *StatsGrain `json:"grain,omitempty"`
+
+	// To Inclusive end of the window. A calendar day (YYYY-MM-DD) on the day grain, an RFC 3339 instant on the hour grain.
+	To *string `json:"to,omitempty"`
+}
+
+// AMBStatsSummary Outbound Apple Messages for Business counts and latency percentiles for the full requested period. Counts and percentiles are computed over the whole period rather than combined from the returned time-series values.
+type AMBStatsSummary struct {
+	// Attribution Which timestamp a statistics response buckets its rows and totals by:
+	//
+	// - `accepted_time`: attributed to when Bird accepted the outbound message for sending. The outbound send statistics use this, so a later event for the same message, such as a send failure, still counts against the day or hour its message was accepted.
+	// - `event_time`: attributed to when the event itself occurred. Inbound message statistics, conversation statistics and the staff per-business failure counts use this, since there is no earlier outbound event to anchor them to.
+	//
+	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
+	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
+
+	// Comparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+	Comparison *AMBStatsComparison `json:"comparison,omitempty"`
+
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+	Period AMBStatsSummaryPeriod `json:"period"`
+}
+
+// AMBStatsSummaryPeriod The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
+type AMBStatsSummaryPeriod struct {
+	// DataAsOf Latest time reflected in the statistics. More recent events might not be included yet. Null when the freshness boundary is unavailable.
+	DataAsOf *time.Time `json:"data_as_of,omitempty"`
+
+	// From Inclusive start of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary. Historical starts are preserved; the maximum request length does not impose a historical cutoff.
+	From *string `json:"from,omitempty"`
+
+	// To Inclusive end of the window, as a calendar day (`YYYY-MM-DD`) or an RFC 3339 hour boundary.
+	To *string `json:"to,omitempty"`
+}
+
+// AMBSuppression One retained suppression episode for an address. A null account scope covers the same address in every account in the workspace; it does not link different opaque identities.
+type AMBSuppression struct {
+	// Address Canonical E.164 phone number, or the exact opaque identifier Apple supplied.
+	Address string `json:"address"`
+
+	// AddressType What kind of value `address` holds.
+	//
+	// - `phone_number` means `address` is the customer's phone number. Apple's CloseSession event carries a phone number rather than an opaque identifier, so a suppression opened by a close on a conversation identified by phone number takes this kind.
+	// - `opaque_user_id` means `address` is the opaque identifier Apple assigns to the customer's conversation with the business, stable across a close and a later re-initiation.
+	AddressType AMBSuppressionAddressType `json:"address_type"`
+
+	// AppliesTo Paths blocked by this episode. Treat unknown values as blocking.
+	AppliesTo         *string        `json:"applies_to,omitempty"`
+	BusinessAccountId *AMBBusinessID `json:"business_account_id,omitempty"`
+
+	// CreatedAt When Bird recorded this episode.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// EffectiveAt When the blocking state took effect.
+	EffectiveAt *time.Time `json:"effective_at,omitempty"`
+
+	// EndedAt When Bird recorded the end, or null while active.
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+
+	// EndedEffectiveAt When the end took effect, or null while active.
+	EndedEffectiveAt *time.Time `json:"ended_effective_at,omitempty"`
+
+	// EndedReason What ended the episode, or null while active. Customers can end only manual episodes.
+	EndedReason *string          `json:"ended_reason,omitempty"`
+	Id          AMBSuppressionID `json:"id"`
+
+	// Origin Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
+	Origin AMBSuppressionOrigin `json:"origin"`
+
+	// Reason Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	Reason             AMBSuppressionReason `json:"reason"`
+	SourceEndMessageId *AMBMessageID        `json:"source_end_message_id,omitempty"`
+	SourceEventId      *AMBEventID          `json:"source_event_id,omitempty"`
+	SourceMessageId    *AMBMessageID        `json:"source_message_id,omitempty"`
+}
+
+// AMBSuppressionAddressType What kind of value `address` holds.
+//
+// - `phone_number` means `address` is the customer's phone number. Apple's CloseSession event carries a phone number rather than an opaque identifier, so a suppression opened by a close on a conversation identified by phone number takes this kind.
+// - `opaque_user_id` means `address` is the opaque identifier Apple assigns to the customer's conversation with the business, stable across a close and a later re-initiation.
+type AMBSuppressionAddressType string
+
+// AMBSuppressionCreate defines model for AMBSuppressionCreate.
+type AMBSuppressionCreate struct {
+	// Address The phone number or opaque identifier to suppress. For a phone number, supply canonical E.164 with a leading plus sign.
+	Address string `json:"address"`
+
+	// AddressType What kind of value `address` holds.
+	//
+	// - `phone_number` means `address` is the customer's phone number. Apple's CloseSession event carries a phone number rather than an opaque identifier, so a suppression opened by a close on a conversation identified by phone number takes this kind.
+	// - `opaque_user_id` means `address` is the opaque identifier Apple assigns to the customer's conversation with the business, stable across a close and a later re-initiation.
+	AddressType       AMBSuppressionAddressType `json:"address_type"`
+	BusinessAccountId *AMBBusinessID            `json:"business_account_id,omitempty"`
+}
+
+// AMBSuppressionCreatedEventType Always `amb_suppression.created` for this event.
+type AMBSuppressionCreatedEventType string
+
+// AMBSuppressionID defines model for AMBSuppressionID.
+type AMBSuppressionID = string
+
+// AMBSuppressionList defines model for AMBSuppressionList.
+type AMBSuppressionList struct {
+	// Data Active suppression episodes for the workspace, most recently effective first. Episodes that have ended are left out; fetch one by ID to read it.
+	Data []AMBSuppression `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AMBSuppressionOrigin Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
+type AMBSuppressionOrigin string
+
+// AMBSuppressionReason Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+type AMBSuppressionReason string
+
+// AMBTagStatsPoint Outbound counts and latency percentiles for a single tag over the requested period.
+type AMBTagStatsPoint struct {
+	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
+	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
+
+	// FirstResponse Approximate p50, p95, and p99 latency percentiles in milliseconds for one latency family. All three are null when no qualifying event contributed a measurement.
+	FirstResponse *AMBStatsQuantiles `json:"first_response,omitempty"`
+
+	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
+	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// Tag The tag these messages carry, as a bare name or a `name:value` pair. A message with several tags is counted once under each, so rows do not sum to the period total.
+	Tag *string `json:"tag,omitempty"`
+}
+
+// AMBTimeSlot defines model for AMBTimeSlot.
+type AMBTimeSlot struct {
+	// DurationSeconds Duration in seconds. Zero indicates no duration.
+	DurationSeconds int `json:"duration_seconds"`
+
+	// Identifier Opaque slot identifier. Apple may instead return only a localized label in interactive_data.reply_message.title.
+	Identifier string `json:"identifier"`
+
+	// StartAt When this slot begins. Seconds and fractional seconds must be zero, for example `2026-09-02T14:30:00Z`; otherwise sending returns `422` with error code `E01001`. The timestamp is converted to UTC for Apple while preserving the instant.
+	StartAt time.Time `json:"start_at"`
+}
+
 // APIKeyID defines model for APIKeyID.
 type APIKeyID = string
 
@@ -7578,6 +10772,54 @@ type Actor struct {
 
 // AllocatedNumberID Identifier of a number allocated to your workspace, as returned in the id field of `GET /v1/numbers`.
 type AllocatedNumberID = string
+
+// AssetID defines model for AssetID.
+type AssetID = string
+
+// Attachment defines model for Attachment.
+type Attachment struct {
+	// ContentType The file's content type, determined from its contents.
+	ContentType *string    `json:"content_type,omitempty"`
+	CreatedAt   *time.Time `json:"created_at,omitempty"`
+
+	// Description A short note describing what the file shows.
+	Description *string `json:"description,omitempty"`
+
+	// DownloadUrl Short-lived signed URL for downloading or previewing the attachment. Valid for 24 hours from when the resource was fetched; request a fresh resource to obtain a new URL after expiry. Do not cache beyond `download_url_expires_at`. Registration authorities (10DLC and toll-free carriers) retrieve evidence via a separate, longer-lived token; this URL is not that token.
+	DownloadUrl *string `json:"download_url,omitempty" pii:"true"`
+
+	// DownloadUrlExpiresAt When `download_url` expires. Both fields are always present; the server returns an error rather than omitting them.
+	DownloadUrlExpiresAt *time.Time `json:"download_url_expires_at,omitempty"`
+
+	// ExpiresAt When this attachment is discarded if nothing is registered or submitted with it. Null once its status is `attached`.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+
+	// Filename The uploaded file's name.
+	Filename *string      `json:"filename,omitempty"`
+	Id       AttachmentID `json:"id"`
+
+	// PreviewUrl Optional signed URL for inline viewing on an isolated storage origin. Valid for one hour; fetch the attachment again to refresh it.
+	PreviewUrl *string `json:"preview_url,omitempty" pii:"true"`
+
+	// SizeBytes The file's size in bytes.
+	SizeBytes *int64 `json:"size_bytes,omitempty"`
+
+	// Status Lifecycle of an attachment. `draft` is a file that has been uploaded but nothing
+	// has been registered or submitted with it yet, and it is discarded at its
+	// `expires_at`. `attached` means at least one registration has cited it, so it is
+	// kept permanently and can no longer be deleted.
+	Status    AttachmentStatus `json:"status"`
+	UpdatedAt *time.Time       `json:"updated_at,omitempty"`
+}
+
+// AttachmentID defines model for AttachmentID.
+type AttachmentID = string
+
+// AttachmentStatus Lifecycle of an attachment. `draft` is a file that has been uploaded but nothing
+// has been registered or submitted with it yet, and it is discarded at its
+// `expires_at`. `attached` means at least one registration has cited it, so it is
+// kept permanently and can no longer be deleted.
+type AttachmentStatus string
 
 // Audience defines model for Audience.
 type Audience struct {
@@ -8016,7 +11258,7 @@ type DNSRecord struct {
 	//   `optional` until receiving is enabled, and publishing it before then
 	//   is destructive: on a domain at the zone apex it replaces the MX
 	//   records that carry the domain's existing mail.
-	// - `dmarc`: identifies the advisory DMARC policy record.
+	// - `dmarc`: identifies the DMARC policy record required for sending.
 	Purpose DNSRecordPurpose `json:"purpose"`
 
 	// SafeToRemove Only set on `deprecated` records: `true` once the record is no longer referenced by in-flight mail or live tracked links and can be deleted from your DNS. `null` on `active` and `pending` records.
@@ -8069,7 +11311,7 @@ type DNSRecord struct {
 //     `optional` until receiving is enabled, and publishing it before then
 //     is destructive: on a domain at the zone apex it replaces the MX
 //     records that carry the domain's existing mail.
-//   - `dmarc`: identifies the advisory DMARC policy record.
+//   - `dmarc`: identifies the DMARC policy record required for sending.
 type DNSRecordPurpose string
 
 // DNSRecordState Lifecycle state of this record.
@@ -13378,7 +16620,7 @@ type EmailTemplateLanguageUpdate struct {
 	// Revision The revision you last read for this language, to detect a concurrent edit. The edit is rejected with a conflict if the language moved on since. Omit it to apply the edit unconditionally.
 	Revision *int `json:"revision,omitempty"`
 
-	// Subject A new email subject line for this language.
+	// Subject The email subject line. It may be empty in a draft but is required to publish.
 	Subject *string `json:"subject,omitempty"`
 
 	// Text A new plain-text body for this language. Send null to clear it, and a plain-text alternative is derived from the HTML when you submit.
@@ -13396,7 +16638,7 @@ type EmailTemplateLanguageUpsert struct {
 	// Revision The revision you last read for this language, to detect a concurrent edit. The save is rejected with a conflict if the language moved on since. Omit it to save unconditionally. Creating a language does not need one.
 	Revision *int `json:"revision,omitempty"`
 
-	// Subject The email subject line for this language.
+	// Subject The email subject line. It may be empty in a draft but is required to publish.
 	Subject string `json:"subject"`
 
 	// Text The plain-text body for this language. Omit it and a plain-text alternative is derived from the HTML when you submit.
@@ -14179,6 +17421,165 @@ type ErrorDetail struct {
 
 	// Param Dotted field path, such as `to[0].email`, `subject`, or `.`. When the request was rejected for a query parameter the endpoint does not declare, this carries that parameter's name instead of a field path.
 	Param string `json:"param"`
+}
+
+// EventAMBAccepted Bird charged and accepted an outbound message for processing. This does not mean Apple received the message.
+type EventAMBAccepted struct {
+	// Data The workspace and message snapshot at the time of the lifecycle event.
+	Data EventAMBMessageData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.accepted` for this event.
+	Type AMBAcceptedEventType `json:"type"`
+}
+
+// EventAMBConversationClosed A customer conversation closed. Closing a conversation is not a message.
+type EventAMBConversationClosed struct {
+	// Data Conversation identity and routing context when a lifecycle event occurred.
+	Data EventAMBConversationData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.conversation_closed` for this event.
+	Type AMBConversationClosedEventType `json:"type"`
+}
+
+// EventAMBConversationData Conversation identity and routing context when a lifecycle event occurred.
+type EventAMBConversationData struct {
+	BusinessAccountId AMBBusinessID     `json:"business_account_id"`
+	ConversationId    AMBConversationID `json:"conversation_id"`
+
+	// GroupId Apple entry-point group recorded for this occurrence, when present.
+	GroupId *string `json:"group_id,omitempty"`
+
+	// IntentId Apple entry-point intent recorded for this occurrence, when present.
+	IntentId *string `json:"intent_id,omitempty"`
+
+	// OpenCount Number of times the conversation has opened, starting at 1 and increasing on each reopen. Together with the conversation ID and event type, this identifies the lifecycle occurrence across retries.
+	OpenCount int `json:"open_count"`
+
+	// Origin Source of the lifecycle change, when recorded.
+	Origin *string `json:"origin,omitempty"`
+
+	// Queue Routing queue recorded for this occurrence, when present.
+	Queue       *string     `json:"queue,omitempty"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventAMBConversationReopened An existing customer conversation reopened after it had closed.
+type EventAMBConversationReopened struct {
+	// Data Conversation identity and routing context when a lifecycle event occurred.
+	Data EventAMBConversationData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.conversation_reopened` for this event.
+	Type AMBConversationReopenedEventType `json:"type"`
+}
+
+// EventAMBConversationStarted A customer conversation opened for the first time.
+type EventAMBConversationStarted struct {
+	// Data Conversation identity and routing context when a lifecycle event occurred.
+	Data EventAMBConversationData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.conversation_started` for this event.
+	Type AMBConversationStartedEventType `json:"type"`
+}
+
+// EventAMBMessageData The workspace and message snapshot at the time of the lifecycle event.
+type EventAMBMessageData struct {
+	Message     AMBMessage  `json:"message"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// EventAMBReceived Bird received an ordinary customer message from Apple. Invitation responses are excluded.
+type EventAMBReceived struct {
+	// Data The workspace and message snapshot at the time of the lifecycle event.
+	Data EventAMBMessageData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.received` for this event.
+	Type AMBReceivedEventType `json:"type"`
+}
+
+// EventAMBRejected Bird refused an outbound message before acceptance. This message has no accepted event.
+type EventAMBRejected struct {
+	// Data The workspace and message snapshot at the time of the lifecycle event.
+	Data EventAMBMessageData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.rejected` for this event.
+	Type AMBRejectedEventType `json:"type"`
+}
+
+// EventAMBSendFailed An accepted outbound message could not be handed to Apple. The message snapshot carries the failure detail.
+type EventAMBSendFailed struct {
+	// Data The workspace and message snapshot at the time of the lifecycle event.
+	Data EventAMBMessageData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.send_failed` for this event.
+	Type AMBSendFailedEventType `json:"type"`
+}
+
+// EventAMBSent Apple accepted an outbound message from Bird. This does not establish delivery to the customer or a read receipt.
+type EventAMBSent struct {
+	// Data The workspace and message snapshot at the time of the lifecycle event.
+	Data EventAMBMessageData `json:"data"`
+
+	// Timestamp When this lifecycle event occurred, independent of webhook delivery time.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb.sent` for this event.
+	Type AMBSentEventType `json:"type"`
+}
+
+// EventAMBSuppressionCreated An address was added to the workspace's Apple Messages for Business suppression ledger.
+type EventAMBSuppressionCreated struct {
+	// Data Payload of the amb_suppression.created event.
+	Data EventAMBSuppressionCreatedData `json:"data"`
+
+	// Timestamp When the suppression episode took effect.
+	Timestamp time.Time `json:"timestamp"`
+
+	// Type Always `amb_suppression.created` for this event.
+	Type AMBSuppressionCreatedEventType `json:"type"`
+}
+
+// EventAMBSuppressionCreatedData Payload of the amb_suppression.created event.
+type EventAMBSuppressionCreatedData struct {
+	// Address The canonical phone number or exact opaque Apple identifier that was suppressed.
+	Address string `json:"address"`
+
+	// AddressType What kind of value `address` holds.
+	//
+	// - `phone_number` means `address` is the customer's phone number. Apple's CloseSession event carries a phone number rather than an opaque identifier, so a suppression opened by a close on a conversation identified by phone number takes this kind.
+	// - `opaque_user_id` means `address` is the opaque identifier Apple assigns to the customer's conversation with the business, stable across a close and a later re-initiation.
+	AddressType AMBSuppressionAddressType `json:"address_type"`
+
+	// BusinessAccountId The business account this suppression covers, or null when it covers the workspace.
+	BusinessAccountId *AMBBusinessID `json:"business_account_id"`
+
+	// Origin Who created the episode. user and api_key identify manual blocks. close_session and gone are protected automatic conversation facts. Phone invitation opt-outs are recorded as preferences.
+	Origin AMBSuppressionOrigin `json:"origin"`
+
+	// Reason Why the handle is suppressed. `manual` means it was added directly through this API or the dashboard. `opted_out` covers every case where Apple or the customer signaled they should not be contacted: a close, a permanent delivery failure, a declined invitation, or a stop keyword. This list grows over time, so treat an unknown value as informational rather than rejecting the record.
+	Reason        AMBSuppressionReason `json:"reason"`
+	SuppressionId AMBSuppressionID     `json:"suppression_id"`
+	WorkspaceId   WorkspaceID          `json:"workspace_id"`
 }
 
 // EventDomainFailed A sending domain failed DNS verification.
@@ -15034,11 +18435,11 @@ type EventPreferenceBase struct {
 	ContactId *ContactID         `json:"contact_id"`
 	Coverage  PreferenceCoverage `json:"coverage"`
 
-	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
 	Handle       string       `json:"handle"`
 	PreferenceId PreferenceID `json:"preference_id"`
 
-	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. Present-with-null on every payload of this type: it is part of the key alongside `topic_id`, and pinning its presence keeps a subscriber from ever learning `(handle, channel)` as the unique key.
+	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On Apple Messages for Business, this is the Apple business ID used to send invitations. Present-with-null on every payload of this type: it is part of the key alongside `topic_id`, and pinning its presence keeps a subscriber from ever learning `(handle, channel)` as the unique key.
 	SenderScope *string `json:"sender_scope"`
 
 	// TopicId The topic the statement is limited to, or null when it covers every topic. Reserved: always null in v1. Present-with-null for the same reason as `sender_scope`.
@@ -17370,12 +20771,12 @@ type Preference struct {
 	// EffectiveAt When the statement was made, as reported by whoever made it. This is what orders one key's statements: a write dated before this moment is refused rather than applied.
 	EffectiveAt *time.Time `json:"effective_at,omitempty"`
 
-	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
 	Handle *string           `json:"handle,omitempty"`
 	Id     PreferenceID      `json:"id"`
 	Origin *PreferenceOrigin `json:"origin,omitempty"`
 
-	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them. Email preferences are always channel-wide, so it is always null there.
+	// SenderScope The sender the statement is limited to, or null when it covers the whole channel. On SMS this is the originator the person replied to; on WhatsApp it identifies the business account that messaged them; on Apple Messages for Business it is the Apple business ID used for invitations. Email preferences are always channel-wide, so it is always null there.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
 	// Source Free-form note on where the statement came from, as supplied when it was recorded: a form name, an import batch, a campaign. Null when none was given.
@@ -17390,7 +20791,7 @@ type Preference struct {
 // PreferenceChannel The channel a preference statement applies to. A preference addresses one channel: the handle that identifies the person differs per channel, so opting out of one channel says nothing about the others. New channels can be added over time, so a value outside this list can be returned.
 type PreferenceChannel string
 
-// PreferenceCoverage How much traffic the statement covers. `non_transactional` covers marketing and other non-essential messages while transactional messages such as receipts and verification codes keep flowing; `all` covers every message including transactional ones.
+// PreferenceCoverage How much traffic the statement covers. `non_transactional` covers marketing and other non-essential messages while transactional messages such as receipts and verification codes keep flowing; `all` covers every message including transactional ones. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
 type PreferenceCoverage string
 
 // PreferenceCreate defines model for PreferenceCreate.
@@ -17401,13 +20802,13 @@ type PreferenceCreate struct {
 	// ConsentedAt When the person consented, on a `granted` statement. Required evidence when granting over a stored opt-out: the grant applies only if this is later than the opt-out it reverses. May not be in the future.
 	ConsentedAt *time.Time `json:"consented_at,omitempty"`
 
-	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
 	Coverage *PreferenceCoverage `json:"coverage,omitempty"`
 
-	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS and WhatsApp.
+	// Handle Who the statement is about: an email address on the email channel, a phone number in E.164 format on SMS, WhatsApp, and Apple Messages for Business.
 	Handle string `json:"handle"`
 
-	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
 	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
@@ -17455,10 +20856,10 @@ type PreferenceStatement struct {
 	// ConsentedAt When the person consented, on a `granted` statement. Required evidence when granting over a stored opt-out: the grant applies only if this is later than the opt-out it reverses. May not be in the future.
 	ConsentedAt *time.Time `json:"consented_at,omitempty"`
 
-	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing.
+	// Coverage How much traffic the statement covers. Defaults to `non_transactional`, which keeps transactional messages such as receipts and verification codes flowing. Apple Messages for Business phone invitations have no transactional exemption, so either value covers them.
 	Coverage *PreferenceCoverage `json:"coverage,omitempty"`
 
-	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account. Not supported on email, where preferences are always channel-wide.
+	// SenderScope Limit the statement to one sender instead of the whole channel. On SMS this is the originator; on WhatsApp it identifies the business account; on Apple Messages for Business it is the Apple business ID used for invitations. Not supported on email, where preferences are always channel-wide.
 	SenderScope *string `json:"sender_scope,omitempty"`
 
 	// Source Free-form note on where the statement came from: a form name, an import batch, a campaign. Stored verbatim and returned on the preference.
@@ -19833,24 +23234,29 @@ type VoiceCallerID struct {
 	Id        VoiceCallerIDID `json:"id"`
 
 	// Name Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
+
+	// OutboundEnabled Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
+	OutboundEnabled bool `json:"outbound_enabled"`
 
 	// PhoneNumber The phone number in E.164 format registered as a caller ID.
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	PhoneNumber string `json:"phone_number"`
 
 	// Status Verification state of the caller ID.
 	//
 	// - `pending`: the number is registered but ownership has not yet been proven.
-	// - `verified`: the workspace completed the verification call, so the number can
-	//   be presented as the outbound caller ID.
-	// - `failed`: terminal because the verification challenge expired or the attempt
-	//   limit was exhausted. Use the dashboard to remove and register the caller ID
-	//   again to retry.
+	// - `verified`: the workspace proved ownership of the number. Check the
+	//   resource's activation or direction fields for outbound availability.
+	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+	//   Remove and register the caller ID again in the dashboard to retry.
+	//
+	// Open enum: additional states may be added over time, so treat an unrecognized
+	// value as a future state rather than an error.
 	Status    VoiceCallerIDStatus `json:"status"`
 	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
 
 	// VerifiedAt When the caller ID was verified. `null` when its status is `pending` or `failed`.
-	VerifiedAt  *time.Time  `json:"verified_at,omitempty"`
+	VerifiedAt  *time.Time  `json:"verified_at"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
@@ -19877,17 +23283,19 @@ type VoiceCallerIDSortField string
 // VoiceCallerIDStatus Verification state of the caller ID.
 //
 //   - `pending`: the number is registered but ownership has not yet been proven.
-//   - `verified`: the workspace completed the verification call, so the number can
-//     be presented as the outbound caller ID.
-//   - `failed`: terminal because the verification challenge expired or the attempt
-//     limit was exhausted. Use the dashboard to remove and register the caller ID
-//     again to retry.
+//   - `verified`: the workspace proved ownership of the number. Check the
+//     resource's activation or direction fields for outbound availability.
+//   - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+//     Remove and register the caller ID again in the dashboard to retry.
+//
+// Open enum: additional states may be added over time, so treat an unrecognized
+// value as a future state rather than an error.
 type VoiceCallerIDStatus string
 
 // VoiceCallerIDVerifyRequest defines model for VoiceCallerIDVerifyRequest.
 type VoiceCallerIDVerifyRequest struct {
-	// Code The 6-digit verification code read out by the verification call.
-	Code string `json:"code" pii:"true"`
+	// Code The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
+	Code *string `json:"code,omitempty" pii:"true"`
 }
 
 // VoiceDestination defines model for VoiceDestination.
@@ -20241,11 +23649,13 @@ type VoiceNumberProviderVerifiedNumber struct {
 	// Status Verification state of the caller ID.
 	//
 	// - `pending`: the number is registered but ownership has not yet been proven.
-	// - `verified`: the workspace completed the verification call, so the number can
-	//   be presented as the outbound caller ID.
-	// - `failed`: terminal because the verification challenge expired or the attempt
-	//   limit was exhausted. Use the dashboard to remove and register the caller ID
-	//   again to retry.
+	// - `verified`: the workspace proved ownership of the number. Check the
+	//   resource's activation or direction fields for outbound availability.
+	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+	//   Remove and register the caller ID again in the dashboard to retry.
+	//
+	// Open enum: additional states may be added over time, so treat an unrecognized
+	// value as a future state rather than an error.
 	Status VoiceCallerIDStatus `json:"status"`
 
 	// Type Where a number came from. `allocation` is a number we allocated to your workspace, and the only kind whose calls reach us. `verified_number` is a number from another carrier that you registered and proved you control, so it can be presented on a call you place.
@@ -24133,6 +27543,977 @@ type realtimeKeyContextKey string
 // realtimeSecretContextKey is the context key for RealtimeSecret security scheme
 type realtimeSecretContextKey string
 
+// ListAMBBusinessAccountsParams defines parameters for ListAMBBusinessAccounts.
+type ListAMBBusinessAccountsParams struct {
+	// Sort Field to sort by. Possible values: `created_at`. Defaults to `created_at`.
+	Sort *AMBBusinessAccountSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBBusinessAccountParams defines parameters for CreateAMBBusinessAccount.
+type CreateAMBBusinessAccountParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteAMBBusinessAccountParams defines parameters for DeleteAMBBusinessAccount.
+type DeleteAMBBusinessAccountParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetAMBBusinessAccountParams defines parameters for GetAMBBusinessAccount.
+type GetAMBBusinessAccountParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateAMBBusinessAccountParams defines parameters for UpdateAMBBusinessAccount.
+type UpdateAMBBusinessAccountParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetAMBChannelSettingsParams defines parameters for GetAMBChannelSettings.
+type GetAMBChannelSettingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateAMBChannelSettingsParams defines parameters for UpdateAMBChannelSettings.
+type UpdateAMBChannelSettingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBBusinessAccountEventsParams defines parameters for ListAMBBusinessAccountEvents.
+type ListAMBBusinessAccountEventsParams struct {
+	// Sort Field to sort by. Possible values: `created_at`. Defaults to `created_at`.
+	Sort *AMBBusinessAccountEventSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// RestoreAMBBusinessAccountParams defines parameters for RestoreAMBBusinessAccount.
+type RestoreAMBBusinessAccountParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBBusinessAccountSubmissionsParams defines parameters for ListAMBBusinessAccountSubmissions.
+type ListAMBBusinessAccountSubmissionsParams struct {
+	// Sort Field to sort by. Possible values: `created_at`. Defaults to `created_at`.
+	Sort *AMBBusinessAccountSubmissionSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBBusinessAccountSubmissionParams defines parameters for CreateAMBBusinessAccountSubmission.
+type CreateAMBBusinessAccountSubmissionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBConversationsParams defines parameters for ListAMBConversations.
+type ListAMBConversationsParams struct {
+	// BusinessAccountId Filter to conversations belonging to this business.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// Status Filter to conversations with this status. Omit to return both open and closed conversations.
+	Status *AMBConversationStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Queue Filter to conversations in this queue. Pass an empty string to match unrouted conversations, the ones no routing rule has claimed.
+	Queue *string `form:"queue,omitempty" json:"queue,omitempty"`
+
+	// AssignedTo Filter to conversations assigned to this user. Pass `unassigned` to match conversations with no assignee.
+	AssignedTo *string `form:"assigned_to,omitempty" json:"assigned_to,omitempty"`
+
+	// Label Filter to conversations that have this label.
+	Label *string `form:"label,omitempty" json:"label,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateAMBConversationParams defines parameters for UpdateAMBConversation.
+type UpdateAMBConversationParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBConversationMessagesParams defines parameters for ListAMBConversationMessages.
+type ListAMBConversationMessagesParams struct {
+	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
+	Direction *AMBMessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBConversationTypingParams defines parameters for CreateAMBConversationTyping.
+type CreateAMBConversationTypingParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBMessagesParams defines parameters for ListAMBMessages.
+type ListAMBMessagesParams struct {
+	// ConversationId Filter to messages belonging to this conversation.
+	ConversationId *AMBConversationID `form:"conversation_id,omitempty" json:"conversation_id,omitempty"`
+
+	// BusinessAccountId Filter to messages belonging to this business.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// Direction Filter to received (`inbound`) or sent (`outbound`) messages.
+	Direction *AMBMessageDirection `form:"direction,omitempty" json:"direction,omitempty"`
+
+	// Status Filter to messages with this status.
+	Status *AMBMessageStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Kind Filter to messages whose content is this shape.
+	Kind *AMBContentKind `form:"kind,omitempty" json:"kind,omitempty"`
+
+	// Category Filter to outbound messages sent with this category, exact match.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Tag Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
+	Tag *TagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBMessageParams defines parameters for CreateAMBMessage.
+type CreateAMBMessageParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListAMBMessageEventsParams defines parameters for ListAMBMessageEvents.
+type ListAMBMessageEventsParams struct {
+	// Type Keep only events of this exact type (for example `amb.sent` or `amb.send_failed`). Omit for the full timeline.
+	Type *AMBMessageEventType `form:"type,omitempty" json:"type,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// ListAMBRoutingRulesParams defines parameters for ListAMBRoutingRules.
+type ListAMBRoutingRulesParams struct {
+	// BusinessAccountId Keep only routing rules belonging to this business. Omit to return rules across all businesses in the workspace.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBRoutingRuleParams defines parameters for CreateAMBRoutingRule.
+type CreateAMBRoutingRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteAMBRoutingRuleParams defines parameters for DeleteAMBRoutingRule.
+type DeleteAMBRoutingRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// UpdateAMBRoutingRuleParams defines parameters for UpdateAMBRoutingRule.
+type UpdateAMBRoutingRuleParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// GetAMBStatsByBusinessParams defines parameters for GetAMBStatsByBusiness.
+type GetAMBStatsByBusinessParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of business rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByCategoryParams defines parameters for GetAMBStatsByCategory.
+type GetAMBStatsByCategoryParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of category rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBConversationStatsDailyParams defines parameters for GetAMBConversationStatsDaily.
+type GetAMBConversationStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBConversationStatsHourlyParams defines parameters for GetAMBConversationStatsHourly.
+type GetAMBConversationStatsHourlyParams struct {
+	// From Start of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise. The window may not exceed 30 days (720 hours). Defaults to 168 hours (7 days) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise, so both bounds are inclusive. The window may not exceed 30 days (720 hours). Defaults to the current hour when omitted.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBConversationStatsSummaryParams defines parameters for GetAMBConversationStatsSummary.
+type GetAMBConversationStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `to`. When omitted, it defaults to 30 days before `to` for day windows or 168 hours (7 days) before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `from`. When omitted, it defaults to today for day windows or the current hour for hour windows in that timezone. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsDailyParams defines parameters for GetAMBStatsDaily.
+type GetAMBStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// BusinessAccountId Restrict the statistics to a single business. Mutually exclusive with the other dimension filters (`message_kind`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `business_account_id` key on a row of the per-business breakdown.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// MessageKind Restrict the statistics to a single message content kind. Mutually exclusive with the other dimension filters (`business_account_id`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `message_kind` key on a row of the per-content-kind breakdown.
+	MessageKind *AMBContentKind `form:"message_kind,omitempty" json:"message_kind,omitempty"`
+
+	// Intent Restrict the statistics to a single entry-point intent. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `group`, `category`, `tag`); only one may be set per request. Matches the `intent` key on a row of the per-intent breakdown.
+	Intent *string `form:"intent,omitempty" json:"intent,omitempty"`
+
+	// Group Restrict the statistics to a single entry-point group. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `category`, `tag`); only one may be set per request. Matches the `group` key on a row of the per-group breakdown.
+	Group *string `form:"group,omitempty" json:"group,omitempty"`
+
+	// Category Restrict the statistics to a single message category. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `category`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByErrorCodeParams defines parameters for GetAMBStatsByErrorCode.
+type GetAMBStatsByErrorCodeParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of error-code rows to return, ranked by `send_failed + rejected` descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByGroupParams defines parameters for GetAMBStatsByGroup.
+type GetAMBStatsByGroupParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of group rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsHourlyParams defines parameters for GetAMBStatsHourly.
+type GetAMBStatsHourlyParams struct {
+	// From Start of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise. The window may not exceed 30 days (720 hours). Defaults to 168 hours (7 days) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise, so both bounds are inclusive. The window may not exceed 30 days (720 hours). Defaults to the current hour when omitted.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// BusinessAccountId Restrict the statistics to a single business. Mutually exclusive with the other dimension filters (`message_kind`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `business_account_id` key on a row of the per-business breakdown.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// MessageKind Restrict the statistics to a single message content kind. Mutually exclusive with the other dimension filters (`business_account_id`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `message_kind` key on a row of the per-content-kind breakdown.
+	MessageKind *AMBContentKind `form:"message_kind,omitempty" json:"message_kind,omitempty"`
+
+	// Intent Restrict the statistics to a single entry-point intent. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `group`, `category`, `tag`); only one may be set per request. Matches the `intent` key on a row of the per-intent breakdown.
+	Intent *string `form:"intent,omitempty" json:"intent,omitempty"`
+
+	// Group Restrict the statistics to a single entry-point group. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `category`, `tag`); only one may be set per request. Matches the `group` key on a row of the per-group breakdown.
+	Group *string `form:"group,omitempty" json:"group,omitempty"`
+
+	// Category Restrict the statistics to a single message category. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `category`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBInboundStatsByBusinessParams defines parameters for GetAMBInboundStatsByBusiness.
+type GetAMBInboundStatsByBusinessParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of business rows to return, ranked by received volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBInboundStatsDailyParams defines parameters for GetAMBInboundStatsDaily.
+type GetAMBInboundStatsDailyParams struct {
+	// From Start date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End date (inclusive), YYYY-MM-DD. Interpreted as a calendar day in `timezone` (a UTC day when `timezone` is omitted). The window may not exceed 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBInboundStatsHourlyParams defines parameters for GetAMBInboundStatsHourly.
+type GetAMBInboundStatsHourlyParams struct {
+	// From Start of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise. The window may not exceed 30 days (720 hours). Defaults to 168 hours (7 days) before `to` when omitted.
+	From *time.Time `form:"from,omitempty" json:"from,omitempty"`
+
+	// To End of the window (RFC 3339 instant), rounded down to the start of its hour and included. The boundary uses the local hour when `timezone` is set and the UTC hour otherwise, so both bounds are inclusive. The window may not exceed 30 days (720 hours). Defaults to the current hour when omitted.
+	To *time.Time `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBInboundStatsByIntentParams defines parameters for GetAMBInboundStatsByIntent.
+type GetAMBInboundStatsByIntentParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of intent rows to return, ranked by received volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBInboundStatsSummaryParams defines parameters for GetAMBInboundStatsSummary.
+type GetAMBInboundStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `to`. When omitted, it defaults to 30 days before `to` for day windows or 168 hours (7 days) before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `from`. When omitted, it defaults to today for day windows or the current hour for hour windows in that timezone. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByIntentParams defines parameters for GetAMBStatsByIntent.
+type GetAMBStatsByIntentParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of intent rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByMessageKindParams defines parameters for GetAMBStatsByMessageKind.
+type GetAMBStatsByMessageKindParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of content-kind rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsSummaryParams defines parameters for GetAMBStatsSummary.
+type GetAMBStatsSummaryParams struct {
+	// From Inclusive start of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset such as `+05:45` is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `to`. When omitted, it defaults to 30 days before `to` for day windows or 168 hours (7 days) before `to` for hour windows.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window: a calendar day (YYYY-MM-DD) or an RFC 3339 instant rounded down to the hour. The `timezone` parameter makes a calendar day local and rounds an instant down to the local hour. Omit `timezone` to use UTC. When `timezone` is set, a numeric UTC offset is rejected; use a calendar day or a `Z` (UTC) instant. This value must use the same form as `from`. When omitted, it defaults to today for day windows or the current hour for hour windows in that timezone. Day windows may not exceed 365 days; hour windows may not exceed 720 hours (30 days).
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// BusinessAccountId Restrict the statistics to a single business. Mutually exclusive with the other dimension filters (`message_kind`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `business_account_id` key on a row of the per-business breakdown.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// MessageKind Restrict the statistics to a single message content kind. Mutually exclusive with the other dimension filters (`business_account_id`, `intent`, `group`, `category`, `tag`); only one may be set per request. Matches the `message_kind` key on a row of the per-content-kind breakdown.
+	MessageKind *AMBContentKind `form:"message_kind,omitempty" json:"message_kind,omitempty"`
+
+	// Intent Restrict the statistics to a single entry-point intent. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `group`, `category`, `tag`); only one may be set per request. Matches the `intent` key on a row of the per-intent breakdown.
+	Intent *string `form:"intent,omitempty" json:"intent,omitempty"`
+
+	// Group Restrict the statistics to a single entry-point group. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `category`, `tag`); only one may be set per request. Matches the `group` key on a row of the per-group breakdown.
+	Group *string `form:"group,omitempty" json:"group,omitempty"`
+
+	// Category Restrict the statistics to a single message category. Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `tag`); only one may be set per request. Matches the `category` key on a row of the per-category breakdown.
+	Category *string `form:"category,omitempty" json:"category,omitempty"`
+
+	// Tag Restrict the statistics to a single tag. Use `name` to match any value of a tag, or `name:value` for a specific pair (for example `campaign:spring_launch`). Mutually exclusive with the other dimension filters (`business_account_id`, `message_kind`, `intent`, `group`, `category`); only one may be set per request. A row of the per-tag breakdown carries the same pair in its single `tag` key.
+	Tag *string `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// Compare Set to `previous_period` to also include the same statistics for the immediately preceding window of equal length, plus the change between the two, so you can show "+X% vs last period" without a second request. The comparison window carries any dimension filter set on the request, so a filtered comparison compares like with like.
+	Compare *StatsComparePeriod `form:"compare,omitempty" json:"compare,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetAMBStatsByTagParams defines parameters for GetAMBStatsByTag.
+type GetAMBStatsByTagParams struct {
+	// From Inclusive start of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Must not be after `to`. Max window 365 days. Defaults to 30 days before `to` when omitted.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive end of the window, a calendar day (YYYY-MM-DD). Interpreted in `timezone`, or UTC when omitted. Max window 365 days. Defaults to today in that timezone when omitted.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
+
+	// Limit Maximum number of tag rows to return, ranked by accepted volume descending.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// ListAMBSuppressionsParams defines parameters for ListAMBSuppressions.
+type ListAMBSuppressionsParams struct {
+	// BusinessAccountId Keep only suppressions for this brand, including the workspace-wide ones that block it too. Omit to see suppressions for every brand in the workspace.
+	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
+
+	// Address Prefix filter on the suppressed phone number or opaque identifier (case-insensitive). A complete value returns only that address; a partial value returns every match.
+	Address *string `form:"address,omitempty" json:"address,omitempty"`
+
+	// AddressType Keep only suppressions of this kind.
+	AddressType *AMBSuppressionAddressType `form:"address_type,omitempty" json:"address_type,omitempty"`
+
+	// Reason Keep only suppressions with this reason.
+	Reason *AMBSuppressionReason `form:"reason,omitempty" json:"reason,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// CreateAMBSuppressionParams defines parameters for CreateAMBSuppression.
+type CreateAMBSuppressionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteAMBSuppressionParams defines parameters for DeleteAMBSuppression.
+type DeleteAMBSuppressionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListAudiencesParams defines parameters for ListAudiences.
 type ListAudiencesParams struct {
 	// Q Case-insensitive substring match against the audience's name.
@@ -28001,6 +32382,22 @@ type ListVoiceLegsParams struct {
 
 // ListVoiceNumbersParams defines parameters for ListVoiceNumbers.
 type ListVoiceNumbersParams struct {
+	// Search Matches part of the phone number or name, ignoring case. Characters such as `%` and `_` match literally.
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
+	// Provider Filter by number source. `allocation` selects numbers we allocated to your workspace. `verified_number` selects numbers from another carrier that you registered for use as caller IDs.
+	Provider *VoiceNumberProviderType `form:"provider,omitempty" json:"provider,omitempty"`
+
+	// Route Filter by the configured answer to incoming calls.
+	//
+	// - `reject`: rejects incoming calls, including numbers without a route configured.
+	// - `trunk`: delivers calls to a SIP trunk.
+	// - `forward`: connects calls to the configured forwarding number.
+	// - `sequence`: runs the selected voice sequence entry.
+	//
+	// Numbers with an unsupported route are excluded when this filter is set.
+	Route *VoiceCallRouteType `form:"route,omitempty" json:"route,omitempty"`
+
 	// Sort Field to sort by.
 	Sort *VoiceNumberSortField `form:"sort,omitempty" json:"sort,omitempty"`
 
@@ -29371,6 +33768,36 @@ type ListWhatsAppTemplateVersionsParams struct {
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
+// CreateAMBBusinessAccountJSONRequestBody defines body for CreateAMBBusinessAccount for application/json ContentType.
+type CreateAMBBusinessAccountJSONRequestBody = AMBBusinessAccountCreate
+
+// UpdateAMBBusinessAccountJSONRequestBody defines body for UpdateAMBBusinessAccount for application/json ContentType.
+type UpdateAMBBusinessAccountJSONRequestBody = AMBBusinessAccountUpdate
+
+// UpdateAMBChannelSettingsJSONRequestBody defines body for UpdateAMBChannelSettings for application/json ContentType.
+type UpdateAMBChannelSettingsJSONRequestBody = AMBChannelSettingsUpdate
+
+// CreateAMBBusinessAccountSubmissionJSONRequestBody defines body for CreateAMBBusinessAccountSubmission for application/json ContentType.
+type CreateAMBBusinessAccountSubmissionJSONRequestBody = AMBBusinessAccountSubmissionCreate
+
+// UpdateAMBConversationJSONRequestBody defines body for UpdateAMBConversation for application/json ContentType.
+type UpdateAMBConversationJSONRequestBody = AMBConversationUpdate
+
+// CreateAMBConversationTypingJSONRequestBody defines body for CreateAMBConversationTyping for application/json ContentType.
+type CreateAMBConversationTypingJSONRequestBody = AMBConversationTypingRequest
+
+// CreateAMBMessageJSONRequestBody defines body for CreateAMBMessage for application/json ContentType.
+type CreateAMBMessageJSONRequestBody = AMBMessageSendRequest
+
+// CreateAMBRoutingRuleJSONRequestBody defines body for CreateAMBRoutingRule for application/json ContentType.
+type CreateAMBRoutingRuleJSONRequestBody = AMBRoutingRuleCreate
+
+// UpdateAMBRoutingRuleJSONRequestBody defines body for UpdateAMBRoutingRule for application/json ContentType.
+type UpdateAMBRoutingRuleJSONRequestBody = AMBRoutingRuleUpdate
+
+// CreateAMBSuppressionJSONRequestBody defines body for CreateAMBSuppression for application/json ContentType.
+type CreateAMBSuppressionJSONRequestBody = AMBSuppressionCreate
+
 // CreateAudienceJSONRequestBody defines body for CreateAudience for application/json ContentType.
 type CreateAudienceJSONRequestBody = AudienceCreateRequest
 
@@ -29586,6 +34013,1990 @@ type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
 
 // CreateWhatsAppSuppressionJSONRequestBody defines body for CreateWhatsAppSuppression for application/json ContentType.
 type CreateWhatsAppSuppressionJSONRequestBody = WhatsAppSuppressionCreate
+
+// AsAMBFormSelectPage returns the union data inside the AMBFormPage as a AMBFormSelectPage
+func (t AMBFormPage) AsAMBFormSelectPage() (AMBFormSelectPage, error) {
+	var body AMBFormSelectPage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBFormSelectPage overwrites any union data inside the AMBFormPage as the provided AMBFormSelectPage
+func (t *AMBFormPage) FromAMBFormSelectPage(v AMBFormSelectPage) error {
+	v.Type = "select"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBFormSelectPage performs a merge with any union data inside the AMBFormPage, using the provided AMBFormSelectPage
+func (t *AMBFormPage) MergeAMBFormSelectPage(v AMBFormSelectPage) error {
+	v.Type = "select"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBFormPickerPage returns the union data inside the AMBFormPage as a AMBFormPickerPage
+func (t AMBFormPage) AsAMBFormPickerPage() (AMBFormPickerPage, error) {
+	var body AMBFormPickerPage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBFormPickerPage overwrites any union data inside the AMBFormPage as the provided AMBFormPickerPage
+func (t *AMBFormPage) FromAMBFormPickerPage(v AMBFormPickerPage) error {
+	v.Type = "picker"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBFormPickerPage performs a merge with any union data inside the AMBFormPage, using the provided AMBFormPickerPage
+func (t *AMBFormPage) MergeAMBFormPickerPage(v AMBFormPickerPage) error {
+	v.Type = "picker"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBFormDatePickerPage returns the union data inside the AMBFormPage as a AMBFormDatePickerPage
+func (t AMBFormPage) AsAMBFormDatePickerPage() (AMBFormDatePickerPage, error) {
+	var body AMBFormDatePickerPage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBFormDatePickerPage overwrites any union data inside the AMBFormPage as the provided AMBFormDatePickerPage
+func (t *AMBFormPage) FromAMBFormDatePickerPage(v AMBFormDatePickerPage) error {
+	v.Type = "date_picker"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBFormDatePickerPage performs a merge with any union data inside the AMBFormPage, using the provided AMBFormDatePickerPage
+func (t *AMBFormPage) MergeAMBFormDatePickerPage(v AMBFormDatePickerPage) error {
+	v.Type = "date_picker"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBFormInputPage returns the union data inside the AMBFormPage as a AMBFormInputPage
+func (t AMBFormPage) AsAMBFormInputPage() (AMBFormInputPage, error) {
+	var body AMBFormInputPage
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBFormInputPage overwrites any union data inside the AMBFormPage as the provided AMBFormInputPage
+func (t *AMBFormPage) FromAMBFormInputPage(v AMBFormInputPage) error {
+	v.Type = "input"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBFormInputPage performs a merge with any union data inside the AMBFormPage, using the provided AMBFormInputPage
+func (t *AMBFormPage) MergeAMBFormInputPage(v AMBFormInputPage) error {
+	v.Type = "input"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBFormPage) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t AMBFormPage) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "date_picker":
+		return t.AsAMBFormDatePickerPage()
+	case "input":
+		return t.AsAMBFormInputPage()
+	case "picker":
+		return t.AsAMBFormPickerPage()
+	case "select":
+		return t.AsAMBFormSelectPage()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t AMBFormPage) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AMBFormPage) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAMBNativeTextContent returns the union data inside the AMBInboundContent as a AMBNativeTextContent
+func (t AMBInboundContent) AsAMBNativeTextContent() (AMBNativeTextContent, error) {
+	var body AMBNativeTextContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeTextContent overwrites any union data inside the AMBInboundContent as the provided AMBNativeTextContent
+func (t *AMBInboundContent) FromAMBNativeTextContent(v AMBNativeTextContent) error {
+	v.Type = "text"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeTextContent performs a merge with any union data inside the AMBInboundContent, using the provided AMBNativeTextContent
+func (t *AMBInboundContent) MergeAMBNativeTextContent(v AMBNativeTextContent) error {
+	v.Type = "text"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInboundInteractiveContent returns the union data inside the AMBInboundContent as a AMBNativeInboundInteractiveContent
+func (t AMBInboundContent) AsAMBNativeInboundInteractiveContent() (AMBNativeInboundInteractiveContent, error) {
+	var body AMBNativeInboundInteractiveContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInboundInteractiveContent overwrites any union data inside the AMBInboundContent as the provided AMBNativeInboundInteractiveContent
+func (t *AMBInboundContent) FromAMBNativeInboundInteractiveContent(v AMBNativeInboundInteractiveContent) error {
+	v.Type = "interactive"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInboundInteractiveContent performs a merge with any union data inside the AMBInboundContent, using the provided AMBNativeInboundInteractiveContent
+func (t *AMBInboundContent) MergeAMBNativeInboundInteractiveContent(v AMBNativeInboundInteractiveContent) error {
+	v.Type = "interactive"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBInboundContent) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t AMBInboundContent) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "interactive":
+		return t.AsAMBNativeInboundInteractiveContent()
+	case "text":
+		return t.AsAMBNativeTextContent()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t AMBInboundContent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AMBInboundContent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAMBMessageContent returns the union data inside the AMBMessage_Content as a AMBMessageContent
+func (t AMBMessage_Content) AsAMBMessageContent() (AMBMessageContent, error) {
+	var body AMBMessageContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBMessageContent overwrites any union data inside the AMBMessage_Content as the provided AMBMessageContent
+func (t *AMBMessage_Content) FromAMBMessageContent(v AMBMessageContent) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBMessageContent performs a merge with any union data inside the AMBMessage_Content, using the provided AMBMessageContent
+func (t *AMBMessage_Content) MergeAMBMessageContent(v AMBMessageContent) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBInboundContent returns the union data inside the AMBMessage_Content as a AMBInboundContent
+func (t AMBMessage_Content) AsAMBInboundContent() (AMBInboundContent, error) {
+	var body AMBInboundContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBInboundContent overwrites any union data inside the AMBMessage_Content as the provided AMBInboundContent
+func (t *AMBMessage_Content) FromAMBInboundContent(v AMBInboundContent) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBInboundContent performs a merge with any union data inside the AMBMessage_Content, using the provided AMBInboundContent
+func (t *AMBMessage_Content) MergeAMBInboundContent(v AMBInboundContent) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBMessage_Content) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AMBMessage_Content) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAMBNativeTextContent returns the union data inside the AMBMessageContent as a AMBNativeTextContent
+func (t AMBMessageContent) AsAMBNativeTextContent() (AMBNativeTextContent, error) {
+	var body AMBNativeTextContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeTextContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeTextContent
+func (t *AMBMessageContent) FromAMBNativeTextContent(v AMBNativeTextContent) error {
+	v.Type = "text"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeTextContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeTextContent
+func (t *AMBMessageContent) MergeAMBNativeTextContent(v AMBNativeTextContent) error {
+	v.Type = "text"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeRichLinkContent returns the union data inside the AMBMessageContent as a AMBNativeRichLinkContent
+func (t AMBMessageContent) AsAMBNativeRichLinkContent() (AMBNativeRichLinkContent, error) {
+	var body AMBNativeRichLinkContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeRichLinkContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeRichLinkContent
+func (t *AMBMessageContent) FromAMBNativeRichLinkContent(v AMBNativeRichLinkContent) error {
+	v.Type = "rich_link"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeRichLinkContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeRichLinkContent
+func (t *AMBMessageContent) MergeAMBNativeRichLinkContent(v AMBNativeRichLinkContent) error {
+	v.Type = "rich_link"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractiveContent returns the union data inside the AMBMessageContent as a AMBNativeInteractiveContent
+func (t AMBMessageContent) AsAMBNativeInteractiveContent() (AMBNativeInteractiveContent, error) {
+	var body AMBNativeInteractiveContent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractiveContent overwrites any union data inside the AMBMessageContent as the provided AMBNativeInteractiveContent
+func (t *AMBMessageContent) FromAMBNativeInteractiveContent(v AMBNativeInteractiveContent) error {
+	v.Type = "interactive"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractiveContent performs a merge with any union data inside the AMBMessageContent, using the provided AMBNativeInteractiveContent
+func (t *AMBMessageContent) MergeAMBNativeInteractiveContent(v AMBNativeInteractiveContent) error {
+	v.Type = "interactive"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBMessageContent) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t AMBMessageContent) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "interactive":
+		return t.AsAMBNativeInteractiveContent()
+	case "rich_link":
+		return t.AsAMBNativeRichLinkContent()
+	case "text":
+		return t.AsAMBNativeTextContent()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t AMBMessageContent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *AMBMessageContent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAMBNativeAttachment0 returns the union data inside the AMBNativeAttachment as a AMBNativeAttachment0
+func (t AMBNativeAttachment) AsAMBNativeAttachment0() (AMBNativeAttachment0, error) {
+	var body AMBNativeAttachment0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeAttachment0 overwrites any union data inside the AMBNativeAttachment as the provided AMBNativeAttachment0
+func (t *AMBNativeAttachment) FromAMBNativeAttachment0(v AMBNativeAttachment0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeAttachment0 performs a merge with any union data inside the AMBNativeAttachment, using the provided AMBNativeAttachment0
+func (t *AMBNativeAttachment) MergeAMBNativeAttachment0(v AMBNativeAttachment0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeAttachment1 returns the union data inside the AMBNativeAttachment as a AMBNativeAttachment1
+func (t AMBNativeAttachment) AsAMBNativeAttachment1() (AMBNativeAttachment1, error) {
+	var body AMBNativeAttachment1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeAttachment1 overwrites any union data inside the AMBNativeAttachment as the provided AMBNativeAttachment1
+func (t *AMBNativeAttachment) FromAMBNativeAttachment1(v AMBNativeAttachment1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeAttachment1 performs a merge with any union data inside the AMBNativeAttachment, using the provided AMBNativeAttachment1
+func (t *AMBNativeAttachment) MergeAMBNativeAttachment1(v AMBNativeAttachment1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeAttachment) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Key != nil {
+		object["key"], err = json.Marshal(t.Key)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'key': %w", err)
+		}
+	}
+
+	if t.MimeType != nil {
+		object["mime_type"], err = json.Marshal(t.MimeType)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'mime_type': %w", err)
+		}
+	}
+
+	if t.Name != nil {
+		object["name"], err = json.Marshal(t.Name)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'name': %w", err)
+		}
+	}
+
+	if t.Owner != nil {
+		object["owner"], err = json.Marshal(t.Owner)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'owner': %w", err)
+		}
+	}
+
+	if t.SignatureBase64 != nil {
+		object["signature_base64"], err = json.Marshal(t.SignatureBase64)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'signature_base64': %w", err)
+		}
+	}
+
+	if t.Size != nil {
+		object["size"], err = json.Marshal(t.Size)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'size': %w", err)
+		}
+	}
+
+	if t.SourceUrl != nil {
+		object["source_url"], err = json.Marshal(t.SourceUrl)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'source_url': %w", err)
+		}
+	}
+
+	if t.Url != nil {
+		object["url"], err = json.Marshal(t.Url)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'url': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeAttachment) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["key"]; found {
+		err = json.Unmarshal(raw, &t.Key)
+		if err != nil {
+			return fmt.Errorf("error reading 'key': %w", err)
+		}
+	}
+
+	if raw, found := object["mime_type"]; found {
+		err = json.Unmarshal(raw, &t.MimeType)
+		if err != nil {
+			return fmt.Errorf("error reading 'mime_type': %w", err)
+		}
+	}
+
+	if raw, found := object["name"]; found {
+		err = json.Unmarshal(raw, &t.Name)
+		if err != nil {
+			return fmt.Errorf("error reading 'name': %w", err)
+		}
+	}
+
+	if raw, found := object["owner"]; found {
+		err = json.Unmarshal(raw, &t.Owner)
+		if err != nil {
+			return fmt.Errorf("error reading 'owner': %w", err)
+		}
+	}
+
+	if raw, found := object["signature_base64"]; found {
+		err = json.Unmarshal(raw, &t.SignatureBase64)
+		if err != nil {
+			return fmt.Errorf("error reading 'signature_base64': %w", err)
+		}
+	}
+
+	if raw, found := object["size"]; found {
+		err = json.Unmarshal(raw, &t.Size)
+		if err != nil {
+			return fmt.Errorf("error reading 'size': %w", err)
+		}
+	}
+
+	if raw, found := object["source_url"]; found {
+		err = json.Unmarshal(raw, &t.SourceUrl)
+		if err != nil {
+			return fmt.Errorf("error reading 'source_url': %w", err)
+		}
+	}
+
+	if raw, found := object["url"]; found {
+		err = json.Unmarshal(raw, &t.Url)
+		if err != nil {
+			return fmt.Errorf("error reading 'url': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBNativeInteractiveContent0 returns the union data inside the AMBNativeInteractiveContent as a AMBNativeInteractiveContent0
+func (t AMBNativeInteractiveContent) AsAMBNativeInteractiveContent0() (AMBNativeInteractiveContent0, error) {
+	var body AMBNativeInteractiveContent0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractiveContent0 overwrites any union data inside the AMBNativeInteractiveContent as the provided AMBNativeInteractiveContent0
+func (t *AMBNativeInteractiveContent) FromAMBNativeInteractiveContent0(v AMBNativeInteractiveContent0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractiveContent0 performs a merge with any union data inside the AMBNativeInteractiveContent, using the provided AMBNativeInteractiveContent0
+func (t *AMBNativeInteractiveContent) MergeAMBNativeInteractiveContent0(v AMBNativeInteractiveContent0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractiveContent1 returns the union data inside the AMBNativeInteractiveContent as a AMBNativeInteractiveContent1
+func (t AMBNativeInteractiveContent) AsAMBNativeInteractiveContent1() (AMBNativeInteractiveContent1, error) {
+	var body AMBNativeInteractiveContent1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractiveContent1 overwrites any union data inside the AMBNativeInteractiveContent as the provided AMBNativeInteractiveContent1
+func (t *AMBNativeInteractiveContent) FromAMBNativeInteractiveContent1(v AMBNativeInteractiveContent1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractiveContent1 performs a merge with any union data inside the AMBNativeInteractiveContent, using the provided AMBNativeInteractiveContent1
+func (t *AMBNativeInteractiveContent) MergeAMBNativeInteractiveContent1(v AMBNativeInteractiveContent1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeInteractiveContent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Attachments != nil {
+		object["attachments"], err = json.Marshal(t.Attachments)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
+		}
+	}
+
+	if t.Body != nil {
+		object["body"], err = json.Marshal(t.Body)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'body': %w", err)
+		}
+	}
+
+	if t.InteractiveData != nil {
+		object["interactive_data"], err = json.Marshal(t.InteractiveData)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'interactive_data': %w", err)
+		}
+	}
+
+	if t.InteractiveDataRef != nil {
+		object["interactive_data_ref"], err = json.Marshal(t.InteractiveDataRef)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'interactive_data_ref': %w", err)
+		}
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeInteractiveContent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachments"]; found {
+		err = json.Unmarshal(raw, &t.Attachments)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachments': %w", err)
+		}
+	}
+
+	if raw, found := object["body"]; found {
+		err = json.Unmarshal(raw, &t.Body)
+		if err != nil {
+			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["interactive_data"]; found {
+		err = json.Unmarshal(raw, &t.InteractiveData)
+		if err != nil {
+			return fmt.Errorf("error reading 'interactive_data': %w", err)
+		}
+	}
+
+	if raw, found := object["interactive_data_ref"]; found {
+		err = json.Unmarshal(raw, &t.InteractiveDataRef)
+		if err != nil {
+			return fmt.Errorf("error reading 'interactive_data_ref': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBNativeInteractiveData0 returns the union data inside the AMBNativeInteractiveData as a AMBNativeInteractiveData0
+func (t AMBNativeInteractiveData) AsAMBNativeInteractiveData0() (AMBNativeInteractiveData0, error) {
+	var body AMBNativeInteractiveData0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractiveData0 overwrites any union data inside the AMBNativeInteractiveData as the provided AMBNativeInteractiveData0
+func (t *AMBNativeInteractiveData) FromAMBNativeInteractiveData0(v AMBNativeInteractiveData0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractiveData0 performs a merge with any union data inside the AMBNativeInteractiveData, using the provided AMBNativeInteractiveData0
+func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData0(v AMBNativeInteractiveData0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractiveData1 returns the union data inside the AMBNativeInteractiveData as a AMBNativeInteractiveData1
+func (t AMBNativeInteractiveData) AsAMBNativeInteractiveData1() (AMBNativeInteractiveData1, error) {
+	var body AMBNativeInteractiveData1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractiveData1 overwrites any union data inside the AMBNativeInteractiveData as the provided AMBNativeInteractiveData1
+func (t *AMBNativeInteractiveData) FromAMBNativeInteractiveData1(v AMBNativeInteractiveData1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractiveData1 performs a merge with any union data inside the AMBNativeInteractiveData, using the provided AMBNativeInteractiveData1
+func (t *AMBNativeInteractiveData) MergeAMBNativeInteractiveData1(v AMBNativeInteractiveData1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeInteractiveData) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.AppIconSourceUrl != nil {
+		object["app_icon_source_url"], err = json.Marshal(t.AppIconSourceUrl)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'app_icon_source_url': %w", err)
+		}
+	}
+
+	if t.AppId != nil {
+		object["app_id"], err = json.Marshal(t.AppId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'app_id': %w", err)
+		}
+	}
+
+	if t.AppName != nil {
+		object["app_name"], err = json.Marshal(t.AppName)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'app_name': %w", err)
+		}
+	}
+
+	if t.Bid != nil {
+		object["bid"], err = json.Marshal(t.Bid)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'bid': %w", err)
+		}
+	}
+
+	if t.Data != nil {
+		object["data"], err = json.Marshal(t.Data)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'data': %w", err)
+		}
+	}
+
+	if t.ReceivedMessage != nil {
+		object["received_message"], err = json.Marshal(t.ReceivedMessage)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'received_message': %w", err)
+		}
+	}
+
+	if t.ReplyMessage != nil {
+		object["reply_message"], err = json.Marshal(t.ReplyMessage)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'reply_message': %w", err)
+		}
+	}
+
+	if t.SessionIdentifier != nil {
+		object["session_identifier"], err = json.Marshal(t.SessionIdentifier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'session_identifier': %w", err)
+		}
+	}
+
+	if t.Url != nil {
+		object["url"], err = json.Marshal(t.Url)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'url': %w", err)
+		}
+	}
+
+	if t.UseLiveLayout != nil {
+		object["use_live_layout"], err = json.Marshal(t.UseLiveLayout)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'use_live_layout': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeInteractiveData) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["app_icon_source_url"]; found {
+		err = json.Unmarshal(raw, &t.AppIconSourceUrl)
+		if err != nil {
+			return fmt.Errorf("error reading 'app_icon_source_url': %w", err)
+		}
+	}
+
+	if raw, found := object["app_id"]; found {
+		err = json.Unmarshal(raw, &t.AppId)
+		if err != nil {
+			return fmt.Errorf("error reading 'app_id': %w", err)
+		}
+	}
+
+	if raw, found := object["app_name"]; found {
+		err = json.Unmarshal(raw, &t.AppName)
+		if err != nil {
+			return fmt.Errorf("error reading 'app_name': %w", err)
+		}
+	}
+
+	if raw, found := object["bid"]; found {
+		err = json.Unmarshal(raw, &t.Bid)
+		if err != nil {
+			return fmt.Errorf("error reading 'bid': %w", err)
+		}
+	}
+
+	if raw, found := object["data"]; found {
+		err = json.Unmarshal(raw, &t.Data)
+		if err != nil {
+			return fmt.Errorf("error reading 'data': %w", err)
+		}
+	}
+
+	if raw, found := object["received_message"]; found {
+		err = json.Unmarshal(raw, &t.ReceivedMessage)
+		if err != nil {
+			return fmt.Errorf("error reading 'received_message': %w", err)
+		}
+	}
+
+	if raw, found := object["reply_message"]; found {
+		err = json.Unmarshal(raw, &t.ReplyMessage)
+		if err != nil {
+			return fmt.Errorf("error reading 'reply_message': %w", err)
+		}
+	}
+
+	if raw, found := object["session_identifier"]; found {
+		err = json.Unmarshal(raw, &t.SessionIdentifier)
+		if err != nil {
+			return fmt.Errorf("error reading 'session_identifier': %w", err)
+		}
+	}
+
+	if raw, found := object["url"]; found {
+		err = json.Unmarshal(raw, &t.Url)
+		if err != nil {
+			return fmt.Errorf("error reading 'url': %w", err)
+		}
+	}
+
+	if raw, found := object["use_live_layout"]; found {
+		err = json.Unmarshal(raw, &t.UseLiveLayout)
+		if err != nil {
+			return fmt.Errorf("error reading 'use_live_layout': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBNativeInteractivePayload0 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload0
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload0() (AMBNativeInteractivePayload0, error) {
+	var body AMBNativeInteractivePayload0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload0 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload0
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload0(v AMBNativeInteractivePayload0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload0 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload0
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload0(v AMBNativeInteractivePayload0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractivePayload1 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload1
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload1() (AMBNativeInteractivePayload1, error) {
+	var body AMBNativeInteractivePayload1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload1 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload1
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload1(v AMBNativeInteractivePayload1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload1 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload1
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload1(v AMBNativeInteractivePayload1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractivePayload2 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload2
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload2() (AMBNativeInteractivePayload2, error) {
+	var body AMBNativeInteractivePayload2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload2 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload2
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload2(v AMBNativeInteractivePayload2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload2 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload2
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload2(v AMBNativeInteractivePayload2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractivePayload3 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload3
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload3() (AMBNativeInteractivePayload3, error) {
+	var body AMBNativeInteractivePayload3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload3 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload3
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload3(v AMBNativeInteractivePayload3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload3 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload3
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload3(v AMBNativeInteractivePayload3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractivePayload4 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload4
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload4() (AMBNativeInteractivePayload4, error) {
+	var body AMBNativeInteractivePayload4
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload4 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload4
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload4(v AMBNativeInteractivePayload4) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload4 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload4
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload4(v AMBNativeInteractivePayload4) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeInteractivePayload5 returns the union data inside the AMBNativeInteractivePayload as a AMBNativeInteractivePayload5
+func (t AMBNativeInteractivePayload) AsAMBNativeInteractivePayload5() (AMBNativeInteractivePayload5, error) {
+	var body AMBNativeInteractivePayload5
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeInteractivePayload5 overwrites any union data inside the AMBNativeInteractivePayload as the provided AMBNativeInteractivePayload5
+func (t *AMBNativeInteractivePayload) FromAMBNativeInteractivePayload5(v AMBNativeInteractivePayload5) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeInteractivePayload5 performs a merge with any union data inside the AMBNativeInteractivePayload, using the provided AMBNativeInteractivePayload5
+func (t *AMBNativeInteractivePayload) MergeAMBNativeInteractivePayload5(v AMBNativeInteractivePayload5) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeInteractivePayload) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Authenticate != nil {
+		object["authenticate"], err = json.Marshal(t.Authenticate)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'authenticate': %w", err)
+		}
+	}
+
+	if t.Dynamic != nil {
+		object["dynamic"], err = json.Marshal(t.Dynamic)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'dynamic': %w", err)
+		}
+	}
+
+	if t.Event != nil {
+		object["event"], err = json.Marshal(t.Event)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'event': %w", err)
+		}
+	}
+
+	if t.Images != nil {
+		object["images"], err = json.Marshal(t.Images)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'images': %w", err)
+		}
+	}
+
+	if t.ListPicker != nil {
+		object["list_picker"], err = json.Marshal(t.ListPicker)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'list_picker': %w", err)
+		}
+	}
+
+	if t.Payment != nil {
+		object["payment"], err = json.Marshal(t.Payment)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'payment': %w", err)
+		}
+	}
+
+	if t.QuickReply != nil {
+		object["quick_reply"], err = json.Marshal(t.QuickReply)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'quick_reply': %w", err)
+		}
+	}
+
+	if t.RequestIdentifier != nil {
+		object["request_identifier"], err = json.Marshal(t.RequestIdentifier)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'request_identifier': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeInteractivePayload) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["authenticate"]; found {
+		err = json.Unmarshal(raw, &t.Authenticate)
+		if err != nil {
+			return fmt.Errorf("error reading 'authenticate': %w", err)
+		}
+	}
+
+	if raw, found := object["dynamic"]; found {
+		err = json.Unmarshal(raw, &t.Dynamic)
+		if err != nil {
+			return fmt.Errorf("error reading 'dynamic': %w", err)
+		}
+	}
+
+	if raw, found := object["event"]; found {
+		err = json.Unmarshal(raw, &t.Event)
+		if err != nil {
+			return fmt.Errorf("error reading 'event': %w", err)
+		}
+	}
+
+	if raw, found := object["images"]; found {
+		err = json.Unmarshal(raw, &t.Images)
+		if err != nil {
+			return fmt.Errorf("error reading 'images': %w", err)
+		}
+	}
+
+	if raw, found := object["list_picker"]; found {
+		err = json.Unmarshal(raw, &t.ListPicker)
+		if err != nil {
+			return fmt.Errorf("error reading 'list_picker': %w", err)
+		}
+	}
+
+	if raw, found := object["payment"]; found {
+		err = json.Unmarshal(raw, &t.Payment)
+		if err != nil {
+			return fmt.Errorf("error reading 'payment': %w", err)
+		}
+	}
+
+	if raw, found := object["quick_reply"]; found {
+		err = json.Unmarshal(raw, &t.QuickReply)
+		if err != nil {
+			return fmt.Errorf("error reading 'quick_reply': %w", err)
+		}
+	}
+
+	if raw, found := object["request_identifier"]; found {
+		err = json.Unmarshal(raw, &t.RequestIdentifier)
+		if err != nil {
+			return fmt.Errorf("error reading 'request_identifier': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBNativeRichLinkContent0 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent0
+func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent0() (AMBNativeRichLinkContent0, error) {
+	var body AMBNativeRichLinkContent0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeRichLinkContent0 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent0
+func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent0(v AMBNativeRichLinkContent0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeRichLinkContent0 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent0
+func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent0(v AMBNativeRichLinkContent0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeRichLinkContent1 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent1
+func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent1() (AMBNativeRichLinkContent1, error) {
+	var body AMBNativeRichLinkContent1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeRichLinkContent1 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent1
+func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent1(v AMBNativeRichLinkContent1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeRichLinkContent1 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent1
+func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent1(v AMBNativeRichLinkContent1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Attachments != nil {
+		object["attachments"], err = json.Marshal(t.Attachments)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
+		}
+	}
+
+	if t.Body != nil {
+		object["body"], err = json.Marshal(t.Body)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'body': %w", err)
+		}
+	}
+
+	if t.RichLinkData != nil {
+		object["rich_link_data"], err = json.Marshal(t.RichLinkData)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'rich_link_data': %w", err)
+		}
+	}
+
+	if t.RichLinkDataRef != nil {
+		object["rich_link_data_ref"], err = json.Marshal(t.RichLinkDataRef)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'rich_link_data_ref': %w", err)
+		}
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachments"]; found {
+		err = json.Unmarshal(raw, &t.Attachments)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachments': %w", err)
+		}
+	}
+
+	if raw, found := object["body"]; found {
+		err = json.Unmarshal(raw, &t.Body)
+		if err != nil {
+			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["rich_link_data"]; found {
+		err = json.Unmarshal(raw, &t.RichLinkData)
+		if err != nil {
+			return fmt.Errorf("error reading 'rich_link_data': %w", err)
+		}
+	}
+
+	if raw, found := object["rich_link_data_ref"]; found {
+		err = json.Unmarshal(raw, &t.RichLinkDataRef)
+		if err != nil {
+			return fmt.Errorf("error reading 'rich_link_data_ref': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBNativeTextContent0 returns the union data inside the AMBNativeTextContent as a AMBNativeTextContent0
+func (t AMBNativeTextContent) AsAMBNativeTextContent0() (AMBNativeTextContent0, error) {
+	var body AMBNativeTextContent0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeTextContent0 overwrites any union data inside the AMBNativeTextContent as the provided AMBNativeTextContent0
+func (t *AMBNativeTextContent) FromAMBNativeTextContent0(v AMBNativeTextContent0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeTextContent0 performs a merge with any union data inside the AMBNativeTextContent, using the provided AMBNativeTextContent0
+func (t *AMBNativeTextContent) MergeAMBNativeTextContent0(v AMBNativeTextContent0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBNativeTextContent1 returns the union data inside the AMBNativeTextContent as a AMBNativeTextContent1
+func (t AMBNativeTextContent) AsAMBNativeTextContent1() (AMBNativeTextContent1, error) {
+	var body AMBNativeTextContent1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeTextContent1 overwrites any union data inside the AMBNativeTextContent as the provided AMBNativeTextContent1
+func (t *AMBNativeTextContent) FromAMBNativeTextContent1(v AMBNativeTextContent1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeTextContent1 performs a merge with any union data inside the AMBNativeTextContent, using the provided AMBNativeTextContent1
+func (t *AMBNativeTextContent) MergeAMBNativeTextContent1(v AMBNativeTextContent1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBNativeTextContent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Attachments != nil {
+		object["attachments"], err = json.Marshal(t.Attachments)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachments': %w", err)
+		}
+	}
+
+	if t.Body != nil {
+		object["body"], err = json.Marshal(t.Body)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'body': %w", err)
+		}
+	}
+
+	if t.Subject != nil {
+		object["subject"], err = json.Marshal(t.Subject)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subject': %w", err)
+		}
+	}
+
+	object["type"], err = json.Marshal(t.Type)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'type': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBNativeTextContent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachments"]; found {
+		err = json.Unmarshal(raw, &t.Attachments)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachments': %w", err)
+		}
+	}
+
+	if raw, found := object["body"]; found {
+		err = json.Unmarshal(raw, &t.Body)
+		if err != nil {
+			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["subject"]; found {
+		err = json.Unmarshal(raw, &t.Subject)
+		if err != nil {
+			return fmt.Errorf("error reading 'subject': %w", err)
+		}
+	}
+
+	if raw, found := object["type"]; found {
+		err = json.Unmarshal(raw, &t.Type)
+		if err != nil {
+			return fmt.Errorf("error reading 'type': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBRichLinkReference0 returns the union data inside the AMBRichLinkReference as a AMBRichLinkReference0
+func (t AMBRichLinkReference) AsAMBRichLinkReference0() (AMBRichLinkReference0, error) {
+	var body AMBRichLinkReference0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRichLinkReference0 overwrites any union data inside the AMBRichLinkReference as the provided AMBRichLinkReference0
+func (t *AMBRichLinkReference) FromAMBRichLinkReference0(v AMBRichLinkReference0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRichLinkReference0 performs a merge with any union data inside the AMBRichLinkReference, using the provided AMBRichLinkReference0
+func (t *AMBRichLinkReference) MergeAMBRichLinkReference0(v AMBRichLinkReference0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRichLinkReference1 returns the union data inside the AMBRichLinkReference as a AMBRichLinkReference1
+func (t AMBRichLinkReference) AsAMBRichLinkReference1() (AMBRichLinkReference1, error) {
+	var body AMBRichLinkReference1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRichLinkReference1 overwrites any union data inside the AMBRichLinkReference as the provided AMBRichLinkReference1
+func (t *AMBRichLinkReference) FromAMBRichLinkReference1(v AMBRichLinkReference1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRichLinkReference1 performs a merge with any union data inside the AMBRichLinkReference, using the provided AMBRichLinkReference1
+func (t *AMBRichLinkReference) MergeAMBRichLinkReference1(v AMBRichLinkReference1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBRichLinkReference) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Bid != nil {
+		object["bid"], err = json.Marshal(t.Bid)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'bid': %w", err)
+		}
+	}
+
+	if t.DataRefSig != nil {
+		object["data_ref_sig"], err = json.Marshal(t.DataRefSig)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'data_ref_sig': %w", err)
+		}
+	}
+
+	if t.Key != nil {
+		object["key"], err = json.Marshal(t.Key)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'key': %w", err)
+		}
+	}
+
+	object["owner"], err = json.Marshal(t.Owner)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'owner': %w", err)
+	}
+
+	object["signature_base64"], err = json.Marshal(t.SignatureBase64)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'signature_base64': %w", err)
+	}
+
+	object["size"], err = json.Marshal(t.Size)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'size': %w", err)
+	}
+
+	if t.Title != nil {
+		object["title"], err = json.Marshal(t.Title)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'title': %w", err)
+		}
+	}
+
+	object["url"], err = json.Marshal(t.Url)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'url': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBRichLinkReference) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["bid"]; found {
+		err = json.Unmarshal(raw, &t.Bid)
+		if err != nil {
+			return fmt.Errorf("error reading 'bid': %w", err)
+		}
+	}
+
+	if raw, found := object["data_ref_sig"]; found {
+		err = json.Unmarshal(raw, &t.DataRefSig)
+		if err != nil {
+			return fmt.Errorf("error reading 'data_ref_sig': %w", err)
+		}
+	}
+
+	if raw, found := object["key"]; found {
+		err = json.Unmarshal(raw, &t.Key)
+		if err != nil {
+			return fmt.Errorf("error reading 'key': %w", err)
+		}
+	}
+
+	if raw, found := object["owner"]; found {
+		err = json.Unmarshal(raw, &t.Owner)
+		if err != nil {
+			return fmt.Errorf("error reading 'owner': %w", err)
+		}
+	}
+
+	if raw, found := object["signature_base64"]; found {
+		err = json.Unmarshal(raw, &t.SignatureBase64)
+		if err != nil {
+			return fmt.Errorf("error reading 'signature_base64': %w", err)
+		}
+	}
+
+	if raw, found := object["size"]; found {
+		err = json.Unmarshal(raw, &t.Size)
+		if err != nil {
+			return fmt.Errorf("error reading 'size': %w", err)
+		}
+	}
+
+	if raw, found := object["title"]; found {
+		err = json.Unmarshal(raw, &t.Title)
+		if err != nil {
+			return fmt.Errorf("error reading 'title': %w", err)
+		}
+	}
+
+	if raw, found := object["url"]; found {
+		err = json.Unmarshal(raw, &t.Url)
+		if err != nil {
+			return fmt.Errorf("error reading 'url': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBRoutingRuleCreate0 returns the union data inside the AMBRoutingRuleCreate as a AMBRoutingRuleCreate0
+func (t AMBRoutingRuleCreate) AsAMBRoutingRuleCreate0() (AMBRoutingRuleCreate0, error) {
+	var body AMBRoutingRuleCreate0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleCreate0 overwrites any union data inside the AMBRoutingRuleCreate as the provided AMBRoutingRuleCreate0
+func (t *AMBRoutingRuleCreate) FromAMBRoutingRuleCreate0(v AMBRoutingRuleCreate0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleCreate0 performs a merge with any union data inside the AMBRoutingRuleCreate, using the provided AMBRoutingRuleCreate0
+func (t *AMBRoutingRuleCreate) MergeAMBRoutingRuleCreate0(v AMBRoutingRuleCreate0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRoutingRuleCreate1 returns the union data inside the AMBRoutingRuleCreate as a AMBRoutingRuleCreate1
+func (t AMBRoutingRuleCreate) AsAMBRoutingRuleCreate1() (AMBRoutingRuleCreate1, error) {
+	var body AMBRoutingRuleCreate1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleCreate1 overwrites any union data inside the AMBRoutingRuleCreate as the provided AMBRoutingRuleCreate1
+func (t *AMBRoutingRuleCreate) FromAMBRoutingRuleCreate1(v AMBRoutingRuleCreate1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleCreate1 performs a merge with any union data inside the AMBRoutingRuleCreate, using the provided AMBRoutingRuleCreate1
+func (t *AMBRoutingRuleCreate) MergeAMBRoutingRuleCreate1(v AMBRoutingRuleCreate1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRoutingRuleCreate2 returns the union data inside the AMBRoutingRuleCreate as a AMBRoutingRuleCreate2
+func (t AMBRoutingRuleCreate) AsAMBRoutingRuleCreate2() (AMBRoutingRuleCreate2, error) {
+	var body AMBRoutingRuleCreate2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleCreate2 overwrites any union data inside the AMBRoutingRuleCreate as the provided AMBRoutingRuleCreate2
+func (t *AMBRoutingRuleCreate) FromAMBRoutingRuleCreate2(v AMBRoutingRuleCreate2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleCreate2 performs a merge with any union data inside the AMBRoutingRuleCreate, using the provided AMBRoutingRuleCreate2
+func (t *AMBRoutingRuleCreate) MergeAMBRoutingRuleCreate2(v AMBRoutingRuleCreate2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBRoutingRuleCreate) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	object["business_account_id"], err = json.Marshal(t.BusinessAccountId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'business_account_id': %w", err)
+	}
+
+	if t.IsDefault != nil {
+		object["is_default"], err = json.Marshal(t.IsDefault)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'is_default': %w", err)
+		}
+	}
+
+	object["match_group_id"], err = json.Marshal(t.MatchGroupId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'match_group_id': %w", err)
+	}
+
+	object["match_intent_id"], err = json.Marshal(t.MatchIntentId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'match_intent_id': %w", err)
+	}
+
+	object["match_kind"], err = json.Marshal(t.MatchKind)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'match_kind': %w", err)
+	}
+
+	if t.Precedence != nil {
+		object["precedence"], err = json.Marshal(t.Precedence)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'precedence': %w", err)
+		}
+	}
+
+	object["queue"], err = json.Marshal(t.Queue)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'queue': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBRoutingRuleCreate) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["business_account_id"]; found {
+		err = json.Unmarshal(raw, &t.BusinessAccountId)
+		if err != nil {
+			return fmt.Errorf("error reading 'business_account_id': %w", err)
+		}
+	}
+
+	if raw, found := object["is_default"]; found {
+		err = json.Unmarshal(raw, &t.IsDefault)
+		if err != nil {
+			return fmt.Errorf("error reading 'is_default': %w", err)
+		}
+	}
+
+	if raw, found := object["match_group_id"]; found {
+		err = json.Unmarshal(raw, &t.MatchGroupId)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_group_id': %w", err)
+		}
+	}
+
+	if raw, found := object["match_intent_id"]; found {
+		err = json.Unmarshal(raw, &t.MatchIntentId)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_intent_id': %w", err)
+		}
+	}
+
+	if raw, found := object["match_kind"]; found {
+		err = json.Unmarshal(raw, &t.MatchKind)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_kind': %w", err)
+		}
+	}
+
+	if raw, found := object["precedence"]; found {
+		err = json.Unmarshal(raw, &t.Precedence)
+		if err != nil {
+			return fmt.Errorf("error reading 'precedence': %w", err)
+		}
+	}
+
+	if raw, found := object["queue"]; found {
+		err = json.Unmarshal(raw, &t.Queue)
+		if err != nil {
+			return fmt.Errorf("error reading 'queue': %w", err)
+		}
+	}
+
+	return err
+}
 
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
@@ -30800,6 +37211,258 @@ func (t VoiceNumberProvider) MarshalJSON() ([]byte, error) {
 
 func (t *VoiceNumberProvider) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEventAMBAccepted returns the union data inside the WebhookEvent as a EventAMBAccepted
+func (t WebhookEvent) AsEventAMBAccepted() (EventAMBAccepted, error) {
+	var body EventAMBAccepted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBAccepted overwrites any union data inside the WebhookEvent as the provided EventAMBAccepted
+func (t *WebhookEvent) FromEventAMBAccepted(v EventAMBAccepted) error {
+	v.Type = "amb.accepted"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBAccepted performs a merge with any union data inside the WebhookEvent, using the provided EventAMBAccepted
+func (t *WebhookEvent) MergeEventAMBAccepted(v EventAMBAccepted) error {
+	v.Type = "amb.accepted"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBConversationClosed returns the union data inside the WebhookEvent as a EventAMBConversationClosed
+func (t WebhookEvent) AsEventAMBConversationClosed() (EventAMBConversationClosed, error) {
+	var body EventAMBConversationClosed
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBConversationClosed overwrites any union data inside the WebhookEvent as the provided EventAMBConversationClosed
+func (t *WebhookEvent) FromEventAMBConversationClosed(v EventAMBConversationClosed) error {
+	v.Type = "amb.conversation_closed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBConversationClosed performs a merge with any union data inside the WebhookEvent, using the provided EventAMBConversationClosed
+func (t *WebhookEvent) MergeEventAMBConversationClosed(v EventAMBConversationClosed) error {
+	v.Type = "amb.conversation_closed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBConversationReopened returns the union data inside the WebhookEvent as a EventAMBConversationReopened
+func (t WebhookEvent) AsEventAMBConversationReopened() (EventAMBConversationReopened, error) {
+	var body EventAMBConversationReopened
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBConversationReopened overwrites any union data inside the WebhookEvent as the provided EventAMBConversationReopened
+func (t *WebhookEvent) FromEventAMBConversationReopened(v EventAMBConversationReopened) error {
+	v.Type = "amb.conversation_reopened"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBConversationReopened performs a merge with any union data inside the WebhookEvent, using the provided EventAMBConversationReopened
+func (t *WebhookEvent) MergeEventAMBConversationReopened(v EventAMBConversationReopened) error {
+	v.Type = "amb.conversation_reopened"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBConversationStarted returns the union data inside the WebhookEvent as a EventAMBConversationStarted
+func (t WebhookEvent) AsEventAMBConversationStarted() (EventAMBConversationStarted, error) {
+	var body EventAMBConversationStarted
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBConversationStarted overwrites any union data inside the WebhookEvent as the provided EventAMBConversationStarted
+func (t *WebhookEvent) FromEventAMBConversationStarted(v EventAMBConversationStarted) error {
+	v.Type = "amb.conversation_started"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBConversationStarted performs a merge with any union data inside the WebhookEvent, using the provided EventAMBConversationStarted
+func (t *WebhookEvent) MergeEventAMBConversationStarted(v EventAMBConversationStarted) error {
+	v.Type = "amb.conversation_started"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBReceived returns the union data inside the WebhookEvent as a EventAMBReceived
+func (t WebhookEvent) AsEventAMBReceived() (EventAMBReceived, error) {
+	var body EventAMBReceived
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBReceived overwrites any union data inside the WebhookEvent as the provided EventAMBReceived
+func (t *WebhookEvent) FromEventAMBReceived(v EventAMBReceived) error {
+	v.Type = "amb.received"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBReceived performs a merge with any union data inside the WebhookEvent, using the provided EventAMBReceived
+func (t *WebhookEvent) MergeEventAMBReceived(v EventAMBReceived) error {
+	v.Type = "amb.received"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBRejected returns the union data inside the WebhookEvent as a EventAMBRejected
+func (t WebhookEvent) AsEventAMBRejected() (EventAMBRejected, error) {
+	var body EventAMBRejected
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBRejected overwrites any union data inside the WebhookEvent as the provided EventAMBRejected
+func (t *WebhookEvent) FromEventAMBRejected(v EventAMBRejected) error {
+	v.Type = "amb.rejected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBRejected performs a merge with any union data inside the WebhookEvent, using the provided EventAMBRejected
+func (t *WebhookEvent) MergeEventAMBRejected(v EventAMBRejected) error {
+	v.Type = "amb.rejected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBSendFailed returns the union data inside the WebhookEvent as a EventAMBSendFailed
+func (t WebhookEvent) AsEventAMBSendFailed() (EventAMBSendFailed, error) {
+	var body EventAMBSendFailed
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBSendFailed overwrites any union data inside the WebhookEvent as the provided EventAMBSendFailed
+func (t *WebhookEvent) FromEventAMBSendFailed(v EventAMBSendFailed) error {
+	v.Type = "amb.send_failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBSendFailed performs a merge with any union data inside the WebhookEvent, using the provided EventAMBSendFailed
+func (t *WebhookEvent) MergeEventAMBSendFailed(v EventAMBSendFailed) error {
+	v.Type = "amb.send_failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBSent returns the union data inside the WebhookEvent as a EventAMBSent
+func (t WebhookEvent) AsEventAMBSent() (EventAMBSent, error) {
+	var body EventAMBSent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBSent overwrites any union data inside the WebhookEvent as the provided EventAMBSent
+func (t *WebhookEvent) FromEventAMBSent(v EventAMBSent) error {
+	v.Type = "amb.sent"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBSent performs a merge with any union data inside the WebhookEvent, using the provided EventAMBSent
+func (t *WebhookEvent) MergeEventAMBSent(v EventAMBSent) error {
+	v.Type = "amb.sent"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEventAMBSuppressionCreated returns the union data inside the WebhookEvent as a EventAMBSuppressionCreated
+func (t WebhookEvent) AsEventAMBSuppressionCreated() (EventAMBSuppressionCreated, error) {
+	var body EventAMBSuppressionCreated
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEventAMBSuppressionCreated overwrites any union data inside the WebhookEvent as the provided EventAMBSuppressionCreated
+func (t *WebhookEvent) FromEventAMBSuppressionCreated(v EventAMBSuppressionCreated) error {
+	v.Type = "amb_suppression.created"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEventAMBSuppressionCreated performs a merge with any union data inside the WebhookEvent, using the provided EventAMBSuppressionCreated
+func (t *WebhookEvent) MergeEventAMBSuppressionCreated(v EventAMBSuppressionCreated) error {
+	v.Type = "amb_suppression.created"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
 	return err
 }
 
@@ -32385,6 +39048,24 @@ func (t WebhookEvent) ValueByDiscriminator() (interface{}, error) {
 		return nil, err
 	}
 	switch discriminator {
+	case "amb.accepted":
+		return t.AsEventAMBAccepted()
+	case "amb.conversation_closed":
+		return t.AsEventAMBConversationClosed()
+	case "amb.conversation_reopened":
+		return t.AsEventAMBConversationReopened()
+	case "amb.conversation_started":
+		return t.AsEventAMBConversationStarted()
+	case "amb.received":
+		return t.AsEventAMBReceived()
+	case "amb.rejected":
+		return t.AsEventAMBRejected()
+	case "amb.send_failed":
+		return t.AsEventAMBSendFailed()
+	case "amb.sent":
+		return t.AsEventAMBSent()
+	case "amb_suppression.created":
+		return t.AsEventAMBSuppressionCreated()
 	case "domain.failed":
 		return t.AsEventDomainFailed()
 	case "domain.verified":
@@ -33493,6 +40174,167 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// ListAMBBusinessAccounts request
+	ListAMBBusinessAccounts(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBBusinessAccountWithBody request with any body
+	CreateAMBBusinessAccountWithBody(ctx context.Context, params *CreateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBBusinessAccount(ctx context.Context, params *CreateAMBBusinessAccountParams, body CreateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAMBBusinessAccount request
+	DeleteAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *DeleteAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBBusinessAccount request
+	GetAMBBusinessAccount(ctx context.Context, businessAccountId string, params *GetAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAMBBusinessAccountWithBody request with any body
+	UpdateAMBBusinessAccountWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, body UpdateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBChannelSettings request
+	GetAMBChannelSettings(ctx context.Context, businessAccountId AMBBusinessID, params *GetAMBChannelSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAMBChannelSettingsWithBody request with any body
+	UpdateAMBChannelSettingsWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAMBChannelSettings(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, body UpdateAMBChannelSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBBusinessAccountEvents request
+	ListAMBBusinessAccountEvents(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// RestoreAMBBusinessAccount request
+	RestoreAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *RestoreAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBBusinessAccountSubmissions request
+	ListAMBBusinessAccountSubmissions(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountSubmissionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBBusinessAccountSubmissionWithBody request with any body
+	CreateAMBBusinessAccountSubmissionWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBBusinessAccountSubmission(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, body CreateAMBBusinessAccountSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBConversations request
+	ListAMBConversations(ctx context.Context, params *ListAMBConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBConversation request
+	GetAMBConversation(ctx context.Context, conversationId AMBConversationID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAMBConversationWithBody request with any body
+	UpdateAMBConversationWithBody(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAMBConversation(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBConversationMessages request
+	ListAMBConversationMessages(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBConversationTypingWithBody request with any body
+	CreateAMBConversationTypingWithBody(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBConversationTyping(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, body CreateAMBConversationTypingJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBMessages request
+	ListAMBMessages(ctx context.Context, params *ListAMBMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBMessageWithBody request with any body
+	CreateAMBMessageWithBody(ctx context.Context, params *CreateAMBMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBMessage(ctx context.Context, params *CreateAMBMessageParams, body CreateAMBMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBMessage request
+	GetAMBMessage(ctx context.Context, messageId AMBMessageID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBMessageEvents request
+	ListAMBMessageEvents(ctx context.Context, messageId AMBMessageID, params *ListAMBMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBRoutingRules request
+	ListAMBRoutingRules(ctx context.Context, params *ListAMBRoutingRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBRoutingRuleWithBody request with any body
+	CreateAMBRoutingRuleWithBody(ctx context.Context, params *CreateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBRoutingRule(ctx context.Context, params *CreateAMBRoutingRuleParams, body CreateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAMBRoutingRule request
+	DeleteAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, params *DeleteAMBRoutingRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBRoutingRule request
+	GetAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAMBRoutingRuleWithBody request with any body
+	UpdateAMBRoutingRuleWithBody(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, body UpdateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByBusiness request
+	GetAMBStatsByBusiness(ctx context.Context, params *GetAMBStatsByBusinessParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByCategory request
+	GetAMBStatsByCategory(ctx context.Context, params *GetAMBStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBConversationStatsDaily request
+	GetAMBConversationStatsDaily(ctx context.Context, params *GetAMBConversationStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBConversationStatsHourly request
+	GetAMBConversationStatsHourly(ctx context.Context, params *GetAMBConversationStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBConversationStatsSummary request
+	GetAMBConversationStatsSummary(ctx context.Context, params *GetAMBConversationStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsDaily request
+	GetAMBStatsDaily(ctx context.Context, params *GetAMBStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByErrorCode request
+	GetAMBStatsByErrorCode(ctx context.Context, params *GetAMBStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByGroup request
+	GetAMBStatsByGroup(ctx context.Context, params *GetAMBStatsByGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsHourly request
+	GetAMBStatsHourly(ctx context.Context, params *GetAMBStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBInboundStatsByBusiness request
+	GetAMBInboundStatsByBusiness(ctx context.Context, params *GetAMBInboundStatsByBusinessParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBInboundStatsDaily request
+	GetAMBInboundStatsDaily(ctx context.Context, params *GetAMBInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBInboundStatsHourly request
+	GetAMBInboundStatsHourly(ctx context.Context, params *GetAMBInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBInboundStatsByIntent request
+	GetAMBInboundStatsByIntent(ctx context.Context, params *GetAMBInboundStatsByIntentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBInboundStatsSummary request
+	GetAMBInboundStatsSummary(ctx context.Context, params *GetAMBInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByIntent request
+	GetAMBStatsByIntent(ctx context.Context, params *GetAMBStatsByIntentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByMessageKind request
+	GetAMBStatsByMessageKind(ctx context.Context, params *GetAMBStatsByMessageKindParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsSummary request
+	GetAMBStatsSummary(ctx context.Context, params *GetAMBStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBStatsByTag request
+	GetAMBStatsByTag(ctx context.Context, params *GetAMBStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBSuppressions request
+	ListAMBSuppressions(ctx context.Context, params *ListAMBSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAMBSuppressionWithBody request with any body
+	CreateAMBSuppressionWithBody(ctx context.Context, params *CreateAMBSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAMBSuppression(ctx context.Context, params *CreateAMBSuppressionParams, body CreateAMBSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAMBSuppression request
+	DeleteAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, params *DeleteAMBSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBSuppression request
+	GetAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListAudiences request
 	ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -34455,6 +41297,690 @@ type ClientInterface interface {
 
 	// GetCurrentWorkspace request
 	GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) ListAMBBusinessAccounts(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBBusinessAccountsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBBusinessAccountWithBody(ctx context.Context, params *CreateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBBusinessAccountRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBBusinessAccount(ctx context.Context, params *CreateAMBBusinessAccountParams, body CreateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBBusinessAccountRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *DeleteAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAMBBusinessAccountRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBBusinessAccount(ctx context.Context, businessAccountId string, params *GetAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBBusinessAccountRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBBusinessAccountWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBBusinessAccountRequestWithBody(c.Server, businessAccountId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, body UpdateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBBusinessAccountRequest(c.Server, businessAccountId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBChannelSettings(ctx context.Context, businessAccountId AMBBusinessID, params *GetAMBChannelSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBChannelSettingsRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBChannelSettingsWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBChannelSettingsRequestWithBody(c.Server, businessAccountId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBChannelSettings(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, body UpdateAMBChannelSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBChannelSettingsRequest(c.Server, businessAccountId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBBusinessAccountEvents(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBBusinessAccountEventsRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) RestoreAMBBusinessAccount(ctx context.Context, businessAccountId AMBBusinessID, params *RestoreAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewRestoreAMBBusinessAccountRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBBusinessAccountSubmissions(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountSubmissionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBBusinessAccountSubmissionsRequest(c.Server, businessAccountId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBBusinessAccountSubmissionWithBody(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBBusinessAccountSubmissionRequestWithBody(c.Server, businessAccountId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBBusinessAccountSubmission(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, body CreateAMBBusinessAccountSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBBusinessAccountSubmissionRequest(c.Server, businessAccountId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBConversations(ctx context.Context, params *ListAMBConversationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBConversationsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBConversation(ctx context.Context, conversationId AMBConversationID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBConversationRequest(c.Server, conversationId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBConversationWithBody(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBConversationRequestWithBody(c.Server, conversationId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBConversation(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBConversationRequest(c.Server, conversationId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBConversationMessages(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBConversationMessagesRequest(c.Server, conversationId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBConversationTypingWithBody(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBConversationTypingRequestWithBody(c.Server, conversationId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBConversationTyping(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, body CreateAMBConversationTypingJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBConversationTypingRequest(c.Server, conversationId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBMessages(ctx context.Context, params *ListAMBMessagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBMessagesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBMessageWithBody(ctx context.Context, params *CreateAMBMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBMessageRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBMessage(ctx context.Context, params *CreateAMBMessageParams, body CreateAMBMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBMessageRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBMessage(ctx context.Context, messageId AMBMessageID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBMessageRequest(c.Server, messageId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBMessageEvents(ctx context.Context, messageId AMBMessageID, params *ListAMBMessageEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBMessageEventsRequest(c.Server, messageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBRoutingRules(ctx context.Context, params *ListAMBRoutingRulesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBRoutingRulesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBRoutingRuleWithBody(ctx context.Context, params *CreateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBRoutingRuleRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBRoutingRule(ctx context.Context, params *CreateAMBRoutingRuleParams, body CreateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBRoutingRuleRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, params *DeleteAMBRoutingRuleParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAMBRoutingRuleRequest(c.Server, routingRuleId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBRoutingRuleRequest(c.Server, routingRuleId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBRoutingRuleWithBody(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBRoutingRuleRequestWithBody(c.Server, routingRuleId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAMBRoutingRule(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, body UpdateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAMBRoutingRuleRequest(c.Server, routingRuleId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByBusiness(ctx context.Context, params *GetAMBStatsByBusinessParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByBusinessRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByCategory(ctx context.Context, params *GetAMBStatsByCategoryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByCategoryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBConversationStatsDaily(ctx context.Context, params *GetAMBConversationStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBConversationStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBConversationStatsHourly(ctx context.Context, params *GetAMBConversationStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBConversationStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBConversationStatsSummary(ctx context.Context, params *GetAMBConversationStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBConversationStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsDaily(ctx context.Context, params *GetAMBStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByErrorCode(ctx context.Context, params *GetAMBStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByErrorCodeRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByGroup(ctx context.Context, params *GetAMBStatsByGroupParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByGroupRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsHourly(ctx context.Context, params *GetAMBStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBInboundStatsByBusiness(ctx context.Context, params *GetAMBInboundStatsByBusinessParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBInboundStatsByBusinessRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBInboundStatsDaily(ctx context.Context, params *GetAMBInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBInboundStatsDailyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBInboundStatsHourly(ctx context.Context, params *GetAMBInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBInboundStatsHourlyRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBInboundStatsByIntent(ctx context.Context, params *GetAMBInboundStatsByIntentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBInboundStatsByIntentRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBInboundStatsSummary(ctx context.Context, params *GetAMBInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBInboundStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByIntent(ctx context.Context, params *GetAMBStatsByIntentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByIntentRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByMessageKind(ctx context.Context, params *GetAMBStatsByMessageKindParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByMessageKindRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsSummary(ctx context.Context, params *GetAMBStatsSummaryParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsSummaryRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBStatsByTag(ctx context.Context, params *GetAMBStatsByTagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBStatsByTagRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBSuppressions(ctx context.Context, params *ListAMBSuppressionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBSuppressionsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBSuppressionWithBody(ctx context.Context, params *CreateAMBSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBSuppressionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAMBSuppression(ctx context.Context, params *CreateAMBSuppressionParams, body CreateAMBSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAMBSuppressionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, params *DeleteAMBSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAMBSuppressionRequest(c.Server, suppressionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBSuppressionRequest(c.Server, suppressionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -38595,6 +46121,4369 @@ func (c *Client) GetCurrentWorkspace(ctx context.Context, reqEditors ...RequestE
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewListAMBBusinessAccountsRequest generates requests for ListAMBBusinessAccounts
+func NewListAMBBusinessAccountsRequest(server string, params *ListAMBBusinessAccountsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBBusinessAccountRequest calls the generic CreateAMBBusinessAccount builder with application/json body
+func NewCreateAMBBusinessAccountRequest(server string, params *CreateAMBBusinessAccountParams, body CreateAMBBusinessAccountJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBBusinessAccountRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBBusinessAccountRequestWithBody generates requests for CreateAMBBusinessAccount with any type of body
+func NewCreateAMBBusinessAccountRequestWithBody(server string, params *CreateAMBBusinessAccountParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAMBBusinessAccountRequest generates requests for DeleteAMBBusinessAccount
+func NewDeleteAMBBusinessAccountRequest(server string, businessAccountId AMBBusinessID, params *DeleteAMBBusinessAccountParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBBusinessAccountRequest generates requests for GetAMBBusinessAccount
+func NewGetAMBBusinessAccountRequest(server string, businessAccountId string, params *GetAMBBusinessAccountParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAMBBusinessAccountRequest calls the generic UpdateAMBBusinessAccount builder with application/json body
+func NewUpdateAMBBusinessAccountRequest(server string, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, body UpdateAMBBusinessAccountJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAMBBusinessAccountRequestWithBody(server, businessAccountId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAMBBusinessAccountRequestWithBody generates requests for UpdateAMBBusinessAccount with any type of body
+func NewUpdateAMBBusinessAccountRequestWithBody(server string, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBChannelSettingsRequest generates requests for GetAMBChannelSettings
+func NewGetAMBChannelSettingsRequest(server string, businessAccountId AMBBusinessID, params *GetAMBChannelSettingsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/channel-settings", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAMBChannelSettingsRequest calls the generic UpdateAMBChannelSettings builder with application/json body
+func NewUpdateAMBChannelSettingsRequest(server string, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, body UpdateAMBChannelSettingsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAMBChannelSettingsRequestWithBody(server, businessAccountId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAMBChannelSettingsRequestWithBody generates requests for UpdateAMBChannelSettings with any type of body
+func NewUpdateAMBChannelSettingsRequestWithBody(server string, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/channel-settings", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBBusinessAccountEventsRequest generates requests for ListAMBBusinessAccountEvents
+func NewListAMBBusinessAccountEventsRequest(server string, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewRestoreAMBBusinessAccountRequest generates requests for RestoreAMBBusinessAccount
+func NewRestoreAMBBusinessAccountRequest(server string, businessAccountId AMBBusinessID, params *RestoreAMBBusinessAccountParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/reconnect", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBBusinessAccountSubmissionsRequest generates requests for ListAMBBusinessAccountSubmissions
+func NewListAMBBusinessAccountSubmissionsRequest(server string, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountSubmissionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/submissions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBBusinessAccountSubmissionRequest calls the generic CreateAMBBusinessAccountSubmission builder with application/json body
+func NewCreateAMBBusinessAccountSubmissionRequest(server string, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, body CreateAMBBusinessAccountSubmissionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBBusinessAccountSubmissionRequestWithBody(server, businessAccountId, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBBusinessAccountSubmissionRequestWithBody generates requests for CreateAMBBusinessAccountSubmission with any type of body
+func NewCreateAMBBusinessAccountSubmissionRequestWithBody(server string, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "business_account_id", businessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/business-accounts/%s/submissions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBConversationsRequest generates requests for ListAMBConversations
+func NewListAMBConversationsRequest(server string, params *ListAMBConversationsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Queue != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "queue", *params.Queue, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.AssignedTo != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "assigned_to", *params.AssignedTo, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Label != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBConversationRequest generates requests for GetAMBConversation
+func NewGetAMBConversationRequest(server string, conversationId AMBConversationID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateAMBConversationRequest calls the generic UpdateAMBConversation builder with application/json body
+func NewUpdateAMBConversationRequest(server string, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAMBConversationRequestWithBody(server, conversationId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAMBConversationRequestWithBody generates requests for UpdateAMBConversation with any type of body
+func NewUpdateAMBConversationRequestWithBody(server string, conversationId AMBConversationID, params *UpdateAMBConversationParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBConversationMessagesRequest generates requests for ListAMBConversationMessages
+func NewListAMBConversationMessagesRequest(server string, conversationId AMBConversationID, params *ListAMBConversationMessagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s/messages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBConversationTypingRequest calls the generic CreateAMBConversationTyping builder with application/json body
+func NewCreateAMBConversationTypingRequest(server string, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, body CreateAMBConversationTypingJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBConversationTypingRequestWithBody(server, conversationId, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBConversationTypingRequestWithBody generates requests for CreateAMBConversationTyping with any type of body
+func NewCreateAMBConversationTypingRequestWithBody(server string, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "conversation_id", conversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/conversations/%s/typing", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBMessagesRequest generates requests for ListAMBMessages
+func NewListAMBMessagesRequest(server string, params *ListAMBMessagesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/messages")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.ConversationId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "conversation_id", *params.ConversationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Direction != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "direction", *params.Direction, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Kind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "kind", *params.Kind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBMessageRequest calls the generic CreateAMBMessage builder with application/json body
+func NewCreateAMBMessageRequest(server string, params *CreateAMBMessageParams, body CreateAMBMessageJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBMessageRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBMessageRequestWithBody generates requests for CreateAMBMessage with any type of body
+func NewCreateAMBMessageRequestWithBody(server string, params *CreateAMBMessageParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/messages")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBMessageRequest generates requests for GetAMBMessage
+func NewGetAMBMessageRequest(server string, messageId AMBMessageID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/messages/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewListAMBMessageEventsRequest generates requests for ListAMBMessageEvents
+func NewListAMBMessageEventsRequest(server string, messageId AMBMessageID, params *ListAMBMessageEventsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "message_id", messageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/messages/%s/events", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Type != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "type", *params.Type, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBRoutingRulesRequest generates requests for ListAMBRoutingRules
+func NewListAMBRoutingRulesRequest(server string, params *ListAMBRoutingRulesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/routing-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBRoutingRuleRequest calls the generic CreateAMBRoutingRule builder with application/json body
+func NewCreateAMBRoutingRuleRequest(server string, params *CreateAMBRoutingRuleParams, body CreateAMBRoutingRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBRoutingRuleRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBRoutingRuleRequestWithBody generates requests for CreateAMBRoutingRule with any type of body
+func NewCreateAMBRoutingRuleRequestWithBody(server string, params *CreateAMBRoutingRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/routing-rules")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAMBRoutingRuleRequest generates requests for DeleteAMBRoutingRule
+func NewDeleteAMBRoutingRuleRequest(server string, routingRuleId AMBRoutingRuleID, params *DeleteAMBRoutingRuleParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "routing_rule_id", routingRuleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/routing-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBRoutingRuleRequest generates requests for GetAMBRoutingRule
+func NewGetAMBRoutingRuleRequest(server string, routingRuleId AMBRoutingRuleID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "routing_rule_id", routingRuleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/routing-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateAMBRoutingRuleRequest calls the generic UpdateAMBRoutingRule builder with application/json body
+func NewUpdateAMBRoutingRuleRequest(server string, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, body UpdateAMBRoutingRuleJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAMBRoutingRuleRequestWithBody(server, routingRuleId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAMBRoutingRuleRequestWithBody generates requests for UpdateAMBRoutingRule with any type of body
+func NewUpdateAMBRoutingRuleRequestWithBody(server string, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "routing_rule_id", routingRuleId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/routing-rules/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByBusinessRequest generates requests for GetAMBStatsByBusiness
+func NewGetAMBStatsByBusinessRequest(server string, params *GetAMBStatsByBusinessParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/businesses")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByCategoryRequest generates requests for GetAMBStatsByCategory
+func NewGetAMBStatsByCategoryRequest(server string, params *GetAMBStatsByCategoryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/categories")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBConversationStatsDailyRequest generates requests for GetAMBConversationStatsDaily
+func NewGetAMBConversationStatsDailyRequest(server string, params *GetAMBConversationStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/conversations/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBConversationStatsHourlyRequest generates requests for GetAMBConversationStatsHourly
+func NewGetAMBConversationStatsHourlyRequest(server string, params *GetAMBConversationStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/conversations/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBConversationStatsSummaryRequest generates requests for GetAMBConversationStatsSummary
+func NewGetAMBConversationStatsSummaryRequest(server string, params *GetAMBConversationStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/conversations/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsDailyRequest generates requests for GetAMBStatsDaily
+func NewGetAMBStatsDailyRequest(server string, params *GetAMBStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MessageKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "message_kind", *params.MessageKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Intent != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "intent", *params.Intent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Group != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group", *params.Group, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByErrorCodeRequest generates requests for GetAMBStatsByErrorCode
+func NewGetAMBStatsByErrorCodeRequest(server string, params *GetAMBStatsByErrorCodeParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/error-codes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByGroupRequest generates requests for GetAMBStatsByGroup
+func NewGetAMBStatsByGroupRequest(server string, params *GetAMBStatsByGroupParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/groups")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsHourlyRequest generates requests for GetAMBStatsHourly
+func NewGetAMBStatsHourlyRequest(server string, params *GetAMBStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MessageKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "message_kind", *params.MessageKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Intent != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "intent", *params.Intent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Group != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group", *params.Group, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBInboundStatsByBusinessRequest generates requests for GetAMBInboundStatsByBusiness
+func NewGetAMBInboundStatsByBusinessRequest(server string, params *GetAMBInboundStatsByBusinessParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/inbound/businesses")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBInboundStatsDailyRequest generates requests for GetAMBInboundStatsDaily
+func NewGetAMBInboundStatsDailyRequest(server string, params *GetAMBInboundStatsDailyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/inbound/daily")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBInboundStatsHourlyRequest generates requests for GetAMBInboundStatsHourly
+func NewGetAMBInboundStatsHourlyRequest(server string, params *GetAMBInboundStatsHourlyParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/inbound/hourly")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBInboundStatsByIntentRequest generates requests for GetAMBInboundStatsByIntent
+func NewGetAMBInboundStatsByIntentRequest(server string, params *GetAMBInboundStatsByIntentParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/inbound/intents")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBInboundStatsSummaryRequest generates requests for GetAMBInboundStatsSummary
+func NewGetAMBInboundStatsSummaryRequest(server string, params *GetAMBInboundStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/inbound/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByIntentRequest generates requests for GetAMBStatsByIntent
+func NewGetAMBStatsByIntentRequest(server string, params *GetAMBStatsByIntentParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/intents")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByMessageKindRequest generates requests for GetAMBStatsByMessageKind
+func NewGetAMBStatsByMessageKindRequest(server string, params *GetAMBStatsByMessageKindParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/message-kinds")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsSummaryRequest generates requests for GetAMBStatsSummary
+func NewGetAMBStatsSummaryRequest(server string, params *GetAMBStatsSummaryParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/summary")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.MessageKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "message_kind", *params.MessageKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Intent != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "intent", *params.Intent, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Group != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group", *params.Group, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Compare != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "compare", *params.Compare, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBStatsByTagRequest generates requests for GetAMBStatsByTag
+func NewGetAMBStatsByTagRequest(server string, params *GetAMBStatsByTagParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/stats/tags")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBSuppressionsRequest generates requests for ListAMBSuppressions
+func NewListAMBSuppressionsRequest(server string, params *ListAMBSuppressionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.BusinessAccountId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Address != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "address", *params.Address, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.AddressType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "address_type", *params.AddressType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reason != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reason", *params.Reason, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAMBSuppressionRequest calls the generic CreateAMBSuppression builder with application/json body
+func NewCreateAMBSuppressionRequest(server string, params *CreateAMBSuppressionParams, body CreateAMBSuppressionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAMBSuppressionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAMBSuppressionRequestWithBody generates requests for CreateAMBSuppression with any type of body
+func NewCreateAMBSuppressionRequestWithBody(server string, params *CreateAMBSuppressionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/suppressions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAMBSuppressionRequest generates requests for DeleteAMBSuppression
+func NewDeleteAMBSuppressionRequest(server string, suppressionId AMBSuppressionID, params *DeleteAMBSuppressionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBSuppressionRequest generates requests for GetAMBSuppression
+func NewGetAMBSuppressionRequest(server string, suppressionId AMBSuppressionID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "suppression_id", suppressionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
 }
 
 // NewListAudiencesRequest generates requests for ListAudiences
@@ -54016,6 +65905,42 @@ func NewListVoiceNumbersRequest(server string, params *ListVoiceNumbersParams) (
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Provider != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "provider", *params.Provider, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Route != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "route", *params.Route, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Sort != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -59748,6 +71673,167 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// ListAMBBusinessAccountsWithResponse request
+	ListAMBBusinessAccountsWithResponse(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountsResponse, error)
+
+	// CreateAMBBusinessAccountWithBodyWithResponse request with any body
+	CreateAMBBusinessAccountWithBodyWithResponse(ctx context.Context, params *CreateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountResponse, error)
+
+	CreateAMBBusinessAccountWithResponse(ctx context.Context, params *CreateAMBBusinessAccountParams, body CreateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountResponse, error)
+
+	// DeleteAMBBusinessAccountWithResponse request
+	DeleteAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *DeleteAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*DeleteAMBBusinessAccountResponse, error)
+
+	// GetAMBBusinessAccountWithResponse request
+	GetAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId string, params *GetAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*GetAMBBusinessAccountResponse, error)
+
+	// UpdateAMBBusinessAccountWithBodyWithResponse request with any body
+	UpdateAMBBusinessAccountWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBBusinessAccountResponse, error)
+
+	UpdateAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, body UpdateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBBusinessAccountResponse, error)
+
+	// GetAMBChannelSettingsWithResponse request
+	GetAMBChannelSettingsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *GetAMBChannelSettingsParams, reqEditors ...RequestEditorFn) (*GetAMBChannelSettingsResponse, error)
+
+	// UpdateAMBChannelSettingsWithBodyWithResponse request with any body
+	UpdateAMBChannelSettingsWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBChannelSettingsResponse, error)
+
+	UpdateAMBChannelSettingsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, body UpdateAMBChannelSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBChannelSettingsResponse, error)
+
+	// ListAMBBusinessAccountEventsWithResponse request
+	ListAMBBusinessAccountEventsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountEventsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountEventsResponse, error)
+
+	// RestoreAMBBusinessAccountWithResponse request
+	RestoreAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *RestoreAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*RestoreAMBBusinessAccountResponse, error)
+
+	// ListAMBBusinessAccountSubmissionsWithResponse request
+	ListAMBBusinessAccountSubmissionsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountSubmissionsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountSubmissionsResponse, error)
+
+	// CreateAMBBusinessAccountSubmissionWithBodyWithResponse request with any body
+	CreateAMBBusinessAccountSubmissionWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountSubmissionResponse, error)
+
+	CreateAMBBusinessAccountSubmissionWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, body CreateAMBBusinessAccountSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountSubmissionResponse, error)
+
+	// ListAMBConversationsWithResponse request
+	ListAMBConversationsWithResponse(ctx context.Context, params *ListAMBConversationsParams, reqEditors ...RequestEditorFn) (*ListAMBConversationsResponse, error)
+
+	// GetAMBConversationWithResponse request
+	GetAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, reqEditors ...RequestEditorFn) (*GetAMBConversationResponse, error)
+
+	// UpdateAMBConversationWithBodyWithResponse request with any body
+	UpdateAMBConversationWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error)
+
+	UpdateAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error)
+
+	// ListAMBConversationMessagesWithResponse request
+	ListAMBConversationMessagesWithResponse(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBConversationMessagesResponse, error)
+
+	// CreateAMBConversationTypingWithBodyWithResponse request with any body
+	CreateAMBConversationTypingWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBConversationTypingResponse, error)
+
+	CreateAMBConversationTypingWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, body CreateAMBConversationTypingJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBConversationTypingResponse, error)
+
+	// ListAMBMessagesWithResponse request
+	ListAMBMessagesWithResponse(ctx context.Context, params *ListAMBMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBMessagesResponse, error)
+
+	// CreateAMBMessageWithBodyWithResponse request with any body
+	CreateAMBMessageWithBodyWithResponse(ctx context.Context, params *CreateAMBMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBMessageResponse, error)
+
+	CreateAMBMessageWithResponse(ctx context.Context, params *CreateAMBMessageParams, body CreateAMBMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBMessageResponse, error)
+
+	// GetAMBMessageWithResponse request
+	GetAMBMessageWithResponse(ctx context.Context, messageId AMBMessageID, reqEditors ...RequestEditorFn) (*GetAMBMessageResponse, error)
+
+	// ListAMBMessageEventsWithResponse request
+	ListAMBMessageEventsWithResponse(ctx context.Context, messageId AMBMessageID, params *ListAMBMessageEventsParams, reqEditors ...RequestEditorFn) (*ListAMBMessageEventsResponse, error)
+
+	// ListAMBRoutingRulesWithResponse request
+	ListAMBRoutingRulesWithResponse(ctx context.Context, params *ListAMBRoutingRulesParams, reqEditors ...RequestEditorFn) (*ListAMBRoutingRulesResponse, error)
+
+	// CreateAMBRoutingRuleWithBodyWithResponse request with any body
+	CreateAMBRoutingRuleWithBodyWithResponse(ctx context.Context, params *CreateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBRoutingRuleResponse, error)
+
+	CreateAMBRoutingRuleWithResponse(ctx context.Context, params *CreateAMBRoutingRuleParams, body CreateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBRoutingRuleResponse, error)
+
+	// DeleteAMBRoutingRuleWithResponse request
+	DeleteAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *DeleteAMBRoutingRuleParams, reqEditors ...RequestEditorFn) (*DeleteAMBRoutingRuleResponse, error)
+
+	// GetAMBRoutingRuleWithResponse request
+	GetAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, reqEditors ...RequestEditorFn) (*GetAMBRoutingRuleResponse, error)
+
+	// UpdateAMBRoutingRuleWithBodyWithResponse request with any body
+	UpdateAMBRoutingRuleWithBodyWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBRoutingRuleResponse, error)
+
+	UpdateAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, body UpdateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBRoutingRuleResponse, error)
+
+	// GetAMBStatsByBusinessWithResponse request
+	GetAMBStatsByBusinessWithResponse(ctx context.Context, params *GetAMBStatsByBusinessParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByBusinessResponse, error)
+
+	// GetAMBStatsByCategoryWithResponse request
+	GetAMBStatsByCategoryWithResponse(ctx context.Context, params *GetAMBStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByCategoryResponse, error)
+
+	// GetAMBConversationStatsDailyWithResponse request
+	GetAMBConversationStatsDailyWithResponse(ctx context.Context, params *GetAMBConversationStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsDailyResponse, error)
+
+	// GetAMBConversationStatsHourlyWithResponse request
+	GetAMBConversationStatsHourlyWithResponse(ctx context.Context, params *GetAMBConversationStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsHourlyResponse, error)
+
+	// GetAMBConversationStatsSummaryWithResponse request
+	GetAMBConversationStatsSummaryWithResponse(ctx context.Context, params *GetAMBConversationStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsSummaryResponse, error)
+
+	// GetAMBStatsDailyWithResponse request
+	GetAMBStatsDailyWithResponse(ctx context.Context, params *GetAMBStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBStatsDailyResponse, error)
+
+	// GetAMBStatsByErrorCodeWithResponse request
+	GetAMBStatsByErrorCodeWithResponse(ctx context.Context, params *GetAMBStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByErrorCodeResponse, error)
+
+	// GetAMBStatsByGroupWithResponse request
+	GetAMBStatsByGroupWithResponse(ctx context.Context, params *GetAMBStatsByGroupParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByGroupResponse, error)
+
+	// GetAMBStatsHourlyWithResponse request
+	GetAMBStatsHourlyWithResponse(ctx context.Context, params *GetAMBStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBStatsHourlyResponse, error)
+
+	// GetAMBInboundStatsByBusinessWithResponse request
+	GetAMBInboundStatsByBusinessWithResponse(ctx context.Context, params *GetAMBInboundStatsByBusinessParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsByBusinessResponse, error)
+
+	// GetAMBInboundStatsDailyWithResponse request
+	GetAMBInboundStatsDailyWithResponse(ctx context.Context, params *GetAMBInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsDailyResponse, error)
+
+	// GetAMBInboundStatsHourlyWithResponse request
+	GetAMBInboundStatsHourlyWithResponse(ctx context.Context, params *GetAMBInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsHourlyResponse, error)
+
+	// GetAMBInboundStatsByIntentWithResponse request
+	GetAMBInboundStatsByIntentWithResponse(ctx context.Context, params *GetAMBInboundStatsByIntentParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsByIntentResponse, error)
+
+	// GetAMBInboundStatsSummaryWithResponse request
+	GetAMBInboundStatsSummaryWithResponse(ctx context.Context, params *GetAMBInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsSummaryResponse, error)
+
+	// GetAMBStatsByIntentWithResponse request
+	GetAMBStatsByIntentWithResponse(ctx context.Context, params *GetAMBStatsByIntentParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByIntentResponse, error)
+
+	// GetAMBStatsByMessageKindWithResponse request
+	GetAMBStatsByMessageKindWithResponse(ctx context.Context, params *GetAMBStatsByMessageKindParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByMessageKindResponse, error)
+
+	// GetAMBStatsSummaryWithResponse request
+	GetAMBStatsSummaryWithResponse(ctx context.Context, params *GetAMBStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBStatsSummaryResponse, error)
+
+	// GetAMBStatsByTagWithResponse request
+	GetAMBStatsByTagWithResponse(ctx context.Context, params *GetAMBStatsByTagParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByTagResponse, error)
+
+	// ListAMBSuppressionsWithResponse request
+	ListAMBSuppressionsWithResponse(ctx context.Context, params *ListAMBSuppressionsParams, reqEditors ...RequestEditorFn) (*ListAMBSuppressionsResponse, error)
+
+	// CreateAMBSuppressionWithBodyWithResponse request with any body
+	CreateAMBSuppressionWithBodyWithResponse(ctx context.Context, params *CreateAMBSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBSuppressionResponse, error)
+
+	CreateAMBSuppressionWithResponse(ctx context.Context, params *CreateAMBSuppressionParams, body CreateAMBSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBSuppressionResponse, error)
+
+	// DeleteAMBSuppressionWithResponse request
+	DeleteAMBSuppressionWithResponse(ctx context.Context, suppressionId AMBSuppressionID, params *DeleteAMBSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteAMBSuppressionResponse, error)
+
+	// GetAMBSuppressionWithResponse request
+	GetAMBSuppressionWithResponse(ctx context.Context, suppressionId AMBSuppressionID, reqEditors ...RequestEditorFn) (*GetAMBSuppressionResponse, error)
+
 	// ListAudiencesWithResponse request
 	ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error)
 
@@ -60710,6 +72796,1792 @@ type ClientWithResponsesInterface interface {
 
 	// GetCurrentWorkspaceWithResponse request
 	GetCurrentWorkspaceWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error)
+}
+
+type ListAMBBusinessAccountsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccountList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBBusinessAccountsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBBusinessAccountsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBBusinessAccountsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *AMBBusinessAccount
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAMBBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAMBBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAMBBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAMBBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccount
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAMBBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccount
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAMBBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAMBBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAMBBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBChannelSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBChannelSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBChannelSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBChannelSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBChannelSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAMBChannelSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBChannelSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAMBChannelSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAMBChannelSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAMBChannelSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBBusinessAccountEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccountEventList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBBusinessAccountEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBBusinessAccountEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBBusinessAccountEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type RestoreAMBBusinessAccountResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccount
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r RestoreAMBBusinessAccountResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r RestoreAMBBusinessAccountResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r RestoreAMBBusinessAccountResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBBusinessAccountSubmissionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBBusinessAccountSubmissionList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBBusinessAccountSubmissionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBBusinessAccountSubmissionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBBusinessAccountSubmissionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBBusinessAccountSubmissionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *AMBBusinessAccountSubmission
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBBusinessAccountSubmissionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBBusinessAccountSubmissionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBBusinessAccountSubmissionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBConversationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversationList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBConversationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBConversationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBConversationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversation
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAMBConversationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversation
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAMBConversationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAMBConversationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAMBConversationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBConversationMessagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBMessageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBConversationMessagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBConversationMessagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBConversationMessagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBConversationTypingResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBConversationTypingResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBConversationTypingResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBConversationTypingResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBMessagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBMessageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBMessagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBMessagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBMessagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *AMBMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBMessageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBMessage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBMessageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBMessageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBMessageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBMessageEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBMessageEventList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBMessageEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBMessageEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBMessageEventsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBRoutingRulesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBRoutingRuleList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBRoutingRulesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBRoutingRulesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBRoutingRulesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBRoutingRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *AMBRoutingRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBRoutingRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBRoutingRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBRoutingRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAMBRoutingRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAMBRoutingRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAMBRoutingRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAMBRoutingRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBRoutingRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBRoutingRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBRoutingRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBRoutingRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBRoutingRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAMBRoutingRuleResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBRoutingRule
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAMBRoutingRuleResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAMBRoutingRuleResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAMBRoutingRuleResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByBusinessResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByBusinessResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByBusinessResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByBusinessResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByBusinessResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByCategoryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByCategoryResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByCategoryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByCategoryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByCategoryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBConversationStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversationStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBConversationStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBConversationStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBConversationStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBConversationStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversationStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBConversationStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBConversationStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBConversationStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBConversationStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBConversationStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBConversationStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBConversationStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBConversationStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByErrorCodeResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByErrorCodeResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByErrorCodeResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByErrorCodeResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByErrorCodeResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByGroupResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByGroupResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByGroupResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByGroupResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByGroupResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBInboundStatsByBusinessResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBInboundStatsByBusinessResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBInboundStatsByBusinessResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBInboundStatsByBusinessResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBInboundStatsByBusinessResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBInboundStatsDailyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBInboundStatsDailyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBInboundStatsDailyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBInboundStatsDailyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBInboundStatsHourlyResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBInboundStatsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBInboundStatsHourlyResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBInboundStatsHourlyResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBInboundStatsHourlyResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBInboundStatsByIntentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBInboundStatsByIntentResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBInboundStatsByIntentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBInboundStatsByIntentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBInboundStatsByIntentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBInboundStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBInboundStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBInboundStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBInboundStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBInboundStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByIntentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByIntentResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByIntentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByIntentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByIntentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByMessageKindResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByMessageKindResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByMessageKindResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByMessageKindResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByMessageKindResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsSummaryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsSummary
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsSummaryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsSummaryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsSummaryResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBStatsByTagResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBStatsByTagResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBStatsByTagResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBStatsByTagResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBStatsByTagResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBSuppressionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBSuppressionList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBSuppressionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBSuppressionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBSuppressionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAMBSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBSuppression
+	JSON201      *AMBSuppression
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAMBSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAMBSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAMBSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAMBSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAMBSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAMBSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAMBSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBSuppressionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBSuppression
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBSuppressionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBSuppressionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
 }
 
 type ListAudiencesResponse struct {
@@ -70859,6 +84731,509 @@ func (r GetCurrentWorkspaceResponse) ContentType() string {
 	return ""
 }
 
+// ListAMBBusinessAccountsWithResponse request returning *ListAMBBusinessAccountsResponse
+func (c *ClientWithResponses) ListAMBBusinessAccountsWithResponse(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountsResponse, error) {
+	rsp, err := c.ListAMBBusinessAccounts(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBBusinessAccountsResponse(rsp)
+}
+
+// CreateAMBBusinessAccountWithBodyWithResponse request with arbitrary body returning *CreateAMBBusinessAccountResponse
+func (c *ClientWithResponses) CreateAMBBusinessAccountWithBodyWithResponse(ctx context.Context, params *CreateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountResponse, error) {
+	rsp, err := c.CreateAMBBusinessAccountWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBBusinessAccountResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBBusinessAccountWithResponse(ctx context.Context, params *CreateAMBBusinessAccountParams, body CreateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountResponse, error) {
+	rsp, err := c.CreateAMBBusinessAccount(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBBusinessAccountResponse(rsp)
+}
+
+// DeleteAMBBusinessAccountWithResponse request returning *DeleteAMBBusinessAccountResponse
+func (c *ClientWithResponses) DeleteAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *DeleteAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*DeleteAMBBusinessAccountResponse, error) {
+	rsp, err := c.DeleteAMBBusinessAccount(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAMBBusinessAccountResponse(rsp)
+}
+
+// GetAMBBusinessAccountWithResponse request returning *GetAMBBusinessAccountResponse
+func (c *ClientWithResponses) GetAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId string, params *GetAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*GetAMBBusinessAccountResponse, error) {
+	rsp, err := c.GetAMBBusinessAccount(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBBusinessAccountResponse(rsp)
+}
+
+// UpdateAMBBusinessAccountWithBodyWithResponse request with arbitrary body returning *UpdateAMBBusinessAccountResponse
+func (c *ClientWithResponses) UpdateAMBBusinessAccountWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBBusinessAccountResponse, error) {
+	rsp, err := c.UpdateAMBBusinessAccountWithBody(ctx, businessAccountId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBBusinessAccountResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBBusinessAccountParams, body UpdateAMBBusinessAccountJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBBusinessAccountResponse, error) {
+	rsp, err := c.UpdateAMBBusinessAccount(ctx, businessAccountId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBBusinessAccountResponse(rsp)
+}
+
+// GetAMBChannelSettingsWithResponse request returning *GetAMBChannelSettingsResponse
+func (c *ClientWithResponses) GetAMBChannelSettingsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *GetAMBChannelSettingsParams, reqEditors ...RequestEditorFn) (*GetAMBChannelSettingsResponse, error) {
+	rsp, err := c.GetAMBChannelSettings(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBChannelSettingsResponse(rsp)
+}
+
+// UpdateAMBChannelSettingsWithBodyWithResponse request with arbitrary body returning *UpdateAMBChannelSettingsResponse
+func (c *ClientWithResponses) UpdateAMBChannelSettingsWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBChannelSettingsResponse, error) {
+	rsp, err := c.UpdateAMBChannelSettingsWithBody(ctx, businessAccountId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBChannelSettingsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAMBChannelSettingsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *UpdateAMBChannelSettingsParams, body UpdateAMBChannelSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBChannelSettingsResponse, error) {
+	rsp, err := c.UpdateAMBChannelSettings(ctx, businessAccountId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBChannelSettingsResponse(rsp)
+}
+
+// ListAMBBusinessAccountEventsWithResponse request returning *ListAMBBusinessAccountEventsResponse
+func (c *ClientWithResponses) ListAMBBusinessAccountEventsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountEventsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountEventsResponse, error) {
+	rsp, err := c.ListAMBBusinessAccountEvents(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBBusinessAccountEventsResponse(rsp)
+}
+
+// RestoreAMBBusinessAccountWithResponse request returning *RestoreAMBBusinessAccountResponse
+func (c *ClientWithResponses) RestoreAMBBusinessAccountWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *RestoreAMBBusinessAccountParams, reqEditors ...RequestEditorFn) (*RestoreAMBBusinessAccountResponse, error) {
+	rsp, err := c.RestoreAMBBusinessAccount(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseRestoreAMBBusinessAccountResponse(rsp)
+}
+
+// ListAMBBusinessAccountSubmissionsWithResponse request returning *ListAMBBusinessAccountSubmissionsResponse
+func (c *ClientWithResponses) ListAMBBusinessAccountSubmissionsWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *ListAMBBusinessAccountSubmissionsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountSubmissionsResponse, error) {
+	rsp, err := c.ListAMBBusinessAccountSubmissions(ctx, businessAccountId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBBusinessAccountSubmissionsResponse(rsp)
+}
+
+// CreateAMBBusinessAccountSubmissionWithBodyWithResponse request with arbitrary body returning *CreateAMBBusinessAccountSubmissionResponse
+func (c *ClientWithResponses) CreateAMBBusinessAccountSubmissionWithBodyWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountSubmissionResponse, error) {
+	rsp, err := c.CreateAMBBusinessAccountSubmissionWithBody(ctx, businessAccountId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBBusinessAccountSubmissionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBBusinessAccountSubmissionWithResponse(ctx context.Context, businessAccountId AMBBusinessID, params *CreateAMBBusinessAccountSubmissionParams, body CreateAMBBusinessAccountSubmissionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBBusinessAccountSubmissionResponse, error) {
+	rsp, err := c.CreateAMBBusinessAccountSubmission(ctx, businessAccountId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBBusinessAccountSubmissionResponse(rsp)
+}
+
+// ListAMBConversationsWithResponse request returning *ListAMBConversationsResponse
+func (c *ClientWithResponses) ListAMBConversationsWithResponse(ctx context.Context, params *ListAMBConversationsParams, reqEditors ...RequestEditorFn) (*ListAMBConversationsResponse, error) {
+	rsp, err := c.ListAMBConversations(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBConversationsResponse(rsp)
+}
+
+// GetAMBConversationWithResponse request returning *GetAMBConversationResponse
+func (c *ClientWithResponses) GetAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, reqEditors ...RequestEditorFn) (*GetAMBConversationResponse, error) {
+	rsp, err := c.GetAMBConversation(ctx, conversationId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBConversationResponse(rsp)
+}
+
+// UpdateAMBConversationWithBodyWithResponse request with arbitrary body returning *UpdateAMBConversationResponse
+func (c *ClientWithResponses) UpdateAMBConversationWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error) {
+	rsp, err := c.UpdateAMBConversationWithBody(ctx, conversationId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBConversationResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAMBConversationWithResponse(ctx context.Context, conversationId AMBConversationID, params *UpdateAMBConversationParams, body UpdateAMBConversationJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBConversationResponse, error) {
+	rsp, err := c.UpdateAMBConversation(ctx, conversationId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBConversationResponse(rsp)
+}
+
+// ListAMBConversationMessagesWithResponse request returning *ListAMBConversationMessagesResponse
+func (c *ClientWithResponses) ListAMBConversationMessagesWithResponse(ctx context.Context, conversationId AMBConversationID, params *ListAMBConversationMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBConversationMessagesResponse, error) {
+	rsp, err := c.ListAMBConversationMessages(ctx, conversationId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBConversationMessagesResponse(rsp)
+}
+
+// CreateAMBConversationTypingWithBodyWithResponse request with arbitrary body returning *CreateAMBConversationTypingResponse
+func (c *ClientWithResponses) CreateAMBConversationTypingWithBodyWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBConversationTypingResponse, error) {
+	rsp, err := c.CreateAMBConversationTypingWithBody(ctx, conversationId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBConversationTypingResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBConversationTypingWithResponse(ctx context.Context, conversationId AMBConversationID, params *CreateAMBConversationTypingParams, body CreateAMBConversationTypingJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBConversationTypingResponse, error) {
+	rsp, err := c.CreateAMBConversationTyping(ctx, conversationId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBConversationTypingResponse(rsp)
+}
+
+// ListAMBMessagesWithResponse request returning *ListAMBMessagesResponse
+func (c *ClientWithResponses) ListAMBMessagesWithResponse(ctx context.Context, params *ListAMBMessagesParams, reqEditors ...RequestEditorFn) (*ListAMBMessagesResponse, error) {
+	rsp, err := c.ListAMBMessages(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBMessagesResponse(rsp)
+}
+
+// CreateAMBMessageWithBodyWithResponse request with arbitrary body returning *CreateAMBMessageResponse
+func (c *ClientWithResponses) CreateAMBMessageWithBodyWithResponse(ctx context.Context, params *CreateAMBMessageParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBMessageResponse, error) {
+	rsp, err := c.CreateAMBMessageWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBMessageResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBMessageWithResponse(ctx context.Context, params *CreateAMBMessageParams, body CreateAMBMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBMessageResponse, error) {
+	rsp, err := c.CreateAMBMessage(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBMessageResponse(rsp)
+}
+
+// GetAMBMessageWithResponse request returning *GetAMBMessageResponse
+func (c *ClientWithResponses) GetAMBMessageWithResponse(ctx context.Context, messageId AMBMessageID, reqEditors ...RequestEditorFn) (*GetAMBMessageResponse, error) {
+	rsp, err := c.GetAMBMessage(ctx, messageId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBMessageResponse(rsp)
+}
+
+// ListAMBMessageEventsWithResponse request returning *ListAMBMessageEventsResponse
+func (c *ClientWithResponses) ListAMBMessageEventsWithResponse(ctx context.Context, messageId AMBMessageID, params *ListAMBMessageEventsParams, reqEditors ...RequestEditorFn) (*ListAMBMessageEventsResponse, error) {
+	rsp, err := c.ListAMBMessageEvents(ctx, messageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBMessageEventsResponse(rsp)
+}
+
+// ListAMBRoutingRulesWithResponse request returning *ListAMBRoutingRulesResponse
+func (c *ClientWithResponses) ListAMBRoutingRulesWithResponse(ctx context.Context, params *ListAMBRoutingRulesParams, reqEditors ...RequestEditorFn) (*ListAMBRoutingRulesResponse, error) {
+	rsp, err := c.ListAMBRoutingRules(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBRoutingRulesResponse(rsp)
+}
+
+// CreateAMBRoutingRuleWithBodyWithResponse request with arbitrary body returning *CreateAMBRoutingRuleResponse
+func (c *ClientWithResponses) CreateAMBRoutingRuleWithBodyWithResponse(ctx context.Context, params *CreateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBRoutingRuleResponse, error) {
+	rsp, err := c.CreateAMBRoutingRuleWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBRoutingRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBRoutingRuleWithResponse(ctx context.Context, params *CreateAMBRoutingRuleParams, body CreateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBRoutingRuleResponse, error) {
+	rsp, err := c.CreateAMBRoutingRule(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBRoutingRuleResponse(rsp)
+}
+
+// DeleteAMBRoutingRuleWithResponse request returning *DeleteAMBRoutingRuleResponse
+func (c *ClientWithResponses) DeleteAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *DeleteAMBRoutingRuleParams, reqEditors ...RequestEditorFn) (*DeleteAMBRoutingRuleResponse, error) {
+	rsp, err := c.DeleteAMBRoutingRule(ctx, routingRuleId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAMBRoutingRuleResponse(rsp)
+}
+
+// GetAMBRoutingRuleWithResponse request returning *GetAMBRoutingRuleResponse
+func (c *ClientWithResponses) GetAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, reqEditors ...RequestEditorFn) (*GetAMBRoutingRuleResponse, error) {
+	rsp, err := c.GetAMBRoutingRule(ctx, routingRuleId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBRoutingRuleResponse(rsp)
+}
+
+// UpdateAMBRoutingRuleWithBodyWithResponse request with arbitrary body returning *UpdateAMBRoutingRuleResponse
+func (c *ClientWithResponses) UpdateAMBRoutingRuleWithBodyWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAMBRoutingRuleResponse, error) {
+	rsp, err := c.UpdateAMBRoutingRuleWithBody(ctx, routingRuleId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBRoutingRuleResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAMBRoutingRuleWithResponse(ctx context.Context, routingRuleId AMBRoutingRuleID, params *UpdateAMBRoutingRuleParams, body UpdateAMBRoutingRuleJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAMBRoutingRuleResponse, error) {
+	rsp, err := c.UpdateAMBRoutingRule(ctx, routingRuleId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAMBRoutingRuleResponse(rsp)
+}
+
+// GetAMBStatsByBusinessWithResponse request returning *GetAMBStatsByBusinessResponse
+func (c *ClientWithResponses) GetAMBStatsByBusinessWithResponse(ctx context.Context, params *GetAMBStatsByBusinessParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByBusinessResponse, error) {
+	rsp, err := c.GetAMBStatsByBusiness(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByBusinessResponse(rsp)
+}
+
+// GetAMBStatsByCategoryWithResponse request returning *GetAMBStatsByCategoryResponse
+func (c *ClientWithResponses) GetAMBStatsByCategoryWithResponse(ctx context.Context, params *GetAMBStatsByCategoryParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByCategoryResponse, error) {
+	rsp, err := c.GetAMBStatsByCategory(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByCategoryResponse(rsp)
+}
+
+// GetAMBConversationStatsDailyWithResponse request returning *GetAMBConversationStatsDailyResponse
+func (c *ClientWithResponses) GetAMBConversationStatsDailyWithResponse(ctx context.Context, params *GetAMBConversationStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsDailyResponse, error) {
+	rsp, err := c.GetAMBConversationStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBConversationStatsDailyResponse(rsp)
+}
+
+// GetAMBConversationStatsHourlyWithResponse request returning *GetAMBConversationStatsHourlyResponse
+func (c *ClientWithResponses) GetAMBConversationStatsHourlyWithResponse(ctx context.Context, params *GetAMBConversationStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsHourlyResponse, error) {
+	rsp, err := c.GetAMBConversationStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBConversationStatsHourlyResponse(rsp)
+}
+
+// GetAMBConversationStatsSummaryWithResponse request returning *GetAMBConversationStatsSummaryResponse
+func (c *ClientWithResponses) GetAMBConversationStatsSummaryWithResponse(ctx context.Context, params *GetAMBConversationStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBConversationStatsSummaryResponse, error) {
+	rsp, err := c.GetAMBConversationStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBConversationStatsSummaryResponse(rsp)
+}
+
+// GetAMBStatsDailyWithResponse request returning *GetAMBStatsDailyResponse
+func (c *ClientWithResponses) GetAMBStatsDailyWithResponse(ctx context.Context, params *GetAMBStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBStatsDailyResponse, error) {
+	rsp, err := c.GetAMBStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsDailyResponse(rsp)
+}
+
+// GetAMBStatsByErrorCodeWithResponse request returning *GetAMBStatsByErrorCodeResponse
+func (c *ClientWithResponses) GetAMBStatsByErrorCodeWithResponse(ctx context.Context, params *GetAMBStatsByErrorCodeParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByErrorCodeResponse, error) {
+	rsp, err := c.GetAMBStatsByErrorCode(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByErrorCodeResponse(rsp)
+}
+
+// GetAMBStatsByGroupWithResponse request returning *GetAMBStatsByGroupResponse
+func (c *ClientWithResponses) GetAMBStatsByGroupWithResponse(ctx context.Context, params *GetAMBStatsByGroupParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByGroupResponse, error) {
+	rsp, err := c.GetAMBStatsByGroup(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByGroupResponse(rsp)
+}
+
+// GetAMBStatsHourlyWithResponse request returning *GetAMBStatsHourlyResponse
+func (c *ClientWithResponses) GetAMBStatsHourlyWithResponse(ctx context.Context, params *GetAMBStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBStatsHourlyResponse, error) {
+	rsp, err := c.GetAMBStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsHourlyResponse(rsp)
+}
+
+// GetAMBInboundStatsByBusinessWithResponse request returning *GetAMBInboundStatsByBusinessResponse
+func (c *ClientWithResponses) GetAMBInboundStatsByBusinessWithResponse(ctx context.Context, params *GetAMBInboundStatsByBusinessParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsByBusinessResponse, error) {
+	rsp, err := c.GetAMBInboundStatsByBusiness(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBInboundStatsByBusinessResponse(rsp)
+}
+
+// GetAMBInboundStatsDailyWithResponse request returning *GetAMBInboundStatsDailyResponse
+func (c *ClientWithResponses) GetAMBInboundStatsDailyWithResponse(ctx context.Context, params *GetAMBInboundStatsDailyParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsDailyResponse, error) {
+	rsp, err := c.GetAMBInboundStatsDaily(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBInboundStatsDailyResponse(rsp)
+}
+
+// GetAMBInboundStatsHourlyWithResponse request returning *GetAMBInboundStatsHourlyResponse
+func (c *ClientWithResponses) GetAMBInboundStatsHourlyWithResponse(ctx context.Context, params *GetAMBInboundStatsHourlyParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsHourlyResponse, error) {
+	rsp, err := c.GetAMBInboundStatsHourly(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBInboundStatsHourlyResponse(rsp)
+}
+
+// GetAMBInboundStatsByIntentWithResponse request returning *GetAMBInboundStatsByIntentResponse
+func (c *ClientWithResponses) GetAMBInboundStatsByIntentWithResponse(ctx context.Context, params *GetAMBInboundStatsByIntentParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsByIntentResponse, error) {
+	rsp, err := c.GetAMBInboundStatsByIntent(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBInboundStatsByIntentResponse(rsp)
+}
+
+// GetAMBInboundStatsSummaryWithResponse request returning *GetAMBInboundStatsSummaryResponse
+func (c *ClientWithResponses) GetAMBInboundStatsSummaryWithResponse(ctx context.Context, params *GetAMBInboundStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBInboundStatsSummaryResponse, error) {
+	rsp, err := c.GetAMBInboundStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBInboundStatsSummaryResponse(rsp)
+}
+
+// GetAMBStatsByIntentWithResponse request returning *GetAMBStatsByIntentResponse
+func (c *ClientWithResponses) GetAMBStatsByIntentWithResponse(ctx context.Context, params *GetAMBStatsByIntentParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByIntentResponse, error) {
+	rsp, err := c.GetAMBStatsByIntent(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByIntentResponse(rsp)
+}
+
+// GetAMBStatsByMessageKindWithResponse request returning *GetAMBStatsByMessageKindResponse
+func (c *ClientWithResponses) GetAMBStatsByMessageKindWithResponse(ctx context.Context, params *GetAMBStatsByMessageKindParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByMessageKindResponse, error) {
+	rsp, err := c.GetAMBStatsByMessageKind(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByMessageKindResponse(rsp)
+}
+
+// GetAMBStatsSummaryWithResponse request returning *GetAMBStatsSummaryResponse
+func (c *ClientWithResponses) GetAMBStatsSummaryWithResponse(ctx context.Context, params *GetAMBStatsSummaryParams, reqEditors ...RequestEditorFn) (*GetAMBStatsSummaryResponse, error) {
+	rsp, err := c.GetAMBStatsSummary(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsSummaryResponse(rsp)
+}
+
+// GetAMBStatsByTagWithResponse request returning *GetAMBStatsByTagResponse
+func (c *ClientWithResponses) GetAMBStatsByTagWithResponse(ctx context.Context, params *GetAMBStatsByTagParams, reqEditors ...RequestEditorFn) (*GetAMBStatsByTagResponse, error) {
+	rsp, err := c.GetAMBStatsByTag(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBStatsByTagResponse(rsp)
+}
+
+// ListAMBSuppressionsWithResponse request returning *ListAMBSuppressionsResponse
+func (c *ClientWithResponses) ListAMBSuppressionsWithResponse(ctx context.Context, params *ListAMBSuppressionsParams, reqEditors ...RequestEditorFn) (*ListAMBSuppressionsResponse, error) {
+	rsp, err := c.ListAMBSuppressions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBSuppressionsResponse(rsp)
+}
+
+// CreateAMBSuppressionWithBodyWithResponse request with arbitrary body returning *CreateAMBSuppressionResponse
+func (c *ClientWithResponses) CreateAMBSuppressionWithBodyWithResponse(ctx context.Context, params *CreateAMBSuppressionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAMBSuppressionResponse, error) {
+	rsp, err := c.CreateAMBSuppressionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBSuppressionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAMBSuppressionWithResponse(ctx context.Context, params *CreateAMBSuppressionParams, body CreateAMBSuppressionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAMBSuppressionResponse, error) {
+	rsp, err := c.CreateAMBSuppression(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAMBSuppressionResponse(rsp)
+}
+
+// DeleteAMBSuppressionWithResponse request returning *DeleteAMBSuppressionResponse
+func (c *ClientWithResponses) DeleteAMBSuppressionWithResponse(ctx context.Context, suppressionId AMBSuppressionID, params *DeleteAMBSuppressionParams, reqEditors ...RequestEditorFn) (*DeleteAMBSuppressionResponse, error) {
+	rsp, err := c.DeleteAMBSuppression(ctx, suppressionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAMBSuppressionResponse(rsp)
+}
+
+// GetAMBSuppressionWithResponse request returning *GetAMBSuppressionResponse
+func (c *ClientWithResponses) GetAMBSuppressionWithResponse(ctx context.Context, suppressionId AMBSuppressionID, reqEditors ...RequestEditorFn) (*GetAMBSuppressionResponse, error) {
+	rsp, err := c.GetAMBSuppression(ctx, suppressionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBSuppressionResponse(rsp)
+}
+
 // ListAudiencesWithResponse request returning *ListAudiencesResponse
 func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error) {
 	rsp, err := c.ListAudiences(ctx, params, reqEditors...)
@@ -73890,6 +88265,3860 @@ func (c *ClientWithResponses) GetCurrentWorkspaceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseGetCurrentWorkspaceResponse(rsp)
+}
+
+// ParseListAMBBusinessAccountsResponse parses an HTTP response from a ListAMBBusinessAccountsWithResponse call
+func ParseListAMBBusinessAccountsResponse(rsp *http.Response) (*ListAMBBusinessAccountsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBBusinessAccountsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccountList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBBusinessAccountResponse parses an HTTP response from a CreateAMBBusinessAccountWithResponse call
+func ParseCreateAMBBusinessAccountResponse(rsp *http.Response) (*CreateAMBBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AMBBusinessAccount
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAMBBusinessAccountResponse parses an HTTP response from a DeleteAMBBusinessAccountWithResponse call
+func ParseDeleteAMBBusinessAccountResponse(rsp *http.Response) (*DeleteAMBBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAMBBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBBusinessAccountResponse parses an HTTP response from a GetAMBBusinessAccountWithResponse call
+func ParseGetAMBBusinessAccountResponse(rsp *http.Response) (*GetAMBBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccount
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAMBBusinessAccountResponse parses an HTTP response from a UpdateAMBBusinessAccountWithResponse call
+func ParseUpdateAMBBusinessAccountResponse(rsp *http.Response) (*UpdateAMBBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAMBBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccount
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBChannelSettingsResponse parses an HTTP response from a GetAMBChannelSettingsWithResponse call
+func ParseGetAMBChannelSettingsResponse(rsp *http.Response) (*GetAMBChannelSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBChannelSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBChannelSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAMBChannelSettingsResponse parses an HTTP response from a UpdateAMBChannelSettingsWithResponse call
+func ParseUpdateAMBChannelSettingsResponse(rsp *http.Response) (*UpdateAMBChannelSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAMBChannelSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBChannelSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBBusinessAccountEventsResponse parses an HTTP response from a ListAMBBusinessAccountEventsWithResponse call
+func ParseListAMBBusinessAccountEventsResponse(rsp *http.Response) (*ListAMBBusinessAccountEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBBusinessAccountEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccountEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseRestoreAMBBusinessAccountResponse parses an HTTP response from a RestoreAMBBusinessAccountWithResponse call
+func ParseRestoreAMBBusinessAccountResponse(rsp *http.Response) (*RestoreAMBBusinessAccountResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &RestoreAMBBusinessAccountResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccount
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBBusinessAccountSubmissionsResponse parses an HTTP response from a ListAMBBusinessAccountSubmissionsWithResponse call
+func ParseListAMBBusinessAccountSubmissionsResponse(rsp *http.Response) (*ListAMBBusinessAccountSubmissionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBBusinessAccountSubmissionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBBusinessAccountSubmissionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBBusinessAccountSubmissionResponse parses an HTTP response from a CreateAMBBusinessAccountSubmissionWithResponse call
+func ParseCreateAMBBusinessAccountSubmissionResponse(rsp *http.Response) (*CreateAMBBusinessAccountSubmissionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBBusinessAccountSubmissionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AMBBusinessAccountSubmission
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBConversationsResponse parses an HTTP response from a ListAMBConversationsWithResponse call
+func ParseListAMBConversationsResponse(rsp *http.Response) (*ListAMBConversationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBConversationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversationList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBConversationResponse parses an HTTP response from a GetAMBConversationWithResponse call
+func ParseGetAMBConversationResponse(rsp *http.Response) (*GetAMBConversationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBConversationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversation
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAMBConversationResponse parses an HTTP response from a UpdateAMBConversationWithResponse call
+func ParseUpdateAMBConversationResponse(rsp *http.Response) (*UpdateAMBConversationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAMBConversationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversation
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBConversationMessagesResponse parses an HTTP response from a ListAMBConversationMessagesWithResponse call
+func ParseListAMBConversationMessagesResponse(rsp *http.Response) (*ListAMBConversationMessagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBConversationMessagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBMessageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBConversationTypingResponse parses an HTTP response from a CreateAMBConversationTypingWithResponse call
+func ParseCreateAMBConversationTypingResponse(rsp *http.Response) (*CreateAMBConversationTypingResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBConversationTypingResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBMessagesResponse parses an HTTP response from a ListAMBMessagesWithResponse call
+func ParseListAMBMessagesResponse(rsp *http.Response) (*ListAMBMessagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBMessagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBMessageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBMessageResponse parses an HTTP response from a CreateAMBMessageWithResponse call
+func ParseCreateAMBMessageResponse(rsp *http.Response) (*CreateAMBMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest AMBMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBMessageResponse parses an HTTP response from a GetAMBMessageWithResponse call
+func ParseGetAMBMessageResponse(rsp *http.Response) (*GetAMBMessageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBMessageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBMessage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBMessageEventsResponse parses an HTTP response from a ListAMBMessageEventsWithResponse call
+func ParseListAMBMessageEventsResponse(rsp *http.Response) (*ListAMBMessageEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBMessageEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBMessageEventList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBRoutingRulesResponse parses an HTTP response from a ListAMBRoutingRulesWithResponse call
+func ParseListAMBRoutingRulesResponse(rsp *http.Response) (*ListAMBRoutingRulesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBRoutingRulesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBRoutingRuleList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBRoutingRuleResponse parses an HTTP response from a CreateAMBRoutingRuleWithResponse call
+func ParseCreateAMBRoutingRuleResponse(rsp *http.Response) (*CreateAMBRoutingRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBRoutingRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AMBRoutingRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAMBRoutingRuleResponse parses an HTTP response from a DeleteAMBRoutingRuleWithResponse call
+func ParseDeleteAMBRoutingRuleResponse(rsp *http.Response) (*DeleteAMBRoutingRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAMBRoutingRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBRoutingRuleResponse parses an HTTP response from a GetAMBRoutingRuleWithResponse call
+func ParseGetAMBRoutingRuleResponse(rsp *http.Response) (*GetAMBRoutingRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBRoutingRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBRoutingRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAMBRoutingRuleResponse parses an HTTP response from a UpdateAMBRoutingRuleWithResponse call
+func ParseUpdateAMBRoutingRuleResponse(rsp *http.Response) (*UpdateAMBRoutingRuleResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAMBRoutingRuleResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBRoutingRule
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByBusinessResponse parses an HTTP response from a GetAMBStatsByBusinessWithResponse call
+func ParseGetAMBStatsByBusinessResponse(rsp *http.Response) (*GetAMBStatsByBusinessResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByBusinessResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByBusinessResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByCategoryResponse parses an HTTP response from a GetAMBStatsByCategoryWithResponse call
+func ParseGetAMBStatsByCategoryResponse(rsp *http.Response) (*GetAMBStatsByCategoryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByCategoryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByCategoryResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBConversationStatsDailyResponse parses an HTTP response from a GetAMBConversationStatsDailyWithResponse call
+func ParseGetAMBConversationStatsDailyResponse(rsp *http.Response) (*GetAMBConversationStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBConversationStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversationStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBConversationStatsHourlyResponse parses an HTTP response from a GetAMBConversationStatsHourlyWithResponse call
+func ParseGetAMBConversationStatsHourlyResponse(rsp *http.Response) (*GetAMBConversationStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBConversationStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversationStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBConversationStatsSummaryResponse parses an HTTP response from a GetAMBConversationStatsSummaryWithResponse call
+func ParseGetAMBConversationStatsSummaryResponse(rsp *http.Response) (*GetAMBConversationStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBConversationStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBConversationStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsDailyResponse parses an HTTP response from a GetAMBStatsDailyWithResponse call
+func ParseGetAMBStatsDailyResponse(rsp *http.Response) (*GetAMBStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByErrorCodeResponse parses an HTTP response from a GetAMBStatsByErrorCodeWithResponse call
+func ParseGetAMBStatsByErrorCodeResponse(rsp *http.Response) (*GetAMBStatsByErrorCodeResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByErrorCodeResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByErrorCodeResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByGroupResponse parses an HTTP response from a GetAMBStatsByGroupWithResponse call
+func ParseGetAMBStatsByGroupResponse(rsp *http.Response) (*GetAMBStatsByGroupResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByGroupResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByGroupResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsHourlyResponse parses an HTTP response from a GetAMBStatsHourlyWithResponse call
+func ParseGetAMBStatsHourlyResponse(rsp *http.Response) (*GetAMBStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBInboundStatsByBusinessResponse parses an HTTP response from a GetAMBInboundStatsByBusinessWithResponse call
+func ParseGetAMBInboundStatsByBusinessResponse(rsp *http.Response) (*GetAMBInboundStatsByBusinessResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBInboundStatsByBusinessResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBInboundStatsByBusinessResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBInboundStatsDailyResponse parses an HTTP response from a GetAMBInboundStatsDailyWithResponse call
+func ParseGetAMBInboundStatsDailyResponse(rsp *http.Response) (*GetAMBInboundStatsDailyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBInboundStatsDailyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBInboundStatsHourlyResponse parses an HTTP response from a GetAMBInboundStatsHourlyWithResponse call
+func ParseGetAMBInboundStatsHourlyResponse(rsp *http.Response) (*GetAMBInboundStatsHourlyResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBInboundStatsHourlyResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBInboundStatsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBInboundStatsByIntentResponse parses an HTTP response from a GetAMBInboundStatsByIntentWithResponse call
+func ParseGetAMBInboundStatsByIntentResponse(rsp *http.Response) (*GetAMBInboundStatsByIntentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBInboundStatsByIntentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBInboundStatsByIntentResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBInboundStatsSummaryResponse parses an HTTP response from a GetAMBInboundStatsSummaryWithResponse call
+func ParseGetAMBInboundStatsSummaryResponse(rsp *http.Response) (*GetAMBInboundStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBInboundStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBInboundStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByIntentResponse parses an HTTP response from a GetAMBStatsByIntentWithResponse call
+func ParseGetAMBStatsByIntentResponse(rsp *http.Response) (*GetAMBStatsByIntentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByIntentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByIntentResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByMessageKindResponse parses an HTTP response from a GetAMBStatsByMessageKindWithResponse call
+func ParseGetAMBStatsByMessageKindResponse(rsp *http.Response) (*GetAMBStatsByMessageKindResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByMessageKindResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByMessageKindResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsSummaryResponse parses an HTTP response from a GetAMBStatsSummaryWithResponse call
+func ParseGetAMBStatsSummaryResponse(rsp *http.Response) (*GetAMBStatsSummaryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsSummaryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsSummary
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBStatsByTagResponse parses an HTTP response from a GetAMBStatsByTagWithResponse call
+func ParseGetAMBStatsByTagResponse(rsp *http.Response) (*GetAMBStatsByTagResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBStatsByTagResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBStatsByTagResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBSuppressionsResponse parses an HTTP response from a ListAMBSuppressionsWithResponse call
+func ParseListAMBSuppressionsResponse(rsp *http.Response) (*ListAMBSuppressionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBSuppressionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBSuppressionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAMBSuppressionResponse parses an HTTP response from a CreateAMBSuppressionWithResponse call
+func ParseCreateAMBSuppressionResponse(rsp *http.Response) (*CreateAMBSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAMBSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AMBSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAMBSuppressionResponse parses an HTTP response from a DeleteAMBSuppressionWithResponse call
+func ParseDeleteAMBSuppressionResponse(rsp *http.Response) (*DeleteAMBSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAMBSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBSuppressionResponse parses an HTTP response from a GetAMBSuppressionWithResponse call
+func ParseGetAMBSuppressionResponse(rsp *http.Response) (*GetAMBSuppressionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBSuppressionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBSuppression
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseListAudiencesResponse parses an HTTP response from a ListAudiencesWithResponse call

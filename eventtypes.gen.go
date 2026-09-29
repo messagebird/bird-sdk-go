@@ -10,6 +10,15 @@ import (
 // string on the wire: a value added by a newer server flows through Unwrap
 // unchanged, so switch on these constants with a default branch.
 const (
+	EventTypeAmbAccepted                     = oapi.EventTypeAmbAccepted
+	EventTypeAmbConversationClosed           = oapi.EventTypeAmbConversationClosed
+	EventTypeAmbConversationReopened         = oapi.EventTypeAmbConversationReopened
+	EventTypeAmbConversationStarted          = oapi.EventTypeAmbConversationStarted
+	EventTypeAmbReceived                     = oapi.EventTypeAmbReceived
+	EventTypeAmbRejected                     = oapi.EventTypeAmbRejected
+	EventTypeAmbSendFailed                   = oapi.EventTypeAmbSendFailed
+	EventTypeAmbSent                         = oapi.EventTypeAmbSent
+	EventTypeAmbSuppressionCreated           = oapi.EventTypeAmbSuppressionCreated
 	EventTypeDomainFailed                    = oapi.EventTypeDomainFailed
 	EventTypeDomainVerified                  = oapi.EventTypeDomainVerified
 	EventTypeEmailAccepted                   = oapi.EventTypeEmailAccepted

@@ -14,6 +14,12 @@ type VoiceInboundConfigurationPut = oapi.VoiceInboundConfigurationPut
 
 // VoiceNumbersListParams filters the list. Zero-value fields are omitted.
 type VoiceNumbersListParams struct {
+	// Matches part of the phone number or name, ignoring case. Characters such as `%` and `_` match literally.
+	Search string
+	// Filter by number source. `allocation` selects numbers we allocated to your workspace. `verified_number` selects numbers from another carrier that you registered for use as caller IDs.
+	Provider VoiceNumberProviderType
+	// Filter by the configured answer to incoming calls. - `reject`: rejects incoming calls, including numbers without a route configured. - `trunk`: delivers calls to a SIP trunk. - `forward`: connects calls to the configured forwarding number. - `sequence`: runs the selected voice sequence entry. Numbers with an unsupported route are excluded when this filter is set.
+	Route VoiceCallRouteType
 	// Field to sort by.
 	Sort VoiceNumberSortField
 	// Sort direction. Defaults to `asc`, which sorts alphabetically or from oldest to newest, depending on the selected sort field.
@@ -26,6 +32,9 @@ type VoiceNumbersListParams struct {
 
 func (p VoiceNumbersListParams) toWire(startingAfter string) *oapi.ListVoiceNumbersParams {
 	return &oapi.ListVoiceNumbersParams{
+		Search:        optStr(p.Search),
+		Provider:      optZero(p.Provider),
+		Route:         optZero(p.Route),
 		Sort:          optZero(p.Sort),
 		Order:         optZero(p.Order),
 		Limit:         optInt(p.Limit),

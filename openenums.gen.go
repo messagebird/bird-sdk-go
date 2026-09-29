@@ -6,6 +6,105 @@ import (
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 )
 
+// AMBBusinessAccountReviewStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBBusinessAccountReviewStatus* constants with a
+// default branch rather than treating the set as closed.
+type AMBBusinessAccountReviewStatus = oapi.AMBBusinessAccountReviewStatus
+
+const (
+	AMBBusinessAccountReviewStatusApproved = oapi.AMBBusinessAccountReviewStatusApproved
+	AMBBusinessAccountReviewStatusPending  = oapi.AMBBusinessAccountReviewStatusPending
+	AMBBusinessAccountReviewStatusRejected = oapi.AMBBusinessAccountReviewStatusRejected
+)
+
+// AMBFormKeyboardType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBFormKeyboardType* constants with a
+// default branch rather than treating the set as closed.
+type AMBFormKeyboardType = oapi.AMBFormKeyboardType
+
+const (
+	AMBFormKeyboardTypeAsciiCapable          = oapi.AMBFormKeyboardTypeAsciiCapable
+	AMBFormKeyboardTypeDecimalPad            = oapi.AMBFormKeyboardTypeDecimalPad
+	AMBFormKeyboardTypeDefault               = oapi.AMBFormKeyboardTypeDefault
+	AMBFormKeyboardTypeEmailAddress          = oapi.AMBFormKeyboardTypeEmailAddress
+	AMBFormKeyboardTypeNamePhonePad          = oapi.AMBFormKeyboardTypeNamePhonePad
+	AMBFormKeyboardTypeNumberPad             = oapi.AMBFormKeyboardTypeNumberPad
+	AMBFormKeyboardTypeNumbersAndPunctuation = oapi.AMBFormKeyboardTypeNumbersAndPunctuation
+	AMBFormKeyboardTypePhonePad              = oapi.AMBFormKeyboardTypePhonePad
+	AMBFormKeyboardTypeURL                   = oapi.AMBFormKeyboardTypeURL
+	AMBFormKeyboardTypeWebSearch             = oapi.AMBFormKeyboardTypeWebSearch
+)
+
+// AMBFormTextContentType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBFormTextContentType* constants with a
+// default branch rather than treating the set as closed.
+type AMBFormTextContentType = oapi.AMBFormTextContentType
+
+const (
+	AMBFormTextContentTypeAddressCity         = oapi.AMBFormTextContentTypeAddressCity
+	AMBFormTextContentTypeAddressCityAndState = oapi.AMBFormTextContentTypeAddressCityAndState
+	AMBFormTextContentTypeAddressState        = oapi.AMBFormTextContentTypeAddressState
+	AMBFormTextContentTypeCountryName         = oapi.AMBFormTextContentTypeCountryName
+	AMBFormTextContentTypeCreditCardNumber    = oapi.AMBFormTextContentTypeCreditCardNumber
+	AMBFormTextContentTypeEmailAddress        = oapi.AMBFormTextContentTypeEmailAddress
+	AMBFormTextContentTypeFamilyName          = oapi.AMBFormTextContentTypeFamilyName
+	AMBFormTextContentTypeFullStreetAddress   = oapi.AMBFormTextContentTypeFullStreetAddress
+	AMBFormTextContentTypeGivenName           = oapi.AMBFormTextContentTypeGivenName
+	AMBFormTextContentTypeJobTitle            = oapi.AMBFormTextContentTypeJobTitle
+	AMBFormTextContentTypeLocation            = oapi.AMBFormTextContentTypeLocation
+	AMBFormTextContentTypeMiddleName          = oapi.AMBFormTextContentTypeMiddleName
+	AMBFormTextContentTypeName                = oapi.AMBFormTextContentTypeName
+	AMBFormTextContentTypeNamePrefix          = oapi.AMBFormTextContentTypeNamePrefix
+	AMBFormTextContentTypeNameSuffix          = oapi.AMBFormTextContentTypeNameSuffix
+	AMBFormTextContentTypeNewPassword         = oapi.AMBFormTextContentTypeNewPassword
+	AMBFormTextContentTypeNickname            = oapi.AMBFormTextContentTypeNickname
+	AMBFormTextContentTypeOneTimeCode         = oapi.AMBFormTextContentTypeOneTimeCode
+	AMBFormTextContentTypeOrganizationName    = oapi.AMBFormTextContentTypeOrganizationName
+	AMBFormTextContentTypePassword            = oapi.AMBFormTextContentTypePassword
+	AMBFormTextContentTypePostalCode          = oapi.AMBFormTextContentTypePostalCode
+	AMBFormTextContentTypeStreetAddressLine1  = oapi.AMBFormTextContentTypeStreetAddressLine1
+	AMBFormTextContentTypeStreetAddressLine2  = oapi.AMBFormTextContentTypeStreetAddressLine2
+	AMBFormTextContentTypeSublocality         = oapi.AMBFormTextContentTypeSublocality
+	AMBFormTextContentTypeTelephoneNumber     = oapi.AMBFormTextContentTypeTelephoneNumber
+	AMBFormTextContentTypeURL                 = oapi.AMBFormTextContentTypeURL
+	AMBFormTextContentTypeUsername            = oapi.AMBFormTextContentTypeUsername
+)
+
+// AMBMessageEventType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBMessageEventType* constants with a
+// default branch rather than treating the set as closed.
+type AMBMessageEventType = oapi.AMBMessageEventType
+
+const (
+	AMBMessageEventTypeAmbAccepted   = oapi.AMBMessageEventTypeAmbAccepted
+	AMBMessageEventTypeAmbReceived   = oapi.AMBMessageEventTypeAmbReceived
+	AMBMessageEventTypeAmbRejected   = oapi.AMBMessageEventTypeAmbRejected
+	AMBMessageEventTypeAmbSendFailed = oapi.AMBMessageEventTypeAmbSendFailed
+	AMBMessageEventTypeAmbSent       = oapi.AMBMessageEventTypeAmbSent
+)
+
+// AMBSuppressionOrigin is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBSuppressionOrigin* constants with a
+// default branch rather than treating the set as closed.
+type AMBSuppressionOrigin = oapi.AMBSuppressionOrigin
+
+const (
+	AMBSuppressionOriginApiKey       = oapi.AMBSuppressionOriginApiKey
+	AMBSuppressionOriginCloseSession = oapi.AMBSuppressionOriginCloseSession
+	AMBSuppressionOriginGone         = oapi.AMBSuppressionOriginGone
+	AMBSuppressionOriginUser         = oapi.AMBSuppressionOriginUser
+)
+
+// AMBSuppressionReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AMBSuppressionReason* constants with a
+// default branch rather than treating the set as closed.
+type AMBSuppressionReason = oapi.AMBSuppressionReason
+
+const (
+	AMBSuppressionReasonManual   = oapi.AMBSuppressionReasonManual
+	AMBSuppressionReasonOptedOut = oapi.AMBSuppressionReasonOptedOut
+)
+
 // DestinationRegion is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the DestinationRegion* constants with a
 // default branch rather than treating the set as closed.
@@ -321,6 +420,7 @@ const (
 type PreferenceChannel = oapi.PreferenceChannel
 
 const (
+	PreferenceChannelAmb      = oapi.PreferenceChannelAmb
 	PreferenceChannelEmail    = oapi.PreferenceChannelEmail
 	PreferenceChannelSms      = oapi.PreferenceChannelSms
 	PreferenceChannelWhatsapp = oapi.PreferenceChannelWhatsapp

@@ -870,6 +870,14 @@ const (
 
 // Webhook event payloads, returned by Event.AsAny. Type-switch on these.
 type (
+	AMBAcceptedEvent             = oapi.EventAMBAccepted
+	AMBConversationClosedEvent   = oapi.EventAMBConversationClosed
+	AMBConversationReopenedEvent = oapi.EventAMBConversationReopened
+	AMBConversationStartedEvent  = oapi.EventAMBConversationStarted
+	AMBReceivedEvent             = oapi.EventAMBReceived
+	AMBRejectedEvent             = oapi.EventAMBRejected
+	AMBSendFailedEvent           = oapi.EventAMBSendFailed
+	AMBSentEvent                 = oapi.EventAMBSent
 	DomainFailedEvent            = oapi.EventDomainFailed
 	DomainVerifiedEvent          = oapi.EventDomainVerified
 	EmailAcceptedEvent           = oapi.EventEmailAccepted
@@ -963,3 +971,48 @@ type (
 type CompetitiveWatchlistBrandID = oapi.CompetitiveWatchlistBrandID
 
 type VoiceCall = oapi.VoiceCall
+
+type AMBBusinessAccount = oapi.AMBBusinessAccount
+type AMBBusinessAccountEvent = oapi.AMBBusinessAccountEvent
+type AMBBusinessAccountEventID = oapi.AMBBusinessAccountEventID
+type AMBBusinessAccountEventList = oapi.AMBBusinessAccountEventList
+type AMBBusinessAccountEventSort = oapi.AMBBusinessAccountEventSort
+type AMBBusinessAccountList = oapi.AMBBusinessAccountList
+type AMBBusinessAccountSort = oapi.AMBBusinessAccountSort
+type AMBBusinessAccountStatus = oapi.AMBBusinessAccountStatus
+type AMBBusinessAccountSubmission = oapi.AMBBusinessAccountSubmission
+type AMBBusinessAccountSubmissionList = oapi.AMBBusinessAccountSubmissionList
+type AMBBusinessAccountSubmissionSort = oapi.AMBBusinessAccountSubmissionSort
+type AMBBusinessAccountSubmissionStatus = oapi.AMBBusinessAccountSubmissionStatus
+type AMBChannelSettings = oapi.AMBChannelSettings
+type AMBContentKind = oapi.AMBContentKind
+type AMBConversation = oapi.AMBConversation
+type AMBConversationList = oapi.AMBConversationList
+type AMBConversationStatsResponse = oapi.AMBConversationStatsResponse
+type AMBConversationStatsSummary = oapi.AMBConversationStatsSummary
+type AMBConversationStatus = oapi.AMBConversationStatus
+type AMBInboundStatsByBusinessResponse = oapi.AMBInboundStatsByBusinessResponse
+type AMBInboundStatsByIntentResponse = oapi.AMBInboundStatsByIntentResponse
+type AMBInboundStatsResponse = oapi.AMBInboundStatsResponse
+type AMBInboundStatsSummary = oapi.AMBInboundStatsSummary
+type AMBMessage = oapi.AMBMessage
+type AMBMessageDirection = oapi.AMBMessageDirection
+type AMBMessageEventList = oapi.AMBMessageEventList
+type AMBMessageList = oapi.AMBMessageList
+type AMBMessageSource = oapi.AMBMessageSource
+type AMBMessageStatus = oapi.AMBMessageStatus
+type AMBRoutingRule = oapi.AMBRoutingRule
+type AMBRoutingRuleList = oapi.AMBRoutingRuleList
+type AMBStatsByBusinessResponse = oapi.AMBStatsByBusinessResponse
+type AMBStatsByCategoryResponse = oapi.AMBStatsByCategoryResponse
+type AMBStatsByErrorCodeResponse = oapi.AMBStatsByErrorCodeResponse
+type AMBStatsByGroupResponse = oapi.AMBStatsByGroupResponse
+type AMBStatsByIntentResponse = oapi.AMBStatsByIntentResponse
+type AMBStatsByMessageKindResponse = oapi.AMBStatsByMessageKindResponse
+type AMBStatsByTagResponse = oapi.AMBStatsByTagResponse
+type AMBStatsResponse = oapi.AMBStatsResponse
+type AMBStatsSummary = oapi.AMBStatsSummary
+type AMBSuppression = oapi.AMBSuppression
+type AMBSuppressionList = oapi.AMBSuppressionList
+
+type AMBRoutingRuleMatchKind = oapi.AMBRoutingRuleMatchKind

@@ -11,7 +11,7 @@ import (
 
 // EmailTemplatesVersionsLanguagesSetParams is the request body for set.
 type EmailTemplatesVersionsLanguagesSetParams struct {
-	// The email subject line for this language.
+	// The email subject line. It may be empty in a draft but is required to publish.
 	Subject string
 	// The line an inbox shows after the subject in the message list. Leave it out and the inbox shows the opening words of the body instead.
 	PreviewText *string
@@ -35,7 +35,7 @@ func (p EmailTemplatesVersionsLanguagesSetParams) toWire() oapi.EmailTemplateLan
 
 // EmailTemplatesVersionsLanguagesUpdateParams is the request body for update.
 type EmailTemplatesVersionsLanguagesUpdateParams struct {
-	// A new email subject line for this language.
+	// The email subject line. It may be empty in a draft but is required to publish.
 	Subject *string
 	// A new line for the inbox to show after the subject in the message list. Send null to clear it, and the inbox shows the opening words of the body instead.
 	PreviewText Nullable[string]

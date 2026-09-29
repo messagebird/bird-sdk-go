@@ -4338,7 +4338,7 @@ func ExampleVoiceCallerIDsService_Verify() {
 		log.Fatal(err)
 	}
 	callerID, err := client.Voice.CallerIDs.Verify(context.Background(), "CALLER_ID", bird.VoiceCallerIDsVerifyParams{
-		Code: "123456",
+		Code: bird.Ptr("123456"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -4398,4 +4398,615 @@ func ExampleEmailStatsService_Query() {
 		}
 		fmt.Println(group.Dimensions, group.Metrics, group.Series)
 	}
+}
+
+func ExampleAmbBusinessAccountsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Amb.BusinessAccounts.Delete(context.Background(), "abz_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleAmbBusinessAccountsService_Reconnect() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Amb.BusinessAccounts.Reconnect(context.Background(), "abz_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsEventsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for item, err := range client.Amb.BusinessAccounts.Events.List(context.Background(), "abz_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbBusinessAccountsEventsListParams{Limit: 20}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbBusinessAccountsSettingsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Settings.Get(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsSettingsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Settings.Update(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbBusinessAccountsSettingsUpdateParams{BrandName: bird.Ptr("Acme Support"), LogoAssetID: bird.Null[string]()})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsSubmissionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.BusinessAccounts.Submissions.List(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbBusinessAccountsSubmissionsListParams{Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbBusinessAccountsSubmissionsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Submissions.Create(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbBusinessAccountsSubmissionsCreateParams{
+		ReadinessAttachmentID: "tca_01krdgeqcxet5s7t44vh8rt9mg",
+		UseCasesAttachmentID:  "tca_01krdgeqcxet5s7t44vh8rt9mh",
+		VideoAttachmentID:     "tca_01krdgeqcxet5s7t44vh8rt9mj",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Get(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Update(ctx, "abz_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbBusinessAccountsUpdateParams{Name: bird.Ptr("Acme Support")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbBusinessAccountsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.BusinessAccounts.List(ctx, bird.AmbBusinessAccountsListParams{Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbBusinessAccountsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.BusinessAccounts.Create(ctx, bird.AmbBusinessAccountsCreateParams{Name: "Acme Retail", AppleBusinessID: bird.Ptr("b52d6267-2b62-4f8a-8842-0533d0f1dc07")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbConversationsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Conversations.Get(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbConversationsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Conversations.Update(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbConversationsUpdateParams{AssignedTo: bird.Null[string](), Labels: []string{}, Read: bird.Ptr(false)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbConversationsService_ListMessages() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.Conversations.ListMessages(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbConversationsListMessagesParams{Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbConversationsService_Typing() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	if err := client.Amb.Conversations.Typing(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbConversationsTypingParams{Event: "typing_start"}); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleAmbConversationsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.Conversations.List(ctx, bird.AmbConversationsListParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg", Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbService_ListEvents() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.ListEvents(ctx, "amb_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbListEventsParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Get(ctx, "amb_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.List(ctx, bird.AmbListParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg", Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbService_Send() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Send(ctx, bird.AmbSendParams{From: "b52d6267-2b62-4f8a-8842-0533d0f1dc07", To: "opaque-customer", Content: map[string]any{"type": "text", "body": "Your order is ready."}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbRoutingRulesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.RoutingRules.Get(ctx, "arr_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbRoutingRulesService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.RoutingRules.Update(ctx, "arr_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbRoutingRulesUpdateParams{Queue: bird.Ptr("sales"), Precedence: bird.Ptr(0), IsDefault: bird.Ptr(false)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbRoutingRulesService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	if err := client.Amb.RoutingRules.Delete(ctx, "arr_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleAmbRoutingRulesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.RoutingRules.List(ctx, bird.AmbRoutingRulesListParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbRoutingRulesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.RoutingRules.Create(ctx, bird.AmbRoutingRulesCreateParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg", MatchKind: "intent", MatchIntentID: bird.Value("support"), Queue: "support", Precedence: bird.Ptr(0), IsDefault: bird.Ptr(false), MatchGroupID: bird.Null[string]()})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByBusiness() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByBusiness(ctx, bird.AmbStatsByBusinessParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByCategory() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByCategory(ctx, bird.AmbStatsByCategoryParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsConversationsService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Conversations.Daily(ctx, bird.AmbStatsConversationsDailyParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsConversationsService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Conversations.Hourly(ctx, bird.AmbStatsConversationsHourlyParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsConversationsService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Conversations.Summary(ctx, bird.AmbStatsConversationsSummaryParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Daily(ctx, bird.AmbStatsDailyParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByErrorCode() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByErrorCode(ctx, bird.AmbStatsByErrorCodeParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByGroup() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByGroup(ctx, bird.AmbStatsByGroupParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Hourly(ctx, bird.AmbStatsHourlyParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsInboundService_ByBusiness() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Inbound.ByBusiness(ctx, bird.AmbStatsInboundByBusinessParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsInboundService_Daily() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Inbound.Daily(ctx, bird.AmbStatsInboundDailyParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsInboundService_Hourly() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Inbound.Hourly(ctx, bird.AmbStatsInboundHourlyParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsInboundService_ByIntent() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Inbound.ByIntent(ctx, bird.AmbStatsInboundByIntentParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsInboundService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Inbound.Summary(ctx, bird.AmbStatsInboundSummaryParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByIntent() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByIntent(ctx, bird.AmbStatsByIntentParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByMessageKind() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByMessageKind(ctx, bird.AmbStatsByMessageKindParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_Summary() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.Summary(ctx, bird.AmbStatsSummaryParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbStatsService_ByTag() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Stats.ByTag(ctx, bird.AmbStatsByTagParams{Limit: 2})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbSuppressionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Suppressions.Get(ctx, "asp_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
+}
+
+func ExampleAmbSuppressionsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	if err := client.Amb.Suppressions.Delete(ctx, "asp_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleAmbSuppressionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	for item, err := range client.Amb.Suppressions.List(ctx, bird.AmbSuppressionsListParams{BusinessAccountID: "abz_01krdgeqcxet5s7t44vh8rt9mg", Limit: 2}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(item)
+	}
+}
+
+func ExampleAmbSuppressionsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	result, err := client.Amb.Suppressions.Create(ctx, bird.AmbSuppressionsCreateParams{Address: "opaque-customer", AddressType: "opaque_user_id"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result)
 }

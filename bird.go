@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.77.2"
+	version = "0.78.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -63,6 +63,7 @@ type Client struct {
 	oapiNoRedirect *oapi.Client
 
 	Email             *EmailService
+	Amb               *AmbService
 	Sms               *SmsService
 	SmsTemplates      *SmsTemplatesService
 	SmsSuppressions   *SmsSuppressionsService
@@ -144,6 +145,17 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Email.InboxInsights.Benchmarks = &EmailInboxInsightsBenchmarksService{resource: resource{client: c}}
 	c.Email.InboxInsights.DomainMonitoring = &EmailInboxInsightsDomainMonitoringService{resource: resource{client: c}}
 	c.Email.InboxInsights.Domains = &EmailInboxInsightsDomainsService{resource: resource{client: c}}
+	c.Amb = &AmbService{resource: resource{client: c}}
+	c.Amb.BusinessAccounts = &AmbBusinessAccountsService{resource: resource{client: c}}
+	c.Amb.BusinessAccounts.Events = &AmbBusinessAccountsEventsService{resource: resource{client: c}}
+	c.Amb.Conversations = &AmbConversationsService{resource: resource{client: c}}
+	c.Amb.RoutingRules = &AmbRoutingRulesService{resource: resource{client: c}}
+	c.Amb.Stats = &AmbStatsService{resource: resource{client: c}}
+	c.Amb.Suppressions = &AmbSuppressionsService{resource: resource{client: c}}
+	c.Amb.BusinessAccounts.Settings = &AmbBusinessAccountsSettingsService{resource: resource{client: c}}
+	c.Amb.BusinessAccounts.Submissions = &AmbBusinessAccountsSubmissionsService{resource: resource{client: c}}
+	c.Amb.Stats.Conversations = &AmbStatsConversationsService{resource: resource{client: c}}
+	c.Amb.Stats.Inbound = &AmbStatsInboundService{resource: resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
 	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
 	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}

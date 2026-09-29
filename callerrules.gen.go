@@ -20,6 +20,8 @@ var callerRules = []callerRule{
 	{env: "OPENCODE", name: "opencode"},
 	{env: "CLINE_ACTIVE", name: "cline"},
 	{env: "ROO_ACTIVE", name: "roo"},
+	{env: "SAND_AGENT", name: "grokbot"},
+	{env: "__CFBundleIdentifier", equals: "com.anysphere.sand", name: "grokbot"},
 	{env: "CURSOR_TRACE_ID", name: "cursor"},
 	{env: "CURSOR_AGENT", name: "cursor"},
 	{env: "ANTIGRAVITY_AGENT", name: "antigravity"},

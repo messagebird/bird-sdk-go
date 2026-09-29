@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.78.0
+
+- Add the `amb` channel with reply, business-account, suppression, and statistics methods, invitation consent, and webhook types. Business accounts use `name` and `business_account_id`; suppressions use `address` and `address_type`.
+- Add `search`, `provider`, and `route` fields to voice-number list methods to filter by number or name, number source, and incoming call routing.
+- `client.Amb.Send` documentation and the Apple Messages quickstart now allow configured businesses in any onboarding status.
+- DNS record `purpose` documentation now identifies `dmarc` as required for sending.
+- Email template create and update methods now accept an empty subject for drafts. Publishing still requires a subject in every language.
+- Email template preview guidance now explains that empty unsubscribe links are not live, supplied `bird.unsubscribe_url` values render as given, and marketing sends add unsubscribe content at send time.
+- Caller-ID verification methods now accept an omitted `code` to retry activation after ownership proof is saved but organization eligibility holds activation.
+
 ## 0.77.2
 
 - Email send requests support `template` with `scheduled_at`. The request pins the published version, language and parameter values, and a template deleted before the due time rejects the message with `generation_failure`.
