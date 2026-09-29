@@ -6165,42 +6165,6 @@ func (e VoiceCallStatus) Valid() bool {
 	}
 }
 
-// Defines values for VoiceCallerIDSortField.
-const (
-	VoiceCallerIDSortFieldCreatedAt VoiceCallerIDSortField = "created_at"
-)
-
-// Valid indicates whether the value is a known member of the VoiceCallerIDSortField enum.
-func (e VoiceCallerIDSortField) Valid() bool {
-	switch e {
-	case VoiceCallerIDSortFieldCreatedAt:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for VoiceCallerIDStatus.
-const (
-	VoiceCallerIDStatusFailed   VoiceCallerIDStatus = "failed"
-	VoiceCallerIDStatusPending  VoiceCallerIDStatus = "pending"
-	VoiceCallerIDStatusVerified VoiceCallerIDStatus = "verified"
-)
-
-// Valid indicates whether the value is a known member of the VoiceCallerIDStatus enum.
-func (e VoiceCallerIDStatus) Valid() bool {
-	switch e {
-	case VoiceCallerIDStatusFailed:
-		return true
-	case VoiceCallerIDStatusPending:
-		return true
-	case VoiceCallerIDStatusVerified:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for VoiceInboundConfigurationError.
 const (
 	UnsupportedRouteType VoiceInboundConfigurationError = "unsupported_route_type"
@@ -6396,6 +6360,42 @@ const (
 func (e VoiceTrunkSortField) Valid() bool {
 	switch e {
 	case VoiceTrunkSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceVerifiedNumberSortField.
+const (
+	VoiceVerifiedNumberSortFieldCreatedAt VoiceVerifiedNumberSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the VoiceVerifiedNumberSortField enum.
+func (e VoiceVerifiedNumberSortField) Valid() bool {
+	switch e {
+	case VoiceVerifiedNumberSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceVerifiedNumberStatus.
+const (
+	VoiceVerifiedNumberStatusFailed   VoiceVerifiedNumberStatus = "failed"
+	VoiceVerifiedNumberStatusPending  VoiceVerifiedNumberStatus = "pending"
+	VoiceVerifiedNumberStatusVerified VoiceVerifiedNumberStatus = "verified"
+)
+
+// Valid indicates whether the value is a known member of the VoiceVerifiedNumberStatus enum.
+func (e VoiceVerifiedNumberStatus) Valid() bool {
+	switch e {
+	case VoiceVerifiedNumberStatusFailed:
+		return true
+	case VoiceVerifiedNumberStatusPending:
+		return true
+	case VoiceVerifiedNumberStatusVerified:
 		return true
 	default:
 		return false
@@ -19273,7 +19273,7 @@ type EventVerifyVerificationVerifiedData struct {
 type EventVoiceBase struct {
 	CallId VoiceCallID `json:"call_id"`
 
-	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+	// Direction Whether the call was placed from your side, by your PBX, the API, the browser or Bird dialing onward for you (outbound), or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
 	// From Calling party number in E.164 format.
@@ -19326,7 +19326,7 @@ type EventVoiceCallEndedData struct {
 	BillableMs int         `json:"billable_ms"`
 	CallId     VoiceCallID `json:"call_id"`
 
-	// Direction Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+	// Direction Whether the call was placed from your side, by your PBX, the API, the browser or Bird dialing onward for you (outbound), or arrived from a remote party (inbound).
 	Direction VoiceCallDirection `json:"direction"`
 
 	// DurationMs Total call duration in milliseconds, measured from the first SIP `INVITE` to the `BYE` or final response.
@@ -23083,7 +23083,7 @@ type VoiceCall struct {
 	Id            VoiceSessionID `json:"id"`
 	InitialLegId  VoiceCallID    `json:"initial_leg_id"`
 
-	// Live Whether any leg in the call currently holds a lease. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
+	// Live Whether any leg in the call is still held live. A leg stays live until its end is recorded or, when no end is observed, until its liveness window expires, so this can remain `true` briefly after a disconnect. `false` covers the interval between a leg ending and its settlement being confirmed, and says nothing about whether transcription has finished.
 	Live *bool `json:"live,omitempty"`
 
 	// Parties The distinct participant observations the call's legs recorded, for display beside the call. The length is not a count of people and not a reconstruction of the leg graph.
@@ -23095,7 +23095,7 @@ type VoiceCall struct {
 	WorkspaceId WorkspaceID `json:"workspace_id"`
 }
 
-// VoiceCallDirection Whether the call originated from your PBX (outbound) or arrived from a remote party (inbound).
+// VoiceCallDirection Whether the call was placed from your side, by your PBX, the API, the browser or Bird dialing onward for you (outbound), or arrived from a remote party (inbound).
 type VoiceCallDirection string
 
 // VoiceCallID defines model for VoiceCallID.
@@ -23227,76 +23227,6 @@ type VoiceCallSequence struct {
 // for a caller who hung up before it was picked up. Neither is emitted yet and
 // both outcomes are reported as `failed` today.
 type VoiceCallStatus string
-
-// VoiceCallerID defines model for VoiceCallerID.
-type VoiceCallerID struct {
-	CreatedAt *time.Time      `json:"created_at,omitempty"`
-	Id        VoiceCallerIDID `json:"id"`
-
-	// Name Your label for this caller ID, to tell several registered numbers apart. `null` when the caller ID has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the caller ID update operation.
-	Name *string `json:"name"`
-
-	// OutboundEnabled Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
-	OutboundEnabled bool `json:"outbound_enabled"`
-
-	// PhoneNumber The phone number in E.164 format registered as a caller ID.
-	PhoneNumber string `json:"phone_number"`
-
-	// Status Verification state of the caller ID.
-	//
-	// - `pending`: the number is registered but ownership has not yet been proven.
-	// - `verified`: the workspace proved ownership of the number. Check the
-	//   resource's activation or direction fields for outbound availability.
-	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-	//   Remove and register the caller ID again in the dashboard to retry.
-	//
-	// Open enum: additional states may be added over time, so treat an unrecognized
-	// value as a future state rather than an error.
-	Status    VoiceCallerIDStatus `json:"status"`
-	UpdatedAt *time.Time          `json:"updated_at,omitempty"`
-
-	// VerifiedAt When the caller ID was verified. `null` when its status is `pending` or `failed`.
-	VerifiedAt  *time.Time  `json:"verified_at"`
-	WorkspaceId WorkspaceID `json:"workspace_id"`
-}
-
-// VoiceCallerIDID defines model for VoiceCallerIDID.
-type VoiceCallerIDID = string
-
-// VoiceCallerIDList defines model for VoiceCallerIDList.
-type VoiceCallerIDList struct {
-	Data []VoiceCallerID `json:"data"`
-
-	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
-	NextCursor *string `json:"next_cursor"`
-
-	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
-	PrevCursor *string `json:"prev_cursor"`
-
-	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
-	RefreshCursor *string `json:"refresh_cursor"`
-}
-
-// VoiceCallerIDSortField Field used to sort the list.
-type VoiceCallerIDSortField string
-
-// VoiceCallerIDStatus Verification state of the caller ID.
-//
-//   - `pending`: the number is registered but ownership has not yet been proven.
-//   - `verified`: the workspace proved ownership of the number. Check the
-//     resource's activation or direction fields for outbound availability.
-//   - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-//     Remove and register the caller ID again in the dashboard to retry.
-//
-// Open enum: additional states may be added over time, so treat an unrecognized
-// value as a future state rather than an error.
-type VoiceCallerIDStatus string
-
-// VoiceCallerIDVerifyRequest defines model for VoiceCallerIDVerifyRequest.
-type VoiceCallerIDVerifyRequest struct {
-	// Code The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
-	Code *string `json:"code,omitempty" pii:"true"`
-}
 
 // VoiceDestination defines model for VoiceDestination.
 type VoiceDestination struct {
@@ -23646,17 +23576,17 @@ type VoiceNumberProviderType string
 
 // VoiceNumberProviderVerifiedNumber defines model for VoiceNumberProviderVerifiedNumber.
 type VoiceNumberProviderVerifiedNumber struct {
-	// Status Verification state of the caller ID.
+	// Status Verification state of the verified number.
 	//
 	// - `pending`: the number is registered but ownership has not yet been proven.
 	// - `verified`: the workspace proved ownership of the number. Check the
 	//   resource's activation or direction fields for outbound availability.
 	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-	//   Remove and register the caller ID again in the dashboard to retry.
+	//   Remove and register the verified number again in the dashboard to retry.
 	//
 	// Open enum: additional states may be added over time, so treat an unrecognized
 	// value as a future state rather than an error.
-	Status VoiceCallerIDStatus `json:"status"`
+	Status VoiceVerifiedNumberStatus `json:"status"`
 
 	// Type Where a number came from. `allocation` is a number we allocated to your workspace, and the only kind whose calls reach us. `verified_number` is a number from another carrier that you registered and proved you control, so it can be presented on a call you place.
 	Type VoiceNumberProviderType `json:"type"`
@@ -23682,7 +23612,7 @@ type VoiceParty struct {
 	Address *string `json:"address,omitempty"`
 
 	// Endpoint What kind of participant sat on this side of a leg, and the coordinate that kind carries: a telephone endpoint off the platform, a SIP or WebRTC endpoint, Bird answering, or the platform placing a leg onward. It does not name a person.
-	// `null` on an observation this API could not read. The entry stays, because the session counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
+	// `null` on an observation this API could not read. The entry stays, because the call counted it when it deduplicated, and dropping it here would report fewer participants than were observed.
 	Endpoint *VoicePartyEndpoint `json:"endpoint,omitempty"`
 
 	// TrunkId The workspace trunk on this side of the leg. `null` when this side sat behind no trunk.
@@ -24043,6 +23973,76 @@ type VoiceTrunkUpdate struct {
 
 	// SessionCredentialsEnabled Whether a session credential may be used to connect to this trunk from a web browser, the CLI or MCP. Off by default; turning it on does not change what the allow lists admit, and turning it off stops those connections at the next call setup without re-issuing anything. Omit the field to leave it unchanged.
 	SessionCredentialsEnabled *bool `json:"session_credentials_enabled,omitempty"`
+}
+
+// VoiceVerifiedNumber defines model for VoiceVerifiedNumber.
+type VoiceVerifiedNumber struct {
+	CreatedAt *time.Time            `json:"created_at,omitempty"`
+	Id        VoiceVerifiedNumberID `json:"id"`
+
+	// Name Your label for this verified number, to tell several registered numbers apart. `null` when the verified number has no label. It is yours to choose and appears nowhere on a call, so changing it never affects what the person you are calling sees. Set it with the verified number update operation.
+	Name *string `json:"name"`
+
+	// OutboundEnabled Whether outbound caller ID activation has completed. A verified number can remain inactive until activation requirements are met. Outbound calls remain subject to routing and number ownership requirements.
+	OutboundEnabled bool `json:"outbound_enabled"`
+
+	// PhoneNumber The phone number in E.164 format registered as an outbound caller ID.
+	PhoneNumber string `json:"phone_number"`
+
+	// Status Verification state of the verified number.
+	//
+	// - `pending`: the number is registered but ownership has not yet been proven.
+	// - `verified`: the workspace proved ownership of the number. Check the
+	//   resource's activation or direction fields for outbound availability.
+	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+	//   Remove and register the verified number again in the dashboard to retry.
+	//
+	// Open enum: additional states may be added over time, so treat an unrecognized
+	// value as a future state rather than an error.
+	Status    VoiceVerifiedNumberStatus `json:"status"`
+	UpdatedAt *time.Time                `json:"updated_at,omitempty"`
+
+	// VerifiedAt When the verified number was verified. `null` when its status is `pending` or `failed`.
+	VerifiedAt  *time.Time  `json:"verified_at"`
+	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceVerifiedNumberID defines model for VoiceVerifiedNumberID.
+type VoiceVerifiedNumberID = string
+
+// VoiceVerifiedNumberList defines model for VoiceVerifiedNumberList.
+type VoiceVerifiedNumberList struct {
+	Data []VoiceVerifiedNumber `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// VoiceVerifiedNumberSortField Field used to sort the list.
+type VoiceVerifiedNumberSortField string
+
+// VoiceVerifiedNumberStatus Verification state of the verified number.
+//
+//   - `pending`: the number is registered but ownership has not yet been proven.
+//   - `verified`: the workspace proved ownership of the number. Check the
+//     resource's activation or direction fields for outbound availability.
+//   - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
+//     Remove and register the verified number again in the dashboard to retry.
+//
+// Open enum: additional states may be added over time, so treat an unrecognized
+// value as a future state rather than an error.
+type VoiceVerifiedNumberStatus string
+
+// VoiceVerifiedNumberVerifyRequest defines model for VoiceVerifiedNumberVerifyRequest.
+type VoiceVerifiedNumberVerifyRequest struct {
+	// Code The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
+	Code *string `json:"code,omitempty" pii:"true"`
 }
 
 // WebhookAttempt defines model for WebhookAttempt.
@@ -32220,61 +32220,6 @@ type CreateVerificationNextChannelParams struct {
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
-// ListVoiceCallerIDsParams defines parameters for ListVoiceCallerIDs.
-type ListVoiceCallerIDsParams struct {
-	// Sort Field to sort by.
-	Sort *VoiceCallerIDSortField `form:"sort,omitempty" json:"sort,omitempty"`
-
-	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
-	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
-
-	// Limit Maximum number of items to return per page.
-	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
-
-	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
-	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
-
-	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
-	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
-
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-}
-
-// GetVoiceCallerIDParams defines parameters for GetVoiceCallerID.
-type GetVoiceCallerIDParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-}
-
-// VerifyVoiceCallerIDParams defines parameters for VerifyVoiceCallerID.
-type VerifyVoiceCallerIDParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
-	// response is replayed for duplicate requests with the same key within the
-	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
-	// streams, and operations with a separate replay contract do not use this
-	// response replay.
-	//
-	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
-	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
-	// backoff using the same key and request. An operation that takes effect before
-	// its response is retained can still execute again on retry.
-	//
-	// Two distinct 409 errors signal misuse:
-	//
-	// - `request_in_progress` (E01004): The same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): The same key has already completed
-	//   against a different request body or method. Generate a new key.
-	//
-	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
-	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-}
-
 // CreateVoiceCallParams defines parameters for CreateVoiceCall.
 type CreateVoiceCallParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
@@ -32641,6 +32586,61 @@ type GetVoiceTrunkGatewayParams struct {
 
 // UpdateVoiceTrunkGatewayParams defines parameters for UpdateVoiceTrunkGateway.
 type UpdateVoiceTrunkGatewayParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// ListVoiceVerifiedNumbersParams defines parameters for ListVoiceVerifiedNumbers.
+type ListVoiceVerifiedNumbersParams struct {
+	// Sort Field to sort by.
+	Sort *VoiceVerifiedNumberSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// GetVoiceVerifiedNumberParams defines parameters for GetVoiceVerifiedNumber.
+type GetVoiceVerifiedNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// VerifyVoiceVerifiedNumberParams defines parameters for VerifyVoiceVerifiedNumber.
+type VerifyVoiceVerifiedNumberParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -33973,9 +33973,6 @@ type CreateVerificationCheckJSONRequestBody = VerificationCheckRequest
 // CreateVerificationNextChannelJSONRequestBody defines body for CreateVerificationNextChannel for application/json ContentType.
 type CreateVerificationNextChannelJSONRequestBody = VerificationNextChannelRequest
 
-// VerifyVoiceCallerIDJSONRequestBody defines body for VerifyVoiceCallerID for application/json ContentType.
-type VerifyVoiceCallerIDJSONRequestBody = VoiceCallerIDVerifyRequest
-
 // CreateVoiceCallJSONRequestBody defines body for CreateVoiceCall for application/json ContentType.
 type CreateVoiceCallJSONRequestBody = CreateVoiceCallRequest
 
@@ -33996,6 +33993,9 @@ type CreateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayCreate
 
 // UpdateVoiceTrunkGatewayJSONRequestBody defines body for UpdateVoiceTrunkGateway for application/json ContentType.
 type UpdateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayUpdate
+
+// VerifyVoiceVerifiedNumberJSONRequestBody defines body for VerifyVoiceVerifiedNumber for application/json ContentType.
+type VerifyVoiceVerifiedNumberJSONRequestBody = VoiceVerifiedNumberVerifyRequest
 
 // CreateWebhookJSONRequestBody defines body for CreateWebhook for application/json ContentType.
 type CreateWebhookJSONRequestBody = WebhookEndpointCreate
@@ -41024,17 +41024,6 @@ type ClientInterface interface {
 
 	CreateVerificationNextChannel(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ListVoiceCallerIDs request
-	ListVoiceCallerIDs(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// GetVoiceCallerID request
-	GetVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// VerifyVoiceCallerIDWithBody request with any body
-	VerifyVoiceCallerIDWithBody(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	VerifyVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// CreateVoiceCallWithBody request with any body
 	CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -41105,6 +41094,17 @@ type ClientInterface interface {
 	UpdateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UpdateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVoiceVerifiedNumbers request
+	ListVoiceVerifiedNumbers(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetVoiceVerifiedNumber request
+	GetVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// VerifyVoiceVerifiedNumberWithBody request with any body
+	VerifyVoiceVerifiedNumberWithBody(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	VerifyVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, body VerifyVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWebhooks request
 	ListWebhooks(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -44860,54 +44860,6 @@ func (c *Client) CreateVerificationNextChannel(ctx context.Context, params *Crea
 	return c.Client.Do(req)
 }
 
-func (c *Client) ListVoiceCallerIDs(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListVoiceCallerIDsRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) GetVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetVoiceCallerIDRequest(c.Server, callerId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) VerifyVoiceCallerIDWithBody(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewVerifyVoiceCallerIDRequestWithBody(c.Server, callerId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) VerifyVoiceCallerID(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewVerifyVoiceCallerIDRequest(c.Server, callerId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
 func (c *Client) CreateVoiceCallWithBody(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateVoiceCallRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
@@ -45210,6 +45162,54 @@ func (c *Client) UpdateVoiceTrunkGatewayWithBody(ctx context.Context, trunkId SI
 
 func (c *Client) UpdateVoiceTrunkGateway(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateVoiceTrunkGatewayRequest(c.Server, trunkId, gatewayId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVoiceVerifiedNumbers(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVoiceVerifiedNumbersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceVerifiedNumberRequest(c.Server, verifiedNumberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) VerifyVoiceVerifiedNumberWithBody(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyVoiceVerifiedNumberRequestWithBody(c.Server, verifiedNumberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) VerifyVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, body VerifyVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewVerifyVoiceVerifiedNumberRequest(c.Server, verifiedNumberId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -65289,245 +65289,6 @@ func NewCreateVerificationNextChannelRequestWithBody(server string, params *Crea
 	return req, nil
 }
 
-// NewListVoiceCallerIDsRequest generates requests for ListVoiceCallerIDs
-func NewListVoiceCallerIDsRequest(server string, params *ListVoiceCallerIDsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/voice/caller-ids")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Sort != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Order != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Limit != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.StartingAfter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.EndingBefore != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetVoiceCallerIDRequest generates requests for GetVoiceCallerID
-func NewGetVoiceCallerIDRequest(server string, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "caller_id", callerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/voice/caller-ids/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewVerifyVoiceCallerIDRequest calls the generic VerifyVoiceCallerID builder with application/json body
-func NewVerifyVoiceCallerIDRequest(server string, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewVerifyVoiceCallerIDRequestWithBody(server, callerId, params, "application/json", bodyReader)
-}
-
-// NewVerifyVoiceCallerIDRequestWithBody generates requests for VerifyVoiceCallerID with any type of body
-func NewVerifyVoiceCallerIDRequestWithBody(server string, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "caller_id", callerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/voice/caller-ids/%s/verify", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-		if params.IdempotencyKey != nil {
-			var headerParam1 string
-
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Idempotency-Key", headerParam1)
-		}
-
-	}
-
-	return req, nil
-}
-
 // NewCreateVoiceCallRequest calls the generic CreateVoiceCall builder with application/json body
 func NewCreateVoiceCallRequest(server string, params *CreateVoiceCallParams, body CreateVoiceCallJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -66917,6 +66678,245 @@ func NewUpdateVoiceTrunkGatewayRequestWithBody(server string, trunkId SIPTrunkID
 	}
 
 	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListVoiceVerifiedNumbersRequest generates requests for ListVoiceVerifiedNumbers
+func NewListVoiceVerifiedNumbersRequest(server string, params *ListVoiceVerifiedNumbersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetVoiceVerifiedNumberRequest generates requests for GetVoiceVerifiedNumber
+func NewGetVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "verified_number_id", verifiedNumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewVerifyVoiceVerifiedNumberRequest calls the generic VerifyVoiceVerifiedNumber builder with application/json body
+func NewVerifyVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, body VerifyVoiceVerifiedNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewVerifyVoiceVerifiedNumberRequestWithBody(server, verifiedNumberId, params, "application/json", bodyReader)
+}
+
+// NewVerifyVoiceVerifiedNumberRequestWithBody generates requests for VerifyVoiceVerifiedNumber with any type of body
+func NewVerifyVoiceVerifiedNumberRequestWithBody(server string, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "verified_number_id", verifiedNumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers/%s/verify", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
 	if err != nil {
 		return nil, err
 	}
@@ -72614,17 +72614,6 @@ type ClientWithResponsesInterface interface {
 
 	CreateVerificationNextChannelWithResponse(ctx context.Context, params *CreateVerificationNextChannelParams, body CreateVerificationNextChannelJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVerificationNextChannelResponse, error)
 
-	// ListVoiceCallerIDsWithResponse request
-	ListVoiceCallerIDsWithResponse(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallerIDsResponse, error)
-
-	// GetVoiceCallerIDWithResponse request
-	GetVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*GetVoiceCallerIDResponse, error)
-
-	// VerifyVoiceCallerIDWithBodyWithResponse request with any body
-	VerifyVoiceCallerIDWithBodyWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error)
-
-	VerifyVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error)
-
 	// CreateVoiceCallWithBodyWithResponse request with any body
 	CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error)
 
@@ -72695,6 +72684,17 @@ type ClientWithResponsesInterface interface {
 	UpdateVoiceTrunkGatewayWithBodyWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error)
 
 	UpdateVoiceTrunkGatewayWithResponse(ctx context.Context, trunkId SIPTrunkID, gatewayId VoiceTrunkGatewayID, params *UpdateVoiceTrunkGatewayParams, body UpdateVoiceTrunkGatewayJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceTrunkGatewayResponse, error)
+
+	// ListVoiceVerifiedNumbersWithResponse request
+	ListVoiceVerifiedNumbersWithResponse(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceVerifiedNumbersResponse, error)
+
+	// GetVoiceVerifiedNumberWithResponse request
+	GetVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceVerifiedNumberResponse, error)
+
+	// VerifyVoiceVerifiedNumberWithBodyWithResponse request with any body
+	VerifyVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceVerifiedNumberResponse, error)
+
+	VerifyVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, body VerifyVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceVerifiedNumberResponse, error)
 
 	// ListWebhooksWithResponse request
 	ListWebhooksWithResponse(ctx context.Context, params *ListWebhooksParams, reqEditors ...RequestEditorFn) (*ListWebhooksResponse, error)
@@ -81659,119 +81659,6 @@ func (r CreateVerificationNextChannelResponse) ContentType() string {
 	return ""
 }
 
-type ListVoiceCallerIDsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *VoiceCallerIDList
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r ListVoiceCallerIDsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListVoiceCallerIDsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListVoiceCallerIDsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetVoiceCallerIDResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *VoiceCallerID
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r GetVoiceCallerIDResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetVoiceCallerIDResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetVoiceCallerIDResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type VerifyVoiceCallerIDResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *VoiceCallerID
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON409      *Conflict
-	JSON412      *PreconditionFailed
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-	JSON503      *ServiceUnavailable
-}
-
-// Status returns HTTPResponse.Status
-func (r VerifyVoiceCallerIDResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r VerifyVoiceCallerIDResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r VerifyVoiceCallerIDResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
 type CreateVoiceCallResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -82482,6 +82369,119 @@ func (r UpdateVoiceTrunkGatewayResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateVoiceTrunkGatewayResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListVoiceVerifiedNumbersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceVerifiedNumberList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVoiceVerifiedNumbersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVoiceVerifiedNumbersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListVoiceVerifiedNumbersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetVoiceVerifiedNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceVerifiedNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceVerifiedNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceVerifiedNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceVerifiedNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type VerifyVoiceVerifiedNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceVerifiedNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r VerifyVoiceVerifiedNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r VerifyVoiceVerifiedNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r VerifyVoiceVerifiedNumberResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -87478,41 +87478,6 @@ func (c *ClientWithResponses) CreateVerificationNextChannelWithResponse(ctx cont
 	return ParseCreateVerificationNextChannelResponse(rsp)
 }
 
-// ListVoiceCallerIDsWithResponse request returning *ListVoiceCallerIDsResponse
-func (c *ClientWithResponses) ListVoiceCallerIDsWithResponse(ctx context.Context, params *ListVoiceCallerIDsParams, reqEditors ...RequestEditorFn) (*ListVoiceCallerIDsResponse, error) {
-	rsp, err := c.ListVoiceCallerIDs(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListVoiceCallerIDsResponse(rsp)
-}
-
-// GetVoiceCallerIDWithResponse request returning *GetVoiceCallerIDResponse
-func (c *ClientWithResponses) GetVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *GetVoiceCallerIDParams, reqEditors ...RequestEditorFn) (*GetVoiceCallerIDResponse, error) {
-	rsp, err := c.GetVoiceCallerID(ctx, callerId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetVoiceCallerIDResponse(rsp)
-}
-
-// VerifyVoiceCallerIDWithBodyWithResponse request with arbitrary body returning *VerifyVoiceCallerIDResponse
-func (c *ClientWithResponses) VerifyVoiceCallerIDWithBodyWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error) {
-	rsp, err := c.VerifyVoiceCallerIDWithBody(ctx, callerId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseVerifyVoiceCallerIDResponse(rsp)
-}
-
-func (c *ClientWithResponses) VerifyVoiceCallerIDWithResponse(ctx context.Context, callerId VoiceCallerIDID, params *VerifyVoiceCallerIDParams, body VerifyVoiceCallerIDJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceCallerIDResponse, error) {
-	rsp, err := c.VerifyVoiceCallerID(ctx, callerId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseVerifyVoiceCallerIDResponse(rsp)
-}
-
 // CreateVoiceCallWithBodyWithResponse request with arbitrary body returning *CreateVoiceCallResponse
 func (c *ClientWithResponses) CreateVoiceCallWithBodyWithResponse(ctx context.Context, params *CreateVoiceCallParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceCallResponse, error) {
 	rsp, err := c.CreateVoiceCallWithBody(ctx, params, contentType, body, reqEditors...)
@@ -87738,6 +87703,41 @@ func (c *ClientWithResponses) UpdateVoiceTrunkGatewayWithResponse(ctx context.Co
 		return nil, err
 	}
 	return ParseUpdateVoiceTrunkGatewayResponse(rsp)
+}
+
+// ListVoiceVerifiedNumbersWithResponse request returning *ListVoiceVerifiedNumbersResponse
+func (c *ClientWithResponses) ListVoiceVerifiedNumbersWithResponse(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceVerifiedNumbersResponse, error) {
+	rsp, err := c.ListVoiceVerifiedNumbers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVoiceVerifiedNumbersResponse(rsp)
+}
+
+// GetVoiceVerifiedNumberWithResponse request returning *GetVoiceVerifiedNumberResponse
+func (c *ClientWithResponses) GetVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.GetVoiceVerifiedNumber(ctx, verifiedNumberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceVerifiedNumberResponse(rsp)
+}
+
+// VerifyVoiceVerifiedNumberWithBodyWithResponse request with arbitrary body returning *VerifyVoiceVerifiedNumberResponse
+func (c *ClientWithResponses) VerifyVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.VerifyVoiceVerifiedNumberWithBody(ctx, verifiedNumberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseVerifyVoiceVerifiedNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) VerifyVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, body VerifyVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*VerifyVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.VerifyVoiceVerifiedNumber(ctx, verifiedNumberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseVerifyVoiceVerifiedNumberResponse(rsp)
 }
 
 // ListWebhooksWithResponse request returning *ListWebhooksResponse
@@ -106548,245 +106548,6 @@ func ParseCreateVerificationNextChannelResponse(rsp *http.Response) (*CreateVeri
 	return response, nil
 }
 
-// ParseListVoiceCallerIDsResponse parses an HTTP response from a ListVoiceCallerIDsWithResponse call
-func ParseListVoiceCallerIDsResponse(rsp *http.Response) (*ListVoiceCallerIDsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListVoiceCallerIDsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest VoiceCallerIDList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetVoiceCallerIDResponse parses an HTTP response from a GetVoiceCallerIDWithResponse call
-func ParseGetVoiceCallerIDResponse(rsp *http.Response) (*GetVoiceCallerIDResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetVoiceCallerIDResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest VoiceCallerID
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseVerifyVoiceCallerIDResponse parses an HTTP response from a VerifyVoiceCallerIDWithResponse call
-func ParseVerifyVoiceCallerIDResponse(rsp *http.Response) (*VerifyVoiceCallerIDResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &VerifyVoiceCallerIDResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest VoiceCallerID
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Conflict
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
-		var dest PreconditionFailed
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON412 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
-		var dest ServiceUnavailable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON503 = &dest
-
-	}
-
-	return response, nil
-}
-
 // ParseCreateVoiceCallResponse parses an HTTP response from a CreateVoiceCallWithResponse call
 func ParseCreateVoiceCallResponse(rsp *http.Response) (*CreateVoiceCallResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -108223,6 +107984,245 @@ func ParseUpdateVoiceTrunkGatewayResponse(rsp *http.Response) (*UpdateVoiceTrunk
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest VoiceTrunkGateway
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVoiceVerifiedNumbersResponse parses an HTTP response from a ListVoiceVerifiedNumbersWithResponse call
+func ParseListVoiceVerifiedNumbersResponse(rsp *http.Response) (*ListVoiceVerifiedNumbersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVoiceVerifiedNumbersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceVerifiedNumberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetVoiceVerifiedNumberResponse parses an HTTP response from a GetVoiceVerifiedNumberWithResponse call
+func ParseGetVoiceVerifiedNumberResponse(rsp *http.Response) (*GetVoiceVerifiedNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceVerifiedNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceVerifiedNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseVerifyVoiceVerifiedNumberResponse parses an HTTP response from a VerifyVoiceVerifiedNumberWithResponse call
+func ParseVerifyVoiceVerifiedNumberResponse(rsp *http.Response) (*VerifyVoiceVerifiedNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &VerifyVoiceVerifiedNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceVerifiedNumber
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

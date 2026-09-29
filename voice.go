@@ -3,32 +3,32 @@ package bird
 import "github.com/messagebird/bird-sdk-go/internal/oapi"
 
 type (
-	VoiceTrunk              = oapi.VoiceTrunk
-	VoiceTrunkList          = oapi.VoiceTrunkList
-	VoiceTrunkSortField     = oapi.VoiceTrunkSortField
-	VoiceNumber             = oapi.VoiceNumber
-	VoiceNumberList         = oapi.VoiceNumberList
-	VoiceNumberProviderType = oapi.VoiceNumberProviderType
-	VoiceNumberSortField    = oapi.VoiceNumberSortField
-	VoiceCallRoute          = oapi.VoiceCallRoute
-	VoiceCallRouteType      = oapi.VoiceCallRouteType
-	VoiceCallRouteWritable  = oapi.VoiceCallRouteWritable
-	VoiceCallRouteReject    = oapi.VoiceCallRouteReject
-	VoiceCallRouteTrunk     = oapi.VoiceCallRouteTrunk
-	VoiceCallRouteForward   = oapi.VoiceCallRouteForward
-	VoiceCallerID           = oapi.VoiceCallerID
-	VoiceCallerIDList       = oapi.VoiceCallerIDList
-	VoiceCallerIDSortField  = oapi.VoiceCallerIDSortField
-	VoiceDestination        = oapi.VoiceDestination
-	VoiceDestinationList    = oapi.VoiceDestinationList
-	VoiceSessionCredential  = oapi.VoiceSessionCredential
+	VoiceTrunk                   = oapi.VoiceTrunk
+	VoiceTrunkList               = oapi.VoiceTrunkList
+	VoiceTrunkSortField          = oapi.VoiceTrunkSortField
+	VoiceNumber                  = oapi.VoiceNumber
+	VoiceNumberList              = oapi.VoiceNumberList
+	VoiceNumberProviderType      = oapi.VoiceNumberProviderType
+	VoiceNumberSortField         = oapi.VoiceNumberSortField
+	VoiceCallRoute               = oapi.VoiceCallRoute
+	VoiceCallRouteType           = oapi.VoiceCallRouteType
+	VoiceCallRouteWritable       = oapi.VoiceCallRouteWritable
+	VoiceCallRouteReject         = oapi.VoiceCallRouteReject
+	VoiceCallRouteTrunk          = oapi.VoiceCallRouteTrunk
+	VoiceCallRouteForward        = oapi.VoiceCallRouteForward
+	VoiceVerifiedNumber          = oapi.VoiceVerifiedNumber
+	VoiceVerifiedNumberList      = oapi.VoiceVerifiedNumberList
+	VoiceVerifiedNumberSortField = oapi.VoiceVerifiedNumberSortField
+	VoiceDestination             = oapi.VoiceDestination
+	VoiceDestinationList         = oapi.VoiceDestinationList
+	VoiceSessionCredential       = oapi.VoiceSessionCredential
 )
 
 type VoiceService struct {
 	Legs               *VoiceLegsService
 	Trunks             *VoiceTrunksService
 	Numbers            *VoiceNumbersService
-	CallerIDs          *VoiceCallerIDsService
+	VerifiedNumbers    *VoiceVerifiedNumbersService
 	Destinations       *VoiceDestinationsService
 	SessionCredentials *VoiceSessionCredentialsService
 	Calls              *VoiceCallsService
@@ -45,7 +45,7 @@ type VoiceTrunksGatewaysService struct{ resource }
 
 type VoiceNumbersService struct{ resource }
 
-type VoiceCallerIDsService struct{ resource }
+type VoiceVerifiedNumbersService struct{ resource }
 
 type VoiceDestinationsService struct{ resource }
 

@@ -4322,43 +4322,43 @@ func ExampleVoiceNumbersService_Update() {
 	fmt.Println(number.Id, number.Name)
 }
 
-func ExampleVoiceCallerIDsService_List() {
+func ExampleVoiceVerifiedNumbersService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	for callerID, err := range client.Voice.CallerIDs.List(context.Background(), bird.VoiceCallerIDsListParams{}) {
+	for verifiedNumber, err := range client.Voice.VerifiedNumbers.List(context.Background(), bird.VoiceVerifiedNumbersListParams{}) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(callerID.Id, callerID.PhoneNumber, callerID.Status)
+		fmt.Println(verifiedNumber.Id, verifiedNumber.PhoneNumber, verifiedNumber.Status)
 	}
 }
 
-func ExampleVoiceCallerIDsService_Get() {
+func ExampleVoiceVerifiedNumbersService_Get() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	callerID, err := client.Voice.CallerIDs.Get(context.Background(), "caller-id")
+	verifiedNumber, err := client.Voice.VerifiedNumbers.Get(context.Background(), "vvn_01krdgeqcxet5s7t44vh8rt9mg")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(callerID.PhoneNumber, callerID.Status, callerID.VerifiedAt)
+	fmt.Println(verifiedNumber.PhoneNumber, verifiedNumber.Status, verifiedNumber.VerifiedAt)
 }
 
-func ExampleVoiceCallerIDsService_Verify() {
+func ExampleVoiceVerifiedNumbersService_Verify() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	callerID, err := client.Voice.CallerIDs.Verify(context.Background(), "CALLER_ID", bird.VoiceCallerIDsVerifyParams{
+	verifiedNumber, err := client.Voice.VerifiedNumbers.Verify(context.Background(), "vvn_01krdgeqcxet5s7t44vh8rt9mg", bird.VoiceVerifiedNumbersVerifyParams{
 		Code: bird.Ptr("123456"),
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(callerID.Id, callerID.Status)
+	fmt.Println(verifiedNumber.Id, verifiedNumber.Status)
 }
 
 func ExampleVoiceDestinationsService_Update() {

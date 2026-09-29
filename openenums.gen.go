@@ -571,17 +571,6 @@ const (
 	VerificationTerminalReasonUndeliverable     = oapi.VerificationTerminalReasonUndeliverable
 )
 
-// VoiceCallerIDStatus is an open string on the wire: a value added by a newer server
-// deserializes unchanged, so compare against the VoiceCallerIDStatus* constants with a
-// default branch rather than treating the set as closed.
-type VoiceCallerIDStatus = oapi.VoiceCallerIDStatus
-
-const (
-	VoiceCallerIDStatusFailed   = oapi.VoiceCallerIDStatusFailed
-	VoiceCallerIDStatusPending  = oapi.VoiceCallerIDStatusPending
-	VoiceCallerIDStatusVerified = oapi.VoiceCallerIDStatusVerified
-)
-
 // VoicePartyEndpointType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the VoicePartyEndpointType* constants with a
 // default branch rather than treating the set as closed.
@@ -594,6 +583,17 @@ const (
 	VoicePartyEndpointTypeSip        = oapi.VoicePartyEndpointTypeSip
 	VoicePartyEndpointTypeVoicemail  = oapi.VoicePartyEndpointTypeVoicemail
 	VoicePartyEndpointTypeWebhook    = oapi.VoicePartyEndpointTypeWebhook
+)
+
+// VoiceVerifiedNumberStatus is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the VoiceVerifiedNumberStatus* constants with a
+// default branch rather than treating the set as closed.
+type VoiceVerifiedNumberStatus = oapi.VoiceVerifiedNumberStatus
+
+const (
+	VoiceVerifiedNumberStatusFailed   = oapi.VoiceVerifiedNumberStatusFailed
+	VoiceVerifiedNumberStatusPending  = oapi.VoiceVerifiedNumberStatusPending
+	VoiceVerifiedNumberStatusVerified = oapi.VoiceVerifiedNumberStatusVerified
 )
 
 // WhatsAppBusinessAccountMarketingMessagesStatus is an open string on the wire: a value added by a newer server

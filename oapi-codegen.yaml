@@ -197,9 +197,9 @@ output-options:
     - listVoiceNumbers
     - getVoiceNumber
     - updateVoiceNumber
-    - listVoiceCallerIDs
-    - getVoiceCallerID
-    - verifyVoiceCallerID
+    - listVoiceVerifiedNumbers
+    - getVoiceVerifiedNumber
+    - verifyVoiceVerifiedNumber
     - listVoiceDestinations
     - updateVoiceDestinations
     - createVerification
