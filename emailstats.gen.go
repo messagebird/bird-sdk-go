@@ -27,13 +27,13 @@ type EmailStatsQueryParams struct {
 	To string
 	// IANA timezone for dates and bucket boundaries. Defaults to UTC.
 	Timezone *string
-	// Distinct metrics to return. Unselected metrics are absent.
+	// Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles. delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows. An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged. Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
 	Metrics []EmailStatsQueryMetric
-	// Group by this dimension. Omit for a single ungrouped summary with optional series.
+	// Group by one recorded event dimension. Omit for a single ungrouped summary with optional series. Grouping by `tag` requires `filters.tag.name`. Missing values form a null group when the metric supports that dimension. A null value means the event lacks that attribution; it does not explain how the message was created or establish membership in another dimension such as a campaign. Every selected metric must support the grouping dimension and every filter dimension. Unsupported combinations return validation error `E04074`, even when the workspace has no events. - `sending_domain`, `category`, `template_id`, `tag`: all metrics. - `recipient_domain`, `ip_pool_id`, `broadcast_id`: all metrics except `sends_accepted`. - `mailbox_provider`, `mailbox_provider_region`: all metrics except `sends_accepted`, `accepted`, and `rejected`. - `sending_ip`: `delivered`, `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, `undetermined_bounced`, `deferred`, `oob_bounces`, `effective_delivered`, `all_bounces`, `delivery_rate`, `bounce_rate`, `deferral_rate`, `oob_rate`, `total_p50_ms`, `total_p95_ms`, and `total_p99_ms`. - `country`, `region`, `city`, `agent_family`, `os_family`, `device_family`: `opens`, `opens_non_prefetched`, `clicks`, `unique_opens`, `unique_opens_non_prefetched`, `unique_clicks`, `confirmed_unique_opens`, and `confirmed_unique_opens_non_prefetched`. - `smtp_error_code`: `bounced`, `hard_bounced`, `soft_bounced`, `admin_bounced`, `block_bounced`, and `undetermined_bounced`. - `feedback_type`: `complained`.
 	GroupBy *EmailStatsQueryDimension
 	// Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
 	Grain *EmailStatsQueryGrain
-	// Predicates on the context recorded for each event. Dimensions combine with AND. Unsupported metric and dimension combinations return 422, including for an empty workspace.
+	// Filter recorded event context with include/exclude predicates. Include values combine with OR; dimensions combine with AND. Exclude-only predicates retain missing values. Tag filters require one case-sensitive name; a name without values requires presence. Each predicate accepts at most 20 distinct values across include and exclude. Every selected metric must support every filter dimension, using the same compatibility rules as group_by. Resolve template and IP-pool names to IDs before filtering. Broadcast filters use IDs. Current names do not establish historical attribution.
 	Filters *EmailStatsQueryFilters
 	// Grouped requests only. Rank groups by this selected metric; defaults to the first metrics entry. Undefined values sort last in either direction. Ties use the dimension value ascending, with null last.
 	Sort *EmailStatsQueryMetric
@@ -666,7 +666,7 @@ func (s *EmailStatsService) QueryPage(ctx context.Context, params EmailStatsQuer
 	return &out, nil
 }
 
-// Query Select email metrics over a date or instant window, optionally grouped by one dimension with complete time series per group. Events are selected and bucketed by when they occurred, including activity on messages sent earlier. Filters match recorded event context. Unsupported combinations and unavailable history return 422. Follow cursors by replaying the original body and changing its cursor fields; the response period has an exclusive end and must not replace the request end. Use a new idempotency key for each continuation page; reuse a key only to retry the same page.
+// Query Query email analytics and stats for marketing and transactional delivery, bounces, opens, clicks, engagement rates, and latency percentiles. Use for comparisons, combined filters, ranked groups by template, campaign tag, recipient domain, or mailbox provider, and complete time series. If the tag name and requested values are supplied, call this tool directly with filters.tag; no tag lookup is needed. Use `email.stats.by_tag` only to discover unknown tags. Select grain=quarter_hour for 15-minute activity; omit group_by for a summary. Check group_by and filter compatibility before calling. Country, region, city, and device/client dimensions support engagement counts only: do not request delivered or open_rate for them. Explain an unsupported combination before offering a different report. Every selected metric must support every grouping and filter dimension. Campaigns may use tags or broadcasts; templates can span campaigns. Establish activity from period-scoped stats, not resource creation dates. Use category for recorded marketing/transactional classification and resolve template names to IDs. Event-time windows include engagement on earlier sends; they cannot select a send-date cohort or establish send batches. Compare periods independently with the same filters and metrics. Use `email.stats.summary` for a supported single-filter aggregate with built-in comparison. Use returned period metrics; distinct counts need not add up across buckets or groups. Read metric descriptions for rate denominators and eligible latency samples. Engagement cannot establish a human count; latency percentiles cannot establish maxima or exact threshold counts. Delivery describes mail-server acceptance. Inbox placement, reading time, revenue, and conversion attribution require other evidence; this limitation concerns email stats, not the whole platform. Unsupported combinations and unavailable history return 422; explain a limitation before changing the population or period. Follow cursors by replaying the original body and changing its cursor fields; the response period has an exclusive end and must not replace the request end. Use a new idempotency key for each continuation page; reuse a key only to retry the same page.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) Query(ctx context.Context, params EmailStatsQueryParams, opts ...option.RequestOption) iter.Seq2[*EmailStatsQueryGroup, error] {
@@ -679,7 +679,7 @@ func (s *EmailStatsService) Query(ctx context.Context, params EmailStatsQueryPar
 	})
 }
 
-// Summary Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. The `from` and `to` values are both `YYYY-MM-DD` days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`.
+// Summary Aggregate email KPIs for one period: sends, delivered, bounces, complaints, opens, clicks, their rates, and latency percentiles. The `from` and `to` values are both `YYYY-MM-DD` days or both RFC 3339 instants (hour grain). Add `compare=previous_period` for deltas versus the prior window. For a per-day or per-hour series use `email.stats.daily` or `email.stats.hourly`. For multiple filters, selected metrics, or complete grouped series at 15-minute or calendar grains, use `email.stats.query`.
 func (s *EmailStatsService) Summary(ctx context.Context, params EmailStatsSummaryParams, opts ...option.RequestOption) (*EmailStatsSummary, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsSummary(ctx, params.toWire(), cfg...)
@@ -694,7 +694,7 @@ func (s *EmailStatsService) Summary(ctx context.Context, params EmailStatsSummar
 	return &out, nil
 }
 
-// Daily Per-day email stats series (counts, rates, latency percentiles), gap-filled with zero rows, max 365 days. At most one filter of `category`, `sending_domain`, `tag`, `sending_ip`, `recipient_domain`, `template`. For hour resolution use `email.stats.hourly`; for one aggregate row use `email.stats.summary`.
+// Daily Per-day email stats series (counts, rates, latency percentiles), gap-filled with zero rows, max 365 days. At most one filter of `category`, `sending_domain`, `tag`, `sending_ip`, `recipient_domain`, `template`. For hour resolution use `email.stats.hourly`; for one aggregate row use `email.stats.summary`. For multiple filters, selected metrics, or complete grouped series at 15-minute or calendar grains, use `email.stats.query`.
 func (s *EmailStatsService) Daily(ctx context.Context, params EmailStatsDailyParams, opts ...option.RequestOption) (*EmailStatsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsDaily(ctx, params.toWire(), cfg...)
@@ -709,7 +709,7 @@ func (s *EmailStatsService) Daily(ctx context.Context, params EmailStatsDailyPar
 	return &out, nil
 }
 
-// Hourly Per-hour email stats series, gap-filled with zero rows, max 720 hours (30 days). Takes the same single-dimension filters as `email.stats.daily`; for longer ranges use `email.stats.daily`, for one aggregate row use `email.stats.summary`.
+// Hourly Per-hour email stats series, gap-filled with zero rows, max 720 hours (30 days). Takes the same single-dimension filters as `email.stats.daily`; for longer ranges use `email.stats.daily`, for one aggregate row use `email.stats.summary`. For multiple filters, selected metrics, or complete grouped series at 15-minute or calendar grains, use `email.stats.query`.
 func (s *EmailStatsService) Hourly(ctx context.Context, params EmailStatsHourlyParams, opts ...option.RequestOption) (*EmailStatsResponse, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailStatsHourly(ctx, params.toWire(), cfg...)
@@ -724,7 +724,7 @@ func (s *EmailStatsService) Hourly(ctx context.Context, params EmailStatsHourlyP
 	return &out, nil
 }
 
-// ByTag Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+// ByTag Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row. Skip this lookup when the user already supplies the tag name and desired values; call `email.stats.query` directly with filters.tag. Omit name to discover tag names and values observed in the period; set name to restrict the population to that tag name. Follow cursors when discovery spans multiple pages. For combined filters, selected metrics, or 15-minute series, use `email.stats.query` with the discovered tag name and values.
 func (s *EmailStatsService) ByTag(ctx context.Context, params EmailStatsByTagParams, opts ...option.RequestOption) (*EmailStatsTagsResponse, error) {
 	return s.ByTagPage(ctx, params, "", opts...)
 }
@@ -745,7 +745,7 @@ func (s *EmailStatsService) ByTagPage(ctx context.Context, params EmailStatsByTa
 	return &out, nil
 }
 
-// ByTagAll Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row.
+// ByTagAll Email delivery and engagement stats grouped by tag, one row per `name:value` pair set at send time. Rows are ranked by `sort`, `processed` by default. Set `include_trend=true` to add a per-bucket rate series to each row. Skip this lookup when the user already supplies the tag name and desired values; call `email.stats.query` directly with filters.tag. Omit name to discover tag names and values observed in the period; set name to restrict the population to that tag name. Follow cursors when discovery spans multiple pages. For combined filters, selected metrics, or 15-minute series, use `email.stats.query` with the discovered tag name and values.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) ByTagAll(ctx context.Context, params EmailStatsByTagParams, opts ...option.RequestOption) iter.Seq2[*EmailTagStatsPoint, error] {
@@ -1011,7 +1011,7 @@ func (s *EmailStatsService) ByMailboxProviderRegionAll(ctx context.Context, para
 	})
 }
 
-// ByTemplate Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter.
+// ByTemplate Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter. For combined filters, selected metrics, or 15-minute series, use `email.stats.query` grouped by template_id. A template may be shared by several campaigns; establish campaign membership separately when that is the question.
 func (s *EmailStatsService) ByTemplate(ctx context.Context, params EmailStatsByTemplateParams, opts ...option.RequestOption) (*EmailStatsByTemplateResponse, error) {
 	return s.ByTemplatePage(ctx, params, "", opts...)
 }
@@ -1032,7 +1032,7 @@ func (s *EmailStatsService) ByTemplatePage(ctx context.Context, params EmailStat
 	return &out, nil
 }
 
-// ByTemplateAll Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter.
+// ByTemplateAll Email delivery and engagement stats grouped by the template used at send time, keyed by template id (`emt_…`); only templated sends appear. A single template's trend over time comes from `email.stats.daily` with its `template` filter. For combined filters, selected metrics, or 15-minute series, use `email.stats.query` grouped by template_id. A template may be shared by several campaigns; establish campaign membership separately when that is the question.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) ByTemplateAll(ctx context.Context, params EmailStatsByTemplateParams, opts ...option.RequestOption) iter.Seq2[*EmailTemplateStatsPoint, error] {
@@ -1216,7 +1216,7 @@ func (s *EmailStatsService) ByComplaintTypeAll(ctx context.Context, params Email
 	})
 }
 
-// ByBroadcast Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity.
+// ByBroadcast Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
 func (s *EmailStatsService) ByBroadcast(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) (*EmailStatsByBroadcastResponse, error) {
 	return s.ByBroadcastPage(ctx, params, "", opts...)
 }
@@ -1237,7 +1237,7 @@ func (s *EmailStatsService) ByBroadcastPage(ctx context.Context, params EmailSta
 	return &out, nil
 }
 
-// ByBroadcastAll Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity.
+// ByBroadcastAll Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) ByBroadcastAll(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) iter.Seq2[*EmailBroadcastStatsPoint, error] {

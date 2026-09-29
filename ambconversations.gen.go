@@ -5,6 +5,7 @@ import (
 	"context"
 	"iter"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -12,24 +13,31 @@ import (
 
 type AMBConversationTypingEvent = oapi.AMBConversationTypingEvent
 
+type ConversationInboxStatus = oapi.ConversationInboxStatus
+
 // AmbConversationsUpdateParams is the request body for update.
 type AmbConversationsUpdateParams struct {
-	// User to assign this conversation to. Pass null to unassign it.
+	// User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
 	AssignedTo Nullable[string]
-	// Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
+	// Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+	InboxStatus *ConversationInboxStatus
+	// Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status. Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
 	Labels []string
-	// Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
-	Read *bool
+	// Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
+	Read time.Time
 }
 
 func (p AmbConversationsUpdateParams) toWire() oapi.AMBConversationUpdate {
 	body := oapi.AMBConversationUpdate{}
 	body.AssignedTo = p.AssignedTo
+	if p.InboxStatus != nil {
+		body.InboxStatus = p.InboxStatus
+	}
 	if p.Labels != nil {
 		v := p.Labels
 		body.Labels = &v
 	}
-	body.Read = p.Read
+	body.Read = optTime(p.Read)
 	return body
 }
 
@@ -64,7 +72,7 @@ func (p AmbConversationsTypingParams) toWire() oapi.AMBConversationTypingRequest
 	return body
 }
 
-// Get Reads a customer-initiated conversation in your workspace. Its opaque_user_id supplies the to field for replies; verify the business and open state before sending.
+// Get Reads a customer-initiated conversation in your workspace. Its recipient.opaque_user_id supplies the to field for replies; verify the business and open state before sending.
 func (s *AmbConversationsService) Get(ctx context.Context, conversationId string, opts ...option.RequestOption) (*AMBConversation, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetAMBConversation(ctx, oapi.AMBConversationID(conversationId), cfg...)
@@ -79,7 +87,7 @@ func (s *AmbConversationsService) Get(ctx context.Context, conversationId string
 	return &out, nil
 }
 
-// Update Updates assignment, labels and read state on a workspace conversation. Omitted fields stay unchanged; null assigned_to unassigns, empty labels clears labels, and read false has no effect. This operation does not close or reopen a conversation.
+// Update Updates assignment, labels, inbox status and shared workspace read state. Omitted fields stay unchanged; null assigned_to unassigns and empty labels clears labels. Pass read as a date-time to acknowledge received inbound messages through that timestamp. Resolving or reopening inbox work preserves the Apple channel state and sending restrictions.
 func (s *AmbConversationsService) Update(ctx context.Context, conversationId string, params AmbConversationsUpdateParams, opts ...option.RequestOption) (*AMBConversation, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateAMBConversationParams{}

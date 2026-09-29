@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.81.0
+
+- **Breaking:** Apple Messages for Business conversations now use nested `recipient`, `routing` and `last_message` objects and expose `unread_count` as their only message counter. Update response readers and replace the boolean `read` flag with a date-time cutoff to acknowledge received inbound messages through their `created_at`. Timestamp ties are included together; later arrivals remain unread. Absent ordinary response fields use explicit nulls. Both Apple and WhatsApp conversations support `inbox_status` to resolve and reopen inbox work while preserving the conversation and its sending rules.
+- Apple conversation lists now support `assigned_to=me` and repeated `label` filters (all must match). The Go SDK label option is now a slice. Both channels share assignment, labels validation, and workspace read behavior; WhatsApp provider receipts no longer clear inbox unread counts.
+- Email stats field documentation now explains whole-period distinct counts and the measurement scope of email insights.
+- Email statistics examples show a complete response page. MCP discovery includes workflow guidance, nested filter descriptions, and improved matching for analytics and combined-filter requests.
+
 ## 0.80.0
 
 - **Breaking:** voice caller-ID resources now use `verified_numbers`, `/v1/voice/verified-numbers`, and `vvn_` IDs; update SDK accessors to `VerifiedNumbers` in Go, `verifiedNumbers` in TypeScript and PHP, or `verified_numbers` in Python, CLI commands to `bird voice verified-numbers`, and MCP tools to `voice_verified_numbers_*`.

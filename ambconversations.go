@@ -10,22 +10,24 @@ import (
 )
 
 type AmbConversationsListParams struct {
-	BusinessAccountID string                `json:"business_account_id"`
-	Status            AMBConversationStatus `json:"status"`
-	Queue             *string               `json:"queue"`
-	AssignedTo        string                `json:"assigned_to"`
-	Label             string                `json:"label"`
-	Limit             int                   `json:"limit"`
-	EndingBefore      string                `json:"ending_before"`
+	BusinessAccountID string                  `json:"business_account_id"`
+	Status            AMBConversationStatus   `json:"status"`
+	InboxStatus       ConversationInboxStatus `json:"inbox_status"`
+	Queue             *string                 `json:"queue"`
+	AssignedTo        string                  `json:"assigned_to"`
+	Label             []string                `json:"label"`
+	Limit             int                     `json:"limit"`
+	EndingBefore      string                  `json:"ending_before"`
 }
 
 func (p AmbConversationsListParams) toWire(startingAfter string) *oapi.ListAMBConversationsParams {
 	return &oapi.ListAMBConversationsParams{
 		BusinessAccountId: optZero(p.BusinessAccountID),
 		Status:            optZero(p.Status),
+		InboxStatus:       optZero(p.InboxStatus),
 		Queue:             p.Queue,
 		AssignedTo:        optStr(p.AssignedTo),
-		Label:             optStr(p.Label),
+		Label:             optSlice(p.Label),
 		Limit:             optInt(p.Limit),
 		EndingBefore:      optStr(p.EndingBefore),
 		StartingAfter:     optStr(startingAfter),

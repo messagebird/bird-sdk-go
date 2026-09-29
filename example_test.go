@@ -4395,22 +4395,23 @@ func ExampleVoiceCallsService_Create() {
 	fmt.Println(call.Id, call.InitialLegId)
 }
 
-func ExampleEmailStatsService_Query() {
+func ExampleEmailStatsService_QueryPage() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
-	for group, err := range client.Email.Stats.Query(context.Background(), bird.EmailStatsQueryParams{
-		From:    "2026-08-03",
-		To:      "2026-08-16",
+	stats, err := client.Email.Stats.QueryPage(context.Background(), bird.EmailStatsQueryParams{
+		From:    "2026-09-23",
+		To:      "2026-09-24",
 		Metrics: []bird.EmailStatsQueryMetric{"delivered", "bounce_rate"},
 		GroupBy: bird.Ptr(bird.EmailStatsQueryDimension("recipient_domain")),
 		Grain:   bird.Ptr(bird.EmailStatsQueryGrain("week")),
 		Limit:   bird.Ptr(25),
-	}) {
-		if err != nil {
-			log.Fatal(err)
-		}
+	}, "")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, group := range stats.Data {
 		fmt.Println(group.Dimensions, group.Metrics, group.Series)
 	}
 }
@@ -4579,7 +4580,7 @@ func ExampleAmbConversationsService_Update() {
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	result, err := client.Amb.Conversations.Update(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbConversationsUpdateParams{AssignedTo: bird.Null[string](), Labels: []string{}, Read: bird.Ptr(false)})
+	result, err := client.Amb.Conversations.Update(ctx, "acv_01krdgeqcxet5s7t44vh8rt9mg", bird.AmbConversationsUpdateParams{AssignedTo: bird.Null[string](), Labels: []string{}, InboxStatus: bird.Ptr(bird.ConversationInboxStatus("resolved"))})
 	if err != nil {
 		log.Fatal(err)
 	}

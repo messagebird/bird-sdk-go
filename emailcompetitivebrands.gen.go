@@ -21,7 +21,7 @@ func (p EmailCompetitiveBrandsSearchParams) toWire() *oapi.SearchEmailCompetitiv
 	}
 }
 
-// Search Search by brand name or sending domain. Each match returns the panel's `brand_id`, which is different from the `watchlist_brand_id` returned by `email.competitive.watchlist.get`. API-key calls require Insights preview access for your organization.
+// Search Find a competitor by brand name or sending domain without adding it. For existing competitors, `email.competitive.watchlist.get` already returns names, tracked domains and watchlist IDs. Search returns at most eight matches, each with its highest-volume sending domain, not every domain a brand uses. Resolve ambiguous names against the intended domain before any authorized addition. An empty or limited result describes this search, not exhaustive panel coverage. The returned panel `brand_id` differs from a saved `watchlist_brand_id`. API-key calls require Insights preview access for your organization.
 func (s *EmailCompetitiveBrandsService) Search(ctx context.Context, params EmailCompetitiveBrandsSearchParams, opts ...option.RequestOption) (*EmailCompetitiveBrandSearchResults, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.SearchEmailCompetitiveBrands(ctx, params.toWire(), cfg...)

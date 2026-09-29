@@ -24,11 +24,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if business.Status == "disconnected" || conversation.Status != "open" || business.AppleBusinessId == nil || conversation.OpaqueUserId == nil {
+	if business.Status == "disconnected" || conversation.Status != "open" || business.AppleBusinessId == nil || conversation.Recipient == nil || conversation.Recipient.OpaqueUserId == nil {
 		log.Fatal("A configured, connected business account and an open conversation are required.")
 	}
 	message, err := client.Amb.Send(ctx, bird.AmbSendParams{
-		From: business.AppleBusinessId.String(), To: *conversation.OpaqueUserId,
+		From: business.AppleBusinessId.String(), To: *conversation.Recipient.OpaqueUserId,
 		Content: map[string]any{"type": "text", "body": "Your order is ready."},
 	})
 	if err != nil {

@@ -1053,6 +1053,24 @@ func (e ContactUpsertResultItemStatus) Valid() bool {
 	}
 }
 
+// Defines values for ConversationInboxStatus.
+const (
+	ConversationInboxStatusOpen     ConversationInboxStatus = "open"
+	ConversationInboxStatusResolved ConversationInboxStatus = "resolved"
+)
+
+// Valid indicates whether the value is a known member of the ConversationInboxStatus enum.
+func (e ConversationInboxStatus) Valid() bool {
+	switch e {
+	case ConversationInboxStatusOpen:
+		return true
+	case ConversationInboxStatusResolved:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for DNSRecordPurpose.
 const (
 	Dkim       DNSRecordPurpose = "dkim"
@@ -4709,22 +4727,22 @@ func (e MailboxOwnerType) Valid() bool {
 
 // Defines values for MailboxUpdateReceivePolicy.
 const (
-	Allowlist   MailboxUpdateReceivePolicy = "allowlist"
-	Drop        MailboxUpdateReceivePolicy = "drop"
-	Open        MailboxUpdateReceivePolicy = "open"
-	RepliesOnly MailboxUpdateReceivePolicy = "replies_only"
+	MailboxUpdateReceivePolicyAllowlist   MailboxUpdateReceivePolicy = "allowlist"
+	MailboxUpdateReceivePolicyDrop        MailboxUpdateReceivePolicy = "drop"
+	MailboxUpdateReceivePolicyOpen        MailboxUpdateReceivePolicy = "open"
+	MailboxUpdateReceivePolicyRepliesOnly MailboxUpdateReceivePolicy = "replies_only"
 )
 
 // Valid indicates whether the value is a known member of the MailboxUpdateReceivePolicy enum.
 func (e MailboxUpdateReceivePolicy) Valid() bool {
 	switch e {
-	case Allowlist:
+	case MailboxUpdateReceivePolicyAllowlist:
 		return true
-	case Drop:
+	case MailboxUpdateReceivePolicyDrop:
 		return true
-	case Open:
+	case MailboxUpdateReceivePolicyOpen:
 		return true
-	case RepliesOnly:
+	case MailboxUpdateReceivePolicyRepliesOnly:
 		return true
 	default:
 		return false
@@ -8718,68 +8736,47 @@ type AMBConversation struct {
 	AssignedTo        *UserID       `json:"assigned_to"`
 	BusinessAccountId AMBBusinessID `json:"business_account_id"`
 
-	// ClosedAt When this conversation was closed. Null while it is open.
+	// ClosedAt When the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
 	ClosedAt *time.Time `json:"closed_at,omitempty"`
 
-	// ClosedReason Why this conversation was closed. Null while it is open.
+	// ClosedReason Why the native Apple conversation was closed. Null while its native status is open; independent of inbox status.
 	ClosedReason *AMBConversationClosedReason `json:"closed_reason,omitempty"`
 
 	// CreatedAt When this conversation was created.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// DeviceCapabilities The capability tokens the customer's device advertised on its most recent message, replaced by each inbound rather than accumulated, so this describes the device in use now. An empty list means the device's capabilities are unknown. Implemented message types may still be sent, but device rendering support has not been confirmed. Authentication requires an explicitly advertised AUTH2 capability.
-	DeviceCapabilities *[]string `json:"device_capabilities,omitempty"`
+	DeviceCapabilities *[]string         `json:"device_capabilities,omitempty"`
+	Id                 AMBConversationID `json:"id"`
 
-	// EntryPoint The entry point in your channel settings whose group and intent matched the inbound message that opened or most recently reopened the conversation. Null when no configured entry point matched.
-	EntryPoint *string `json:"entry_point,omitempty"`
+	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+	InboxStatus ConversationInboxStatus `json:"inbox_status"`
 
-	// GroupId The `group` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `intent_id` to route the conversation. Null when that message carried none.
-	GroupId *string           `json:"group_id,omitempty"`
-	Id      AMBConversationID `json:"id"`
+	// Labels Workspace labels on this conversation. Labels do not change read state or inbox status.
+	Labels ConversationLabels `json:"labels"`
 
-	// IntentId The `intent` value carried by the inbound message that opened or most recently reopened the conversation. Your business chooses it when configuring an entry point with Apple, and Apple passes it through; used with `group_id` to route the conversation. Null when that message carried none.
-	IntentId *string `json:"intent_id,omitempty"`
-
-	// Labels Operator-set tags on this conversation. Unlike email, there are no system placement labels: every value here is one an operator chose.
-	Labels []string `json:"labels"`
-
-	// LastDirection Whether a message was sent by the business or received from the customer:
-	//
-	// - `outbound`: A reply the business sent into the conversation.
-	// - `inbound`: A message the customer sent.
-	LastDirection AMBMessageDirection `json:"last_direction"`
-
-	// LastMessageAt When the most recent message in this conversation was sent or received.
-	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
+	// LastMessage Most recent message, or null when its identity has not been recorded.
+	LastMessage *AMBConversationLastMessage `json:"last_message"`
 
 	// Locale The customer's locale from the most recent inbound message, or your business's default locale before any inbound arrives. Preserved in Apple's locale format, for example `en_US@rg=nlzzzz`.
 	Locale *string `json:"locale,omitempty"`
 
-	// MessageCount Number of messages in this conversation, both directions.
-	MessageCount *int `json:"message_count,omitempty"`
-
-	// OpaqueUserId Apple's opaque identifier for the customer with this business. The customer must send a message before a conversation is created. Null when no identifier is recorded.
-	OpaqueUserId *string `json:"opaque_user_id,omitempty"`
-
-	// OpenCount Number of times this conversation has been opened, starting at 1 and incremented on each reopen. A closed conversation reopens on the next inbound message rather than creating a new conversation.
-	OpenCount *int `json:"open_count,omitempty"`
-
 	// Origin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
 	Origin AMBConversationOrigin `json:"origin"`
 
-	// PhoneNumber Customer phone number, when recorded. Null when unknown. Read the invitation's `to` field for the number an invitation was sent to.
-	PhoneNumber *string `json:"phone_number,omitempty"`
+	// Recipient The customer on the other side of this Apple Messages for Business conversation.
+	Recipient *AMBConversationRecipient `json:"recipient,omitempty"`
 
-	// Queue The console queue this conversation is routed to. Empty when no routing rule matched, which the console lists as unrouted.
-	Queue *string `json:"queue,omitempty"`
+	// Routing Routing context from the message that opened or most recently reopened the Apple channel conversation.
+	Routing *AMBConversationRouting `json:"routing,omitempty"`
 
-	// Status Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+	// Status Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
 	Status AMBConversationStatus `json:"status"`
 
 	// SupportedContentKinds Implemented baseline types plus interactive types confirmed by `device_capabilities`. An empty capability list yields text, attachments and rich links; it does not establish support for other types. Unadvertised quick replies, list pickers, time pickers and forms are refused when capabilities are known. Custom apps and opaque interactive references are not included because their device support cannot be inferred from these tokens. Unsupported roadmap types cannot be sent.
 	SupportedContentKinds *[]AMBContentKind `json:"supported_content_kinds,omitempty"`
 
-	// UnreadCount Number of inbound messages since this conversation was last marked read. Incremented once per inbound message, reset to zero by marking the conversation read and by any outbound message your workspace sends.
+	// UnreadCount Number of inbound messages the workspace has not acknowledged. Shared across the workspace. Pass read with a date-time to acknowledge received inbound messages through that timestamp. Sending a reply does not change this count.
 	UnreadCount *int `json:"unread_count,omitempty"`
 
 	// UpdatedAt When this conversation last changed.
@@ -8794,6 +8791,19 @@ type AMBConversationClosedReason string
 
 // AMBConversationID defines model for AMBConversationID.
 type AMBConversationID = string
+
+// AMBConversationLastMessage A reference to the most recent message in either direction. Read its content through the conversation's message list.
+type AMBConversationLastMessage struct {
+	// CreatedAt The same `created_at` returned when reading the message. This reference and the conversation transcript use message creation order. Processing an older message again does not move the reference backwards.
+	CreatedAt time.Time `json:"created_at"`
+
+	// Direction Whether a message was sent by the business or received from the customer:
+	//
+	// - `outbound`: A reply the business sent into the conversation.
+	// - `inbound`: A message the customer sent.
+	Direction AMBMessageDirection `json:"direction"`
+	Id        AMBMessageID        `json:"id"`
+}
 
 // AMBConversationList defines model for AMBConversationList.
 type AMBConversationList struct {
@@ -8813,8 +8823,32 @@ type AMBConversationList struct {
 // AMBConversationOrigin How the conversation started. `entry_point` means the customer opened it from one of your configured Apple Messages for Business entry points. `invitation` means the customer accepted an invitation and sent a message. This is set once when the conversation is created and never changes.
 type AMBConversationOrigin string
 
+// AMBConversationRecipient The customer on the other side of this Apple Messages for Business conversation.
+type AMBConversationRecipient struct {
+	// OpaqueUserId Apple's opaque identifier for this customer with this business. Null when no identifier is recorded.
+	OpaqueUserId *string `json:"opaque_user_id"`
+
+	// PhoneNumber Customer phone number, or null when unknown. An invitation's destination remains on the invitation's `to` field.
+	PhoneNumber *string `json:"phone_number"`
+}
+
 // AMBConversationReopenedEventType Always `amb.conversation_reopened` for this event.
 type AMBConversationReopenedEventType string
+
+// AMBConversationRouting Routing context from the message that opened or most recently reopened the Apple channel conversation.
+type AMBConversationRouting struct {
+	// EntryPoint Configured entry point matching the opening message's group and intent. Null when none matched.
+	EntryPoint *string `json:"entry_point"`
+
+	// GroupId The business's routing group carried by Apple from the entry point. This identifies a routing destination within the business. Null when the opening message carried no group.
+	GroupId *string `json:"group_id"`
+
+	// IntentId Intent carried by Apple from the entry point, used with `group_id` to route the conversation. Null when none was supplied.
+	IntentId *string `json:"intent_id"`
+
+	// Queue Workspace queue selected by routing. Null when the conversation is unrouted.
+	Queue *string `json:"queue"`
+}
 
 // AMBConversationStartedEventType Always `amb.conversation_started` for this event.
 type AMBConversationStartedEventType string
@@ -8907,7 +8941,7 @@ type AMBConversationStatsSummary struct {
 	Period AMBStatsSummaryPeriod `json:"period"`
 }
 
-// AMBConversationStatus Whether a conversation is open or closed. There is no close operation on this API: only the customer closes a conversation from their device, and any inbound message on a closed conversation reopens it.
+// AMBConversationStatus Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
 type AMBConversationStatus string
 
 // AMBConversationTypingEvent The typing signal to send. `typing_start` tells the customer's device that an operator is composing a reply. `typing_end` tells it composition stopped without a message following. Apple expects at most one `typing_start` before the reply it precedes; sending it again before that reply is not meaningful and may be dropped. `typing_end`'s behavior against a live conversation is unproven: the legacy platform's implementation was disabled after it caused issues, so treat it as best-effort.
@@ -8919,17 +8953,8 @@ type AMBConversationTypingRequest struct {
 	Event AMBConversationTypingEvent `json:"event"`
 }
 
-// AMBConversationUpdate Assignment, labels, and read state on a conversation. There is no close action here: only the customer closes a conversation, from their device. Every field is optional; omit a field to leave it unchanged.
-type AMBConversationUpdate struct {
-	// AssignedTo User to assign this conversation to. Pass null to unassign it.
-	AssignedTo nullable.Nullable[UserID] `json:"assigned_to,omitempty"`
-
-	// Labels Replaces the full set of labels on this conversation. Pass an empty array to clear every label.
-	Labels *[]string `json:"labels,omitempty"`
-
-	// Read Set to true to mark this conversation read, resetting `unread_count` to zero. There is no way to mark a conversation unread through this field; false has no effect.
-	Read *bool `json:"read,omitempty"`
-}
+// AMBConversationUpdate defines model for AMBConversationUpdate.
+type AMBConversationUpdate = UnderscoreConversationUpdate
 
 // AMBEntryPoint defines model for AMBEntryPoint.
 type AMBEntryPoint struct {
@@ -9676,7 +9701,7 @@ type AMBMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Maximum 20 tags per send.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// To Apple’s opaque customer identifier for this business, available as the conversation’s opaque_user_id. The conversation must exist and be open.
+	// To Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
 	To string `json:"to"`
 }
 
@@ -11203,6 +11228,12 @@ type ContactUpsertResultItem struct {
 //     does not affect the other entries in the request.
 type ContactUpsertResultItemStatus string
 
+// ConversationInboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+type ConversationInboxStatus string
+
+// ConversationLabels Workspace labels on this conversation. Labels do not change read state or inbox status.
+type ConversationLabels = []string
+
 // CountryCode ISO 3166-1 alpha-2 country code.
 type CountryCode = string
 
@@ -12469,20 +12500,21 @@ type EmailCompetitiveBrandProfile struct {
 	// Brand One brand on the watchlist, with its figures for the requested period. Your own
 	// workspace appears as a row too, so the table can be read as a single ranking.
 	//
-	// Every metric is present on every row and is `null` when it is unavailable for
-	// that brand, so a `0` is always a real measurement rather than a gap. Check
-	// `panel_status` for why a metric is null.
+	// Metrics are present on every row. Interpret `null` using each field's
+	// description: it can mean unavailable, no observed campaign, or no overlap
+	// returned by the panel. A `0` is a measurement rather than a gap.
+	//
+	// Your measured sends and cadence cover the workspace. Your panel rates and
+	// overlap describe only its highest-volume sending domain.
 	//
 	// `esp` and `list_size` are the exception. They are populated only when you read a
 	// single brand, and are always `null` on the watchlist whatever `panel_status`
 	// reports.
 	Brand EmailCompetitiveWatchlistRow `json:"brand"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 
 	// Providers Placement per mailbox provider, in the order the panel returned them. Empty when the panel published no breakdown for the brand's domains.
@@ -12491,7 +12523,7 @@ type EmailCompetitiveBrandProfile struct {
 
 // EmailCompetitiveBrandSearchResults Brands matching the search. Ranked by how well they match, best first, and capped at 8 results because this backs a type-ahead. The panel's own answer is often shorter than the cap, in which case the cap was never the reason the list is short.
 type EmailCompetitiveBrandSearchResults struct {
-	// Data Matching brands. Empty when nothing matched, which for an unusual brand name means the panel does not track it rather than that the search failed.
+	// Data Watchable matches returned for this query. A capped search or an unresolved sending domain can omit a brand; an empty result does not establish that the panel has never observed it.
 	Data *[]EmailCompetitiveBrandMatch `json:"data,omitempty"`
 }
 
@@ -12532,7 +12564,7 @@ type EmailCompetitiveBrandSeries struct {
 
 // EmailCompetitiveCampaign defines model for EmailCompetitiveCampaign.
 type EmailCompetitiveCampaign struct {
-	// DiscountPercent The discount the subject line leads with, null when it names none. Read from the subject text, so it finds a stated offer and not one revealed inside the email.
+	// DiscountPercent The first recognized percentage-discount offer in the subject, null when none is recognized. Does not detect dollar discounts, free shipping or offers revealed only inside the email.
 	DiscountPercent *float32 `json:"discount_percent,omitempty"`
 
 	// HasCreative Whether the panel captured the rendered email for this campaign.
@@ -12588,17 +12620,15 @@ type EmailCompetitiveCampaignFeed struct {
 	// not be retrieved this time and the same request may well succeed on a retry.
 	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 
 	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
 	PrevCursor *string `json:"prev_cursor"`
 
-	// PromoRate Fraction of captured campaigns whose subject leads with a discount. Null when captured is zero. This sampled value is independent of the returned page.
+	// PromoRate Fraction of captured campaigns whose subject contains a recognized percentage-discount offer. Dollar discounts and free-shipping offers do not count. Null when captured is zero. This sampled value is independent of the returned page.
 	PromoRate *float32 `json:"promo_rate,omitempty"`
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
@@ -12729,11 +12759,9 @@ type EmailCompetitiveNotableFeed struct {
 	// not be retrieved this time and the same request may well succeed on a retry.
 	PanelStatus EmailCompetitivePanelStatus `json:"panel_status"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 
 	// Truncated Whether Bird omitted eligible panel findings to keep this response to 100 rows. False does not promise that the panel observed every qualifying campaign in the period.
@@ -12761,11 +12789,9 @@ type EmailCompetitivePanelMailboxProvider = string
 // not be retrieved this time and the same request may well succeed on a retry.
 type EmailCompetitivePanelStatus string
 
-// EmailCompetitivePeriod The period every figure in the response covers, echoed back from the request.
-//
-// Figures are fetched when the request is made, so they are current as of `to`.
-// The period always ends at the moment of the request rather than at a cached
-// boundary, which is why two requests a minute apart can differ slightly.
+// EmailCompetitivePeriod The period the response describes. Most reports resolve a rolling window when
+// requested; send-time and notable reports can carry the panel's own window.
+// These bounds describe coverage, not a guarantee of measurement freshness.
 type EmailCompetitivePeriod struct {
 	// Days Length of the period in days.
 	Days *int `json:"days,omitempty"`
@@ -12844,11 +12870,9 @@ type EmailCompetitiveSendTimeGrid struct {
 	// PeakSendWindow The hour of the day the brand sends most of its mail in, totalled across the whole week, or null when nothing was observed. It carries no weekday: for most brands the hour of the day is where the pattern is and the day of the week barely moves, so naming a busiest weekday would give a figure more meaning than it has. It is also not always the darkest cell, on the same reasoning: one busy Wednesday can outweigh the hour the brand mails in every single day.
 	PeakSendWindow *EmailCompetitiveSendTimePeak `json:"peak_send_window,omitempty"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 
 	// Timezone IANA timezone identifier, such as `America/New_York`, `Europe/Amsterdam`, or `UTC`.
@@ -12893,11 +12917,9 @@ type EmailCompetitiveVolumeSeries struct {
 	// Data Your own line first, then the requested brands in the order they were asked for. Your line is present once your workspace has sent email. Every line carries the same days in the same order, so they can be plotted against one axis without aligning them first.
 	Data *[]EmailCompetitiveBrandSeries `json:"data,omitempty"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 }
 
@@ -12909,11 +12931,9 @@ type EmailCompetitiveWatchlist struct {
 	// Data Your own row first, then each watched brand in the order it was added. Your row is present once your workspace has sent email, since before that there is no sending of yours to compare against. Empty for a workspace that has neither sent nor added a brand.
 	Data *[]EmailCompetitiveWatchlistRow `json:"data,omitempty"`
 
-	// Period The period every figure in the response covers, echoed back from the request.
-	//
-	// Figures are fetched when the request is made, so they are current as of `to`.
-	// The period always ends at the moment of the request rather than at a cached
-	// boundary, which is why two requests a minute apart can differ slightly.
+	// Period The period the response describes. Most reports resolve a rolling window when
+	// requested; send-time and notable reports can carry the panel's own window.
+	// These bounds describe coverage, not a guarantee of measurement freshness.
 	Period EmailCompetitivePeriod `json:"period"`
 
 	// Summary Where your sending sits against the brands you watch, over the same period as the
@@ -12952,15 +12972,18 @@ type EmailCompetitiveWatchlistBrandCreate struct {
 // EmailCompetitiveWatchlistRow One brand on the watchlist, with its figures for the requested period. Your own
 // workspace appears as a row too, so the table can be read as a single ranking.
 //
-// Every metric is present on every row and is `null` when it is unavailable for
-// that brand, so a `0` is always a real measurement rather than a gap. Check
-// `panel_status` for why a metric is null.
+// Metrics are present on every row. Interpret `null` using each field's
+// description: it can mean unavailable, no observed campaign, or no overlap
+// returned by the panel. A `0` is a measurement rather than a gap.
+//
+// Your measured sends and cadence cover the workspace. Your panel rates and
+// overlap describe only its highest-volume sending domain.
 //
 // `esp` and `list_size` are the exception. They are populated only when you read a
 // single brand, and are always `null` on the watchlist whatever `panel_status`
 // reports.
 type EmailCompetitiveWatchlistRow struct {
-	// AudienceOverlapRate Share of your own audience the panel also sees receiving this brand's mail. Null on your own row, and null for a competitor the panel measured no overlap with, which is an answer rather than a gap.
+	// AudienceOverlapRate Share of the panel-observed audience of your workspace's highest-volume sending domain that also receives this brand's mail. Null on your own row or when the panel returns no overlap for a competitor. An absent panel result does not establish that the audiences are disjoint.
 	AudienceOverlapRate *float32 `json:"audience_overlap_rate,omitempty"`
 
 	// CadencePerWeek Average campaigns sent per week over the period.
@@ -13011,7 +13034,7 @@ type EmailCompetitiveWatchlistRow struct {
 	// ReadRate Share of delivered mail that was read.
 	ReadRate *float32 `json:"read_rate,omitempty"`
 
-	// SendingDomains The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume.
+	// SendingDomains The domains the brand's figures describe. Always one domain today: a brand is tracked by the single one the panel sees the most of its mail from, so a brand that splits its mail across several domains reports less than its full volume. On your own row this domain scopes panel measurements, while measured sends and cadence cover the workspace.
 	SendingDomains *[]string `json:"sending_domains,omitempty"`
 
 	// Sends Messages sent in the period.
@@ -13147,7 +13170,7 @@ type EmailDeliveryLatencyStats struct {
 	Total *EmailLatencyQuantiles `json:"total,omitempty"`
 }
 
-// EmailDeliveryStats Delivery counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Every count is the number of distinct recipients that reached the named lifecycle stage in scope. On the period summary, each count is the sum of the per-bucket distinct counts. Event time determines attribution; send time does not. A recipient delivered on Monday counts in Monday's row. A recipient who bounced and then succeeded on a retry can appear in both `bounced` and `delivered`. Very large counts are close estimates rather than exact tallies.
+// EmailDeliveryStats Delivery counts and rates for the scope of the containing row (a time bucket, a breakdown dimension, or the whole period). Lifecycle counts identify distinct recipients that reached the named stage in scope; `oob_bounces` counts distinct failure events. Period summaries count each identity once per metric across the whole window, so adding time-bucket distinct counts can overstate the summary. Event time determines attribution; send time does not. A recipient delivered on Monday counts in Monday's row. A recipient who bounced and then succeeded on a retry can appear in both `bounced` and `delivered`. Very large counts are close estimates rather than exact tallies.
 //
 // These counts are successive lifecycle stages, so a recipient can appear in more than one:
 //
@@ -14176,7 +14199,7 @@ type EmailInboxInsightsPlacementCounts struct {
 	Spam *int `json:"spam,omitempty"`
 }
 
-// EmailInboxInsightsPlacementDeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+// EmailInboxInsightsPlacementDeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
 type EmailInboxInsightsPlacementDeltaPts struct {
 	// Inbox Inbox-rate movement in percentage points; negative means it fell.
 	Inbox *float32 `json:"inbox,omitempty"`
@@ -14328,7 +14351,7 @@ type EmailInboxInsightsPlacementSeriesPoint struct {
 // mix to weight. Rates are percentages of measured placements, never of
 // delivered volume.
 type EmailInboxInsightsPlacementSummary struct {
-	// DeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data; absence means no comparable prior data, never zero change.
+	// DeltaPts How the domain-wide rates moved against the prior period, in percentage points. Present only when the request asked for a comparison and the prior period had data. Without a requested comparison or comparable prior data they are absent, not zero change.
 	DeltaPts *EmailInboxInsightsPlacementDeltaPts `json:"delta_pts,omitempty"`
 
 	// InboxRatePercent Estimated share of measured placements that landed in the inbox, as a percentage.
@@ -15772,8 +15795,11 @@ type EmailStatsQueryCategoryFilter struct {
 	Include *[]EmailMessageCategory `json:"include,omitempty"`
 }
 
-// EmailStatsQueryDimension Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
-// Missing values form a null group when the metric supports that dimension.
+// EmailStatsQueryDimension Group by one recorded event dimension. Omit for a single ungrouped summary with optional series.
+// Grouping by `tag` requires `filters.tag.name`.
+// Missing values form a null group when the metric supports that dimension. A null value
+// means the event lacks that attribution; it does not explain how the message was created
+// or establish membership in another dimension such as a campaign.
 //
 // Every selected metric must support the grouping dimension and every filter dimension.
 // Unsupported combinations return validation error `E04074`, even when the workspace has no events.
@@ -16087,8 +16113,11 @@ type EmailStatsQueryRequest struct {
 	// Grain Time buckets in the requested timezone. Weeks start on Monday; months start on the first day. Half days start at midnight and noon. Edge buckets count events inside the normalized period.
 	Grain *EmailStatsQueryGrain `json:"grain,omitempty"`
 
-	// GroupBy Recorded event context used to group results. Grouping by `tag` requires `filters.tag.name`.
-	// Missing values form a null group when the metric supports that dimension.
+	// GroupBy Group by one recorded event dimension. Omit for a single ungrouped summary with optional series.
+	// Grouping by `tag` requires `filters.tag.name`.
+	// Missing values form a null group when the metric supports that dimension. A null value
+	// means the event lacks that attribution; it does not explain how the message was created
+	// or establish membership in another dimension such as a campaign.
 	//
 	// Every selected metric must support the grouping dimension and every filter dimension.
 	// Unsupported combinations return validation error `E04074`, even when the workspace has no events.
@@ -16109,7 +16138,13 @@ type EmailStatsQueryRequest struct {
 	// Limit Grouped requests only. Maximum groups per page; defaults to 25. Each group retains its complete series.
 	Limit *int `json:"limit,omitempty"`
 
-	// Metrics Distinct metrics to return. Unselected metrics are absent.
+	// Metrics Distinct metrics to return. Unselected metrics are absent. delivered and unique engagement counts estimate distinct message recipients. opens, opens_non_prefetched, clicks, unsubscribes, and oob_bounces estimate deduplicated events. effective_delivered and all_bounces are derived counts. Counts need not add up across buckets or groups. unique_opens and unique_clicks count message recipients, not distinct people across messages. Use returned period metrics; do not reconstruct totals from buckets or average rates or percentiles.
+	//
+	// delivered counts message recipients with a delivery event without subtracting later bounces. effective_delivered is max(delivered - oob_bounces, 0). open_rate uses unique_opens_non_prefetched divided by effective_delivered; click_rate uses unique_clicks divided by effective_delivered. bounce_rate uses min(bounced + oob_bounces, delivered + bounced) divided by (delivered + bounced). complaint_rate and unsubscribe_rate use complained and unsubscribes, respectively, divided by effective_delivered. Undefined rates are null. Engagement rates can exceed 1 across event-time windows.
+	//
+	// An unknown prefetch flag is treated as false. confirmed_unique_opens is the union of message recipients with opens or clicks; confirmed_unique_opens_non_prefetched excludes prefetched opens from that union. Differences between estimated distinct counts cannot establish exact audience overlaps or explain missing opens. Neither confirmation nor prefetch exclusion establishes a count or range of real people who engaged.
+	//
+	// Latency percentiles describe eligible measured logical events, excluding missing latency values and including zero. A percentile is null when no eligible samples exist. delivered is not the latency sample count. Report percentile values without inferring the unmeasured population or the distribution between them. They do not establish maxima or exact threshold counts; multiplying delivered by percentile fractions or subtracting processing and delivery percentiles cannot determine slow-message counts or a stage's latency.
 	Metrics []EmailStatsQueryMetric `json:"metrics"`
 
 	// Order Sort direction, ascending or descending.
@@ -16227,15 +16262,12 @@ type EmailStatsSortMetric string
 // denominator. The daily and hourly endpoints report the same rates, but
 // per bucket, each one dividing that bucket's own counts.
 //
-// Every count is a sum of per-bucket counts across the window (per day for
-// day windows, per hour for hour windows). A recipient, or a message, that
-// is active in two buckets contributes to each of them, so it is counted
-// twice in the period total. This matches how most mailbox providers report
-// their own numbers. The effect to plan for is that the total is a sum of
-// per-bucket activity rather than a count of distinct recipients or messages
-// across the whole period. Latency percentiles work differently: they are computed
-// once across the whole period rather than summed from the buckets. A rate
-// is null when its denominator is zero.
+// Distinct message, recipient, and event counts are computed across the whole
+// requested period. An identity present in more than one time bucket counts
+// once for that metric in the period summary, so adding daily or hourly
+// distinct counts can overstate the summary. Very large counts are close
+// estimates rather than exact tallies. Latency percentiles are also computed
+// across the whole period. A rate is null when its denominator is zero.
 type EmailStatsSummary struct {
 	Comparison *EmailStatsComparison `json:"comparison,omitempty"`
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
@@ -16245,7 +16277,7 @@ type EmailStatsSummary struct {
 	// Period The window this response was actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants). The grain of `from` and `to` mirrors the grain of the request's bounds. Days and hour boundaries follow the requested `timezone` (UTC when omitted).
 	Period EmailStatsSummaryPeriod `json:"period"`
 
-	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) and summed per bucket across the period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
+	// SendsAccepted Distinct email messages accepted, counted at the message level (one per accepted send regardless of recipient count) across the whole requested period. This field counts messages. `delivery.accepted` counts recipients, so the two values are not comparable (a single message to 500 recipients is 1 here and up to 500 there).
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
@@ -20411,20 +20443,20 @@ type MailboxStatsResponse struct {
 	// Period The window and bucket grain the response covers, echoed from the request, plus the freshness boundary the data is current to.
 	Period EmailStatsSeriesPeriod `json:"period"`
 
-	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
+	// Summary Single-row aggregate of the mailbox's email activity across the full requested period. Counts use each field's message, recipient, or event identity across the whole window. Repeat opens, clicks, and unsubscribes from the same recipient contribute as separate events; unique engagement fields count distinct recipients. Adding per-bucket distinct counts can overstate the summary. Latency percentiles are computed across the whole period. Rates are `null` when their denominator is zero.
 	Summary *MailboxStatsSummary `json:"summary,omitempty"`
 }
 
-// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts are sums of per-bucket counts across the window. Latency percentiles are computed across the whole period rather than summed per bucket. Rates are `null` when their denominator is zero.
+// MailboxStatsSummary Single-row aggregate of the mailbox's email activity across the full requested period. Counts use each field's message, recipient, or event identity across the whole window. Repeat opens, clicks, and unsubscribes from the same recipient contribute as separate events; unique engagement fields count distinct recipients. Adding per-bucket distinct counts can overstate the summary. Latency percentiles are computed across the whole period. Rates are `null` when their denominator is zero.
 type MailboxStatsSummary struct {
 	Delivery   *EmailDeliveryStats   `json:"delivery,omitempty"`
 	Engagement *EmailEngagementStats `json:"engagement,omitempty"`
 	Latency    *EmailLatencyStats    `json:"latency,omitempty"`
 
-	// Received Distinct emails the mailbox received, summed per bucket across the period.
+	// Received Distinct emails the mailbox received, counted once across the period.
 	Received *int `json:"received,omitempty"`
 
-	// SendsAccepted Distinct email messages the mailbox sent that were accepted, counted at the message level and summed per bucket across the period.
+	// SendsAccepted Distinct email messages the mailbox sent that were accepted, counted once at the message level across the period.
 	SendsAccepted *int `json:"sends_accepted,omitempty"`
 }
 
@@ -27402,6 +27434,23 @@ type WorkspaceNotificationEmails struct {
 	Operational *[]openapi_types.Email `json:"operational,omitempty"`
 }
 
+// UnderscoreConversationUpdate defines model for _ConversationUpdate.
+type UnderscoreConversationUpdate struct {
+	// AssignedTo User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
+	AssignedTo nullable.Nullable[string] `json:"assigned_to,omitempty"`
+
+	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+	InboxStatus *ConversationInboxStatus `json:"inbox_status,omitempty"`
+
+	// Labels Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+	//
+	// Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+	Labels *[]string `json:"labels,omitempty"`
+
+	// Read Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
+	Read *time.Time `json:"read,omitempty"`
+}
+
 // UnderscoreListEnvelope defines model for _ListEnvelope.
 type UnderscoreListEnvelope struct {
 	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
@@ -27428,6 +27477,15 @@ type UnderscoreListEnvelopeWithTotal struct {
 	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
+
+// ConversationAssigneeFilter defines model for ConversationAssigneeFilter.
+type ConversationAssigneeFilter = string
+
+// ConversationInboxStatusFilter Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+type ConversationInboxStatusFilter = ConversationInboxStatus
+
+// ConversationLabelFilter defines model for ConversationLabelFilter.
+type ConversationLabelFilter = []string
 
 // CreatedAfter defines model for CreatedAfter.
 type CreatedAfter = time.Time
@@ -27797,6 +27855,9 @@ type CreateAMBBusinessAccountSubmissionParams struct {
 
 // ListAMBConversationsParams defines parameters for ListAMBConversations.
 type ListAMBConversationsParams struct {
+	// InboxStatus Filter by workspace inbox status. Omit to include open and resolved conversations.
+	InboxStatus *ConversationInboxStatusFilter `form:"inbox_status,omitempty" json:"inbox_status,omitempty"`
+
 	// BusinessAccountId Filter to conversations belonging to this business.
 	BusinessAccountId *AMBBusinessID `form:"business_account_id,omitempty" json:"business_account_id,omitempty"`
 
@@ -27806,11 +27867,11 @@ type ListAMBConversationsParams struct {
 	// Queue Filter to conversations in this queue. Pass an empty string to match unrouted conversations, the ones no routing rule has claimed.
 	Queue *string `form:"queue,omitempty" json:"queue,omitempty"`
 
-	// AssignedTo Filter to conversations assigned to this user. Pass `unassigned` to match conversations with no assignee.
-	AssignedTo *string `form:"assigned_to,omitempty" json:"assigned_to,omitempty"`
+	// AssignedTo Return conversations assigned to this workspace member. Pass `me` for the signed-in user or `unassigned` for conversations without an assignee. An API key cannot use `me` and receives a `422` response.
+	AssignedTo *ConversationAssigneeFilter `form:"assigned_to,omitempty" json:"assigned_to,omitempty"`
 
-	// Label Filter to conversations that have this label.
-	Label *string `form:"label,omitempty" json:"label,omitempty"`
+	// Label Return conversations carrying this label. Repeat the parameter to require every supplied label.
+	Label *ConversationLabelFilter `form:"label,omitempty" json:"label,omitempty"`
 
 	// Limit Maximum number of items to return per page.
 	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
@@ -47112,6 +47173,18 @@ func NewListAMBConversationsRequest(server string, params *ListAMBConversationsP
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.InboxStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "inbox_status", *params.InboxStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.BusinessAccountId != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "business_account_id", *params.BusinessAccountId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -47162,7 +47235,7 @@ func NewListAMBConversationsRequest(server string, params *ListAMBConversationsP
 
 		if params.Label != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "label", *params.Label, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
