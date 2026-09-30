@@ -16346,7 +16346,10 @@ type EmailTemplate struct {
 
 	// DraftVersionId The current editable draft version. Null for a built-in `system` template, which has no draft.
 	DraftVersionId *EmailTemplateVersionID `json:"draft_version_id,omitempty"`
-	Id             EmailTemplateID         `json:"id"`
+
+	// EditorUrl Optional link to open the saved draft in the browser editor, in its default language. Absent for built-in templates.
+	EditorUrl *string         `json:"editor_url,omitempty"`
+	Id        EmailTemplateID `json:"id"`
 
 	// LanguageSourceRequired Whether a send has to name a language. When true, a send that names none is rejected instead of being served the default language. A broadcast must select a template language when this is set.
 	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
@@ -16706,6 +16709,9 @@ type EmailTemplatePreview struct {
 	// - `warning`: every finding is a `warning`.
 	// - `none`: there are no findings.
 	CompatibilitySeverity *EmailCompatibilityReportSeverity `json:"compatibility_severity,omitempty"`
+
+	// EditorUrl Optional link to open the saved draft in the browser editor, in the language this preview rendered. Absent for built-in templates, published-version previews, and previews of unsaved `content`.
+	EditorUrl *string `json:"editor_url,omitempty"`
 
 	// Html The rendered HTML body. Null when the template has no HTML body.
 	Html *string `json:"html,omitempty"`
