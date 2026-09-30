@@ -619,10 +619,12 @@ func (p EmailStatsByComplaintTypeParams) toWire(startingAfter string) *oapi.GetE
 type EmailStatsByBroadcastParams struct {
 	// Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore string
-	// Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
+	// Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (UTC when omitted). Defaults to 30 days before `to` when omitted.
 	From time.Time
-	// End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
+	// End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (UTC when omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To time.Time
+	// IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone string
 	// Not supported on breakdown endpoints. Supplying it returns a `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category string
 	// Metric to rank rows by, applied descending. Any count or rate in the response may be used; rows whose rate is undefined (zero denominator) sort last. Defaults to `processed`.
@@ -636,6 +638,7 @@ func (p EmailStatsByBroadcastParams) toWire(startingAfter string) *oapi.GetEmail
 		EndingBefore:  optStr(p.EndingBefore),
 		From:          optDate(p.From),
 		To:            optDate(p.To),
+		Timezone:      optStr(p.Timezone),
 		Category:      optStr(p.Category),
 		Sort:          optZero(p.Sort),
 		Limit:         optInt(p.Limit),
@@ -1216,7 +1219,7 @@ func (s *EmailStatsService) ByComplaintTypeAll(ctx context.Context, params Email
 	})
 }
 
-// ByBroadcast Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
+// ByBroadcast Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Aggregate statistics remain available after message activity details expire. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
 func (s *EmailStatsService) ByBroadcast(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) (*EmailStatsByBroadcastResponse, error) {
 	return s.ByBroadcastPage(ctx, params, "", opts...)
 }
@@ -1237,7 +1240,7 @@ func (s *EmailStatsService) ByBroadcastPage(ctx context.Context, params EmailSta
 	return &out, nil
 }
 
-// ByBroadcastAll Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Reflects roughly the last 30 days of activity. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
+// ByBroadcastAll Email delivery and engagement stats grouped by broadcast. Only broadcast sends appear. Aggregate statistics remain available after message activity details expire. For campaigns identified by send-time tags, discover them with `email.stats.by_tag` and use `email.stats.query` for filtered reports or complete per-group series; both tools additionally require emails:read. Broadcast IDs and campaign tag values identify different populations. Use activity in the requested period to identify active broadcasts; creation-date filters on a broadcast list cannot establish whether older broadcasts had activity in that period.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailStatsService) ByBroadcastAll(ctx context.Context, params EmailStatsByBroadcastParams, opts ...option.RequestOption) iter.Seq2[*EmailBroadcastStatsPoint, error] {

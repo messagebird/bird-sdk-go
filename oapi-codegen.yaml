@@ -200,6 +200,9 @@ output-options:
     - listVoiceVerifiedNumbers
     - getVoiceVerifiedNumber
     - verifyVoiceVerifiedNumber
+    - createVoiceVerifiedNumber
+    - updateVoiceVerifiedNumber
+    - deleteVoiceVerifiedNumber
     - listVoiceDestinations
     - updateVoiceDestinations
     - createVerification

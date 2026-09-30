@@ -23620,7 +23620,7 @@ type VoiceNumberProviderVerifiedNumber struct {
 	// - `verified`: the workspace proved ownership of the number. Check the
 	//   resource's activation or direction fields for outbound availability.
 	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-	//   Remove and register the verified number again in the dashboard to retry.
+	//   Delete the verified number and register it again to retry.
 	//
 	// Open enum: additional states may be added over time, so treat an unrecognized
 	// value as a future state rather than an error.
@@ -24033,7 +24033,7 @@ type VoiceVerifiedNumber struct {
 	// - `verified`: the workspace proved ownership of the number. Check the
 	//   resource's activation or direction fields for outbound availability.
 	// - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-	//   Remove and register the verified number again in the dashboard to retry.
+	//   Delete the verified number and register it again to retry.
 	//
 	// Open enum: additional states may be added over time, so treat an unrecognized
 	// value as a future state rather than an error.
@@ -24043,6 +24043,15 @@ type VoiceVerifiedNumber struct {
 	// VerifiedAt When the verified number was verified. `null` when its status is `pending` or `failed`.
 	VerifiedAt  *time.Time  `json:"verified_at"`
 	WorkspaceId WorkspaceID `json:"workspace_id"`
+}
+
+// VoiceVerifiedNumberCreate defines model for VoiceVerifiedNumberCreate.
+type VoiceVerifiedNumberCreate struct {
+	// Name Your label for this verified number, to tell several registered numbers apart. Omit it to register the number without one and add it later. It is yours to choose and appears nowhere on a call, so it never affects what the person you are calling sees.
+	Name *string `json:"name,omitempty"`
+
+	// PhoneNumber The phone number to register as an outbound caller ID, in E.164 format (a leading `+` followed by the country code and national number). Must be unique within the workspace. Creating the verified number starts verification: a verification call is placed to this number.
+	PhoneNumber string `json:"phone_number"`
 }
 
 // VoiceVerifiedNumberID defines model for VoiceVerifiedNumberID.
@@ -24071,11 +24080,17 @@ type VoiceVerifiedNumberSortField string
 //   - `verified`: the workspace proved ownership of the number. Check the
 //     resource's activation or direction fields for outbound availability.
 //   - `failed`: terminal because the verification challenge expired or the attempt limit was exhausted.
-//     Remove and register the verified number again in the dashboard to retry.
+//     Delete the verified number and register it again to retry.
 //
 // Open enum: additional states may be added over time, so treat an unrecognized
 // value as a future state rather than an error.
 type VoiceVerifiedNumberStatus string
+
+// VoiceVerifiedNumberUpdate A change to the verified number's label. Every field is optional; an omitted field is left unchanged.
+type VoiceVerifiedNumberUpdate struct {
+	// Name Your new label for this verified number. Send `null` to clear it and go back to identifying the verified number by its number alone. It is yours to choose and appears nowhere on a call, so renaming never affects what the person you are calling sees, and it leaves the number and its verification untouched.
+	Name nullable.Nullable[string] `json:"name,omitempty"`
+}
 
 // VoiceVerifiedNumberVerifyRequest defines model for VoiceVerifiedNumberVerifyRequest.
 type VoiceVerifiedNumberVerifyRequest struct {
@@ -30066,11 +30081,14 @@ type GetEmailStatsByBroadcastParams struct {
 	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 
-	// From Start date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to 30 days before `to` when omitted.
+	// From Start date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (UTC when omitted). Defaults to 30 days before `to` when omitted.
 	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
 
-	// To End date (inclusive) in `YYYY-MM-DD`, UTC. Defaults to today (UTC) when omitted. Window may not exceed 365 days.
+	// To End date (inclusive) in `YYYY-MM-DD`, interpreted as a calendar day in `timezone` (UTC when omitted). Defaults to today in that timezone when omitted. Window may not exceed 365 days.
 	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// Timezone IANA timezone identifier used to group statistics, for example `Asia/Kathmandu`. The default is UTC. Day and hour boundaries, including the default window when `from` and `to` are omitted, follow this timezone. When this parameter is set, pass `from` and `to` as calendar days or `Z` instants instead of timestamps with explicit UTC offsets.
+	Timezone *StatsTimezone `form:"timezone,omitempty" json:"timezone,omitempty"`
 
 	// Category Not supported on breakdown endpoints. Supplying it returns a `422`. To compare categories, use `GET /v1/email/stats/categories`. The summary, daily, and hourly statistics accept `category` as a filter.
 	Category *string `form:"category,omitempty" json:"category,omitempty"`
@@ -32700,10 +32718,94 @@ type ListVoiceVerifiedNumbersParams struct {
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 }
 
+// CreateVoiceVerifiedNumberParams defines parameters for CreateVoiceVerifiedNumber.
+type CreateVoiceVerifiedNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
+// DeleteVoiceVerifiedNumberParams defines parameters for DeleteVoiceVerifiedNumber.
+type DeleteVoiceVerifiedNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // GetVoiceVerifiedNumberParams defines parameters for GetVoiceVerifiedNumber.
 type GetVoiceVerifiedNumberParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateVoiceVerifiedNumberParams defines parameters for UpdateVoiceVerifiedNumber.
+type UpdateVoiceVerifiedNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // VerifyVoiceVerifiedNumberParams defines parameters for VerifyVoiceVerifiedNumber.
@@ -34060,6 +34162,12 @@ type CreateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayCreate
 
 // UpdateVoiceTrunkGatewayJSONRequestBody defines body for UpdateVoiceTrunkGateway for application/json ContentType.
 type UpdateVoiceTrunkGatewayJSONRequestBody = VoiceTrunkGatewayUpdate
+
+// CreateVoiceVerifiedNumberJSONRequestBody defines body for CreateVoiceVerifiedNumber for application/json ContentType.
+type CreateVoiceVerifiedNumberJSONRequestBody = VoiceVerifiedNumberCreate
+
+// UpdateVoiceVerifiedNumberJSONRequestBody defines body for UpdateVoiceVerifiedNumber for application/json ContentType.
+type UpdateVoiceVerifiedNumberJSONRequestBody = VoiceVerifiedNumberUpdate
 
 // VerifyVoiceVerifiedNumberJSONRequestBody defines body for VerifyVoiceVerifiedNumber for application/json ContentType.
 type VerifyVoiceVerifiedNumberJSONRequestBody = VoiceVerifiedNumberVerifyRequest
@@ -41165,8 +41273,21 @@ type ClientInterface interface {
 	// ListVoiceVerifiedNumbers request
 	ListVoiceVerifiedNumbers(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CreateVoiceVerifiedNumberWithBody request with any body
+	CreateVoiceVerifiedNumberWithBody(ctx context.Context, params *CreateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateVoiceVerifiedNumber(ctx context.Context, params *CreateVoiceVerifiedNumberParams, body CreateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteVoiceVerifiedNumber request
+	DeleteVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *DeleteVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetVoiceVerifiedNumber request
 	GetVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceVerifiedNumberWithBody request with any body
+	UpdateVoiceVerifiedNumberWithBody(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, body UpdateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// VerifyVoiceVerifiedNumberWithBody request with any body
 	VerifyVoiceVerifiedNumberWithBody(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -45251,8 +45372,68 @@ func (c *Client) ListVoiceVerifiedNumbers(ctx context.Context, params *ListVoice
 	return c.Client.Do(req)
 }
 
+func (c *Client) CreateVoiceVerifiedNumberWithBody(ctx context.Context, params *CreateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceVerifiedNumberRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateVoiceVerifiedNumber(ctx context.Context, params *CreateVoiceVerifiedNumberParams, body CreateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateVoiceVerifiedNumberRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *DeleteVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteVoiceVerifiedNumberRequest(c.Server, verifiedNumberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) GetVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetVoiceVerifiedNumberRequest(c.Server, verifiedNumberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceVerifiedNumberWithBody(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceVerifiedNumberRequestWithBody(c.Server, verifiedNumberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceVerifiedNumber(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, body UpdateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceVerifiedNumberRequest(c.Server, verifiedNumberId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -55969,6 +56150,18 @@ func NewGetEmailStatsByBroadcastRequest(server string, params *GetEmailStatsByBr
 		if params.To != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Timezone != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "timezone", *params.Timezone, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -66909,6 +67102,132 @@ func NewListVoiceVerifiedNumbersRequest(server string, params *ListVoiceVerified
 	return req, nil
 }
 
+// NewCreateVoiceVerifiedNumberRequest calls the generic CreateVoiceVerifiedNumber builder with application/json body
+func NewCreateVoiceVerifiedNumberRequest(server string, params *CreateVoiceVerifiedNumberParams, body CreateVoiceVerifiedNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateVoiceVerifiedNumberRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateVoiceVerifiedNumberRequestWithBody generates requests for CreateVoiceVerifiedNumber with any type of body
+func NewCreateVoiceVerifiedNumberRequestWithBody(server string, params *CreateVoiceVerifiedNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteVoiceVerifiedNumberRequest generates requests for DeleteVoiceVerifiedNumber
+func NewDeleteVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerifiedNumberID, params *DeleteVoiceVerifiedNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "verified_number_id", verifiedNumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewGetVoiceVerifiedNumberRequest generates requests for GetVoiceVerifiedNumber
 func NewGetVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams) (*http.Request, error) {
 	var err error
@@ -66951,6 +67270,79 @@ func NewGetVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerif
 			}
 
 			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceVerifiedNumberRequest calls the generic UpdateVoiceVerifiedNumber builder with application/json body
+func NewUpdateVoiceVerifiedNumberRequest(server string, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, body UpdateVoiceVerifiedNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceVerifiedNumberRequestWithBody(server, verifiedNumberId, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceVerifiedNumberRequestWithBody generates requests for UpdateVoiceVerifiedNumber with any type of body
+func NewUpdateVoiceVerifiedNumberRequestWithBody(server string, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "verified_number_id", verifiedNumberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/verified-numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -72767,8 +73159,21 @@ type ClientWithResponsesInterface interface {
 	// ListVoiceVerifiedNumbersWithResponse request
 	ListVoiceVerifiedNumbersWithResponse(ctx context.Context, params *ListVoiceVerifiedNumbersParams, reqEditors ...RequestEditorFn) (*ListVoiceVerifiedNumbersResponse, error)
 
+	// CreateVoiceVerifiedNumberWithBodyWithResponse request with any body
+	CreateVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, params *CreateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceVerifiedNumberResponse, error)
+
+	CreateVoiceVerifiedNumberWithResponse(ctx context.Context, params *CreateVoiceVerifiedNumberParams, body CreateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceVerifiedNumberResponse, error)
+
+	// DeleteVoiceVerifiedNumberWithResponse request
+	DeleteVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *DeleteVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceVerifiedNumberResponse, error)
+
 	// GetVoiceVerifiedNumberWithResponse request
 	GetVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceVerifiedNumberResponse, error)
+
+	// UpdateVoiceVerifiedNumberWithBodyWithResponse request with any body
+	UpdateVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceVerifiedNumberResponse, error)
+
+	UpdateVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, body UpdateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceVerifiedNumberResponse, error)
 
 	// VerifyVoiceVerifiedNumberWithBodyWithResponse request with any body
 	VerifyVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *VerifyVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*VerifyVoiceVerifiedNumberResponse, error)
@@ -82490,6 +82895,83 @@ func (r ListVoiceVerifiedNumbersResponse) ContentType() string {
 	return ""
 }
 
+type CreateVoiceVerifiedNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *VoiceVerifiedNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateVoiceVerifiedNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateVoiceVerifiedNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateVoiceVerifiedNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteVoiceVerifiedNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteVoiceVerifiedNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteVoiceVerifiedNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteVoiceVerifiedNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetVoiceVerifiedNumberResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -82521,6 +83003,45 @@ func (r GetVoiceVerifiedNumberResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetVoiceVerifiedNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceVerifiedNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceVerifiedNumber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceVerifiedNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceVerifiedNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceVerifiedNumberResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -87793,6 +88314,32 @@ func (c *ClientWithResponses) ListVoiceVerifiedNumbersWithResponse(ctx context.C
 	return ParseListVoiceVerifiedNumbersResponse(rsp)
 }
 
+// CreateVoiceVerifiedNumberWithBodyWithResponse request with arbitrary body returning *CreateVoiceVerifiedNumberResponse
+func (c *ClientWithResponses) CreateVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, params *CreateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.CreateVoiceVerifiedNumberWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceVerifiedNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateVoiceVerifiedNumberWithResponse(ctx context.Context, params *CreateVoiceVerifiedNumberParams, body CreateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.CreateVoiceVerifiedNumber(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateVoiceVerifiedNumberResponse(rsp)
+}
+
+// DeleteVoiceVerifiedNumberWithResponse request returning *DeleteVoiceVerifiedNumberResponse
+func (c *ClientWithResponses) DeleteVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *DeleteVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*DeleteVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.DeleteVoiceVerifiedNumber(ctx, verifiedNumberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteVoiceVerifiedNumberResponse(rsp)
+}
+
 // GetVoiceVerifiedNumberWithResponse request returning *GetVoiceVerifiedNumberResponse
 func (c *ClientWithResponses) GetVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *GetVoiceVerifiedNumberParams, reqEditors ...RequestEditorFn) (*GetVoiceVerifiedNumberResponse, error) {
 	rsp, err := c.GetVoiceVerifiedNumber(ctx, verifiedNumberId, params, reqEditors...)
@@ -87800,6 +88347,23 @@ func (c *ClientWithResponses) GetVoiceVerifiedNumberWithResponse(ctx context.Con
 		return nil, err
 	}
 	return ParseGetVoiceVerifiedNumberResponse(rsp)
+}
+
+// UpdateVoiceVerifiedNumberWithBodyWithResponse request with arbitrary body returning *UpdateVoiceVerifiedNumberResponse
+func (c *ClientWithResponses) UpdateVoiceVerifiedNumberWithBodyWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.UpdateVoiceVerifiedNumberWithBody(ctx, verifiedNumberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceVerifiedNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceVerifiedNumberWithResponse(ctx context.Context, verifiedNumberId VoiceVerifiedNumberID, params *UpdateVoiceVerifiedNumberParams, body UpdateVoiceVerifiedNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceVerifiedNumberResponse, error) {
+	rsp, err := c.UpdateVoiceVerifiedNumber(ctx, verifiedNumberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceVerifiedNumberResponse(rsp)
 }
 
 // VerifyVoiceVerifiedNumberWithBodyWithResponse request with arbitrary body returning *VerifyVoiceVerifiedNumberResponse
@@ -108211,6 +108775,177 @@ func ParseListVoiceVerifiedNumbersResponse(rsp *http.Response) (*ListVoiceVerifi
 	return response, nil
 }
 
+// ParseCreateVoiceVerifiedNumberResponse parses an HTTP response from a CreateVoiceVerifiedNumberWithResponse call
+func ParseCreateVoiceVerifiedNumberResponse(rsp *http.Response) (*CreateVoiceVerifiedNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateVoiceVerifiedNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest VoiceVerifiedNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteVoiceVerifiedNumberResponse parses an HTTP response from a DeleteVoiceVerifiedNumberWithResponse call
+func ParseDeleteVoiceVerifiedNumberResponse(rsp *http.Response) (*DeleteVoiceVerifiedNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteVoiceVerifiedNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetVoiceVerifiedNumberResponse parses an HTTP response from a GetVoiceVerifiedNumberWithResponse call
 func ParseGetVoiceVerifiedNumberResponse(rsp *http.Response) (*GetVoiceVerifiedNumberResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -108280,6 +109015,95 @@ func ParseGetVoiceVerifiedNumberResponse(rsp *http.Response) (*GetVoiceVerifiedN
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceVerifiedNumberResponse parses an HTTP response from a UpdateVoiceVerifiedNumberWithResponse call
+func ParseUpdateVoiceVerifiedNumberResponse(rsp *http.Response) (*UpdateVoiceVerifiedNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceVerifiedNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceVerifiedNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

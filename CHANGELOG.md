@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.83.0
+
+- Clarify that broadcast aggregate statistics remain available after message activity details expire, with approximate counts and latency percentiles and reported refresh freshness.
+- Broadcast statistics accept `timezone` for customer-local date windows, with UTC as the default.
+
 ## 0.82.0
 
 - Email template reads and saved-draft previews expose `editor_url` for opening the browser editor.

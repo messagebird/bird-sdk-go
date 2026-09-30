@@ -4361,6 +4361,48 @@ func ExampleVoiceVerifiedNumbersService_Verify() {
 	fmt.Println(verifiedNumber.Id, verifiedNumber.Status)
 }
 
+func ExampleVoiceVerifiedNumbersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// This places a verification call to the number that reads out a code.
+	verifiedNumber, err := client.Voice.VerifiedNumbers.Create(context.Background(), bird.VoiceVerifiedNumbersCreateParams{
+		PhoneNumber: "+14155551234",
+		Name:        bird.Ptr("Support line"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(verifiedNumber.Id, verifiedNumber.Status)
+}
+
+func ExampleVoiceVerifiedNumbersService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	verifiedNumber, err := client.Voice.VerifiedNumbers.Update(context.Background(), "vvn_01krdgeqcxet5s7t44vh8rt9mg", bird.VoiceVerifiedNumbersUpdateParams{
+		Name: bird.Value("Sales line"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if verifiedNumber.Name != nil {
+		fmt.Println(*verifiedNumber.Name)
+	}
+}
+
+func ExampleVoiceVerifiedNumbersService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Voice.VerifiedNumbers.Delete(context.Background(), "vvn_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func ExampleVoiceDestinationsService_Update() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

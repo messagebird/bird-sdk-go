@@ -44,6 +44,33 @@ func (p VoiceVerifiedNumbersVerifyParams) toWire() oapi.VoiceVerifiedNumberVerif
 	return body
 }
 
+// VoiceVerifiedNumbersCreateParams is the request body for create.
+type VoiceVerifiedNumbersCreateParams struct {
+	// The phone number to register as an outbound caller ID, in E.164 format (a leading `+` followed by the country code and national number). Must be unique within the workspace. Creating the verified number starts verification: a verification call is placed to this number.
+	PhoneNumber string
+	// Your label for this verified number, to tell several registered numbers apart. Omit it to register the number without one and add it later. It is yours to choose and appears nowhere on a call, so it never affects what the person you are calling sees.
+	Name *string
+}
+
+func (p VoiceVerifiedNumbersCreateParams) toWire() oapi.VoiceVerifiedNumberCreate {
+	body := oapi.VoiceVerifiedNumberCreate{}
+	body.PhoneNumber = p.PhoneNumber
+	body.Name = p.Name
+	return body
+}
+
+// VoiceVerifiedNumbersUpdateParams is the request body for update.
+type VoiceVerifiedNumbersUpdateParams struct {
+	// Your new label for this verified number. Send `null` to clear it and go back to identifying the verified number by its number alone. It is yours to choose and appears nowhere on a call, so renaming never affects what the person you are calling sees, and it leaves the number and its verification untouched.
+	Name Nullable[string]
+}
+
+func (p VoiceVerifiedNumbersUpdateParams) toWire() oapi.VoiceVerifiedNumberUpdate {
+	body := oapi.VoiceVerifiedNumberUpdate{}
+	body.Name = p.Name
+	return body
+}
+
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
 func (s *VoiceVerifiedNumbersService) ListPage(ctx context.Context, params VoiceVerifiedNumbersListParams, startingAfter string, opts ...option.RequestOption) (*VoiceVerifiedNumberList, error) {
@@ -92,7 +119,7 @@ func (s *VoiceVerifiedNumbersService) Get(ctx context.Context, verifiedNumberId 
 	return &out, nil
 }
 
-// Verify Complete a number ownership verification challenge started in the dashboard. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For expired or exhausted challenges, use Get a new code in the dashboard and list verified numbers to obtain the replacement ID.
+// Verify Complete the ownership verification challenge that `voice.verified_numbers.create` started. Recovery may place another verification call and requires registration eligibility. Submit the code while ownership proof is pending. If proof was saved but outbound activation returned 412 or 503, resolve the issue and resubmit an empty object to reuse the proof. For an expired or exhausted challenge, delete the verified number and create it again, then submit the code against the ID that create returns.
 func (s *VoiceVerifiedNumbersService) Verify(ctx context.Context, verifiedNumberId string, params VoiceVerifiedNumbersVerifyParams, opts ...option.RequestOption) (*VoiceVerifiedNumber, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.VerifyVoiceVerifiedNumberParams{}
@@ -109,4 +136,54 @@ func (s *VoiceVerifiedNumbersService) Verify(ctx context.Context, verifiedNumber
 		return nil, err
 	}
 	return &out, nil
+}
+
+// Create Register a phone number as an outbound caller ID for the workspace. This places a verification call to the number that reads out a code, so register only a number the user controls. Returns the verified number in the "pending" state; submit the code with `voice.verified_numbers.verify`. A 412 means the organization's identity verification is incomplete, which is completed in the dashboard, or that an eligibility review or denial needs support. A 503 means the eligibility assessment is still pending; retry later.
+func (s *VoiceVerifiedNumbersService) Create(ctx context.Context, params VoiceVerifiedNumbersCreateParams, opts ...option.RequestOption) (*VoiceVerifiedNumber, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateVoiceVerifiedNumberParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateVoiceVerifiedNumber(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out VoiceVerifiedNumber
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Update Set or clear the label on a verified number; send `name` as null to clear it. The number and its verification state are unchanged, and the label never appears on a call.
+func (s *VoiceVerifiedNumbersService) Update(ctx context.Context, verifiedNumberId string, params VoiceVerifiedNumbersUpdateParams, opts ...option.RequestOption) (*VoiceVerifiedNumber, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateVoiceVerifiedNumberParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateVoiceVerifiedNumber(ctx, oapi.VoiceVerifiedNumberID(verifiedNumberId), op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out VoiceVerifiedNumber
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Delete Permanently delete a verified number by ID. After deletion the number can no longer be presented as the outbound caller ID and must be re-registered and verified to use it again. Deleting a pending registration and creating it again is how an expired or exhausted verification challenge is replaced.
+func (s *VoiceVerifiedNumbersService) Delete(ctx context.Context, verifiedNumberId string, opts ...option.RequestOption) error {
+	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.DeleteVoiceVerifiedNumberParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.DeleteVoiceVerifiedNumber(ctx, oapi.VoiceVerifiedNumberID(verifiedNumberId), op, cfg...)
+	})
+	return err
 }

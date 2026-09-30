@@ -200,6 +200,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Voice.VerifiedNumbers.List
 	_ = c.Voice.VerifiedNumbers.Get
 	_ = c.Voice.VerifiedNumbers.Verify
+	_ = c.Voice.VerifiedNumbers.Create
+	_ = c.Voice.VerifiedNumbers.Update
+	_ = c.Voice.VerifiedNumbers.Delete
 	_ = c.Voice.Destinations.List
 	_ = c.Voice.Destinations.Update
 	_ = c.Verify.Verifications.Create
