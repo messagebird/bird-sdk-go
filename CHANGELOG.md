@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.84.0
+
+- Voice verified numbers can now be registered, renamed and deleted: the SDKs gain `verifiedNumbers.create`, `update` and `delete` (`VerifiedNumbers` in Go, `verified_numbers` in Python), the CLI gains `bird voice verified-numbers create`, `update` and `delete`, and the MCP server gains `voice_verified_numbers_create`, `_update` and `_delete`. Registering a number places a verification call to it.
+
 ## 0.83.0
 
 - Clarify that broadcast aggregate statistics remain available after message activity details expire, with approximate counts and latency percentiles and reported refresh freshness.
