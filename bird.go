@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.84.0"
+	version = "0.85.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -302,8 +302,26 @@ func (c *Client) callEditors(cfg requestconfig.Config) []oapi.RequestEditorFn {
 		req.Header.Set("Bird-Lang", "go")
 		req.Header.Set("Bird-Os", runtime.GOOS)
 		req.Header.Set("Bird-Arch", runtime.GOARCH)
-		if c := detectCaller(os.Getenv); c != "" {
-			req.Header.Set("Bird-Caller", c)
+		if clientEnrichmentDisabled(os.Getenv) || c.cfg.Header.Get("Bird-Enrichment") == "0" || cfg.Header.Get("Bird-Enrichment") == "0" {
+			req.Header.Set("Bird-Enrichment", "0")
+		} else {
+			info := detectCallerInfo(os.Getenv)
+			if info.name != "" {
+				req.Header.Set("Bird-Caller", info.name)
+				req.Header.Set("Bird-Caller-Source", info.source)
+				req.Header.Set("Bird-Caller-Execution", info.execution)
+			}
+			model, source := info.model, info.modelSource
+			if values, ok := cfg.Header[http.CanonicalHeaderKey("Bird-Model")]; ok {
+				model, source = "", "declared"
+				if len(values) != 0 {
+					model = normalizeModel(values[0])
+				}
+			}
+			if model != "" {
+				req.Header.Set("Bird-Model", model)
+				req.Header.Set("Bird-Model-Source", source)
+			}
 		}
 		if cfg.APIVersion != "" {
 			req.Header.Set("X-Bird-API-Version", cfg.APIVersion)
@@ -365,7 +383,7 @@ func (c *Client) credentialEditors(cfg requestconfig.Config, schemes []string) (
 func isReservedHeader(key string) bool {
 	switch http.CanonicalHeaderKey(key) {
 	case "Authorization", "User-Agent", "X-Bird-Api-Version", "Idempotency-Key",
-		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch", "Bird-Caller",
+		"Bird-Surface", "Bird-Version", "Bird-Lang", "Bird-Os", "Bird-Arch", "Bird-Caller", "Bird-Caller-Source", "Bird-Caller-Execution", "Bird-Model", "Bird-Model-Source", "Bird-Enrichment",
 		// Realtime app credentials come from option.WithRealtimeCredentials and are
 		// stamped by the generated request builder; the editors below must not
 		// overwrite them from a caller's option.WithHeader.

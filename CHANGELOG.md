@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.85.0
+
+- Add `monthly_active_contacts` to Apple Messages statistics summaries.
+- Add intent and group filters when listing Apple Messages for Business conversations.
+- **Breaking:** contact batch requests use `ContactBatchEntry` for each contact. Replace `ContactCreateRequest` entries with `ContactBatchEntry` entries, and set an entry's email with `bird.Ptr`.
+- A watched brand's campaign list now computes `captured` and `promo_rate` from the newest 100 panel rows per tracked domain instead of 300. Cursors issued before this release fail with HTTP 422 and error code `E01012` (`InvalidCursor`); restart the list without `starting_after` or `ending_before` to get fresh ones.
+- Detect configured public model identifiers for matched Claude Code and Gemini callers.
+- Reject false caller markers and retain attribution provenance.
+- Send bounded configured-model identifiers and caller evidence, with a client enrichment opt-out.
+
 ## 0.84.0
 
 - Voice verified numbers can now be registered, renamed and deleted: the SDKs gain `verifiedNumbers.create`, `update` and `delete` (`VerifiedNumbers` in Go, `verified_numbers` in Python), the CLI gains `bird voice verified-numbers create`, `update` and `delete`, and the MCP server gains `voice_verified_numbers_create`, `_update` and `_delete`. Registering a number places a verification call to it.

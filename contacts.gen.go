@@ -12,7 +12,7 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
-type ContactCreateRequest = oapi.ContactCreateRequest
+type ContactBatchEntry = oapi.ContactBatchEntry
 
 type ContactMatchKey = oapi.ContactMatchKey
 
@@ -117,7 +117,7 @@ func (p ContactUpdateParams) toWire() oapi.ContactUpdateRequest {
 // ContactBatchParams is the request body for batch.
 type ContactBatchParams struct {
 	// Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
-	Contacts []ContactCreateRequest
+	Contacts []ContactBatchEntry
 	// Audiences every contact in this request is added to. Contacts that are already members are left in place. Every listed audience must exist, or the whole request fails with a validation error and nothing is written.
 	AudienceIDs []string
 	// Optional field used to match every entry to an existing contact. Every entry must include this field when set. When omitted, each entry is matched against all identifiers it supplies. No match creates a contact, one match updates it, and identifiers that match multiple contacts return an error naming each contact.

@@ -42,3 +42,7 @@ The wire types and a low-level client are generated from the OpenAPI spec into `
 Use `client.Amb.Send` to reply to an open, customer-initiated conversation as a configured, connected business account. Set `BIRD_API_KEY` and `AMB_CONVERSATION_ID`, then run the [Apple Messages example](examples/quickstart-amb/main.go). The key needs `amb:read`, `amb:write` and `amb_management:read`.
 
 The example sends a real reply. Verify the recipient and content before running it. `accepted` means queued; `sent` means Apple gateway acceptance, not device delivery or a read receipt. Native payment, authentication and invitation requests are not part of this public channel release.
+
+## Client enrichment
+
+Requests can include caller provenance and **configured model (self-reported)** for matched Claude Code and Gemini environments. Only known public model IDs/aliases or `other` are sent. Set `BIRD_CLIENT_ENRICHMENT=0` to opt out; `DO_NOT_TRACK` and `BIRD_TELEMETRY=0` also disable enrichment. Existing header options accept a per-request `Bird-Model` declaration or `Bird-Enrichment: 0` opt-out; model declarations are normalized before sending.

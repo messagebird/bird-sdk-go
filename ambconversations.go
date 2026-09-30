@@ -15,6 +15,8 @@ type AmbConversationsListParams struct {
 	InboxStatus       ConversationInboxStatus `json:"inbox_status"`
 	Queue             *string                 `json:"queue"`
 	AssignedTo        string                  `json:"assigned_to"`
+	IntentID          string                  `json:"intent_id"`
+	GroupID           string                  `json:"group_id"`
 	Label             []string                `json:"label"`
 	Limit             int                     `json:"limit"`
 	EndingBefore      string                  `json:"ending_before"`
@@ -26,6 +28,8 @@ func (p AmbConversationsListParams) toWire(startingAfter string) *oapi.ListAMBCo
 		Status:            optZero(p.Status),
 		InboxStatus:       optZero(p.InboxStatus),
 		Queue:             p.Queue,
+		IntentId:          optStr(p.IntentID),
+		GroupId:           optStr(p.GroupID),
 		AssignedTo:        optStr(p.AssignedTo),
 		Label:             optSlice(p.Label),
 		Limit:             optInt(p.Limit),

@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strconv"
 	"strings"
 	"testing"
@@ -608,6 +609,74 @@ func TestSDKHeadersWinOverCallerHeaders(t *testing.T) {
 	if gotCustom != "trace-123" {
 		t.Errorf("non-reserved custom header should be forwarded: %q", gotCustom)
 	}
+	raw, err := os.ReadFile("testdata/caller-detection-cases.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fixtures struct {
+		Cases []struct {
+			Env map[string]string `json:"env"`
+		} `json:"cases"`
+		EnrichmentCases []struct {
+			Name    string            `json:"name"`
+			Env     map[string]string `json:"env"`
+			Headers map[string]string `json:"headers"`
+			Want    map[string]string `json:"want"`
+		} `json:"enrichment_cases"`
+	}
+	if err := json.Unmarshal(raw, &fixtures); err != nil {
+		t.Fatal(err)
+	}
+	envKeys := map[string]bool{"DO_NOT_TRACK": true, "BIRD_TELEMETRY": true, "BIRD_CLIENT_ENRICHMENT": true}
+	for _, tc := range fixtures.Cases {
+		for key := range tc.Env {
+			envKeys[key] = true
+		}
+	}
+	for _, tc := range fixtures.EnrichmentCases {
+		t.Run(tc.Name, func(t *testing.T) {
+			for key := range envKeys {
+				t.Setenv(key, "")
+			}
+			for key, value := range tc.Env {
+				t.Setenv(key, value)
+			}
+			var seen http.Header
+			target := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+				seen = r.Header.Clone()
+				w.WriteHeader(http.StatusCreated)
+				_, _ = io.WriteString(w, messageJSON)
+			})
+			opts := []option.RequestOption{}
+			headers := make(http.Header)
+			for key, value := range tc.Headers {
+				opts = append(opts, option.WithHeader(key, value))
+				headers.Set(key, value)
+			}
+			var clientOpts []option.RequestOption
+			if headers.Get("Bird-Enrichment") == "0" {
+				clientOpts = append(clientOpts, option.WithHeader("Bird-Enrichment", "0"))
+				opts = append(opts, option.WithHeader("Bird-Enrichment", "1"))
+			}
+			_, err := newClient(t, target, clientOpts...).Email.Send(context.Background(), bird.EmailSendParams{From: "a@example.invalid", To: []string{"b@example.invalid"}, Subject: "fixture", Text: "fixture"}, opts...)
+			if err != nil {
+				t.Fatal(err)
+			}
+			for key, want := range tc.Want {
+				if got := seen.Get(key); got != want {
+					t.Errorf("%s = %q, want %q", key, got, want)
+				}
+			}
+			for _, values := range seen {
+				for _, value := range values {
+					if strings.Contains(value, "private-") {
+						t.Fatal("raw private model metadata reached the wire")
+					}
+				}
+			}
+		})
+	}
+
 }
 
 func TestVerbMethodsEscapeHatch(t *testing.T) {

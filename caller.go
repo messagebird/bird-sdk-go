@@ -2,26 +2,43 @@ package bird
 
 import "strings"
 
-// detectCaller infers the environment driving the SDK, for the Bird-Caller
-// usage-telemetry label, by walking the generated callerRules in order (the
-// single source is clients/caller-detection.yaml, shared with the CLI and the
-// other SDKs). Best-effort and non-authoritative: it only labels traffic, never
-// gates behavior. getenv is injected so the rules are table-tested against the
-// shared golden vectors.
-func detectCaller(getenv func(string) string) string {
+type callerInfo struct {
+	model       string
+	modelSource string
+	name        string
+	source      string
+	execution   string
+}
+
+func detectCallerInfo(getenv func(string) string) callerInfo {
 	for _, r := range callerRules {
 		v := getenv(r.env)
-		if v == "" || (r.equals != "" && v != r.equals) {
+		_, falseLike := callerFalseLike[strings.ToLower(strings.TrimSpace(v))]
+		if strings.TrimSpace(v) == "" || falseLike || (r.equals != "" && v != r.equals) {
 			continue
 		}
-		if !r.passthrough {
-			return r.name
+		caller := r.name
+		if r.passthrough {
+			caller = sanitizeCaller(v)
 		}
-		if c := sanitizeCaller(v); c != "" {
-			return c
+		if caller == "" {
+			continue
 		}
+		evidence := r.execution
+		if r.verification == "unverified" {
+			evidence = "unknown"
+		}
+		signal := "env:" + r.env
+		info := callerInfo{name: caller, source: signal, execution: evidence}
+		if modelEnv := callerModelEnv[caller]; modelEnv != "" {
+			info.model = normalizeModel(getenv(modelEnv))
+			if info.model != "" {
+				info.modelSource = "env:" + modelEnv
+			}
+		}
+		return info
 	}
-	return callerDefault
+	return callerInfo{name: callerDefault, source: "fallback", execution: "unknown"}
 }
 
 // sanitizeCaller lowercases and bounds a passthrough (AGENT=<name>) value the
@@ -43,4 +60,19 @@ func sanitizeCaller(v string) string {
 		}
 	}
 	return v
+}
+
+func normalizeModel(raw string) string {
+	model := strings.ToLower(strings.TrimSpace(raw))
+	if model == "" {
+		return ""
+	}
+	if _, ok := callerPublicModels[model]; ok {
+		return model
+	}
+	return "other"
+}
+
+func clientEnrichmentDisabled(getenv func(string) string) bool {
+	return getenv("DO_NOT_TRACK") != "" || getenv("BIRD_TELEMETRY") == "0" || getenv("BIRD_CLIENT_ENRICHMENT") == "0"
 }

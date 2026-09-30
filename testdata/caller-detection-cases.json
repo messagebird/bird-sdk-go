@@ -1,53 +1,669 @@
 {
   "_comment": "Golden test vectors for Bird-Caller detection, shared by the CLI (commandapi) + all three SDK test suites so the per-language detector shells cannot silently diverge: each `env` fixture must resolve to `want` in every language. JSON (not YAML) so every language parses it with only its stdlib. Hand-maintained alongside caller-detection.yaml; add a case when you add or reorder a rule.",
   "cases": [
-    {"name": "empty env is shell", "env": {}, "want": "shell"},
-
-    {"name": "claude code", "env": {"CLAUDECODE": "1"}, "want": "claude-code"},
-    {"name": "codex", "env": {"CODEX_CI": "1"}, "want": "codex"},
-    {"name": "gemini", "env": {"GEMINI_CLI": "1"}, "want": "gemini"},
-    {"name": "qwen", "env": {"QWEN_CODE": "1"}, "want": "qwen"},
-    {"name": "pi", "env": {"PI_CODING_AGENT": "true"}, "want": "pi"},
-    {"name": "opencode", "env": {"OPENCODE": "1"}, "want": "opencode"},
-    {"name": "cline", "env": {"CLINE_ACTIVE": "true"}, "want": "cline"},
-    {"name": "roo", "env": {"ROO_ACTIVE": "true"}, "want": "roo"},
-    {"name": "cursor via trace id", "env": {"CURSOR_TRACE_ID": "abc"}, "want": "cursor"},
-    {"name": "cursor via agent flag", "env": {"CURSOR_AGENT": "1"}, "want": "cursor"},
-    {"name": "grok bot via its agent flag", "env": {"SAND_AGENT": "1"}, "want": "grokbot"},
-    {"name": "grok bot wins over the cursor flag it also sets", "env": {"SAND_AGENT": "1", "CURSOR_AGENT": "1"}, "want": "grokbot"},
-    {"name": "grok bot via macos bundle id", "env": {"__CFBundleIdentifier": "com.anysphere.sand", "CURSOR_AGENT": "1"}, "want": "grokbot"},
-    {"name": "cursor bundle id stays cursor", "env": {"__CFBundleIdentifier": "com.todesktop.230313mzl4w4u92", "CURSOR_AGENT": "1"}, "want": "cursor"},
-    {"name": "antigravity", "env": {"ANTIGRAVITY_AGENT": "1"}, "want": "antigravity"},
-    {"name": "augment", "env": {"AUGMENT_AGENT": "1"}, "want": "augment"},
-    {"name": "replit", "env": {"REPL_ID": "xyz"}, "want": "replit"},
-
-    {"name": "agent goose", "env": {"AGENT": "goose"}, "want": "goose"},
-    {"name": "agent crush", "env": {"AGENT": "crush"}, "want": "crush"},
-    {"name": "agent amp", "env": {"AGENT": "amp"}, "want": "amp"},
-    {"name": "ai_agent crush", "env": {"AI_AGENT": "crush"}, "want": "crush"},
-    {"name": "agent value case-folded", "env": {"AGENT": "Goose"}, "want": "goose"},
-
-    {"name": "ci", "env": {"CI": "true"}, "want": "ci"},
-    {"name": "github actions", "env": {"GITHUB_ACTIONS": "true"}, "want": "ci"},
-    {"name": "zed via term program", "env": {"TERM_PROGRAM": "zed"}, "want": "zed"},
-    {"name": "zed via zed_term", "env": {"ZED_TERM": "true"}, "want": "zed"},
-    {"name": "kiro", "env": {"TERM_PROGRAM": "kiro"}, "want": "kiro"},
-    {"name": "warp", "env": {"TERM_PROGRAM": "WarpTerminal"}, "want": "warp"},
-    {"name": "jetbrains", "env": {"TERMINAL_EMULATOR": "JetBrains-JediTerm"}, "want": "jetbrains"},
-    {"name": "vscode", "env": {"TERM_PROGRAM": "vscode"}, "want": "vscode"},
-    {"name": "windsurf via macos bundle id", "env": {"__CFBundleIdentifier": "com.exafunction.windsurf", "TERM_PROGRAM": "vscode"}, "want": "windsurf"},
-    {"name": "non-windsurf bundle id falls through to vscode", "env": {"__CFBundleIdentifier": "com.microsoft.VSCode", "TERM_PROGRAM": "vscode"}, "want": "vscode"},
-
-    {"name": "agent boolean skipped falls through", "env": {"AGENT": "1"}, "want": "shell"},
-    {"name": "agent true skipped", "env": {"AGENT": "true"}, "want": "shell"},
-    {"name": "opencode marker wins over AGENT=1", "env": {"OPENCODE": "1", "AGENT": "1"}, "want": "opencode"},
-
-    {"name": "cursor wins over vscode", "env": {"CURSOR_TRACE_ID": "abc", "TERM_PROGRAM": "vscode"}, "want": "cursor"},
-    {"name": "agent wins over ci", "env": {"AGENT": "goose", "CI": "true"}, "want": "goose"},
-    {"name": "agent wins over replit host", "env": {"AGENT": "goose", "REPL_ID": "xyz"}, "want": "goose"},
-    {"name": "claude code wins over ci and vscode", "env": {"CLAUDECODE": "1", "CI": "true", "TERM_PROGRAM": "vscode"}, "want": "claude-code"},
-
-    {"name": "agent illegal chars skipped", "env": {"AGENT": "rm -rf /"}, "want": "shell"},
-    {"name": "overlong agent skipped", "env": {"AGENT": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}, "want": "shell"}
+    {
+      "name": "empty env is shell",
+      "env": {},
+      "want": "shell",
+      "source": "fallback",
+      "execution": "unknown"
+    },
+    {
+      "name": "claude code",
+      "env": {
+        "CLAUDECODE": "1",
+        "CLAUDE_CODE_CHILD_SESSION": "false"
+      },
+      "want": "claude-code",
+      "source": "env:CLAUDECODE",
+      "execution": "unknown"
+    },
+    {
+      "name": "codex",
+      "env": {
+        "CODEX_CI": "1"
+      },
+      "want": "codex",
+      "source": "env:CODEX_CI",
+      "execution": "declared"
+    },
+    {
+      "name": "gemini",
+      "env": {
+        "GEMINI_CLI": "1"
+      },
+      "want": "gemini"
+    },
+    {
+      "name": "qwen",
+      "env": {
+        "QWEN_CODE": "1"
+      },
+      "want": "qwen"
+    },
+    {
+      "name": "pi",
+      "env": {
+        "PI_CODING_AGENT": "true"
+      },
+      "want": "pi"
+    },
+    {
+      "name": "opencode",
+      "env": {
+        "OPENCODE": "1"
+      },
+      "want": "opencode"
+    },
+    {
+      "name": "cline",
+      "env": {
+        "CLINE_ACTIVE": "true"
+      },
+      "want": "cline",
+      "source": "env:CLINE_ACTIVE",
+      "execution": "unknown"
+    },
+    {
+      "name": "roo",
+      "env": {
+        "ROO_ACTIVE": "true"
+      },
+      "want": "roo"
+    },
+    {
+      "name": "cursor via trace id",
+      "env": {
+        "CURSOR_TRACE_ID": "abc"
+      },
+      "want": "cursor"
+    },
+    {
+      "name": "cursor via agent flag",
+      "env": {
+        "CURSOR_AGENT": "1"
+      },
+      "want": "cursor"
+    },
+    {
+      "name": "grok bot via its agent flag",
+      "env": {
+        "SAND_AGENT": "1"
+      },
+      "want": "grokbot",
+      "source": "env:SAND_AGENT",
+      "execution": "unknown"
+    },
+    {
+      "name": "grok bot wins over the cursor flag it also sets",
+      "env": {
+        "SAND_AGENT": "1",
+        "CURSOR_AGENT": "1"
+      },
+      "want": "grokbot"
+    },
+    {
+      "name": "grok bot via macos bundle id",
+      "env": {
+        "__CFBundleIdentifier": "com.anysphere.sand",
+        "CURSOR_AGENT": "1"
+      },
+      "want": "grokbot"
+    },
+    {
+      "name": "cursor bundle id stays cursor",
+      "env": {
+        "__CFBundleIdentifier": "com.todesktop.230313mzl4w4u92",
+        "CURSOR_AGENT": "1"
+      },
+      "want": "cursor"
+    },
+    {
+      "name": "antigravity",
+      "env": {
+        "ANTIGRAVITY_AGENT": "1"
+      },
+      "want": "antigravity"
+    },
+    {
+      "name": "augment",
+      "env": {
+        "AUGMENT_AGENT": "1"
+      },
+      "want": "augment"
+    },
+    {
+      "name": "replit",
+      "env": {
+        "REPL_ID": "xyz"
+      },
+      "want": "replit"
+    },
+    {
+      "name": "agent goose",
+      "env": {
+        "AGENT": "goose"
+      },
+      "want": "goose"
+    },
+    {
+      "name": "agent crush",
+      "env": {
+        "AGENT": "crush"
+      },
+      "want": "crush"
+    },
+    {
+      "name": "agent amp",
+      "env": {
+        "AGENT": "amp"
+      },
+      "want": "amp"
+    },
+    {
+      "name": "ai_agent crush",
+      "env": {
+        "AI_AGENT": "crush"
+      },
+      "want": "crush"
+    },
+    {
+      "name": "agent value case-folded",
+      "env": {
+        "AGENT": "Goose"
+      },
+      "want": "goose"
+    },
+    {
+      "name": "ci",
+      "env": {
+        "CI": "true"
+      },
+      "want": "ci"
+    },
+    {
+      "name": "github actions",
+      "env": {
+        "GITHUB_ACTIONS": "true"
+      },
+      "want": "ci"
+    },
+    {
+      "name": "zed via term program",
+      "env": {
+        "TERM_PROGRAM": "zed"
+      },
+      "want": "zed"
+    },
+    {
+      "name": "zed via zed_term",
+      "env": {
+        "ZED_TERM": "true"
+      },
+      "want": "zed"
+    },
+    {
+      "name": "kiro",
+      "env": {
+        "TERM_PROGRAM": "kiro"
+      },
+      "want": "kiro"
+    },
+    {
+      "name": "warp",
+      "env": {
+        "TERM_PROGRAM": "WarpTerminal"
+      },
+      "want": "warp"
+    },
+    {
+      "name": "jetbrains",
+      "env": {
+        "TERMINAL_EMULATOR": "JetBrains-JediTerm"
+      },
+      "want": "jetbrains"
+    },
+    {
+      "name": "vscode",
+      "env": {
+        "TERM_PROGRAM": "vscode"
+      },
+      "want": "vscode"
+    },
+    {
+      "name": "windsurf via macos bundle id",
+      "env": {
+        "__CFBundleIdentifier": "com.exafunction.windsurf",
+        "TERM_PROGRAM": "vscode"
+      },
+      "want": "windsurf",
+      "source": "env:__CFBundleIdentifier",
+      "execution": "unknown"
+    },
+    {
+      "name": "non-windsurf bundle id falls through to vscode",
+      "env": {
+        "__CFBundleIdentifier": "com.microsoft.VSCode",
+        "TERM_PROGRAM": "vscode"
+      },
+      "want": "vscode"
+    },
+    {
+      "name": "agent boolean skipped falls through",
+      "env": {
+        "AGENT": "1"
+      },
+      "want": "shell"
+    },
+    {
+      "name": "agent true skipped",
+      "env": {
+        "AGENT": "true"
+      },
+      "want": "shell"
+    },
+    {
+      "name": "opencode marker wins over AGENT=1",
+      "env": {
+        "OPENCODE": "1",
+        "AGENT": "1"
+      },
+      "want": "opencode"
+    },
+    {
+      "name": "cursor wins over vscode",
+      "env": {
+        "CURSOR_TRACE_ID": "abc",
+        "TERM_PROGRAM": "vscode"
+      },
+      "want": "cursor"
+    },
+    {
+      "name": "agent wins over ci",
+      "env": {
+        "AGENT": "goose",
+        "CI": "true"
+      },
+      "want": "goose",
+      "source": "env:AGENT",
+      "execution": "declared"
+    },
+    {
+      "name": "agent wins over replit host",
+      "env": {
+        "AGENT": "goose",
+        "REPL_ID": "xyz"
+      },
+      "want": "goose"
+    },
+    {
+      "name": "claude code wins over ci and vscode",
+      "env": {
+        "CLAUDECODE": "1",
+        "CI": "true",
+        "TERM_PROGRAM": "vscode"
+      },
+      "want": "claude-code"
+    },
+    {
+      "name": "agent illegal chars skipped",
+      "env": {
+        "AGENT": "rm -rf /"
+      },
+      "want": "shell"
+    },
+    {
+      "name": "overlong agent skipped",
+      "env": {
+        "AGENT": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "want": "shell"
+    },
+    {
+      "name": "false markers fall through to terminal",
+      "env": {
+        "CLAUDECODE": "false",
+        "CODEX_CI": "0",
+        "GEMINI_CLI": " No ",
+        "QWEN_CODE": "OFF",
+        "PI_CODING_AGENT": "false",
+        "OPENCODE": "0",
+        "CLINE_ACTIVE": "no",
+        "ROO_ACTIVE": "off",
+        "SAND_AGENT": "false",
+        "CURSOR_TRACE_ID": "0",
+        "CURSOR_AGENT": "no",
+        "ANTIGRAVITY_AGENT": "off",
+        "AUGMENT_AGENT": "false",
+        "CI": "false",
+        "GITHUB_ACTIONS": "0",
+        "ZED_TERM": "no",
+        "TERM_PROGRAM": "vscode",
+        "CLAUDE_CODE_CHILD_SESSION": "false"
+      },
+      "want": "vscode",
+      "source": "env:TERM_PROGRAM",
+      "execution": "unknown"
+    },
+    {
+      "name": "whitespace marker falls through",
+      "env": {
+        "CLAUDECODE": "  ",
+        "AGENT": "goose"
+      },
+      "want": "goose",
+      "source": "env:AGENT",
+      "execution": "declared"
+    },
+    {
+      "name": "claude child declaration outranks terminal association",
+      "env": {
+        "CLAUDECODE": "1",
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "CI": "true"
+      },
+      "want": "claude-code",
+      "source": "env:CLAUDE_CODE_CHILD_SESSION",
+      "execution": "declared"
+    },
+    {
+      "name": "claude configured alias preserves configuration not execution",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": " OpusPlan "
+      },
+      "want": "claude-code",
+      "source": "env:CLAUDE_CODE_CHILD_SESSION",
+      "execution": "declared",
+      "model": "opusplan",
+      "model_source": "env:ANTHROPIC_MODEL"
+    },
+    {
+      "name": "gemini configured public model",
+      "env": {
+        "GEMINI_CLI": "1",
+        "GEMINI_MODEL": "gemini-3.8-flash"
+      },
+      "want": "gemini",
+      "source": "env:GEMINI_CLI",
+      "execution": "declared",
+      "model": "gemini-3.8-flash",
+      "model_source": "env:GEMINI_MODEL"
+    },
+    {
+      "name": "private model identifier becomes other",
+      "env": {
+        "CLAUDECODE": "1",
+        "ANTHROPIC_MODEL": "private-deployment"
+      },
+      "want": "claude-code",
+      "source": "env:CLAUDECODE",
+      "execution": "unknown",
+      "model": "other",
+      "model_source": "env:ANTHROPIC_MODEL"
+    },
+    {
+      "name": "configuration alone does not identify a harness",
+      "env": {
+        "ANTHROPIC_MODEL": "sonnet",
+        "GEMINI_MODEL": "gemini-3.8-flash",
+        "COPILOT_MODEL": "some-model",
+        "GOOSE_MODEL": "some-model"
+      },
+      "want": "shell",
+      "source": "fallback",
+      "execution": "unknown"
+    },
+    {
+      "name": "winning caller ignores another harness model",
+      "env": {
+        "CODEX_CI": "1",
+        "GEMINI_CLI": "1",
+        "GEMINI_MODEL": "gemini-3.8-flash"
+      },
+      "want": "codex",
+      "source": "env:CODEX_CI",
+      "execution": "declared"
+    },
+    {
+      "name": "declared caller may use its configured model",
+      "env": {
+        "AGENT": "claude-code",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "want": "claude-code",
+      "source": "env:AGENT",
+      "execution": "declared",
+      "model": "sonnet",
+      "model_source": "env:ANTHROPIC_MODEL"
+    },
+    {
+      "name": "empty MCP request overrides server process caller",
+      "env": {
+        "CODEX_CI": "1"
+      },
+      "want": "codex",
+      "source": "env:CODEX_CI",
+      "execution": "declared",
+      "mcp_override": {
+        "name": "",
+        "source": "",
+        "execution": ""
+      }
+    },
+    {
+      "name": "Cursor execution marker wins over trace association",
+      "env": {
+        "CURSOR_AGENT": "1",
+        "CURSOR_TRACE_ID": "trace-fixture"
+      },
+      "want": "cursor",
+      "source": "env:CURSOR_AGENT",
+      "execution": "declared"
+    }
+  ],
+  "enrichment_cases": [
+    {
+      "name": "configured public model",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "headers": {},
+      "want": {
+        "Bird-Caller": "claude-code",
+        "Bird-Caller-Source": "env:CLAUDE_CODE_CHILD_SESSION",
+        "Bird-Caller-Execution": "declared",
+        "Bird-Model": "sonnet",
+        "Bird-Model-Source": "env:ANTHROPIC_MODEL"
+      }
+    },
+    {
+      "name": "explicit model overrides configured model",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "headers": {
+        "bird-model": " GEMINI-2.5-FLASH ",
+        "Bird-Model-Source": "private-source-fixture"
+      },
+      "want": {
+        "Bird-Model": "gemini-2.5-flash",
+        "Bird-Model-Source": "declared"
+      }
+    },
+    {
+      "name": "private explicit model is other",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "headers": {
+        "Bird-Model": "private-deployment-fixture",
+        "Bird-Model-Source": "private-source-fixture"
+      },
+      "want": {
+        "Bird-Model": "other",
+        "Bird-Model-Source": "declared"
+      }
+    },
+    {
+      "name": "empty explicit model clears configured model",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "headers": {
+        "Bird-Model": ""
+      },
+      "want": {
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "DO_NOT_TRACK disables enrichment",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet",
+        "DO_NOT_TRACK": "1"
+      },
+      "headers": {
+        "Bird-Model": "private-deployment-fixture"
+      },
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "BIRD_TELEMETRY disables enrichment",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet",
+        "BIRD_TELEMETRY": "0"
+      },
+      "headers": {},
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "explicit enrichment environment opt-out",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet",
+        "BIRD_CLIENT_ENRICHMENT": "0"
+      },
+      "headers": {},
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "per-request enrichment opt-out",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "headers": {
+        "bIrD-eNrIcHmEnT": "0",
+        "Bird-Model": "private-deployment-fixture"
+      },
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    }
+  ],
+  "mcp_cases": [
+    {
+      "name": "remote identity clears server configured model",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "client_info": "Claude Code",
+      "headers": {},
+      "want": {
+        "Bird-Caller": "claude-code",
+        "Bird-Caller-Source": "mcp:client-info",
+        "Bird-Caller-Execution": "unknown",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "MCP explicit private model is bounded",
+      "env": {
+        "GEMINI_CLI": "1",
+        "GEMINI_MODEL": "gemini-2.5-flash",
+        "DO_NOT_TRACK": "1",
+        "BIRD_TELEMETRY": "0",
+        "BIRD_CLIENT_ENRICHMENT": "0"
+      },
+      "client_info": "Claude Code",
+      "headers": {
+        "Bird-Model": "private-deployment",
+        "Bird-Model-Source": "private-source"
+      },
+      "want": {
+        "Bird-Caller": "claude-code",
+        "Bird-Model": "other",
+        "Bird-Model-Source": "declared"
+      }
+    },
+    {
+      "name": "MCP client enrichment opt-out",
+      "env": {
+        "CLAUDE_CODE_CHILD_SESSION": "1",
+        "ANTHROPIC_MODEL": "sonnet"
+      },
+      "client_info": "Claude Code",
+      "headers": {
+        "Bird-Enrichment": "0",
+        "Bird-Model": "sonnet"
+      },
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    },
+    {
+      "name": "stdio honors local enrichment opt-out",
+      "stdio": true,
+      "env": {
+        "DO_NOT_TRACK": "1"
+      },
+      "client_info": "Claude Code",
+      "headers": {},
+      "want": {
+        "Bird-Enrichment": "0",
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
+        "Bird-Model": "",
+        "Bird-Model-Source": ""
+      }
+    }
   ]
 }

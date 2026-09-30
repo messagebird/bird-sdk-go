@@ -10523,7 +10523,7 @@ type AMBStatsByTagResponse struct {
 	Total *int `json:"total,omitempty"`
 }
 
-// AMBStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+// AMBStatsComparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with computed changes for the message counts and rates listed in `delta`. Present only when `compare=previous_period` is requested. Monthly active contacts and latency values are returned for both periods without a computed change.
 type AMBStatsComparison struct {
 	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
 	Counts *AMBOutboundStatsCounts `json:"counts,omitempty"`
@@ -10536,6 +10536,9 @@ type AMBStatsComparison struct {
 
 	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// MonthlyActiveContacts New monthly active contact charges activated by replies submitted in this window. Each business-scoped contact counts once per UTC calendar month. Omitted for message-kind, intent, group, category or tag filters. Read from retained activation records independently of the message rollup data_as_of boundary; tenant purges remove these records.
+	MonthlyActiveContacts *int64 `json:"monthly_active_contacts,omitempty"`
 
 	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
 	Period AMBStatsSummaryPeriod `json:"period"`
@@ -10631,7 +10634,7 @@ type AMBStatsSummary struct {
 	// A response never mixes the two axes: every row and total in one payload shares the same attribution.
 	Attribution *AMBStatsAttribution `json:"attribution,omitempty"`
 
-	// Comparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with the change between the two periods. Present only when `compare=previous_period` is requested. The change is already computed, so a percentage difference needs no second request.
+	// Comparison The same statistics for the equal-length, inclusive period ending immediately before the requested start, together with computed changes for the message counts and rates listed in `delta`. Present only when `compare=previous_period` is requested. Monthly active contacts and latency values are returned for both periods without a computed change.
 	Comparison *AMBStatsComparison `json:"comparison,omitempty"`
 
 	// Counts Outbound Apple Messages for Business counts for the requested scope, attributed to when each message was accepted. Apple Messages for Business has no delivery receipt, so there is no `delivered` count anywhere in this API: `sent` is the last outbound state Bird observes for a message. Very large counts are close estimates rather than exact tallies. Rates are computed once here, clamped to 1, and null when nothing was accepted.
@@ -10642,6 +10645,9 @@ type AMBStatsSummary struct {
 
 	// Latency Processing-latency percentiles in milliseconds for the requested scope, from acceptance to Apple handoff. Apple Messages for Business has no delivery receipt, so there is no `delivery` or `total` member beside `processing`. Conversation response timing is reported separately in `first_response`. Always present; every percentile is null when no qualifying message in scope has a measurement.
 	Latency *AMBStatsLatency `json:"latency,omitempty"`
+
+	// MonthlyActiveContacts New monthly active contact charges activated by replies submitted in this window. Each business-scoped contact counts once per UTC calendar month. Omitted for message-kind, intent, group, category or tag filters. Read from retained activation records independently of the message rollup data_as_of boundary; tenant purges remove these records.
+	MonthlyActiveContacts *int64 `json:"monthly_active_contacts,omitempty"`
 
 	// Period The window the server actually computed against. The summary serves two window grains: calendar days (bounds are YYYY-MM-DD) and hours (bounds are RFC 3339 instants on the hour). The grain of `from` and `to` mirrors the grain of the request's bounds.
 	Period AMBStatsSummaryPeriod `json:"period"`
@@ -11017,6 +11023,27 @@ type Contact struct {
 	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 }
 
+// ContactBatchEntry A contact to create or update. Field values are validated individually during processing, so an invalid contact returns a failed result while valid contacts are saved. The request must still contain an object with the declared field types. Omitted fields keep their stored values on an existing contact.
+type ContactBatchEntry struct {
+	// Data Custom contact property values. Keys must be registered and active; values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
+	Data *map[string]interface{} `json:"data,omitempty"`
+
+	// Email Email address, up to 254 characters. Trimmed and lowercased before matching. Invalid addresses fail this contact.
+	Email *string `json:"email,omitempty"`
+
+	// ExternalId Your identifier for the contact, up to 254 characters. Unique within the workspace when set.
+	ExternalId *string `json:"external_id,omitempty"`
+
+	// FirstName First name, up to 100 characters.
+	FirstName *string `json:"first_name,omitempty"`
+
+	// LastName Last name, up to 100 characters.
+	LastName *string `json:"last_name,omitempty"`
+
+	// PhoneNumber Phone number with a country code, up to 32 characters. Spaces and punctuation are accepted. An empty string is treated as omitted.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+}
+
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
 	// Data Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
@@ -11182,7 +11209,7 @@ type ContactUpsertRequest struct {
 	AudienceIds *[]AudienceID `json:"audience_ids,omitempty"`
 
 	// Contacts Contacts to create or update, matched automatically against every identifier an entry supplies. Existing contacts are updated with the fields each entry supplies; omitted fields keep their stored values, so an entry can set fields but never clear them. Unmatched entries create contacts.
-	Contacts []ContactCreateRequest `json:"contacts"`
+	Contacts []ContactBatchEntry `json:"contacts"`
 
 	// DataMode How a supplied `data` object is applied to an existing contact. The default `merge` mode adds the supplied keys to the contact's stored custom values. A key with a `null` value deletes that key. The `replace` mode overwrites the whole stored `data` map with the supplied map. In both modes a contact that omits `data` keeps its stored values unchanged, so an import that touches one attribute never wipes the others.
 	DataMode *ContactUpsertRequestDataMode `json:"data_mode,omitempty"`
@@ -12602,7 +12629,7 @@ type EmailCompetitiveCampaign struct {
 
 // EmailCompetitiveCampaignFeed defines model for EmailCompetitiveCampaignFeed.
 type EmailCompetitiveCampaignFeed struct {
-	// Captured Number of eligible campaigns in the first 300 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
+	// Captured Number of eligible campaigns in the first 100 newest panel rows for each tracked domain. This sampled value is independent of the returned page.
 	Captured *int `json:"captured,omitempty"`
 
 	// Data Campaigns in this page, in the requested order.
@@ -17461,7 +17488,7 @@ type ErrorDetail struct {
 	Param string `json:"param"`
 }
 
-// EventAMBAccepted Bird charged and accepted an outbound message for processing. This does not mean Apple received the message.
+// EventAMBAccepted An outbound message was accepted for processing after confirming billing coverage. This does not confirm receipt by Apple.
 type EventAMBAccepted struct {
 	// Data The workspace and message snapshot at the time of the lifecycle event.
 	Data EventAMBMessageData `json:"data"`
@@ -27884,6 +27911,12 @@ type ListAMBConversationsParams struct {
 
 	// Status Filter to conversations with this status. Omit to return both open and closed conversations.
 	Status *AMBConversationStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// IntentId Filter to conversations with this entry point intent, as sent in Apple's intentID. Conversations whose entry point carried no intent match only when this filter is omitted.
+	IntentId *string `form:"intent_id,omitempty" json:"intent_id,omitempty"`
+
+	// GroupId Filter to conversations with this entry point group, as sent in Apple's groupID. Conversations whose entry point carried no group match only when this filter is omitted.
+	GroupId *string `form:"group_id,omitempty" json:"group_id,omitempty"`
 
 	// Queue Filter to conversations in this queue. Pass an empty string to match unrouted conversations, the ones no routing rule has claimed.
 	Queue *string `form:"queue,omitempty" json:"queue,omitempty"`
@@ -47387,6 +47420,30 @@ func NewListAMBConversationsRequest(server string, params *ListAMBConversationsP
 		if params.Status != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IntentId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "intent_id", *params.IntentId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.GroupId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "group_id", *params.GroupId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -75824,6 +75881,7 @@ type CreateContactBatchResponse struct {
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
+	JSON413      *PayloadTooLarge
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -94230,6 +94288,13 @@ func ParseCreateContactBatchResponse(rsp *http.Response) (*CreateContactBatchRes
 			return nil, err
 		}
 		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 413:
+		var dest PayloadTooLarge
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON413 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

@@ -48,7 +48,7 @@ func (s *AmbRoutingRulesService) Delete(ctx context.Context, routingRuleId strin
 	return err
 }
 
-// List Returns the workspace's Apple Messages for Business routing rules, highest precedence first. A rule only runs when a conversation is created or reopened, matching it to a queue based on the group and intent its entry point carried. It never runs again while the conversation stays open, so a queue an operator moves a conversation to is not overwritten by the next message the customer sends.
+// List Returns the workspace's Apple Messages for Business routing rules, highest precedence first. Rules automatically run when a conversation is created or reopened, matching the group and intent from its entry point to a queue. Messages within an open conversation retain its queue. Rule changes affect only conversations that start or reopen afterwards.
 func (s *AmbRoutingRulesService) List(ctx context.Context, params AmbRoutingRulesListParams, opts ...option.RequestOption) (*AMBRoutingRuleList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListAMBRoutingRules(ctx, params.toWire(), cfg...)

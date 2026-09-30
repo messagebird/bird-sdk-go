@@ -5,39 +5,82 @@ package bird
 // callerRule is one Bird-Caller detection rule; the ordered table below is
 // walked by detectCaller (see caller-detection.yaml for the model).
 type callerRule struct {
-	env         string
-	equals      string
-	name        string
-	passthrough bool
+	env          string
+	execution    string
+	verification string
+	equals       string
+	name         string
+	passthrough  bool
 }
 
 var callerRules = []callerRule{
-	{env: "CLAUDECODE", name: "claude-code"},
-	{env: "CODEX_CI", name: "codex"},
-	{env: "GEMINI_CLI", name: "gemini"},
-	{env: "QWEN_CODE", name: "qwen"},
-	{env: "PI_CODING_AGENT", name: "pi"},
-	{env: "OPENCODE", name: "opencode"},
-	{env: "CLINE_ACTIVE", name: "cline"},
-	{env: "ROO_ACTIVE", name: "roo"},
-	{env: "SAND_AGENT", name: "grokbot"},
-	{env: "__CFBundleIdentifier", equals: "com.anysphere.sand", name: "grokbot"},
-	{env: "CURSOR_TRACE_ID", name: "cursor"},
-	{env: "CURSOR_AGENT", name: "cursor"},
-	{env: "ANTIGRAVITY_AGENT", name: "antigravity"},
-	{env: "AUGMENT_AGENT", name: "augment"},
-	{env: "AGENT", passthrough: true},
-	{env: "AI_AGENT", passthrough: true},
-	{env: "REPL_ID", name: "replit"},
-	{env: "CI", name: "ci"},
-	{env: "GITHUB_ACTIONS", name: "ci"},
-	{env: "TERM_PROGRAM", equals: "zed", name: "zed"},
-	{env: "ZED_TERM", name: "zed"},
-	{env: "TERM_PROGRAM", equals: "kiro", name: "kiro"},
-	{env: "TERM_PROGRAM", equals: "WarpTerminal", name: "warp"},
-	{env: "TERMINAL_EMULATOR", equals: "JetBrains-JediTerm", name: "jetbrains"},
-	{env: "__CFBundleIdentifier", equals: "com.exafunction.windsurf", name: "windsurf"},
-	{env: "TERM_PROGRAM", equals: "vscode", name: "vscode"},
+	{env: "CLAUDE_CODE_CHILD_SESSION", execution: "declared", verification: "verified", name: "claude-code"},
+	{env: "CLAUDECODE", execution: "unknown", verification: "verified", name: "claude-code"},
+	{env: "CODEX_CI", execution: "declared", verification: "verified", name: "codex"},
+	{env: "GEMINI_CLI", execution: "declared", verification: "verified", name: "gemini"},
+	{env: "QWEN_CODE", execution: "declared", verification: "verified", name: "qwen"},
+	{env: "PI_CODING_AGENT", execution: "declared", verification: "verified", name: "pi"},
+	{env: "OPENCODE", execution: "declared", verification: "verified", name: "opencode"},
+	{env: "CLINE_ACTIVE", execution: "unknown", verification: "verified", name: "cline"},
+	{env: "ROO_ACTIVE", execution: "unknown", verification: "verified", name: "roo"},
+	{env: "SAND_AGENT", execution: "unknown", verification: "unverified", name: "grokbot"},
+	{env: "__CFBundleIdentifier", execution: "unknown", verification: "unverified", equals: "com.anysphere.sand", name: "grokbot"},
+	{env: "CURSOR_AGENT", execution: "declared", verification: "verified", name: "cursor"},
+	{env: "CURSOR_TRACE_ID", execution: "unknown", verification: "unverified", name: "cursor"},
+	{env: "ANTIGRAVITY_AGENT", execution: "unknown", verification: "unverified", name: "antigravity"},
+	{env: "AUGMENT_AGENT", execution: "unknown", verification: "unverified", name: "augment"},
+	{env: "AGENT", execution: "declared", verification: "verified", passthrough: true},
+	{env: "AI_AGENT", execution: "declared", verification: "verified", passthrough: true},
+	{env: "REPL_ID", execution: "unknown", verification: "unverified", name: "replit"},
+	{env: "CI", execution: "unknown", verification: "unverified", name: "ci"},
+	{env: "GITHUB_ACTIONS", execution: "unknown", verification: "unverified", name: "ci"},
+	{env: "TERM_PROGRAM", execution: "unknown", verification: "unverified", equals: "zed", name: "zed"},
+	{env: "ZED_TERM", execution: "unknown", verification: "unverified", name: "zed"},
+	{env: "TERM_PROGRAM", execution: "unknown", verification: "unverified", equals: "kiro", name: "kiro"},
+	{env: "TERM_PROGRAM", execution: "unknown", verification: "unverified", equals: "WarpTerminal", name: "warp"},
+	{env: "TERMINAL_EMULATOR", execution: "unknown", verification: "unverified", equals: "JetBrains-JediTerm", name: "jetbrains"},
+	{env: "__CFBundleIdentifier", execution: "unknown", verification: "unverified", equals: "com.exafunction.windsurf", name: "windsurf"},
+	{env: "TERM_PROGRAM", execution: "unknown", verification: "unverified", equals: "vscode", name: "vscode"},
+}
+
+var callerModelEnv = map[string]string{
+	"claude-code": "ANTHROPIC_MODEL",
+	"gemini":      "GEMINI_MODEL",
+}
+
+var callerPublicModels = map[string]struct{}{
+	"best":                      {},
+	"fable":                     {},
+	"opus[1m]":                  {},
+	"sonnet[1m]":                {},
+	"opusplan[1m]":              {},
+	"haiku":                     {},
+	"opus":                      {},
+	"opusplan":                  {},
+	"sonnet":                    {},
+	"claude-fable-5-1":          {},
+	"claude-opus-5-5":           {},
+	"claude-sonnet-5-5":         {},
+	"claude-haiku-4-5":          {},
+	"claude-haiku-4-5-20251001": {},
+	"gemini-3.8-flash":          {},
+	"gemini-3.7-flash":          {},
+	"gemini-3.6-flash":          {},
+	"gemini-3.5-flash":          {},
+	"gemini-3.5-flash-lite":     {},
+	"gemini-3.1-flash-lite":     {},
+	"gemini-3.1-pro-preview":    {},
+	"gemini-3-flash-preview":    {},
+	"gemini-2.5-pro":            {},
+	"gemini-2.5-flash":          {},
+	"gemini-2.5-flash-lite":     {},
+}
+
+var callerFalseLike = map[string]struct{}{
+	"0":     {},
+	"false": {},
+	"no":    {},
+	"off":   {},
 }
 
 var callerBooleanishSkip = map[string]struct{}{
