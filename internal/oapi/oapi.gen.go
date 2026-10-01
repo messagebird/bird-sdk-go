@@ -6369,6 +6369,51 @@ func (e VoiceSIPDigestAlgorithm) Valid() bool {
 	}
 }
 
+// Defines values for VoiceSequenceCompletionSampleCompletion.
+const (
+	Completed VoiceSequenceCompletionSampleCompletion = "completed"
+)
+
+// Valid indicates whether the value is a known member of the VoiceSequenceCompletionSampleCompletion enum.
+func (e VoiceSequenceCompletionSampleCompletion) Valid() bool {
+	switch e {
+	case Completed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceSequenceDefinitionSchemaVersion.
+const (
+	N1 VoiceSequenceDefinitionSchemaVersion = 1
+)
+
+// Valid indicates whether the value is a known member of the VoiceSequenceDefinitionSchemaVersion enum.
+func (e VoiceSequenceDefinitionSchemaVersion) Valid() bool {
+	switch e {
+	case N1:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for VoiceSequenceExpressionEnvironment.
+const (
+	BirdCelV1 VoiceSequenceExpressionEnvironment = "bird.cel.v1"
+)
+
+// Valid indicates whether the value is a known member of the VoiceSequenceExpressionEnvironment enum.
+func (e VoiceSequenceExpressionEnvironment) Valid() bool {
+	switch e {
+	case BirdCelV1:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for VoiceTrunkSortField.
 const (
 	VoiceTrunkSortFieldCreatedAt VoiceTrunkSortField = "created_at"
@@ -10357,16 +10402,54 @@ type AMBRoutingRuleList struct {
 // - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
 type AMBRoutingRuleMatchKind string
 
-// AMBRoutingRuleUpdate defines model for AMBRoutingRuleUpdate.
+// AMBRoutingRuleUpdate Changes to a routing rule. Send `business_account_id` to move the rule to another Apple Messages for Business brand in the workspace. Send `match_kind` to replace what the rule matches, with the ids that kind requires, as on create; a stored id the new kind does not use is cleared. `match_intent_id` and `match_group_id` require `match_kind`. The update returns a `409` when it would leave this rule as the default of a business that already has a different default rule.
 type AMBRoutingRuleUpdate struct {
-	// IsDefault Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default. Setting it true while the business already has a different default rule returns a `409`.
+	BusinessAccountId *AMBBusinessID `json:"business_account_id,omitempty"`
+
+	// IsDefault Set to true to make this the rule that catches a conversation matching nothing else, or to false to stop it from being the default.
 	IsDefault *bool `json:"is_default,omitempty"`
+
+	// MatchGroupId The entry point group to match, as sent in Apple's `groupID`. Requires `match_kind`: required when it is `group` or `both`, and rejected when it is `intent`.
+	MatchGroupId *string `json:"match_group_id,omitempty"`
+
+	// MatchIntentId The entry point intent to match, as sent in Apple's `intentID`. Requires `match_kind`: required when it is `intent` or `both`, and rejected when it is `group`.
+	MatchIntentId *string `json:"match_intent_id,omitempty"`
+
+	// MatchKind What a routing rule matches against the entry point that started the conversation.
+	//
+	// - `intent` matches on the entry point's intent alone: `match_intent_id` is set and `match_group_id` is null.
+	// - `group` matches on the entry point's group alone: `match_group_id` is set and `match_intent_id` is null.
+	// - `both` matches only when the entry point carries the given intent and the given group together, so `match_intent_id` and `match_group_id` are both set. There are two match fields rather than one because `both` needs to carry an intent and a group at once.
+	MatchKind *AMBRoutingRuleMatchKind `json:"match_kind,omitempty"`
 
 	// Precedence Change this rule's evaluation order among the business's other rules.
 	Precedence *int32 `json:"precedence,omitempty"`
 
 	// Queue Queue label used for routing and filtering conversations.
 	Queue *AMBQueue `json:"queue,omitempty"`
+	union json.RawMessage
+}
+
+// AMBRoutingRuleUpdate0 defines model for .
+type AMBRoutingRuleUpdate0 = interface{}
+
+// AMBRoutingRuleUpdate1 defines model for .
+type AMBRoutingRuleUpdate1 struct {
+	MatchIntentId string      `json:"match_intent_id"`
+	MatchKind     interface{} `json:"match_kind"`
+}
+
+// AMBRoutingRuleUpdate2 defines model for .
+type AMBRoutingRuleUpdate2 struct {
+	MatchGroupId string      `json:"match_group_id"`
+	MatchKind    interface{} `json:"match_kind"`
+}
+
+// AMBRoutingRuleUpdate3 defines model for .
+type AMBRoutingRuleUpdate3 struct {
+	MatchGroupId  string      `json:"match_group_id"`
+	MatchIntentId string      `json:"match_intent_id"`
+	MatchKind     interface{} `json:"match_kind"`
 }
 
 // AMBSendFailedEventType Always `amb.send_failed` for this event.
@@ -10958,6 +11041,9 @@ type AudienceUpdateRequest struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// AutomationPortKey Stable named input or output declared by a node-type version.
+type AutomationPortKey = string
+
 // AvailableNumber defines model for AvailableNumber.
 type AvailableNumber struct {
 	// Capabilities Capabilities supported by this number.
@@ -11270,22 +11356,34 @@ type CreateVoiceCallRequest struct {
 	From VoiceSequencePhoneNumber `json:"from"`
 
 	// RingingTimeoutSeconds Maximum ringing time for the original dialing attempt, shared across routing candidates.
-	RingingTimeoutSeconds *int                           `json:"ringing_timeout_seconds,omitempty"`
-	Sequence              CreateVoiceCallSequenceRequest `json:"sequence"`
+	RingingTimeoutSeconds *int `json:"ringing_timeout_seconds,omitempty"`
+
+	// Sequence Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+	Sequence CreateVoiceCallSequenceRequest `json:"sequence"`
 
 	// To Canonical E.164 phone number, with a leading plus sign and four to fifteen digits.
 	To VoiceSequencePhoneNumber `json:"to"`
 }
 
-// CreateVoiceCallSequenceRequest defines model for CreateVoiceCallSequenceRequest.
+// CreateVoiceCallSequenceRequest Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
 type CreateVoiceCallSequenceRequest struct {
+	// Definition Complete sequence definition to run once after the recipient answers. It must pass the same checks as publishing a sequence, is frozen when the call is accepted, and creates no saved sequence.
+	Definition *VoiceSequenceDefinition `json:"definition,omitempty"`
+
 	// EntryNodeId Stable identifier for a node within one sequence definition.
 	EntryNodeId VoiceSequenceNodeID `json:"entry_node_id"`
-	Id          VoiceSequenceID     `json:"id"`
+	Id          *VoiceSequenceID    `json:"id,omitempty"`
 
 	// TriggerData Data matching the selected entry's configured schema, limited to 16 KiB before and after normalization. Use an empty object when the entry needs no data. Fields remain application data and cannot provide trusted call identity or routing authority.
 	TriggerData map[string]interface{} `json:"trigger_data"`
+	union       json.RawMessage
 }
+
+// CreateVoiceCallSequenceRequest0 defines model for .
+type CreateVoiceCallSequenceRequest0 = interface{}
+
+// CreateVoiceCallSequenceRequest1 defines model for .
+type CreateVoiceCallSequenceRequest1 = interface{}
 
 // CurrencyCode ISO 4217 three-letter currency code.
 type CurrencyCode = string
@@ -16752,29 +16850,27 @@ type EmailTemplatePreview struct {
 	// Text The rendered plain-text body. Derived from the HTML when the template has no separate plain-text body, and null when it has neither.
 	Text *string `json:"text,omitempty"`
 
-	// Variables The variables you can fill in with `parameters`. This list covers only the
-	// language named by `language`. A version read combines the variables from
-	// every language the version holds. Preview each language separately to see
-	// its own variables.
-	//
-	// Variables under the reserved `bird.` namespace are not listed here. We
-	// supply those values, but you can nest sample values under `bird` in
-	// `parameters` to preview them.
+	// Variables Every input definition this content uses, in one list: the parameters you fill in
+	// with `parameters`, and the values Bird fills in for each recipient. Read `system`
+	// to tell them apart. This list covers only the language named by `language`. A
+	// version read combines the inputs from every language the version holds. Preview
+	// each language separately to see its own. You can nest sample values under `bird`
+	// in preview `parameters`; sends reject that reserved namespace.
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 }
 
-// EmailTemplatePreviewContent Content to render instead of the template's stored draft. Give it the subject and bodies you have in hand and they are rendered exactly as the draft would be, so an editor can show what a change looks like before it is saved.
+// EmailTemplatePreviewContent Unsaved email template content. Preview renders these fields instead of a stored draft; input analysis identifies their references without rendering.
 type EmailTemplatePreviewContent struct {
-	// Html The HTML body to render.
+	// Html The HTML body, including any template expressions.
 	Html *string `json:"html,omitempty"`
 
-	// PreviewText The preview text to render. It is folded into the top of the HTML the same way publishing folds it, so the rendered body carries the hidden preheader a recipient's inbox would read.
+	// PreviewText Inbox preview text. Preview and publication fold it into the top of the HTML as a hidden preheader. Input analysis includes its references.
 	PreviewText *string `json:"preview_text,omitempty"`
 
-	// Subject The subject line to render.
+	// Subject The subject line, including any template expressions.
 	Subject *string `json:"subject,omitempty"`
 
-	// Text The plain-text body to render. Omit it and a plain-text alternative is derived from the HTML, the same way it is derived when you publish.
+	// Text The plain-text body. When omitted, a plain-text alternative is derived from the HTML for preview, input analysis, and publication.
 	Text *string `json:"text,omitempty"`
 }
 
@@ -16811,21 +16907,23 @@ type EmailTemplateRollback struct {
 	Revision EmailTemplateDraftRevision `json:"revision"`
 }
 
-// EmailTemplateSend A reference to the template to send. Identify the template by its `id` or its `slug`, supplying exactly one of the two, and give the values for its variables in `parameters`.
+// EmailTemplateSend A reference to the template to send. Identify the template by its `id` or its `slug`, supplying exactly one of the two, and give the values for its caller parameters in `parameters`.
 type EmailTemplateSend struct {
 	Id *EmailTemplateID `json:"id,omitempty"`
 
 	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
 	Language *LanguageTag `json:"language,omitempty"`
 
-	// Parameters Values for the template's variables, keyed by the variable name. A variable name is a single word.
+	// Parameters Values for caller parameters, keyed by name. A parameter name is a single word.
 	//
-	// Every variable in the template's `variables` list needs a value. A send
-	// that omits one is rejected. Languages can use different variables, and a
-	// value unused by the selected language is ignored.
+	// Caller parameters have `system` set to false or absent in the template's
+	// `variables` list. Supply each required caller parameter used by the
+	// resolved send language; omitting one returns `422`. A version's list
+	// covers all its languages, and values unused by the resolved language are
+	// ignored.
 	//
-	// The API supplies values under the reserved `bird` key, so a send that sets
-	// it is rejected. `parameters` is capped at 16 KB once serialized.
+	// The `bird` namespace is reserved for values filled by Bird, so a send that
+	// sets it is rejected. `parameters` is capped at 16 KB once serialized.
 	Parameters *map[string]interface{} `json:"parameters,omitempty"`
 
 	// Slug The template to send, by its slug handle. A workspace template (for example `welcome-email`) or a built-in `system` template (for example `bird_welcome`).
@@ -17052,11 +17150,9 @@ type EmailTemplateVersion struct {
 	// UpdatedBy Who last saved this version: a member's own session, an OAuth token delegated from one, or a workspace API key. Publishing freezes a version, so on a published one this is whoever published it. Null means no actor is on record: a built-in template, which is code-defined rather than stored, or a version last saved by an API key before this field existed. Every other version has one, even when its display_name could not be resolved (a member whose account is gone, say).
 	UpdatedBy *Actor `json:"updated_by,omitempty"`
 
-	// Variables Every variable this version's content uses. You supply a value for each of them when you send.
+	// Variables Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
 	//
-	// The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
-	//
-	// Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+	// The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 
 	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
@@ -17125,11 +17221,9 @@ type EmailTemplateVersionSummary struct {
 	// UpdatedBy Who last saved this version: a member's own session, an OAuth token delegated from one, or a workspace API key. Publishing freezes a version, so on a published one this is whoever published it. Null means no actor is on record: a built-in template, which is code-defined rather than stored, or a version last saved by an API key before this field existed. Every other version has one, even when its display_name could not be resolved (a member whose account is gone, say).
 	UpdatedBy *Actor `json:"updated_by,omitempty"`
 
-	// Variables Every variable this version's content uses. You supply a value for each of them when you send.
+	// Variables Input definitions this version uses, including caller parameters and reserved Bird inputs. An entry with `system` false is yours to send in `template.parameters`. An entry with `system` true names a reserved Bird key; supported paths receive Bird values. A draft can also report unsupported reserved paths, including bare `bird`, whose `constraint` explains that no Bird value fills them. Correct these paths before publishing. Naming a reserved Bird key in a send is rejected with a `422`.
 	//
-	// The list combines all the languages, because languages do not have to use the same variables: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. Send a value for every variable in the list rather than only the ones you expect the language you are sending to use. A language that does not use a variable ignores the value you sent for it, and a variable the sent language does use but you left out is rejected with a `422` naming it.
-	//
-	// Variables under the reserved `bird.` namespace are not listed here. We fill those in ourselves from the recipient's contact record.
+	// The list combines all the languages, because languages do not have to use the same inputs: if the English body uses `discount_code` and the French body uses `shipping_date`, both appear here. A send requires values only for the caller parameters referenced by its resolved language. Preview each language to see its inputs. Extra parameters are ignored; omitting a caller parameter referenced by the resolved language returns a `422` naming it.
 	Variables *[]TemplateVariable `json:"variables,omitempty"`
 
 	// VersionNumber Sequential published-version number (1, 2, 3…). Null while the version is a draft.
@@ -22939,19 +23033,22 @@ type TemplateSlug = string
 // a template reaching either is not a breaking change.
 type TemplateStatus string
 
-// TemplateVariable A single variable slot a template fills in from the values supplied when sending. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
+// TemplateVariable A single variable slot a template fills in when it sends. Most slots are filled from the values supplied when sending; on email, a slot with `system` true is filled by Bird itself, per recipient. The same shape on email, SMS and WhatsApp, so reading what a template needs works the same way whichever channel you are sending on.
 type TemplateVariable struct {
-	// Constraint A plain-language description of what values this variable accepts.
+	// Constraint A plain-language description of what values this variable accepts. When `system` is true it names where Bird takes the value from instead, because there is no value for you to send.
 	Constraint *string `json:"constraint,omitempty"`
 
-	// Key The key this slot is filled by. On email and SMS it is the key you set in the send's `parameters` object. On WhatsApp it is the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
+	// Key The key this slot is filled by. When `system` is true it is the reserved `bird` key or a dotted path beneath it, such as `bird.contact.first_name`, and naming it in a send is rejected. Otherwise, on email and SMS it is the key you set in the send's `parameters` object, and on WhatsApp the `name` you repeat on the matching parameter inside `components`, or, for a template whose placeholders are positional, the position itself as `1`, `2` and so on.
 	Key *string `json:"key,omitempty"`
 
-	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends.
+	// Required Whether the send must supply this variable. Omitting a required value returns `422` on email, SMS, and WhatsApp sends. Always false when `system` is true, because you do not supply that slot's value.
 	Required *bool `json:"required,omitempty"`
 
 	// Sensitive Whether this slot's value is redacted from stored message content. A placeholder replaces the sensitive value in message history; transport queues can still carry the text needed for delivery.
 	Sensitive *bool `json:"sensitive,omitempty"`
+
+	// System Whether the value comes from Bird rather than from the send. Absent means false. Only email templates have system slots, identified by the reserved `bird` key or a dotted path beneath it; every SMS and WhatsApp slot is yours to fill. A draft can also name a reserved key no Bird value fills, including `bird` itself: `constraint` says so, and publishing that draft is rejected.
+	System *bool `json:"system,omitempty"`
 
 	// Type The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
@@ -23266,7 +23363,8 @@ type VoiceCallRouteWritable struct {
 
 // VoiceCallSequence defines model for VoiceCallSequence.
 type VoiceCallSequence struct {
-	Id    VoiceSequenceID    `json:"id"`
+	// Id Voice sequence selected for this call. Null for a call that ran an inline definition.
+	Id    *VoiceSequenceID   `json:"id,omitempty"`
 	RunId VoiceSequenceRunID `json:"run_id"`
 }
 
@@ -23729,6 +23827,45 @@ type VoicePartySIPEndpoint struct {
 // VoiceSIPDigestAlgorithm A hash algorithm for SIP Digest authentication, spelled as it appears in the `algorithm=` parameter on the wire. `SHA-256` is the stronger option and is offered first; `MD5` is the algorithm most PBX and ITSP equipment implements.
 type VoiceSIPDigestAlgorithm string
 
+// VoiceSequenceCompletionSample defines model for VoiceSequenceCompletionSample.
+type VoiceSequenceCompletionSample struct {
+	// Completion Hypothetical completion of a managed builtin transfer. No media effects run during preview.
+	Completion VoiceSequenceCompletionSampleCompletion `json:"completion"`
+
+	// NodeId Stable identifier for a node within one sequence definition.
+	NodeId VoiceSequenceNodeID `json:"node_id"`
+}
+
+// VoiceSequenceCompletionSampleCompletion Hypothetical completion of a managed builtin transfer. No media effects run during preview.
+type VoiceSequenceCompletionSampleCompletion string
+
+// VoiceSequenceDefinition defines model for VoiceSequenceDefinition.
+type VoiceSequenceDefinition struct {
+	// ExpressionEnvironment Expression language used by explicitly marked values in a voice sequence definition.
+	ExpressionEnvironment VoiceSequenceExpressionEnvironment `json:"expression_environment"`
+
+	// Nodes Nodes keyed by stable IDs. Incomplete node objects may be saved in a draft. Array order has no execution meaning.
+	Nodes []VoiceSequenceDefinitionNode `json:"nodes"`
+
+	// Presentation Optional editor layout, labels and saved authoring samples. These fields do not drive execution. Their bytes still count toward definition and execution size limits.
+	Presentation *VoiceSequencePresentation `json:"presentation,omitempty"`
+
+	// SchemaVersion Version of the voice graph definition envelope.
+	SchemaVersion VoiceSequenceDefinitionSchemaVersion `json:"schema_version"`
+
+	// Settings Sequence policies being authored. Omission leaves the definition without explicit settings.
+	Settings *map[string]interface{} `json:"settings,omitempty"`
+}
+
+// VoiceSequenceDefinitionSchemaVersion Version of the voice graph definition envelope.
+type VoiceSequenceDefinitionSchemaVersion int
+
+// VoiceSequenceDefinitionNode An authored node object. Drafts retain incomplete configuration, input and connections for later validation. Connections map output port names to objects with explicit node_id and port fields; validation reports incomplete or invalid targets. Omitted connections or an empty map leaves every output unconnected, with behavior determined by the node contract.
+type VoiceSequenceDefinitionNode map[string]interface{}
+
+// VoiceSequenceExpressionEnvironment Expression language used by explicitly marked values in a voice sequence definition.
+type VoiceSequenceExpressionEnvironment string
+
 // VoiceSequenceID defines model for VoiceSequenceID.
 type VoiceSequenceID = string
 
@@ -23738,8 +23875,73 @@ type VoiceSequenceNodeID = string
 // VoiceSequencePhoneNumber Canonical E.164 phone number, with a leading plus sign and four to fifteen digits.
 type VoiceSequencePhoneNumber = string
 
+// VoiceSequencePortSample defines model for VoiceSequencePortSample.
+type VoiceSequencePortSample struct {
+	// NodeId Stable identifier for a node within one sequence definition.
+	NodeId VoiceSequenceNodeID `json:"node_id"`
+
+	// Output Original hypothetical output matching the resolved port schema, limited to 128 KiB. A webhook sample must also fit its 16 KiB native outcome envelope; business ports use the configured object schema and failure uses a fixed technical error code. Gather digits and reason must match collection constraints and the selected port. Private gather results are checked before removal from returned steps.
+	Output map[string]interface{} `json:"output"`
+
+	// Port Stable named input or output declared by a node-type version.
+	Port AutomationPortKey `json:"port"`
+}
+
+// VoiceSequencePresentation Optional editor layout, labels and saved authoring samples. These fields do not drive execution. Their bytes still count toward definition and execution size limits.
+type VoiceSequencePresentation struct {
+	// Preview Saved authoring scenario. Values are checked against node contracts only when explicitly submitted to preview or evaluation.
+	Preview              *VoiceSequenceSavedPreview `json:"preview,omitempty" pii:"true"`
+	AdditionalProperties map[string]interface{}     `json:"-"`
+}
+
+// VoiceSequencePreviewSample A hypothetical node outcome. Managed builtin transfers use explicit completion; nodes with output ports use a port and its output. These forms cannot be combined.
+type VoiceSequencePreviewSample struct {
+	union json.RawMessage
+}
+
 // VoiceSequenceRunID defines model for VoiceSequenceRunID.
 type VoiceSequenceRunID = string
+
+// VoiceSequenceSavedExecutionCallSample Saved hypothetical root call identities. Strings may be stale; explicit preview and evaluation require valid typed identifiers.
+type VoiceSequenceSavedExecutionCallSample struct {
+	// Dest Saved hypothetical party, or null for an absent observation. Strings may be stale; explicit preview and evaluation validate endpoint types and telephone addresses.
+	Dest *VoiceSequenceSavedExecutionParty `json:"dest"`
+	Id   string                            `json:"id"`
+
+	// Orig Saved hypothetical party, or null for an absent observation. Strings may be stale; explicit preview and evaluation validate endpoint types and telephone addresses.
+	Orig      *VoiceSequenceSavedExecutionParty `json:"orig"`
+	SessionId string                            `json:"session_id"`
+}
+
+// VoiceSequenceSavedExecutionEndpoint defines model for VoiceSequenceSavedExecutionEndpoint.
+type VoiceSequenceSavedExecutionEndpoint struct {
+	Type string `json:"type"`
+}
+
+// VoiceSequenceSavedExecutionParty Saved hypothetical party, or null for an absent observation. Strings may be stale; explicit preview and evaluation validate endpoint types and telephone addresses.
+type VoiceSequenceSavedExecutionParty struct {
+	Address  *string                             `json:"address,omitempty"`
+	Endpoint VoiceSequenceSavedExecutionEndpoint `json:"endpoint"`
+}
+
+// VoiceSequenceSavedExecutionSample Saved hypothetical values, which may be stale or incomplete in meaning. Each string is nonempty and limited to 128 bytes. Explicit preview and evaluation require valid typed identifiers and a timestamp.
+type VoiceSequenceSavedExecutionSample struct {
+	// Call Saved hypothetical root call identities. Strings may be stale; explicit preview and evaluation require valid typed identifiers.
+	Call      VoiceSequenceSavedExecutionCallSample `json:"call"`
+	Id        string                                `json:"id"`
+	StartedAt string                                `json:"started_at"`
+}
+
+// VoiceSequenceSavedPreview Saved authoring scenario. Values are checked against node contracts only when explicitly submitted to preview or evaluation.
+type VoiceSequenceSavedPreview struct {
+	// ExecutionSample Saved hypothetical values, which may be stale or incomplete in meaning. Each string is nonempty and limited to 128 bytes. Explicit preview and evaluation require valid typed identifiers and a timestamp.
+	ExecutionSample *VoiceSequenceSavedExecutionSample `json:"execution_sample,omitempty"`
+	NodeSamples     *[]VoiceSequencePreviewSample      `json:"node_samples,omitempty"`
+	TriggerData     map[string]interface{}             `json:"trigger_data"`
+
+	// TriggerNodeId Stable identifier for a node within one sequence definition.
+	TriggerNodeId VoiceSequenceNodeID `json:"trigger_node_id"`
+}
 
 // VoiceSessionCredential A short-lived SIP digest credential for a calling client. The `password` is returned once and cannot be recovered. Create a new credential if you lose it.
 type VoiceSessionCredential struct {
@@ -34250,6 +34452,74 @@ type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
 // CreateWhatsAppSuppressionJSONRequestBody defines body for CreateWhatsAppSuppression for application/json ContentType.
 type CreateWhatsAppSuppressionJSONRequestBody = WhatsAppSuppressionCreate
 
+// Getter for additional properties for VoiceSequencePresentation. Returns the specified
+// element and whether it was found
+func (a VoiceSequencePresentation) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for VoiceSequencePresentation
+func (a *VoiceSequencePresentation) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for VoiceSequencePresentation to handle AdditionalProperties
+func (a *VoiceSequencePresentation) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["preview"]; found {
+		err = json.Unmarshal(raw, &a.Preview)
+		if err != nil {
+			return fmt.Errorf("error reading 'preview': %w", err)
+		}
+		delete(object, "preview")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return fmt.Errorf("error unmarshaling field %s: %w", fieldName, err)
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for VoiceSequencePresentation to handle AdditionalProperties
+func (a VoiceSequencePresentation) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Preview != nil {
+		object["preview"], err = json.Marshal(a.Preview)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'preview': %w", err)
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling '%s': %w", fieldName, err)
+		}
+	}
+	return json.Marshal(object)
+}
+
 // AsAMBFormSelectPage returns the union data inside the AMBFormPage as a AMBFormSelectPage
 func (t AMBFormPage) AsAMBFormSelectPage() (AMBFormSelectPage, error) {
 	var body AMBFormSelectPage
@@ -36234,6 +36504,374 @@ func (t *AMBRoutingRuleCreate) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsAMBRoutingRuleUpdate0 returns the union data inside the AMBRoutingRuleUpdate as a AMBRoutingRuleUpdate0
+func (t AMBRoutingRuleUpdate) AsAMBRoutingRuleUpdate0() (AMBRoutingRuleUpdate0, error) {
+	var body AMBRoutingRuleUpdate0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleUpdate0 overwrites any union data inside the AMBRoutingRuleUpdate as the provided AMBRoutingRuleUpdate0
+func (t *AMBRoutingRuleUpdate) FromAMBRoutingRuleUpdate0(v AMBRoutingRuleUpdate0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleUpdate0 performs a merge with any union data inside the AMBRoutingRuleUpdate, using the provided AMBRoutingRuleUpdate0
+func (t *AMBRoutingRuleUpdate) MergeAMBRoutingRuleUpdate0(v AMBRoutingRuleUpdate0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRoutingRuleUpdate1 returns the union data inside the AMBRoutingRuleUpdate as a AMBRoutingRuleUpdate1
+func (t AMBRoutingRuleUpdate) AsAMBRoutingRuleUpdate1() (AMBRoutingRuleUpdate1, error) {
+	var body AMBRoutingRuleUpdate1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleUpdate1 overwrites any union data inside the AMBRoutingRuleUpdate as the provided AMBRoutingRuleUpdate1
+func (t *AMBRoutingRuleUpdate) FromAMBRoutingRuleUpdate1(v AMBRoutingRuleUpdate1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleUpdate1 performs a merge with any union data inside the AMBRoutingRuleUpdate, using the provided AMBRoutingRuleUpdate1
+func (t *AMBRoutingRuleUpdate) MergeAMBRoutingRuleUpdate1(v AMBRoutingRuleUpdate1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRoutingRuleUpdate2 returns the union data inside the AMBRoutingRuleUpdate as a AMBRoutingRuleUpdate2
+func (t AMBRoutingRuleUpdate) AsAMBRoutingRuleUpdate2() (AMBRoutingRuleUpdate2, error) {
+	var body AMBRoutingRuleUpdate2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleUpdate2 overwrites any union data inside the AMBRoutingRuleUpdate as the provided AMBRoutingRuleUpdate2
+func (t *AMBRoutingRuleUpdate) FromAMBRoutingRuleUpdate2(v AMBRoutingRuleUpdate2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleUpdate2 performs a merge with any union data inside the AMBRoutingRuleUpdate, using the provided AMBRoutingRuleUpdate2
+func (t *AMBRoutingRuleUpdate) MergeAMBRoutingRuleUpdate2(v AMBRoutingRuleUpdate2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBRoutingRuleUpdate3 returns the union data inside the AMBRoutingRuleUpdate as a AMBRoutingRuleUpdate3
+func (t AMBRoutingRuleUpdate) AsAMBRoutingRuleUpdate3() (AMBRoutingRuleUpdate3, error) {
+	var body AMBRoutingRuleUpdate3
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBRoutingRuleUpdate3 overwrites any union data inside the AMBRoutingRuleUpdate as the provided AMBRoutingRuleUpdate3
+func (t *AMBRoutingRuleUpdate) FromAMBRoutingRuleUpdate3(v AMBRoutingRuleUpdate3) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBRoutingRuleUpdate3 performs a merge with any union data inside the AMBRoutingRuleUpdate, using the provided AMBRoutingRuleUpdate3
+func (t *AMBRoutingRuleUpdate) MergeAMBRoutingRuleUpdate3(v AMBRoutingRuleUpdate3) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBRoutingRuleUpdate) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.BusinessAccountId != nil {
+		object["business_account_id"], err = json.Marshal(t.BusinessAccountId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'business_account_id': %w", err)
+		}
+	}
+
+	if t.IsDefault != nil {
+		object["is_default"], err = json.Marshal(t.IsDefault)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'is_default': %w", err)
+		}
+	}
+
+	if t.MatchGroupId != nil {
+		object["match_group_id"], err = json.Marshal(t.MatchGroupId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'match_group_id': %w", err)
+		}
+	}
+
+	if t.MatchIntentId != nil {
+		object["match_intent_id"], err = json.Marshal(t.MatchIntentId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'match_intent_id': %w", err)
+		}
+	}
+
+	if t.MatchKind != nil {
+		object["match_kind"], err = json.Marshal(t.MatchKind)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'match_kind': %w", err)
+		}
+	}
+
+	if t.Precedence != nil {
+		object["precedence"], err = json.Marshal(t.Precedence)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'precedence': %w", err)
+		}
+	}
+
+	if t.Queue != nil {
+		object["queue"], err = json.Marshal(t.Queue)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'queue': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBRoutingRuleUpdate) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["business_account_id"]; found {
+		err = json.Unmarshal(raw, &t.BusinessAccountId)
+		if err != nil {
+			return fmt.Errorf("error reading 'business_account_id': %w", err)
+		}
+	}
+
+	if raw, found := object["is_default"]; found {
+		err = json.Unmarshal(raw, &t.IsDefault)
+		if err != nil {
+			return fmt.Errorf("error reading 'is_default': %w", err)
+		}
+	}
+
+	if raw, found := object["match_group_id"]; found {
+		err = json.Unmarshal(raw, &t.MatchGroupId)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_group_id': %w", err)
+		}
+	}
+
+	if raw, found := object["match_intent_id"]; found {
+		err = json.Unmarshal(raw, &t.MatchIntentId)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_intent_id': %w", err)
+		}
+	}
+
+	if raw, found := object["match_kind"]; found {
+		err = json.Unmarshal(raw, &t.MatchKind)
+		if err != nil {
+			return fmt.Errorf("error reading 'match_kind': %w", err)
+		}
+	}
+
+	if raw, found := object["precedence"]; found {
+		err = json.Unmarshal(raw, &t.Precedence)
+		if err != nil {
+			return fmt.Errorf("error reading 'precedence': %w", err)
+		}
+	}
+
+	if raw, found := object["queue"]; found {
+		err = json.Unmarshal(raw, &t.Queue)
+		if err != nil {
+			return fmt.Errorf("error reading 'queue': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsCreateVoiceCallSequenceRequest0 returns the union data inside the CreateVoiceCallSequenceRequest as a CreateVoiceCallSequenceRequest0
+func (t CreateVoiceCallSequenceRequest) AsCreateVoiceCallSequenceRequest0() (CreateVoiceCallSequenceRequest0, error) {
+	var body CreateVoiceCallSequenceRequest0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateVoiceCallSequenceRequest0 overwrites any union data inside the CreateVoiceCallSequenceRequest as the provided CreateVoiceCallSequenceRequest0
+func (t *CreateVoiceCallSequenceRequest) FromCreateVoiceCallSequenceRequest0(v CreateVoiceCallSequenceRequest0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateVoiceCallSequenceRequest0 performs a merge with any union data inside the CreateVoiceCallSequenceRequest, using the provided CreateVoiceCallSequenceRequest0
+func (t *CreateVoiceCallSequenceRequest) MergeCreateVoiceCallSequenceRequest0(v CreateVoiceCallSequenceRequest0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsCreateVoiceCallSequenceRequest1 returns the union data inside the CreateVoiceCallSequenceRequest as a CreateVoiceCallSequenceRequest1
+func (t CreateVoiceCallSequenceRequest) AsCreateVoiceCallSequenceRequest1() (CreateVoiceCallSequenceRequest1, error) {
+	var body CreateVoiceCallSequenceRequest1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromCreateVoiceCallSequenceRequest1 overwrites any union data inside the CreateVoiceCallSequenceRequest as the provided CreateVoiceCallSequenceRequest1
+func (t *CreateVoiceCallSequenceRequest) FromCreateVoiceCallSequenceRequest1(v CreateVoiceCallSequenceRequest1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeCreateVoiceCallSequenceRequest1 performs a merge with any union data inside the CreateVoiceCallSequenceRequest, using the provided CreateVoiceCallSequenceRequest1
+func (t *CreateVoiceCallSequenceRequest) MergeCreateVoiceCallSequenceRequest1(v CreateVoiceCallSequenceRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t CreateVoiceCallSequenceRequest) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Definition != nil {
+		object["definition"], err = json.Marshal(t.Definition)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'definition': %w", err)
+		}
+	}
+
+	object["entry_node_id"], err = json.Marshal(t.EntryNodeId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'entry_node_id': %w", err)
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.TriggerData != nil {
+		object["trigger_data"], err = json.Marshal(t.TriggerData)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'trigger_data': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *CreateVoiceCallSequenceRequest) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["definition"]; found {
+		err = json.Unmarshal(raw, &t.Definition)
+		if err != nil {
+			return fmt.Errorf("error reading 'definition': %w", err)
+		}
+	}
+
+	if raw, found := object["entry_node_id"]; found {
+		err = json.Unmarshal(raw, &t.EntryNodeId)
+		if err != nil {
+			return fmt.Errorf("error reading 'entry_node_id': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["trigger_data"]; found {
+		err = json.Unmarshal(raw, &t.TriggerData)
+		if err != nil {
+			return fmt.Errorf("error reading 'trigger_data': %w", err)
+		}
+	}
+
+	return err
+}
+
 // AsEmailAddressInput0 returns the union data inside the EmailAddressInput as a EmailAddressInput0
 func (t EmailAddressInput) AsEmailAddressInput0() (EmailAddressInput0, error) {
 	var body EmailAddressInput0
@@ -37446,6 +38084,68 @@ func (t VoiceNumberProvider) MarshalJSON() ([]byte, error) {
 }
 
 func (t *VoiceNumberProvider) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsVoiceSequencePortSample returns the union data inside the VoiceSequencePreviewSample as a VoiceSequencePortSample
+func (t VoiceSequencePreviewSample) AsVoiceSequencePortSample() (VoiceSequencePortSample, error) {
+	var body VoiceSequencePortSample
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceSequencePortSample overwrites any union data inside the VoiceSequencePreviewSample as the provided VoiceSequencePortSample
+func (t *VoiceSequencePreviewSample) FromVoiceSequencePortSample(v VoiceSequencePortSample) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceSequencePortSample performs a merge with any union data inside the VoiceSequencePreviewSample, using the provided VoiceSequencePortSample
+func (t *VoiceSequencePreviewSample) MergeVoiceSequencePortSample(v VoiceSequencePortSample) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsVoiceSequenceCompletionSample returns the union data inside the VoiceSequencePreviewSample as a VoiceSequenceCompletionSample
+func (t VoiceSequencePreviewSample) AsVoiceSequenceCompletionSample() (VoiceSequenceCompletionSample, error) {
+	var body VoiceSequenceCompletionSample
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromVoiceSequenceCompletionSample overwrites any union data inside the VoiceSequencePreviewSample as the provided VoiceSequenceCompletionSample
+func (t *VoiceSequencePreviewSample) FromVoiceSequenceCompletionSample(v VoiceSequenceCompletionSample) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeVoiceSequenceCompletionSample performs a merge with any union data inside the VoiceSequencePreviewSample, using the provided VoiceSequenceCompletionSample
+func (t *VoiceSequencePreviewSample) MergeVoiceSequenceCompletionSample(v VoiceSequenceCompletionSample) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t VoiceSequencePreviewSample) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *VoiceSequencePreviewSample) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }

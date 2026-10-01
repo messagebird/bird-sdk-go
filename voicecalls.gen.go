@@ -11,6 +11,12 @@ import (
 
 type CreateVoiceCallSequenceRequest = oapi.CreateVoiceCallSequenceRequest
 
+type VoiceSequenceExpressionEnvironment = oapi.VoiceSequenceExpressionEnvironment
+
+const (
+	VoiceSequenceExpressionEnvironmentBirdCelV1 VoiceSequenceExpressionEnvironment = "bird.cel.v1"
+)
+
 // VoiceCallsCreateParams is the request body for create.
 type VoiceCallsCreateParams struct {
 	// Calling number that this workspace is permitted to present.
@@ -19,7 +25,8 @@ type VoiceCallsCreateParams struct {
 	To string
 	// Maximum ringing time for the original dialing attempt, shared across routing candidates.
 	RingingTimeoutSeconds *int
-	Sequence              CreateVoiceCallSequenceRequest
+	// Supply exactly one of `id`, to run a saved sequence's active publication, or `definition`, to run a sequence once without saving it.
+	Sequence CreateVoiceCallSequenceRequest
 }
 
 func (p VoiceCallsCreateParams) toWire() oapi.CreateVoiceCallRequest {
@@ -31,7 +38,7 @@ func (p VoiceCallsCreateParams) toWire() oapi.CreateVoiceCallRequest {
 	return body
 }
 
-// Create Proposes a real outbound call for browser confirmation. Requires voice_management:write and voice:write; normal calling charges apply. Supply a stable idempotency_key and reuse it with identical input for retries. The confirmation expires after 90 minutes. After the person places the call, a 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
+// Create Proposes a real outbound call for browser confirmation. Requires voice_management:write and voice:write; normal calling charges apply. Set `sequence.id` to run a saved sequence's active publication, or `sequence.definition` to run a complete definition once without saving it; never both. An inline definition must pass publication checks; an invalid one is refused with a 422 naming its first problem under `/sequence/definition` only when the person runs the call. An inline run executes at most 16 commands. Supply a stable idempotency_key and reuse it with identical input for retries. The confirmation expires after 90 minutes. After the person places the call, a 202 response reserves call, leg and run IDs; it does not prove connection. Use `voice.legs.get` with `initial_leg_id` to inspect the leg outcome, and inspect the sequence run in the dashboard. Never use a new key merely because an earlier result is missing.
 func (s *VoiceCallsService) Create(ctx context.Context, params VoiceCallsCreateParams, opts ...option.RequestOption) (*VoiceCall, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateVoiceCallParams{}

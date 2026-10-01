@@ -4424,7 +4424,7 @@ func ExampleVoiceCallsService_Create() {
 		From: "+12025550100",
 		To:   "+12025550101",
 		Sequence: bird.CreateVoiceCallSequenceRequest{
-			Id:          "vsq_01krdgeqcxet5s7t44vh8rt9mg",
+			Id:          bird.Ptr("vsq_01krdgeqcxet5s7t44vh8rt9mg"),
 			EntryNodeId: "start",
 			TriggerData: map[string]any{},
 		},

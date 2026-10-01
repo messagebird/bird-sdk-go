@@ -41,9 +41,13 @@ func (s *AmbRoutingRulesService) Create(ctx context.Context, params AmbRoutingRu
 }
 
 type AmbRoutingRulesUpdateParams struct {
-	Queue      *string `json:"queue,omitempty"`
-	Precedence *int    `json:"precedence,omitempty"`
-	IsDefault  *bool   `json:"is_default,omitempty"`
+	BusinessAccountID *string                  `json:"business_account_id,omitempty"`
+	MatchKind         *AMBRoutingRuleMatchKind `json:"match_kind,omitempty"`
+	MatchIntentID     *string                  `json:"match_intent_id,omitempty"`
+	MatchGroupID      *string                  `json:"match_group_id,omitempty"`
+	Queue             *string                  `json:"queue,omitempty"`
+	Precedence        *int                     `json:"precedence,omitempty"`
+	IsDefault         *bool                    `json:"is_default,omitempty"`
 }
 
 func (s *AmbRoutingRulesService) Update(ctx context.Context, routingRuleId string, params AmbRoutingRulesUpdateParams, opts ...option.RequestOption) (*AMBRoutingRule, error) {
