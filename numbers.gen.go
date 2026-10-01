@@ -12,6 +12,10 @@ import (
 
 // NumbersListParams filters the list. Zero-value fields are omitted.
 type NumbersListParams struct {
+	// Matches part of the number, name, or reference, ignoring case. Characters such as percent and underscore match literally.
+	Search string
+	// Return numbers with this exact reference. Matching is case-sensitive.
+	Reference string
 	// Return only the number matching these digits. Give a full number with its country code, however your own records spell it: `+12025550188`, `12025550188`, `0012025550188`, and `+1 202 555 0188` all resolve to the same number. Spacing and punctuation are fine once a leading `+` or `00` marks the country code, or when `country_code` names the country; a grouped spelling without either is refused rather than guessed at, and a national spelling (bare digits without the country code) matches only when `country_code` names the country. A short code is matched on its bare digits instead, and since the same short code can be allocated in more than one country, pass `country_code` alongside it to name which one. This filter narrows the list like the others rather than replacing them, so a country or capability filter still applies. To match a range of numbers rather than one, use `prefix`.
 	Number string
 	// Filter by the country a number belongs to, as an ISO 3166-1 alpha-2 code.
@@ -30,6 +34,8 @@ type NumbersListParams struct {
 
 func (p NumbersListParams) toWire(startingAfter string) *oapi.ListWorkspaceNumbersParams {
 	return &oapi.ListWorkspaceNumbersParams{
+		Search:        optStr(p.Search),
+		Reference:     optStr(p.Reference),
 		Number:        optStr(p.Number),
 		CountryCode:   optStr(p.CountryCode),
 		NumberType:    optZero(p.NumberType),
@@ -39,6 +45,21 @@ func (p NumbersListParams) toWire(startingAfter string) *oapi.ListWorkspaceNumbe
 		EndingBefore:  optStr(p.EndingBefore),
 		StartingAfter: optStr(startingAfter),
 	}
+}
+
+// NumbersUpdateParams is the request body for update.
+type NumbersUpdateParams struct {
+	// A name for this number in your workspace, such as Support line. Send null to clear it, or omit it to keep the current name.
+	Name Nullable[string]
+	// Your own reference for this number, such as an identifier from your records. References need not be unique. Send null to clear it, or omit it to keep the current reference.
+	Reference Nullable[string]
+}
+
+func (p NumbersUpdateParams) toWire() oapi.NumberUpdate {
+	body := oapi.NumberUpdate{}
+	body.Name = p.Name
+	body.Reference = p.Reference
+	return body
 }
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
@@ -78,6 +99,25 @@ func (s *NumbersService) List(ctx context.Context, params NumbersListParams, opt
 func (s *NumbersService) Get(ctx context.Context, numberId string, opts ...option.RequestOption) (*Number, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWorkspaceNumber(ctx, oapi.AllocatedNumberID(numberId), &oapi.GetWorkspaceNumberParams{}, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out Number
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Update Set the name or your own reference on an allocated number. Omit a field to preserve it, or send null to clear it. Applies to dedicated and shared numbers.
+func (s *NumbersService) Update(ctx context.Context, numberId string, params NumbersUpdateParams, opts ...option.RequestOption) (*Number, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.UpdateWorkspaceNumberParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.UpdateWorkspaceNumber(ctx, oapi.AllocatedNumberID(numberId), op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err

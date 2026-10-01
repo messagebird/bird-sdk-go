@@ -14,11 +14,14 @@ import (
 type NumbersOrdersCreateParams struct {
 	// The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
 	Number string
+	// Your own reference to set on the number when this purchase completes. Leading and trailing whitespace is removed. A pending order keeps the reference until the number is allocated.
+	Reference *string
 }
 
 func (p NumbersOrdersCreateParams) toWire() oapi.NumbersOrderCreate {
 	body := oapi.NumbersOrderCreate{}
 	body.Number = p.Number
+	body.Reference = p.Reference
 	return body
 }
 

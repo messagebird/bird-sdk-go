@@ -6789,6 +6789,30 @@ func (e WebhookTestResponseStatus) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppAgentNotificationStatus.
+const (
+	WhatsAppAgentNotificationStatusAccepted WhatsAppAgentNotificationStatus = "accepted"
+	WhatsAppAgentNotificationStatusFailed   WhatsAppAgentNotificationStatus = "failed"
+	WhatsAppAgentNotificationStatusSkipped  WhatsAppAgentNotificationStatus = "skipped"
+	WhatsAppAgentNotificationStatusSuccess  WhatsAppAgentNotificationStatus = "success"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppAgentNotificationStatus enum.
+func (e WhatsAppAgentNotificationStatus) Valid() bool {
+	switch e {
+	case WhatsAppAgentNotificationStatusAccepted:
+		return true
+	case WhatsAppAgentNotificationStatusFailed:
+		return true
+	case WhatsAppAgentNotificationStatusSkipped:
+		return true
+	case WhatsAppAgentNotificationStatusSuccess:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppBusinessAccountBanState.
 const (
 	Disabled            WhatsAppBusinessAccountBanState = "disabled"
@@ -7901,22 +7925,22 @@ func (e WhatsAppReactedEventType) Valid() bool {
 
 // Defines values for WhatsAppReactionEventStatus.
 const (
-	Failed   WhatsAppReactionEventStatus = "failed"
-	Received WhatsAppReactionEventStatus = "received"
-	Rejected WhatsAppReactionEventStatus = "rejected"
-	Sent     WhatsAppReactionEventStatus = "sent"
+	WhatsAppReactionEventStatusFailed   WhatsAppReactionEventStatus = "failed"
+	WhatsAppReactionEventStatusReceived WhatsAppReactionEventStatus = "received"
+	WhatsAppReactionEventStatusRejected WhatsAppReactionEventStatus = "rejected"
+	WhatsAppReactionEventStatusSent     WhatsAppReactionEventStatus = "sent"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppReactionEventStatus enum.
 func (e WhatsAppReactionEventStatus) Valid() bool {
 	switch e {
-	case Failed:
+	case WhatsAppReactionEventStatusFailed:
 		return true
-	case Received:
+	case WhatsAppReactionEventStatusReceived:
 		return true
-	case Rejected:
+	case WhatsAppReactionEventStatusRejected:
 		return true
-	case Sent:
+	case WhatsAppReactionEventStatusSent:
 		return true
 	default:
 		return false
@@ -20674,26 +20698,32 @@ type NextAction struct {
 // Number defines model for Number.
 type Number struct {
 	// AllocatedAt When this number was allocated to your workspace.
-	AllocatedAt *time.Time `json:"allocated_at,omitempty"`
+	AllocatedAt time.Time `json:"allocated_at"`
 
 	// Capabilities Capabilities supported by this number.
-	Capabilities *[]NumberCapability `json:"capabilities,omitempty"`
-	CountryCode  *CountryCode        `json:"country_code,omitempty"`
+	Capabilities []NumberCapability `json:"capabilities"`
+	CountryCode  CountryCode        `json:"country_code"`
 
 	// Id Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
-	Id *AllocatedNumberID `json:"id,omitempty"`
+	Id AllocatedNumberID `json:"id"`
 
 	// Kind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
-	Kind *NumberKind `json:"kind,omitempty"`
+	Kind NumberKind `json:"kind"`
+
+	// Name The name you gave this number in your workspace. Null when no name is set.
+	Name *string `json:"name"`
 
 	// Number Phone number in E.164 format.
-	Number *string `json:"number,omitempty"`
+	Number string `json:"number"`
 
 	// NumberType Physical type of this phone number.
-	NumberType *NumberType `json:"number_type,omitempty"`
+	NumberType NumberType `json:"number_type"`
 
 	// Ownership Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
 	Ownership *NumberOwnership `json:"ownership,omitempty"`
+
+	// Reference Your own reference for this number in your workspace. Null when no reference is set.
+	Reference *string `json:"reference"`
 
 	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
 	ReleasedAt *time.Time `json:"released_at,omitempty"`
@@ -20710,7 +20740,7 @@ type Number struct {
 	//
 	// An allocated number is not always enough to send from it: some destination
 	// countries also require an approved registration for the sender.
-	Status *NumberStatus `json:"status,omitempty"`
+	Status NumberStatus `json:"status"`
 }
 
 // NumberKind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
@@ -20789,6 +20819,15 @@ type NumberOwnershipStatus string
 // NumberType Physical type of a phone number. New number types may be added over time, so treat unrecognized values as supported types rather than errors.
 type NumberType string
 
+// NumberUpdate defines model for NumberUpdate.
+type NumberUpdate struct {
+	// Name A name for this number in your workspace, such as Support line. Send null to clear it, or omit it to keep the current name.
+	Name nullable.Nullable[string] `json:"name,omitempty"`
+
+	// Reference Your own reference for this number, such as an identifier from your records. References need not be unique. Send null to clear it, or omit it to keep the current reference.
+	Reference nullable.Nullable[string] `json:"reference,omitempty"`
+}
+
 // NumbersDedicatedAllocationID defines model for NumbersDedicatedAllocationID.
 type NumbersDedicatedAllocationID = string
 
@@ -20821,6 +20860,9 @@ type NumbersOrder struct {
 type NumbersOrderCreate struct {
 	// Number The number to acquire, in E.164 format, as returned by `GET /v1/numbers/available`.
 	Number string `json:"number"`
+
+	// Reference Your own reference to set on the number when this purchase completes. Leading and trailing whitespace is removed. A pending order keeps the reference until the number is allocated.
+	Reference *string `json:"reference,omitempty"`
 }
 
 // NumbersOrderID defines model for NumbersOrderID.
@@ -24601,6 +24643,86 @@ type WhatsAppAddress struct {
 	// Username Present only on a message received from a WhatsApp user, on `from`; never on an outbound send's `to`, where the profile is not known. Absent when the contact has not adopted one, and on a message received before this workspace started recording them. Same form as a number's own username (`WhatsAppNumberProfile.username`), without a leading `@`; a message cannot be addressed by it.
 	Username *string `json:"username,omitempty"`
 }
+
+// WhatsAppAgentNotification A notification you sent the agent about one contact, and what came of it. The agent decides whether to write to the contact about it; that message, if any, shows up on the contact's conversation.
+type WhatsAppAgentNotification struct {
+	// CreatedAt When Bird accepted the notification.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// Description What happened, as you sent it.
+	Description *string `json:"description,omitempty"`
+
+	// Error Why the notification failed. Present only when `status` is `failed`.
+	Error *WhatsAppAgentNotificationError `json:"error,omitempty"`
+
+	// Id Unique identifier for the notification.
+	Id *WhatsAppAgentNotificationID `json:"id,omitempty"`
+
+	// Name Your own name for what happened, as you sent it.
+	Name *string `json:"name,omitempty"`
+
+	// Payload The data you attached, as you sent it.
+	Payload *string `json:"payload,omitempty"`
+
+	// SkippedReason WhatsApp's own account of why the agent chose to say nothing, passed through. Present only when `status` is `skipped`. Show it to the person who sent the notification; never match on its text.
+	SkippedReason *string `json:"skipped_reason,omitempty"`
+
+	// Status Where the notification stands. `accepted` from the moment Bird takes it, then one of the three final states once WhatsApp has answered.
+	Status *WhatsAppAgentNotificationStatus `json:"status,omitempty"`
+
+	// To The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
+	To *WhatsAppAddress `json:"to,omitempty"`
+}
+
+// WhatsAppAgentNotificationCreate Something that happened in your systems that the agent should tell the contact about, such as a payment landing or an order shipping. WhatsApp processes it in the background, so read the notification back for what came of it.
+type WhatsAppAgentNotificationCreate struct {
+	// Description What happened, in a sentence the agent can tell the contact.
+	Description string `json:"description"`
+
+	// Name Your own name for what happened, such as `payment_received` or `order_shipped`. The agent reads it as the kind of thing that happened, so keep one name per kind. WhatsApp calls this the event type.
+	Name string `json:"name"`
+
+	// Payload Details the agent may draw on when it writes to the contact, as one JSON string. WhatsApp passes it to the agent unchanged and does not read it itself.
+	Payload string `json:"payload"`
+
+	// To The contact the notification is about: a phone number in E.164 format (for example `+14155551234`), or the contact's business-scoped user ID (for example `US.13491208655302741918`), the same forms a message's `to` accepts. A phone number is normalized before the call reaches WhatsApp, so spacing does not matter. WhatsApp documents a phone number for this call; a business-scoped user ID is passed through as given.
+	To string `json:"to"`
+}
+
+// WhatsAppAgentNotificationError Why a notification sent to the agent failed.
+type WhatsAppAgentNotificationError struct {
+	// Description WhatsApp's own explanation, passed through: what it said when it refused the notification, or its failure summary once it had worked on it. Show it to the person who sent the notification; never match on its text. Carries Bird's own words instead when the failure was Bird's verdict, such as no outcome arriving within a day.
+	Description *string `json:"description,omitempty"`
+
+	// MetaErrorCode WhatsApp's most specific code when it refused the notification outright: its error subcode where it sent one, otherwise its top-level code. Treat it as an opaque string. Null when WhatsApp took the notification and reported the failure later, which carries no code, and when the failure was Bird's own verdict.
+	MetaErrorCode *string `json:"meta_error_code,omitempty"`
+}
+
+// WhatsAppAgentNotificationID defines model for WhatsAppAgentNotificationID.
+type WhatsAppAgentNotificationID = string
+
+// WhatsAppAgentNotificationList defines model for WhatsAppAgentNotificationList.
+type WhatsAppAgentNotificationList struct {
+	// Data A page of the notifications sent to the agent.
+	Data []WhatsAppAgentNotification `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// WhatsAppAgentNotificationStatus Where a notification you sent the agent stands. One state is transient and three are final.
+//
+// - `accepted` means Bird holds the notification: it is on its way to WhatsApp, or WhatsApp is still working on it. Nothing is charged for a notification, unlike a message that reads `accepted`.
+// - `success` means the agent acted on it.
+// - `skipped` means the agent read it and chose to say nothing; `skipped_reason` says why.
+// - `failed` means WhatsApp refused it or reported a failure, or no outcome arrived within a day; `error` says why.
+type WhatsAppAgentNotificationStatus string
 
 // WhatsAppAudio defines model for WhatsAppAudio.
 type WhatsAppAudio struct {
@@ -31455,6 +31577,12 @@ type CreatePhoneNumberLookupParams struct {
 
 // ListWorkspaceNumbersParams defines parameters for ListWorkspaceNumbers.
 type ListWorkspaceNumbersParams struct {
+	// Search Matches part of the number, name, or reference, ignoring case. Characters such as percent and underscore match literally.
+	Search *string `form:"search,omitempty" json:"search,omitempty"`
+
+	// Reference Return numbers with this exact reference. Matching is case-sensitive.
+	Reference *string `form:"reference,omitempty" json:"reference,omitempty"`
+
 	// Number Return only the number matching these digits. Give a full number with its country code, however your own records spell it: `+12025550188`, `12025550188`, `0012025550188`, and `+1 202 555 0188` all resolve to the same number. Spacing and punctuation are fine once a leading `+` or `00` marks the country code, or when `country_code` names the country; a grouped spelling without either is refused rather than guessed at, and a national spelling (bare digits without the country code) matches only when `country_code` names the country. A short code is matched on its bare digits instead, and since the same short code can be allocated in more than one country, pass `country_code` alongside it to name which one. This filter narrows the list like the others rather than replacing them, so a country or capability filter still applies. To match a range of numbers rather than one, use `prefix`.
 	Number *string `form:"number,omitempty" json:"number,omitempty"`
 
@@ -31600,6 +31728,34 @@ type ReleaseWorkspaceNumberParams struct {
 type GetWorkspaceNumberParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+}
+
+// UpdateWorkspaceNumberParams defines parameters for UpdateWorkspaceNumber.
+type UpdateWorkspaceNumberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication. An API key or access token carries its own workspace, so send either that workspace or no header at all; a different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 }
 
 // ListPreferencesParams defines parameters for ListPreferences.
@@ -33851,6 +34007,49 @@ type ListWhatsAppNumbersParams struct {
 	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
 }
 
+// ListWhatsAppAgentNotificationsParams defines parameters for ListWhatsAppAgentNotifications.
+type ListWhatsAppAgentNotificationsParams struct {
+	// Status Return only notifications in this state.
+	Status *WhatsAppAgentNotificationStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// To Return only notifications about this contact, a phone number in E.164 format or a business-scoped user ID. A phone number is normalized before matching, so spacing does not matter.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+}
+
+// CreateWhatsAppAgentNotificationParams defines parameters for CreateWhatsAppAgentNotification.
+type CreateWhatsAppAgentNotificationParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+}
+
 // ListWhatsAppNumberEventsParams defines parameters for ListWhatsAppNumberEvents.
 type ListWhatsAppNumberEventsParams struct {
 	// Sort Field to sort by. Defaults to `created_at`.
@@ -34341,6 +34540,9 @@ type CreatePhoneNumberLookupJSONRequestBody = PhoneNumberLookupRequest
 // CreateNumbersOrderJSONRequestBody defines body for CreateNumbersOrder for application/json ContentType.
 type CreateNumbersOrderJSONRequestBody = NumbersOrderCreate
 
+// UpdateWorkspaceNumberJSONRequestBody defines body for UpdateWorkspaceNumber for application/json ContentType.
+type UpdateWorkspaceNumberJSONRequestBody = NumberUpdate
+
 // CreatePreferenceJSONRequestBody defines body for CreatePreference for application/json ContentType.
 type CreatePreferenceJSONRequestBody = PreferenceCreate
 
@@ -34448,6 +34650,9 @@ type UpsertWhatsAppMessageReactionJSONRequestBody = WhatsAppReactionUpsert
 
 // SendWhatsAppReadReceiptJSONRequestBody defines body for SendWhatsAppReadReceipt for application/json ContentType.
 type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
+
+// CreateWhatsAppAgentNotificationJSONRequestBody defines body for CreateWhatsAppAgentNotification for application/json ContentType.
+type CreateWhatsAppAgentNotificationJSONRequestBody = WhatsAppAgentNotificationCreate
 
 // CreateWhatsAppSuppressionJSONRequestBody defines body for CreateWhatsAppSuppression for application/json ContentType.
 type CreateWhatsAppSuppressionJSONRequestBody = WhatsAppSuppressionCreate
@@ -41758,6 +41963,11 @@ type ClientInterface interface {
 	// GetWorkspaceNumber request
 	GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// UpdateWorkspaceNumberWithBody request with any body
+	UpdateWorkspaceNumberWithBody(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListPreferences request
 	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -42171,6 +42381,17 @@ type ClientInterface interface {
 
 	// GetWhatsAppNumber request
 	GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppAgentNotifications request
+	ListWhatsAppAgentNotifications(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppAgentNotificationWithBody request with any body
+	CreateWhatsAppAgentNotificationWithBody(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppAgentNotification request
+	GetWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppNumberEvents request
 	ListWhatsAppNumberEvents(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -45037,6 +45258,30 @@ func (c *Client) GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumbe
 	return c.Client.Do(req)
 }
 
+func (c *Client) UpdateWorkspaceNumberWithBody(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWorkspaceNumberRequestWithBody(c.Server, numberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateWorkspaceNumberRequest(c.Server, numberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListPreferencesRequest(c.Server, params)
 	if err != nil {
@@ -46827,6 +47072,54 @@ func (c *Client) ListWhatsAppNumbers(ctx context.Context, params *ListWhatsAppNu
 
 func (c *Client) GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppNumberRequest(c.Server, numberId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppAgentNotifications(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppAgentNotificationsRequest(c.Server, numberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppAgentNotificationWithBody(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppAgentNotificationRequestWithBody(c.Server, numberId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppAgentNotificationRequest(c.Server, numberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppAgentNotificationRequest(c.Server, numberId, notificationId)
 	if err != nil {
 		return nil, err
 	}
@@ -61537,6 +61830,30 @@ func NewListWorkspaceNumbersRequest(server string, params *ListWorkspaceNumbersP
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
+		if params.Search != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "search", *params.Search, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Reference != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "reference", *params.Reference, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Number != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "number", *params.Number, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -62170,6 +62487,79 @@ func NewGetWorkspaceNumberRequest(server string, numberId AllocatedNumberID, par
 			}
 
 			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateWorkspaceNumberRequest calls the generic UpdateWorkspaceNumber builder with application/json body
+func NewUpdateWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateWorkspaceNumberRequestWithBody(server, numberId, params, "application/json", bodyReader)
+}
+
+// NewUpdateWorkspaceNumberRequestWithBody generates requests for UpdateWorkspaceNumber with any type of body
+func NewUpdateWorkspaceNumberRequestWithBody(server string, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
 		}
 
 	}
@@ -70914,6 +71304,218 @@ func NewGetWhatsAppNumberRequest(server string, numberId WhatsAppNumberID) (*htt
 	return req, nil
 }
 
+// NewListWhatsAppAgentNotificationsRequest generates requests for ListWhatsAppAgentNotifications
+func NewListWhatsAppAgentNotificationsRequest(server string, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppAgentNotificationRequest calls the generic CreateWhatsAppAgentNotification builder with application/json body
+func NewCreateWhatsAppAgentNotificationRequest(server string, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppAgentNotificationRequestWithBody(server, numberId, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppAgentNotificationRequestWithBody generates requests for CreateWhatsAppAgentNotification with any type of body
+func NewCreateWhatsAppAgentNotificationRequestWithBody(server string, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppAgentNotificationRequest generates requests for GetWhatsAppAgentNotification
+func NewGetWhatsAppAgentNotificationRequest(server string, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "notification_id", notificationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewListWhatsAppNumberEventsRequest generates requests for ListWhatsAppNumberEvents
 func NewListWhatsAppNumberEventsRequest(server string, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams) (*http.Request, error) {
 	var err error
@@ -73668,6 +74270,11 @@ type ClientWithResponsesInterface interface {
 	// GetWorkspaceNumberWithResponse request
 	GetWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*GetWorkspaceNumberResponse, error)
 
+	// UpdateWorkspaceNumberWithBodyWithResponse request with any body
+	UpdateWorkspaceNumberWithBodyWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error)
+
+	UpdateWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error)
+
 	// ListPreferencesWithResponse request
 	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
 
@@ -74081,6 +74688,17 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppNumberWithResponse request
 	GetWhatsAppNumberWithResponse(ctx context.Context, numberId WhatsAppNumberID, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberResponse, error)
+
+	// ListWhatsAppAgentNotificationsWithResponse request
+	ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error)
+
+	// CreateWhatsAppAgentNotificationWithBodyWithResponse request with any body
+	CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
+
+	CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
+
+	// GetWhatsAppAgentNotificationWithResponse request
+	GetWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error)
 
 	// ListWhatsAppNumberEventsWithResponse request
 	ListWhatsAppNumberEventsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumberEventsResponse, error)
@@ -81057,6 +81675,45 @@ func (r GetWorkspaceNumberResponse) ContentType() string {
 	return ""
 }
 
+type UpdateWorkspaceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Number
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateWorkspaceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateWorkspaceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateWorkspaceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListPreferencesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -85299,6 +85956,117 @@ func (r GetWhatsAppNumberResponse) ContentType() string {
 	return ""
 }
 
+type ListWhatsAppAgentNotificationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppAgentNotificationList
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppAgentNotificationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppAgentNotificationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppAgentNotificationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppAgentNotificationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppAgentNotification
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppAgentNotificationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppAgentNotificationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppAgentNotificationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppAgentNotificationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppAgentNotification
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppAgentNotificationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppAgentNotificationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppAgentNotificationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListWhatsAppNumberEventsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -88290,6 +89058,23 @@ func (c *ClientWithResponses) GetWorkspaceNumberWithResponse(ctx context.Context
 	return ParseGetWorkspaceNumberResponse(rsp)
 }
 
+// UpdateWorkspaceNumberWithBodyWithResponse request with arbitrary body returning *UpdateWorkspaceNumberResponse
+func (c *ClientWithResponses) UpdateWorkspaceNumberWithBodyWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error) {
+	rsp, err := c.UpdateWorkspaceNumberWithBody(ctx, numberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWorkspaceNumberResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error) {
+	rsp, err := c.UpdateWorkspaceNumber(ctx, numberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateWorkspaceNumberResponse(rsp)
+}
+
 // ListPreferencesWithResponse request returning *ListPreferencesResponse
 func (c *ClientWithResponses) ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error) {
 	rsp, err := c.ListPreferences(ctx, params, reqEditors...)
@@ -89602,6 +90387,41 @@ func (c *ClientWithResponses) GetWhatsAppNumberWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseGetWhatsAppNumberResponse(rsp)
+}
+
+// ListWhatsAppAgentNotificationsWithResponse request returning *ListWhatsAppAgentNotificationsResponse
+func (c *ClientWithResponses) ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error) {
+	rsp, err := c.ListWhatsAppAgentNotifications(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppAgentNotificationsResponse(rsp)
+}
+
+// CreateWhatsAppAgentNotificationWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppAgentNotificationResponse
+func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.CreateWhatsAppAgentNotificationWithBody(ctx, numberId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.CreateWhatsAppAgentNotification(ctx, numberId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
+}
+
+// GetWhatsAppAgentNotificationWithResponse request returning *GetWhatsAppAgentNotificationResponse
+func (c *ClientWithResponses) GetWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.GetWhatsAppAgentNotification(ctx, numberId, notificationId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppAgentNotificationResponse(rsp)
 }
 
 // ListWhatsAppNumberEventsWithResponse request returning *ListWhatsAppNumberEventsResponse
@@ -104248,6 +105068,95 @@ func ParseGetWorkspaceNumberResponse(rsp *http.Response) (*GetWorkspaceNumberRes
 	return response, nil
 }
 
+// ParseUpdateWorkspaceNumberResponse parses an HTTP response from a UpdateWorkspaceNumberWithResponse call
+func ParseUpdateWorkspaceNumberResponse(rsp *http.Response) (*UpdateWorkspaceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateWorkspaceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Number
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListPreferencesResponse parses an HTTP response from a ListPreferencesWithResponse call
 func ParseListPreferencesResponse(rsp *http.Response) (*ListPreferencesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -112914,6 +113823,231 @@ func ParseGetWhatsAppNumberResponse(rsp *http.Response) (*GetWhatsAppNumberRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest WhatsAppNumber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppAgentNotificationsResponse parses an HTTP response from a ListWhatsAppAgentNotificationsWithResponse call
+func ParseListWhatsAppAgentNotificationsResponse(rsp *http.Response) (*ListWhatsAppAgentNotificationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppAgentNotificationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppAgentNotificationList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppAgentNotificationResponse parses an HTTP response from a CreateWhatsAppAgentNotificationWithResponse call
+func ParseCreateWhatsAppAgentNotificationResponse(rsp *http.Response) (*CreateWhatsAppAgentNotificationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppAgentNotificationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppAgentNotification
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppAgentNotificationResponse parses an HTTP response from a GetWhatsAppAgentNotificationWithResponse call
+func ParseGetWhatsAppAgentNotificationResponse(rsp *http.Response) (*GetWhatsAppAgentNotificationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppAgentNotificationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppAgentNotification
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

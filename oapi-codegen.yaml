@@ -167,6 +167,9 @@ output-options:
     - getWhatsAppSuppression
     - createWhatsAppSuppression
     - deleteWhatsAppSuppression
+    - listWhatsAppAgentNotifications
+    - createWhatsAppAgentNotification
+    - getWhatsAppAgentNotification
     - getWhatsAppStatsSummary
     - getWhatsAppStatsDaily
     - getWhatsAppStatsHourly
@@ -213,6 +216,7 @@ output-options:
     - createEmailLookupBatch
     - listWorkspaceNumbers
     - getWorkspaceNumber
+    - updateWorkspaceNumber
     - releaseWorkspaceNumber
     - listAvailableNumbers
     - getAvailableNumber

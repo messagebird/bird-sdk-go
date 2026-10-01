@@ -592,6 +592,22 @@ type (
 	WhatsAppSuppressionList = oapi.WhatsAppSuppressionList
 )
 
+// WhatsAppAgentNotification is one notification sent to a number's agent, with
+// what came of it; WhatsAppAgentNotificationList is a page of them, newest first.
+type (
+	WhatsAppAgentNotification       = oapi.WhatsAppAgentNotification
+	WhatsAppAgentNotificationList   = oapi.WhatsAppAgentNotificationList
+	WhatsAppAgentNotificationStatus = oapi.WhatsAppAgentNotificationStatus
+	WhatsAppAgentNotificationError  = oapi.WhatsAppAgentNotificationError
+)
+
+const (
+	WhatsAppAgentNotificationStatusAccepted = oapi.WhatsAppAgentNotificationStatusAccepted
+	WhatsAppAgentNotificationStatusSuccess  = oapi.WhatsAppAgentNotificationStatusSuccess
+	WhatsAppAgentNotificationStatusSkipped  = oapi.WhatsAppAgentNotificationStatusSkipped
+	WhatsAppAgentNotificationStatusFailed   = oapi.WhatsAppAgentNotificationStatusFailed
+)
+
 // PhoneNumberLookup is what we know about a phone number; EmailLookup is the
 // verdict on an email address. Every block a phone lookup carries reports its
 // own status, so a partial answer is visible rather than silent.

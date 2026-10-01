@@ -39,6 +39,9 @@ type WhatsappService struct {
 
 	// Suppressions reads and edits the addresses the workspace will not message.
 	Suppressions *WhatsappSuppressionsService
+
+	// Agents reaches the Business Agent on one of those senders.
+	Agents *WhatsappAgentsService
 }
 
 // WhatsappSendParams is a single WhatsApp message send. Carry exactly one kind

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.87.0
+
+- Add names and customer references to allocated numbers, with updates and search. Set an optional reference when buying a number, including orders that complete later.
+
 ## 0.86.0
 
 - `AmbRoutingRulesUpdateParams` gains `BusinessAccountID`, `MatchKind`, `MatchIntentID` and `MatchGroupID`, so `AmbRoutingRulesService.Update` can move a rule to another business or replace what it matches.

@@ -167,6 +167,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Whatsapp.Suppressions.Get
 	_ = c.Whatsapp.Suppressions.Add
 	_ = c.Whatsapp.Suppressions.Remove
+	_ = c.Whatsapp.Agents.Notifications.List
+	_ = c.Whatsapp.Agents.Notifications.Create
+	_ = c.Whatsapp.Agents.Notifications.Get
 	_ = c.Whatsapp.Stats.Summary
 	_ = c.Whatsapp.Stats.Daily
 	_ = c.Whatsapp.Stats.Hourly
@@ -213,6 +216,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Lookup.EmailBatch
 	_ = c.Numbers.List
 	_ = c.Numbers.Get
+	_ = c.Numbers.Update
 	_ = c.Numbers.Release
 	_ = c.Numbers.Available.List
 	_ = c.Numbers.Available.Get

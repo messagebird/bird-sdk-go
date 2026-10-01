@@ -5066,3 +5066,78 @@ func ExampleAmbSuppressionsService_Create() {
 	}
 	fmt.Println(result)
 }
+
+func ExampleNumbersService_Update() {
+	ctx := context.Background()
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	allocated, err := client.Numbers.Update(ctx, "nda_01krdgeqcxet5s7t44vh8rt9mg", bird.NumbersUpdateParams{
+		Name:      bird.Value("Support line"),
+		Reference: bird.Value("STORE-042"),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if allocated.Name != nil {
+		fmt.Println(*allocated.Name)
+	}
+	if allocated.Reference != nil {
+		fmt.Println(*allocated.Reference)
+	}
+}
+
+// The agent decides whether and how to tell the contact. The answer reads
+// accepted; read it back to see whether the agent acted on it.
+func ExampleWhatsappAgentsNotificationsService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	notification, err := client.Whatsapp.Agents.Notifications.Create(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappAgentsNotificationsCreateParams{
+		To:          "+14155551234",
+		Name:        "order_shipped",
+		Description: "Order 88213 left the warehouse and arrives on Thursday.",
+		Payload:     `{"order_id":"88213","carrier":"ACME Courier"}`,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*notification.Id, *notification.Status)
+}
+
+func ExampleWhatsappAgentsNotificationsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for notification, err := range client.Whatsapp.Agents.Notifications.List(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappAgentsNotificationsListParams{
+		Status: bird.WhatsAppAgentNotificationStatusSkipped,
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(*notification.Name, *notification.SkippedReason) // skipped always carries a reason
+	}
+}
+
+// A notification still on its way to WhatsApp is not readable yet, so a read
+// straight after Create can return a not-found error.
+func ExampleWhatsappAgentsNotificationsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	notification, err := client.Whatsapp.Agents.Notifications.Get(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", "waan_01krdgeqcxet5s7t44vh8rt9m7")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if notification.SkippedReason != nil {
+		fmt.Println(*notification.Status, *notification.SkippedReason)
+	} else if notification.Error != nil {
+		fmt.Println(*notification.Status, *notification.Error.Description)
+	} else {
+		fmt.Println(*notification.Status)
+	}
+}
