@@ -11,9 +11,18 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type AMBConversationRoutingChangeDecision = oapi.AMBConversationRoutingChangeDecision
+
 type AMBConversationTypingEvent = oapi.AMBConversationTypingEvent
 
 type ConversationInboxStatus = oapi.ConversationInboxStatus
+
+type AMBConversationRoutingChangeAction = oapi.AMBConversationRoutingChangeAction
+
+const (
+	AMBConversationRoutingChangeActionApply   AMBConversationRoutingChangeAction = "apply"
+	AMBConversationRoutingChangeActionDismiss AMBConversationRoutingChangeAction = "dismiss"
+)
 
 // AmbConversationsUpdateParams is the request body for update.
 type AmbConversationsUpdateParams struct {
@@ -25,6 +34,10 @@ type AmbConversationsUpdateParams struct {
 	Labels []string
 	// Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
 	Read time.Time
+	// Queue to move the conversation to, or null to leave it unrouted. Routing rules do not run, and the conversation keeps its group and intent. Moving the queue clears any pending `routing_change`, and cannot be combined with an `apply` decision.
+	Queue Nullable[string]
+	// Settles the conversation's pending `routing_change`. `message_id` names the change you reviewed: the request fails with `409` when the pending change has a different message ID, because a newer customer message replaced it or a teammate already settled it. Either action clears `routing_change`.
+	RoutingChange *AMBConversationRoutingChangeDecision
 }
 
 func (p AmbConversationsUpdateParams) toWire() oapi.AMBConversationUpdate {
@@ -38,6 +51,10 @@ func (p AmbConversationsUpdateParams) toWire() oapi.AMBConversationUpdate {
 		body.Labels = &v
 	}
 	body.Read = optTime(p.Read)
+	body.Queue = p.Queue
+	if p.RoutingChange != nil {
+		body.RoutingChange = p.RoutingChange
+	}
 	return body
 }
 
@@ -87,7 +104,7 @@ func (s *AmbConversationsService) Get(ctx context.Context, conversationId string
 	return &out, nil
 }
 
-// Update Updates assignment, labels, inbox status and shared workspace read state. Omitted fields stay unchanged; null assigned_to unassigns and empty labels clears labels. Pass read as a date-time to acknowledge received inbound messages through that timestamp. Resolving or reopening inbox work preserves the Apple channel state and sending restrictions.
+// Update Updates assignment, labels, inbox status, queue and shared workspace read state, or settles a pending routing_change. Omitted fields stay unchanged; null assigned_to unassigns, empty labels clears labels and null queue leaves the conversation unrouted. Pass read as a date-time to acknowledge received inbound messages through that timestamp. Settle a pending change with routing_change {action, message_id}, copying message_id from the conversation's routing_change: apply adopts the newer group, intent and queue, dismiss keeps the current routing, and a 409 means the change was replaced or settled first. Resolving or reopening inbox work preserves the Apple channel state and sending restrictions.
 func (s *AmbConversationsService) Update(ctx context.Context, conversationId string, params AmbConversationsUpdateParams, opts ...option.RequestOption) (*AMBConversation, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateAMBConversationParams{}

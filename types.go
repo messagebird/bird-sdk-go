@@ -946,6 +946,19 @@ type (
 	// organization.
 	Workspace = oapi.Workspace
 
+	// WebhookDestinationCreate is how an endpoint's deliveries are built: the raw
+	// signed event, or a connector built from WebhookConnectorSetup.
+	// WebhookDestination is the read shape, which never carries credentials.
+	WebhookDestination                = oapi.WebhookDestination
+	WebhookDestinationCreate          = oapi.WebhookDestinationCreate
+	WebhookRawDestination             = oapi.WebhookRawDestination
+	WebhookConnectorDestination       = oapi.WebhookConnectorDestination
+	WebhookConnectorDestinationCreate = oapi.WebhookConnectorDestinationCreate
+	WebhookConnectorSetup             = oapi.WebhookConnectorSetup
+	WebhookConnectorBinding           = oapi.WebhookConnectorBinding
+	ConnectionConfig                  = oapi.ConnectionConfig
+	ConnectionCredentials             = oapi.ConnectionCredentials
+
 	WebhookAttemptList          = oapi.WebhookAttemptList
 	WebhookEndpoint             = oapi.WebhookEndpoint
 	WebhookEndpointCreate       = oapi.WebhookEndpointCreate

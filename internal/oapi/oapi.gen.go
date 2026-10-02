@@ -267,6 +267,24 @@ func (e AMBConversationReopenedEventType) Valid() bool {
 	}
 }
 
+// Defines values for AMBConversationRoutingChangeAction.
+const (
+	Apply   AMBConversationRoutingChangeAction = "apply"
+	Dismiss AMBConversationRoutingChangeAction = "dismiss"
+)
+
+// Valid indicates whether the value is a known member of the AMBConversationRoutingChangeAction enum.
+func (e AMBConversationRoutingChangeAction) Valid() bool {
+	switch e {
+	case Apply:
+		return true
+	case Dismiss:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AMBConversationStartedEventType.
 const (
 	AmbConversationStarted AMBConversationStartedEventType = "amb.conversation_started"
@@ -5243,23 +5261,26 @@ func (e Region) Valid() bool {
 
 // Defines values for SMSErrorCode.
 const (
-	SMSErrorCodeBlockedByCarrier    SMSErrorCode = "blocked_by_carrier"
-	SMSErrorCodeBlockedByRecipient  SMSErrorCode = "blocked_by_recipient"
-	SMSErrorCodeContentRejected     SMSErrorCode = "content_rejected"
-	SMSErrorCodeInsufficientBalance SMSErrorCode = "insufficient_balance"
-	SMSErrorCodeInvalidDestination  SMSErrorCode = "invalid_destination"
-	SMSErrorCodeLandlineUnreachable SMSErrorCode = "landline_unreachable"
-	SMSErrorCodeProviderUnavailable SMSErrorCode = "provider_unavailable"
-	SMSErrorCodeRecipientOptedOut   SMSErrorCode = "recipient_opted_out"
-	SMSErrorCodeSenderUnregistered  SMSErrorCode = "sender_unregistered"
-	SMSErrorCodeUnknown             SMSErrorCode = "unknown"
-	SMSErrorCodeUnreachable         SMSErrorCode = "unreachable"
+	SMSErrorCodeBlockedByCarrier         SMSErrorCode = "blocked_by_carrier"
+	SMSErrorCodeBlockedByFraudProtection SMSErrorCode = "blocked_by_fraud_protection"
+	SMSErrorCodeBlockedByRecipient       SMSErrorCode = "blocked_by_recipient"
+	SMSErrorCodeContentRejected          SMSErrorCode = "content_rejected"
+	SMSErrorCodeInsufficientBalance      SMSErrorCode = "insufficient_balance"
+	SMSErrorCodeInvalidDestination       SMSErrorCode = "invalid_destination"
+	SMSErrorCodeLandlineUnreachable      SMSErrorCode = "landline_unreachable"
+	SMSErrorCodeProviderUnavailable      SMSErrorCode = "provider_unavailable"
+	SMSErrorCodeRecipientOptedOut        SMSErrorCode = "recipient_opted_out"
+	SMSErrorCodeSenderUnregistered       SMSErrorCode = "sender_unregistered"
+	SMSErrorCodeUnknown                  SMSErrorCode = "unknown"
+	SMSErrorCodeUnreachable              SMSErrorCode = "unreachable"
 )
 
 // Valid indicates whether the value is a known member of the SMSErrorCode enum.
 func (e SMSErrorCode) Valid() bool {
 	switch e {
 	case SMSErrorCodeBlockedByCarrier:
+		return true
+	case SMSErrorCodeBlockedByFraudProtection:
 		return true
 	case SMSErrorCodeBlockedByRecipient:
 		return true
@@ -6486,6 +6507,36 @@ func (e WebhookAttemptStatus) Valid() bool {
 	}
 }
 
+// Defines values for WebhookConnectorDestinationType.
+const (
+	WebhookConnectorDestinationTypeConnector WebhookConnectorDestinationType = "connector"
+)
+
+// Valid indicates whether the value is a known member of the WebhookConnectorDestinationType enum.
+func (e WebhookConnectorDestinationType) Valid() bool {
+	switch e {
+	case WebhookConnectorDestinationTypeConnector:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookConnectorDestinationCreateType.
+const (
+	WebhookConnectorDestinationCreateTypeConnector WebhookConnectorDestinationCreateType = "connector"
+)
+
+// Valid indicates whether the value is a known member of the WebhookConnectorDestinationCreateType enum.
+func (e WebhookConnectorDestinationCreateType) Valid() bool {
+	switch e {
+	case WebhookConnectorDestinationCreateTypeConnector:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookEndpointStatus.
 const (
 	WebhookEndpointStatusActive   WebhookEndpointStatus = "active"
@@ -6747,6 +6798,21 @@ func (e WebhookEventType) Valid() bool {
 	case EventTypeWhatsappSent:
 		return true
 	case EventTypeWhatsappSuppressionCreated:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WebhookRawDestinationType.
+const (
+	Webhook WebhookRawDestinationType = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the WebhookRawDestinationType enum.
+func (e WebhookRawDestinationType) Valid() bool {
+	switch e {
+	case Webhook:
 		return true
 	default:
 		return false
@@ -8836,8 +8902,11 @@ type AMBConversation struct {
 	// Recipient The customer on the other side of this Apple Messages for Business conversation.
 	Recipient *AMBConversationRecipient `json:"recipient,omitempty"`
 
-	// Routing Routing context from the message that opened or most recently reopened the Apple channel conversation.
+	// Routing Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
 	Routing *AMBConversationRouting `json:"routing,omitempty"`
+
+	// RoutingChange Routing from a later customer message that differs from `routing`, waiting for a teammate to apply or dismiss it. Null when there is none. Only recorded while the inbox status is open; resolving the conversation or moving its queue clears it.
+	RoutingChange *AMBConversationRoutingChange `json:"routing_change"`
 
 	// Status Apple's native conversation state, which determines whether replies can be sent. A customer close or an Apple 410 response closes it; a newer inbound message reopens it. This API has no native close operation. Use `inbox_status` to resolve workspace inbox work independently.
 	Status AMBConversationStatus `json:"status"`
@@ -8904,19 +8973,48 @@ type AMBConversationRecipient struct {
 // AMBConversationReopenedEventType Always `amb.conversation_reopened` for this event.
 type AMBConversationReopenedEventType string
 
-// AMBConversationRouting Routing context from the message that opened or most recently reopened the Apple channel conversation.
+// AMBConversationRouting Routing context the conversation is filed under. Routing rules set it when the conversation opens or reopens, or when the customer writes after it was resolved. A teammate can move the queue or apply a pending `routing_change`.
 type AMBConversationRouting struct {
-	// EntryPoint Configured entry point matching the opening message's group and intent. Null when none matched.
+	// EntryPoint Configured entry point matching the current group and intent. Null when none matched.
 	EntryPoint *string `json:"entry_point"`
 
-	// GroupId The business's routing group carried by Apple from the entry point. This identifies a routing destination within the business. Null when the opening message carried no group.
+	// GroupId The business's routing group carried by Apple from the entry point. This identifies a routing destination within the business. Null when the message that set the current routing carried no group.
 	GroupId *string `json:"group_id"`
 
-	// IntentId Intent carried by Apple from the entry point, used with `group_id` to route the conversation. Null when none was supplied.
+	// IntentId Intent carried by Apple from the entry point, used with `group_id` to route the conversation. Null when the message that set the current routing carried none.
 	IntentId *string `json:"intent_id"`
 
-	// Queue Workspace queue selected by routing. Null when the conversation is unrouted.
+	// Queue Workspace queue selected by routing or set by a teammate. Null when the conversation is unrouted.
 	Queue *string `json:"queue"`
+}
+
+// AMBConversationRoutingChange Routing from the customer's latest message that names a different group or intent than the conversation's current `routing`. `message_id` is that inbound message and `received_at` is when it arrived. Routing rules select its queue when the message arrives, but the conversation keeps its current queue until you apply the change.
+type AMBConversationRoutingChange struct {
+	// EntryPoint Configured entry point matching the message's group and intent. Null when none matched.
+	EntryPoint *string `json:"entry_point"`
+
+	// GroupId Group carried by the message. Null when the message carried only an intent.
+	GroupId *string `json:"group_id"`
+
+	// IntentId Intent carried by the message. Null when the message carried only a group.
+	IntentId  *string      `json:"intent_id"`
+	MessageId AMBMessageID `json:"message_id"`
+
+	// Queue Queue routing rules selected for the message's group and intent when it arrived. Null when no rule matched.
+	Queue *string `json:"queue"`
+
+	// ReceivedAt When that message was received.
+	ReceivedAt time.Time `json:"received_at"`
+}
+
+// AMBConversationRoutingChangeAction `apply` adopts the pending change's group, intent, entry point and queue. `dismiss` discards it and leaves group, intent and entry point unchanged.
+type AMBConversationRoutingChangeAction string
+
+// AMBConversationRoutingChangeDecision Settles the conversation's pending `routing_change`. `message_id` names the change you reviewed: the request fails with `409` when the pending change has a different message ID, because a newer customer message replaced it or a teammate already settled it. Either action clears `routing_change`.
+type AMBConversationRoutingChangeDecision struct {
+	// Action `apply` adopts the pending change's group, intent, entry point and queue. `dismiss` discards it and leaves group, intent and entry point unchanged.
+	Action    AMBConversationRoutingChangeAction `json:"action"`
+	MessageId AMBMessageID                       `json:"message_id"`
 }
 
 // AMBConversationStartedEventType Always `amb.conversation_started` for this event.
@@ -9023,7 +9121,27 @@ type AMBConversationTypingRequest struct {
 }
 
 // AMBConversationUpdate defines model for AMBConversationUpdate.
-type AMBConversationUpdate = UnderscoreConversationUpdate
+type AMBConversationUpdate struct {
+	// AssignedTo User to assign this conversation to. Pass a workspace member's user ID, `me` for the signed-in user, or null to unassign it. An API key cannot use `me` and receives a `422` response.
+	AssignedTo nullable.Nullable[string] `json:"assigned_to,omitempty"`
+
+	// InboxStatus Whether the conversation needs attention in the workspace inbox. Set it to `resolved` when the work is finished. A new inbound message reopens the same conversation. Changing inbox status preserves message history and does not change the channel's permission to send messages or mark messages read.
+	InboxStatus *ConversationInboxStatus `json:"inbox_status,omitempty"`
+
+	// Labels Labels chosen by your workspace. On update, this replaces the full set; pass an empty array to clear every label. Labels do not change read state or inbox status.
+	//
+	// Each label must contain 1 to 64 characters, with no commas, control characters, or leading or trailing whitespace. Duplicate labels are rejected. The names `all`, `archived`, `assigned`, `closed`, `deleted`, `draft`, `drafts`, `flagged`, `important`, `inbox`, `junk`, `muted`, `none`, `open`, `pinned`, `read`, `snoozed`, `spam`, `starred`, `trash`, and `unread` are reserved in every casing.
+	Labels *[]string `json:"labels,omitempty"`
+
+	// Queue Queue to move the conversation to, or null to leave it unrouted. Routing rules do not run, and the conversation keeps its group and intent. Moving the queue clears any pending `routing_change`, and cannot be combined with an `apply` decision.
+	Queue nullable.Nullable[string] `json:"queue,omitempty"`
+
+	// Read Mark received inbound messages with created_at at or before this timestamp as read in the shared workspace inbox. Messages sharing the timestamp are included together. Later arrivals remain unread until another read update. This does not send a read receipt to the customer or change inbox status. Omit to leave read state unchanged.
+	Read *time.Time `json:"read,omitempty"`
+
+	// RoutingChange Settles the conversation's pending `routing_change`. `message_id` names the change you reviewed: the request fails with `409` when the pending change has a different message ID, because a newer customer message replaced it or a teammate already settled it. Either action clears `routing_change`.
+	RoutingChange *AMBConversationRoutingChangeDecision `json:"routing_change,omitempty"`
+}
 
 // AMBEntryPoint defines model for AMBEntryPoint.
 type AMBEntryPoint struct {
@@ -11105,6 +11223,18 @@ type CompetitiveWatchlistBrandID = string
 
 // ComplianceSubmissionID defines model for ComplianceSubmissionID.
 type ComplianceSubmissionID = string
+
+// ConnectionConfig Values for the connector's nonsecret fields, keyed by field `name`, such as the URL the endpoint's requests go to. A URL must be HTTPS, on one of the connector's `allowed_origins`, and under its `path_prefix` when it has one. It cannot include user info, a fragment, an IP address as its host, dot segments, or encoded slashes.
+type ConnectionConfig map[string]string
+
+// ConnectionCredentials Values for the connector's secret fields, keyed by field `name`. Every required secret field must be present, after merging with the stored values on an update, and a key the connector does not declare as secret returns a `422`. No response includes these values.
+type ConnectionCredentials map[string]string
+
+// ConnectorActionID Identifier of an action, unique within its connector.
+type ConnectorActionID = string
+
+// ConnectorID Stable identifier of a connector, such as `claude_managed_agents`.
+type ConnectorID = string
 
 // Contact defines model for Contact.
 type Contact struct {
@@ -21604,6 +21734,7 @@ type SMSError struct {
 	// - `invalid_destination`: The number is unassigned, ported out, or malformed.
 	// - `unreachable`: The handset is off or outside coverage.
 	// - `blocked_by_carrier`: The carrier filtered the message.
+	// - `blocked_by_fraud_protection`: Bird fraud protection blocked suspected SMS pumping.
 	// - `blocked_by_recipient`: The recipient device blocked the sender.
 	// - `landline_unreachable`: The destination is a landline that does not accept SMS.
 	// - `content_rejected`: The carrier rejected the content.
@@ -21616,7 +21747,7 @@ type SMSError struct {
 	// This is an open enum. Accept unrecognized values.
 	Code SMSErrorCode `json:"code"`
 
-	// Description The failure in words, from whatever refused the message: the carrier's own reason text on a delivery receipt, or ours on a message stopped before a carrier saw it. Free-form, so branch on `code` and show this to a human.
+	// Description The failure in words: the provider's reason text, or Bird's explanation for a fraud protection block or a message refused before submission. Free-form, so branch on `code` and show this to a human.
 	Description string `json:"description"`
 
 	// OccurredAt When the failure occurred.
@@ -21628,6 +21759,7 @@ type SMSError struct {
 // - `invalid_destination`: The number is unassigned, ported out, or malformed.
 // - `unreachable`: The handset is off or outside coverage.
 // - `blocked_by_carrier`: The carrier filtered the message.
+// - `blocked_by_fraud_protection`: Bird fraud protection blocked suspected SMS pumping.
 // - `blocked_by_recipient`: The recipient device blocked the sender.
 // - `landline_unreachable`: The destination is a landline that does not accept SMS.
 // - `content_rejected`: The carrier rejected the content.
@@ -24380,6 +24512,9 @@ type WebhookAttempt struct {
 	// EventType Webhook event type. This is an open enum, so accept unrecognized values in deliveries. Subscribing to a type outside the event catalog returns a `422`.
 	EventType WebhookEventType `json:"event_type"`
 
+	// FailureReason Why the attempt failed before any request was sent, for example a connector body that could not be rendered or an endpoint whose connection changed after the event was queued. Absent for an attempt that reached the network.
+	FailureReason *string `json:"failure_reason,omitempty"`
+
 	// Id Identifier of this individual delivery attempt. Each retry is a separate attempt with its own id; use `event_id` to group the attempts for one event.
 	Id *string `json:"id,omitempty"`
 
@@ -24422,12 +24557,104 @@ type WebhookAttemptList struct {
 	Data []WebhookAttempt `json:"data"`
 }
 
+// WebhookConnectorBinding defines model for WebhookConnectorBinding.
+type WebhookConnectorBinding struct {
+	// Action Action of the connector that each delivery runs.
+	Action ConnectorActionID `json:"action"`
+
+	// ConnectionName Label of the credentials the endpoint delivers with.
+	ConnectionName string `json:"connection_name"`
+
+	// ConnectorId Stable identifier of a connector, such as `claude_managed_agents`.
+	ConnectorId ConnectorID `json:"connector_id"`
+}
+
+// WebhookConnectorDestination Sends the request a connector action builds, with the credentials stored for this endpoint. The endpoint's URL comes from its connector setup, so updating the endpoint with a `url` returns a `422`.
+type WebhookConnectorDestination struct {
+	Connector WebhookConnectorBinding         `json:"connector"`
+	Type      WebhookConnectorDestinationType `json:"type"`
+}
+
+// WebhookConnectorDestinationType defines model for WebhookConnectorDestination.Type.
+type WebhookConnectorDestinationType string
+
+// WebhookConnectorDestinationCreate Sends the request a connector action builds, with credentials stored for this endpoint.
+type WebhookConnectorDestinationCreate struct {
+	Connector WebhookConnectorSetup                 `json:"connector" pii:"true"`
+	Type      WebhookConnectorDestinationCreateType `json:"type"`
+}
+
+// WebhookConnectorDestinationCreateType defines model for WebhookConnectorDestinationCreate.Type.
+type WebhookConnectorDestinationCreateType string
+
+// WebhookConnectorID The connector to deliver through. Each connector, its fields and the setup to do on its
+// platform first:
+//
+// - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
+//   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
+//   - `environment_id` (`config`, required): Returned when you create the environment.
+//   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
+//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
+//   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+//   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
+//   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+//
+// - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
+//   - `webhook_url` (`config`, required): The routine's webhook URL.
+//   - `sender_key` (secret, in `credentials`, required): The routine's sender key. Bird sends it only as the Bearer token.
+//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
+//   - Setup 1: First, ask Grok Bot to create a routine. Ask Grok Bot to create a routine with a webhook trigger, then paste the webhook URL and sender key it gives you below. See https://cursor.com/docs/cloud-agent/automations#webhook-triggers.
+type WebhookConnectorID = string
+
+// WebhookConnectorSetup The connector to deliver through and the values it needs. Omit the endpoint's `url`: Bird builds it from the connector's URL and these `config` values, and a URL given anyway must equal that. The credentials belong to this endpoint alone, and deleting the endpoint erases them.
+type WebhookConnectorSetup struct {
+	// Action Action of the connector that each delivery runs. Omit when the connector has one action. An action the connector does not have, or `events` the action does not accept, returns a `422`.
+	Action *ConnectorActionID `json:"action,omitempty"`
+
+	// Config Values for the connector's nonsecret fields, keyed by field `name`, such as the URL the endpoint's requests go to. A URL must be HTTPS, on one of the connector's `allowed_origins`, and under its `path_prefix` when it has one. It cannot include user info, a fragment, an IP address as its host, dot segments, or encoded slashes.
+	Config *ConnectionConfig `json:"config,omitempty"`
+
+	// ConnectorId The connector to deliver through. Each connector, its fields and the setup to do on its
+	// platform first:
+	//
+	// - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
+	//   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
+	//   - `environment_id` (`config`, required): Returned when you create the environment.
+	//   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
+	//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
+	//   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+	//   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
+	//   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+	// - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
+	//   - `webhook_url` (`config`, required): The routine's webhook URL.
+	//   - `sender_key` (secret, in `credentials`, required): The routine's sender key. Bird sends it only as the Bearer token.
+	//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
+	//   - Setup 1: First, ask Grok Bot to create a routine. Ask Grok Bot to create a routine with a webhook trigger, then paste the webhook URL and sender key it gives you below. See https://cursor.com/docs/cloud-agent/automations#webhook-triggers.
+	ConnectorId WebhookConnectorID `json:"connector_id"`
+
+	// Credentials Values for the connector's secret fields, keyed by field `name`. Every required secret field must be present, after merging with the stored values on an update, and a key the connector does not declare as secret returns a `422`. No response includes these values.
+	Credentials *ConnectionCredentials `json:"credentials,omitempty" pii:"true"`
+}
+
+// WebhookDestination How each delivery to the endpoint is built. The type cannot change after the endpoint is created.
+type WebhookDestination struct {
+	union json.RawMessage
+}
+
+// WebhookDestinationCreate How each delivery to the endpoint is built. The type cannot change after the endpoint is created.
+type WebhookDestinationCreate struct {
+	union json.RawMessage
+}
+
 // WebhookEndpoint defines model for WebhookEndpoint.
 type WebhookEndpoint struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Description Human-readable label for the endpoint.
 	Description *string `json:"description,omitempty"`
+
+	// Destination How each delivery to the endpoint is built.
+	Destination *WebhookDestination `json:"destination,omitempty"`
 
 	// Events Event types this endpoint is subscribed to; only matching events are delivered. Change the set with [Update a webhook endpoint](/docs/api/reference/update-webhook).
 	Events []WebhookEventType `json:"events"`
@@ -24473,11 +24700,14 @@ type WebhookEndpointCreate struct {
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
+	// Destination How each delivery is built. Omit to post the signed event to `url` unchanged, the same as `{"type": "webhook"}`.
+	Destination *WebhookDestinationCreate `json:"destination,omitempty"`
+
 	// Events Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries.
 	Events []WebhookEventType `json:"events"`
 
-	// Url HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
-	Url string `json:"url"`
+	// Url HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`. Required unless `destination` is a connector, whose URL comes from the connector and its `config`; a URL given with one must equal it.
+	Url *string `json:"url,omitempty"`
 }
 
 // WebhookEndpointCreated defines model for WebhookEndpointCreated.
@@ -24486,6 +24716,9 @@ type WebhookEndpointCreated struct {
 
 	// Description Human-readable label for the endpoint.
 	Description *string `json:"description,omitempty"`
+
+	// Destination How each delivery to the endpoint is built.
+	Destination *WebhookDestination `json:"destination,omitempty"`
 
 	// Events Event types this endpoint is subscribed to; only matching events are delivered. Change the set with [Update a webhook endpoint](/docs/api/reference/update-webhook).
 	Events []WebhookEventType `json:"events"`
@@ -24551,6 +24784,9 @@ type WebhookEndpointList struct {
 
 // WebhookEndpointUpdate defines model for WebhookEndpointUpdate.
 type WebhookEndpointUpdate struct {
+	// Credentials New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+	Credentials *ConnectionCredentials `json:"credentials,omitempty"`
+
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
 
@@ -24560,7 +24796,7 @@ type WebhookEndpointUpdate struct {
 	// Status `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 	Status *WebhookEndpointUpdateStatus `json:"status,omitempty"`
 
-	// Url Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
+	// Url Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL. A connector endpoint's URL comes from its connector and cannot be replaced: any value returns a `422`.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -24577,6 +24813,14 @@ type WebhookEventID = string
 
 // WebhookEventType Webhook event type. This is an open enum, so accept unrecognized values in deliveries. Subscribing to a type outside the event catalog returns a `422`.
 type WebhookEventType string
+
+// WebhookRawDestination Posts the signed event to the endpoint's `url` unchanged.
+type WebhookRawDestination struct {
+	Type WebhookRawDestinationType `json:"type"`
+}
+
+// WebhookRawDestinationType defines model for WebhookRawDestination.Type.
+type WebhookRawDestinationType string
 
 // WebhookReplayRequest defines model for WebhookReplayRequest.
 type WebhookReplayRequest struct {
@@ -31577,7 +31821,7 @@ type CreatePhoneNumberLookupParams struct {
 
 // ListWorkspaceNumbersParams defines parameters for ListWorkspaceNumbers.
 type ListWorkspaceNumbersParams struct {
-	// Search Matches part of the number, name, or reference, ignoring case. Characters such as percent and underscore match literally.
+	// Search Matches part of the number, name, or reference, ignoring case. Number matching also ignores phone formatting such as spaces, parentheses, and hyphens. Name and reference matching preserves punctuation. Characters such as percent and underscore match literally.
 	Search *string `form:"search,omitempty" json:"search,omitempty"`
 
 	// Reference Return numbers with this exact reference. Matching is case-sensitive.
@@ -32124,7 +32368,7 @@ type ListSMSMessagesParams struct {
 	// Status Keep only messages whose current `status` matches; repeat the parameter to match any of several. One of `scheduled`, `accepted`, `sent`, `delivered`, `undelivered`, `failed`, `rejected`, `canceled`, `expired`, or `received`. `scheduled` and `canceled` are accepted but match nothing until send-later scheduling ships.
 	Status *[]string `form:"status,omitempty" json:"status,omitempty"`
 
-	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`.
+	// ErrorCode Keep only messages whose failure reason (`last_error.code`) matches; repeat the parameter to match any of several. One of `invalid_destination`, `unreachable`, `blocked_by_carrier`, `blocked_by_fraud_protection`, `blocked_by_recipient`, `landline_unreachable`, `content_rejected`, `sender_unregistered`, `recipient_opted_out`, `provider_unavailable`, `insufficient_balance`, or `unknown`.
 	ErrorCode *[]string `form:"error_code,omitempty" json:"error_code,omitempty"`
 
 	// Category Filter by category.
@@ -33245,6 +33489,9 @@ type ListWebhooksParams struct {
 
 	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
 	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// Url Only endpoints delivering to exactly this URL. Several endpoints can share a URL, so this finds matches for a setup to reuse; it does not prevent a duplicate.
+	Url *string `form:"url,omitempty" json:"url,omitempty"`
 }
 
 // CreateWebhookParams defines parameters for CreateWebhook.
@@ -38351,6 +38598,184 @@ func (t VoiceSequencePreviewSample) MarshalJSON() ([]byte, error) {
 }
 
 func (t *VoiceSequencePreviewSample) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsWebhookRawDestination returns the union data inside the WebhookDestination as a WebhookRawDestination
+func (t WebhookDestination) AsWebhookRawDestination() (WebhookRawDestination, error) {
+	var body WebhookRawDestination
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWebhookRawDestination overwrites any union data inside the WebhookDestination as the provided WebhookRawDestination
+func (t *WebhookDestination) FromWebhookRawDestination(v WebhookRawDestination) error {
+	v.Type = "webhook"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWebhookRawDestination performs a merge with any union data inside the WebhookDestination, using the provided WebhookRawDestination
+func (t *WebhookDestination) MergeWebhookRawDestination(v WebhookRawDestination) error {
+	v.Type = "webhook"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWebhookConnectorDestination returns the union data inside the WebhookDestination as a WebhookConnectorDestination
+func (t WebhookDestination) AsWebhookConnectorDestination() (WebhookConnectorDestination, error) {
+	var body WebhookConnectorDestination
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWebhookConnectorDestination overwrites any union data inside the WebhookDestination as the provided WebhookConnectorDestination
+func (t *WebhookDestination) FromWebhookConnectorDestination(v WebhookConnectorDestination) error {
+	v.Type = "connector"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWebhookConnectorDestination performs a merge with any union data inside the WebhookDestination, using the provided WebhookConnectorDestination
+func (t *WebhookDestination) MergeWebhookConnectorDestination(v WebhookConnectorDestination) error {
+	v.Type = "connector"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WebhookDestination) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t WebhookDestination) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "connector":
+		return t.AsWebhookConnectorDestination()
+	case "webhook":
+		return t.AsWebhookRawDestination()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t WebhookDestination) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *WebhookDestination) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsWebhookRawDestination returns the union data inside the WebhookDestinationCreate as a WebhookRawDestination
+func (t WebhookDestinationCreate) AsWebhookRawDestination() (WebhookRawDestination, error) {
+	var body WebhookRawDestination
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWebhookRawDestination overwrites any union data inside the WebhookDestinationCreate as the provided WebhookRawDestination
+func (t *WebhookDestinationCreate) FromWebhookRawDestination(v WebhookRawDestination) error {
+	v.Type = "webhook"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWebhookRawDestination performs a merge with any union data inside the WebhookDestinationCreate, using the provided WebhookRawDestination
+func (t *WebhookDestinationCreate) MergeWebhookRawDestination(v WebhookRawDestination) error {
+	v.Type = "webhook"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsWebhookConnectorDestinationCreate returns the union data inside the WebhookDestinationCreate as a WebhookConnectorDestinationCreate
+func (t WebhookDestinationCreate) AsWebhookConnectorDestinationCreate() (WebhookConnectorDestinationCreate, error) {
+	var body WebhookConnectorDestinationCreate
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromWebhookConnectorDestinationCreate overwrites any union data inside the WebhookDestinationCreate as the provided WebhookConnectorDestinationCreate
+func (t *WebhookDestinationCreate) FromWebhookConnectorDestinationCreate(v WebhookConnectorDestinationCreate) error {
+	v.Type = "connector"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeWebhookConnectorDestinationCreate performs a merge with any union data inside the WebhookDestinationCreate, using the provided WebhookConnectorDestinationCreate
+func (t *WebhookDestinationCreate) MergeWebhookConnectorDestinationCreate(v WebhookConnectorDestinationCreate) error {
+	v.Type = "connector"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t WebhookDestinationCreate) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t WebhookDestinationCreate) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "connector":
+		return t.AsWebhookConnectorDestinationCreate()
+	case "webhook":
+		return t.AsWebhookRawDestination()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t WebhookDestinationCreate) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *WebhookDestinationCreate) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -68661,6 +69086,18 @@ func NewListWebhooksRequest(server string, params *ListWebhooksParams) (*http.Re
 		if params.IncludeTotal != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Url != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", *params.Url, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

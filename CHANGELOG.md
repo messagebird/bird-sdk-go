@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.88.0
+
+- Add the WhatsApp Business Agent notification methods under `whatsapp.agents.notifications`: tell the agent on one of your numbers that something happened in your systems for one contact, such as an order shipping, and read back what came of it. The agent decides whether and how to tell the contact. A notification answers `accepted` and later settles to `success`, `skipped` with the agent's reason, or `failed` with what went wrong. The agent itself is still onboarded in the dashboard.
+- Clarify in `NumbersListParams.Search` documentation that phone formatting is ignored when matching numbers and punctuation is preserved when matching names and references.
+
 ## 0.87.0
 
 - Add names and customer references to allocated numbers, with updates and search. Set an optional reference when buying a number, including orders that complete later.

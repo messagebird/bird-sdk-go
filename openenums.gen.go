@@ -447,17 +447,18 @@ const (
 type SMSErrorCode = oapi.SMSErrorCode
 
 const (
-	SMSErrorCodeBlockedByCarrier    = oapi.SMSErrorCodeBlockedByCarrier
-	SMSErrorCodeBlockedByRecipient  = oapi.SMSErrorCodeBlockedByRecipient
-	SMSErrorCodeContentRejected     = oapi.SMSErrorCodeContentRejected
-	SMSErrorCodeInsufficientBalance = oapi.SMSErrorCodeInsufficientBalance
-	SMSErrorCodeInvalidDestination  = oapi.SMSErrorCodeInvalidDestination
-	SMSErrorCodeLandlineUnreachable = oapi.SMSErrorCodeLandlineUnreachable
-	SMSErrorCodeProviderUnavailable = oapi.SMSErrorCodeProviderUnavailable
-	SMSErrorCodeRecipientOptedOut   = oapi.SMSErrorCodeRecipientOptedOut
-	SMSErrorCodeSenderUnregistered  = oapi.SMSErrorCodeSenderUnregistered
-	SMSErrorCodeUnknown             = oapi.SMSErrorCodeUnknown
-	SMSErrorCodeUnreachable         = oapi.SMSErrorCodeUnreachable
+	SMSErrorCodeBlockedByCarrier         = oapi.SMSErrorCodeBlockedByCarrier
+	SMSErrorCodeBlockedByFraudProtection = oapi.SMSErrorCodeBlockedByFraudProtection
+	SMSErrorCodeBlockedByRecipient       = oapi.SMSErrorCodeBlockedByRecipient
+	SMSErrorCodeContentRejected          = oapi.SMSErrorCodeContentRejected
+	SMSErrorCodeInsufficientBalance      = oapi.SMSErrorCodeInsufficientBalance
+	SMSErrorCodeInvalidDestination       = oapi.SMSErrorCodeInvalidDestination
+	SMSErrorCodeLandlineUnreachable      = oapi.SMSErrorCodeLandlineUnreachable
+	SMSErrorCodeProviderUnavailable      = oapi.SMSErrorCodeProviderUnavailable
+	SMSErrorCodeRecipientOptedOut        = oapi.SMSErrorCodeRecipientOptedOut
+	SMSErrorCodeSenderUnregistered       = oapi.SMSErrorCodeSenderUnregistered
+	SMSErrorCodeUnknown                  = oapi.SMSErrorCodeUnknown
+	SMSErrorCodeUnreachable              = oapi.SMSErrorCodeUnreachable
 )
 
 // SMSKeywordOperation is an open string on the wire: a value added by a newer server

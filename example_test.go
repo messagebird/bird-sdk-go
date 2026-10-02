@@ -5141,3 +5141,32 @@ func ExampleWhatsappAgentsNotificationsService_Get() {
 		fmt.Println(*notification.Status)
 	}
 }
+
+// A connector endpoint has no URL of its own: Bird builds it from the
+// connector and its config. Credentials are write-only and never read back.
+func ExampleWebhooksService_Create_connector() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	config := bird.ConnectionConfig{"agent_id": "agent_123", "environment_id": "env_123"}
+	credentials := bird.ConnectionCredentials{"api_key": os.Getenv("ANTHROPIC_API_KEY")}
+	var destination bird.WebhookDestinationCreate
+	if err := destination.FromWebhookConnectorDestinationCreate(bird.WebhookConnectorDestinationCreate{
+		Connector: bird.WebhookConnectorSetup{
+			ConnectorId: "claude_managed_agents",
+			Config:      &config,
+			Credentials: &credentials,
+		},
+	}); err != nil {
+		log.Fatal(err)
+	}
+	endpoint, err := client.Webhooks.Create(context.Background(), bird.WebhooksCreateParams{
+		Events:      []bird.WebhookEventType{"sms.received"},
+		Destination: &destination,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(endpoint.Id)
+}

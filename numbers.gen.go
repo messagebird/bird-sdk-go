@@ -12,7 +12,7 @@ import (
 
 // NumbersListParams filters the list. Zero-value fields are omitted.
 type NumbersListParams struct {
-	// Matches part of the number, name, or reference, ignoring case. Characters such as percent and underscore match literally.
+	// Matches part of the number, name, or reference, ignoring case. Number matching also ignores phone formatting such as spaces, parentheses, and hyphens. Name and reference matching preserves punctuation. Characters such as percent and underscore match literally.
 	Search string
 	// Return numbers with this exact reference. Matching is case-sensitive.
 	Reference string

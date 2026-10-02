@@ -26,6 +26,8 @@ type WebhooksListParams struct {
 	EndingBefore string
 	// When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
 	IncludeTotal bool
+	// Only endpoints delivering to exactly this URL. Several endpoints can share a URL, so this finds matches for a setup to reuse; it does not prevent a duplicate.
+	URL string
 }
 
 func (p WebhooksListParams) toWire(startingAfter string) *oapi.ListWebhooksParams {
@@ -35,30 +37,9 @@ func (p WebhooksListParams) toWire(startingAfter string) *oapi.ListWebhooksParam
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
 		IncludeTotal:  optBool(p.IncludeTotal),
+		Url:           optStr(p.URL),
 		StartingAfter: optStr(startingAfter),
 	}
-}
-
-// WebhooksCreateParams is the request body for create.
-type WebhooksCreateParams struct {
-	// HTTPS URL to deliver events to, at most 2048 characters. The host must be publicly reachable: URLs on private, loopback, or link-local addresses are rejected with a `422`.
-	URL string
-	// Event types to subscribe to; the endpoint receives only matching events. Types outside the event catalog return a `422`, and an endpoint holds at most 100 entries.
-	Events []WebhookEventType
-	// Human-readable label for this endpoint, up to 256 characters.
-	Description *string
-}
-
-func (p WebhooksCreateParams) toWire() oapi.WebhookEndpointCreate {
-	body := oapi.WebhookEndpointCreate{}
-	body.Url = p.URL
-	events := make([]oapi.WebhookEventType, len(p.Events))
-	for i, v := range p.Events {
-		events[i] = oapi.WebhookEventType(v)
-	}
-	body.Events = events
-	body.Description = p.Description
-	return body
 }
 
 // WebhooksTestParams is the request body for test.
@@ -108,12 +89,14 @@ func (p WebhooksReplayParams) toWire() oapi.WebhookReplayRequest {
 
 // WebhooksUpdateParams is the request body for update.
 type WebhooksUpdateParams struct {
-	// Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL.
+	// Replacement delivery URL. Same rules as at creation: HTTPS, at most 2048 characters, and the host must be publicly reachable (private, loopback, and link-local addresses return a `422`). Omit to keep the current URL. A connector endpoint's URL comes from its connector and cannot be replaced: any value returns a `422`.
 	URL *string
 	// Human-readable label for this endpoint, up to 256 characters.
 	Description *string
 	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events []WebhookEventType
+	// New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
+	Credentials map[string]string
 	// `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 	Status *WebhookEndpointUpdateStatus
 }
@@ -128,6 +111,10 @@ func (p WebhooksUpdateParams) toWire() oapi.WebhookEndpointUpdate {
 	}
 	if p.Events != nil {
 		body.Events = &events
+	}
+	if p.Credentials != nil {
+		v := oapi.ConnectionCredentials(p.Credentials)
+		body.Credentials = &v
 	}
 	if p.Status != nil {
 		body.Status = p.Status
@@ -183,26 +170,7 @@ func (s *WebhooksService) Get(ctx context.Context, webhookId string, opts ...opt
 	return &out, nil
 }
 
-// Create Register an HTTPS endpoint to receive this workspace's events, subscribed to the event types in `events` and active immediately. The response is the only place the signing secret appears, and it can never be read back afterward, only rotated.
-func (s *WebhooksService) Create(ctx context.Context, params WebhooksCreateParams, opts ...option.RequestOption) (*WebhookEndpointCreated, error) {
-	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
-		op := &oapi.CreateWebhookParams{}
-		if idempotencyKey != "" {
-			op.IdempotencyKey = &idempotencyKey
-		}
-		return s.client.oapi.CreateWebhook(ctx, op, params.toWire(), cfg...)
-	})
-	if err != nil {
-		return nil, err
-	}
-	var out WebhookEndpointCreated
-	if err := decodeBody(body, &out); err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// Test Send a signed synthetic event and get the outcome synchronously: whether the endpoint accepted, the HTTP status it returned, and the round-trip latency. An unreachable endpoint comes back as a failed status in the body rather than a request error. The receiver has 10 seconds, the body is a minimal stub carrying only the event type, and a test reaches even a paused endpoint without being recorded in the delivery attempts.
+// Test Send a signed synthetic event and get the outcome synchronously: whether the endpoint accepted, the HTTP status it returned, and the round-trip latency. An unreachable endpoint comes back as a failed status in the body rather than a request error. The receiver has 10 seconds, the body is a minimal stub carrying only the event type, and a test reaches even a paused endpoint without being recorded in the delivery attempts. For a connector endpoint, the test goes through the same request builder as a live delivery, with the stub as the event. A status outside 2xx is the receiver's own answer: report it and the response body to the user, who can see why their receiver refused it. An unreachable result means Bird got no response: it could not connect, or the receiver did not answer within 10 seconds.
 func (s *WebhooksService) Test(ctx context.Context, webhookId string, params WebhooksTestParams, opts ...option.RequestOption) (*WebhookTestResponse, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.TestWebhookParams{}

@@ -1,6 +1,7 @@
 package bird
 
 import (
+	"context"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
@@ -18,9 +19,10 @@ import (
 // payload is rejected as stale or replayed.
 const webhookTolerance = 5 * time.Minute
 
-// WebhooksService verifies inbound webhook deliveries. Reach it via
-// Client.Webhooks. Configure the signing secret with option.WithWebhookSecret on
-// the client (or per call on Unwrap). It is pure crypto — no transport.
+// WebhooksService verifies inbound webhook deliveries and creates endpoints.
+// Reach it via Client.Webhooks. Unwrap is pure crypto and needs only the signing
+// secret, set with option.WithWebhookSecret on the client (or per call); Create
+// calls the API, so it needs the client's API key like any other request.
 type WebhooksService struct{ resource }
 
 // Event is a verified webhook event. Switch on Type, or call AsAny and
@@ -103,4 +105,62 @@ func verifySignature(secret string, payload []byte, headers http.Header) error {
 		}
 	}
 	return &WebhookVerificationError{Reason: "no matching signature"}
+}
+
+// WebhooksCreateParams is the request body for Create. It is hand-written
+// because the generated params cannot carry Destination, a union of the raw
+// event and a connector.
+type WebhooksCreateParams struct {
+	// HTTPS URL to deliver events to, at most 2048 characters, on a publicly
+	// reachable host. Leave it empty with a connector Destination: Bird builds
+	// the URL from the connector and its config, and a URL given anyway must
+	// equal that.
+	URL string
+	// Event types to subscribe to; the endpoint receives only matching events.
+	// Types outside the event catalog return a 422, and an endpoint holds at
+	// most 100 entries.
+	Events []WebhookEventType
+	// Human-readable label for this endpoint, up to 256 characters.
+	Description *string
+	// Destination delivers through a connector instead of posting the raw
+	// event: build it with FromWebhookConnectorDestinationCreate. Its
+	// credentials are write-only.
+	Destination *WebhookDestinationCreate
+}
+
+func (p WebhooksCreateParams) toWire() oapi.WebhookEndpointCreate {
+	body := oapi.WebhookEndpointCreate{
+		Events:      make([]oapi.WebhookEventType, len(p.Events)),
+		Description: p.Description,
+		Destination: p.Destination,
+	}
+	for i, v := range p.Events {
+		body.Events[i] = oapi.WebhookEventType(v)
+	}
+	if p.URL != "" {
+		body.Url = &p.URL
+	}
+	return body
+}
+
+// Create registers an endpoint to receive this workspace's events, subscribed
+// to the event types in Events and active immediately. The response is the
+// only place the signing secret appears; it can never be read back, only
+// rotated.
+func (s *WebhooksService) Create(ctx context.Context, params WebhooksCreateParams, opts ...option.RequestOption) (*WebhookEndpointCreated, error) {
+	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CreateWebhookParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CreateWebhook(ctx, op, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out WebhookEndpointCreated
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }
