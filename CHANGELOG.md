@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.90.0
+
+- **Breaking:** available-number search naming a `number_type` now refuses `ending_before` and returns neither `prev_cursor` nor `refresh_cursor` in markets where the suppliers on sale are ranked into more than one priority tier, so page those searches forward with `starting_after` only.
+
 ## 0.89.0
 
 - Add `blocked_by_fraud_protection` as an SMS failure reason for messages blocked by fraud protection due to suspected SMS pumping.
