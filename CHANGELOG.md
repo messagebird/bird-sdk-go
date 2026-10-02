@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.89.0
+
+- Add `blocked_by_fraud_protection` as an SMS failure reason for messages blocked by fraud protection due to suspected SMS pumping.
+- `AmbConversationsUpdateParams` gains `Queue` and `RoutingChange`, a decision naming the pending change's message ID, so `AmbConversationsService.Update` can move a conversation to another queue or adopt the new group and intent its customer's latest message named, and a decision on a change that a newer message replaced fails with `409`. `AMBConversation` gains `RoutingChange` while that newer routing waits to be applied or dismissed.
+- Send the messages you receive to an AI agent, starting with Claude Managed Agents and Grok Bot: `webhooks create` takes a connector `destination` (`destination.connector` with its `connector_id`, `config` and write-only `credentials`; in the CLI `--connector` and `--field`, in MCP `connector_id`, `config` and `credentials`) and builds the endpoint's URL for it, so `url` is now optional; in Go, `WebhooksCreateParams` gains `Destination` and an empty `URL` is left out, and in Python `webhooks.create` takes `destination`. `bird webhooks create --help` and the MCP tool list each connector with its fields and setup steps. `webhooks update` rotates connector credentials one key at a time, `webhooks list` filters by `url`, and delivery attempts report a `failure_reason`. A `webhooks.setup` procedure guides an agent from a receiver to a verified delivery.
+
 ## 0.88.0
 
 - Add the WhatsApp Business Agent notification methods under `whatsapp.agents.notifications`: tell the agent on one of your numbers that something happened in your systems for one contact, such as an order shipping, and read back what came of it. The agent decides whether and how to tell the contact. A notification answers `accepted` and later settles to `success`, `skipped` with the agent's reason, or `failed` with what went wrong. The agent itself is still onboarded in the dashboard.
