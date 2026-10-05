@@ -20587,6 +20587,9 @@ type Mailbox struct {
 	// Metadata Your own key/value data attached to the mailbox. Up to 2 KB. Keys starting with `__bird` are reserved.
 	Metadata map[string]interface{} `json:"metadata"`
 
+	// Next What to do next with this mailbox. The response that creates it suggests subscribing to the mail it receives; other reads of one mailbox return an empty list, and lists omit it.
+	Next *[]NextAction `json:"next,omitempty"`
+
 	// Owner The principal that owns the mailbox. Always the workspace.
 	Owner MailboxOwner `json:"owner"`
 
@@ -24746,6 +24749,9 @@ type WebhookEndpointCreated struct {
 	// Filter Mailbox scope configured through filter, or null.
 	Filter *WebhookFilter    `json:"filter"`
 	Id     WebhookEndpointID `json:"id"`
+
+	// Next What to do next with this endpoint. Empty: deliveries start as the events happen, with nothing left to set up.
+	Next *[]NextAction `json:"next,omitempty"`
 
 	// Secret Signing secret for this endpoint (`whsec_` prefix), used to verify every delivery signature. Present in this response only: store it immediately, it cannot be retrieved again. If you lose it, mint a new one with [Rotate webhook signing secret](/docs/api/reference/rotate-webhook-secret).
 	Secret string `json:"secret" pii:"true"`

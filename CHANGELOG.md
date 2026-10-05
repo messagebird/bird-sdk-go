@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.92.0
+
+- `Mailbox` and the created webhook endpoint gain `next`: creating a mailbox now suggests subscribing to the mail it receives with a webhook for `email_mailbox.message_received`.
+
 ## 0.91.0
 
 - `AvailableNumber` now reports `ownership_address_scope`, where the carrier requires the business address on a number's ownership registration to be.
