@@ -108,7 +108,7 @@ func (s *WhatsappAgentsNotificationsService) Create(ctx context.Context, numberI
 // Get Read one notification sent to the agent on this WhatsApp number, with what came of it.
 func (s *WhatsappAgentsNotificationsService) Get(ctx context.Context, numberId string, notificationId string, opts ...option.RequestOption) (*WhatsAppAgentNotification, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppAgentNotification(ctx, oapi.WhatsAppNumberID(numberId), oapi.WhatsAppAgentNotificationID(notificationId), cfg...)
+		return s.client.oapi.GetWhatsAppAgentNotification(ctx, oapi.WhatsAppNumberID(numberId), oapi.WhatsAppAgentNotificationID(notificationId), &oapi.GetWhatsAppAgentNotificationParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

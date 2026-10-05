@@ -66,7 +66,7 @@ func (p EmailHealthParams) toWire() *oapi.GetEmailHealthParams {
 // Get Fetch one email message by `id`, with aggregate delivery status and per-state recipient counts. The message body (`html`, `text`) is not returned. Per-recipient delivery statuses and the event log are separate sub-resources: `GET /v1/email/messages/{message_id}/recipients` and `GET /v1/email/messages/{message_id}/events`. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
 func (s *EmailService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*EmailMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailMessage(ctx, oapi.EmailID(messageId), cfg...)
+		return s.client.oapi.GetEmailMessage(ctx, oapi.EmailID(messageId), &oapi.GetEmailMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

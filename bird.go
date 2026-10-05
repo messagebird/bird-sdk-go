@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.90.0"
+	version = "0.91.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -109,7 +109,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 			region = regionFromAPIKey(cfg.APIKey)
 		}
 		if region == "" {
-			return nil, errors.New("bird: cannot determine region; pass option.WithRegion or option.WithBaseURL (or use a bk_{region}_{token} key)")
+			return nil, errors.New("bird: cannot determine region; pass option.WithRegion or option.WithBaseURL (or use a bk_{region}_{token} or bm_{region}_{token} key)")
 		}
 		cfg.BaseURL = baseURLForRegion(region)
 	}
@@ -230,10 +230,10 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 
 var regionPattern = regexp.MustCompile(`^[a-z]{2}[0-9]+$`)
 
-// regionFromAPIKey extracts the region from a bk_{region}_{token} key, or "".
+// regionFromAPIKey extracts the region from a bk_{region}_{token} or bm_{region}_{token} key, or "".
 func regionFromAPIKey(key string) string {
 	parts := strings.SplitN(key, "_", 3)
-	if len(parts) < 3 || parts[0] != "bk" || parts[2] == "" {
+	if len(parts) < 3 || (parts[0] != "bk" && parts[0] != "bm") || parts[2] == "" {
 		return ""
 	}
 	if !regionPattern.MatchString(parts[1]) {

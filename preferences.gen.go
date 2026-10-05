@@ -68,7 +68,7 @@ func (s *PreferencesService) List(ctx context.Context, params PreferencesListPar
 // Get Read one recorded preference by ID: the channel and handle it is about, whether it grants or revokes, how much traffic it covers, and where the statement came from.
 func (s *PreferencesService) Get(ctx context.Context, preferenceId string, opts ...option.RequestOption) (*Preference, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetPreference(ctx, oapi.PreferenceID(preferenceId), cfg...)
+		return s.client.oapi.GetPreference(ctx, oapi.PreferenceID(preferenceId), &oapi.GetPreferenceParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

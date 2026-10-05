@@ -593,6 +593,38 @@
   ],
   "mcp_cases": [
     {
+      "name": "explicit Grok Bot caller overrides shared Cursor connector",
+      "env": {
+        "CURSOR_AGENT": "1"
+      },
+      "client_info": "cursor",
+      "headers": {
+        "Bird-Caller": "grokbot",
+        "Bird-Caller-Source": "env:CURSOR_AGENT",
+        "User-Agent": "cursor/1.0"
+      },
+      "want": {
+        "Bird-Caller": "grokbot",
+        "Bird-Caller-Source": "declared",
+        "Bird-Caller-Execution": "unknown"
+      }
+    },
+    {
+      "name": "distinct Grok Bot clientInfo overrides Cursor user agent",
+      "env": {
+        "CURSOR_AGENT": "1"
+      },
+      "client_info": "grokbot",
+      "headers": {
+        "User-Agent": "cursor/1.0"
+      },
+      "want": {
+        "Bird-Caller": "grokbot",
+        "Bird-Caller-Source": "mcp:client-info",
+        "Bird-Caller-Execution": "unknown"
+      }
+    },
+    {
       "name": "remote identity clears server configured model",
       "env": {
         "CLAUDE_CODE_CHILD_SESSION": "1",
@@ -637,7 +669,8 @@
       "client_info": "Claude Code",
       "headers": {
         "Bird-Enrichment": "0",
-        "Bird-Model": "sonnet"
+        "Bird-Model": "sonnet",
+        "Bird-Caller": "grokbot"
       },
       "want": {
         "Bird-Enrichment": "0",

@@ -153,7 +153,7 @@ func (s *AudiencesService) List(ctx context.Context, params AudienceListParams, 
 // Get Get a single audience by ID: name, description, and type. Members are listed separately with `audiences.list_contacts`.
 func (s *AudiencesService) Get(ctx context.Context, audienceId string, opts ...option.RequestOption) (*Audience, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetAudience(ctx, oapi.AudienceID(audienceId), cfg...)
+		return s.client.oapi.GetAudience(ctx, oapi.AudienceID(audienceId), &oapi.GetAudienceParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

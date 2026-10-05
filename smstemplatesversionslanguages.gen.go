@@ -12,7 +12,7 @@ import (
 // List List a version's languages without their text. Each summary includes its revision, content hash, and last update time. Read a language item to retrieve its text.
 func (s *SmsTemplatesVersionsLanguagesService) List(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*SMSTemplateLanguageList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListSMSTemplateVersionLanguages(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), cfg...)
+		return s.client.oapi.ListSMSTemplateVersionLanguages(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), &oapi.ListSMSTemplateVersionLanguagesParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -27,7 +27,7 @@ func (s *SmsTemplatesVersionsLanguagesService) List(ctx context.Context, templat
 // Get Read one language's full text, revision, content hash, and update time from a draft, published version, or built-in template's synthetic version.
 func (s *SmsTemplatesVersionsLanguagesService) Get(ctx context.Context, templateRef string, versionId string, language string, opts ...option.RequestOption) (*SMSTemplateLanguage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSMSTemplateVersionLanguage(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), oapi.LanguageTag(language), cfg...)
+		return s.client.oapi.GetSMSTemplateVersionLanguage(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), oapi.LanguageTag(language), &oapi.GetSMSTemplateVersionLanguageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

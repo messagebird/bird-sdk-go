@@ -491,8 +491,10 @@ func TestNewClientRequiresResolvableKey(t *testing.T) {
 	if _, err := bird.NewClient(option.WithAPIKey("not-a-bird-key")); err == nil {
 		t.Error("want error for an unresolvable region")
 	}
-	if _, err := bird.NewClient(option.WithAPIKey("bk_eu1_token")); err != nil {
-		t.Errorf("region inference from key should succeed: %v", err)
+	for _, key := range []string{"bk_eu1_token", "bm_eu1_token"} {
+		if _, err := bird.NewClient(option.WithAPIKey(key)); err != nil {
+			t.Errorf("region inference from key should succeed: %v", err)
+		}
 	}
 }
 

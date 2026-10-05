@@ -32,7 +32,7 @@ func clientOnly(name string, apply func(*requestconfig.Config)) RequestOption {
 }
 
 // WithAPIKey sets the API key used for Bearer authentication. The key's region
-// prefix (bk_{region}_…) also selects the base URL unless WithBaseURL is set.
+// prefix (bk_{region}_… or bm_{region}_…) also selects the base URL unless WithBaseURL is set.
 func WithAPIKey(key string) RequestOption {
 	return clientOnly("WithAPIKey", func(c *requestconfig.Config) { c.APIKey = key })
 }

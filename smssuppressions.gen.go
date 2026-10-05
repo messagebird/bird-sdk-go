@@ -86,7 +86,7 @@ func (s *SmsSuppressionsService) List(ctx context.Context, params SmsSuppression
 // Get Read one SMS suppression: the sender and subscriber it covers, why messages are stopped, what it blocks, and whether it is still in force. To check whether you may message someone, filter `sms_suppressions.list` by their number instead.
 func (s *SmsSuppressionsService) Get(ctx context.Context, suppressionId string, opts ...option.RequestOption) (*SMSSuppression, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSMSSuppression(ctx, oapi.SMSSuppressionID(suppressionId), cfg...)
+		return s.client.oapi.GetSMSSuppression(ctx, oapi.SMSSuppressionID(suppressionId), &oapi.GetSMSSuppressionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

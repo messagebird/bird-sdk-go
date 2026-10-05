@@ -151,7 +151,7 @@ func (s *EmailTemplatesService) List(ctx context.Context, params EmailTemplatesL
 // Get Read one template's metadata: the state of every language it has, the languages it can send today, the draft revision, and its draft and published version IDs. The response omits content; read a version's language to retrieve it. Accepts a workspace template ID (`emt_…`) or a built-in `system` template's `bird_` slug. Workspace templates may include `editor_url` to open the saved draft in the browser editor, in its default language.
 func (s *EmailTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*EmailTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailTemplate(ctx, templateRef, cfg...)
+		return s.client.oapi.GetEmailTemplate(ctx, templateRef, &oapi.GetEmailTemplateParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

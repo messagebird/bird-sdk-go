@@ -69,7 +69,7 @@ func (p SmsListEventsParams) toWire() *oapi.ListSMSMessageEventsParams {
 // Get Get one SMS message by ID: its current delivery status, segment breakdown, cost, and failure detail if it failed.
 func (s *SmsService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*SMSMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSMSMessage(ctx, oapi.SMSMessageID(messageId), cfg...)
+		return s.client.oapi.GetSMSMessage(ctx, oapi.SMSMessageID(messageId), &oapi.GetSMSMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

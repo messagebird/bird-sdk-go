@@ -61,7 +61,7 @@ func (p AmbSuppressionsCreateParams) toWire() oapi.AMBSuppressionCreate {
 // Get Returns the suppression episode for the given ID, including one that has already ended. An ended episode keeps its dates and reports when and how it ended.
 func (s *AmbSuppressionsService) Get(ctx context.Context, suppressionId string, opts ...option.RequestOption) (*AMBSuppression, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetAMBSuppression(ctx, oapi.AMBSuppressionID(suppressionId), cfg...)
+		return s.client.oapi.GetAMBSuppression(ctx, oapi.AMBSuppressionID(suppressionId), &oapi.GetAMBSuppressionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

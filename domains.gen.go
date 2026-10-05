@@ -155,7 +155,7 @@ func (s *DomainsService) List(ctx context.Context, params DomainListParams, opts
 // Get Fetch one sending domain: verification status and the DNS records with their individual verification states.
 func (s *DomainsService) Get(ctx context.Context, domainId string, opts ...option.RequestOption) (*Domain, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetDomain(ctx, oapi.DomainID(domainId), cfg...)
+		return s.client.oapi.GetDomain(ctx, oapi.DomainID(domainId), &oapi.GetDomainParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

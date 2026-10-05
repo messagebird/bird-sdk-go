@@ -92,7 +92,7 @@ func (p AmbConversationsTypingParams) toWire() oapi.AMBConversationTypingRequest
 // Get Reads a customer-initiated conversation in your workspace. Its recipient.opaque_user_id supplies the to field for replies; verify the business and open state before sending.
 func (s *AmbConversationsService) Get(ctx context.Context, conversationId string, opts ...option.RequestOption) (*AMBConversation, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetAMBConversation(ctx, oapi.AMBConversationID(conversationId), cfg...)
+		return s.client.oapi.GetAMBConversation(ctx, oapi.AMBConversationID(conversationId), &oapi.GetAMBConversationParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

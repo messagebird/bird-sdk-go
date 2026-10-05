@@ -149,7 +149,7 @@ func (s *WhatsappGroupsService) List(ctx context.Context, params WhatsappGroupsL
 // Get Read one WhatsApp group: its subject, description, status, invite link, and who is in it. Poll it after creating a group to see status move from pending to active, which is when the invite link appears.
 func (s *WhatsappGroupsService) Get(ctx context.Context, groupId string, opts ...option.RequestOption) (*WhatsAppGroup, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppGroup(ctx, oapi.WhatsAppGroupID(groupId), cfg...)
+		return s.client.oapi.GetWhatsAppGroup(ctx, oapi.WhatsAppGroupID(groupId), &oapi.GetWhatsAppGroupParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

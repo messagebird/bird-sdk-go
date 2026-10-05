@@ -12,7 +12,7 @@ import (
 // Get Read the business profile WhatsApp shows to people a connected number messages.
 func (s *WhatsappNumbersProfileService) Get(ctx context.Context, numberId string, opts ...option.RequestOption) (*WhatsAppNumberProfile, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppNumberProfile(ctx, oapi.WhatsAppNumberID(numberId), cfg...)
+		return s.client.oapi.GetWhatsAppNumberProfile(ctx, oapi.WhatsAppNumberID(numberId), &oapi.GetWhatsAppNumberProfileParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

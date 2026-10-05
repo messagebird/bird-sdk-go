@@ -84,7 +84,7 @@ func (s *AmbService) ListEvents(ctx context.Context, messageId string, params Am
 // Get Reads a message in your workspace, including its native content and processing state. Sent records Apple gateway acceptance; a send failure does not rule out an earlier attempt reaching Apple.
 func (s *AmbService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*AMBMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetAMBMessage(ctx, oapi.AMBMessageID(messageId), cfg...)
+		return s.client.oapi.GetAMBMessage(ctx, oapi.AMBMessageID(messageId), &oapi.GetAMBMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

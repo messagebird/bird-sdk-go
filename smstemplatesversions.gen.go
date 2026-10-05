@@ -68,7 +68,7 @@ func (s *SmsTemplatesVersionsService) List(ctx context.Context, templateRef stri
 // Get Read one draft or published SMS template version, including its variables and text in every language. Built-in templates expose their current catalogue content through a synthetic published version.
 func (s *SmsTemplatesVersionsService) Get(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*SMSTemplateVersion, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSMSTemplateVersion(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), cfg...)
+		return s.client.oapi.GetSMSTemplateVersion(ctx, templateRef, oapi.SMSTemplateVersionID(versionId), &oapi.GetSMSTemplateVersionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

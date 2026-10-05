@@ -5,13 +5,14 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
 // Get Fetch the current workspace's ID, name, and the ID of the organization owning it. This is the workspace the current credentials are scoped to.
 func (s *WorkspaceService) Get(ctx context.Context, opts ...option.RequestOption) (*Workspace, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetCurrentWorkspace(ctx, cfg...)
+		return s.client.oapi.GetCurrentWorkspace(ctx, &oapi.GetCurrentWorkspaceParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

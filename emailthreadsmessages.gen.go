@@ -114,7 +114,7 @@ func (s *EmailThreadsMessagesService) List(ctx context.Context, threadId string,
 // Get Get one conversation message with its extracted plain text, readable for the mailbox's full retention tier without MIME parsing.
 func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailThreadMessage(ctx, oapi.ThreadID(threadId), messageId, cfg...)
+		return s.client.oapi.GetEmailThreadMessage(ctx, oapi.ThreadID(threadId), messageId, &oapi.GetEmailThreadMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -129,7 +129,7 @@ func (s *EmailThreadsMessagesService) Get(ctx context.Context, threadId string, 
 // Body Get the original rendered HTML and plain-text body of a conversation message. Available for 30 days. After that, use the message's extracted_text.
 func (s *EmailThreadsMessagesService) Body(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageBody, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailThreadMessageBody(ctx, oapi.ThreadID(threadId), messageId, cfg...)
+		return s.client.oapi.GetEmailThreadMessageBody(ctx, oapi.ThreadID(threadId), messageId, &oapi.GetEmailThreadMessageBodyParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -163,7 +163,7 @@ func (s *EmailThreadsMessagesService) Reply(ctx context.Context, threadId string
 // Attachments List the attachments on a conversation message. Bytes are downloadable for the mailbox's retention tier, and the metadata stays readable afterward on the message's attachment_manifest.
 func (s *EmailThreadsMessagesService) Attachments(ctx context.Context, threadId string, messageId string, opts ...option.RequestOption) (*EmailThreadMessageAttachmentList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListEmailThreadMessageAttachments(ctx, oapi.ThreadID(threadId), messageId, cfg...)
+		return s.client.oapi.ListEmailThreadMessageAttachments(ctx, oapi.ThreadID(threadId), messageId, &oapi.ListEmailThreadMessageAttachmentsParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

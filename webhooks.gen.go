@@ -15,6 +15,8 @@ type WebhookEndpointUpdateStatus = oapi.WebhookEndpointUpdateStatus
 
 type WebhookEventType = oapi.WebhookEventType
 
+type WebhookFilter = oapi.WebhookFilter
+
 // WebhooksListParams filters the list. Zero-value fields are omitted.
 type WebhooksListParams struct {
 	Sort WebhookSortField
@@ -93,6 +95,8 @@ type WebhooksUpdateParams struct {
 	URL *string
 	// Human-readable label for this endpoint, up to 256 characters.
 	Description *string
+	// Replace the mailbox scope. Omit to keep it, or send null to include all resources. Scoped endpoints accept only email_mailbox events.
+	Filter Nullable[WebhookFilter]
 	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events []WebhookEventType
 	// New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
@@ -105,6 +109,7 @@ func (p WebhooksUpdateParams) toWire() oapi.WebhookEndpointUpdate {
 	body := oapi.WebhookEndpointUpdate{}
 	body.Url = p.URL
 	body.Description = p.Description
+	body.Filter = p.Filter
 	events := make([]oapi.WebhookEventType, len(p.Events))
 	for i, v := range p.Events {
 		events[i] = oapi.WebhookEventType(v)
@@ -158,7 +163,7 @@ func (s *WebhooksService) List(ctx context.Context, params WebhooksListParams, o
 // Get Read one endpoint's URL, subscribed event types, and current delivery status. The signing secret is never included, and can only be rotated rather than retrieved.
 func (s *WebhooksService) Get(ctx context.Context, webhookId string, opts ...option.RequestOption) (*WebhookEndpoint, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWebhook(ctx, oapi.WebhookEndpointID(webhookId), cfg...)
+		return s.client.oapi.GetWebhook(ctx, oapi.WebhookEndpointID(webhookId), &oapi.GetWebhookParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

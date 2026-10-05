@@ -87,7 +87,7 @@ func (p WhatsappMarkReadParams) toWire() oapi.WhatsAppReadReceiptRequest {
 // Get Get one WhatsApp message by id: current delivery status, sent/delivered/read timestamps, the one content it was built from (a template, or free-form text, image, video, audio, sticker, document, location, interactive or contact_cards, or interactive_reply on an inbound tap), and failure detail if it failed. For the per-event timeline use whatsapp_list_events.
 func (s *WhatsappService) Get(ctx context.Context, messageId string, opts ...option.RequestOption) (*WhatsAppMessage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppMessage(ctx, oapi.WhatsAppMessageID(messageId), cfg...)
+		return s.client.oapi.GetWhatsAppMessage(ctx, oapi.WhatsAppMessageID(messageId), &oapi.GetWhatsAppMessageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

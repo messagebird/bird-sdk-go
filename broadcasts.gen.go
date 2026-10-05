@@ -119,7 +119,7 @@ func (s *BroadcastsService) List(ctx context.Context, params BroadcastsListParam
 // Get Fetch one broadcast by its `broadcast_id`, with its audience reference and counters. For the full recipient list use `broadcasts.list_recipients`, and for the delivery timeline use `broadcasts.list_events`.
 func (s *BroadcastsService) Get(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcast, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailBroadcast(ctx, broadcastId, cfg...)
+		return s.client.oapi.GetEmailBroadcast(ctx, broadcastId, &oapi.GetEmailBroadcastParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -231,7 +231,7 @@ func (s *BroadcastsService) ListRecipients(ctx context.Context, broadcastId stri
 // Counts Preview how many contacts a broadcast can reach before sending. The `total` value includes every contact in the audience. The `addressable` value counts contacts with an email address. The `sendable` value counts contacts that are not suppressed for the broadcast's category and can receive the broadcast. These describe the audience, not delivery, and sending does not change them: to find out what happened to a broadcast that has sent, read its recipients or its events. The broadcast must already have an audience selected.
 func (s *BroadcastsService) Counts(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcastCounts, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailBroadcastCounts(ctx, oapi.EmailBroadcastID(broadcastId), cfg...)
+		return s.client.oapi.GetEmailBroadcastCounts(ctx, oapi.EmailBroadcastID(broadcastId), &oapi.GetEmailBroadcastCountsParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -246,7 +246,7 @@ func (s *BroadcastsService) Counts(ctx context.Context, broadcastId string, opts
 // ListClickedLinks List the destination URLs a broadcast's recipients clicked, each with its exact click count, distinct-recipient count, and the link's own name (when the message named it). Grouped over every click event the broadcast has, not a sample; `data` is capped at the 100 most-clicked URLs and `total` is the uncapped count of distinct URLs clicked.
 func (s *BroadcastsService) ListClickedLinks(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcastClickedLinkList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListEmailBroadcastClickedLinks(ctx, oapi.EmailBroadcastID(broadcastId), cfg...)
+		return s.client.oapi.ListEmailBroadcastClickedLinks(ctx, oapi.EmailBroadcastID(broadcastId), &oapi.ListEmailBroadcastClickedLinksParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -261,7 +261,7 @@ func (s *BroadcastsService) ListClickedLinks(ctx context.Context, broadcastId st
 // SendQuota Check how much of a broadcast will actually send before sending it: `recipients` is how many contacts it would reach now, `allowed` is how many of those the organization's email send allowance covers, and `limited_by` names the allowance that stops the rest. The broadcast must already have an audience selected.
 func (s *BroadcastsService) SendQuota(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcastSendQuota, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailBroadcastSendQuota(ctx, oapi.EmailBroadcastID(broadcastId), cfg...)
+		return s.client.oapi.GetEmailBroadcastSendQuota(ctx, oapi.EmailBroadcastID(broadcastId), &oapi.GetEmailBroadcastSendQuotaParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

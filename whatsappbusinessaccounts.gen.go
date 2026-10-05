@@ -68,7 +68,7 @@ func (s *WhatsappBusinessAccountsService) List(ctx context.Context, params Whats
 // Get Read one connected WhatsApp Business Account by its `id` (`waa_` prefix) or the ID WhatsApp reports in `waba`, with the state WhatsApp reports for the account.
 func (s *WhatsappBusinessAccountsService) Get(ctx context.Context, businessAccountRef string, opts ...option.RequestOption) (*WhatsAppBusinessAccount, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppBusinessAccount(ctx, businessAccountRef, cfg...)
+		return s.client.oapi.GetWhatsAppBusinessAccount(ctx, businessAccountRef, &oapi.GetWhatsAppBusinessAccountParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

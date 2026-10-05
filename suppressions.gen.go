@@ -85,7 +85,7 @@ func (s *SuppressionsService) List(ctx context.Context, params SuppressionsListP
 // Get Fetch one suppression record by its ID: the address, why it's suppressed, how the record originated, and which categories it blocks. Use `suppressions.list` with `email` when you only know the address. Compare complete addresses across all cursor pages because that filter matches by prefix.
 func (s *SuppressionsService) Get(ctx context.Context, suppressionId string, opts ...option.RequestOption) (*Suppression, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSuppression(ctx, oapi.SuppressionID(suppressionId), cfg...)
+		return s.client.oapi.GetSuppression(ctx, oapi.SuppressionID(suppressionId), &oapi.GetSuppressionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

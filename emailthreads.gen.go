@@ -118,7 +118,7 @@ func (s *EmailThreadsService) List(ctx context.Context, params EmailThreadsListP
 // Get Get one conversation: participants, counts, labels, read state. Fetch its messages with the thread messages endpoint.
 func (s *EmailThreadsService) Get(ctx context.Context, threadId string, opts ...option.RequestOption) (*EmailThread, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailThread(ctx, oapi.ThreadID(threadId), cfg...)
+		return s.client.oapi.GetEmailThread(ctx, oapi.ThreadID(threadId), &oapi.GetEmailThreadParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

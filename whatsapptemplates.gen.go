@@ -77,7 +77,7 @@ func (s *WhatsappTemplatesService) List(ctx context.Context, params WhatsappTemp
 // Get Get one WhatsApp template by slug or ID: its handle, its lifecycle, and where each of its languages stands. Content is not included; use `whatsapp.templates.versions.get` for that.
 func (s *WhatsappTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*WhatsAppTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppTemplate(ctx, templateRef, cfg...)
+		return s.client.oapi.GetWhatsAppTemplate(ctx, templateRef, &oapi.GetWhatsAppTemplateParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

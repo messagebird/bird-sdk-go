@@ -181,7 +181,7 @@ func (s *ContactsService) List(ctx context.Context, params ContactListParams, op
 // Get Get a single contact by ID. Look up an ID by exact email, phone_number, or external_id with `contacts.list`.
 func (s *ContactsService) Get(ctx context.Context, contactId string, opts ...option.RequestOption) (*Contact, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetContact(ctx, oapi.ContactID(contactId), cfg...)
+		return s.client.oapi.GetContact(ctx, oapi.ContactID(contactId), &oapi.GetContactParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

@@ -12,7 +12,7 @@ Requires Go 1.24+.
 
 ## Overview
 
-`bird.NewClient(option.WithAPIKey(...))` returns a client whose region is inferred from the API key's prefix (`bk_{region}_…`); pass `option.WithBaseURL` or `option.WithRegion` to override. From there:
+`bird.NewClient(option.WithAPIKey(...))` returns a client whose region is inferred from the API key's prefix (`bk_{region}_…` or `bm_{region}_…`); pass `option.WithBaseURL` or `option.WithRegion` to override. From there:
 
 - **`client.Email`** — `Send`, `Get`, `List` (auto-paginating; `ListPage` for manual cursors).
 - **`client.Sms`** — `Send` (free text or a stored template), `SendBatch`, `Get`, `List` (auto-paginating; `ListPage` for manual cursors). `client.SmsTemplates` (`List`, `Get`) browses the templates a send can name.

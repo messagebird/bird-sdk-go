@@ -98,7 +98,7 @@ func (s *ContactPropertiesService) List(ctx context.Context, params ContactPrope
 // Get Get a single contact property by ID: key, type, fallback value, and archived state.
 func (s *ContactPropertiesService) Get(ctx context.Context, propertyId string, opts ...option.RequestOption) (*ContactProperty, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetContactProperty(ctx, oapi.ContactPropertyID(propertyId), cfg...)
+		return s.client.oapi.GetContactProperty(ctx, oapi.ContactPropertyID(propertyId), &oapi.GetContactPropertyParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

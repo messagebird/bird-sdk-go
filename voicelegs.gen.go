@@ -93,7 +93,7 @@ func (s *VoiceLegsService) List(ctx context.Context, params VoiceLegsListParams,
 // Get Fetch one leg by ID, at any point in its lifecycle. A leg still ringing or connected carries no economics yet: `duration_ms`, `billable_ms`, `ended_at`, and `cost` are null until it ends, and the same ID then returns the settled record. Poll here to watch one known leg; use `voice.legs.list` to find legs in the first place. When a leg was refused, `rejection_reason` names the gate that turned it away.
 func (s *VoiceLegsService) Get(ctx context.Context, legId string, opts ...option.RequestOption) (*VoiceLeg, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetVoiceLeg(ctx, oapi.VoiceCallID(legId), cfg...)
+		return s.client.oapi.GetVoiceLeg(ctx, oapi.VoiceCallID(legId), &oapi.GetVoiceLegParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

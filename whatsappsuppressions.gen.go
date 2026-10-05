@@ -83,7 +83,7 @@ func (s *WhatsappSuppressionsService) List(ctx context.Context, params WhatsappS
 // Get Read one WhatsApp suppression by ID, including one that has already ended. An ended record reports when it ended and what ended it. To find a suppression by address rather than by ID, use `whatsapp.suppressions.list` with its address filter.
 func (s *WhatsappSuppressionsService) Get(ctx context.Context, suppressionId string, opts ...option.RequestOption) (*WhatsAppSuppression, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppSuppression(ctx, oapi.WhatsAppSuppressionID(suppressionId), cfg...)
+		return s.client.oapi.GetWhatsAppSuppression(ctx, oapi.WhatsAppSuppressionID(suppressionId), &oapi.GetWhatsAppSuppressionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

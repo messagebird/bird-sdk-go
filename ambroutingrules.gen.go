@@ -24,7 +24,7 @@ func (p AmbRoutingRulesListParams) toWire() *oapi.ListAMBRoutingRulesParams {
 // Get Returns one routing rule by ID.
 func (s *AmbRoutingRulesService) Get(ctx context.Context, routingRuleId string, opts ...option.RequestOption) (*AMBRoutingRule, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetAMBRoutingRule(ctx, oapi.AMBRoutingRuleID(routingRuleId), cfg...)
+		return s.client.oapi.GetAMBRoutingRule(ctx, oapi.AMBRoutingRuleID(routingRuleId), &oapi.GetAMBRoutingRuleParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

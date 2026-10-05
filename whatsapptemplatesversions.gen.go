@@ -62,7 +62,7 @@ func (s *WhatsappTemplatesVersionsService) List(ctx context.Context, templateRef
 // Get Get one version of a WhatsApp template: its submission state and the languages it carries. This is the level at which content exists.
 func (s *WhatsappTemplatesVersionsService) Get(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*WhatsAppTemplateVersion, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppTemplateVersion(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), cfg...)
+		return s.client.oapi.GetWhatsAppTemplateVersion(ctx, templateRef, oapi.WhatsAppTemplateVersionID(versionId), &oapi.GetWhatsAppTemplateVersionParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

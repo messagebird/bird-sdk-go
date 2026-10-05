@@ -83,7 +83,7 @@ func (s *SmsTemplatesService) List(ctx context.Context, params SMSTemplateListPa
 // Get Read one SMS template's metadata, language states, draft revision, and draft and live version IDs. The response omits content and variables; read a version to retrieve them.
 func (s *SmsTemplatesService) Get(ctx context.Context, templateRef string, opts ...option.RequestOption) (*SMSTemplate, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetSMSTemplate(ctx, templateRef, cfg...)
+		return s.client.oapi.GetSMSTemplate(ctx, templateRef, &oapi.GetSMSTemplateParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

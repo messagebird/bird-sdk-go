@@ -205,7 +205,7 @@ func (s *EmailMailboxesService) Create(ctx context.Context, params EmailMailboxe
 // Get Read one mailbox by ID. A mailbox deleted within its 30-day restore window is still returned, with `deleted_at` set. Once that window closes it is gone and this returns `404`.
 func (s *EmailMailboxesService) Get(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*Mailbox, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), cfg...)
+		return s.client.oapi.GetMailbox(ctx, oapi.MailboxID(mailboxId), &oapi.GetMailboxParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -304,7 +304,7 @@ func (s *EmailMailboxesService) Stats(ctx context.Context, mailboxId string, par
 // Labels List the labels available in a mailbox: the built-in system labels (inbox, archive, spam, blocked, sent, trash, unread) plus every custom label in use.
 func (s *EmailMailboxesService) Labels(ctx context.Context, mailboxId string, opts ...option.RequestOption) (*EmailMailboxLabelList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxID(mailboxId), cfg...)
+		return s.client.oapi.ListMailboxLabels(ctx, oapi.MailboxID(mailboxId), &oapi.ListMailboxLabelsParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

@@ -102,7 +102,7 @@ func (s *WhatsappNumbersService) List(ctx context.Context, params WhatsappNumber
 // Get Read a WhatsApp number and the state WhatsApp reports for it. `next` says what to do about that state, including the browser step that finishes a connection while `status` is `awaiting_signup`.
 func (s *WhatsappNumbersService) Get(ctx context.Context, numberId string, opts ...option.RequestOption) (*WhatsAppNumber, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppNumber(ctx, oapi.WhatsAppNumberID(numberId), cfg...)
+		return s.client.oapi.GetWhatsAppNumber(ctx, oapi.WhatsAppNumberID(numberId), &oapi.GetWhatsAppNumberParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

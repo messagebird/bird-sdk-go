@@ -60,7 +60,7 @@ func (p EmailTemplatesVersionsLanguagesUpdateParams) toWire() oapi.EmailTemplate
 // List List the languages a template version holds, with each language's revision and fingerprint but not its content.
 func (s *EmailTemplatesVersionsLanguagesService) List(ctx context.Context, templateRef string, versionId string, opts ...option.RequestOption) (*EmailTemplateLanguageList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListEmailTemplateVersionLanguages(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), cfg...)
+		return s.client.oapi.ListEmailTemplateVersionLanguages(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), &oapi.ListEmailTemplateVersionLanguagesParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (s *EmailTemplatesVersionsLanguagesService) List(ctx context.Context, templ
 // Get Read one language's subject and bodies from a template version. The response carries `compatibility`: what the stored HTML uses that mail clients remove, ignore, or render inconsistently, and `compatibility_severity` reducing it to `problem`, `warning`, or `none`.
 func (s *EmailTemplatesVersionsLanguagesService) Get(ctx context.Context, templateRef string, versionId string, language string, opts ...option.RequestOption) (*EmailTemplateLanguage, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailTemplateLanguage(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), oapi.LanguageTag(language), cfg...)
+		return s.client.oapi.GetEmailTemplateLanguage(ctx, templateRef, oapi.EmailTemplateVersionID(versionId), oapi.LanguageTag(language), &oapi.GetEmailTemplateLanguageParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

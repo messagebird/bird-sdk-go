@@ -38,7 +38,7 @@ type WhatsAppMedia struct {
 // refuses a second auth mechanism.
 func (s *WhatsappMessagesService) Media(ctx context.Context, messageID, mediaID string, opts ...option.RequestOption) (*WhatsAppMedia, error) {
 	body, meta, err := s.getRedirect(ctx, opts, http.StatusFound, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapiNoRedirect.GetWhatsAppMessageMedia(ctx, oapi.WhatsAppMessageID(messageID), oapi.WhatsAppFileID(mediaID), cfg...)
+		return s.client.oapiNoRedirect.GetWhatsAppMessageMedia(ctx, oapi.WhatsAppMessageID(messageID), oapi.WhatsAppFileID(mediaID), nil, cfg...)
 	})
 	if err != nil {
 		return nil, err

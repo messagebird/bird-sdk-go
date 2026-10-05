@@ -122,6 +122,8 @@ type WebhooksCreateParams struct {
 	Events []WebhookEventType
 	// Human-readable label for this endpoint, up to 256 characters.
 	Description *string
+	// Filter limits delivery to one mailbox; Events must contain only email_mailbox events.
+	Filter *WebhookFilter
 	// Destination delivers through a connector instead of posting the raw
 	// event: build it with FromWebhookConnectorDestinationCreate. Its
 	// credentials are write-only.
@@ -132,6 +134,7 @@ func (p WebhooksCreateParams) toWire() oapi.WebhookEndpointCreate {
 	body := oapi.WebhookEndpointCreate{
 		Events:      make([]oapi.WebhookEventType, len(p.Events)),
 		Description: p.Description,
+		Filter:      p.Filter,
 		Destination: p.Destination,
 	}
 	for i, v := range p.Events {
