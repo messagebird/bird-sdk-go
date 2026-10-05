@@ -8640,7 +8640,7 @@ type AMBBusinessAccount struct {
 	// Status Pending accounts need setup or review. Active accounts have recorded approval. Suspended accounts retain their recorded suspension. Configured, connected accounts can exchange messages regardless of review status; Apple decides whether to accept outgoing requests. Disconnected accounts retain their identity and history but cannot exchange new messages until reconnected.
 	Status AMBBusinessAccountStatus `json:"status"`
 
-	// StatusReason Reason for the current operational suspension, when recorded. Review feedback is retained on the submission.
+	// StatusReason Reason for the current operational suspension, when recorded. Review feedback is retained on the submission. May contain basic Markdown, such as emphasis and lists.
 	StatusReason *string `json:"status_reason,omitempty"`
 
 	// UpdatedAt When the business record was last changed.
@@ -8753,11 +8753,13 @@ type AMBBusinessAccountSubmission struct {
 	ReadinessAttachment *Attachment   `json:"readiness_attachment,omitempty"`
 
 	// Status The review outcome of this attempt. Earlier attempts retain their outcome when a new attempt is submitted.
-	Status             *AMBBusinessAccountSubmissionStatus `json:"status,omitempty"`
-	StatusReason       *string                             `json:"status_reason,omitempty"`
-	UpdatedAt          *time.Time                          `json:"updated_at,omitempty"`
-	UseCasesAttachment *Attachment                         `json:"use_cases_attachment,omitempty"`
-	VideoAttachment    *Attachment                         `json:"video_attachment,omitempty"`
+	Status *AMBBusinessAccountSubmissionStatus `json:"status,omitempty"`
+
+	// StatusReason Review feedback on this attempt, such as the reason Apple rejected it. May contain basic Markdown, such as emphasis and lists.
+	StatusReason       *string     `json:"status_reason,omitempty"`
+	UpdatedAt          *time.Time  `json:"updated_at,omitempty"`
+	UseCasesAttachment *Attachment `json:"use_cases_attachment,omitempty"`
+	VideoAttachment    *Attachment `json:"video_attachment,omitempty"`
 }
 
 // AMBBusinessAccountSubmissionCreate The submission commits three distinct attachments uploaded to this workspace. `readiness_attachment_id` identifies the PDF business readiness assessment; `use_cases_attachment_id` identifies the PDF describing proposed customer use cases; `video_attachment_id` identifies the MP4 demonstration of the customer experience. Invalid or duplicate evidence returns 422.
