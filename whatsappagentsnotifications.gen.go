@@ -14,6 +14,8 @@ import (
 type WhatsappAgentsNotificationsListParams struct {
 	// Return only notifications in this state.
 	Status WhatsAppAgentNotificationStatus
+	// Return only notifications sent to the agent on this business number, in E.164 format. A phone number is normalized before matching, so spacing does not matter.
+	From string
 	// Return only notifications about this contact, a phone number in E.164 format or a business-scoped user ID. A phone number is normalized before matching, so spacing does not matter.
 	To string
 	// Maximum number of items to return per page.
@@ -25,6 +27,7 @@ type WhatsappAgentsNotificationsListParams struct {
 func (p WhatsappAgentsNotificationsListParams) toWire(startingAfter string) *oapi.ListWhatsAppAgentNotificationsParams {
 	return &oapi.ListWhatsAppAgentNotificationsParams{
 		Status:        optZero(p.Status),
+		From:          optStr(p.From),
 		To:            optStr(p.To),
 		Limit:         optInt(p.Limit),
 		EndingBefore:  optStr(p.EndingBefore),
@@ -34,6 +37,8 @@ func (p WhatsappAgentsNotificationsListParams) toWire(startingAfter string) *oap
 
 // WhatsappAgentsNotificationsCreateParams is the request body for create.
 type WhatsappAgentsNotificationsCreateParams struct {
+	// The business phone number whose agent should act on the notification, in E.164 format (for example `+13124495648`), the same form a message's `from` takes. It must be a number this workspace has connected and that runs an agent.
+	From string
 	// The contact the notification is about: a phone number in E.164 format (for example `+14155551234`), or the contact's business-scoped user ID (for example `US.13491208655302741918`), the same forms a message's `to` accepts. A phone number is normalized before the call reaches WhatsApp, so spacing does not matter. WhatsApp documents a phone number for this call; a business-scoped user ID is passed through as given.
 	To string
 	// Your own name for what happened, such as `payment_received` or `order_shipped`. The agent reads it as the kind of thing that happened, so keep one name per kind. WhatsApp calls this the event type.
@@ -46,6 +51,7 @@ type WhatsappAgentsNotificationsCreateParams struct {
 
 func (p WhatsappAgentsNotificationsCreateParams) toWire() oapi.WhatsAppAgentNotificationCreate {
 	body := oapi.WhatsAppAgentNotificationCreate{}
+	body.From = p.From
 	body.To = p.To
 	body.Name = p.Name
 	body.Description = p.Description
@@ -55,9 +61,9 @@ func (p WhatsappAgentsNotificationsCreateParams) toWire() oapi.WhatsAppAgentNoti
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
-func (s *WhatsappAgentsNotificationsService) ListPage(ctx context.Context, numberId string, params WhatsappAgentsNotificationsListParams, startingAfter string, opts ...option.RequestOption) (*WhatsAppAgentNotificationList, error) {
+func (s *WhatsappAgentsNotificationsService) ListPage(ctx context.Context, params WhatsappAgentsNotificationsListParams, startingAfter string, opts ...option.RequestOption) (*WhatsAppAgentNotificationList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.ListWhatsAppAgentNotifications(ctx, oapi.WhatsAppNumberID(numberId), params.toWire(startingAfter), cfg...)
+		return s.client.oapi.ListWhatsAppAgentNotifications(ctx, params.toWire(startingAfter), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -69,16 +75,16 @@ func (s *WhatsappAgentsNotificationsService) ListPage(ctx context.Context, numbe
 	return &out, nil
 }
 
-// List List the notifications sent to the agent on this WhatsApp number, newest first, each with what came of it, as a cursor page.
+// List List the notifications sent to the agents on your WhatsApp numbers, newest first, each with what came of it, as a cursor page. Filter by `from` for one number's agent.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
-func (s *WhatsappAgentsNotificationsService) List(ctx context.Context, numberId string, params WhatsappAgentsNotificationsListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppAgentNotification, error] {
+func (s *WhatsappAgentsNotificationsService) List(ctx context.Context, params WhatsappAgentsNotificationsListParams, opts ...option.RequestOption) iter.Seq2[*WhatsAppAgentNotification, error] {
 	return paginate(func(cursor string) ([]WhatsAppAgentNotification, *string, error) {
 		pageParams := params
 		if cursor != "" {
 			pageParams.EndingBefore = ""
 		}
-		page, err := s.ListPage(ctx, numberId, pageParams, cursor, opts...)
+		page, err := s.ListPage(ctx, pageParams, cursor, opts...)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -86,14 +92,14 @@ func (s *WhatsappAgentsNotificationsService) List(ctx context.Context, numberId 
 	})
 }
 
-// Create Tell the agent on this WhatsApp number that something happened in your systems for one contact, such as a payment landing or an order shipping, so it can write to them about it. The notification is handed to WhatsApp in the background; read it back with `whatsapp.agents.notifications.get` to see whether the agent acted on it.
-func (s *WhatsappAgentsNotificationsService) Create(ctx context.Context, numberId string, params WhatsappAgentsNotificationsCreateParams, opts ...option.RequestOption) (*WhatsAppAgentNotification, error) {
+// Create Tell the agent on the `from` business number that something happened in your systems for one contact, such as a payment landing or an order shipping, so it can write to them about it. The notification is handed to WhatsApp in the background; read it back with `whatsapp.agents.notifications.get` to see whether the agent acted on it.
+func (s *WhatsappAgentsNotificationsService) Create(ctx context.Context, params WhatsappAgentsNotificationsCreateParams, opts ...option.RequestOption) (*WhatsAppAgentNotification, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateWhatsAppAgentNotificationParams{}
 		if idempotencyKey != "" {
 			op.IdempotencyKey = &idempotencyKey
 		}
-		return s.client.oapi.CreateWhatsAppAgentNotification(ctx, oapi.WhatsAppNumberID(numberId), op, params.toWire(), cfg...)
+		return s.client.oapi.CreateWhatsAppAgentNotification(ctx, op, params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err
@@ -105,10 +111,10 @@ func (s *WhatsappAgentsNotificationsService) Create(ctx context.Context, numberI
 	return &out, nil
 }
 
-// Get Read one notification sent to the agent on this WhatsApp number, with what came of it.
-func (s *WhatsappAgentsNotificationsService) Get(ctx context.Context, numberId string, notificationId string, opts ...option.RequestOption) (*WhatsAppAgentNotification, error) {
+// Get Read one notification sent to one of your agents, with what came of it.
+func (s *WhatsappAgentsNotificationsService) Get(ctx context.Context, notificationId string, opts ...option.RequestOption) (*WhatsAppAgentNotification, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetWhatsAppAgentNotification(ctx, oapi.WhatsAppNumberID(numberId), oapi.WhatsAppAgentNotificationID(notificationId), &oapi.GetWhatsAppAgentNotificationParams{}, cfg...)
+		return s.client.oapi.GetWhatsAppAgentNotification(ctx, oapi.WhatsAppAgentNotificationID(notificationId), &oapi.GetWhatsAppAgentNotificationParams{}, cfg...)
 	})
 	if err != nil {
 		return nil, err

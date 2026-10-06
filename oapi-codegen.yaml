@@ -200,6 +200,8 @@ output-options:
     - listVoiceNumbers
     - getVoiceNumber
     - updateVoiceNumber
+    - getVoiceSettings
+    - updateVoiceSettings
     - listVoiceVerifiedNumbers
     - getVoiceVerifiedNumber
     - verifyVoiceVerifiedNumber
@@ -218,6 +220,7 @@ output-options:
     - getWorkspaceNumber
     - updateWorkspaceNumber
     - releaseWorkspaceNumber
+    - cancelWorkspaceNumber
     - listAvailableNumbers
     - getAvailableNumber
     - createNumbersOrder
@@ -345,3 +348,41 @@ output-options:
     - deleteAMBSuppression
     - listAMBSuppressions
     - createAMBSuppression
+    - listEsimZones
+    - getEsimZone
+    - listEsimOffers
+    - getEsimOffer
+    - getEsimOfferRequirements
+    - getEsimOfferCheckoutOptions
+    - getEsimOfferRecurrence
+    - createEsimOrder
+    - listEsimOrders
+    - getEsimOrder
+    - cancelEsimOrder
+    - listEsims
+    - getEsim
+    - updateEsim
+    - releaseEsim
+    - suspendEsim
+    - resumeEsim
+    - listEsimCompatibleOffers
+    - getEsimCredentials
+    - deliverEsimCredentials
+    - listEsimDeliveries
+    - createEsimInstallLink
+    - deleteEsimInstallLink
+    - listEsimPackages
+    - getEsimPackage
+    - deleteEsimPackage
+    - getEsimSettings
+    - updateEsimSettings
+    - createEsimSubscriber
+    - listEsimSubscribers
+    - getEsimSubscriber
+    - getEsimAssignment
+    - createEsimAssignment
+    - createEsimRecurringSubscription
+    - listEsimRecurringSubscriptions
+    - getEsimRecurringSubscription
+    - cancelEsimRecurringSubscription
+    - listEsimRecurringPeriods

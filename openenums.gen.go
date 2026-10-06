@@ -356,6 +356,35 @@ const (
 	EmailTemplateThemeStudio   = oapi.EmailTemplateThemeStudio
 )
 
+// EsimActionName is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EsimActionName* constants with a
+// default branch rather than treating the set as closed.
+type EsimActionName = oapi.EsimActionName
+
+const (
+	EsimActionNameAssign  = oapi.EsimActionNameAssign
+	EsimActionNameInstall = oapi.EsimActionNameInstall
+	EsimActionNameRelease = oapi.EsimActionNameRelease
+	EsimActionNameResume  = oapi.EsimActionNameResume
+	EsimActionNameSuspend = oapi.EsimActionNameSuspend
+	EsimActionNameTopUp   = oapi.EsimActionNameTopUp
+)
+
+// EsimActionUnavailableReason is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EsimActionUnavailableReason* constants with a
+// default branch rather than treating the set as closed.
+type EsimActionUnavailableReason = oapi.EsimActionUnavailableReason
+
+const (
+	EsimActionUnavailableReasonEsimState              = oapi.EsimActionUnavailableReasonEsimState
+	EsimActionUnavailableReasonIdentificationRequired = oapi.EsimActionUnavailableReasonIdentificationRequired
+	EsimActionUnavailableReasonNetworkUnconfirmed     = oapi.EsimActionUnavailableReasonNetworkUnconfirmed
+	EsimActionUnavailableReasonNetworkUnsupported     = oapi.EsimActionUnavailableReasonNetworkUnsupported
+	EsimActionUnavailableReasonOperationInProgress    = oapi.EsimActionUnavailableReasonOperationInProgress
+	EsimActionUnavailableReasonPackageLimitReached    = oapi.EsimActionUnavailableReasonPackageLimitReached
+	EsimActionUnavailableReasonPermissionDenied       = oapi.EsimActionUnavailableReasonPermissionDenied
+)
+
 // LookupFlag is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the LookupFlag* constants with a
 // default branch rather than treating the set as closed.

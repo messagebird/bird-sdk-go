@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.92.1"
+	version = "0.93.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -64,6 +64,7 @@ type Client struct {
 
 	Email             *EmailService
 	Amb               *AmbService
+	Esim              *EsimService
 	Sms               *SmsService
 	SmsTemplates      *SmsTemplatesService
 	SmsSuppressions   *SmsSuppressionsService
@@ -146,6 +147,18 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Email.InboxInsights.DomainMonitoring = &EmailInboxInsightsDomainMonitoringService{resource: resource{client: c}}
 	c.Email.InboxInsights.Domains = &EmailInboxInsightsDomainsService{resource: resource{client: c}}
 	c.Amb = &AmbService{resource: resource{client: c}}
+	c.Esim = &EsimService{resource: resource{client: c}}
+	c.Esim.Assignment = &EsimAssignmentService{resource: resource{client: c}}
+	c.Esim.Credentials = &EsimCredentialsService{resource: resource{client: c}}
+	c.Esim.Deliveries = &EsimDeliveriesService{resource: resource{client: c}}
+	c.Esim.InstallLinks = &EsimInstallLinksService{resource: resource{client: c}}
+	c.Esim.Offers = &EsimOffersService{resource: resource{client: c}}
+	c.Esim.Orders = &EsimOrdersService{resource: resource{client: c}}
+	c.Esim.Packages = &EsimPackagesService{resource: resource{client: c}}
+	c.Esim.RecurringSubscriptions = &EsimRecurringSubscriptionsService{resource: resource{client: c}}
+	c.Esim.Settings = &EsimSettingsService{resource: resource{client: c}}
+	c.Esim.Subscribers = &EsimSubscribersService{resource: resource{client: c}}
+	c.Esim.Zones = &EsimZonesService{resource: resource{client: c}}
 	c.Amb.BusinessAccounts = &AmbBusinessAccountsService{resource: resource{client: c}}
 	c.Amb.BusinessAccounts.Events = &AmbBusinessAccountsEventsService{resource: resource{client: c}}
 	c.Amb.Conversations = &AmbConversationsService{resource: resource{client: c}}
@@ -191,6 +204,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 			Gateways: &VoiceTrunksGatewaysService{resource{client: c}},
 		},
 		Numbers:            &VoiceNumbersService{resource{client: c}},
+		Settings:           &VoiceSettingsService{resource{client: c}},
 		VerifiedNumbers:    &VoiceVerifiedNumbersService{resource{client: c}},
 		Destinations:       &VoiceDestinationsService{resource{client: c}},
 		SessionCredentials: &VoiceSessionCredentialsService{resource{client: c}},

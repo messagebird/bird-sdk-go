@@ -22,12 +22,14 @@ type (
 	VoiceDestination             = oapi.VoiceDestination
 	VoiceDestinationList         = oapi.VoiceDestinationList
 	VoiceSessionCredential       = oapi.VoiceSessionCredential
+	VoiceSettings                = oapi.VoiceSettings
 )
 
 type VoiceService struct {
 	Legs               *VoiceLegsService
 	Trunks             *VoiceTrunksService
 	Numbers            *VoiceNumbersService
+	Settings           *VoiceSettingsService
 	VerifiedNumbers    *VoiceVerifiedNumbersService
 	Destinations       *VoiceDestinationsService
 	SessionCredentials *VoiceSessionCredentialsService
@@ -44,6 +46,8 @@ type VoiceTrunksService struct {
 type VoiceTrunksGatewaysService struct{ resource }
 
 type VoiceNumbersService struct{ resource }
+
+type VoiceSettingsService struct{ resource }
 
 type VoiceVerifiedNumbersService struct{ resource }
 

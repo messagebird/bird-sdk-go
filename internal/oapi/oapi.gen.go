@@ -2360,16 +2360,16 @@ func (e EmailInboxInsightsTrapType) Valid() bool {
 
 // Defines values for EmailInboxInsightsWeightingSource.
 const (
-	Account EmailInboxInsightsWeightingSource = "account"
-	Global  EmailInboxInsightsWeightingSource = "global"
+	EmailInboxInsightsWeightingSourceAccount EmailInboxInsightsWeightingSource = "account"
+	EmailInboxInsightsWeightingSourceGlobal  EmailInboxInsightsWeightingSource = "global"
 )
 
 // Valid indicates whether the value is a known member of the EmailInboxInsightsWeightingSource enum.
 func (e EmailInboxInsightsWeightingSource) Valid() bool {
 	switch e {
-	case Account:
+	case EmailInboxInsightsWeightingSourceAccount:
 		return true
-	case Global:
+	case EmailInboxInsightsWeightingSourceGlobal:
 		return true
 	default:
 		return false
@@ -3426,6 +3426,570 @@ func (e ErrorBodyType) Valid() bool {
 	case ErrorBodyTypeTooEarlyError:
 		return true
 	case ErrorBodyTypeValidationError:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimActionName.
+const (
+	EsimActionNameAssign  EsimActionName = "assign"
+	EsimActionNameInstall EsimActionName = "install"
+	EsimActionNameRelease EsimActionName = "release"
+	EsimActionNameResume  EsimActionName = "resume"
+	EsimActionNameSuspend EsimActionName = "suspend"
+	EsimActionNameTopUp   EsimActionName = "top_up"
+)
+
+// Valid indicates whether the value is a known member of the EsimActionName enum.
+func (e EsimActionName) Valid() bool {
+	switch e {
+	case EsimActionNameAssign:
+		return true
+	case EsimActionNameInstall:
+		return true
+	case EsimActionNameRelease:
+		return true
+	case EsimActionNameResume:
+		return true
+	case EsimActionNameSuspend:
+		return true
+	case EsimActionNameTopUp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimActionUnavailableReason.
+const (
+	EsimActionUnavailableReasonEsimState              EsimActionUnavailableReason = "esim_state"
+	EsimActionUnavailableReasonIdentificationRequired EsimActionUnavailableReason = "identification_required"
+	EsimActionUnavailableReasonNetworkUnconfirmed     EsimActionUnavailableReason = "network_unconfirmed"
+	EsimActionUnavailableReasonNetworkUnsupported     EsimActionUnavailableReason = "network_unsupported"
+	EsimActionUnavailableReasonOperationInProgress    EsimActionUnavailableReason = "operation_in_progress"
+	EsimActionUnavailableReasonPackageLimitReached    EsimActionUnavailableReason = "package_limit_reached"
+	EsimActionUnavailableReasonPermissionDenied       EsimActionUnavailableReason = "permission_denied"
+)
+
+// Valid indicates whether the value is a known member of the EsimActionUnavailableReason enum.
+func (e EsimActionUnavailableReason) Valid() bool {
+	switch e {
+	case EsimActionUnavailableReasonEsimState:
+		return true
+	case EsimActionUnavailableReasonIdentificationRequired:
+		return true
+	case EsimActionUnavailableReasonNetworkUnconfirmed:
+		return true
+	case EsimActionUnavailableReasonNetworkUnsupported:
+		return true
+	case EsimActionUnavailableReasonOperationInProgress:
+		return true
+	case EsimActionUnavailableReasonPackageLimitReached:
+		return true
+	case EsimActionUnavailableReasonPermissionDenied:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimBalanceReporting.
+const (
+	EsimBalanceReportingAvailable   EsimBalanceReporting = "available"
+	EsimBalanceReportingUnavailable EsimBalanceReporting = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the EsimBalanceReporting enum.
+func (e EsimBalanceReporting) Valid() bool {
+	switch e {
+	case EsimBalanceReportingAvailable:
+		return true
+	case EsimBalanceReportingUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimCheckoutUnavailableReason.
+const (
+	NoEligibleRoute  EsimCheckoutUnavailableReason = "no_eligible_route"
+	NotConfigured    EsimCheckoutUnavailableReason = "not_configured"
+	PriceUnavailable EsimCheckoutUnavailableReason = "price_unavailable"
+)
+
+// Valid indicates whether the value is a known member of the EsimCheckoutUnavailableReason enum.
+func (e EsimCheckoutUnavailableReason) Valid() bool {
+	switch e {
+	case NoEligibleRoute:
+		return true
+	case NotConfigured:
+		return true
+	case PriceUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimDeliveryChannel.
+const (
+	EsimDeliveryChannelEmail EsimDeliveryChannel = "email"
+	EsimDeliveryChannelSms   EsimDeliveryChannel = "sms"
+)
+
+// Valid indicates whether the value is a known member of the EsimDeliveryChannel enum.
+func (e EsimDeliveryChannel) Valid() bool {
+	switch e {
+	case EsimDeliveryChannelEmail:
+		return true
+	case EsimDeliveryChannelSms:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimDeliveryStatus.
+const (
+	EsimDeliveryStatusDelivered EsimDeliveryStatus = "delivered"
+	EsimDeliveryStatusFailed    EsimDeliveryStatus = "failed"
+	EsimDeliveryStatusPending   EsimDeliveryStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the EsimDeliveryStatus enum.
+func (e EsimDeliveryStatus) Valid() bool {
+	switch e {
+	case EsimDeliveryStatusDelivered:
+		return true
+	case EsimDeliveryStatusFailed:
+		return true
+	case EsimDeliveryStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimMode.
+const (
+	Live EsimMode = "live"
+	Test EsimMode = "test"
+)
+
+// Valid indicates whether the value is a known member of the EsimMode enum.
+func (e EsimMode) Valid() bool {
+	switch e {
+	case Live:
+		return true
+	case Test:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferBundlePricingType.
+const (
+	Bundle EsimOfferBundlePricingType = "bundle"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferBundlePricingType enum.
+func (e EsimOfferBundlePricingType) Valid() bool {
+	switch e {
+	case Bundle:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferPhoneInclusion.
+const (
+	Always    EsimOfferPhoneInclusion = "always"
+	OnRequest EsimOfferPhoneInclusion = "on_request"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferPhoneInclusion enum.
+func (e EsimOfferPhoneInclusion) Valid() bool {
+	switch e {
+	case Always:
+		return true
+	case OnRequest:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferSortField.
+const (
+	EsimOfferSortFieldCreatedAt EsimOfferSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferSortField enum.
+func (e EsimOfferSortField) Valid() bool {
+	switch e {
+	case EsimOfferSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferStatus.
+const (
+	EsimOfferStatusActive  EsimOfferStatus = "active"
+	EsimOfferStatusDraft   EsimOfferStatus = "draft"
+	EsimOfferStatusRetired EsimOfferStatus = "retired"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferStatus enum.
+func (e EsimOfferStatus) Valid() bool {
+	switch e {
+	case EsimOfferStatusActive:
+		return true
+	case EsimOfferStatusDraft:
+		return true
+	case EsimOfferStatusRetired:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferValidityType.
+const (
+	OneTime   EsimOfferValidityType = "one_time"
+	Recurring EsimOfferValidityType = "recurring"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferValidityType enum.
+func (e EsimOfferValidityType) Valid() bool {
+	switch e {
+	case OneTime:
+		return true
+	case Recurring:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOfferValidityUnit.
+const (
+	EsimOfferValidityUnitDay   EsimOfferValidityUnit = "day"
+	EsimOfferValidityUnitMonth EsimOfferValidityUnit = "month"
+)
+
+// Valid indicates whether the value is a known member of the EsimOfferValidityUnit enum.
+func (e EsimOfferValidityUnit) Valid() bool {
+	switch e {
+	case EsimOfferValidityUnitDay:
+		return true
+	case EsimOfferValidityUnitMonth:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimOrderStatus.
+const (
+	EsimOrderStatusCanceled     EsimOrderStatus = "canceled"
+	EsimOrderStatusCharging     EsimOrderStatus = "charging"
+	EsimOrderStatusCompleted    EsimOrderStatus = "completed"
+	EsimOrderStatusFailed       EsimOrderStatus = "failed"
+	EsimOrderStatusPending      EsimOrderStatus = "pending"
+	EsimOrderStatusProvisioning EsimOrderStatus = "provisioning"
+	EsimOrderStatusScheduled    EsimOrderStatus = "scheduled"
+)
+
+// Valid indicates whether the value is a known member of the EsimOrderStatus enum.
+func (e EsimOrderStatus) Valid() bool {
+	switch e {
+	case EsimOrderStatusCanceled:
+		return true
+	case EsimOrderStatusCharging:
+		return true
+	case EsimOrderStatusCompleted:
+		return true
+	case EsimOrderStatusFailed:
+		return true
+	case EsimOrderStatusPending:
+		return true
+	case EsimOrderStatusProvisioning:
+		return true
+	case EsimOrderStatusScheduled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimPackageStatus.
+const (
+	EsimPackageStatusActive          EsimPackageStatus = "active"
+	EsimPackageStatusDepleted        EsimPackageStatus = "depleted"
+	EsimPackageStatusExpired         EsimPackageStatus = "expired"
+	EsimPackageStatusFailed          EsimPackageStatus = "failed"
+	EsimPackageStatusPendingFirstUse EsimPackageStatus = "pending_first_use"
+	EsimPackageStatusProvisioning    EsimPackageStatus = "provisioning"
+	EsimPackageStatusRemoved         EsimPackageStatus = "removed"
+	EsimPackageStatusRemoving        EsimPackageStatus = "removing"
+)
+
+// Valid indicates whether the value is a known member of the EsimPackageStatus enum.
+func (e EsimPackageStatus) Valid() bool {
+	switch e {
+	case EsimPackageStatusActive:
+		return true
+	case EsimPackageStatusDepleted:
+		return true
+	case EsimPackageStatusExpired:
+		return true
+	case EsimPackageStatusFailed:
+		return true
+	case EsimPackageStatusPendingFirstUse:
+		return true
+	case EsimPackageStatusProvisioning:
+		return true
+	case EsimPackageStatusRemoved:
+		return true
+	case EsimPackageStatusRemoving:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimRecurrenceDeliveryMode.
+const (
+	ExactPeriod    EsimRecurrenceDeliveryMode = "exact_period"
+	RecurringTopUp EsimRecurrenceDeliveryMode = "recurring_top_up"
+)
+
+// Valid indicates whether the value is a known member of the EsimRecurrenceDeliveryMode enum.
+func (e EsimRecurrenceDeliveryMode) Valid() bool {
+	switch e {
+	case ExactPeriod:
+		return true
+	case RecurringTopUp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimRecurrenceModel.
+const (
+	CalendarMonth EsimRecurrenceModel = "calendar_month"
+	FixedDays     EsimRecurrenceModel = "fixed_days"
+)
+
+// Valid indicates whether the value is a known member of the EsimRecurrenceModel enum.
+func (e EsimRecurrenceModel) Valid() bool {
+	switch e {
+	case CalendarMonth:
+		return true
+	case FixedDays:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimRecurringPeriodStatus.
+const (
+	EsimRecurringPeriodStatusCompleted EsimRecurringPeriodStatus = "completed"
+	EsimRecurringPeriodStatusFailed    EsimRecurringPeriodStatus = "failed"
+	EsimRecurringPeriodStatusFailing   EsimRecurringPeriodStatus = "failing"
+	EsimRecurringPeriodStatusPending   EsimRecurringPeriodStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the EsimRecurringPeriodStatus enum.
+func (e EsimRecurringPeriodStatus) Valid() bool {
+	switch e {
+	case EsimRecurringPeriodStatusCompleted:
+		return true
+	case EsimRecurringPeriodStatusFailed:
+		return true
+	case EsimRecurringPeriodStatusFailing:
+		return true
+	case EsimRecurringPeriodStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimRecurringStopReason.
+const (
+	EsimRecurringStopReasonCanceled           EsimRecurringStopReason = "canceled"
+	EsimRecurringStopReasonDeliveryFailed     EsimRecurringStopReason = "delivery_failed"
+	EsimRecurringStopReasonDeliveryUnresolved EsimRecurringStopReason = "delivery_unresolved"
+	EsimRecurringStopReasonFundingUnavailable EsimRecurringStopReason = "funding_unavailable"
+	EsimRecurringStopReasonPriceChanged       EsimRecurringStopReason = "price_changed"
+)
+
+// Valid indicates whether the value is a known member of the EsimRecurringStopReason enum.
+func (e EsimRecurringStopReason) Valid() bool {
+	switch e {
+	case EsimRecurringStopReasonCanceled:
+		return true
+	case EsimRecurringStopReasonDeliveryFailed:
+		return true
+	case EsimRecurringStopReasonDeliveryUnresolved:
+		return true
+	case EsimRecurringStopReasonFundingUnavailable:
+		return true
+	case EsimRecurringStopReasonPriceChanged:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimRecurringSubscriptionStatus.
+const (
+	EsimRecurringSubscriptionStatusActive         EsimRecurringSubscriptionStatus = "active"
+	EsimRecurringSubscriptionStatusEnded          EsimRecurringSubscriptionStatus = "ended"
+	EsimRecurringSubscriptionStatusNeedsAttention EsimRecurringSubscriptionStatus = "needs_attention"
+	EsimRecurringSubscriptionStatusPending        EsimRecurringSubscriptionStatus = "pending"
+)
+
+// Valid indicates whether the value is a known member of the EsimRecurringSubscriptionStatus enum.
+func (e EsimRecurringSubscriptionStatus) Valid() bool {
+	switch e {
+	case EsimRecurringSubscriptionStatusActive:
+		return true
+	case EsimRecurringSubscriptionStatusEnded:
+		return true
+	case EsimRecurringSubscriptionStatusNeedsAttention:
+		return true
+	case EsimRecurringSubscriptionStatusPending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimServiceCapability.
+const (
+	EsimServiceCapabilityNo      EsimServiceCapability = "no"
+	EsimServiceCapabilityUnknown EsimServiceCapability = "unknown"
+	EsimServiceCapabilityYes     EsimServiceCapability = "yes"
+)
+
+// Valid indicates whether the value is a known member of the EsimServiceCapability enum.
+func (e EsimServiceCapability) Valid() bool {
+	switch e {
+	case EsimServiceCapabilityNo:
+		return true
+	case EsimServiceCapabilityUnknown:
+		return true
+	case EsimServiceCapabilityYes:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimSpeed.
+const (
+	Full    EsimSpeed = "full"
+	Reduced EsimSpeed = "reduced"
+)
+
+// Valid indicates whether the value is a known member of the EsimSpeed enum.
+func (e EsimSpeed) Valid() bool {
+	switch e {
+	case Full:
+		return true
+	case Reduced:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimStatus.
+const (
+	EsimStatusActivating   EsimStatus = "activating"
+	EsimStatusActive       EsimStatus = "active"
+	EsimStatusExpired      EsimStatus = "expired"
+	EsimStatusFailed       EsimStatus = "failed"
+	EsimStatusProvisioning EsimStatus = "provisioning"
+	EsimStatusReady        EsimStatus = "ready"
+	EsimStatusReleased     EsimStatus = "released"
+	EsimStatusReleasing    EsimStatus = "releasing"
+	EsimStatusResuming     EsimStatus = "resuming"
+	EsimStatusSuspended    EsimStatus = "suspended"
+	EsimStatusSuspending   EsimStatus = "suspending"
+)
+
+// Valid indicates whether the value is a known member of the EsimStatus enum.
+func (e EsimStatus) Valid() bool {
+	switch e {
+	case EsimStatusActivating:
+		return true
+	case EsimStatusActive:
+		return true
+	case EsimStatusExpired:
+		return true
+	case EsimStatusFailed:
+		return true
+	case EsimStatusProvisioning:
+		return true
+	case EsimStatusReady:
+		return true
+	case EsimStatusReleased:
+		return true
+	case EsimStatusReleasing:
+		return true
+	case EsimStatusResuming:
+		return true
+	case EsimStatusSuspended:
+		return true
+	case EsimStatusSuspending:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimZoneSortField.
+const (
+	EsimZoneSortFieldCreatedAt EsimZoneSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the EsimZoneSortField enum.
+func (e EsimZoneSortField) Valid() bool {
+	switch e {
+	case EsimZoneSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EsimZoneType.
+const (
+	EsimZoneTypeGlobal   EsimZoneType = "global"
+	EsimZoneTypeLocal    EsimZoneType = "local"
+	EsimZoneTypeRegional EsimZoneType = "regional"
+)
+
+// Valid indicates whether the value is a known member of the EsimZoneType enum.
+func (e EsimZoneType) Valid() bool {
+	switch e {
+	case EsimZoneTypeGlobal:
+		return true
+	case EsimZoneTypeLocal:
+		return true
+	case EsimZoneTypeRegional:
 		return true
 	default:
 		return false
@@ -4607,13 +5171,13 @@ func (e LookupPropertyStatus) Valid() bool {
 
 // Defines values for MailboxChannel.
 const (
-	Email MailboxChannel = "email"
+	MailboxChannelEmail MailboxChannel = "email"
 )
 
 // Valid indicates whether the value is a known member of the MailboxChannel enum.
 func (e MailboxChannel) Valid() bool {
 	switch e {
-	case Email:
+	case MailboxChannelEmail:
 		return true
 	default:
 		return false
@@ -5702,19 +6266,19 @@ func (e SMSSuppressionReasonFilter) Valid() bool {
 
 // Defines values for SMSTemplateCategory.
 const (
-	Authentication SMSTemplateCategory = "authentication"
-	Marketing      SMSTemplateCategory = "marketing"
-	Transactional  SMSTemplateCategory = "transactional"
+	SMSTemplateCategoryAuthentication SMSTemplateCategory = "authentication"
+	SMSTemplateCategoryMarketing      SMSTemplateCategory = "marketing"
+	SMSTemplateCategoryTransactional  SMSTemplateCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateCategory enum.
 func (e SMSTemplateCategory) Valid() bool {
 	switch e {
-	case Authentication:
+	case SMSTemplateCategoryAuthentication:
 		return true
-	case Marketing:
+	case SMSTemplateCategoryMarketing:
 		return true
-	case Transactional:
+	case SMSTemplateCategoryTransactional:
 		return true
 	default:
 		return false
@@ -7733,19 +8297,19 @@ func (e WhatsAppMetaHealthEntityType) Valid() bool {
 
 // Defines values for WhatsAppMetaHealthVerdict.
 const (
-	Available WhatsAppMetaHealthVerdict = "available"
-	Blocked   WhatsAppMetaHealthVerdict = "blocked"
-	Limited   WhatsAppMetaHealthVerdict = "limited"
+	WhatsAppMetaHealthVerdictAvailable WhatsAppMetaHealthVerdict = "available"
+	WhatsAppMetaHealthVerdictBlocked   WhatsAppMetaHealthVerdict = "blocked"
+	WhatsAppMetaHealthVerdictLimited   WhatsAppMetaHealthVerdict = "limited"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppMetaHealthVerdict enum.
 func (e WhatsAppMetaHealthVerdict) Valid() bool {
 	switch e {
-	case Available:
+	case WhatsAppMetaHealthVerdictAvailable:
 		return true
-	case Blocked:
+	case WhatsAppMetaHealthVerdictBlocked:
 		return true
-	case Limited:
+	case WhatsAppMetaHealthVerdictLimited:
 		return true
 	default:
 		return false
@@ -8411,16 +8975,16 @@ func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 
 // Defines values for GetMailboxStatsParamsGranularity.
 const (
-	GetMailboxStatsParamsGranularityDay  GetMailboxStatsParamsGranularity = "day"
-	GetMailboxStatsParamsGranularityHour GetMailboxStatsParamsGranularity = "hour"
+	Day  GetMailboxStatsParamsGranularity = "day"
+	Hour GetMailboxStatsParamsGranularity = "hour"
 )
 
 // Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
 func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	switch e {
-	case GetMailboxStatsParamsGranularityDay:
+	case Day:
 		return true
-	case GetMailboxStatsParamsGranularityHour:
+	case Hour:
 		return true
 	default:
 		return false
@@ -11231,6 +11795,9 @@ type AvailableNumberList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// BillingProductSlug URL-safe identifier for a billing product. Lowercase letters and digits, separated by underscores. Must start with a letter.
+type BillingProductSlug = string
+
 // CompetitiveWatchlistBrandID defines model for CompetitiveWatchlistBrandID.
 type CompetitiveWatchlistBrandID = string
 
@@ -12220,6 +12787,9 @@ type EmailBroadcast struct {
 
 	// DeliveredRecipients How many distinct recipients a delivery landed for. This is the denominator to measure `unique_opens_non_prefetched`, `unique_clicks` and `complained_count` against. It differs from `delivered_count`, which reports how many recipients are currently in the delivered state: a recipient who was delivered to and then complained moves to `complained_count` and leaves `delivered_count`, but stays here, because the message did reach them. Absent when `sent_count` is.
 	DeliveredRecipients *int64 `json:"delivered_recipients,omitempty"`
+
+	// DisplayLabel Label for selecting this broadcast on list and single-broadcast reads. With `email_management` read access, uses the retained subject from the template version resolved when execution starts, then its non-generated name. Draft and scheduled broadcasts use the name. Omitted when no authoritative label is available; clients can show a localized Untitled broadcast fallback. Without that access, uses the canonical broadcast ID. Absent from mutation responses.
+	DisplayLabel *string `json:"display_label,omitempty"`
 
 	// FailureDetail A sentence explaining the failure in more detail than `failure_reason` does, and `null` when the broadcast has not failed. Show it to the person using your app. Do not write code that reads it, because the wording can change. Branch on `failure_reason` instead.
 	FailureDetail *string `json:"failure_detail,omitempty"`
@@ -17749,6 +18319,1210 @@ type ErrorDetail struct {
 	Param string `json:"param"`
 }
 
+// Esim defines model for Esim.
+type Esim struct {
+	// ActivatedAt When the eSIM first used a mobile network. Null until then.
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
+
+	// ActiveUntil When the eSIM's service period ends. The period starts at activation and data packages cannot outlive it. Null until activated.
+	ActiveUntil *time.Time `json:"active_until,omitempty"`
+
+	// AvailableActions Actions currently available to you on this eSIM, with reasons for unavailable actions. Returned by the individual eSIM read. Use this to display controls and explain restrictions. Each action rechecks permissions and state when submitted, so availability is not a guarantee of success.
+	AvailableActions *[]EsimAvailableAction `json:"available_actions,omitempty"`
+
+	// BalanceReporting Whether ongoing package consumption reporting is available. Separate from daily usage history. Null package consumption values mean no measurement is available.
+	BalanceReporting *EsimBalanceReporting    `json:"balance_reporting,omitempty"`
+	Capabilities     *EsimServiceCapabilities `json:"capabilities,omitempty"`
+	CreatedAt        *time.Time               `json:"created_at,omitempty"`
+
+	// DisplayName Free-text label for your own reference, for example a traveler or order reference.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Iccid ICCID of the eSIM profile. Null while no profile is allocated yet, for example when provisioning failed before allocation.
+	Iccid        *string           `json:"iccid,omitempty"`
+	Id           *EsimID           `json:"id,omitempty"`
+	Installation *EsimInstallation `json:"installation,omitempty"`
+
+	// LastAttachment Most recent network attachment, or null before first attach.
+	LastAttachment *EsimNetworkAttachment `json:"last_attachment,omitempty"`
+
+	// Metadata Your own key-value data, echoed on webhook events for the eSIM. Maximum 2 KB serialized.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Mode     *EsimMode               `json:"mode,omitempty"`
+
+	// OrderId The order that created this eSIM.
+	OrderId *EsimOrderID `json:"order_id,omitempty"`
+
+	// PackageLimit Maximum number of concurrent data packages this eSIM can hold, counted across all zones; several packages may share one zone. Enforced when packages are added.
+	PackageLimit *int `json:"package_limit,omitempty"`
+
+	// Packages Current data packages, one per purchase.
+	Packages *[]EsimPackage `json:"packages,omitempty"`
+
+	// PhoneNumber Phone number attached to this eSIM, in E.164 format, as the supplier reports it. Null while none is on record: a data-only plan comes with no number, and a plan that includes one reports it after provisioning.
+	PhoneNumber *string `json:"phone_number,omitempty"`
+
+	// ReadyUntil Activate (first network use) before this moment or the eSIM expires. Null once activated.
+	ReadyUntil *time.Time  `json:"ready_until,omitempty"`
+	Status     *EsimStatus `json:"status,omitempty"`
+
+	// SubscriberId The assigned service user, or null when the eSIM has no person assignment.
+	SubscriberId *EsimSubscriberID `json:"subscriber_id,omitempty"`
+
+	// Tags Tags for routing, filtering, and stats grouping, echoed on webhook events for the eSIM.
+	Tags      *[]Tag     `json:"tags,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// UsageAvailable Whether daily usage history is supported for this eSIM. The daily usage endpoint is currently unavailable; read package balances for reported consumption.
+	UsageAvailable *bool `json:"usage_available,omitempty"`
+
+	// ZoneBalances Remaining data per coverage zone, combined across the zone's packages. Derived; the packages are the source of truth.
+	ZoneBalances *[]EsimZoneBalance `json:"zone_balances,omitempty"`
+}
+
+// EsimActionName An operation you can attempt on an eSIM.
+//
+// - `suspend`: pause data service, keeping packages and their validity running.
+// - `resume`: restore service to a suspended eSIM.
+// - `release`: permanently retire the eSIM.
+// - `install`: read the install credentials for a device.
+// - `top_up`: order another data package onto this eSIM.
+// - `assign`: assign an unassigned profile to a person, or read back the same assignment.
+//
+// Tolerate a value you do not recognize: we report on more actions over time.
+type EsimActionName string
+
+// EsimActionUnavailableReason Reason an action is unavailable.
+//
+// - `permission_denied`: your credentials lack the required permission. Update permissions and check availability again; another restriction may still apply.
+// - `network_unsupported`: the serving mobile network does not support the action for this eSIM.
+// - `network_unconfirmed`: support for the action has not been confirmed. Contact support if you need it.
+// - `esim_state`: the profile is not in a state that permits the action. Check the eSIM status.
+// - `operation_in_progress`: an existing order must finish before this action can proceed.
+// - `package_limit_reached`: the eSIM has reached its concurrent package limit. A depleted package still occupies a slot until it expires or is removed.
+// - `identification_required`: retained for compatibility; subscriber assignment no longer returns this reason.
+//
+// Treat an unrecognized reason as unavailable and avoid automatically retrying the action.
+type EsimActionUnavailableReason string
+
+// EsimAssignment defines model for EsimAssignment.
+type EsimAssignment struct {
+	CreatedAt    *time.Time       `json:"created_at,omitempty"`
+	EsimId       EsimID           `json:"esim_id"`
+	Id           EsimAssignmentID `json:"id"`
+	SubscriberId EsimSubscriberID `json:"subscriber_id"`
+	UpdatedAt    *time.Time       `json:"updated_at,omitempty"`
+}
+
+// EsimAssignmentCreate Assign an unassigned eSIM to this person. The profile must be allocated and ready, active, or suspended. Customers handle identification collection and compliance.
+type EsimAssignmentCreate struct {
+	SubscriberId EsimSubscriberID `json:"subscriber_id"`
+}
+
+// EsimAssignmentID defines model for EsimAssignmentID.
+type EsimAssignmentID = string
+
+// EsimAvailableAction One action, and whether this eSIM permits it for you right now.
+type EsimAvailableAction struct {
+	Action *EsimActionName `json:"action,omitempty"`
+
+	// Available Whether the action is available given your permissions and the current eSIM state. The action checks these again when submitted; a later request can be refused if conditions change.
+	Available *bool `json:"available,omitempty"`
+
+	// Operation Operation to call for this action. Consult that operation’s reference for its request and response.
+	Operation *string `json:"operation,omitempty"`
+
+	// Reason Why the action is unavailable. Null while `available` is true.
+	Reason *EsimActionUnavailableReason `json:"reason,omitempty"`
+
+	// Requires Additional parameters required by the current state, such as `acknowledge_balance_forfeit` when releasing an eSIM with remaining data. Absent when no additional parameters apply or when permissions, network support, or profile state prevent the action.
+	Requires *[]string `json:"requires,omitempty"`
+}
+
+// EsimBalanceReporting Whether package consumption can be reported for this eSIM.
+//
+// - `available`: consumption reporting has not been ruled out. A null package balance means no measurement is available yet.
+// - `unavailable`: ongoing consumption reporting is unavailable. Display the purchased `total_bytes` as allowance; do not present it as measured remaining data.
+//
+// This field is separate from daily usage history. Reporting availability can change as network support is confirmed.
+type EsimBalanceReporting string
+
+// EsimCheckoutOneTime Published one-time purchase terms before tax.
+type EsimCheckoutOneTime struct {
+	// OfferRevision The offer revision to accept when purchasing.
+	OfferRevision int   `json:"offer_revision"`
+	Price         Money `json:"price"`
+}
+
+// EsimCheckoutOptions Published purchase terms. Renewal availability is a preview and does not reserve stock.
+type EsimCheckoutOptions struct {
+	OfferId EsimOfferID `json:"offer_id"`
+
+	// OneTime Published one-time purchase terms before tax.
+	OneTime EsimCheckoutOneTime `json:"one_time"`
+
+	// Recurrence When available is true, quote contains the recurring terms and unavailable_reason is null. Otherwise quote is null and unavailable_reason explains why renewal is unavailable.
+	Recurrence EsimCheckoutRecurrence `json:"recurrence"`
+}
+
+// EsimCheckoutRecurrence When available is true, quote contains the recurring terms and unavailable_reason is null. Otherwise quote is null and unavailable_reason explains why renewal is unavailable.
+type EsimCheckoutRecurrence struct {
+	// Available Whether automatic renewal is currently available for a new eSIM.
+	Available         bool                           `json:"available"`
+	Quote             *EsimCheckoutRecurringQuote    `json:"quote"`
+	UnavailableReason *EsimCheckoutUnavailableReason `json:"unavailable_reason"`
+	union             json.RawMessage
+}
+
+// EsimCheckoutRecurrence0 defines model for .
+type EsimCheckoutRecurrence0 struct {
+	Available interface{} `json:"available,omitempty"`
+
+	// Quote Published recurring terms before tax. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
+	Quote             *EsimCheckoutRecurringQuote `json:"quote,omitempty"`
+	UnavailableReason interface{}                 `json:"unavailable_reason,omitempty"`
+}
+
+// EsimCheckoutRecurrence1 defines model for .
+type EsimCheckoutRecurrence1 struct {
+	Available interface{} `json:"available,omitempty"`
+	Quote     interface{} `json:"quote,omitempty"`
+
+	// UnavailableReason Renewal is not configured, has no published price, or has no eligible mobile network. A failed lookup returns an error instead.
+	UnavailableReason *EsimCheckoutUnavailableReason `json:"unavailable_reason,omitempty"`
+}
+
+// EsimCheckoutRecurringQuote Published recurring terms before tax. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
+type EsimCheckoutRecurringQuote struct {
+	// DeliveryMode Relationship between the paid period and package delivery.
+	//
+	// - `exact_period`: the package covers the accepted paid interval.
+	// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
+	DeliveryMode EsimRecurrenceDeliveryMode `json:"delivery_mode"`
+
+	// IntervalCount The number of calendar months or fixed 24-hour days per period.
+	IntervalCount int `json:"interval_count"`
+
+	// Model Billing cadence for recurring packages.
+	//
+	// - `calendar_month`: periods follow calendar months from the billing anchor.
+	// - `fixed_days`: each period lasts the stated number of 24-hour days.
+	Model EsimRecurrenceModel `json:"model"`
+
+	// OfferRevision The offer revision to accept when purchasing.
+	OfferRevision int   `json:"offer_revision"`
+	Price         Money `json:"price"`
+
+	// RecurrenceRevision The recurring configuration revision to accept when purchasing.
+	RecurrenceRevision int `json:"recurrence_revision"`
+}
+
+// EsimCheckoutUnavailableReason Renewal is not configured, has no published price, or has no eligible mobile network. A failed lookup returns an error instead.
+type EsimCheckoutUnavailableReason string
+
+// EsimCompatibleOfferList Offers this eSIM can take as a top-up right now, given its mobile network, current packages, and package_limit. A point-in-time answer; re-fetch rather than caching.
+type EsimCompatibleOfferList struct {
+	// AsOf When this answer was computed.
+	AsOf *time.Time `json:"as_of,omitempty"`
+
+	// Data Orderable top-up offers for this eSIM.
+	Data []EsimOfferSummary `json:"data"`
+}
+
+// EsimCountryRequirements Complete identification schema for one covered country. A country without maintained extra requirements returns the baseline schema requiring first_name, last_name, and email. Customers handle collection, validation, and compliance; Bird does not receive or verify these values.
+type EsimCountryRequirements struct {
+	// CountryCode ISO 3166-1 alpha-2 country code.
+	CountryCode CountryCode `json:"country_code"`
+
+	// Schema Complete JSON Schema draft 2020-12 document for customer-side identification validation. It declares $schema, type, title, description, properties, required, and additionalProperties. Property definitions use string or object types, standard format, pattern, minLength, maxLength, enum, and nested object keywords. Enable format assertions in your validator for email addresses and dates. Every country requires first_name, last_name, and email. Other customer-owned properties are allowed, so one details object can satisfy several countries. Bird does not receive or verify the values. Document references are opaque identifiers in customer-managed storage, not Bird upload IDs or required URLs.
+	Schema EsimIdentificationSchema `json:"schema"`
+
+	// SchemaRevision Revision identifying the returned identification schema. A changed revision means the requirements or guidance changed. It does not indicate an expiry time or purchase authorization.
+	SchemaRevision EsimSchemaRevision `json:"schema_revision"`
+}
+
+// EsimCredentials Installation details for an eSIM. Keep activation codes, installation links, QR images, and manual setup credentials private because they can grant access to the profile. Use fields with a value and follow the returned device instructions.
+type EsimCredentials struct {
+	// ActivationCode Raw activation string for manual entry in device settings.
+	ActivationCode *string `json:"activation_code,omitempty" pii:"true"`
+
+	// AndroidInstallUrl Android installation link. Currently unavailable; returns null. Use the returned Android instructions for manual setup.
+	AndroidInstallUrl *string `json:"android_install_url,omitempty" pii:"true"`
+
+	// Apn Access point name for mobile data, when available. Null means no APN information is available; it does not confirm automatic configuration.
+	Apn *string `json:"apn,omitempty"`
+
+	// ConfirmationCode Confirmation code requested during installation, when available. Null means the requirement is unknown; it does not confirm that a code is unnecessary.
+	ConfirmationCode *string `json:"confirmation_code,omitempty" pii:"true"`
+
+	// DataRoamingRequired Whether data roaming must be enabled. Null means the requirement is unknown. When true, `instructions` includes a step to enable roaming.
+	DataRoamingRequired *bool   `json:"data_roaming_required,omitempty"`
+	EsimId              *EsimID `json:"esim_id,omitempty"`
+
+	// Instructions Step-by-step install instructions, covering whichever of the fields in this response carry a value, in the closest language available for the Accept-Language request header. Its `language` field names the one served.
+	Instructions *EsimInstallationInstructions `json:"instructions,omitempty"`
+
+	// IosInstallUrl One-tap install link for iOS 17.4 and later, derived from the activation code. Null when a valid link cannot be derived for this eSIM.
+	IosInstallUrl *string `json:"ios_install_url,omitempty" pii:"true"`
+
+	// MatchingId Matching ID component of the activation code, for building a custom install flow.
+	MatchingId *string `json:"matching_id,omitempty" pii:"true"`
+
+	// QrCodeUrl Hosted QR image URL. Currently unavailable; returns null. Use the activation code in your own installation flow or provide a hosted installation page.
+	QrCodeUrl *string `json:"qr_code_url,omitempty" pii:"true"`
+
+	// SmdpAddress SM-DP+ server address, for building a custom install flow.
+	SmdpAddress *string `json:"smdp_address,omitempty" pii:"true"`
+}
+
+// EsimCredentialsDelivery One credential delivery to a traveler. Returned when a delivery is accepted and listed on the eSIM's delivery history; the id reappears on the event that settles it.
+type EsimCredentialsDelivery struct {
+	Channel *EsimDeliveryChannel `json:"channel,omitempty"`
+
+	// CreatedAt When the delivery was accepted.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// FailureCode Why the delivery failed. Null unless status is failed. Open enum: treat unrecognized values as future failure kinds.
+	FailureCode *string         `json:"failure_code,omitempty"`
+	Id          *EsimDeliveryID `json:"id,omitempty"`
+
+	// InstallLink Link metadata for explicit revocation. Null for deliveries created before hosted links were enabled.
+	InstallLink *EsimInstallLinkMetadata `json:"install_link,omitempty"`
+
+	// SettledAt When the outcome became known. Null while pending.
+	SettledAt *time.Time          `json:"settled_at,omitempty"`
+	Status    *EsimDeliveryStatus `json:"status,omitempty"`
+
+	// To Recipient address the message goes to.
+	To *string `json:"to,omitempty"`
+}
+
+// EsimDelivery Where and how install credentials reach the traveler. The recipient is a raw address, so delivery works for travelers who are not stored anywhere: an email address for email, an E.164 phone number for sms.
+type EsimDelivery struct {
+	// Channel Channel the install credentials are delivered over.
+	Channel EsimDeliveryChannel `json:"channel"`
+
+	// Locale Language for the message. Falls back to the closest available language, then English.
+	Locale *LanguageTag `json:"locale,omitempty"`
+
+	// To Recipient address. An email address for the email channel, an E.164 phone number for the sms channel.
+	To string `json:"to"`
+}
+
+// EsimDeliveryChannel Channel the install credentials are delivered over.
+type EsimDeliveryChannel string
+
+// EsimDeliveryID defines model for EsimDeliveryID.
+type EsimDeliveryID = string
+
+// EsimDeliveryList The eSIM's credential deliveries, newest first, most recent 50.
+type EsimDeliveryList struct {
+	Data []EsimCredentialsDelivery `json:"data"`
+}
+
+// EsimDeliveryStatus Outcome of a credential delivery.
+//
+// - `pending`: accepted; the outcome has not settled.
+// - `delivered`: the message reached the recipient's provider; terminal.
+// - `failed`: the message could not be delivered; `failure_code` says why. Terminal.
+type EsimDeliveryStatus string
+
+// EsimID defines model for EsimID.
+type EsimID = string
+
+// EsimIdentificationSchema Complete JSON Schema draft 2020-12 document for customer-side identification validation. It declares $schema, type, title, description, properties, required, and additionalProperties. Property definitions use string or object types, standard format, pattern, minLength, maxLength, enum, and nested object keywords. Enable format assertions in your validator for email addresses and dates. Every country requires first_name, last_name, and email. Other customer-owned properties are allowed, so one details object can satisfy several countries. Bird does not receive or verify the values. Document references are opaque identifiers in customer-managed storage, not Bird upload IDs or required URLs.
+type EsimIdentificationSchema map[string]interface{}
+
+// EsimInstallLink A hosted installation page for one eSIM. The recipient does not need a Bird account. The secret URL is returned at creation and cannot be retrieved through later reads.
+type EsimInstallLink struct {
+	// CreatedAt When the link was created.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	EsimId    *EsimID    `json:"esim_id,omitempty"`
+
+	// ExpiresAt When the link stops granting access to installation details.
+	ExpiresAt *time.Time         `json:"expires_at,omitempty"`
+	Id        *EsimInstallLinkID `json:"id,omitempty"`
+
+	// Url Private installation URL. Anyone holding it can access installation details until expiry or revocation. Store or share it securely when created; later reads do not return it.
+	Url *string `json:"url,omitempty" pii:"true"`
+}
+
+// EsimInstallLinkID defines model for EsimInstallLinkID.
+type EsimInstallLinkID = string
+
+// EsimInstallLinkMetadata Non-secret link details for identifying and revoking a delivered installation link. Contains no token or installation credentials.
+type EsimInstallLinkMetadata struct {
+	// ExpiresAt When the installation link expires.
+	ExpiresAt time.Time         `json:"expires_at"`
+	Id        EsimInstallLinkID `json:"id"`
+
+	// RevokedAt When the link was revoked, or null while not revoked.
+	RevokedAt *time.Time `json:"revoked_at"`
+}
+
+// EsimInstallation Device-side installation state of the eSIM profile.
+type EsimInstallation struct {
+	// ErrorReason Human-readable reason installation failed, for example an ineligible device or an exhausted download limit. Null unless state is error.
+	ErrorReason *string `json:"error_reason,omitempty"`
+
+	// State pending: not yet downloaded by a device; downloaded: downloaded but not installed; installed: installed on the device; removed: deleted from the device; whether the profile can be installed again depends on the carrier profile, so treat removal as final; error: download or installation failed, see error_reason. Open enum: installation state is reported by the device, so additional states may be added over time. Treat an unrecognized value as a future state, not an error.
+	State *string `json:"state,omitempty"`
+
+	// UpdatedAt When the installation state last changed. Null before the first device interaction.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// EsimInstallationInstructions Device installation steps based on the available credentials. Follow the list for the recipient’s device.
+type EsimInstallationInstructions struct {
+	// Android Ordered steps for Android devices.
+	Android []string `json:"android"`
+
+	// Ios Ordered steps for iOS devices.
+	Ios []string `json:"ios"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+}
+
+// EsimList defines model for EsimList.
+type EsimList struct {
+	// Data eSIMs, newest first, in compact form; fetch one by id for the full aggregate.
+	Data []EsimSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EsimMode Whether a purchase or eSIM is live or simulated. The mode is fixed when the order is created; the resulting eSIM retains it.
+//
+// - `live`: purchases service for use on a device and charges the wallet.
+// - `test`: simulates a purchase without a charge or usable mobile service.
+//
+// List responses can include both modes. Filter by `mode` when separating test activity from live purchases.
+type EsimMode string
+
+// EsimNetworkAttachment The most recent mobile network the device attached to.
+type EsimNetworkAttachment struct {
+	// AttachedAt When the device attached.
+	AttachedAt *time.Time `json:"attached_at,omitempty"`
+
+	// CountryCode Country of the network.
+	CountryCode *CountryCode `json:"country_code,omitempty"`
+
+	// CountryName English name of the country, or null when not known.
+	CountryName *string `json:"country_name,omitempty"`
+
+	// NetworkName Name of the mobile network, or null when not known.
+	NetworkName *string `json:"network_name,omitempty"`
+}
+
+// EsimOffer A purchasable offer from the curated catalog: the commercial terms for prepaid data in one coverage zone, priced as your workspace is billed. The coverage itself lives on the referenced zone, shared by every offer selling the same footprint.
+type EsimOffer struct {
+	CreatedAt *time.Time   `json:"created_at,omitempty"`
+	Id        *EsimOfferID `json:"id,omitempty"`
+
+	// Name Display name of the offer.
+	Name *string `json:"name,omitempty"`
+
+	// Phone Phone service that comes with the plan, or null when the plan includes no phone number. When present, `included` says how the number is provided and the flags state which call and text directions work.
+	Phone *EsimOfferPhone `json:"phone,omitempty"`
+
+	// Pricing Commercial terms of the offer. Every offer in the current catalog is a bundle: a fixed allowance with a validity period for a fixed price. Match on the pricing type; treat an unrecognized type as an offer your integration cannot order yet.
+	Pricing *EsimOffer_Pricing `json:"pricing,omitempty"`
+
+	// Product Billing product the offer's charges post under, as it appears on your invoice line items.
+	Product *BillingProductSlug `json:"product,omitempty"`
+
+	// Revision Increments whenever the offer's terms change. Orders lock the revision they were quoted at.
+	Revision *int `json:"revision,omitempty"`
+
+	// Speed Speed class. For reduced-speed offers, the bundle's data.throttled_after_bytes carries the full-speed allowance.
+	Speed *EsimSpeed `json:"speed,omitempty"`
+
+	// Stackable Whether packages from this offer can be held alongside packages from other zones on the same eSIM, subject to the eSIM's package_limit.
+	Stackable *bool            `json:"stackable,omitempty"`
+	Status    *EsimOfferStatus `json:"status,omitempty"`
+
+	// Zone The offer's coverage zone, embedded so one read answers "where does this work". The zone resource is authoritative.
+	Zone *EsimZone `json:"zone,omitempty"`
+
+	// ZoneId Coverage zone the offer sells. Offers for the same footprint share one zone.
+	ZoneId *EsimZoneID `json:"zone_id,omitempty"`
+}
+
+// EsimOffer_Pricing Commercial terms of the offer. Every offer in the current catalog is a bundle: a fixed allowance with a validity period for a fixed price. Match on the pricing type; treat an unrecognized type as an offer your integration cannot order yet.
+type EsimOffer_Pricing struct {
+	union json.RawMessage
+}
+
+// EsimOfferBundlePricing Fixed-allowance terms: a data allowance with a validity period, charged once per provisioned package.
+type EsimOfferBundlePricing struct {
+	Data *EsimOfferData `json:"data,omitempty"`
+
+	// Price What your workspace is billed per package provisioned from this offer.
+	Price *Money `json:"price,omitempty"`
+
+	// Type Pricing type.
+	Type *EsimOfferBundlePricingType `json:"type,omitempty"`
+
+	// Validity Validity of packages created from this offer. The period starts at activation, which happens on first use in the coverage zone. The effective validity is capped by the eSIM's service period: see the package's expires_at for the real expiry.
+	Validity *EsimOfferValidity `json:"validity,omitempty"`
+}
+
+// EsimOfferBundlePricingType Pricing type.
+type EsimOfferBundlePricingType string
+
+// EsimOfferData Data allowance of a bundle.
+type EsimOfferData struct {
+	// AmountBytes Total data allowance in bytes.
+	AmountBytes *int `json:"amount_bytes,omitempty"`
+
+	// ThrottledAfterBytes Data amount in bytes after which speed is reduced instead of cut off. Null when the allowance is a hard cap.
+	ThrottledAfterBytes *int `json:"throttled_after_bytes,omitempty"`
+}
+
+// EsimOfferID defines model for EsimOfferID.
+type EsimOfferID = string
+
+// EsimOfferList defines model for EsimOfferList.
+type EsimOfferList struct {
+	// Data Offers, newest first.
+	Data []EsimOfferSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EsimOfferPhone Phone service included with the plan. Every eSIM sold from the offer gets its own phone number; each flag states one direction of service on that number. A false flag means the plan does not include that service.
+type EsimOfferPhone struct {
+	// Included How the plan provides a phone number.
+	//
+	// - `always`: a phone number is included with each eSIM purchased from the offer.
+	// - `on_request`: reserved for offers with an optional phone number; currently unavailable.
+	Included EsimOfferPhoneInclusion `json:"included"`
+
+	// SmsInbound The eSIM can receive text messages on its phone number.
+	SmsInbound bool `json:"sms_inbound"`
+
+	// SmsOutbound The eSIM can send text messages.
+	SmsOutbound bool `json:"sms_outbound"`
+
+	// VoiceInbound The eSIM can receive calls on its phone number.
+	VoiceInbound bool `json:"voice_inbound"`
+
+	// VoiceOutbound The eSIM can place calls.
+	VoiceOutbound bool `json:"voice_outbound"`
+}
+
+// EsimOfferPhoneInclusion How the plan provides a phone number.
+//
+// - `always`: a phone number is included with each eSIM purchased from the offer.
+// - `on_request`: reserved for offers with an optional phone number; currently unavailable.
+type EsimOfferPhoneInclusion string
+
+// EsimOfferRequirements Identification guidance for the countries covered by the offer. You collect and validate the information; this response does not verify a person or authorize a purchase.
+type EsimOfferRequirements struct {
+	Countries []EsimCountryRequirements `json:"countries"`
+}
+
+// EsimOfferSortField Field to sort offers by. Only `created_at` is supported.
+type EsimOfferSortField string
+
+// EsimOfferStatus Availability of an offer.
+//
+// - `draft`: being curated; never returned on the customer surface and not purchasable.
+// - `active`: purchasable.
+// - `retired`: no longer purchasable; packages already sold are unaffected.
+type EsimOfferStatus string
+
+// EsimOfferSummary Compact offer row for lists: the full offer minus the embedded zone. Fetch the offer or its zone for the country list.
+type EsimOfferSummary struct {
+	CreatedAt *time.Time   `json:"created_at,omitempty"`
+	Id        *EsimOfferID `json:"id,omitempty"`
+
+	// Name Display name of the offer.
+	Name *string `json:"name,omitempty"`
+
+	// Phone Phone service that comes with the plan, or null when the plan includes no phone number. When present, `included` says how the number is provided and the flags state which call and text directions work.
+	Phone *EsimOfferPhone `json:"phone,omitempty"`
+
+	// Pricing Commercial terms of the offer. Every offer in the current catalog is a bundle: a fixed allowance with a validity period for a fixed price. Match on the pricing type; treat an unrecognized type as an offer your integration cannot order yet.
+	Pricing *EsimOfferSummary_Pricing `json:"pricing,omitempty"`
+
+	// Product Billing product the offer's charges post under, as it appears on your invoice line items.
+	Product *BillingProductSlug `json:"product,omitempty"`
+
+	// Revision Increments whenever the offer's terms change. Orders lock the revision they were quoted at.
+	Revision *int `json:"revision,omitempty"`
+
+	// Speed Speed class. For reduced-speed offers, the bundle's data.throttled_after_bytes carries the full-speed allowance.
+	Speed *EsimSpeed `json:"speed,omitempty"`
+
+	// Stackable Whether packages from this offer can be held alongside packages from other zones on the same eSIM, subject to the eSIM's package_limit.
+	Stackable *bool            `json:"stackable,omitempty"`
+	Status    *EsimOfferStatus `json:"status,omitempty"`
+
+	// ZoneId Coverage zone the offer sells. Offers for the same footprint share one zone.
+	ZoneId *EsimZoneID `json:"zone_id,omitempty"`
+}
+
+// EsimOfferSummary_Pricing Commercial terms of the offer. Every offer in the current catalog is a bundle: a fixed allowance with a validity period for a fixed price. Match on the pricing type; treat an unrecognized type as an offer your integration cannot order yet.
+type EsimOfferSummary_Pricing struct {
+	union json.RawMessage
+}
+
+// EsimOfferValidity How long a package from this offer stays usable. one_time offers run once for the given period after activation; recurring offers renew for a further period each time it lapses. Match on type and treat an unrecognized value as an offer your integration cannot order.
+type EsimOfferValidity struct {
+	// MinimumPeriods For recurring offers, the minimum number of periods committed. Null when there is no minimum, and for one_time offers.
+	MinimumPeriods *int                   `json:"minimum_periods,omitempty"`
+	Type           *EsimOfferValidityType `json:"type,omitempty"`
+	Unit           *EsimOfferValidityUnit `json:"unit,omitempty"`
+
+	// Value Number of units per period.
+	Value *int `json:"value,omitempty"`
+}
+
+// EsimOfferValidityType How the validity period behaves. one_time runs once and expires; recurring renews for a further period each time it lapses.
+type EsimOfferValidityType string
+
+// EsimOfferValidityUnit Unit of the validity period.
+type EsimOfferValidityUnit string
+
+// EsimOrder defines model for EsimOrder.
+type EsimOrder struct {
+	// CompletedAt When the order reached completed. Null before that.
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+	CreatedAt   *time.Time `json:"created_at,omitempty"`
+
+	// Delivery Where install credentials are delivered once available. Present when requested at creation.
+	Delivery *EsimDelivery `json:"delivery,omitempty"`
+
+	// EsimId The eSIM the package lands on. Set at creation when adding to an existing eSIM; set when provisioning starts for a new-eSIM order; null before that.
+	EsimId *EsimID `json:"esim_id,omitempty"`
+
+	// FailureCode Reason the order failed. Null unless `status` is `failed`. Handle unrecognized codes without assuming the purchase succeeded.
+	//
+	// - `canceled`: canceled while awaiting funds.
+	// - `resolved_by_support`: support closed an unresolved order as failed.
+	// - `esim_released`: the target profile became unavailable before delivery.
+	// - `mode_mismatch`: the purchase could not be fulfilled in its original live or test mode.
+	//
+	// Any charge is credited automatically. Check `refund_transaction_id` to confirm an issued credit.
+	FailureCode *string `json:"failure_code,omitempty"`
+
+	// FailureReason Why the order failed, in plain terms. Null unless status is failed.
+	FailureReason *string `json:"failure_reason,omitempty"`
+
+	// Funding Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check the order status and your wallet balance.
+	Funding *EsimOrderFunding `json:"funding,omitempty"`
+	Id      *EsimOrderID      `json:"id,omitempty"`
+	Mode    *EsimMode         `json:"mode,omitempty"`
+
+	// OfferId Offer purchased.
+	OfferId *EsimOfferID `json:"offer_id,omitempty"`
+
+	// OfferRevision Revision of the offer this order locked at creation. The quoted price stays that of this revision even if the offer changes later. The produced package snapshots its coverage at purchase; the zone's live country list governs new sales only.
+	OfferRevision *int `json:"offer_revision,omitempty"`
+
+	// PackageId The purchased data package, set when the order completes; null before that.
+	PackageId *EsimPackageID `json:"package_id,omitempty"`
+
+	// Price The quoted price, locked at creation in your billing currency. A `mode: test` order quotes this price and is never charged it, so its `wallet_transaction_id` stays null.
+	Price *Money `json:"price,omitempty"`
+
+	// RecurringSubscriptionId The recurring service associated with this purchase. Absent for one-time orders.
+	RecurringSubscriptionId *EsimRecurringSubscriptionID `json:"recurring_subscription_id,omitempty"`
+
+	// RefundTransactionId The wallet transaction that credited the charge back after a failure. Null unless the order failed after charging.
+	RefundTransactionId *WalletTransactionID `json:"refund_transaction_id,omitempty"`
+	Status              *EsimOrderStatus     `json:"status,omitempty"`
+
+	// SubscriberId Subscriber to assign when the new eSIM is delivered. Null when none was requested, including top-up orders, which retain the existing assignment.
+	SubscriberId *EsimSubscriberID `json:"subscriber_id,omitempty"`
+	UpdatedAt    *time.Time        `json:"updated_at,omitempty"`
+
+	// WalletTransactionId The wallet transaction that paid for this order, for reconciling against your billing transactions. Null until the charge lands, and always null for a `mode: test` order, which is never charged.
+	WalletTransactionId *WalletTransactionID `json:"wallet_transaction_id,omitempty"`
+
+	// ZoneId Coverage zone of the purchased offer, captured at creation.
+	ZoneId *EsimZoneID `json:"zone_id,omitempty"`
+}
+
+// EsimOrderCreate Request to purchase a data package. Without esim_id, a new eSIM is provisioned carrying the package. With esim_id, the package is added to that eSIM: a new coverage zone stacks alongside existing packages, the same zone adds a further package for it, subject to the eSIM's package_limit and speed class.
+type EsimOrderCreate struct {
+	// AcknowledgeShortenedValidity Set to true to accept a validity cut short by the eSIM's service period. Without it, an order whose package would expire early is refused with a conflict that states the effective validity.
+	AcknowledgeShortenedValidity *bool `json:"acknowledge_shortened_validity,omitempty"`
+
+	// DisplayName Free-text label for the new eSIM, for your own reference. Ignored when esim_id is set.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// EsimId Existing eSIM to add the package to. Omit to provision a new eSIM.
+	EsimId *EsimID `json:"esim_id,omitempty"`
+
+	// ExpectedPrice The price you displayed to the buyer. When set and the workspace's current resolved price differs, the order is refused with a conflict instead of charging a different amount. Catches billing-rate changes, which move independently of the offer revision.
+	ExpectedPrice *Money `json:"expected_price,omitempty"`
+
+	// Metadata Your own key-value data for the new eSIM, echoed on its lifecycle webhook events. Maximum 2 KB serialized. Ignored when esim_id is set.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// OfferId Offer to purchase.
+	OfferId EsimOfferID `json:"offer_id"`
+
+	// OfferRevision The offer revision you are quoting from. When set and the offer has since moved to a newer revision, the order is refused with a conflict instead of charging a price you did not see. Omitted, the current revision is used.
+	OfferRevision *int `json:"offer_revision,omitempty"`
+
+	// Recurrence Buy the first package and enable automatic renewal in one purchase. Requires subscriber_id, offer_revision and Idempotency-Key. Omit esim_id and expected_price.
+	Recurrence *EsimOrderRecurrence `json:"recurrence,omitempty"`
+
+	// SubscriberId Person to assign the new eSIM to when delivery completes. Must be a subscriber in this workspace. Omit to leave it unassigned. Supplying it with esim_id returns 422; top-ups retain the existing assignment. An unknown subscriber or one outside this workspace returns 404 before charging. Identification guidance does not gate purchase.
+	SubscriberId *EsimSubscriberID `json:"subscriber_id,omitempty"`
+
+	// Tags Tags for the new eSIM, echoed on its lifecycle webhook events. Ignored when esim_id is set.
+	Tags  *[]Tag `json:"tags,omitempty"`
+	union json.RawMessage
+}
+
+// EsimOrderCreate0 defines model for .
+type EsimOrderCreate0 = interface{}
+
+// EsimOrderCreate1 defines model for .
+type EsimOrderCreate1 = interface{}
+
+// EsimOrderFunding Funding needed for an order in `charging`. Add funds to the wallet and retry the existing order. One-time orders also retry automatically. A funded order proceeds to delivery; a failed order receives an automatic credit for any charge.
+type EsimOrderFunding struct {
+	// LapsesAt Earliest time a further insufficient-funds attempt can fail the order. Adding funds after this time can still complete the purchase before that attempt. Check the order status to determine whether it remains payable.
+	LapsesAt time.Time `json:"lapses_at"`
+
+	// RequiredAmount Total wallet balance required for the charge, including tax. This is the required balance rather than the amount to add. Compare it with your current wallet balance.
+	RequiredAmount Money `json:"required_amount"`
+}
+
+// EsimOrderID defines model for EsimOrderID.
+type EsimOrderID = string
+
+// EsimOrderList defines model for EsimOrderList.
+type EsimOrderList struct {
+	// Data Orders, newest first.
+	Data []EsimOrder `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EsimOrderRecurrence Buy the first package and enable automatic renewal in one purchase. Requires subscriber_id, offer_revision and Idempotency-Key. Omit esim_id and expected_price.
+type EsimOrderRecurrence struct {
+	AcceptedPrice Money `json:"accepted_price"`
+
+	// RecurrenceRevision The accepted recurring configuration revision.
+	RecurrenceRevision int `json:"recurrence_revision"`
+}
+
+// EsimOrderStatus Order state.
+//
+// - `scheduled`: reserved for a future scheduled purchase; no charge has been made.
+// - `charging`: payment is being obtained. If funds are insufficient, inspect `funding` and your wallet balance. One-time orders retry automatically; an initial recurring purchase requires an explicit retry after adding funds.
+// - `provisioning`: the package is being provisioned during the request.
+// - `pending`: the purchase continues after the request returns. Read the order again to check its outcome.
+// - `completed`: delivery completed and the eSIM and package IDs are available. This does not confirm device installation. Terminal.
+// - `failed`: delivery failed. Any charge is credited automatically; `refund_transaction_id` identifies an issued credit. Terminal.
+// - `canceled`: reserved for a scheduled purchase withdrawn before execution. Canceling an unfunded order currently returns `failed` with `failure_code: canceled`.
+type EsimOrderStatus string
+
+// EsimPackage One data package held by an eSIM: a single purchase with its own balance, validity, and coverage zone. Every order that completes creates exactly one package, so a package is always traceable to the order that bought it. An eSIM can hold several packages per zone; the right one is consumed automatically based on the device's location, and zone_balances on the eSIM carries the combined remainder per zone.
+type EsimPackage struct {
+	// ActivatedAt When the package started consuming data (first use in its zone). Null until then.
+	ActivatedAt *time.Time          `json:"activated_at,omitempty"`
+	Balance     *EsimPackageBalance `json:"balance,omitempty"`
+
+	// Countries Countries the package's zone covers, captured at purchase time so the package is meaningful without fetching the offer.
+	Countries *[]CountryCode `json:"countries,omitempty"`
+	CreatedAt *time.Time     `json:"created_at,omitempty"`
+
+	// ExpiresAt When the package's validity ends and unused balance expires. Already capped by the eSIM's service period, so this is always the effective expiry. Null until the package activates.
+	ExpiresAt *time.Time     `json:"expires_at,omitempty"`
+	Id        *EsimPackageID `json:"id,omitempty"`
+
+	// OfferId Offer this package was purchased from.
+	OfferId *EsimOfferID `json:"offer_id,omitempty"`
+
+	// OrderId The order that purchased this package.
+	OrderId *EsimOrderID `json:"order_id,omitempty"`
+
+	// Price What your workspace was billed for this package.
+	Price *Money `json:"price,omitempty"`
+
+	// Speed Speed class, from the offer.
+	Speed  *EsimSpeed         `json:"speed,omitempty"`
+	Status *EsimPackageStatus `json:"status,omitempty"`
+
+	// ZoneId Coverage zone the package draws on. The name and countries below are captured at purchase time; the zone resource carries the live footprint.
+	ZoneId *EsimZoneID `json:"zone_id,omitempty"`
+
+	// ZoneName Coverage zone name, from the offer.
+	ZoneName *string `json:"zone_name,omitempty"`
+}
+
+// EsimPackageBalance Package allowance and reported consumption. `total_bytes` is the purchased allowance. `used_bytes`, `remaining_bytes`, and `used_percent` are null until usage is reported. Reports can lag device usage; use `as_of` to show when the balance was updated.
+type EsimPackageBalance struct {
+	// AsOf When the balance was last established. Before consumption is reported, this is the package delivery time. Check whether the consumption fields are null before treating this timestamp as a usage update.
+	AsOf *time.Time `json:"as_of,omitempty"`
+
+	// ObservedAt Measurement time supplied by the mobile network. Null when no measurement or measurement time is available. Use `as_of` for the balance update time.
+	ObservedAt *time.Time `json:"observed_at,omitempty"`
+
+	// RemainingBytes Data remaining in bytes, or null while no network has reported on this package.
+	RemainingBytes *int `json:"remaining_bytes,omitempty"`
+
+	// TotalBytes Total data in bytes, as purchased. Known from the order, so never null.
+	TotalBytes *int `json:"total_bytes,omitempty"`
+
+	// UsedBytes Data used in bytes, or null while no network has reported on this package.
+	UsedBytes *int `json:"used_bytes,omitempty"`
+
+	// UsedPercent Share of the total data already used, as a percentage. Null while no network has reported on this package.
+	UsedPercent *float32 `json:"used_percent,omitempty"`
+}
+
+// EsimPackageID defines model for EsimPackageID.
+type EsimPackageID = string
+
+// EsimPackageList The eSIM's data packages. Bounded: an eSIM holds at most package_limit concurrent packages, so the list is returned in full.
+type EsimPackageList struct {
+	// Data Packages, newest first.
+	Data []EsimPackage `json:"data"`
+}
+
+// EsimPackageStatus Lifecycle state of a data package.
+//
+// - `provisioning`: being applied to the eSIM.
+// - `pending_first_use`: confirmed; activates on first use in its coverage zone.
+// - `active`: consuming data; validity is running.
+// - `depleted`: balance fully used.
+// - `expired`: validity ended; unused balance is gone.
+// - `removing`: a removal was requested and is being applied. On definitive rejection the package returns to its prior status, reported by `esim.operation_failed`.
+// - `removed`: taken off the eSIM at your request; remaining balance forfeited.
+// - `failed`: could not be applied; any charge is credited back automatically through the owning order, which reports this through its `failed` status and the `esim.order.failed` event.
+type EsimPackageStatus string
+
+// EsimRecurrenceDeliveryMode Relationship between the paid period and package delivery.
+//
+// - `exact_period`: the package covers the accepted paid interval.
+// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
+type EsimRecurrenceDeliveryMode string
+
+// EsimRecurrenceModel Billing cadence for recurring packages.
+//
+// - `calendar_month`: periods follow calendar months from the billing anchor.
+// - `fixed_days`: each period lasts the stated number of 24-hour days.
+type EsimRecurrenceModel string
+
+// EsimRecurringOffer The published recurring package price and cadence. Calendar months follow the billing anchor; fixed days use the stated number of 24-hour days.
+type EsimRecurringOffer struct {
+	// DeliveryMode Relationship between the paid period and package delivery.
+	//
+	// - `exact_period`: the package covers the accepted paid interval.
+	// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
+	DeliveryMode EsimRecurrenceDeliveryMode `json:"delivery_mode"`
+
+	// IntervalCount The number of calendar months or fixed days in each period.
+	IntervalCount int `json:"interval_count"`
+
+	// Model Billing cadence for recurring packages.
+	//
+	// - `calendar_month`: periods follow calendar months from the billing anchor.
+	// - `fixed_days`: each period lasts the stated number of 24-hour days.
+	Model   EsimRecurrenceModel `json:"model"`
+	OfferId EsimOfferID         `json:"offer_id"`
+	Price   Money               `json:"price"`
+
+	// Revision The recurring configuration revision to accept.
+	Revision int `json:"revision"`
+}
+
+// EsimRecurringPeriod A funded period and its delivery outcome. Amounts retain the original charged currency and tax; free periods have no wallet transaction.
+type EsimRecurringPeriod struct {
+	// DeliveryMode Relationship between the paid period and package delivery.
+	//
+	// - `exact_period`: the package covers the accepted paid interval.
+	// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
+	DeliveryMode EsimRecurrenceDeliveryMode `json:"delivery_mode"`
+	NetAmount    Money                      `json:"net_amount"`
+
+	// OrderId Delivery order, or null before fulfillment starts.
+	OrderId *EsimOrderID `json:"order_id"`
+
+	// OrderStatus Delivery order state, or null before fulfillment starts.
+	OrderStatus *EsimOrderStatus `json:"order_status"`
+
+	// PeriodEnd End of the paid billing period. A recurring top-up package can expire at a different time; check the package’s expiry.
+	PeriodEnd time.Time `json:"period_end"`
+
+	// PeriodStart Start of the funded billing period. Package activation follows the accepted delivery mode.
+	PeriodStart time.Time `json:"period_start"`
+
+	// RefundTransactionId Confirmed wallet credit after definitive failure, or null when no credit was issued.
+	RefundTransactionId *WalletTransactionID `json:"refund_transaction_id"`
+
+	// Status Delivery outcome of a paid period.
+	//
+	// - `pending`: package delivery has not been confirmed, including an uncertain network outcome.
+	// - `completed`: the package was delivered.
+	// - `failing`: delivery failed and the credit is being processed.
+	// - `failed`: failure processing is complete. Check `refund_transaction_id` for an issued credit.
+	Status      EsimRecurringPeriodStatus `json:"status"`
+	TaxAmount   Money                     `json:"tax_amount"`
+	TotalAmount Money                     `json:"total_amount"`
+
+	// WalletTransactionId Original wallet charge, or null for a free period.
+	WalletTransactionId *WalletTransactionID `json:"wallet_transaction_id"`
+}
+
+// EsimRecurringPeriodList defines model for EsimRecurringPeriodList.
+type EsimRecurringPeriodList struct {
+	Data []EsimRecurringPeriod `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EsimRecurringPeriodStatus Delivery outcome of a paid period.
+//
+// - `pending`: package delivery has not been confirmed, including an uncertain network outcome.
+// - `completed`: the package was delivered.
+// - `failing`: delivery failed and the credit is being processed.
+// - `failed`: failure processing is complete. Check `refund_transaction_id` for an issued credit.
+type EsimRecurringPeriodStatus string
+
+// EsimRecurringStopReason Reason future package renewal stopped.
+//
+// - `canceled`: cancellation was requested.
+// - `funding_unavailable`: the next period could not be funded.
+// - `price_changed`: the published price changed and requires new acceptance.
+// - `delivery_failed`: a paid package could not be delivered.
+// - `delivery_unresolved`: the previous period’s delivery remains unresolved.
+//
+// Check period history for delivery and credit outcomes before starting another subscription.
+type EsimRecurringStopReason string
+
+// EsimRecurringSubscription Recurring service for an assigned eSIM or a pending initial purchase. Paid periods and delivered connectivity have separate states. Ending recurrence preserves the profile and separately purchased packages.
+type EsimRecurringSubscription struct {
+	// BillingStatus The financial subscription state, or null while acceptance is pending.
+	BillingStatus *string `json:"billing_status"`
+
+	// CancelAtPeriodEnd Whether future renewal is stopped at the current paid boundary.
+	CancelAtPeriodEnd bool `json:"cancel_at_period_end"`
+
+	// CancellationEffectiveAt When canceled recurrence ends: the paid boundary for scheduled cancellation, or the recorded cancellation time for an immediate stop. Null when renewal has not been stopped or no period was accepted. Paid packages remain available under their own validity.
+	CancellationEffectiveAt *time.Time `json:"cancellation_effective_at"`
+
+	// CreatedAt When the recurring service was requested.
+	CreatedAt time.Time `json:"created_at"`
+
+	// CurrentPeriodEnd The authoritative billing period boundary, or null while acceptance is pending.
+	CurrentPeriodEnd *time.Time `json:"current_period_end"`
+
+	// CurrentPeriodStart The authoritative billing period boundary, or null while acceptance is pending.
+	CurrentPeriodStart *time.Time `json:"current_period_start"`
+
+	// DeliveryMode Relationship between the paid period and package delivery.
+	//
+	// - `exact_period`: the package covers the accepted paid interval.
+	// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
+	DeliveryMode EsimRecurrenceDeliveryMode `json:"delivery_mode"`
+
+	// EsimId The provisioned eSIM, or null while the initial purchase is pending.
+	EsimId *EsimID                     `json:"esim_id"`
+	Id     EsimRecurringSubscriptionID `json:"id"`
+
+	// InitialOrderId The initial purchase order, or null when recurrence was enrolled on an existing eSIM.
+	InitialOrderId *EsimOrderID `json:"initial_order_id"`
+
+	// IntervalCount Number of calendar months or fixed 24-hour days in each accepted period. Null before acceptance.
+	IntervalCount *int `json:"interval_count"`
+
+	// LatestOrderId The order for the current billing period, or null before fulfillment starts.
+	LatestOrderId *EsimOrderID `json:"latest_order_id"`
+
+	// Model Accepted cadence, or null before Billing accepts enrollment.
+	Model *EsimRecurrenceModel `json:"model"`
+
+	// NextRenewalAt Next scheduled renewal boundary. Null when enrollment is pending or future renewals have stopped.
+	NextRenewalAt *time.Time  `json:"next_renewal_at"`
+	OfferId       EsimOfferID `json:"offer_id"`
+
+	// Price Accepted package price before tax, in its published currency. Null before Billing accepts enrollment.
+	Price *Money `json:"price"`
+
+	// Status Delivery state of the recurring service. Check payment and renewal fields separately.
+	//
+	// - `pending`: enrollment or the initial purchase is still being processed.
+	// - `active`: the service has delivered a package and remains active.
+	// - `needs_attention`: delivery or a related credit remains unresolved. Check period history and the associated order before purchasing a replacement.
+	// - `ended`: recurrence has ended. Previously delivered packages keep their own validity.
+	Status EsimRecurringSubscriptionStatus `json:"status"`
+
+	// StopReason First recorded reason future renewal stopped. Null when no reason has been recorded. Delivery outcomes are available separately in period history.
+	StopReason   *EsimRecurringStopReason `json:"stop_reason"`
+	SubscriberId EsimSubscriberID         `json:"subscriber_id"`
+	union        json.RawMessage
+}
+
+// EsimRecurringSubscription0 defines model for .
+type EsimRecurringSubscription0 struct {
+	EsimId *EsimID `json:"esim_id,omitempty"`
+}
+
+// EsimRecurringSubscription1 defines model for .
+type EsimRecurringSubscription1 struct {
+	InitialOrderId *EsimOrderID `json:"initial_order_id,omitempty"`
+}
+
+// EsimRecurringSubscriptionCreate Starts a new paid package period on an existing assigned eSIM. The workspace organization pays; the subscriber has no personal wallet.
+type EsimRecurringSubscriptionCreate struct {
+	AcceptedPrice Money       `json:"accepted_price"`
+	EsimId        EsimID      `json:"esim_id"`
+	OfferId       EsimOfferID `json:"offer_id"`
+
+	// OfferRevision The accepted offer revision.
+	OfferRevision int `json:"offer_revision"`
+
+	// RecurrenceRevision The accepted recurring configuration revision.
+	RecurrenceRevision int `json:"recurrence_revision"`
+}
+
+// EsimRecurringSubscriptionID defines model for EsimRecurringSubscriptionID.
+type EsimRecurringSubscriptionID = string
+
+// EsimRecurringSubscriptionList defines model for EsimRecurringSubscriptionList.
+type EsimRecurringSubscriptionList struct {
+	// Data Recurring services in this workspace.
+	Data []EsimRecurringSubscription `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EsimRecurringSubscriptionStatus Delivery state of the recurring service. Check payment and renewal fields separately.
+//
+// - `pending`: enrollment or the initial purchase is still being processed.
+// - `active`: the service has delivered a package and remains active.
+// - `needs_attention`: delivery or a related credit remains unresolved. Check period history and the associated order before purchasing a replacement.
+// - `ended`: recurrence has ended. Previously delivered packages keep their own validity.
+type EsimRecurringSubscriptionStatus string
+
+// EsimSchemaRevision Revision identifying the returned identification schema. A changed revision means the requirements or guidance changed. It does not indicate an expiry time or purchase authorization.
+type EsimSchemaRevision = string
+
+// EsimServiceCapabilities Supported services for the eSIM. These values describe capabilities; package balances and current eSIM status determine whether service can be used now. Optional phone service can remain `unknown` until a number is assigned. Data packages do not establish call or SMS allowances.
+type EsimServiceCapabilities struct {
+	// Data Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+	Data *EsimServiceCapability `json:"data,omitempty"`
+
+	// SmsInbound Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+	SmsInbound *EsimServiceCapability `json:"sms_inbound,omitempty"`
+
+	// SmsOutbound Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+	SmsOutbound *EsimServiceCapability `json:"sms_outbound,omitempty"`
+
+	// VoiceInbound Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+	VoiceInbound *EsimServiceCapability `json:"voice_inbound,omitempty"`
+
+	// VoiceOutbound Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+	VoiceOutbound *EsimServiceCapability `json:"voice_outbound,omitempty"`
+}
+
+// EsimServiceCapability Whether a service is supported. `yes` confirms support, `no` confirms it is not supported, and `unknown` means support has not been established.
+type EsimServiceCapability string
+
+// EsimSettings The eSIM settings your workspace controls. Every field carries its effective value, whether or not the workspace has ever changed it.
+type EsimSettings struct {
+	// CredentialDeliveryEnabled Whether Bird sends eSIM install credentials to travelers for this workspace. When `false`, sending an eSIM's credentials by email or SMS is refused; reading them from the API still works, so you can deliver them yourself. This governs the install message only. Your workspace's other email and SMS sending is unaffected. Defaults to `true`.
+	CredentialDeliveryEnabled bool `json:"credential_delivery_enabled"`
+}
+
+// EsimSettingsUpdate Changes to your workspace's eSIM settings. Omit a field to leave it as it is.
+type EsimSettingsUpdate struct {
+	// CredentialDeliveryEnabled Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+	CredentialDeliveryEnabled *bool `json:"credential_delivery_enabled,omitempty"`
+}
+
+// EsimSpeed Speed class. full: data flows at full network speed until the allowance is used; reduced: speed is limited, typically after the full-speed allowance. Full-speed and reduced-speed packages cannot be combined on one eSIM.
+type EsimSpeed string
+
+// EsimStatus Lifecycle state of an eSIM. A pending state always settles: to its target on
+// success, or back to the prior status when the network definitively rejects
+// the change, reported by the `esim.operation_failed` event.
+//
+// - `provisioning`: the initial data package is being applied; install credentials may already be available.
+// - `ready`: installable and usable, waiting for first network use; allows top-up orders and release. Activate before `ready_until` or the eSIM expires.
+// - `activating`: an activation is being applied.
+// - `active`: in service; the service period ends at `active_until`. Allows top-up orders, suspend, resync, and release.
+// - `suspending`: a suspension was requested and is being applied.
+// - `suspended`: data service is paused; allows resume and release.
+// - `resuming`: a resume was requested and is being applied.
+// - `releasing`: a permanent release is in progress.
+// - `released`: permanently released; terminal.
+// - `expired`: dormant. No data package has been live (each one depleted, expired, removed, or failed) for the expiry window. Not terminal: a completed top-up returns the eSIM to `active`, and release remains available. Balances and the installed profile are untouched.
+// - `failed`: provisioning failed; any charge on the owning order is credited back automatically, reported by that order. Terminal.
+type EsimStatus string
+
+// EsimSubscriber defines model for EsimSubscriber.
+type EsimSubscriber struct {
+	ContactId ContactID        `json:"contact_id"`
+	CreatedAt *time.Time       `json:"created_at,omitempty"`
+	Id        EsimSubscriberID `json:"id"`
+	UpdatedAt *time.Time       `json:"updated_at,omitempty"`
+}
+
+// EsimSubscriberCreate Select an existing contact in this workspace. One subscriber is kept per contact. Creating the link requires Contacts read permission and prevents Contact deletion, including after any assigned eSIM ends. Subscriber links cannot currently be removed.
+type EsimSubscriberCreate struct {
+	ContactId ContactID `json:"contact_id"`
+}
+
+// EsimSubscriberID defines model for EsimSubscriberID.
+type EsimSubscriberID = string
+
+// EsimSubscriberList defines model for EsimSubscriberList.
+type EsimSubscriberList struct {
+	// Data Subscribers in creation order, newest first.
+	Data []EsimSubscriber `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// EsimSummary Compact eSIM representation used in lists. Fetch the eSIM by id for the full aggregate with packages, balances, and installation state.
+type EsimSummary struct {
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DisplayName Free-text label for your own reference.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Iccid ICCID of the eSIM profile, or null while none is allocated.
+	Iccid *string   `json:"iccid,omitempty"`
+	Id    *EsimID   `json:"id,omitempty"`
+	Mode  *EsimMode `json:"mode,omitempty"`
+
+	// PhoneNumber Phone number attached to this eSIM, in E.164 format, as the supplier reports it. Null while none is on record.
+	PhoneNumber *string     `json:"phone_number,omitempty"`
+	Status      *EsimStatus `json:"status,omitempty"`
+
+	// SubscriberId The assigned service user, or null when the eSIM has no person assignment.
+	SubscriberId *EsimSubscriberID `json:"subscriber_id,omitempty"`
+}
+
+// EsimUpdate Fields that can be updated on an eSIM.
+type EsimUpdate struct {
+	// DisplayName Free-text label for your own reference. Null clears it.
+	DisplayName nullable.Nullable[string] `json:"display_name,omitempty"`
+
+	// Metadata Replaces the eSIM's metadata. Maximum 2 KB serialized.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Tags Replaces the eSIM's tags.
+	Tags *[]Tag `json:"tags,omitempty"`
+}
+
+// EsimZone A group of countries covered by an offer. Use `countries` to check a destination rather than inferring coverage from the zone name. Purchased packages retain their coverage details from the time of purchase.
+type EsimZone struct {
+	// Countries Countries covered by the zone, as ISO 3166-1 alpha-2 codes.
+	Countries *[]CountryCode `json:"countries,omitempty"`
+	CreatedAt *time.Time     `json:"created_at,omitempty"`
+	Id        *EsimZoneID    `json:"id,omitempty"`
+
+	// Name Human-readable zone name.
+	Name *string `json:"name,omitempty"`
+
+	// Revision Increments whenever the country list changes.
+	Revision *int          `json:"revision,omitempty"`
+	Type     *EsimZoneType `json:"type,omitempty"`
+}
+
+// EsimZoneBalance Reported balance across packages in one coverage zone. Zones can overlap; check each package’s countries before using these totals to estimate allowance for a destination. The mobile network selects which eligible package serves a connection.
+type EsimZoneBalance struct {
+	// AsOf Freshness of this combined figure - the oldest balance read among the zone's contributing packages. Each package's own balance.as_of can be newer.
+	AsOf *time.Time `json:"as_of,omitempty"`
+
+	// ObservedAt Oldest network measurement time among the contributing packages. Null if any package lacks a report or a measurement time. Use `as_of` for the balance update time.
+	ObservedAt *time.Time `json:"observed_at,omitempty"`
+
+	// RemainingBytes Data remaining, in bytes. Null under the same condition as `used_bytes`.
+	RemainingBytes *int `json:"remaining_bytes,omitempty"`
+
+	// TotalBytes Total purchased data for the zone, in bytes. Known from the orders, so never null.
+	TotalBytes *int `json:"total_bytes,omitempty"`
+
+	// UsedBytes Reported data used in this zone, in bytes. Null if any contributing package lacks a usage report. Read individual package balances for available measurements.
+	UsedBytes *int        `json:"used_bytes,omitempty"`
+	ZoneId    *EsimZoneID `json:"zone_id,omitempty"`
+}
+
+// EsimZoneID defines model for EsimZoneID.
+type EsimZoneID = string
+
+// EsimZoneList defines model for EsimZoneList.
+type EsimZoneList struct {
+	// Data Zones, newest first.
+	Data []EsimZone `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// EsimZoneSortField Field to sort zones by. Only `created_at` is supported.
+type EsimZoneSortField string
+
+// EsimZoneType Zone breadth: a single country, a multi-country region, or worldwide.
+type EsimZoneType string
+
 // EventAMBAccepted An outbound message was accepted for processing after confirming billing coverage. This does not confirm receipt by Apple.
 type EventAMBAccepted struct {
 	// Data The workspace and message snapshot at the time of the lifecycle event.
@@ -20813,6 +22587,15 @@ type MessageCost struct {
 // MessageDirection Whether a message was sent from the workspace (`outbound`) or received by it (`inbound`).
 type MessageDirection string
 
+// Money defines model for Money.
+type Money struct {
+	// Amount Decimal amount as a string, in major currency units.
+	Amount string `json:"amount"`
+
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+}
+
 // NextAction defines model for NextAction.
 type NextAction struct {
 	// Description A short, human-readable label for the step, suitable for display.
@@ -20873,6 +22656,9 @@ type Number struct {
 
 	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
 	ReleasedAt *time.Time `json:"released_at,omitempty"`
+
+	// ReleasesAt When a scheduled release of this number takes effect, at the end of its current billing period. The number stays allocated, with its current `status`, until then. `null` when no release is scheduled.
+	ReleasesAt *time.Time `json:"releases_at"`
 
 	// Status The allocation and ownership-approval status of this number.
 	//
@@ -23453,7 +25239,7 @@ type VoiceCallDirection string
 // VoiceCallID defines model for VoiceCallID.
 type VoiceCallID = string
 
-// VoiceCallRoute What happens to a call arriving for this number, as it is configured now. Its `type` selects the shape, and each answer carries its own fields. An unconfigured number answers with "reject". Setting a route is a separate shape, and it does not offer every variant reported here.
+// VoiceCallRoute What happens to a call arriving for this number, as it is configured now. Its `type` selects the shape, and each answer carries its own fields. Setting a route is a separate shape, and it does not offer every variant reported here.
 type VoiceCallRoute struct {
 	union json.RawMessage
 }
@@ -23477,7 +25263,7 @@ type VoiceCallRouteForward struct {
 
 	// Type Which answer a number carries.
 	//
-	// - `reject`: refuses the call. This is where every number starts.
+	// - `reject`: refuses the call.
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
@@ -23491,7 +25277,7 @@ type VoiceCallRouteForward struct {
 type VoiceCallRouteReject struct {
 	// Type Which answer a number carries.
 	//
-	// - `reject`: refuses the call. This is where every number starts.
+	// - `reject`: refuses the call.
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
@@ -23509,7 +25295,7 @@ type VoiceCallRouteSequence struct {
 
 	// Type Which answer a number carries.
 	//
-	// - `reject`: refuses the call. This is where every number starts.
+	// - `reject`: refuses the call.
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
@@ -23525,7 +25311,7 @@ type VoiceCallRouteTrunk struct {
 
 	// Type Which answer a number carries.
 	//
-	// - `reject`: refuses the call. This is where every number starts.
+	// - `reject`: refuses the call.
 	// - `trunk`: delivers the call to one of your SIP trunks.
 	// - `forward`: places a call to one of your verified caller IDs and connects the two.
 	// - `sequence`: runs the configured sequence from its selected voice-call entry.
@@ -23537,7 +25323,7 @@ type VoiceCallRouteTrunk struct {
 
 // VoiceCallRouteType Which answer a number carries.
 //
-// - `reject`: refuses the call. This is where every number starts.
+// - `reject`: refuses the call.
 // - `trunk`: delivers the call to one of your SIP trunks.
 // - `forward`: places a call to one of your verified caller IDs and connects the two.
 // - `sequence`: runs the configured sequence from its selected voice-call entry.
@@ -23546,7 +25332,7 @@ type VoiceCallRouteTrunk struct {
 // new value alongside a new set of fields.
 type VoiceCallRouteType string
 
-// VoiceCallRouteWritable What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
+// VoiceCallRouteWritable What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set.
 type VoiceCallRouteWritable struct {
 	union json.RawMessage
 }
@@ -23625,7 +25411,7 @@ type VoiceInboundConfiguration struct {
 	// ForwardAsOptions Caller identities available when configuring a forward. Use these values to populate the choice in your editor. The current choices are `dialed_number` and `calling_number`.
 	ForwardAsOptions *[]VoiceInboundForwardAs `json:"forward_as_options,omitempty"`
 
-	// Route Null when the stored route type is unsupported; inspect configuration_error before changing it.
+	// Route Null when the number has no route of its own and follows your workspace's default inbound route from the voice settings. Also null when the stored route type is unsupported, in which case configuration_error says so; inspect it before changing the route.
 	Route *VoiceCallRoute `json:"route"`
 }
 
@@ -23634,8 +25420,8 @@ type VoiceInboundConfigurationError string
 
 // VoiceInboundConfigurationPut defines model for VoiceInboundConfigurationPut.
 type VoiceInboundConfigurationPut struct {
-	// Route What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set. An unconfigured number uses "reject".
-	Route VoiceCallRouteWritable `json:"route"`
+	// Route The number's own route, or null to have it follow your workspace's default inbound route from the voice settings.
+	Route *VoiceCallRouteWritable `json:"route"`
 }
 
 // VoiceInboundForwardAs Which of a forwarded call's two numbers it shows as the caller.
@@ -23760,7 +25546,7 @@ type VoiceLegInboundRouteForward struct {
 
 // VoiceLegInboundRouteReject defines model for VoiceLegInboundRouteReject.
 type VoiceLegInboundRouteReject struct {
-	// Type The number turned the leg away. This is where every number starts, so it covers a number nobody has configured as well as one set to reject.
+	// Type The number turned the leg away, either because its own route is reject or because it has none and the workspace default inbound route is reject.
 	Type VoiceLegInboundRouteType `json:"type"`
 }
 
@@ -24157,6 +25943,30 @@ type VoiceSessionCredential struct {
 // VoiceSessionID defines model for VoiceSessionID.
 type VoiceSessionID = string
 
+// VoiceSettings The voice settings your workspace controls. Every field carries its effective value, whether or not the workspace has ever changed it.
+type VoiceSettings struct {
+	// InboundConfiguration What happens to a call arriving for any of your Bird numbers that has no inbound route of its own.
+	InboundConfiguration VoiceSettingsInboundConfiguration `json:"inbound_configuration"`
+}
+
+// VoiceSettingsInboundConfiguration What happens to a call arriving for any of your Bird numbers that has no inbound route of its own.
+type VoiceSettingsInboundConfiguration struct {
+	// Route What happens to a call arriving for this number, as it is configured now. Its `type` selects the shape, and each answer carries its own fields. Setting a route is a separate shape, and it does not offer every variant reported here.
+	Route VoiceCallRoute `json:"route"`
+}
+
+// VoiceSettingsInboundConfigurationPut The route for calls arriving on any of your Bird numbers that has no inbound route of its own; verified caller IDs receive no calls. It takes effect on the next call to each of those numbers. Numbers with their own route keep it.
+type VoiceSettingsInboundConfigurationPut struct {
+	// Route What happens to a call arriving for this number. Its `type` selects the shape, and each answer carries its own fields; the variants below are the full set you can set.
+	Route VoiceCallRouteWritable `json:"route"`
+}
+
+// VoiceSettingsUpdate Changes to your workspace's voice settings. Omit a field to leave it as it is.
+type VoiceSettingsUpdate struct {
+	// InboundConfiguration The route for calls arriving on any of your Bird numbers that has no inbound route of its own; verified caller IDs receive no calls. It takes effect on the next call to each of those numbers. Numbers with their own route keep it.
+	InboundConfiguration *VoiceSettingsInboundConfigurationPut `json:"inbound_configuration,omitempty"`
+}
+
 // VoiceTrunk defines model for VoiceTrunk.
 type VoiceTrunk struct {
 	// AllowedApiKeyIds The API keys allowed to authenticate this trunk over SIP Digest. A key must hold `voice` at write level and be neither revoked nor expired to authenticate. `ineligible_api_key_ids` names the entries that currently cannot. A nonempty list enables API-key authentication, limited to its eligible keys. An empty list means no API-key authentication. A trunk with empty `ip_acls` and `allowed_api_key_ids` lists accepts nothing when `session_credentials_enabled` is false. Replace the whole `allowed_api_key_ids` list through the trunk update operation.
@@ -24519,6 +26329,9 @@ type VoiceVerifiedNumberVerifyRequest struct {
 	// Code The 6-digit verification code read out by the verification call. Required until ownership is verified. Omit it when retrying activation of an already verified number.
 	Code *string `json:"code,omitempty" pii:"true"`
 }
+
+// WalletTransactionID defines model for WalletTransactionID.
+type WalletTransactionID = string
 
 // WebhookAttempt defines model for WebhookAttempt.
 type WebhookAttempt struct {
@@ -24939,6 +26752,9 @@ type WhatsAppAgentNotification struct {
 	// Error Why the notification failed. Present only when `status` is `failed`.
 	Error *WhatsAppAgentNotificationError `json:"error,omitempty"`
 
+	// From The business number whose agent the notification was sent to, in E.164 format.
+	From *string `json:"from,omitempty"`
+
 	// Id Unique identifier for the notification.
 	Id *WhatsAppAgentNotificationID `json:"id,omitempty"`
 
@@ -24954,14 +26770,17 @@ type WhatsAppAgentNotification struct {
 	// Status Where the notification stands. `accepted` from the moment Bird takes it, then one of the three final states once WhatsApp has answered.
 	Status *WhatsAppAgentNotificationStatus `json:"status,omitempty"`
 
-	// To The contact the notification was about: the phone number or business-scoped user ID you addressed it to, in the same shape a message's `to` uses.
-	To *WhatsAppAddress `json:"to,omitempty"`
+	// To The contact the notification was about, as you addressed it: a phone number in E.164 format, or a business-scoped user ID.
+	To *string `json:"to,omitempty"`
 }
 
 // WhatsAppAgentNotificationCreate Something that happened in your systems that the agent should tell the contact about, such as a payment landing or an order shipping. WhatsApp processes it in the background, so read the notification back for what came of it.
 type WhatsAppAgentNotificationCreate struct {
 	// Description What happened, in a sentence the agent can tell the contact.
 	Description string `json:"description"`
+
+	// From The business phone number whose agent should act on the notification, in E.164 format (for example `+13124495648`), the same form a message's `from` takes. It must be a number this workspace has connected and that runs an agent.
+	From string `json:"from"`
 
 	// Name Your own name for what happened, such as `payment_received` or `order_shipped`. The agent reads it as the kind of thing that happened, so keep one name per kind. WhatsApp calls this the event type.
 	Name string `json:"name"`
@@ -28173,6 +29992,15 @@ type EmailStatsTemplateFilter = string
 // EndingBefore defines model for EndingBefore.
 type EndingBefore = string
 
+// EsimIccidPrefixFilter defines model for EsimIccidPrefixFilter.
+type EsimIccidPrefixFilter = string
+
+// EsimSubscriberFilter defines model for EsimSubscriberFilter.
+type EsimSubscriberFilter = EsimSubscriberID
+
+// EsimTagFilter defines model for EsimTagFilter.
+type EsimTagFilter = []string
+
 // IdempotencyKey defines model for IdempotencyKey.
 type IdempotencyKey = string
 
@@ -28187,6 +30015,9 @@ type OrderDesc = SortOrder
 
 // PaginationLimit defines model for PaginationLimit.
 type PaginationLimit = int
+
+// RequiredIdempotencyKey defines model for RequiredIdempotencyKey.
+type RequiredIdempotencyKey = string
 
 // StartingAfter defines model for StartingAfter.
 type StartingAfter = string
@@ -28223,6 +30054,9 @@ type InternalError = Error
 
 // NotFound defines model for NotFound.
 type NotFound = Error
+
+// NotImplemented defines model for NotImplemented.
+type NotImplemented = Error
 
 // PayloadTooLarge defines model for PayloadTooLarge.
 type PayloadTooLarge = Error
@@ -30031,7 +31865,7 @@ type ListEmailBroadcastsParams struct {
 	// Tag Filter by tag. Pass `name` to match any broadcast that has that tag name, or pass `name:value` to match a specific tag pair, for example `campaign:spring_launch`.
 	Tag *EmailBroadcastTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
 
-	// Q Case-insensitive substring match against the broadcast's tag names and values, or the referenced template's name.
+	// Q Case-insensitive literal substring match against the broadcast's tags or the referenced template's name. With `email_management` read access, also matches the subject in the effective language of the template version resolved when this broadcast's execution starts. Draft and scheduled broadcasts have no execution subject to search. Percent signs, underscores, and backslashes are literal characters.
 	Q *EmailBroadcastSearchFilter `form:"q,omitempty" json:"q,omitempty"`
 
 	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
@@ -31262,6 +33096,9 @@ type ListEmailMessagesParams struct {
 
 	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// BroadcastId Filter messages by broadcast ID.
+	BroadcastId *EmailBroadcastID `form:"broadcast_id,omitempty" json:"broadcast_id,omitempty"`
 
 	// Status Filter by aggregate delivery status.
 	Status *EmailMessageStatus `form:"status,omitempty" json:"status,omitempty"`
@@ -32762,6 +34599,824 @@ type ReplyEmailThreadMessageParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListEsimOffersParams defines parameters for ListEsimOffers.
+type ListEsimOffersParams struct {
+	// Sort Field to sort by. Possible values: created_at.
+	Sort *EsimOfferSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// Country Keep only offers whose coverage zone includes this country (ISO 3166-1 alpha-2).
+	Country *CountryCode `form:"country,omitempty" json:"country,omitempty"`
+
+	// ZoneId Keep only offers selling this coverage zone.
+	ZoneId *EsimZoneID `form:"zone_id,omitempty" json:"zone_id,omitempty"`
+
+	// Status Filter by offer availability. Omitted, only active offers are returned.
+	Status *EsimOfferStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimOfferParams defines parameters for GetEsimOffer.
+type GetEsimOfferParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimOfferCheckoutOptionsParams defines parameters for GetEsimOfferCheckoutOptions.
+type GetEsimOfferCheckoutOptionsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimOfferRecurrenceParams defines parameters for GetEsimOfferRecurrence.
+type GetEsimOfferRecurrenceParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimOfferRequirementsParams defines parameters for GetEsimOfferRequirements.
+type GetEsimOfferRequirementsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimOrdersParams defines parameters for ListEsimOrders.
+type ListEsimOrdersParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// Status Keep only orders whose `status` matches; repeat the parameter to match any of several.
+	Status *[]EsimOrderStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// EsimId Keep only orders for this eSIM.
+	EsimId *EsimID `form:"esim_id,omitempty" json:"esim_id,omitempty"`
+
+	// Mode Keep only orders created in this mode. Without it, both live and test orders are returned.
+	Mode *EsimMode `form:"mode,omitempty" json:"mode,omitempty"`
+
+	// CompletedAfter Keep only orders completed at or after this timestamp. Combine it with `completed_before` to select a completion window, which is what the analytics spend and completion figures are counted by; `created_after` selects when an order was placed instead. Orders that never completed are excluded. Use an RFC 3339 timestamp with a timezone offset.
+	CompletedAfter *time.Time `form:"completed_after,omitempty" json:"completed_after,omitempty"`
+
+	// CompletedBefore Keep only orders completed before this timestamp. Combine it with `completed_after` to select a completion window. Orders that never completed are excluded. Use an RFC 3339 timestamp with a timezone offset.
+	CompletedBefore *time.Time `form:"completed_before,omitempty" json:"completed_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEsimOrderParams defines parameters for CreateEsimOrder.
+type CreateEsimOrderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimOrderParams defines parameters for GetEsimOrder.
+type GetEsimOrderParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CancelEsimOrderParams defines parameters for CancelEsimOrder.
+type CancelEsimOrderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimSettingsParams defines parameters for GetEsimSettings.
+type GetEsimSettingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateEsimSettingsParams defines parameters for UpdateEsimSettings.
+type UpdateEsimSettingsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimsParams defines parameters for ListEsims.
+type ListEsimsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// SubscriberId Return eSIMs assigned to this subscriber.
+	SubscriberId *EsimSubscriberFilter `form:"subscriber_id,omitempty" json:"subscriber_id,omitempty"`
+
+	// CreatedAfter Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedAfter *CreatedAfter `form:"created_after,omitempty" json:"created_after,omitempty"`
+
+	// CreatedBefore Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
+	CreatedBefore *CreatedBefore `form:"created_before,omitempty" json:"created_before,omitempty"`
+
+	// Status Keep only eSIMs whose current `status` matches; repeat the parameter to match any of several.
+	Status *[]EsimStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// Iccid Filter by ICCID (exact match).
+	Iccid *string `form:"iccid,omitempty" json:"iccid,omitempty"`
+
+	// Mode Keep only eSIMs created in this mode. Without it, both live and test eSIMs are returned.
+	Mode *EsimMode `form:"mode,omitempty" json:"mode,omitempty"`
+
+	// Tag Filter by tag. Accepts `name` to match any eSIM carrying that tag name, or `name:value` to match a specific tag pair (e.g. `trip:summer`). A trailing colon (`name:`) matches the name alone, the same as `name`. A term with an empty name is rejected. Repeat the parameter to AND-combine several tag filters.
+	Tag *EsimTagFilter `form:"tag,omitempty" json:"tag,omitempty"`
+
+	// IccidPrefix Keep only eSIMs whose ICCID starts with these digits. Use it when you hold only the first part of an ICCID. Pass `iccid` instead when you hold the whole number.
+	IccidPrefix *EsimIccidPrefixFilter `form:"iccid_prefix,omitempty" json:"iccid_prefix,omitempty"`
+
+	// DisplayName Keep only eSIMs whose `display_name` contains this text, ignoring case. An eSIM you have not named has no `display_name`, so it never matches.
+	DisplayName *string `form:"display_name,omitempty" json:"display_name,omitempty"`
+
+	// PhoneNumber Keep only eSIMs whose mobile network has reported this phone number, matched as a whole number rather than as a fragment. Give it in international form, with or without the leading `+`: `+31612345678` and `31612345678` select the same eSIMs. An eSIM matches on any number its mobile network has ever reported for the profile, so a number that has since moved on still finds the eSIM that held it. An eSIM whose number no network has reported yet never matches.
+	PhoneNumber *string `form:"phone_number,omitempty" json:"phone_number,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ReleaseEsimParams defines parameters for ReleaseEsim.
+type ReleaseEsimParams struct {
+	// AcknowledgeBalanceForfeit Confirms you accept that remaining package balances are forfeited. Omitted or false while unexpired balance remains, the request fails with a conflict error.
+	AcknowledgeBalanceForfeit *bool `form:"acknowledge_balance_forfeit,omitempty" json:"acknowledge_balance_forfeit,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimParams defines parameters for GetEsim.
+type GetEsimParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateEsimParams defines parameters for UpdateEsim.
+type UpdateEsimParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimAssignmentParams defines parameters for GetEsimAssignment.
+type GetEsimAssignmentParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEsimAssignmentParams defines parameters for CreateEsimAssignment.
+type CreateEsimAssignmentParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimCompatibleOffersParams defines parameters for ListEsimCompatibleOffers.
+type ListEsimCompatibleOffersParams struct {
+	// RecurringOnly Keep only offers with recurring service configured. Enrollment still checks supplier support and the published recurring price.
+	RecurringOnly *bool `form:"recurring_only,omitempty" json:"recurring_only,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimCredentialsParams defines parameters for GetEsimCredentials.
+type GetEsimCredentialsParams struct {
+	// AcceptLanguage Preferred languages for the instructions field, as a standard weighted Accept-Language list. Bird serves the first one it stocks, then a variant sharing a requested base language, then English.
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeliverEsimCredentialsParams defines parameters for DeliverEsimCredentials.
+type DeliverEsimCredentialsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimDeliveriesParams defines parameters for ListEsimDeliveries.
+type ListEsimDeliveriesParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEsimInstallLinkParams defines parameters for CreateEsimInstallLink.
+type CreateEsimInstallLinkParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteEsimInstallLinkParams defines parameters for DeleteEsimInstallLink.
+type DeleteEsimInstallLinkParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimPackagesParams defines parameters for ListEsimPackages.
+type ListEsimPackagesParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteEsimPackageParams defines parameters for DeleteEsimPackage.
+type DeleteEsimPackageParams struct {
+	// AcknowledgeBalanceForfeit Confirms you accept that the package's remaining balance is forfeited. Omitted or false while balance remains, the request fails with a conflict error.
+	AcknowledgeBalanceForfeit *bool `form:"acknowledge_balance_forfeit,omitempty" json:"acknowledge_balance_forfeit,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimPackageParams defines parameters for GetEsimPackage.
+type GetEsimPackageParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ResumeEsimParams defines parameters for ResumeEsim.
+type ResumeEsimParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// SuspendEsimParams defines parameters for SuspendEsim.
+type SuspendEsimParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimSubscribersParams defines parameters for ListEsimSubscribers.
+type ListEsimSubscribersParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// ContactId The contact id.
+	ContactId *ContactID `form:"contact_id,omitempty" json:"contact_id,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEsimSubscriberParams defines parameters for CreateEsimSubscriber.
+type CreateEsimSubscriberParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimSubscriberParams defines parameters for GetEsimSubscriber.
+type GetEsimSubscriberParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimRecurringSubscriptionsParams defines parameters for ListEsimRecurringSubscriptions.
+type ListEsimRecurringSubscriptionsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// SubscriberId Return eSIMs assigned to this subscriber.
+	SubscriberId *EsimSubscriberFilter `form:"subscriber_id,omitempty" json:"subscriber_id,omitempty"`
+
+	// EsimId Filter by esim id.
+	EsimId *EsimID `form:"esim_id,omitempty" json:"esim_id,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEsimRecurringSubscriptionParams defines parameters for CreateEsimRecurringSubscription.
+type CreateEsimRecurringSubscriptionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Required client-supplied deduplication key for this write. Reuse it for retries of the same intent. Successful results replay within the configured idempotency window (three hours by default); selected connected-app writes also replay uncertain-write conflicts. Use a new key only after confirming the prior result and beginning a different action.
+	IdempotencyKey RequiredIdempotencyKey `json:"Idempotency-Key"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimRecurringSubscriptionParams defines parameters for GetEsimRecurringSubscription.
+type GetEsimRecurringSubscriptionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CancelEsimRecurringSubscriptionParams defines parameters for CancelEsimRecurringSubscription.
+type CancelEsimRecurringSubscriptionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimRecurringPeriodsParams defines parameters for ListEsimRecurringPeriods.
+type ListEsimRecurringPeriodsParams struct {
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListEsimZonesParams defines parameters for ListEsimZones.
+type ListEsimZonesParams struct {
+	// Sort Field to sort by. Possible values: created_at.
+	Sort *EsimZoneSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// Country Keep only zones that include this country (ISO 3166-1 alpha-2).
+	Country *CountryCode `form:"country,omitempty" json:"country,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEsimZoneParams defines parameters for GetEsimZone.
+type GetEsimZoneParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // CreateEmailLookupParams defines parameters for CreateEmailLookup.
 type CreateEmailLookupParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
@@ -32994,8 +35649,8 @@ type GetNumbersOrderParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
-// ReleaseWorkspaceNumberParams defines parameters for ReleaseWorkspaceNumber.
-type ReleaseWorkspaceNumberParams struct {
+// CancelWorkspaceNumberParams defines parameters for CancelWorkspaceNumber.
+type CancelWorkspaceNumberParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -33036,6 +35691,37 @@ type GetWorkspaceNumberParams struct {
 
 // UpdateWorkspaceNumberParams defines parameters for UpdateWorkspaceNumber.
 type UpdateWorkspaceNumberParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ReleaseWorkspaceNumberParams defines parameters for ReleaseWorkspaceNumber.
+type ReleaseWorkspaceNumberParams struct {
 	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
 	// response is replayed for duplicate requests with the same key within the
 	// idempotency window (3 hours by default). This protection requires a workspace,
@@ -34416,9 +37102,10 @@ type ListVoiceNumbersParams struct {
 	// Provider Filter by number source. `allocation` selects numbers we allocated to your workspace. `verified_number` selects numbers from another carrier that you registered for use as caller IDs.
 	Provider *VoiceNumberProviderType `form:"provider,omitempty" json:"provider,omitempty"`
 
-	// Route Filter by the configured answer to incoming calls.
+	// Route Filter by the answer incoming calls get. A number without a route of its
+	// own matches the route of your workspace's default.
 	//
-	// - `reject`: rejects incoming calls, including numbers without a route configured.
+	// - `reject`: rejects incoming calls.
 	// - `trunk`: delivers calls to a SIP trunk.
 	// - `forward`: connects calls to the configured forwarding number.
 	// - `sequence`: runs the selected voice sequence entry.
@@ -34492,6 +37179,46 @@ type UpdateVoiceNumberParams struct {
 type CreateVoiceSessionCredentialParams struct {
 	// IdempotencyKey Does not deduplicate this operation. Every successful attempt creates a fresh credential.
 	IdempotencyKey *string `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetVoiceSettingsParams defines parameters for GetVoiceSettings.
+type GetVoiceSettingsParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateVoiceSettingsParams defines parameters for UpdateVoiceSettings.
+type UpdateVoiceSettingsParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -35129,6 +37856,73 @@ type TestWebhookParams struct {
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListWhatsAppAgentNotificationsParams defines parameters for ListWhatsAppAgentNotifications.
+type ListWhatsAppAgentNotificationsParams struct {
+	// Status Return only notifications in this state.
+	Status *WhatsAppAgentNotificationStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// From Return only notifications sent to the agent on this business number, in E.164 format. A phone number is normalized before matching, so spacing does not matter.
+	From *string `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Return only notifications about this contact, a phone number in E.164 format or a business-scoped user ID. A phone number is normalized before matching, so spacing does not matter.
+	To *string `form:"to,omitempty" json:"to,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateWhatsAppAgentNotificationParams defines parameters for CreateWhatsAppAgentNotification.
+type CreateWhatsAppAgentNotificationParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetWhatsAppAgentNotificationParams defines parameters for GetWhatsAppAgentNotification.
+type GetWhatsAppAgentNotificationParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -35914,70 +38708,6 @@ type GetWhatsAppNumberParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
-// ListWhatsAppAgentNotificationsParams defines parameters for ListWhatsAppAgentNotifications.
-type ListWhatsAppAgentNotificationsParams struct {
-	// Status Return only notifications in this state.
-	Status *WhatsAppAgentNotificationStatus `form:"status,omitempty" json:"status,omitempty"`
-
-	// To Return only notifications about this contact, a phone number in E.164 format or a business-scoped user ID. A phone number is normalized before matching, so spacing does not matter.
-	To *string `form:"to,omitempty" json:"to,omitempty"`
-
-	// Limit Maximum number of items to return per page.
-	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
-
-	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
-	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
-
-	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
-	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
-
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
-	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
-}
-
-// CreateWhatsAppAgentNotificationParams defines parameters for CreateWhatsAppAgentNotification.
-type CreateWhatsAppAgentNotificationParams struct {
-	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
-	// response is replayed for duplicate requests with the same key within the
-	// idempotency window (3 hours by default). This protection requires a workspace,
-	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
-	// streams, and operations with a separate replay contract do not use this
-	// response replay.
-	//
-	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
-	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
-	// backoff using the same key and request. An operation that takes effect before
-	// its response is retained can still execute again on retry.
-	//
-	// Two distinct 409 errors signal misuse:
-	//
-	// - `request_in_progress` (E01004): The same key is currently being
-	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
-	// - `idempotency_key_reuse` (E01005): The same key has already completed
-	//   against a different request body or method. Generate a new key.
-	//
-	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
-	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
-
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
-	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
-}
-
-// GetWhatsAppAgentNotificationParams defines parameters for GetWhatsAppAgentNotification.
-type GetWhatsAppAgentNotificationParams struct {
-	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
-	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
-
-	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
-	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
-}
-
 // ListWhatsAppNumberEventsParams defines parameters for ListWhatsAppNumberEvents.
 type ListWhatsAppNumberEventsParams struct {
 	// Sort Field to sort by. Defaults to `created_at`.
@@ -36633,6 +39363,27 @@ type UpdateEmailThreadJSONRequestBody = EmailThreadUpdateRequest
 // ReplyEmailThreadMessageJSONRequestBody defines body for ReplyEmailThreadMessage for application/json ContentType.
 type ReplyEmailThreadMessageJSONRequestBody = EmailThreadMessageReplyRequest
 
+// CreateEsimOrderJSONRequestBody defines body for CreateEsimOrder for application/json ContentType.
+type CreateEsimOrderJSONRequestBody = EsimOrderCreate
+
+// UpdateEsimSettingsJSONRequestBody defines body for UpdateEsimSettings for application/json ContentType.
+type UpdateEsimSettingsJSONRequestBody = EsimSettingsUpdate
+
+// UpdateEsimJSONRequestBody defines body for UpdateEsim for application/json ContentType.
+type UpdateEsimJSONRequestBody = EsimUpdate
+
+// CreateEsimAssignmentJSONRequestBody defines body for CreateEsimAssignment for application/json ContentType.
+type CreateEsimAssignmentJSONRequestBody = EsimAssignmentCreate
+
+// DeliverEsimCredentialsJSONRequestBody defines body for DeliverEsimCredentials for application/json ContentType.
+type DeliverEsimCredentialsJSONRequestBody = EsimDelivery
+
+// CreateEsimSubscriberJSONRequestBody defines body for CreateEsimSubscriber for application/json ContentType.
+type CreateEsimSubscriberJSONRequestBody = EsimSubscriberCreate
+
+// CreateEsimRecurringSubscriptionJSONRequestBody defines body for CreateEsimRecurringSubscription for application/json ContentType.
+type CreateEsimRecurringSubscriptionJSONRequestBody = EsimRecurringSubscriptionCreate
+
 // CreateEmailLookupJSONRequestBody defines body for CreateEmailLookup for application/json ContentType.
 type CreateEmailLookupJSONRequestBody = EmailLookupRequest
 
@@ -36693,6 +39444,9 @@ type UpdateVoiceDestinationsJSONRequestBody = VoiceDestinationsUpdate
 // UpdateVoiceNumberJSONRequestBody defines body for UpdateVoiceNumber for application/json ContentType.
 type UpdateVoiceNumberJSONRequestBody = VoiceNumberUpdate
 
+// UpdateVoiceSettingsJSONRequestBody defines body for UpdateVoiceSettings for application/json ContentType.
+type UpdateVoiceSettingsJSONRequestBody = VoiceSettingsUpdate
+
 // CreateVoiceTrunkJSONRequestBody defines body for CreateVoiceTrunk for application/json ContentType.
 type CreateVoiceTrunkJSONRequestBody = VoiceTrunkCreate
 
@@ -36726,6 +39480,9 @@ type CreateWebhookReplayJSONRequestBody = WebhookReplayRequest
 // TestWebhookJSONRequestBody defines body for TestWebhook for application/json ContentType.
 type TestWebhookJSONRequestBody = WebhookTestRequest
 
+// CreateWhatsAppAgentNotificationJSONRequestBody defines body for CreateWhatsAppAgentNotification for application/json ContentType.
+type CreateWhatsAppAgentNotificationJSONRequestBody = WhatsAppAgentNotificationCreate
+
 // CreateWhatsAppGroupJSONRequestBody defines body for CreateWhatsAppGroup for application/json ContentType.
 type CreateWhatsAppGroupJSONRequestBody = WhatsAppGroupCreate
 
@@ -36755,9 +39512,6 @@ type UpsertWhatsAppMessageReactionJSONRequestBody = WhatsAppReactionUpsert
 
 // SendWhatsAppReadReceiptJSONRequestBody defines body for SendWhatsAppReadReceipt for application/json ContentType.
 type SendWhatsAppReadReceiptJSONRequestBody = WhatsAppReadReceiptRequest
-
-// CreateWhatsAppAgentNotificationJSONRequestBody defines body for CreateWhatsAppAgentNotification for application/json ContentType.
-type CreateWhatsAppAgentNotificationJSONRequestBody = WhatsAppAgentNotificationCreate
 
 // CreateWhatsAppSuppressionJSONRequestBody defines body for CreateWhatsAppSuppression for application/json ContentType.
 type CreateWhatsAppSuppressionJSONRequestBody = WhatsAppSuppressionCreate
@@ -39376,6 +42130,728 @@ func (t *EmailTemplateSend) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Slug)
 		if err != nil {
 			return fmt.Errorf("error reading 'slug': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsEsimCheckoutRecurrence0 returns the union data inside the EsimCheckoutRecurrence as a EsimCheckoutRecurrence0
+func (t EsimCheckoutRecurrence) AsEsimCheckoutRecurrence0() (EsimCheckoutRecurrence0, error) {
+	var body EsimCheckoutRecurrence0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimCheckoutRecurrence0 overwrites any union data inside the EsimCheckoutRecurrence as the provided EsimCheckoutRecurrence0
+func (t *EsimCheckoutRecurrence) FromEsimCheckoutRecurrence0(v EsimCheckoutRecurrence0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimCheckoutRecurrence0 performs a merge with any union data inside the EsimCheckoutRecurrence, using the provided EsimCheckoutRecurrence0
+func (t *EsimCheckoutRecurrence) MergeEsimCheckoutRecurrence0(v EsimCheckoutRecurrence0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEsimCheckoutRecurrence1 returns the union data inside the EsimCheckoutRecurrence as a EsimCheckoutRecurrence1
+func (t EsimCheckoutRecurrence) AsEsimCheckoutRecurrence1() (EsimCheckoutRecurrence1, error) {
+	var body EsimCheckoutRecurrence1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimCheckoutRecurrence1 overwrites any union data inside the EsimCheckoutRecurrence as the provided EsimCheckoutRecurrence1
+func (t *EsimCheckoutRecurrence) FromEsimCheckoutRecurrence1(v EsimCheckoutRecurrence1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimCheckoutRecurrence1 performs a merge with any union data inside the EsimCheckoutRecurrence, using the provided EsimCheckoutRecurrence1
+func (t *EsimCheckoutRecurrence) MergeEsimCheckoutRecurrence1(v EsimCheckoutRecurrence1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EsimCheckoutRecurrence) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	object["available"], err = json.Marshal(t.Available)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'available': %w", err)
+	}
+
+	object["quote"], err = json.Marshal(t.Quote)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'quote': %w", err)
+	}
+
+	object["unavailable_reason"], err = json.Marshal(t.UnavailableReason)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'unavailable_reason': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EsimCheckoutRecurrence) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["available"]; found {
+		err = json.Unmarshal(raw, &t.Available)
+		if err != nil {
+			return fmt.Errorf("error reading 'available': %w", err)
+		}
+	}
+
+	if raw, found := object["quote"]; found {
+		err = json.Unmarshal(raw, &t.Quote)
+		if err != nil {
+			return fmt.Errorf("error reading 'quote': %w", err)
+		}
+	}
+
+	if raw, found := object["unavailable_reason"]; found {
+		err = json.Unmarshal(raw, &t.UnavailableReason)
+		if err != nil {
+			return fmt.Errorf("error reading 'unavailable_reason': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsEsimOfferBundlePricing returns the union data inside the EsimOffer_Pricing as a EsimOfferBundlePricing
+func (t EsimOffer_Pricing) AsEsimOfferBundlePricing() (EsimOfferBundlePricing, error) {
+	var body EsimOfferBundlePricing
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimOfferBundlePricing overwrites any union data inside the EsimOffer_Pricing as the provided EsimOfferBundlePricing
+func (t *EsimOffer_Pricing) FromEsimOfferBundlePricing(v EsimOfferBundlePricing) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimOfferBundlePricing performs a merge with any union data inside the EsimOffer_Pricing, using the provided EsimOfferBundlePricing
+func (t *EsimOffer_Pricing) MergeEsimOfferBundlePricing(v EsimOfferBundlePricing) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EsimOffer_Pricing) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EsimOffer_Pricing) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEsimOfferBundlePricing returns the union data inside the EsimOfferSummary_Pricing as a EsimOfferBundlePricing
+func (t EsimOfferSummary_Pricing) AsEsimOfferBundlePricing() (EsimOfferBundlePricing, error) {
+	var body EsimOfferBundlePricing
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimOfferBundlePricing overwrites any union data inside the EsimOfferSummary_Pricing as the provided EsimOfferBundlePricing
+func (t *EsimOfferSummary_Pricing) FromEsimOfferBundlePricing(v EsimOfferBundlePricing) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimOfferBundlePricing performs a merge with any union data inside the EsimOfferSummary_Pricing, using the provided EsimOfferBundlePricing
+func (t *EsimOfferSummary_Pricing) MergeEsimOfferBundlePricing(v EsimOfferBundlePricing) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EsimOfferSummary_Pricing) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *EsimOfferSummary_Pricing) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsEsimOrderCreate0 returns the union data inside the EsimOrderCreate as a EsimOrderCreate0
+func (t EsimOrderCreate) AsEsimOrderCreate0() (EsimOrderCreate0, error) {
+	var body EsimOrderCreate0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimOrderCreate0 overwrites any union data inside the EsimOrderCreate as the provided EsimOrderCreate0
+func (t *EsimOrderCreate) FromEsimOrderCreate0(v EsimOrderCreate0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimOrderCreate0 performs a merge with any union data inside the EsimOrderCreate, using the provided EsimOrderCreate0
+func (t *EsimOrderCreate) MergeEsimOrderCreate0(v EsimOrderCreate0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEsimOrderCreate1 returns the union data inside the EsimOrderCreate as a EsimOrderCreate1
+func (t EsimOrderCreate) AsEsimOrderCreate1() (EsimOrderCreate1, error) {
+	var body EsimOrderCreate1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimOrderCreate1 overwrites any union data inside the EsimOrderCreate as the provided EsimOrderCreate1
+func (t *EsimOrderCreate) FromEsimOrderCreate1(v EsimOrderCreate1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimOrderCreate1 performs a merge with any union data inside the EsimOrderCreate, using the provided EsimOrderCreate1
+func (t *EsimOrderCreate) MergeEsimOrderCreate1(v EsimOrderCreate1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EsimOrderCreate) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.AcknowledgeShortenedValidity != nil {
+		object["acknowledge_shortened_validity"], err = json.Marshal(t.AcknowledgeShortenedValidity)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'acknowledge_shortened_validity': %w", err)
+		}
+	}
+
+	if t.DisplayName != nil {
+		object["display_name"], err = json.Marshal(t.DisplayName)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'display_name': %w", err)
+		}
+	}
+
+	if t.EsimId != nil {
+		object["esim_id"], err = json.Marshal(t.EsimId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'esim_id': %w", err)
+		}
+	}
+
+	if t.ExpectedPrice != nil {
+		object["expected_price"], err = json.Marshal(t.ExpectedPrice)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'expected_price': %w", err)
+		}
+	}
+
+	if t.Metadata != nil {
+		object["metadata"], err = json.Marshal(t.Metadata)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'metadata': %w", err)
+		}
+	}
+
+	object["offer_id"], err = json.Marshal(t.OfferId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'offer_id': %w", err)
+	}
+
+	if t.OfferRevision != nil {
+		object["offer_revision"], err = json.Marshal(t.OfferRevision)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'offer_revision': %w", err)
+		}
+	}
+
+	if t.Recurrence != nil {
+		object["recurrence"], err = json.Marshal(t.Recurrence)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'recurrence': %w", err)
+		}
+	}
+
+	if t.SubscriberId != nil {
+		object["subscriber_id"], err = json.Marshal(t.SubscriberId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'subscriber_id': %w", err)
+		}
+	}
+
+	if t.Tags != nil {
+		object["tags"], err = json.Marshal(t.Tags)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'tags': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EsimOrderCreate) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["acknowledge_shortened_validity"]; found {
+		err = json.Unmarshal(raw, &t.AcknowledgeShortenedValidity)
+		if err != nil {
+			return fmt.Errorf("error reading 'acknowledge_shortened_validity': %w", err)
+		}
+	}
+
+	if raw, found := object["display_name"]; found {
+		err = json.Unmarshal(raw, &t.DisplayName)
+		if err != nil {
+			return fmt.Errorf("error reading 'display_name': %w", err)
+		}
+	}
+
+	if raw, found := object["esim_id"]; found {
+		err = json.Unmarshal(raw, &t.EsimId)
+		if err != nil {
+			return fmt.Errorf("error reading 'esim_id': %w", err)
+		}
+	}
+
+	if raw, found := object["expected_price"]; found {
+		err = json.Unmarshal(raw, &t.ExpectedPrice)
+		if err != nil {
+			return fmt.Errorf("error reading 'expected_price': %w", err)
+		}
+	}
+
+	if raw, found := object["metadata"]; found {
+		err = json.Unmarshal(raw, &t.Metadata)
+		if err != nil {
+			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["offer_id"]; found {
+		err = json.Unmarshal(raw, &t.OfferId)
+		if err != nil {
+			return fmt.Errorf("error reading 'offer_id': %w", err)
+		}
+	}
+
+	if raw, found := object["offer_revision"]; found {
+		err = json.Unmarshal(raw, &t.OfferRevision)
+		if err != nil {
+			return fmt.Errorf("error reading 'offer_revision': %w", err)
+		}
+	}
+
+	if raw, found := object["recurrence"]; found {
+		err = json.Unmarshal(raw, &t.Recurrence)
+		if err != nil {
+			return fmt.Errorf("error reading 'recurrence': %w", err)
+		}
+	}
+
+	if raw, found := object["subscriber_id"]; found {
+		err = json.Unmarshal(raw, &t.SubscriberId)
+		if err != nil {
+			return fmt.Errorf("error reading 'subscriber_id': %w", err)
+		}
+	}
+
+	if raw, found := object["tags"]; found {
+		err = json.Unmarshal(raw, &t.Tags)
+		if err != nil {
+			return fmt.Errorf("error reading 'tags': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsEsimRecurringSubscription0 returns the union data inside the EsimRecurringSubscription as a EsimRecurringSubscription0
+func (t EsimRecurringSubscription) AsEsimRecurringSubscription0() (EsimRecurringSubscription0, error) {
+	var body EsimRecurringSubscription0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimRecurringSubscription0 overwrites any union data inside the EsimRecurringSubscription as the provided EsimRecurringSubscription0
+func (t *EsimRecurringSubscription) FromEsimRecurringSubscription0(v EsimRecurringSubscription0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimRecurringSubscription0 performs a merge with any union data inside the EsimRecurringSubscription, using the provided EsimRecurringSubscription0
+func (t *EsimRecurringSubscription) MergeEsimRecurringSubscription0(v EsimRecurringSubscription0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsEsimRecurringSubscription1 returns the union data inside the EsimRecurringSubscription as a EsimRecurringSubscription1
+func (t EsimRecurringSubscription) AsEsimRecurringSubscription1() (EsimRecurringSubscription1, error) {
+	var body EsimRecurringSubscription1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromEsimRecurringSubscription1 overwrites any union data inside the EsimRecurringSubscription as the provided EsimRecurringSubscription1
+func (t *EsimRecurringSubscription) FromEsimRecurringSubscription1(v EsimRecurringSubscription1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeEsimRecurringSubscription1 performs a merge with any union data inside the EsimRecurringSubscription, using the provided EsimRecurringSubscription1
+func (t *EsimRecurringSubscription) MergeEsimRecurringSubscription1(v EsimRecurringSubscription1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t EsimRecurringSubscription) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	object["billing_status"], err = json.Marshal(t.BillingStatus)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'billing_status': %w", err)
+	}
+
+	object["cancel_at_period_end"], err = json.Marshal(t.CancelAtPeriodEnd)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'cancel_at_period_end': %w", err)
+	}
+
+	object["cancellation_effective_at"], err = json.Marshal(t.CancellationEffectiveAt)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'cancellation_effective_at': %w", err)
+	}
+
+	object["created_at"], err = json.Marshal(t.CreatedAt)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'created_at': %w", err)
+	}
+
+	object["current_period_end"], err = json.Marshal(t.CurrentPeriodEnd)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'current_period_end': %w", err)
+	}
+
+	object["current_period_start"], err = json.Marshal(t.CurrentPeriodStart)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'current_period_start': %w", err)
+	}
+
+	object["delivery_mode"], err = json.Marshal(t.DeliveryMode)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'delivery_mode': %w", err)
+	}
+
+	object["esim_id"], err = json.Marshal(t.EsimId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'esim_id': %w", err)
+	}
+
+	object["id"], err = json.Marshal(t.Id)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'id': %w", err)
+	}
+
+	object["initial_order_id"], err = json.Marshal(t.InitialOrderId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'initial_order_id': %w", err)
+	}
+
+	object["interval_count"], err = json.Marshal(t.IntervalCount)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'interval_count': %w", err)
+	}
+
+	object["latest_order_id"], err = json.Marshal(t.LatestOrderId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'latest_order_id': %w", err)
+	}
+
+	object["model"], err = json.Marshal(t.Model)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'model': %w", err)
+	}
+
+	object["next_renewal_at"], err = json.Marshal(t.NextRenewalAt)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'next_renewal_at': %w", err)
+	}
+
+	object["offer_id"], err = json.Marshal(t.OfferId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'offer_id': %w", err)
+	}
+
+	object["price"], err = json.Marshal(t.Price)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'price': %w", err)
+	}
+
+	object["status"], err = json.Marshal(t.Status)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'status': %w", err)
+	}
+
+	object["stop_reason"], err = json.Marshal(t.StopReason)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'stop_reason': %w", err)
+	}
+
+	object["subscriber_id"], err = json.Marshal(t.SubscriberId)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'subscriber_id': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *EsimRecurringSubscription) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["billing_status"]; found {
+		err = json.Unmarshal(raw, &t.BillingStatus)
+		if err != nil {
+			return fmt.Errorf("error reading 'billing_status': %w", err)
+		}
+	}
+
+	if raw, found := object["cancel_at_period_end"]; found {
+		err = json.Unmarshal(raw, &t.CancelAtPeriodEnd)
+		if err != nil {
+			return fmt.Errorf("error reading 'cancel_at_period_end': %w", err)
+		}
+	}
+
+	if raw, found := object["cancellation_effective_at"]; found {
+		err = json.Unmarshal(raw, &t.CancellationEffectiveAt)
+		if err != nil {
+			return fmt.Errorf("error reading 'cancellation_effective_at': %w", err)
+		}
+	}
+
+	if raw, found := object["created_at"]; found {
+		err = json.Unmarshal(raw, &t.CreatedAt)
+		if err != nil {
+			return fmt.Errorf("error reading 'created_at': %w", err)
+		}
+	}
+
+	if raw, found := object["current_period_end"]; found {
+		err = json.Unmarshal(raw, &t.CurrentPeriodEnd)
+		if err != nil {
+			return fmt.Errorf("error reading 'current_period_end': %w", err)
+		}
+	}
+
+	if raw, found := object["current_period_start"]; found {
+		err = json.Unmarshal(raw, &t.CurrentPeriodStart)
+		if err != nil {
+			return fmt.Errorf("error reading 'current_period_start': %w", err)
+		}
+	}
+
+	if raw, found := object["delivery_mode"]; found {
+		err = json.Unmarshal(raw, &t.DeliveryMode)
+		if err != nil {
+			return fmt.Errorf("error reading 'delivery_mode': %w", err)
+		}
+	}
+
+	if raw, found := object["esim_id"]; found {
+		err = json.Unmarshal(raw, &t.EsimId)
+		if err != nil {
+			return fmt.Errorf("error reading 'esim_id': %w", err)
+		}
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["initial_order_id"]; found {
+		err = json.Unmarshal(raw, &t.InitialOrderId)
+		if err != nil {
+			return fmt.Errorf("error reading 'initial_order_id': %w", err)
+		}
+	}
+
+	if raw, found := object["interval_count"]; found {
+		err = json.Unmarshal(raw, &t.IntervalCount)
+		if err != nil {
+			return fmt.Errorf("error reading 'interval_count': %w", err)
+		}
+	}
+
+	if raw, found := object["latest_order_id"]; found {
+		err = json.Unmarshal(raw, &t.LatestOrderId)
+		if err != nil {
+			return fmt.Errorf("error reading 'latest_order_id': %w", err)
+		}
+	}
+
+	if raw, found := object["model"]; found {
+		err = json.Unmarshal(raw, &t.Model)
+		if err != nil {
+			return fmt.Errorf("error reading 'model': %w", err)
+		}
+	}
+
+	if raw, found := object["next_renewal_at"]; found {
+		err = json.Unmarshal(raw, &t.NextRenewalAt)
+		if err != nil {
+			return fmt.Errorf("error reading 'next_renewal_at': %w", err)
+		}
+	}
+
+	if raw, found := object["offer_id"]; found {
+		err = json.Unmarshal(raw, &t.OfferId)
+		if err != nil {
+			return fmt.Errorf("error reading 'offer_id': %w", err)
+		}
+	}
+
+	if raw, found := object["price"]; found {
+		err = json.Unmarshal(raw, &t.Price)
+		if err != nil {
+			return fmt.Errorf("error reading 'price': %w", err)
+		}
+	}
+
+	if raw, found := object["status"]; found {
+		err = json.Unmarshal(raw, &t.Status)
+		if err != nil {
+			return fmt.Errorf("error reading 'status': %w", err)
+		}
+	}
+
+	if raw, found := object["stop_reason"]; found {
+		err = json.Unmarshal(raw, &t.StopReason)
+		if err != nil {
+			return fmt.Errorf("error reading 'stop_reason': %w", err)
+		}
+	}
+
+	if raw, found := object["subscriber_id"]; found {
+		err = json.Unmarshal(raw, &t.SubscriberId)
+		if err != nil {
+			return fmt.Errorf("error reading 'subscriber_id': %w", err)
 		}
 	}
 
@@ -44205,6 +47681,134 @@ type ClientInterface interface {
 
 	ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListEsimOffers request
+	ListEsimOffers(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimOffer request
+	GetEsimOffer(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimOfferCheckoutOptions request
+	GetEsimOfferCheckoutOptions(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferCheckoutOptionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimOfferRecurrence request
+	GetEsimOfferRecurrence(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRecurrenceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimOfferRequirements request
+	GetEsimOfferRequirements(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimOrders request
+	ListEsimOrders(ctx context.Context, params *ListEsimOrdersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEsimOrderWithBody request with any body
+	CreateEsimOrderWithBody(ctx context.Context, params *CreateEsimOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEsimOrder(ctx context.Context, params *CreateEsimOrderParams, body CreateEsimOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimOrder request
+	GetEsimOrder(ctx context.Context, orderId EsimOrderID, params *GetEsimOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelEsimOrder request
+	CancelEsimOrder(ctx context.Context, orderId EsimOrderID, params *CancelEsimOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimSettings request
+	GetEsimSettings(ctx context.Context, params *GetEsimSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEsimSettingsWithBody request with any body
+	UpdateEsimSettingsWithBody(ctx context.Context, params *UpdateEsimSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEsimSettings(ctx context.Context, params *UpdateEsimSettingsParams, body UpdateEsimSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsims request
+	ListEsims(ctx context.Context, params *ListEsimsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReleaseEsim request
+	ReleaseEsim(ctx context.Context, esimId EsimID, params *ReleaseEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsim request
+	GetEsim(ctx context.Context, esimId EsimID, params *GetEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateEsimWithBody request with any body
+	UpdateEsimWithBody(ctx context.Context, esimId EsimID, params *UpdateEsimParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateEsim(ctx context.Context, esimId EsimID, params *UpdateEsimParams, body UpdateEsimJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimAssignment request
+	GetEsimAssignment(ctx context.Context, esimId EsimID, params *GetEsimAssignmentParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEsimAssignmentWithBody request with any body
+	CreateEsimAssignmentWithBody(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEsimAssignment(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, body CreateEsimAssignmentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimCompatibleOffers request
+	ListEsimCompatibleOffers(ctx context.Context, esimId EsimID, params *ListEsimCompatibleOffersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimCredentials request
+	GetEsimCredentials(ctx context.Context, esimId EsimID, params *GetEsimCredentialsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeliverEsimCredentialsWithBody request with any body
+	DeliverEsimCredentialsWithBody(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DeliverEsimCredentials(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, body DeliverEsimCredentialsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimDeliveries request
+	ListEsimDeliveries(ctx context.Context, esimId EsimID, params *ListEsimDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEsimInstallLink request
+	CreateEsimInstallLink(ctx context.Context, esimId EsimID, params *CreateEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEsimInstallLink request
+	DeleteEsimInstallLink(ctx context.Context, esimId EsimID, installLinkId EsimInstallLinkID, params *DeleteEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimPackages request
+	ListEsimPackages(ctx context.Context, esimId EsimID, params *ListEsimPackagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteEsimPackage request
+	DeleteEsimPackage(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *DeleteEsimPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimPackage request
+	GetEsimPackage(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *GetEsimPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ResumeEsim request
+	ResumeEsim(ctx context.Context, esimId EsimID, params *ResumeEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SuspendEsim request
+	SuspendEsim(ctx context.Context, esimId EsimID, params *SuspendEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimSubscribers request
+	ListEsimSubscribers(ctx context.Context, params *ListEsimSubscribersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEsimSubscriberWithBody request with any body
+	CreateEsimSubscriberWithBody(ctx context.Context, params *CreateEsimSubscriberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEsimSubscriber(ctx context.Context, params *CreateEsimSubscriberParams, body CreateEsimSubscriberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimSubscriber request
+	GetEsimSubscriber(ctx context.Context, subscriberId EsimSubscriberID, params *GetEsimSubscriberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimRecurringSubscriptions request
+	ListEsimRecurringSubscriptions(ctx context.Context, params *ListEsimRecurringSubscriptionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEsimRecurringSubscriptionWithBody request with any body
+	CreateEsimRecurringSubscriptionWithBody(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEsimRecurringSubscription(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, body CreateEsimRecurringSubscriptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimRecurringSubscription request
+	GetEsimRecurringSubscription(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *GetEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CancelEsimRecurringSubscription request
+	CancelEsimRecurringSubscription(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *CancelEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimRecurringPeriods request
+	ListEsimRecurringPeriods(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *ListEsimRecurringPeriodsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListEsimZones request
+	ListEsimZones(ctx context.Context, params *ListEsimZonesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEsimZone request
+	GetEsimZone(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// CreateEmailLookupWithBody request with any body
 	CreateEmailLookupWithBody(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -44240,8 +47844,8 @@ type ClientInterface interface {
 	// GetNumbersOrder request
 	GetNumbersOrder(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// ReleaseWorkspaceNumber request
-	ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// CancelWorkspaceNumber request
+	CancelWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *CancelWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetWorkspaceNumber request
 	GetWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -44250,6 +47854,9 @@ type ClientInterface interface {
 	UpdateWorkspaceNumberWithBody(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UpdateWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ReleaseWorkspaceNumber request
+	ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListPreferences request
 	ListPreferences(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -44458,6 +48065,14 @@ type ClientInterface interface {
 	// CreateVoiceSessionCredential request
 	CreateVoiceSessionCredential(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetVoiceSettings request
+	GetVoiceSettings(ctx context.Context, params *GetVoiceSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateVoiceSettingsWithBody request with any body
+	UpdateVoiceSettingsWithBody(ctx context.Context, params *UpdateVoiceSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateVoiceSettings(ctx context.Context, params *UpdateVoiceSettingsParams, body UpdateVoiceSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListVoiceTrunks request
 	ListVoiceTrunks(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -44554,6 +48169,17 @@ type ClientInterface interface {
 	TestWebhookWithBody(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	TestWebhook(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, body TestWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWhatsAppAgentNotifications request
+	ListWhatsAppAgentNotifications(ctx context.Context, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateWhatsAppAgentNotificationWithBody request with any body
+	CreateWhatsAppAgentNotificationWithBody(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateWhatsAppAgentNotification(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetWhatsAppAgentNotification request
+	GetWhatsAppAgentNotification(ctx context.Context, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppBusinessAccounts request
 	ListWhatsAppBusinessAccounts(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -44664,17 +48290,6 @@ type ClientInterface interface {
 
 	// GetWhatsAppNumber request
 	GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, params *GetWhatsAppNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// ListWhatsAppAgentNotifications request
-	ListWhatsAppAgentNotifications(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// CreateWhatsAppAgentNotificationWithBody request with any body
-	CreateWhatsAppAgentNotificationWithBody(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	CreateWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// GetWhatsAppAgentNotification request
-	GetWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListWhatsAppNumberEvents request
 	ListWhatsAppNumberEvents(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -47361,6 +50976,546 @@ func (c *Client) ReplyEmailThreadMessage(ctx context.Context, threadId ThreadID,
 	return c.Client.Do(req)
 }
 
+func (c *Client) ListEsimOffers(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimOffersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimOffer(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimOfferRequest(c.Server, offerId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimOfferCheckoutOptions(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferCheckoutOptionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimOfferCheckoutOptionsRequest(c.Server, offerId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimOfferRecurrence(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRecurrenceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimOfferRecurrenceRequest(c.Server, offerId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimOfferRequirements(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRequirementsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimOfferRequirementsRequest(c.Server, offerId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimOrders(ctx context.Context, params *ListEsimOrdersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimOrdersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimOrderWithBody(ctx context.Context, params *CreateEsimOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimOrderRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimOrder(ctx context.Context, params *CreateEsimOrderParams, body CreateEsimOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimOrderRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimOrder(ctx context.Context, orderId EsimOrderID, params *GetEsimOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimOrderRequest(c.Server, orderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelEsimOrder(ctx context.Context, orderId EsimOrderID, params *CancelEsimOrderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelEsimOrderRequest(c.Server, orderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimSettings(ctx context.Context, params *GetEsimSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimSettingsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEsimSettingsWithBody(ctx context.Context, params *UpdateEsimSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEsimSettingsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEsimSettings(ctx context.Context, params *UpdateEsimSettingsParams, body UpdateEsimSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEsimSettingsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsims(ctx context.Context, params *ListEsimsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ReleaseEsim(ctx context.Context, esimId EsimID, params *ReleaseEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReleaseEsimRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsim(ctx context.Context, esimId EsimID, params *GetEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEsimWithBody(ctx context.Context, esimId EsimID, params *UpdateEsimParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEsimRequestWithBody(c.Server, esimId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateEsim(ctx context.Context, esimId EsimID, params *UpdateEsimParams, body UpdateEsimJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateEsimRequest(c.Server, esimId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimAssignment(ctx context.Context, esimId EsimID, params *GetEsimAssignmentParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimAssignmentRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimAssignmentWithBody(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimAssignmentRequestWithBody(c.Server, esimId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimAssignment(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, body CreateEsimAssignmentJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimAssignmentRequest(c.Server, esimId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimCompatibleOffers(ctx context.Context, esimId EsimID, params *ListEsimCompatibleOffersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimCompatibleOffersRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimCredentials(ctx context.Context, esimId EsimID, params *GetEsimCredentialsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimCredentialsRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeliverEsimCredentialsWithBody(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeliverEsimCredentialsRequestWithBody(c.Server, esimId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeliverEsimCredentials(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, body DeliverEsimCredentialsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeliverEsimCredentialsRequest(c.Server, esimId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimDeliveries(ctx context.Context, esimId EsimID, params *ListEsimDeliveriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimDeliveriesRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimInstallLink(ctx context.Context, esimId EsimID, params *CreateEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimInstallLinkRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEsimInstallLink(ctx context.Context, esimId EsimID, installLinkId EsimInstallLinkID, params *DeleteEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEsimInstallLinkRequest(c.Server, esimId, installLinkId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimPackages(ctx context.Context, esimId EsimID, params *ListEsimPackagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimPackagesRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteEsimPackage(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *DeleteEsimPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteEsimPackageRequest(c.Server, esimId, packageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimPackage(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *GetEsimPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimPackageRequest(c.Server, esimId, packageId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ResumeEsim(ctx context.Context, esimId EsimID, params *ResumeEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewResumeEsimRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SuspendEsim(ctx context.Context, esimId EsimID, params *SuspendEsimParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSuspendEsimRequest(c.Server, esimId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimSubscribers(ctx context.Context, params *ListEsimSubscribersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimSubscribersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimSubscriberWithBody(ctx context.Context, params *CreateEsimSubscriberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimSubscriberRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimSubscriber(ctx context.Context, params *CreateEsimSubscriberParams, body CreateEsimSubscriberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimSubscriberRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimSubscriber(ctx context.Context, subscriberId EsimSubscriberID, params *GetEsimSubscriberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimSubscriberRequest(c.Server, subscriberId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimRecurringSubscriptions(ctx context.Context, params *ListEsimRecurringSubscriptionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimRecurringSubscriptionsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimRecurringSubscriptionWithBody(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimRecurringSubscriptionRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEsimRecurringSubscription(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, body CreateEsimRecurringSubscriptionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEsimRecurringSubscriptionRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimRecurringSubscription(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *GetEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimRecurringSubscriptionRequest(c.Server, subscriptionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CancelEsimRecurringSubscription(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *CancelEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelEsimRecurringSubscriptionRequest(c.Server, subscriptionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimRecurringPeriods(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *ListEsimRecurringPeriodsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimRecurringPeriodsRequest(c.Server, subscriptionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListEsimZones(ctx context.Context, params *ListEsimZonesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListEsimZonesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEsimZone(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEsimZoneRequest(c.Server, zoneId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) CreateEmailLookupWithBody(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateEmailLookupRequestWithBody(c.Server, params, contentType, body)
 	if err != nil {
@@ -47517,8 +51672,8 @@ func (c *Client) GetNumbersOrder(ctx context.Context, orderId NumbersOrderID, pa
 	return c.Client.Do(req)
 }
 
-func (c *Client) ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewReleaseWorkspaceNumberRequest(c.Server, numberId, params)
+func (c *Client) CancelWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *CancelWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCancelWorkspaceNumberRequest(c.Server, numberId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -47555,6 +51710,18 @@ func (c *Client) UpdateWorkspaceNumberWithBody(ctx context.Context, numberId All
 
 func (c *Client) UpdateWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateWorkspaceNumberRequest(c.Server, numberId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ReleaseWorkspaceNumber(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewReleaseWorkspaceNumberRequest(c.Server, numberId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -48453,6 +52620,42 @@ func (c *Client) CreateVoiceSessionCredential(ctx context.Context, params *Creat
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetVoiceSettings(ctx context.Context, params *GetVoiceSettingsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetVoiceSettingsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceSettingsWithBody(ctx context.Context, params *UpdateVoiceSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceSettingsRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateVoiceSettings(ctx context.Context, params *UpdateVoiceSettingsParams, body UpdateVoiceSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateVoiceSettingsRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListVoiceTrunks(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListVoiceTrunksRequest(c.Server, params)
 	if err != nil {
@@ -48875,6 +53078,54 @@ func (c *Client) TestWebhookWithBody(ctx context.Context, webhookId WebhookEndpo
 
 func (c *Client) TestWebhook(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, body TestWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewTestWebhookRequest(c.Server, webhookId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWhatsAppAgentNotifications(ctx context.Context, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWhatsAppAgentNotificationsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppAgentNotificationWithBody(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppAgentNotificationRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateWhatsAppAgentNotification(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateWhatsAppAgentNotificationRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetWhatsAppAgentNotification(ctx context.Context, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetWhatsAppAgentNotificationRequest(c.Server, notificationId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -49355,54 +53606,6 @@ func (c *Client) ListWhatsAppNumbers(ctx context.Context, params *ListWhatsAppNu
 
 func (c *Client) GetWhatsAppNumber(ctx context.Context, numberId WhatsAppNumberID, params *GetWhatsAppNumberParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetWhatsAppNumberRequest(c.Server, numberId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) ListWhatsAppAgentNotifications(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListWhatsAppAgentNotificationsRequest(c.Server, numberId, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CreateWhatsAppAgentNotificationWithBody(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateWhatsAppAgentNotificationRequestWithBody(c.Server, numberId, params, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) CreateWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateWhatsAppAgentNotificationRequest(c.Server, numberId, params, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) GetWhatsAppAgentNotification(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetWhatsAppAgentNotificationRequest(c.Server, numberId, notificationId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -61423,6 +65626,18 @@ func NewListEmailMessagesRequest(server string, params *ListEmailMessagesParams)
 
 		}
 
+		if params.BroadcastId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "broadcast_id", *params.BroadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
 		if params.Status != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
@@ -67520,6 +71735,3293 @@ func NewReplyEmailThreadMessageRequestWithBody(server string, threadId ThreadID,
 	return req, nil
 }
 
+// NewListEsimOffersRequest generates requests for ListEsimOffers
+func NewListEsimOffersRequest(server string, params *ListEsimOffersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/offers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ZoneId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "zone_id", *params.ZoneId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimOfferRequest generates requests for GetEsimOffer
+func NewGetEsimOfferRequest(server string, offerId EsimOfferID, params *GetEsimOfferParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "offer_id", offerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/offers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimOfferCheckoutOptionsRequest generates requests for GetEsimOfferCheckoutOptions
+func NewGetEsimOfferCheckoutOptionsRequest(server string, offerId EsimOfferID, params *GetEsimOfferCheckoutOptionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "offer_id", offerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/offers/%s/checkout", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimOfferRecurrenceRequest generates requests for GetEsimOfferRecurrence
+func NewGetEsimOfferRecurrenceRequest(server string, offerId EsimOfferID, params *GetEsimOfferRecurrenceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "offer_id", offerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/offers/%s/recurrence", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimOfferRequirementsRequest generates requests for GetEsimOfferRequirements
+func NewGetEsimOfferRequirementsRequest(server string, offerId EsimOfferID, params *GetEsimOfferRequirementsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "offer_id", offerId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/offers/%s/requirements", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimOrdersRequest generates requests for ListEsimOrders
+func NewListEsimOrdersRequest(server string, params *ListEsimOrdersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/orders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EsimId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "esim_id", *params.EsimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Mode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "mode", *params.Mode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CompletedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "completed_after", *params.CompletedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CompletedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "completed_before", *params.CompletedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEsimOrderRequest calls the generic CreateEsimOrder builder with application/json body
+func NewCreateEsimOrderRequest(server string, params *CreateEsimOrderParams, body CreateEsimOrderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEsimOrderRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEsimOrderRequestWithBody generates requests for CreateEsimOrder with any type of body
+func NewCreateEsimOrderRequestWithBody(server string, params *CreateEsimOrderParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/orders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimOrderRequest generates requests for GetEsimOrder
+func NewGetEsimOrderRequest(server string, orderId EsimOrderID, params *GetEsimOrderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "order_id", orderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/orders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelEsimOrderRequest generates requests for CancelEsimOrder
+func NewCancelEsimOrderRequest(server string, orderId EsimOrderID, params *CancelEsimOrderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "order_id", orderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/orders/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimSettingsRequest generates requests for GetEsimSettings
+func NewGetEsimSettingsRequest(server string, params *GetEsimSettingsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/settings")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateEsimSettingsRequest calls the generic UpdateEsimSettings builder with application/json body
+func NewUpdateEsimSettingsRequest(server string, params *UpdateEsimSettingsParams, body UpdateEsimSettingsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEsimSettingsRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewUpdateEsimSettingsRequestWithBody generates requests for UpdateEsimSettings with any type of body
+func NewUpdateEsimSettingsRequestWithBody(server string, params *UpdateEsimSettingsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/settings")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimsRequest generates requests for ListEsims
+func NewListEsimsRequest(server string, params *ListEsimsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SubscriberId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "subscriber_id", *params.SubscriberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_after", *params.CreatedAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.CreatedBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "created_before", *params.CreatedBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Iccid != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "iccid", *params.Iccid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Mode != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "mode", *params.Mode, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Tag != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "tag", *params.Tag, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IccidPrefix != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "iccid_prefix", *params.IccidPrefix, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.DisplayName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "display_name", *params.DisplayName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PhoneNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "phone_number", *params.PhoneNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewReleaseEsimRequest generates requests for ReleaseEsim
+func NewReleaseEsimRequest(server string, esimId EsimID, params *ReleaseEsimParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.AcknowledgeBalanceForfeit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "acknowledge_balance_forfeit", *params.AcknowledgeBalanceForfeit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimRequest generates requests for GetEsim
+func NewGetEsimRequest(server string, esimId EsimID, params *GetEsimParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateEsimRequest calls the generic UpdateEsim builder with application/json body
+func NewUpdateEsimRequest(server string, esimId EsimID, params *UpdateEsimParams, body UpdateEsimJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateEsimRequestWithBody(server, esimId, params, "application/json", bodyReader)
+}
+
+// NewUpdateEsimRequestWithBody generates requests for UpdateEsim with any type of body
+func NewUpdateEsimRequestWithBody(server string, esimId EsimID, params *UpdateEsimParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimAssignmentRequest generates requests for GetEsimAssignment
+func NewGetEsimAssignmentRequest(server string, esimId EsimID, params *GetEsimAssignmentParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/assignment", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEsimAssignmentRequest calls the generic CreateEsimAssignment builder with application/json body
+func NewCreateEsimAssignmentRequest(server string, esimId EsimID, params *CreateEsimAssignmentParams, body CreateEsimAssignmentJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEsimAssignmentRequestWithBody(server, esimId, params, "application/json", bodyReader)
+}
+
+// NewCreateEsimAssignmentRequestWithBody generates requests for CreateEsimAssignment with any type of body
+func NewCreateEsimAssignmentRequestWithBody(server string, esimId EsimID, params *CreateEsimAssignmentParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/assignment", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimCompatibleOffersRequest generates requests for ListEsimCompatibleOffers
+func NewListEsimCompatibleOffersRequest(server string, esimId EsimID, params *ListEsimCompatibleOffersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/compatible-offers", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.RecurringOnly != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "recurring_only", *params.RecurringOnly, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimCredentialsRequest generates requests for GetEsimCredentials
+func NewGetEsimCredentialsRequest(server string, esimId EsimID, params *GetEsimCredentialsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/credentials", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.AcceptLanguage != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Accept-Language", *params.AcceptLanguage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Accept-Language", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeliverEsimCredentialsRequest calls the generic DeliverEsimCredentials builder with application/json body
+func NewDeliverEsimCredentialsRequest(server string, esimId EsimID, params *DeliverEsimCredentialsParams, body DeliverEsimCredentialsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDeliverEsimCredentialsRequestWithBody(server, esimId, params, "application/json", bodyReader)
+}
+
+// NewDeliverEsimCredentialsRequestWithBody generates requests for DeliverEsimCredentials with any type of body
+func NewDeliverEsimCredentialsRequestWithBody(server string, esimId EsimID, params *DeliverEsimCredentialsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/credentials/deliver", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimDeliveriesRequest generates requests for ListEsimDeliveries
+func NewListEsimDeliveriesRequest(server string, esimId EsimID, params *ListEsimDeliveriesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/deliveries", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEsimInstallLinkRequest generates requests for CreateEsimInstallLink
+func NewCreateEsimInstallLinkRequest(server string, esimId EsimID, params *CreateEsimInstallLinkParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/install-links", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEsimInstallLinkRequest generates requests for DeleteEsimInstallLink
+func NewDeleteEsimInstallLinkRequest(server string, esimId EsimID, installLinkId EsimInstallLinkID, params *DeleteEsimInstallLinkParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "install_link_id", installLinkId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/install-links/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimPackagesRequest generates requests for ListEsimPackages
+func NewListEsimPackagesRequest(server string, esimId EsimID, params *ListEsimPackagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/packages", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteEsimPackageRequest generates requests for DeleteEsimPackage
+func NewDeleteEsimPackageRequest(server string, esimId EsimID, packageId EsimPackageID, params *DeleteEsimPackageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "package_id", packageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/packages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.AcknowledgeBalanceForfeit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "acknowledge_balance_forfeit", *params.AcknowledgeBalanceForfeit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimPackageRequest generates requests for GetEsimPackage
+func NewGetEsimPackageRequest(server string, esimId EsimID, packageId EsimPackageID, params *GetEsimPackageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "package_id", packageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/packages/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewResumeEsimRequest generates requests for ResumeEsim
+func NewResumeEsimRequest(server string, esimId EsimID, params *ResumeEsimParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/resume", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewSuspendEsimRequest generates requests for SuspendEsim
+func NewSuspendEsimRequest(server string, esimId EsimID, params *SuspendEsimParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "esim_id", esimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/sims/%s/suspend", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimSubscribersRequest generates requests for ListEsimSubscribers
+func NewListEsimSubscribersRequest(server string, params *ListEsimSubscribersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscribers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContactId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "contact_id", *params.ContactId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEsimSubscriberRequest calls the generic CreateEsimSubscriber builder with application/json body
+func NewCreateEsimSubscriberRequest(server string, params *CreateEsimSubscriberParams, body CreateEsimSubscriberJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEsimSubscriberRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEsimSubscriberRequestWithBody generates requests for CreateEsimSubscriber with any type of body
+func NewCreateEsimSubscriberRequestWithBody(server string, params *CreateEsimSubscriberParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscribers")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimSubscriberRequest generates requests for GetEsimSubscriber
+func NewGetEsimSubscriberRequest(server string, subscriberId EsimSubscriberID, params *GetEsimSubscriberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "subscriber_id", subscriberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscribers/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimRecurringSubscriptionsRequest generates requests for ListEsimRecurringSubscriptions
+func NewListEsimRecurringSubscriptionsRequest(server string, params *ListEsimRecurringSubscriptionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscriptions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.SubscriberId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "subscriber_id", *params.SubscriberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EsimId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "esim_id", *params.EsimId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEsimRecurringSubscriptionRequest calls the generic CreateEsimRecurringSubscription builder with application/json body
+func NewCreateEsimRecurringSubscriptionRequest(server string, params *CreateEsimRecurringSubscriptionParams, body CreateEsimRecurringSubscriptionJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEsimRecurringSubscriptionRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEsimRecurringSubscriptionRequestWithBody generates requests for CreateEsimRecurringSubscription with any type of body
+func NewCreateEsimRecurringSubscriptionRequestWithBody(server string, params *CreateEsimRecurringSubscriptionParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscriptions")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		var headerParam1 string
+
+		headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("Idempotency-Key", headerParam1)
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimRecurringSubscriptionRequest generates requests for GetEsimRecurringSubscription
+func NewGetEsimRecurringSubscriptionRequest(server string, subscriptionId EsimRecurringSubscriptionID, params *GetEsimRecurringSubscriptionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "subscription_id", subscriptionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscriptions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCancelEsimRecurringSubscriptionRequest generates requests for CancelEsimRecurringSubscription
+func NewCancelEsimRecurringSubscriptionRequest(server string, subscriptionId EsimRecurringSubscriptionID, params *CancelEsimRecurringSubscriptionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "subscription_id", subscriptionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscriptions/%s/cancel", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.IdempotencyKey != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimRecurringPeriodsRequest generates requests for ListEsimRecurringPeriods
+func NewListEsimRecurringPeriodsRequest(server string, subscriptionId EsimRecurringSubscriptionID, params *ListEsimRecurringPeriodsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "subscription_id", subscriptionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/subscriptions/%s/periods", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListEsimZonesRequest generates requests for ListEsimZones
+func NewListEsimZonesRequest(server string, params *ListEsimZonesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/zones")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Country != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "country", *params.Country, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEsimZoneRequest generates requests for GetEsimZone
+func NewGetEsimZoneRequest(server string, zoneId EsimZoneID, params *GetEsimZoneParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "zone_id", zoneId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/esim/zones/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewCreateEmailLookupRequest calls the generic CreateEmailLookup builder with application/json body
 func NewCreateEmailLookupRequest(server string, params *CreateEmailLookupParams, body CreateEmailLookupJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -68400,8 +75902,8 @@ func NewGetNumbersOrderRequest(server string, orderId NumbersOrderID, params *Ge
 	return req, nil
 }
 
-// NewReleaseWorkspaceNumberRequest generates requests for ReleaseWorkspaceNumber
-func NewReleaseWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams) (*http.Request, error) {
+// NewCancelWorkspaceNumberRequest generates requests for CancelWorkspaceNumber
+func NewCancelWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *CancelWorkspaceNumberParams) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -68574,6 +76076,77 @@ func NewUpdateWorkspaceNumberRequestWithBody(server string, numberId AllocatedNu
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewReleaseWorkspaceNumberRequest generates requests for ReleaseWorkspaceNumber
+func NewReleaseWorkspaceNumberRequest(server string, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/numbers/%s/release", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	if params != nil {
 
@@ -74670,6 +82243,136 @@ func NewCreateVoiceSessionCredentialRequest(server string, params *CreateVoiceSe
 	return req, nil
 }
 
+// NewGetVoiceSettingsRequest generates requests for GetVoiceSettings
+func NewGetVoiceSettingsRequest(server string, params *GetVoiceSettingsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/settings")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateVoiceSettingsRequest calls the generic UpdateVoiceSettings builder with application/json body
+func NewUpdateVoiceSettingsRequest(server string, params *UpdateVoiceSettingsParams, body UpdateVoiceSettingsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateVoiceSettingsRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewUpdateVoiceSettingsRequestWithBody generates requests for UpdateVoiceSettings with any type of body
+func NewUpdateVoiceSettingsRequestWithBody(server string, params *UpdateVoiceSettingsParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/voice/settings")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListVoiceTrunksRequest generates requests for ListVoiceTrunks
 func NewListVoiceTrunksRequest(server string, params *ListVoiceTrunksParams) (*http.Request, error) {
 	var err error
@@ -76761,6 +84464,283 @@ func NewTestWebhookRequestWithBody(server string, webhookId WebhookEndpointID, p
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListWhatsAppAgentNotificationsRequest generates requests for ListWhatsAppAgentNotifications
+func NewListWhatsAppAgentNotificationsRequest(server string, params *ListWhatsAppAgentNotificationsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/agents/notifications")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateWhatsAppAgentNotificationRequest calls the generic CreateWhatsAppAgentNotification builder with application/json body
+func NewCreateWhatsAppAgentNotificationRequest(server string, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateWhatsAppAgentNotificationRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateWhatsAppAgentNotificationRequestWithBody generates requests for CreateWhatsAppAgentNotification with any type of body
+func NewCreateWhatsAppAgentNotificationRequestWithBody(server string, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/agents/notifications")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetWhatsAppAgentNotificationRequest generates requests for GetWhatsAppAgentNotification
+func NewGetWhatsAppAgentNotificationRequest(server string, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "notification_id", notificationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/whatsapp/agents/notifications/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
 		}
 
 	}
@@ -79540,292 +87520,6 @@ func NewGetWhatsAppNumberRequest(server string, numberId WhatsAppNumberID, param
 	}
 
 	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-		if params.XOrganizationId != nil {
-			var headerParam1 string
-
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Organization-Id", headerParam1)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewListWhatsAppAgentNotificationsRequest generates requests for ListWhatsAppAgentNotifications
-func NewListWhatsAppAgentNotificationsRequest(server string, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		// queryValues collects non-styled parameters (passthrough, JSON)
-		// that are safe to round-trip through url.Values.Encode().
-		queryValues := queryURL.Query()
-		// rawQueryFragments collects pre-encoded query fragments from
-		// styled parameters, preserving literal commas as delimiters
-		// per the OpenAPI spec (e.g. "color=blue,black,brown").
-		var rawQueryFragments []string
-
-		if params.Status != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.To != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.Limit != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.StartingAfter != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if params.EndingBefore != nil {
-
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
-				return nil, err
-			} else {
-				for _, qp := range strings.Split(queryFrag, "&") {
-					rawQueryFragments = append(rawQueryFragments, qp)
-				}
-			}
-
-		}
-
-		if encoded := queryValues.Encode(); encoded != "" {
-			rawQueryFragments = append(rawQueryFragments, encoded)
-		}
-		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.XWorkspaceId != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam0)
-		}
-
-		if params.XOrganizationId != nil {
-			var headerParam1 string
-
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Organization-Id", headerParam1)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewCreateWhatsAppAgentNotificationRequest calls the generic CreateWhatsAppAgentNotification builder with application/json body
-func NewCreateWhatsAppAgentNotificationRequest(server string, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewCreateWhatsAppAgentNotificationRequestWithBody(server, numberId, params, "application/json", bodyReader)
-}
-
-// NewCreateWhatsAppAgentNotificationRequestWithBody generates requests for CreateWhatsAppAgentNotification with any type of body
-func NewCreateWhatsAppAgentNotificationRequestWithBody(server string, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications", pathParam0)
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	if params != nil {
-
-		if params.IdempotencyKey != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Idempotency-Key", headerParam0)
-		}
-
-		if params.XWorkspaceId != nil {
-			var headerParam1 string
-
-			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Workspace-Id", headerParam1)
-		}
-
-		if params.XOrganizationId != nil {
-			var headerParam2 string
-
-			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("X-Organization-Id", headerParam2)
-		}
-
-	}
-
-	return req, nil
-}
-
-// NewGetWhatsAppAgentNotificationRequest generates requests for GetWhatsAppAgentNotification
-func NewGetWhatsAppAgentNotificationRequest(server string, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams) (*http.Request, error) {
-	var err error
-
-	var pathParam0 string
-
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "number_id", numberId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	var pathParam1 string
-
-	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "notification_id", notificationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
-	if err != nil {
-		return nil, err
-	}
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/v1/whatsapp/numbers/%s/agent/notifications/%s", pathParam0, pathParam1)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -83250,6 +90944,134 @@ type ClientWithResponsesInterface interface {
 
 	ReplyEmailThreadMessageWithResponse(ctx context.Context, threadId ThreadID, messageId string, params *ReplyEmailThreadMessageParams, body ReplyEmailThreadMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*ReplyEmailThreadMessageResponse, error)
 
+	// ListEsimOffersWithResponse request
+	ListEsimOffersWithResponse(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*ListEsimOffersResponse, error)
+
+	// GetEsimOfferWithResponse request
+	GetEsimOfferWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferParams, reqEditors ...RequestEditorFn) (*GetEsimOfferResponse, error)
+
+	// GetEsimOfferCheckoutOptionsWithResponse request
+	GetEsimOfferCheckoutOptionsWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferCheckoutOptionsParams, reqEditors ...RequestEditorFn) (*GetEsimOfferCheckoutOptionsResponse, error)
+
+	// GetEsimOfferRecurrenceWithResponse request
+	GetEsimOfferRecurrenceWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRecurrenceParams, reqEditors ...RequestEditorFn) (*GetEsimOfferRecurrenceResponse, error)
+
+	// GetEsimOfferRequirementsWithResponse request
+	GetEsimOfferRequirementsWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRequirementsParams, reqEditors ...RequestEditorFn) (*GetEsimOfferRequirementsResponse, error)
+
+	// ListEsimOrdersWithResponse request
+	ListEsimOrdersWithResponse(ctx context.Context, params *ListEsimOrdersParams, reqEditors ...RequestEditorFn) (*ListEsimOrdersResponse, error)
+
+	// CreateEsimOrderWithBodyWithResponse request with any body
+	CreateEsimOrderWithBodyWithResponse(ctx context.Context, params *CreateEsimOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimOrderResponse, error)
+
+	CreateEsimOrderWithResponse(ctx context.Context, params *CreateEsimOrderParams, body CreateEsimOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimOrderResponse, error)
+
+	// GetEsimOrderWithResponse request
+	GetEsimOrderWithResponse(ctx context.Context, orderId EsimOrderID, params *GetEsimOrderParams, reqEditors ...RequestEditorFn) (*GetEsimOrderResponse, error)
+
+	// CancelEsimOrderWithResponse request
+	CancelEsimOrderWithResponse(ctx context.Context, orderId EsimOrderID, params *CancelEsimOrderParams, reqEditors ...RequestEditorFn) (*CancelEsimOrderResponse, error)
+
+	// GetEsimSettingsWithResponse request
+	GetEsimSettingsWithResponse(ctx context.Context, params *GetEsimSettingsParams, reqEditors ...RequestEditorFn) (*GetEsimSettingsResponse, error)
+
+	// UpdateEsimSettingsWithBodyWithResponse request with any body
+	UpdateEsimSettingsWithBodyWithResponse(ctx context.Context, params *UpdateEsimSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEsimSettingsResponse, error)
+
+	UpdateEsimSettingsWithResponse(ctx context.Context, params *UpdateEsimSettingsParams, body UpdateEsimSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEsimSettingsResponse, error)
+
+	// ListEsimsWithResponse request
+	ListEsimsWithResponse(ctx context.Context, params *ListEsimsParams, reqEditors ...RequestEditorFn) (*ListEsimsResponse, error)
+
+	// ReleaseEsimWithResponse request
+	ReleaseEsimWithResponse(ctx context.Context, esimId EsimID, params *ReleaseEsimParams, reqEditors ...RequestEditorFn) (*ReleaseEsimResponse, error)
+
+	// GetEsimWithResponse request
+	GetEsimWithResponse(ctx context.Context, esimId EsimID, params *GetEsimParams, reqEditors ...RequestEditorFn) (*GetEsimResponse, error)
+
+	// UpdateEsimWithBodyWithResponse request with any body
+	UpdateEsimWithBodyWithResponse(ctx context.Context, esimId EsimID, params *UpdateEsimParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEsimResponse, error)
+
+	UpdateEsimWithResponse(ctx context.Context, esimId EsimID, params *UpdateEsimParams, body UpdateEsimJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEsimResponse, error)
+
+	// GetEsimAssignmentWithResponse request
+	GetEsimAssignmentWithResponse(ctx context.Context, esimId EsimID, params *GetEsimAssignmentParams, reqEditors ...RequestEditorFn) (*GetEsimAssignmentResponse, error)
+
+	// CreateEsimAssignmentWithBodyWithResponse request with any body
+	CreateEsimAssignmentWithBodyWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimAssignmentResponse, error)
+
+	CreateEsimAssignmentWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, body CreateEsimAssignmentJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimAssignmentResponse, error)
+
+	// ListEsimCompatibleOffersWithResponse request
+	ListEsimCompatibleOffersWithResponse(ctx context.Context, esimId EsimID, params *ListEsimCompatibleOffersParams, reqEditors ...RequestEditorFn) (*ListEsimCompatibleOffersResponse, error)
+
+	// GetEsimCredentialsWithResponse request
+	GetEsimCredentialsWithResponse(ctx context.Context, esimId EsimID, params *GetEsimCredentialsParams, reqEditors ...RequestEditorFn) (*GetEsimCredentialsResponse, error)
+
+	// DeliverEsimCredentialsWithBodyWithResponse request with any body
+	DeliverEsimCredentialsWithBodyWithResponse(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeliverEsimCredentialsResponse, error)
+
+	DeliverEsimCredentialsWithResponse(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, body DeliverEsimCredentialsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeliverEsimCredentialsResponse, error)
+
+	// ListEsimDeliveriesWithResponse request
+	ListEsimDeliveriesWithResponse(ctx context.Context, esimId EsimID, params *ListEsimDeliveriesParams, reqEditors ...RequestEditorFn) (*ListEsimDeliveriesResponse, error)
+
+	// CreateEsimInstallLinkWithResponse request
+	CreateEsimInstallLinkWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*CreateEsimInstallLinkResponse, error)
+
+	// DeleteEsimInstallLinkWithResponse request
+	DeleteEsimInstallLinkWithResponse(ctx context.Context, esimId EsimID, installLinkId EsimInstallLinkID, params *DeleteEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*DeleteEsimInstallLinkResponse, error)
+
+	// ListEsimPackagesWithResponse request
+	ListEsimPackagesWithResponse(ctx context.Context, esimId EsimID, params *ListEsimPackagesParams, reqEditors ...RequestEditorFn) (*ListEsimPackagesResponse, error)
+
+	// DeleteEsimPackageWithResponse request
+	DeleteEsimPackageWithResponse(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *DeleteEsimPackageParams, reqEditors ...RequestEditorFn) (*DeleteEsimPackageResponse, error)
+
+	// GetEsimPackageWithResponse request
+	GetEsimPackageWithResponse(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *GetEsimPackageParams, reqEditors ...RequestEditorFn) (*GetEsimPackageResponse, error)
+
+	// ResumeEsimWithResponse request
+	ResumeEsimWithResponse(ctx context.Context, esimId EsimID, params *ResumeEsimParams, reqEditors ...RequestEditorFn) (*ResumeEsimResponse, error)
+
+	// SuspendEsimWithResponse request
+	SuspendEsimWithResponse(ctx context.Context, esimId EsimID, params *SuspendEsimParams, reqEditors ...RequestEditorFn) (*SuspendEsimResponse, error)
+
+	// ListEsimSubscribersWithResponse request
+	ListEsimSubscribersWithResponse(ctx context.Context, params *ListEsimSubscribersParams, reqEditors ...RequestEditorFn) (*ListEsimSubscribersResponse, error)
+
+	// CreateEsimSubscriberWithBodyWithResponse request with any body
+	CreateEsimSubscriberWithBodyWithResponse(ctx context.Context, params *CreateEsimSubscriberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimSubscriberResponse, error)
+
+	CreateEsimSubscriberWithResponse(ctx context.Context, params *CreateEsimSubscriberParams, body CreateEsimSubscriberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimSubscriberResponse, error)
+
+	// GetEsimSubscriberWithResponse request
+	GetEsimSubscriberWithResponse(ctx context.Context, subscriberId EsimSubscriberID, params *GetEsimSubscriberParams, reqEditors ...RequestEditorFn) (*GetEsimSubscriberResponse, error)
+
+	// ListEsimRecurringSubscriptionsWithResponse request
+	ListEsimRecurringSubscriptionsWithResponse(ctx context.Context, params *ListEsimRecurringSubscriptionsParams, reqEditors ...RequestEditorFn) (*ListEsimRecurringSubscriptionsResponse, error)
+
+	// CreateEsimRecurringSubscriptionWithBodyWithResponse request with any body
+	CreateEsimRecurringSubscriptionWithBodyWithResponse(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimRecurringSubscriptionResponse, error)
+
+	CreateEsimRecurringSubscriptionWithResponse(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, body CreateEsimRecurringSubscriptionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimRecurringSubscriptionResponse, error)
+
+	// GetEsimRecurringSubscriptionWithResponse request
+	GetEsimRecurringSubscriptionWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *GetEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*GetEsimRecurringSubscriptionResponse, error)
+
+	// CancelEsimRecurringSubscriptionWithResponse request
+	CancelEsimRecurringSubscriptionWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *CancelEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*CancelEsimRecurringSubscriptionResponse, error)
+
+	// ListEsimRecurringPeriodsWithResponse request
+	ListEsimRecurringPeriodsWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *ListEsimRecurringPeriodsParams, reqEditors ...RequestEditorFn) (*ListEsimRecurringPeriodsResponse, error)
+
+	// ListEsimZonesWithResponse request
+	ListEsimZonesWithResponse(ctx context.Context, params *ListEsimZonesParams, reqEditors ...RequestEditorFn) (*ListEsimZonesResponse, error)
+
+	// GetEsimZoneWithResponse request
+	GetEsimZoneWithResponse(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*GetEsimZoneResponse, error)
+
 	// CreateEmailLookupWithBodyWithResponse request with any body
 	CreateEmailLookupWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error)
 
@@ -83285,8 +91107,8 @@ type ClientWithResponsesInterface interface {
 	// GetNumbersOrderWithResponse request
 	GetNumbersOrderWithResponse(ctx context.Context, orderId NumbersOrderID, params *GetNumbersOrderParams, reqEditors ...RequestEditorFn) (*GetNumbersOrderResponse, error)
 
-	// ReleaseWorkspaceNumberWithResponse request
-	ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error)
+	// CancelWorkspaceNumberWithResponse request
+	CancelWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *CancelWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*CancelWorkspaceNumberResponse, error)
 
 	// GetWorkspaceNumberWithResponse request
 	GetWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *GetWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*GetWorkspaceNumberResponse, error)
@@ -83295,6 +91117,9 @@ type ClientWithResponsesInterface interface {
 	UpdateWorkspaceNumberWithBodyWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error)
 
 	UpdateWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *UpdateWorkspaceNumberParams, body UpdateWorkspaceNumberJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateWorkspaceNumberResponse, error)
+
+	// ReleaseWorkspaceNumberWithResponse request
+	ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error)
 
 	// ListPreferencesWithResponse request
 	ListPreferencesWithResponse(ctx context.Context, params *ListPreferencesParams, reqEditors ...RequestEditorFn) (*ListPreferencesResponse, error)
@@ -83503,6 +91328,14 @@ type ClientWithResponsesInterface interface {
 	// CreateVoiceSessionCredentialWithResponse request
 	CreateVoiceSessionCredentialWithResponse(ctx context.Context, params *CreateVoiceSessionCredentialParams, reqEditors ...RequestEditorFn) (*CreateVoiceSessionCredentialResponse, error)
 
+	// GetVoiceSettingsWithResponse request
+	GetVoiceSettingsWithResponse(ctx context.Context, params *GetVoiceSettingsParams, reqEditors ...RequestEditorFn) (*GetVoiceSettingsResponse, error)
+
+	// UpdateVoiceSettingsWithBodyWithResponse request with any body
+	UpdateVoiceSettingsWithBodyWithResponse(ctx context.Context, params *UpdateVoiceSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceSettingsResponse, error)
+
+	UpdateVoiceSettingsWithResponse(ctx context.Context, params *UpdateVoiceSettingsParams, body UpdateVoiceSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceSettingsResponse, error)
+
 	// ListVoiceTrunksWithResponse request
 	ListVoiceTrunksWithResponse(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunksResponse, error)
 
@@ -83599,6 +91432,17 @@ type ClientWithResponsesInterface interface {
 	TestWebhookWithBodyWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*TestWebhookResponse, error)
 
 	TestWebhookWithResponse(ctx context.Context, webhookId WebhookEndpointID, params *TestWebhookParams, body TestWebhookJSONRequestBody, reqEditors ...RequestEditorFn) (*TestWebhookResponse, error)
+
+	// ListWhatsAppAgentNotificationsWithResponse request
+	ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error)
+
+	// CreateWhatsAppAgentNotificationWithBodyWithResponse request with any body
+	CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
+
+	CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
+
+	// GetWhatsAppAgentNotificationWithResponse request
+	GetWhatsAppAgentNotificationWithResponse(ctx context.Context, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error)
 
 	// ListWhatsAppBusinessAccountsWithResponse request
 	ListWhatsAppBusinessAccountsWithResponse(ctx context.Context, params *ListWhatsAppBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppBusinessAccountsResponse, error)
@@ -83709,17 +91553,6 @@ type ClientWithResponsesInterface interface {
 
 	// GetWhatsAppNumberWithResponse request
 	GetWhatsAppNumberWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *GetWhatsAppNumberParams, reqEditors ...RequestEditorFn) (*GetWhatsAppNumberResponse, error)
-
-	// ListWhatsAppAgentNotificationsWithResponse request
-	ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error)
-
-	// CreateWhatsAppAgentNotificationWithBodyWithResponse request with any body
-	CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
-
-	CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error)
-
-	// GetWhatsAppAgentNotificationWithResponse request
-	GetWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error)
 
 	// ListWhatsAppNumberEventsWithResponse request
 	ListWhatsAppNumberEventsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppNumberEventsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppNumberEventsResponse, error)
@@ -90386,6 +98219,1456 @@ func (r ReplyEmailThreadMessageResponse) ContentType() string {
 	return ""
 }
 
+type ListEsimOffersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOfferList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimOffersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimOffersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimOffersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimOfferResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOffer
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimOfferResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimOfferResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimOfferResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimOfferCheckoutOptionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimCheckoutOptions
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimOfferCheckoutOptionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimOfferCheckoutOptionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimOfferCheckoutOptionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimOfferRecurrenceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringOffer
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimOfferRecurrenceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimOfferRecurrenceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimOfferRecurrenceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimOfferRequirementsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOfferRequirements
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimOfferRequirementsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimOfferRequirementsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimOfferRequirementsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimOrdersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOrderList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimOrdersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimOrdersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimOrdersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEsimOrderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EsimOrder
+	JSON202      *EsimOrder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEsimOrderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEsimOrderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEsimOrderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimOrderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOrder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimOrderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimOrderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimOrderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelEsimOrderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimOrder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelEsimOrderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelEsimOrderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelEsimOrderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEsimSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEsimSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEsimSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEsimSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReleaseEsimResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *Esim
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ReleaseEsimResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReleaseEsimResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReleaseEsimResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Esim
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateEsimResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Esim
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateEsimResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateEsimResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateEsimResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimAssignmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimAssignment
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimAssignmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimAssignmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimAssignmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEsimAssignmentResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimAssignment
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEsimAssignmentResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEsimAssignmentResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEsimAssignmentResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimCompatibleOffersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimCompatibleOfferList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimCompatibleOffersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimCompatibleOffersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimCompatibleOffersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimCredentialsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimCredentials
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimCredentialsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimCredentialsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimCredentialsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeliverEsimCredentialsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EsimCredentialsDelivery
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeliverEsimCredentialsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeliverEsimCredentialsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeliverEsimCredentialsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimDeliveriesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimDeliveryList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimDeliveriesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimDeliveriesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimDeliveriesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEsimInstallLinkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EsimInstallLink
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEsimInstallLinkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEsimInstallLinkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEsimInstallLinkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEsimInstallLinkResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEsimInstallLinkResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEsimInstallLinkResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEsimInstallLinkResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimPackagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimPackageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimPackagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimPackagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimPackagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteEsimPackageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EsimPackage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteEsimPackageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteEsimPackageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteEsimPackageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimPackageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimPackage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimPackageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimPackageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimPackageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ResumeEsimResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *Esim
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ResumeEsimResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ResumeEsimResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ResumeEsimResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SuspendEsimResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *Esim
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SuspendEsimResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SuspendEsimResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SuspendEsimResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimSubscribersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimSubscriberList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimSubscribersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimSubscribersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimSubscribersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEsimSubscriberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimSubscriber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEsimSubscriberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEsimSubscriberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEsimSubscriberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimSubscriberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimSubscriber
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimSubscriberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimSubscriberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimSubscriberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimRecurringSubscriptionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringSubscriptionList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimRecurringSubscriptionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimRecurringSubscriptionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimRecurringSubscriptionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEsimRecurringSubscriptionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringSubscription
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEsimRecurringSubscriptionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEsimRecurringSubscriptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEsimRecurringSubscriptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimRecurringSubscriptionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringSubscription
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimRecurringSubscriptionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimRecurringSubscriptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimRecurringSubscriptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CancelEsimRecurringSubscriptionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringSubscription
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CancelEsimRecurringSubscriptionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CancelEsimRecurringSubscriptionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CancelEsimRecurringSubscriptionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimRecurringPeriodsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimRecurringPeriodList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimRecurringPeriodsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimRecurringPeriodsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimRecurringPeriodsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListEsimZonesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimZoneList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListEsimZonesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListEsimZonesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListEsimZonesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEsimZoneResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EsimZone
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEsimZoneResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEsimZoneResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEsimZoneResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type CreateEmailLookupResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -90732,9 +100015,11 @@ func (r GetNumbersOrderResponse) ContentType() string {
 	return ""
 }
 
-type ReleaseWorkspaceNumberResponse struct {
+type CancelWorkspaceNumberResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
+	JSON200      *Number
+	JSON202      *Number
 	JSON400      *BadRequest
 	JSON401      *Unauthorized
 	JSON403      *Forbidden
@@ -90747,7 +100032,7 @@ type ReleaseWorkspaceNumberResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r ReleaseWorkspaceNumberResponse) Status() string {
+func (r CancelWorkspaceNumberResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -90755,7 +100040,7 @@ func (r ReleaseWorkspaceNumberResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r ReleaseWorkspaceNumberResponse) StatusCode() int {
+func (r CancelWorkspaceNumberResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -90763,7 +100048,7 @@ func (r ReleaseWorkspaceNumberResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ReleaseWorkspaceNumberResponse) ContentType() string {
+func (r CancelWorkspaceNumberResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -90840,6 +100125,44 @@ func (r UpdateWorkspaceNumberResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UpdateWorkspaceNumberResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ReleaseWorkspaceNumberResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ReleaseWorkspaceNumberResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ReleaseWorkspaceNumberResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ReleaseWorkspaceNumberResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -93075,6 +102398,83 @@ func (r CreateVoiceSessionCredentialResponse) ContentType() string {
 	return ""
 }
 
+type GetVoiceSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetVoiceSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetVoiceSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetVoiceSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateVoiceSettingsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *VoiceSettings
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateVoiceSettingsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateVoiceSettingsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateVoiceSettingsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListVoiceTrunksResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -94023,6 +103423,119 @@ func (r TestWebhookResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r TestWebhookResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListWhatsAppAgentNotificationsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppAgentNotificationList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWhatsAppAgentNotificationsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWhatsAppAgentNotificationsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWhatsAppAgentNotificationsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateWhatsAppAgentNotificationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *WhatsAppAgentNotification
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateWhatsAppAgentNotificationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateWhatsAppAgentNotificationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateWhatsAppAgentNotificationResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetWhatsAppAgentNotificationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WhatsAppAgentNotification
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetWhatsAppAgentNotificationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetWhatsAppAgentNotificationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetWhatsAppAgentNotificationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -95169,119 +104682,6 @@ func (r GetWhatsAppNumberResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetWhatsAppNumberResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type ListWhatsAppAgentNotificationsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *WhatsAppAgentNotificationList
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r ListWhatsAppAgentNotificationsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListWhatsAppAgentNotificationsResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListWhatsAppAgentNotificationsResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type CreateWhatsAppAgentNotificationResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON202      *WhatsAppAgentNotification
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON409      *Conflict
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-	JSON503      *ServiceUnavailable
-}
-
-// Status returns HTTPResponse.Status
-func (r CreateWhatsAppAgentNotificationResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r CreateWhatsAppAgentNotificationResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r CreateWhatsAppAgentNotificationResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
-}
-
-type GetWhatsAppAgentNotificationResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *WhatsAppAgentNotification
-	JSON400      *BadRequest
-	JSON401      *Unauthorized
-	JSON403      *Forbidden
-	JSON404      *NotFound
-	JSON422      *Unprocessable
-	JSON429      *RateLimited
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r GetWhatsAppAgentNotificationResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetWhatsAppAgentNotificationResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetWhatsAppAgentNotificationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -98176,6 +107576,404 @@ func (c *ClientWithResponses) ReplyEmailThreadMessageWithResponse(ctx context.Co
 	return ParseReplyEmailThreadMessageResponse(rsp)
 }
 
+// ListEsimOffersWithResponse request returning *ListEsimOffersResponse
+func (c *ClientWithResponses) ListEsimOffersWithResponse(ctx context.Context, params *ListEsimOffersParams, reqEditors ...RequestEditorFn) (*ListEsimOffersResponse, error) {
+	rsp, err := c.ListEsimOffers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimOffersResponse(rsp)
+}
+
+// GetEsimOfferWithResponse request returning *GetEsimOfferResponse
+func (c *ClientWithResponses) GetEsimOfferWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferParams, reqEditors ...RequestEditorFn) (*GetEsimOfferResponse, error) {
+	rsp, err := c.GetEsimOffer(ctx, offerId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimOfferResponse(rsp)
+}
+
+// GetEsimOfferCheckoutOptionsWithResponse request returning *GetEsimOfferCheckoutOptionsResponse
+func (c *ClientWithResponses) GetEsimOfferCheckoutOptionsWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferCheckoutOptionsParams, reqEditors ...RequestEditorFn) (*GetEsimOfferCheckoutOptionsResponse, error) {
+	rsp, err := c.GetEsimOfferCheckoutOptions(ctx, offerId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimOfferCheckoutOptionsResponse(rsp)
+}
+
+// GetEsimOfferRecurrenceWithResponse request returning *GetEsimOfferRecurrenceResponse
+func (c *ClientWithResponses) GetEsimOfferRecurrenceWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRecurrenceParams, reqEditors ...RequestEditorFn) (*GetEsimOfferRecurrenceResponse, error) {
+	rsp, err := c.GetEsimOfferRecurrence(ctx, offerId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimOfferRecurrenceResponse(rsp)
+}
+
+// GetEsimOfferRequirementsWithResponse request returning *GetEsimOfferRequirementsResponse
+func (c *ClientWithResponses) GetEsimOfferRequirementsWithResponse(ctx context.Context, offerId EsimOfferID, params *GetEsimOfferRequirementsParams, reqEditors ...RequestEditorFn) (*GetEsimOfferRequirementsResponse, error) {
+	rsp, err := c.GetEsimOfferRequirements(ctx, offerId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimOfferRequirementsResponse(rsp)
+}
+
+// ListEsimOrdersWithResponse request returning *ListEsimOrdersResponse
+func (c *ClientWithResponses) ListEsimOrdersWithResponse(ctx context.Context, params *ListEsimOrdersParams, reqEditors ...RequestEditorFn) (*ListEsimOrdersResponse, error) {
+	rsp, err := c.ListEsimOrders(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimOrdersResponse(rsp)
+}
+
+// CreateEsimOrderWithBodyWithResponse request with arbitrary body returning *CreateEsimOrderResponse
+func (c *ClientWithResponses) CreateEsimOrderWithBodyWithResponse(ctx context.Context, params *CreateEsimOrderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimOrderResponse, error) {
+	rsp, err := c.CreateEsimOrderWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimOrderResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEsimOrderWithResponse(ctx context.Context, params *CreateEsimOrderParams, body CreateEsimOrderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimOrderResponse, error) {
+	rsp, err := c.CreateEsimOrder(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimOrderResponse(rsp)
+}
+
+// GetEsimOrderWithResponse request returning *GetEsimOrderResponse
+func (c *ClientWithResponses) GetEsimOrderWithResponse(ctx context.Context, orderId EsimOrderID, params *GetEsimOrderParams, reqEditors ...RequestEditorFn) (*GetEsimOrderResponse, error) {
+	rsp, err := c.GetEsimOrder(ctx, orderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimOrderResponse(rsp)
+}
+
+// CancelEsimOrderWithResponse request returning *CancelEsimOrderResponse
+func (c *ClientWithResponses) CancelEsimOrderWithResponse(ctx context.Context, orderId EsimOrderID, params *CancelEsimOrderParams, reqEditors ...RequestEditorFn) (*CancelEsimOrderResponse, error) {
+	rsp, err := c.CancelEsimOrder(ctx, orderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelEsimOrderResponse(rsp)
+}
+
+// GetEsimSettingsWithResponse request returning *GetEsimSettingsResponse
+func (c *ClientWithResponses) GetEsimSettingsWithResponse(ctx context.Context, params *GetEsimSettingsParams, reqEditors ...RequestEditorFn) (*GetEsimSettingsResponse, error) {
+	rsp, err := c.GetEsimSettings(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimSettingsResponse(rsp)
+}
+
+// UpdateEsimSettingsWithBodyWithResponse request with arbitrary body returning *UpdateEsimSettingsResponse
+func (c *ClientWithResponses) UpdateEsimSettingsWithBodyWithResponse(ctx context.Context, params *UpdateEsimSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEsimSettingsResponse, error) {
+	rsp, err := c.UpdateEsimSettingsWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEsimSettingsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEsimSettingsWithResponse(ctx context.Context, params *UpdateEsimSettingsParams, body UpdateEsimSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEsimSettingsResponse, error) {
+	rsp, err := c.UpdateEsimSettings(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEsimSettingsResponse(rsp)
+}
+
+// ListEsimsWithResponse request returning *ListEsimsResponse
+func (c *ClientWithResponses) ListEsimsWithResponse(ctx context.Context, params *ListEsimsParams, reqEditors ...RequestEditorFn) (*ListEsimsResponse, error) {
+	rsp, err := c.ListEsims(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimsResponse(rsp)
+}
+
+// ReleaseEsimWithResponse request returning *ReleaseEsimResponse
+func (c *ClientWithResponses) ReleaseEsimWithResponse(ctx context.Context, esimId EsimID, params *ReleaseEsimParams, reqEditors ...RequestEditorFn) (*ReleaseEsimResponse, error) {
+	rsp, err := c.ReleaseEsim(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReleaseEsimResponse(rsp)
+}
+
+// GetEsimWithResponse request returning *GetEsimResponse
+func (c *ClientWithResponses) GetEsimWithResponse(ctx context.Context, esimId EsimID, params *GetEsimParams, reqEditors ...RequestEditorFn) (*GetEsimResponse, error) {
+	rsp, err := c.GetEsim(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimResponse(rsp)
+}
+
+// UpdateEsimWithBodyWithResponse request with arbitrary body returning *UpdateEsimResponse
+func (c *ClientWithResponses) UpdateEsimWithBodyWithResponse(ctx context.Context, esimId EsimID, params *UpdateEsimParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateEsimResponse, error) {
+	rsp, err := c.UpdateEsimWithBody(ctx, esimId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEsimResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateEsimWithResponse(ctx context.Context, esimId EsimID, params *UpdateEsimParams, body UpdateEsimJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateEsimResponse, error) {
+	rsp, err := c.UpdateEsim(ctx, esimId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateEsimResponse(rsp)
+}
+
+// GetEsimAssignmentWithResponse request returning *GetEsimAssignmentResponse
+func (c *ClientWithResponses) GetEsimAssignmentWithResponse(ctx context.Context, esimId EsimID, params *GetEsimAssignmentParams, reqEditors ...RequestEditorFn) (*GetEsimAssignmentResponse, error) {
+	rsp, err := c.GetEsimAssignment(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimAssignmentResponse(rsp)
+}
+
+// CreateEsimAssignmentWithBodyWithResponse request with arbitrary body returning *CreateEsimAssignmentResponse
+func (c *ClientWithResponses) CreateEsimAssignmentWithBodyWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimAssignmentResponse, error) {
+	rsp, err := c.CreateEsimAssignmentWithBody(ctx, esimId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimAssignmentResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEsimAssignmentWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimAssignmentParams, body CreateEsimAssignmentJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimAssignmentResponse, error) {
+	rsp, err := c.CreateEsimAssignment(ctx, esimId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimAssignmentResponse(rsp)
+}
+
+// ListEsimCompatibleOffersWithResponse request returning *ListEsimCompatibleOffersResponse
+func (c *ClientWithResponses) ListEsimCompatibleOffersWithResponse(ctx context.Context, esimId EsimID, params *ListEsimCompatibleOffersParams, reqEditors ...RequestEditorFn) (*ListEsimCompatibleOffersResponse, error) {
+	rsp, err := c.ListEsimCompatibleOffers(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimCompatibleOffersResponse(rsp)
+}
+
+// GetEsimCredentialsWithResponse request returning *GetEsimCredentialsResponse
+func (c *ClientWithResponses) GetEsimCredentialsWithResponse(ctx context.Context, esimId EsimID, params *GetEsimCredentialsParams, reqEditors ...RequestEditorFn) (*GetEsimCredentialsResponse, error) {
+	rsp, err := c.GetEsimCredentials(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimCredentialsResponse(rsp)
+}
+
+// DeliverEsimCredentialsWithBodyWithResponse request with arbitrary body returning *DeliverEsimCredentialsResponse
+func (c *ClientWithResponses) DeliverEsimCredentialsWithBodyWithResponse(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeliverEsimCredentialsResponse, error) {
+	rsp, err := c.DeliverEsimCredentialsWithBody(ctx, esimId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeliverEsimCredentialsResponse(rsp)
+}
+
+func (c *ClientWithResponses) DeliverEsimCredentialsWithResponse(ctx context.Context, esimId EsimID, params *DeliverEsimCredentialsParams, body DeliverEsimCredentialsJSONRequestBody, reqEditors ...RequestEditorFn) (*DeliverEsimCredentialsResponse, error) {
+	rsp, err := c.DeliverEsimCredentials(ctx, esimId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeliverEsimCredentialsResponse(rsp)
+}
+
+// ListEsimDeliveriesWithResponse request returning *ListEsimDeliveriesResponse
+func (c *ClientWithResponses) ListEsimDeliveriesWithResponse(ctx context.Context, esimId EsimID, params *ListEsimDeliveriesParams, reqEditors ...RequestEditorFn) (*ListEsimDeliveriesResponse, error) {
+	rsp, err := c.ListEsimDeliveries(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimDeliveriesResponse(rsp)
+}
+
+// CreateEsimInstallLinkWithResponse request returning *CreateEsimInstallLinkResponse
+func (c *ClientWithResponses) CreateEsimInstallLinkWithResponse(ctx context.Context, esimId EsimID, params *CreateEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*CreateEsimInstallLinkResponse, error) {
+	rsp, err := c.CreateEsimInstallLink(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimInstallLinkResponse(rsp)
+}
+
+// DeleteEsimInstallLinkWithResponse request returning *DeleteEsimInstallLinkResponse
+func (c *ClientWithResponses) DeleteEsimInstallLinkWithResponse(ctx context.Context, esimId EsimID, installLinkId EsimInstallLinkID, params *DeleteEsimInstallLinkParams, reqEditors ...RequestEditorFn) (*DeleteEsimInstallLinkResponse, error) {
+	rsp, err := c.DeleteEsimInstallLink(ctx, esimId, installLinkId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEsimInstallLinkResponse(rsp)
+}
+
+// ListEsimPackagesWithResponse request returning *ListEsimPackagesResponse
+func (c *ClientWithResponses) ListEsimPackagesWithResponse(ctx context.Context, esimId EsimID, params *ListEsimPackagesParams, reqEditors ...RequestEditorFn) (*ListEsimPackagesResponse, error) {
+	rsp, err := c.ListEsimPackages(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimPackagesResponse(rsp)
+}
+
+// DeleteEsimPackageWithResponse request returning *DeleteEsimPackageResponse
+func (c *ClientWithResponses) DeleteEsimPackageWithResponse(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *DeleteEsimPackageParams, reqEditors ...RequestEditorFn) (*DeleteEsimPackageResponse, error) {
+	rsp, err := c.DeleteEsimPackage(ctx, esimId, packageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteEsimPackageResponse(rsp)
+}
+
+// GetEsimPackageWithResponse request returning *GetEsimPackageResponse
+func (c *ClientWithResponses) GetEsimPackageWithResponse(ctx context.Context, esimId EsimID, packageId EsimPackageID, params *GetEsimPackageParams, reqEditors ...RequestEditorFn) (*GetEsimPackageResponse, error) {
+	rsp, err := c.GetEsimPackage(ctx, esimId, packageId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimPackageResponse(rsp)
+}
+
+// ResumeEsimWithResponse request returning *ResumeEsimResponse
+func (c *ClientWithResponses) ResumeEsimWithResponse(ctx context.Context, esimId EsimID, params *ResumeEsimParams, reqEditors ...RequestEditorFn) (*ResumeEsimResponse, error) {
+	rsp, err := c.ResumeEsim(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseResumeEsimResponse(rsp)
+}
+
+// SuspendEsimWithResponse request returning *SuspendEsimResponse
+func (c *ClientWithResponses) SuspendEsimWithResponse(ctx context.Context, esimId EsimID, params *SuspendEsimParams, reqEditors ...RequestEditorFn) (*SuspendEsimResponse, error) {
+	rsp, err := c.SuspendEsim(ctx, esimId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSuspendEsimResponse(rsp)
+}
+
+// ListEsimSubscribersWithResponse request returning *ListEsimSubscribersResponse
+func (c *ClientWithResponses) ListEsimSubscribersWithResponse(ctx context.Context, params *ListEsimSubscribersParams, reqEditors ...RequestEditorFn) (*ListEsimSubscribersResponse, error) {
+	rsp, err := c.ListEsimSubscribers(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimSubscribersResponse(rsp)
+}
+
+// CreateEsimSubscriberWithBodyWithResponse request with arbitrary body returning *CreateEsimSubscriberResponse
+func (c *ClientWithResponses) CreateEsimSubscriberWithBodyWithResponse(ctx context.Context, params *CreateEsimSubscriberParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimSubscriberResponse, error) {
+	rsp, err := c.CreateEsimSubscriberWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimSubscriberResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEsimSubscriberWithResponse(ctx context.Context, params *CreateEsimSubscriberParams, body CreateEsimSubscriberJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimSubscriberResponse, error) {
+	rsp, err := c.CreateEsimSubscriber(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimSubscriberResponse(rsp)
+}
+
+// GetEsimSubscriberWithResponse request returning *GetEsimSubscriberResponse
+func (c *ClientWithResponses) GetEsimSubscriberWithResponse(ctx context.Context, subscriberId EsimSubscriberID, params *GetEsimSubscriberParams, reqEditors ...RequestEditorFn) (*GetEsimSubscriberResponse, error) {
+	rsp, err := c.GetEsimSubscriber(ctx, subscriberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimSubscriberResponse(rsp)
+}
+
+// ListEsimRecurringSubscriptionsWithResponse request returning *ListEsimRecurringSubscriptionsResponse
+func (c *ClientWithResponses) ListEsimRecurringSubscriptionsWithResponse(ctx context.Context, params *ListEsimRecurringSubscriptionsParams, reqEditors ...RequestEditorFn) (*ListEsimRecurringSubscriptionsResponse, error) {
+	rsp, err := c.ListEsimRecurringSubscriptions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimRecurringSubscriptionsResponse(rsp)
+}
+
+// CreateEsimRecurringSubscriptionWithBodyWithResponse request with arbitrary body returning *CreateEsimRecurringSubscriptionResponse
+func (c *ClientWithResponses) CreateEsimRecurringSubscriptionWithBodyWithResponse(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEsimRecurringSubscriptionResponse, error) {
+	rsp, err := c.CreateEsimRecurringSubscriptionWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimRecurringSubscriptionResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEsimRecurringSubscriptionWithResponse(ctx context.Context, params *CreateEsimRecurringSubscriptionParams, body CreateEsimRecurringSubscriptionJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEsimRecurringSubscriptionResponse, error) {
+	rsp, err := c.CreateEsimRecurringSubscription(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEsimRecurringSubscriptionResponse(rsp)
+}
+
+// GetEsimRecurringSubscriptionWithResponse request returning *GetEsimRecurringSubscriptionResponse
+func (c *ClientWithResponses) GetEsimRecurringSubscriptionWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *GetEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*GetEsimRecurringSubscriptionResponse, error) {
+	rsp, err := c.GetEsimRecurringSubscription(ctx, subscriptionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimRecurringSubscriptionResponse(rsp)
+}
+
+// CancelEsimRecurringSubscriptionWithResponse request returning *CancelEsimRecurringSubscriptionResponse
+func (c *ClientWithResponses) CancelEsimRecurringSubscriptionWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *CancelEsimRecurringSubscriptionParams, reqEditors ...RequestEditorFn) (*CancelEsimRecurringSubscriptionResponse, error) {
+	rsp, err := c.CancelEsimRecurringSubscription(ctx, subscriptionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCancelEsimRecurringSubscriptionResponse(rsp)
+}
+
+// ListEsimRecurringPeriodsWithResponse request returning *ListEsimRecurringPeriodsResponse
+func (c *ClientWithResponses) ListEsimRecurringPeriodsWithResponse(ctx context.Context, subscriptionId EsimRecurringSubscriptionID, params *ListEsimRecurringPeriodsParams, reqEditors ...RequestEditorFn) (*ListEsimRecurringPeriodsResponse, error) {
+	rsp, err := c.ListEsimRecurringPeriods(ctx, subscriptionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimRecurringPeriodsResponse(rsp)
+}
+
+// ListEsimZonesWithResponse request returning *ListEsimZonesResponse
+func (c *ClientWithResponses) ListEsimZonesWithResponse(ctx context.Context, params *ListEsimZonesParams, reqEditors ...RequestEditorFn) (*ListEsimZonesResponse, error) {
+	rsp, err := c.ListEsimZones(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListEsimZonesResponse(rsp)
+}
+
+// GetEsimZoneWithResponse request returning *GetEsimZoneResponse
+func (c *ClientWithResponses) GetEsimZoneWithResponse(ctx context.Context, zoneId EsimZoneID, params *GetEsimZoneParams, reqEditors ...RequestEditorFn) (*GetEsimZoneResponse, error) {
+	rsp, err := c.GetEsimZone(ctx, zoneId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEsimZoneResponse(rsp)
+}
+
 // CreateEmailLookupWithBodyWithResponse request with arbitrary body returning *CreateEmailLookupResponse
 func (c *ClientWithResponses) CreateEmailLookupWithBodyWithResponse(ctx context.Context, params *CreateEmailLookupParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailLookupResponse, error) {
 	rsp, err := c.CreateEmailLookupWithBody(ctx, params, contentType, body, reqEditors...)
@@ -98289,13 +108087,13 @@ func (c *ClientWithResponses) GetNumbersOrderWithResponse(ctx context.Context, o
 	return ParseGetNumbersOrderResponse(rsp)
 }
 
-// ReleaseWorkspaceNumberWithResponse request returning *ReleaseWorkspaceNumberResponse
-func (c *ClientWithResponses) ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error) {
-	rsp, err := c.ReleaseWorkspaceNumber(ctx, numberId, params, reqEditors...)
+// CancelWorkspaceNumberWithResponse request returning *CancelWorkspaceNumberResponse
+func (c *ClientWithResponses) CancelWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *CancelWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*CancelWorkspaceNumberResponse, error) {
+	rsp, err := c.CancelWorkspaceNumber(ctx, numberId, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseReleaseWorkspaceNumberResponse(rsp)
+	return ParseCancelWorkspaceNumberResponse(rsp)
 }
 
 // GetWorkspaceNumberWithResponse request returning *GetWorkspaceNumberResponse
@@ -98322,6 +108120,15 @@ func (c *ClientWithResponses) UpdateWorkspaceNumberWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParseUpdateWorkspaceNumberResponse(rsp)
+}
+
+// ReleaseWorkspaceNumberWithResponse request returning *ReleaseWorkspaceNumberResponse
+func (c *ClientWithResponses) ReleaseWorkspaceNumberWithResponse(ctx context.Context, numberId AllocatedNumberID, params *ReleaseWorkspaceNumberParams, reqEditors ...RequestEditorFn) (*ReleaseWorkspaceNumberResponse, error) {
+	rsp, err := c.ReleaseWorkspaceNumber(ctx, numberId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseReleaseWorkspaceNumberResponse(rsp)
 }
 
 // ListPreferencesWithResponse request returning *ListPreferencesResponse
@@ -98975,6 +108782,32 @@ func (c *ClientWithResponses) CreateVoiceSessionCredentialWithResponse(ctx conte
 	return ParseCreateVoiceSessionCredentialResponse(rsp)
 }
 
+// GetVoiceSettingsWithResponse request returning *GetVoiceSettingsResponse
+func (c *ClientWithResponses) GetVoiceSettingsWithResponse(ctx context.Context, params *GetVoiceSettingsParams, reqEditors ...RequestEditorFn) (*GetVoiceSettingsResponse, error) {
+	rsp, err := c.GetVoiceSettings(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetVoiceSettingsResponse(rsp)
+}
+
+// UpdateVoiceSettingsWithBodyWithResponse request with arbitrary body returning *UpdateVoiceSettingsResponse
+func (c *ClientWithResponses) UpdateVoiceSettingsWithBodyWithResponse(ctx context.Context, params *UpdateVoiceSettingsParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVoiceSettingsResponse, error) {
+	rsp, err := c.UpdateVoiceSettingsWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceSettingsResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateVoiceSettingsWithResponse(ctx context.Context, params *UpdateVoiceSettingsParams, body UpdateVoiceSettingsJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVoiceSettingsResponse, error) {
+	rsp, err := c.UpdateVoiceSettings(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateVoiceSettingsResponse(rsp)
+}
+
 // ListVoiceTrunksWithResponse request returning *ListVoiceTrunksResponse
 func (c *ClientWithResponses) ListVoiceTrunksWithResponse(ctx context.Context, params *ListVoiceTrunksParams, reqEditors ...RequestEditorFn) (*ListVoiceTrunksResponse, error) {
 	rsp, err := c.ListVoiceTrunks(ctx, params, reqEditors...)
@@ -99286,6 +109119,41 @@ func (c *ClientWithResponses) TestWebhookWithResponse(ctx context.Context, webho
 		return nil, err
 	}
 	return ParseTestWebhookResponse(rsp)
+}
+
+// ListWhatsAppAgentNotificationsWithResponse request returning *ListWhatsAppAgentNotificationsResponse
+func (c *ClientWithResponses) ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error) {
+	rsp, err := c.ListWhatsAppAgentNotifications(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWhatsAppAgentNotificationsResponse(rsp)
+}
+
+// CreateWhatsAppAgentNotificationWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppAgentNotificationResponse
+func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.CreateWhatsAppAgentNotificationWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.CreateWhatsAppAgentNotification(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
+}
+
+// GetWhatsAppAgentNotificationWithResponse request returning *GetWhatsAppAgentNotificationResponse
+func (c *ClientWithResponses) GetWhatsAppAgentNotificationWithResponse(ctx context.Context, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error) {
+	rsp, err := c.GetWhatsAppAgentNotification(ctx, notificationId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetWhatsAppAgentNotificationResponse(rsp)
 }
 
 // ListWhatsAppBusinessAccountsWithResponse request returning *ListWhatsAppBusinessAccountsResponse
@@ -99636,41 +109504,6 @@ func (c *ClientWithResponses) GetWhatsAppNumberWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseGetWhatsAppNumberResponse(rsp)
-}
-
-// ListWhatsAppAgentNotificationsWithResponse request returning *ListWhatsAppAgentNotificationsResponse
-func (c *ClientWithResponses) ListWhatsAppAgentNotificationsWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *ListWhatsAppAgentNotificationsParams, reqEditors ...RequestEditorFn) (*ListWhatsAppAgentNotificationsResponse, error) {
-	rsp, err := c.ListWhatsAppAgentNotifications(ctx, numberId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListWhatsAppAgentNotificationsResponse(rsp)
-}
-
-// CreateWhatsAppAgentNotificationWithBodyWithResponse request with arbitrary body returning *CreateWhatsAppAgentNotificationResponse
-func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithBodyWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
-	rsp, err := c.CreateWhatsAppAgentNotificationWithBody(ctx, numberId, params, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
-}
-
-func (c *ClientWithResponses) CreateWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, params *CreateWhatsAppAgentNotificationParams, body CreateWhatsAppAgentNotificationJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateWhatsAppAgentNotificationResponse, error) {
-	rsp, err := c.CreateWhatsAppAgentNotification(ctx, numberId, params, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseCreateWhatsAppAgentNotificationResponse(rsp)
-}
-
-// GetWhatsAppAgentNotificationWithResponse request returning *GetWhatsAppAgentNotificationResponse
-func (c *ClientWithResponses) GetWhatsAppAgentNotificationWithResponse(ctx context.Context, numberId WhatsAppNumberID, notificationId WhatsAppAgentNotificationID, params *GetWhatsAppAgentNotificationParams, reqEditors ...RequestEditorFn) (*GetWhatsAppAgentNotificationResponse, error) {
-	rsp, err := c.GetWhatsAppAgentNotification(ctx, numberId, notificationId, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetWhatsAppAgentNotificationResponse(rsp)
 }
 
 // ListWhatsAppNumberEventsWithResponse request returning *ListWhatsAppNumberEventsResponse
@@ -114171,6 +124004,3164 @@ func ParseReplyEmailThreadMessageResponse(rsp *http.Response) (*ReplyEmailThread
 	return response, nil
 }
 
+// ParseListEsimOffersResponse parses an HTTP response from a ListEsimOffersWithResponse call
+func ParseListEsimOffersResponse(rsp *http.Response) (*ListEsimOffersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimOffersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOfferList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimOfferResponse parses an HTTP response from a GetEsimOfferWithResponse call
+func ParseGetEsimOfferResponse(rsp *http.Response) (*GetEsimOfferResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimOfferResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOffer
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimOfferCheckoutOptionsResponse parses an HTTP response from a GetEsimOfferCheckoutOptionsWithResponse call
+func ParseGetEsimOfferCheckoutOptionsResponse(rsp *http.Response) (*GetEsimOfferCheckoutOptionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimOfferCheckoutOptionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimCheckoutOptions
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimOfferRecurrenceResponse parses an HTTP response from a GetEsimOfferRecurrenceWithResponse call
+func ParseGetEsimOfferRecurrenceResponse(rsp *http.Response) (*GetEsimOfferRecurrenceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimOfferRecurrenceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringOffer
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimOfferRequirementsResponse parses an HTTP response from a GetEsimOfferRequirementsWithResponse call
+func ParseGetEsimOfferRequirementsResponse(rsp *http.Response) (*GetEsimOfferRequirementsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimOfferRequirementsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOfferRequirements
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimOrdersResponse parses an HTTP response from a ListEsimOrdersWithResponse call
+func ParseListEsimOrdersResponse(rsp *http.Response) (*ListEsimOrdersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimOrdersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOrderList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEsimOrderResponse parses an HTTP response from a CreateEsimOrderWithResponse call
+func ParseCreateEsimOrderResponse(rsp *http.Response) (*CreateEsimOrderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEsimOrderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EsimOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EsimOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimOrderResponse parses an HTTP response from a GetEsimOrderWithResponse call
+func ParseGetEsimOrderResponse(rsp *http.Response) (*GetEsimOrderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimOrderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelEsimOrderResponse parses an HTTP response from a CancelEsimOrderWithResponse call
+func ParseCancelEsimOrderResponse(rsp *http.Response) (*CancelEsimOrderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelEsimOrderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimOrder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimSettingsResponse parses an HTTP response from a GetEsimSettingsWithResponse call
+func ParseGetEsimSettingsResponse(rsp *http.Response) (*GetEsimSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEsimSettingsResponse parses an HTTP response from a UpdateEsimSettingsWithResponse call
+func ParseUpdateEsimSettingsResponse(rsp *http.Response) (*UpdateEsimSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEsimSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimsResponse parses an HTTP response from a ListEsimsWithResponse call
+func ParseListEsimsResponse(rsp *http.Response) (*ListEsimsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReleaseEsimResponse parses an HTTP response from a ReleaseEsimWithResponse call
+func ParseReleaseEsimResponse(rsp *http.Response) (*ReleaseEsimResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReleaseEsimResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest Esim
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimResponse parses an HTTP response from a GetEsimWithResponse call
+func ParseGetEsimResponse(rsp *http.Response) (*GetEsimResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Esim
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateEsimResponse parses an HTTP response from a UpdateEsimWithResponse call
+func ParseUpdateEsimResponse(rsp *http.Response) (*UpdateEsimResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateEsimResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Esim
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimAssignmentResponse parses an HTTP response from a GetEsimAssignmentWithResponse call
+func ParseGetEsimAssignmentResponse(rsp *http.Response) (*GetEsimAssignmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimAssignmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimAssignment
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEsimAssignmentResponse parses an HTTP response from a CreateEsimAssignmentWithResponse call
+func ParseCreateEsimAssignmentResponse(rsp *http.Response) (*CreateEsimAssignmentResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEsimAssignmentResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimAssignment
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimCompatibleOffersResponse parses an HTTP response from a ListEsimCompatibleOffersWithResponse call
+func ParseListEsimCompatibleOffersResponse(rsp *http.Response) (*ListEsimCompatibleOffersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimCompatibleOffersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimCompatibleOfferList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimCredentialsResponse parses an HTTP response from a GetEsimCredentialsWithResponse call
+func ParseGetEsimCredentialsResponse(rsp *http.Response) (*GetEsimCredentialsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimCredentialsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimCredentials
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeliverEsimCredentialsResponse parses an HTTP response from a DeliverEsimCredentialsWithResponse call
+func ParseDeliverEsimCredentialsResponse(rsp *http.Response) (*DeliverEsimCredentialsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeliverEsimCredentialsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EsimCredentialsDelivery
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimDeliveriesResponse parses an HTTP response from a ListEsimDeliveriesWithResponse call
+func ParseListEsimDeliveriesResponse(rsp *http.Response) (*ListEsimDeliveriesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimDeliveriesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimDeliveryList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEsimInstallLinkResponse parses an HTTP response from a CreateEsimInstallLinkWithResponse call
+func ParseCreateEsimInstallLinkResponse(rsp *http.Response) (*CreateEsimInstallLinkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEsimInstallLinkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EsimInstallLink
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEsimInstallLinkResponse parses an HTTP response from a DeleteEsimInstallLinkWithResponse call
+func ParseDeleteEsimInstallLinkResponse(rsp *http.Response) (*DeleteEsimInstallLinkResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEsimInstallLinkResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimPackagesResponse parses an HTTP response from a ListEsimPackagesWithResponse call
+func ParseListEsimPackagesResponse(rsp *http.Response) (*ListEsimPackagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimPackagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimPackageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteEsimPackageResponse parses an HTTP response from a DeleteEsimPackageWithResponse call
+func ParseDeleteEsimPackageResponse(rsp *http.Response) (*DeleteEsimPackageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteEsimPackageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EsimPackage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimPackageResponse parses an HTTP response from a GetEsimPackageWithResponse call
+func ParseGetEsimPackageResponse(rsp *http.Response) (*GetEsimPackageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimPackageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimPackage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseResumeEsimResponse parses an HTTP response from a ResumeEsimWithResponse call
+func ParseResumeEsimResponse(rsp *http.Response) (*ResumeEsimResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ResumeEsimResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest Esim
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSuspendEsimResponse parses an HTTP response from a SuspendEsimWithResponse call
+func ParseSuspendEsimResponse(rsp *http.Response) (*SuspendEsimResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SuspendEsimResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest Esim
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimSubscribersResponse parses an HTTP response from a ListEsimSubscribersWithResponse call
+func ParseListEsimSubscribersResponse(rsp *http.Response) (*ListEsimSubscribersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimSubscribersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimSubscriberList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEsimSubscriberResponse parses an HTTP response from a CreateEsimSubscriberWithResponse call
+func ParseCreateEsimSubscriberResponse(rsp *http.Response) (*CreateEsimSubscriberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEsimSubscriberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimSubscriber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimSubscriberResponse parses an HTTP response from a GetEsimSubscriberWithResponse call
+func ParseGetEsimSubscriberResponse(rsp *http.Response) (*GetEsimSubscriberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimSubscriberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimSubscriber
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimRecurringSubscriptionsResponse parses an HTTP response from a ListEsimRecurringSubscriptionsWithResponse call
+func ParseListEsimRecurringSubscriptionsResponse(rsp *http.Response) (*ListEsimRecurringSubscriptionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimRecurringSubscriptionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringSubscriptionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEsimRecurringSubscriptionResponse parses an HTTP response from a CreateEsimRecurringSubscriptionWithResponse call
+func ParseCreateEsimRecurringSubscriptionResponse(rsp *http.Response) (*CreateEsimRecurringSubscriptionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEsimRecurringSubscriptionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringSubscription
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimRecurringSubscriptionResponse parses an HTTP response from a GetEsimRecurringSubscriptionWithResponse call
+func ParseGetEsimRecurringSubscriptionResponse(rsp *http.Response) (*GetEsimRecurringSubscriptionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimRecurringSubscriptionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringSubscription
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCancelEsimRecurringSubscriptionResponse parses an HTTP response from a CancelEsimRecurringSubscriptionWithResponse call
+func ParseCancelEsimRecurringSubscriptionResponse(rsp *http.Response) (*CancelEsimRecurringSubscriptionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CancelEsimRecurringSubscriptionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringSubscription
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimRecurringPeriodsResponse parses an HTTP response from a ListEsimRecurringPeriodsWithResponse call
+func ParseListEsimRecurringPeriodsResponse(rsp *http.Response) (*ListEsimRecurringPeriodsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimRecurringPeriodsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimRecurringPeriodList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListEsimZonesResponse parses an HTTP response from a ListEsimZonesWithResponse call
+func ParseListEsimZonesResponse(rsp *http.Response) (*ListEsimZonesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListEsimZonesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimZoneList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEsimZoneResponse parses an HTTP response from a GetEsimZoneWithResponse call
+func ParseGetEsimZoneResponse(rsp *http.Response) (*GetEsimZoneResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEsimZoneResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EsimZone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseCreateEmailLookupResponse parses an HTTP response from a CreateEmailLookupWithResponse call
 func ParseCreateEmailLookupResponse(rsp *http.Response) (*CreateEmailLookupResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -114937,20 +127928,34 @@ func ParseGetNumbersOrderResponse(rsp *http.Response) (*GetNumbersOrderResponse,
 	return response, nil
 }
 
-// ParseReleaseWorkspaceNumberResponse parses an HTTP response from a ReleaseWorkspaceNumberWithResponse call
-func ParseReleaseWorkspaceNumberResponse(rsp *http.Response) (*ReleaseWorkspaceNumberResponse, error) {
+// ParseCancelWorkspaceNumberResponse parses an HTTP response from a CancelWorkspaceNumberWithResponse call
+func ParseCancelWorkspaceNumberResponse(rsp *http.Response) (*CancelWorkspaceNumberResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &ReleaseWorkspaceNumberResponse{
+	response := &CancelWorkspaceNumberResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
 
 	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Number
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest Number
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
 		var dest BadRequest
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -115115,6 +128120,88 @@ func ParseUpdateWorkspaceNumberResponse(rsp *http.Response) (*UpdateWorkspaceNum
 		}
 		response.JSON200 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseReleaseWorkspaceNumberResponse parses an HTTP response from a ReleaseWorkspaceNumberWithResponse call
+func ParseReleaseWorkspaceNumberResponse(rsp *http.Response) (*ReleaseWorkspaceNumberResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ReleaseWorkspaceNumberResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
 		var dest BadRequest
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -119930,6 +133017,177 @@ func ParseCreateVoiceSessionCredentialResponse(rsp *http.Response) (*CreateVoice
 	return response, nil
 }
 
+// ParseGetVoiceSettingsResponse parses an HTTP response from a GetVoiceSettingsWithResponse call
+func ParseGetVoiceSettingsResponse(rsp *http.Response) (*GetVoiceSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetVoiceSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateVoiceSettingsResponse parses an HTTP response from a UpdateVoiceSettingsWithResponse call
+func ParseUpdateVoiceSettingsResponse(rsp *http.Response) (*UpdateVoiceSettingsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateVoiceSettingsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VoiceSettings
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListVoiceTrunksResponse parses an HTTP response from a ListVoiceTrunksWithResponse call
 func ParseListVoiceTrunksResponse(rsp *http.Response) (*ListVoiceTrunksResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -122002,6 +135260,245 @@ func ParseTestWebhookResponse(rsp *http.Response) (*TestWebhookResponse, error) 
 			return nil, err
 		}
 		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWhatsAppAgentNotificationsResponse parses an HTTP response from a ListWhatsAppAgentNotificationsWithResponse call
+func ParseListWhatsAppAgentNotificationsResponse(rsp *http.Response) (*ListWhatsAppAgentNotificationsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWhatsAppAgentNotificationsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppAgentNotificationList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateWhatsAppAgentNotificationResponse parses an HTTP response from a CreateWhatsAppAgentNotificationWithResponse call
+func ParseCreateWhatsAppAgentNotificationResponse(rsp *http.Response) (*CreateWhatsAppAgentNotificationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateWhatsAppAgentNotificationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest WhatsAppAgentNotification
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetWhatsAppAgentNotificationResponse parses an HTTP response from a GetWhatsAppAgentNotificationWithResponse call
+func ParseGetWhatsAppAgentNotificationResponse(rsp *http.Response) (*GetWhatsAppAgentNotificationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetWhatsAppAgentNotificationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WhatsAppAgentNotification
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
 
 	}
 
@@ -124451,245 +137948,6 @@ func ParseGetWhatsAppNumberResponse(rsp *http.Response) (*GetWhatsAppNumberRespo
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest WhatsAppNumber
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseListWhatsAppAgentNotificationsResponse parses an HTTP response from a ListWhatsAppAgentNotificationsWithResponse call
-func ParseListWhatsAppAgentNotificationsResponse(rsp *http.Response) (*ListWhatsAppAgentNotificationsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListWhatsAppAgentNotificationsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest WhatsAppAgentNotificationList
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseCreateWhatsAppAgentNotificationResponse parses an HTTP response from a CreateWhatsAppAgentNotificationWithResponse call
-func ParseCreateWhatsAppAgentNotificationResponse(rsp *http.Response) (*CreateWhatsAppAgentNotificationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &CreateWhatsAppAgentNotificationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
-		var dest WhatsAppAgentNotification
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON202 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequest
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
-		var dest Unauthorized
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON401 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
-		var dest Forbidden
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON403 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFound
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest Conflict
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest Unprocessable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
-		var dest RateLimited
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON429 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
-		var dest ServiceUnavailable
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON503 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetWhatsAppAgentNotificationResponse parses an HTTP response from a GetWhatsAppAgentNotificationWithResponse call
-func ParseGetWhatsAppAgentNotificationResponse(rsp *http.Response) (*GetWhatsAppAgentNotificationResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetWhatsAppAgentNotificationResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest WhatsAppAgentNotification
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

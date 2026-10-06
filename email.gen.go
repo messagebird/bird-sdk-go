@@ -21,6 +21,8 @@ type EmailListParams struct {
 	CreatedAfter time.Time
 	// Limits the response to resources created before this timestamp. Combine it with `created_after` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedBefore time.Time
+	// Filter messages by broadcast ID.
+	BroadcastID string
 	// Filter by aggregate delivery status.
 	Status EmailMessageStatus
 	// Filter by tag. Accepts `name` to match any record carrying that tag name, or `name:value` to match a specific tag pair (for example `category:welcome`). Repeat the parameter to add more tags. A record must match every tag listed to be returned.
@@ -39,6 +41,7 @@ func (p EmailListParams) toWire(startingAfter string) *oapi.ListEmailMessagesPar
 		EndingBefore:  optStr(p.EndingBefore),
 		CreatedAfter:  optTime(p.CreatedAfter),
 		CreatedBefore: optTime(p.CreatedBefore),
+		BroadcastId:   optZero(p.BroadcastID),
 		Status:        optZero(p.Status),
 		Tag:           optSlice(p.Tag),
 		Category:      optZero(p.Category),

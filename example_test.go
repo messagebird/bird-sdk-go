@@ -2654,6 +2654,21 @@ func ExampleNumbersService_Release() {
 	}
 }
 
+// Cancel releases a dedicated number at the end of its billing period.
+func ExampleNumbersService_Cancel() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	// A billed number stays yours until its paid period ends, then is released;
+	// releases_at says when. One with no subscription is released now.
+	allocated, err := client.Numbers.Cancel(context.Background(), "nda_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(allocated.ReleasesAt)
+}
+
 // List looks up the messaging preferences recorded for one handle on one
 // channel.
 func ExamplePreferencesService_List() {
@@ -5095,7 +5110,8 @@ func ExampleWhatsappAgentsNotificationsService_Create() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	notification, err := client.Whatsapp.Agents.Notifications.Create(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappAgentsNotificationsCreateParams{
+	notification, err := client.Whatsapp.Agents.Notifications.Create(context.Background(), bird.WhatsappAgentsNotificationsCreateParams{
+		From:        "+13124495648",
 		To:          "+14155551234",
 		Name:        "order_shipped",
 		Description: "Order 88213 left the warehouse and arrives on Thursday.",
@@ -5112,7 +5128,8 @@ func ExampleWhatsappAgentsNotificationsService_List() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for notification, err := range client.Whatsapp.Agents.Notifications.List(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", bird.WhatsappAgentsNotificationsListParams{
+	for notification, err := range client.Whatsapp.Agents.Notifications.List(context.Background(), bird.WhatsappAgentsNotificationsListParams{
+		From:   "+13124495648",
 		Status: bird.WhatsAppAgentNotificationStatusSkipped,
 	}) {
 		if err != nil {
@@ -5129,7 +5146,7 @@ func ExampleWhatsappAgentsNotificationsService_Get() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	notification, err := client.Whatsapp.Agents.Notifications.Get(context.Background(), "wan_01krdgeqcxet5s7t44vh8rt9mg", "waan_01krdgeqcxet5s7t44vh8rt9m7")
+	notification, err := client.Whatsapp.Agents.Notifications.Get(context.Background(), "waan_01krdgeqcxet5s7t44vh8rt9m7")
 	if err != nil {
 		log.Fatal(err)
 	}

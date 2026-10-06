@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.93.0
+
+- Add methods to browse eSIM zones and offers, create and cancel orders, create installation links, and update, suspend, resume, or release eSIMs.
+- Add `display_label` to broadcast reads, with template labels available under `email_management` read access. Broadcast list `q` also matches the executed subject with `email_management` read access and treats percent signs, underscores, and backslashes as literals.
+- Add `broadcast_id` filtering to the email message list.
+- Add the `recurring_only` filter to eSIM compatible-offer listing to return only plans with recurring service configured.
+- Add `numbers.cancel`, which stops a dedicated number renewing and releases it when its paid period ends, and `releases_at` on a number.
+- **Breaking:** `numbers.release` in earlier versions now cancels the number at the end of its paid period instead of releasing it at once; upgrade to keep `numbers.release` immediate.
+- Add `voice.settings.get` and `voice.settings.update` for the workspace default inbound route, which every voice number without a route of its own follows. A voice number's `inbound_configuration.route` is now null when it follows that default, and setting it to null returns the number to the default.
+- **Breaking:** `whatsapp.agents.notifications.create`, `list` and `get` no longer take the WhatsApp number's `wan_` id; pass the business number as `from` in E.164 on `create`, and filter `list` by `from` to read one number's notifications. A notification's `to` is now a plain string rather than an address object, and the new `from` is a string too.
+- Clarify eSIM order outcomes, installation, balances, and renewal behavior in API documentation and command help.
+
 ## 0.92.1
 
 - The `status_reason` field on Apple Messages business accounts and submissions is now documented as possibly containing basic Markdown.

@@ -23,7 +23,7 @@ type BroadcastsListParams struct {
 	AudienceID string
 	// Filter by tag. Pass `name` to match any broadcast that has that tag name, or pass `name:value` to match a specific tag pair, for example `campaign:spring_launch`.
 	Tag string
-	// Case-insensitive substring match against the broadcast's tag names and values, or the referenced template's name.
+	// Case-insensitive literal substring match against the broadcast's tags or the referenced template's name. With `email_management` read access, also matches the subject in the effective language of the template version resolved when this broadcast's execution starts. Draft and scheduled broadcasts have no execution subject to search. Percent signs, underscores, and backslashes are literal characters.
 	Q string
 	// Limits the response to resources created at or after this timestamp. Combine it with `created_before` to select a time window. Use an RFC 3339 timestamp with a timezone offset.
 	CreatedAfter time.Time

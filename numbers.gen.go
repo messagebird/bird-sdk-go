@@ -129,7 +129,7 @@ func (s *NumbersService) Update(ctx context.Context, numberId string, params Num
 	return &out, nil
 }
 
-// Release Gives a dedicated number back and stops its monthly charge. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released.
+// Release Gives a dedicated number back now and stops its monthly charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
 func (s *NumbersService) Release(ctx context.Context, numberId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ReleaseWorkspaceNumberParams{}
@@ -139,4 +139,23 @@ func (s *NumbersService) Release(ctx context.Context, numberId string, opts ...o
 		return s.client.oapi.ReleaseWorkspaceNumber(ctx, oapi.AllocatedNumberID(numberId), op, cfg...)
 	})
 	return err
+}
+
+// Cancel Stops a dedicated number renewing and keeps it allocated until the end of the period already paid for, when it is released. Cannot be undone; read `releases_at` for when it goes. Asking again returns the same schedule. A number with no subscription behind it is released now. Refused while a renewal payment is overdue. To give the number up now, use `numbers.release` instead.
+func (s *NumbersService) Cancel(ctx context.Context, numberId string, opts ...option.RequestOption) (*Number, error) {
+	out, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
+		op := &oapi.CancelWorkspaceNumberParams{}
+		if idempotencyKey != "" {
+			op.IdempotencyKey = &idempotencyKey
+		}
+		return s.client.oapi.CancelWorkspaceNumber(ctx, oapi.AllocatedNumberID(numberId), op, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var decoded Number
+	if err := decodeBody(out, &decoded); err != nil {
+		return nil, err
+	}
+	return &decoded, nil
 }
