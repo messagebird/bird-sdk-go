@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.96.0
+
+- Add `awaiting_funds` to eSIM orders so an insufficient wallet balance remains visible when the required amount is unavailable.
+- A contact create, update, or batch request with a bad contact property value now lists the property in the error's `details` as `data.<key>`, with a short reason. A failed batch entry's `error` gains the same `param` and `details`.
+
 ## 0.95.1
 
 - Contact create, update, and batch requests accept an archived contact property in `data`. The value must match the property's type. Archived properties disappear from pickers, and a new template version that uses one cannot be published. Published templates keep sending. Unarchive the property to restore it with its values.

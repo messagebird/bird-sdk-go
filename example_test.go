@@ -3229,6 +3229,72 @@ func ExampleEmailTemplatesService_List() {
 	}
 }
 
+func ExampleEmailTemplatesService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	template, err := client.Email.Templates.Create(context.Background(), bird.EmailTemplatesCreateParams{
+		Slug:     "welcome-email",
+		Category: "transactional",
+		Source:   "html",
+		Languages: map[string]bird.EmailTemplateLanguageContent{
+			"en": {
+				Subject:     bird.String("Welcome, {{ first_name }}"),
+				PreviewText: bird.String("Your account is ready"),
+				Html:        bird.String("<!DOCTYPE html>\n<html>\n<body>\n<p>Hi {{ first_name }}, thanks for signing up.</p>\n</body>\n</html>\n"),
+			},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(template.Id, *template.DraftVersionId)
+}
+
+func ExampleEmailTemplatesVersionsLanguagesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	language, err := client.Email.Templates.Versions.Languages.Get(context.Background(),
+		"TEMPLATE_ID", "DRAFT_VERSION_ID", "en")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if language.Content != nil && language.Content.Html != nil {
+		fmt.Println(*language.Content.Html)
+	}
+}
+
+func ExampleEmailTemplatesVersionsService_Submit() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	templateID := "TEMPLATE_ID"
+	draftVersionID := "DRAFT_VERSION_ID"
+	check, err := client.Email.Templates.Versions.Submit(ctx, templateID, draftVersionID,
+		bird.EmailTemplatesVersionsSubmitParams{ValidateOnly: bird.Bool(true)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if check.Errors != nil {
+		for _, problem := range *check.Errors {
+			fmt.Println(*problem.Message)
+		}
+	}
+	if check.Valid != nil && *check.Valid {
+		result, err := client.Email.Templates.Versions.Submit(ctx, templateID, draftVersionID,
+			bird.EmailTemplatesVersionsSubmitParams{})
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(*result.Version.VersionNumber)
+	}
+}
+
 // List the WhatsApp numbers this workspace can send from.
 func ExampleWhatsappNumbersService_List() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))

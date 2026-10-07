@@ -12058,8 +12058,14 @@ type ContactUpsertError struct {
 	// Code Specific error code for this entry, from the same catalog as the top-level error `code`. `E04058` means the entry matched two contacts and requires review. `E04055` means the phone number belongs to another contact and you must retry with different data. Both are `conflict_error` errors; the code distinguishes them.
 	Code string `json:"code"`
 
+	// Details Per-field problems with this entry, in the same shape as the top-level error `details`. A contact property failure names the property as `data.<key>`, such as `data.plan`. Omitted when the failure has no per-field problems.
+	Details *[]ErrorDetail `json:"details,omitempty"`
+
 	// Message Human-readable explanation of why this entry failed.
 	Message string `json:"message"`
+
+	// Param The field in this entry that caused the failure, such as `data` or `email`. Omitted when the failure names no field.
+	Param *string `json:"param,omitempty"`
 
 	// Type Machine-readable error category for this entry, such as `validation_error` or `conflict_error`, in the same vocabulary as the top-level error `type`. New categories may be added over time, so treat unrecognized values as a generic failure.
 	Type string `json:"type"`
@@ -17814,6 +17820,13 @@ type EmailTemplateCreate struct {
 	// of them.
 	//
 	// Omit this to create an empty draft and add content later.
+	//
+	// The example's `{{ first_name }}` is a parameter, filled from
+	// `template.parameters` at send time. A `{{ bird.contact.<attribute> }}`
+	// placeholder reads a contact record instead. A send to an email address
+	// has no contact record, so it refuses such a template. A broadcast fills
+	// it from each recipient's contact, and a preview from the `contact` or
+	// `parameters` you supply.
 	Languages *map[string]EmailTemplateLanguageContent `json:"languages,omitempty"`
 
 	// Name The template's display name, shown wherever the template is listed. You can change it any time. It defaults to the slug if you do not set one.
@@ -19387,6 +19400,9 @@ type EsimOfferValidityUnit string
 
 // EsimOrder defines model for EsimOrder.
 type EsimOrder struct {
+	// AwaitingFunds Whether this order is in `charging` after an insufficient wallet balance refusal. The required balance is in `funding` when available. False does not confirm payment; check `status` and `wallet_transaction_id`. When absent, `funding` indicates a refusal if present; otherwise the funding state is unknown.
+	AwaitingFunds *bool `json:"awaiting_funds,omitempty"`
+
 	// CompletedAt When the order reached completed. Null before that.
 	CompletedAt *time.Time `json:"completed_at,omitempty"`
 	CreatedAt   *time.Time `json:"created_at,omitempty"`
@@ -19410,7 +19426,7 @@ type EsimOrder struct {
 	// FailureReason Why the order failed, in plain terms. Null unless status is failed.
 	FailureReason *string `json:"failure_reason,omitempty"`
 
-	// Funding Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check the order status and your wallet balance.
+	// Funding Details of an insufficient-funds attempt while the order is in `charging`. May be null even while the order is awaiting funds; a null value does not confirm payment. Check `awaiting_funds` to identify an outstanding insufficient-balance refusal.
 	Funding *EsimOrderFunding `json:"funding,omitempty"`
 	Id      *EsimOrderID      `json:"id,omitempty"`
 	Mode    *EsimMode         `json:"mode,omitempty"`
@@ -23513,7 +23529,7 @@ type RealtimeApp struct {
 	// ClientEvents Allow clients to trigger events directly (client events).
 	ClientEvents bool `json:"client_events"`
 
-	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	// ConnectionCountEvents Broadcast connection-count events to public and private channel subscribers. Requires `connection_counting`. Presence channels do not emit these events; use a channel query to read their connection count.
 	ConnectionCountEvents bool `json:"connection_count_events"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
@@ -23546,7 +23562,7 @@ type RealtimeAppConfig struct {
 	// ClientEvents Allow clients to trigger events directly (client events).
 	ClientEvents *bool `json:"client_events,omitempty"`
 
-	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	// ConnectionCountEvents Broadcast connection-count events to public and private channel subscribers. Requires `connection_counting`. Presence channels do not emit these events; use a channel query to read their connection count.
 	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
@@ -23564,7 +23580,7 @@ type RealtimeAppCreate struct {
 	// ClientEvents Allow clients to trigger events directly (client events).
 	ClientEvents *bool `json:"client_events,omitempty"`
 
-	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	// ConnectionCountEvents Broadcast connection-count events to public and private channel subscribers. Requires `connection_counting`. Presence channels do not emit these events; use a channel query to read their connection count.
 	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
@@ -23591,7 +23607,7 @@ type RealtimeAppCreated struct {
 	// ClientEvents Allow clients to trigger events directly (client events).
 	ClientEvents bool `json:"client_events"`
 
-	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	// ConnectionCountEvents Broadcast connection-count events to public and private channel subscribers. Requires `connection_counting`. Presence channels do not emit these events; use a channel query to read their connection count.
 	ConnectionCountEvents bool `json:"connection_count_events"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
@@ -23674,7 +23690,7 @@ type RealtimeAppUpdate struct {
 	// ClientEvents Allow clients to trigger events directly (client events).
 	ClientEvents *bool `json:"client_events,omitempty"`
 
-	// ConnectionCountEvents Broadcast a connection-count event to a channel's subscribers whenever its connection count changes. Requires `connection_counting`.
+	// ConnectionCountEvents Broadcast connection-count events to public and private channel subscribers. Requires `connection_counting`. Presence channels do not emit these events; use a channel query to read their connection count.
 	ConnectionCountEvents *bool `json:"connection_count_events,omitempty"`
 
 	// ConnectionCounting Count the connections subscribed to each channel and expose the count on channel queries.
@@ -23693,7 +23709,7 @@ type RealtimeBatchEvent struct {
 	Channel RealtimeChannelName `json:"channel"`
 
 	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
-	Data *RealtimeEventData `json:"data,omitempty"`
+	Data RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
 	Event RealtimeEventName `json:"event"`
@@ -23800,7 +23816,7 @@ type RealtimeMemberID = string
 // RealtimeMemberPublish An event addressed to one member rather than to a channel. Every connection that member currently holds receives it; if they hold none, the event is dropped.
 type RealtimeMemberPublish struct {
 	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
-	Data *RealtimeEventData `json:"data,omitempty"`
+	Data RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
 	Event RealtimeEventName `json:"event"`
@@ -23812,7 +23828,7 @@ type RealtimePublish struct {
 	Channels []RealtimeChannelName `json:"channels"`
 
 	// Data Arbitrary JSON payload delivered as the event data: an object, array, or scalar. Cap: 10 KB serialized.
-	Data *RealtimeEventData `json:"data,omitempty"`
+	Data RealtimeEventData `json:"data,omitempty"`
 
 	// Event The event name clients bind to. Application event names are free-form; the `bird:` and `bird_internal:` prefixes are reserved for the protocol and rejected.
 	Event RealtimeEventName `json:"event"`

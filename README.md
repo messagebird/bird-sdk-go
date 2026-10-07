@@ -23,7 +23,7 @@ Requires Go 1.24+.
 - **`client.Contacts`** — `Create`, `Get`, `Update`, `Delete`, `Batch`, `List` (auto-paginating). `client.Audiences` groups them (`Create`, `Get`, `Update`, `Delete`, `List`, plus `ListContacts`, `AddContacts`, `RemoveContacts`, `RemoveContact`), and `client.ContactProperties` defines the fields a contact carries (`Create`, `Get`, `Update`, `List`, `Archive`, `Unarchive`).
 - **`client.Domains`** — `Create`, `Get`, `Update`, `Delete`, `List`, and `Verify` (check a sending domain's DNS).
 - **`client.Webhooks`** — `Unwrap` (verify a signed event into a typed value).
-- **Typed errors.** A failure is a `*bird.APIError` (or a richer `*bird.RateLimitError` / `*bird.ValidationError`) you branch on with `errors.As`. Transient failures (timeouts, 429, 5xx) are retried automatically with a reused idempotency key.
+- **Typed errors.** A failure is a `*bird.APIError` (or a richer `*bird.RateLimitError` / `*bird.ValidationError`) you branch on with `errors.As`. An error from the Bird API carries a readable `Message`, a stable `Code` such as `E01001`, and a `DocURL` to that code's page, which says what went wrong and what to do. Every code is listed at [bird.com/docs/api/errors](https://bird.com/docs/api/errors). When a response has no code or docs link, such as one from a proxy, `Code` and `DocURL` are empty. Transient failures (timeouts, 429, 5xx) are retried automatically with a reused idempotency key.
 - **Options** configure the client and override per call (`option.WithEmailDefaults`, `WithTimeout`, `WithIdempotencyKey`, …).
 - **`client.Get/Post/Put/Patch/Delete`** reach endpoints outside the curated surface.
 
