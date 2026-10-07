@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.93.1
+
+- Marshaling a `Number` now writes `released_at` as `null` while the number is still allocated, matching what the API returns.
+
 ## 0.93.0
 
 - Add methods to browse eSIM zones and offers, create and cancel orders, create installation links, and update, suspend, resume, or release eSIMs.

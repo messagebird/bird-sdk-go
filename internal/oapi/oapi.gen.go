@@ -22633,7 +22633,7 @@ type Number struct {
 	Capabilities []NumberCapability `json:"capabilities"`
 	CountryCode  CountryCode        `json:"country_code"`
 
-	// Id Identifier of this allocated number. Pass it as `number_id` to read this number, or to release it when kind is dedicated.
+	// Id Identifier of this allocated number. Pass it as `number_id` to read this number, or to cancel or release it when kind is dedicated.
 	Id AllocatedNumberID `json:"id"`
 
 	// Kind How this number is allocated. `dedicated` belongs to your workspace and is billed as a subscription. `shared` is provided through Bird-managed shared infrastructure and is not owned or billed as a workspace subscription.
@@ -22655,7 +22655,7 @@ type Number struct {
 	Reference *string `json:"reference"`
 
 	// ReleasedAt When this number was released. `null` while it is still allocated to your workspace.
-	ReleasedAt *time.Time `json:"released_at,omitempty"`
+	ReleasedAt *time.Time `json:"released_at"`
 
 	// ReleasesAt When a scheduled release of this number takes effect, at the end of its current billing period. The number stays allocated, with its current `status`, until then. `null` when no release is scheduled.
 	ReleasesAt *time.Time `json:"releases_at"`
