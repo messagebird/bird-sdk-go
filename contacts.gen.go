@@ -64,7 +64,7 @@ type ContactCreateParams struct {
 	LastName *string
 	// Your own identifier for this contact, such as a user ID in your system. Unique within the workspace when set.
 	ExternalID *string
-	// Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
+	// Custom property values for this contact. Each key must be a registered contact property, including an archived one. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. An unregistered key returns a validation error. The serialized data is limited to 2 KB.
 	Data map[string]any
 }
 
@@ -96,7 +96,7 @@ type ContactUpdateParams struct {
 	LastName Nullable[string]
 	// Your own identifier for this contact. Unique within the workspace when set. Set to `null` to clear.
 	ExternalID Nullable[string]
-	// Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
+	// Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be a registered contact property, including an archived one. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered key returns a validation error. The serialized result is limited to 2 KB.
 	Data map[string]any
 }
 

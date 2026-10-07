@@ -1070,8 +1070,9 @@ func ExampleContactPropertiesService_Update() {
 	fmt.Println(property.Id)
 }
 
-// Archive archives a contact property: the key stops being accepted in new
-// contact writes, but every value already stored on contacts is preserved.
+// Archive removes a property from pickers, and a new template version that
+// uses it cannot be published. Contacts keep their values, and published
+// templates keep sending.
 func ExampleContactPropertiesService_Archive() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
@@ -1084,7 +1085,7 @@ func ExampleContactPropertiesService_Archive() {
 	fmt.Println(property.Archived)
 }
 
-// Unarchive reactivates an archived contact property.
+// Unarchive restores an archived contact property with its stored values.
 func ExampleContactPropertiesService_Unarchive() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

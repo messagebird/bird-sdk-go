@@ -11887,7 +11887,7 @@ type Contact struct {
 
 // ContactBatchEntry A contact to create or update. Field values are validated individually during processing, so an invalid contact returns a failed result while valid contacts are saved. The request must still contain an object with the declared field types. Omitted fields keep their stored values on an existing contact.
 type ContactBatchEntry struct {
-	// Data Custom contact property values. Keys must be registered and active; values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
+	// Data Custom contact property values. Keys must be registered contact properties, including archived ones. Values must match their declared type. Strings can contain up to 500 characters and the serialized map is limited to 2 KB. Invalid values fail this contact. Null values remove keys when updating and are ignored when creating.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email Email address, up to 254 characters. Trimmed and lowercased before matching. Invalid addresses fail this contact.
@@ -11908,7 +11908,7 @@ type ContactBatchEntry struct {
 
 // ContactCreateRequest defines model for ContactCreateRequest.
 type ContactCreateRequest struct {
-	// Data Custom property values for this contact. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. Unregistered or archived keys return a validation error. The serialized data is limited to 2 KB.
+	// Data Custom property values for this contact. Each key must be a registered contact property, including an archived one. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters, and a `null` value is ignored. An unregistered key returns a validation error. The serialized data is limited to 2 KB.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email The contact's email address. Trimmed and lowercased before it is stored and checked for uniqueness. Unique within the workspace. Supply an email address, a phone number, or both.
@@ -11959,7 +11959,7 @@ type ContactMatchedOn string
 
 // ContactProperty defines model for ContactProperty.
 type ContactProperty struct {
-	// Archived Whether the property is archived. Archived keys are rejected in new contact writes and when publishing a new template version. Stored contact values are preserved, and previously published versions keep rendering them. Unarchive the property to use its key in new writes and template versions.
+	// Archived Whether the property is archived. Archived properties disappear from pickers and cannot be used in new template versions. Published templates keep sending. Stored values remain available to read and update. Unarchive the property to restore it.
 	Archived  *bool      `json:"archived,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
@@ -12022,7 +12022,7 @@ type ContactPropertyUpdateRequest struct {
 
 // ContactUpdateRequest defines model for ContactUpdateRequest.
 type ContactUpdateRequest struct {
-	// Data Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be an active contact property. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered or archived key returns a validation error. The serialized result is limited to 2 KB.
+	// Data Custom property values to merge into the contact's existing data. Supplied keys are set, keys with a `null` value are removed, and omitted keys remain unchanged. Each key must be a registered contact property, including an archived one. Each value must match the property's declared type: string, number, boolean, or RFC 3339 datetime. Strings can contain up to `500` characters. An unregistered key returns a validation error. The serialized result is limited to 2 KB.
 	Data *map[string]interface{} `json:"data,omitempty"`
 
 	// Email New email address for the contact. Trimmed and lowercased before it is stored and checked for uniqueness. Must not be in use by another contact in the workspace. Omit to keep the current address; set to `null` to remove it, as long as the contact keeps at least one identifier.

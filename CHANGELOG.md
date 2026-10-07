@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.95.0
+
+- Add `daily_spend_limit` to the voice settings: read today's limit, what has been used toward it and when it resets, and set or clear the workspace's own limit through `daily_spend_limit.workspace_limit`.
+
 ## 0.94.0
 
 - Add Inbox Insights seed configuration, registration and history with existing `inbox_insights` permissions and organization preview access. Registration consumes shared allowance and returns addresses for a separately authorized send; uncertain outcomes require support before starting another test.
