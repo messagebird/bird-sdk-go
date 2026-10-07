@@ -275,6 +275,28 @@ const (
 	EmailInboxInsightsGmailTabUpdates    = oapi.EmailInboxInsightsGmailTabUpdates
 )
 
+// EmailInboxInsightsSeedEngagementProfile is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsSeedEngagementProfile* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsSeedEngagementProfile = oapi.EmailInboxInsightsSeedEngagementProfile
+
+const (
+	EmailInboxInsightsSeedEngagementProfileAll         = oapi.EmailInboxInsightsSeedEngagementProfileAll
+	EmailInboxInsightsSeedEngagementProfileEngaging    = oapi.EmailInboxInsightsSeedEngagementProfileEngaging
+	EmailInboxInsightsSeedEngagementProfileNonEngaging = oapi.EmailInboxInsightsSeedEngagementProfileNonEngaging
+)
+
+// EmailInboxInsightsSeedListType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailInboxInsightsSeedListType* constants with a
+// default branch rather than treating the set as closed.
+type EmailInboxInsightsSeedListType = oapi.EmailInboxInsightsSeedListType
+
+const (
+	EmailInboxInsightsSeedListTypeExclusive = oapi.EmailInboxInsightsSeedListTypeExclusive
+	EmailInboxInsightsSeedListTypePrivate   = oapi.EmailInboxInsightsSeedListTypePrivate
+	EmailInboxInsightsSeedListTypePublic    = oapi.EmailInboxInsightsSeedListTypePublic
+)
+
 // EmailInboxInsightsTrapSource is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailInboxInsightsTrapSource* constants with a
 // default branch rather than treating the set as closed.

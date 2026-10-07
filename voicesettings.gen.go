@@ -9,12 +9,15 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type VoiceDailySpendLimitUpdate = oapi.VoiceDailySpendLimitUpdate
+
 type VoiceSettingsInboundConfigurationPut = oapi.VoiceSettingsInboundConfigurationPut
 
 // VoiceSettingsUpdateParams is the request body for update.
 type VoiceSettingsUpdateParams struct {
 	// The route for calls arriving on any of your Bird numbers that has no inbound route of its own; verified caller IDs receive no calls. It takes effect on the next call to each of those numbers. Numbers with their own route keep it.
 	InboundConfiguration *VoiceSettingsInboundConfigurationPut
+	DailySpendLimit      *VoiceDailySpendLimitUpdate
 }
 
 func (p VoiceSettingsUpdateParams) toWire() oapi.VoiceSettingsUpdate {
@@ -22,10 +25,13 @@ func (p VoiceSettingsUpdateParams) toWire() oapi.VoiceSettingsUpdate {
 	if p.InboundConfiguration != nil {
 		body.InboundConfiguration = p.InboundConfiguration
 	}
+	if p.DailySpendLimit != nil {
+		body.DailySpendLimit = p.DailySpendLimit
+	}
 	return body
 }
 
-// Get Read the workspace's voice settings, including the default inbound route that every Bird number without its own route follows. Bird numbers whose `inbound_configuration.route` is null use this route; verified caller IDs receive no calls and never do.
+// Get Read the workspace's voice settings: the default inbound route that every Bird number without its own route follows, and the daily spend limit with today's usage toward it. Bird numbers whose `inbound_configuration.route` is null use this route; verified caller IDs receive no calls and never do.
 func (s *VoiceSettingsService) Get(ctx context.Context, opts ...option.RequestOption) (*VoiceSettings, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetVoiceSettings(ctx, &oapi.GetVoiceSettingsParams{}, cfg...)
@@ -40,7 +46,7 @@ func (s *VoiceSettingsService) Get(ctx context.Context, opts ...option.RequestOp
 	return &out, nil
 }
 
-// Update Change the workspace's default inbound route. Every Bird number whose own route is null follows it from the next call (verified caller IDs receive no calls): `reject` refuses those calls, `trunk` with a trunk_id delivers them to one of your SIP trunks, and `forward` with a forward_to and a forward_as connects them to one of your verified caller IDs. Numbers with a route of their own are unaffected.
+// Update Change the workspace's default inbound route. Every Bird number whose own route is null follows it from the next call (verified caller IDs receive no calls): `reject` refuses those calls, `trunk` with a trunk_id delivers them to one of your SIP trunks, and `forward` with a forward_to and a forward_as connects them to one of your verified caller IDs. Numbers with a route of their own are unaffected. `daily_spend_limit.workspace_limit` sets the workspace's daily spend limit in the wallet currency, anywhere up to its `max_limit`, or null returns it to the default; calls in progress keep running. Read the wallet currency and `max_limit` with the get voice settings operation first.
 func (s *VoiceSettingsService) Update(ctx context.Context, params VoiceSettingsUpdateParams, opts ...option.RequestOption) (*VoiceSettings, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateVoiceSettingsParams{}

@@ -995,6 +995,9 @@ type (
 	EmailInboxInsightsIndustryBenchmark      = oapi.EmailInboxInsightsIndustryBenchmark
 	EmailInboxInsightsPlacement              = oapi.EmailInboxInsightsPlacement
 	EmailInboxInsightsSpamTraps              = oapi.EmailInboxInsightsSpamTraps
+	EmailInboxInsightsSeedTestConfiguration  = oapi.EmailInboxInsightsSeedTestConfiguration
+	EmailInboxInsightsSeedTestRegistration   = oapi.EmailInboxInsightsSeedTestRegistration
+	EmailInboxInsightsSeedTests              = oapi.EmailInboxInsightsSeedTests
 )
 
 type CompetitiveWatchlistBrandID = oapi.CompetitiveWatchlistBrandID

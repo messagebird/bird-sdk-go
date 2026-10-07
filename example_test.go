@@ -5187,3 +5187,109 @@ func ExampleWebhooksService_Create_connector() {
 	}
 	fmt.Println(endpoint.Id)
 }
+
+func ExampleEmailInboxInsightsSeedTestsConfigurationService_Get() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.SeedTests.Configuration.Get(ctx, bird.EmailInboxInsightsSeedTestsConfigurationGetParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(report)
+}
+
+func ExampleEmailInboxInsightsSeedTestsService_List() {
+	// Requires Insights preview access for the organization.
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	report, err := client.Email.InboxInsights.SeedTests.List(ctx, bird.EmailInboxInsightsSeedTestsListParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(report)
+}
+
+func ExampleEmailInboxInsightsSeedTestsService_Create() {
+	// Requires Insights preview access for the organization.
+	idempotencyKey := os.Getenv("IDEMPOTENCY_KEY")
+	if idempotencyKey == "" {
+		log.Fatal("Set IDEMPOTENCY_KEY to a unique key for this registration and retain it for retries")
+	}
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	sendingDomain := ""
+	for domain, err := range client.Email.InboxInsights.Domains.List(ctx, bird.EmailInboxInsightsDomainsListParams{Search: "mail.example.com"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if domain.Domain != nil && *domain.Domain == "mail.example.com" {
+			sendingDomain = *domain.Domain
+			break
+		}
+	}
+	if sendingDomain == "" {
+		log.Fatal("Verify mail.example.com in this workspace first")
+	}
+	configuration, err := client.Email.InboxInsights.SeedTests.Configuration.Get(ctx, bird.EmailInboxInsightsSeedTestsConfigurationGetParams{SendingDomain: sendingDomain})
+	if err != nil {
+		log.Fatal(err)
+	}
+	var pool, profile string
+	for _, choice := range *configuration.ListTypes {
+		if choice.Available != nil && *choice.Available {
+			pool = string(choice.Value)
+			break
+		}
+	}
+	for _, choice := range *configuration.EngagementProfiles {
+		if choice.Available != nil && *choice.Available {
+			profile = string(choice.Value)
+			break
+		}
+	}
+	if pool == "" || profile == "" || configuration.Regions == nil || len(*configuration.Regions) == 0 {
+		log.Fatal("No seed-test options available")
+	}
+
+	report, err := client.Email.InboxInsights.SeedTests.Create(ctx, bird.EmailInboxInsightsSeedTestsCreateParams{SendingDomain: sendingDomain, ListType: bird.EmailInboxInsightsSeedListType(pool), EngagementProfile: bird.EmailInboxInsightsSeedEngagementProfile(profile), Regions: []string{*(*configuration.Regions)[0].Value}}, option.WithIdempotencyKey(idempotencyKey))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(report)
+}

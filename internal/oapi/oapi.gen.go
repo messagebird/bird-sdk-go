@@ -2313,6 +2313,48 @@ func (e EmailInboxInsightsSectionStatus) Valid() bool {
 	}
 }
 
+// Defines values for EmailInboxInsightsSeedEngagementProfile.
+const (
+	EmailInboxInsightsSeedEngagementProfileAll         EmailInboxInsightsSeedEngagementProfile = "all"
+	EmailInboxInsightsSeedEngagementProfileEngaging    EmailInboxInsightsSeedEngagementProfile = "engaging"
+	EmailInboxInsightsSeedEngagementProfileNonEngaging EmailInboxInsightsSeedEngagementProfile = "non_engaging"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsSeedEngagementProfile enum.
+func (e EmailInboxInsightsSeedEngagementProfile) Valid() bool {
+	switch e {
+	case EmailInboxInsightsSeedEngagementProfileAll:
+		return true
+	case EmailInboxInsightsSeedEngagementProfileEngaging:
+		return true
+	case EmailInboxInsightsSeedEngagementProfileNonEngaging:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailInboxInsightsSeedListType.
+const (
+	EmailInboxInsightsSeedListTypeExclusive EmailInboxInsightsSeedListType = "exclusive"
+	EmailInboxInsightsSeedListTypePrivate   EmailInboxInsightsSeedListType = "private"
+	EmailInboxInsightsSeedListTypePublic    EmailInboxInsightsSeedListType = "public"
+)
+
+// Valid indicates whether the value is a known member of the EmailInboxInsightsSeedListType enum.
+func (e EmailInboxInsightsSeedListType) Valid() bool {
+	switch e {
+	case EmailInboxInsightsSeedListTypeExclusive:
+		return true
+	case EmailInboxInsightsSeedListTypePrivate:
+		return true
+	case EmailInboxInsightsSeedListTypePublic:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailInboxInsightsTrapSource.
 const (
 	EmailInboxInsightsTrapSourceAbusix    EmailInboxInsightsTrapSource = "abusix"
@@ -14857,6 +14899,20 @@ type EmailInboxInsightsFreshness struct {
 	LagHint *string `json:"lag_hint,omitempty"`
 }
 
+// EmailInboxInsightsGmailCategory Which Gmail tab the test's Gmail seeds mostly landed under.
+type EmailInboxInsightsGmailCategory struct {
+	// Category A Gmail tab, as the measurement identifies it. A lowercase identifier rather than a
+	// display name, so pick your own label for it, and treat the set as open: these are
+	// Gmail's own tabs, and the measurement reports whichever one it saw.
+	//
+	// `none` is a value rather than an absence: Gmail delivered the mail under no tab at all,
+	// which is an ordinary outcome and not a gap in the measurement.
+	Category *EmailInboxInsightsGmailTab `json:"category,omitempty"`
+
+	// SharePercent Share of the test's Gmail seeds that landed under this tab, as a percentage.
+	SharePercent *float32 `json:"share_percent,omitempty"`
+}
+
 // EmailInboxInsightsGmailTab A Gmail tab, as the measurement identifies it. A lowercase identifier rather than a
 // display name, so pick your own label for it, and treat the set as open: these are
 // Gmail's own tabs, and the measurement reports whichever one it saw.
@@ -15261,6 +15317,432 @@ type EmailInboxInsightsPlacementSummary struct {
 // A successful response never implies every section is populated; read each
 // section's status rather than assuming figures are present.
 type EmailInboxInsightsSectionStatus string
+
+// EmailInboxInsightsSeedAddress One seed address to include in the tested send.
+type EmailInboxInsightsSeedAddress struct {
+	// Address The address to add to the send's recipients. Include it exactly as given; an altered address is not a seed and will not be measured.
+	Address *string `json:"address,omitempty"`
+
+	// Engaging Whether this address simulates a recipient who engages with mail. There are two behaviours rather than a scale, so a test either mixes both or uses one of them.
+	Engaging *bool `json:"engaging,omitempty"`
+
+	// MailboxProvider A mailbox provider, as the measurement identifies it. A lowercase identifier rather than
+	// a display name, so pick your own label for it, and treat the set as open: this is a long
+	// tail rather than a handful of household names, and some entries are domains
+	// (`fastmail.com`, `seznam.cz`) rather than brands.
+	//
+	// The measurement places mail into its own seed lists, so its buckets are not the ones the
+	// [mailbox-provider stats breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider)
+	// reports: Microsoft's properties appear here as `hotmail` rather than `microsoft`, and
+	// `apple` appears here where the Competitive Insights panel has no measurement for it at
+	// all. None of the three is a joinable dimension against the others.
+	MailboxProvider *EmailInboxInsightsMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// Region The region this address sits in, as the seed-test choices name it.
+	Region *string `json:"region,omitempty"`
+}
+
+// EmailInboxInsightsSeedEngagementProfile Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+type EmailInboxInsightsSeedEngagementProfile string
+
+// EmailInboxInsightsSeedEngagementProfileOption One engagement behaviour a test can simulate, and whether this account can use it.
+type EmailInboxInsightsSeedEngagementProfileOption struct {
+	// Available Whether this behaviour is provisioned for the account. As with the seed pools, an unavailable behaviour is one the account has not been set up for rather than one its plan forbids, so leave it out of the choices you offer rather than showing it unpickable.
+	Available *bool `json:"available,omitempty"`
+
+	// Value Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+	Value EmailInboxInsightsSeedEngagementProfile `json:"value"`
+}
+
+// EmailInboxInsightsSeedEngagementSplit Engaged against dormant placement, per provider. The status is `not_applicable` for a test run with a single-cohort engagement profile, where there is no second group to compare: hide the comparison rather than showing a zero gap.
+type EmailInboxInsightsSeedEngagementSplit struct {
+	// Items One row per provider where both cohorts placed seeds.
+	Items *[]EmailInboxInsightsSeedEngagementSplitRow `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsSeedEngagementSplitRow How one provider treated engaged seeds against dormant ones. A gap means the provider is sorting the same mail differently by how the recipient behaves.
+type EmailInboxInsightsSeedEngagementSplitRow struct {
+	// DormantInboxRatePercent Inbox rate across seeds simulating dormant recipients, as a percentage.
+	DormantInboxRatePercent *float32 `json:"dormant_inbox_rate_percent,omitempty"`
+
+	// DormantSeeds Seeds simulating dormant recipients at this provider.
+	DormantSeeds *int `json:"dormant_seeds,omitempty"`
+
+	// EngagedInboxRatePercent Inbox rate across seeds simulating engaged recipients, as a percentage.
+	EngagedInboxRatePercent *float32 `json:"engaged_inbox_rate_percent,omitempty"`
+
+	// EngagedSeeds Seeds simulating engaged recipients at this provider.
+	EngagedSeeds *int `json:"engaged_seeds,omitempty"`
+
+	// GapPts Engaged inbox rate minus dormant inbox rate, in percentage points. The value can be negative, which means dormant seeds placed better, and is reported as measured rather than floored at zero.
+	GapPts *float32 `json:"gap_pts,omitempty"`
+
+	// MailboxProvider A mailbox provider, as the measurement identifies it. A lowercase identifier rather than
+	// a display name, so pick your own label for it, and treat the set as open: this is a long
+	// tail rather than a handful of household names, and some entries are domains
+	// (`fastmail.com`, `seznam.cz`) rather than brands.
+	//
+	// The measurement places mail into its own seed lists, so its buckets are not the ones the
+	// [mailbox-provider stats breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider)
+	// reports: Microsoft's properties appear here as `hotmail` rather than `microsoft`, and
+	// `apple` appears here where the Competitive Insights panel has no measurement for it at
+	// all. None of the three is a joinable dimension against the others.
+	MailboxProvider *EmailInboxInsightsMailboxProvider `json:"mailbox_provider,omitempty"`
+}
+
+// EmailInboxInsightsSeedListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+type EmailInboxInsightsSeedListType string
+
+// EmailInboxInsightsSeedListTypeOption One seed pool a test can be run against, and whether this account can use it.
+type EmailInboxInsightsSeedListTypeOption struct {
+	// Available Whether this pool is provisioned for the account. An unavailable pool is one the account has not been set up for rather than one its plan forbids, and there is no self-serve way to enable one, so leave it out of the choices you offer rather than showing it unpickable.
+	Available *bool `json:"available,omitempty"`
+
+	// Value Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+	Value EmailInboxInsightsSeedListType `json:"value"`
+}
+
+// EmailInboxInsightsSeedRegionOption One region seeds can be placed in.
+type EmailInboxInsightsSeedRegionOption struct {
+	// Value The value to send when registering a test against this region. Free text rather than an enumeration: the set belongs to the measurement and is wider than the continents it looks like, so send one of these back verbatim rather than composing your own.
+	Value *string `json:"value,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestAuth How the tested send authenticated, measured on the seed mail itself rather than on reporting from receivers.
+type EmailInboxInsightsSeedTestAuth struct {
+	// DkimPassRatePercent Share of the test's seed mail that passed DKIM, as a percentage.
+	DkimPassRatePercent *float32 `json:"dkim_pass_rate_percent,omitempty"`
+
+	// DmarcAlignedRatePercent Share of the test's seed mail that passed DMARC alignment, as a percentage.
+	DmarcAlignedRatePercent *float32 `json:"dmarc_aligned_rate_percent,omitempty"`
+
+	// SpfPassRatePercent Share of the test's seed mail that passed SPF, as a percentage.
+	SpfPassRatePercent *float32 `json:"spf_pass_rate_percent,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsSeedTestConfiguration The choices available when registering a seed test for a domain: which seed
+// pools the account can use, which regions seeds can be placed in, and which
+// engagement behaviours the seeds can simulate.
+//
+// This is reference data rather than a measurement, so it carries no period and
+// no measurement detail. It changes only when an account's provisioning does.
+type EmailInboxInsightsSeedTestConfiguration struct {
+	// Domain The sending domain these choices apply to.
+	Domain *string `json:"domain,omitempty"`
+
+	// EngagementProfiles The engagement behaviours the seeds can simulate, each flagged with whether the account can use it.
+	EngagementProfiles *[]EmailInboxInsightsSeedEngagementProfileOption `json:"engagement_profiles,omitempty"`
+
+	// ListTypes The seed pools, each flagged with whether the account can use it.
+	ListTypes *[]EmailInboxInsightsSeedListTypeOption `json:"list_types,omitempty"`
+
+	// Regions The regions seeds can be placed in. Objects rather than bare strings, to match the two lists beside it: the measurement reports no availability for a region today, and an object can carry one later without a second array.
+	Regions *[]EmailInboxInsightsSeedRegionOption `json:"regions,omitempty"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestCreate How to configure a seed test. The choices available for a domain come from the seed-test configuration.
+type EmailInboxInsightsSeedTestCreate struct {
+	// EngagementProfile Which engagement behaviour the seed addresses simulate. `all` mixes engaged and dormant seeds, which is what makes an engagement split measurable; single-cohort profiles exist too, and the usable set comes from the seed-test options rather than from this list.
+	EngagementProfile EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile"`
+
+	// Label A name attached to this registration. It is not returned in seed-test history.
+	Label *string `json:"label,omitempty"`
+
+	// ListType Which pool of seed addresses a test uses. Which pools an account can use depends on what has been provisioned for it, so read the usable set from the seed-test options rather than assuming these are the only values.
+	ListType EmailInboxInsightsSeedListType `json:"list_type"`
+
+	// Regions The regions to place seeds in, as the seed-test configuration names them.
+	Regions []string `json:"regions"`
+
+	// SendingDomain The sending domain the test measures: one of the workspace's verified sending domains, exactly as it appears there.
+	SendingDomain string `json:"sending_domain"`
+}
+
+// EmailInboxInsightsSeedTestDetail defines model for EmailInboxInsightsSeedTestDetail.
+type EmailInboxInsightsSeedTestDetail struct {
+	// Auth How the tested send authenticated, measured on the seed mail itself rather than on reporting from receivers.
+	Auth EmailInboxInsightsSeedTestAuth `json:"auth"`
+
+	// EngagementProfile The engagement behaviour the seeds simulated, or null on a test that predates the recording of it.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+
+	// EngagementSplit Engaged against dormant placement, per provider. The status is `not_applicable` for a test run with a single-cohort engagement profile, where there is no second group to compare: hide the comparison rather than showing a zero gap.
+	EngagementSplit EmailInboxInsightsSeedEngagementSplit `json:"engagement_split"`
+
+	// InboxRatePercent Share of the test's seed addresses that received the message in the inbox, as a percentage. Null until results arrive.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// ListType The seed pool the test used, or null on a test that predates the recording of it.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// Providers The per-provider grid for one seed test.
+	Providers EmailInboxInsightsSeedTestProviders `json:"providers"`
+
+	// SeedCount How many seed addresses the test used.
+	SeedCount *int `json:"seed_count,omitempty"`
+
+	// Subject Subject line of the tested send, or null before the send goes out. With `tested_at`, this is what distinguishes a test that has run from one still waiting for its send.
+	Subject *string `json:"subject,omitempty"`
+
+	// TestId The test's identifier. It is a string and needs to stay one: the values are long enough that any language storing every number as a floating point value will round them, and a rounded identifier matches no test.
+	TestId *string `json:"test_id,omitempty"`
+
+	// TestedAt When the tested send went out, or null while the test is still awaiting it.
+	TestedAt *time.Time `json:"tested_at,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestList The domain's seed tests over the period, newest first, up to 100 of them. The list is capped rather than paged, so `truncated` says whether older tests in the period were left out.
+type EmailInboxInsightsSeedTestList struct {
+	// Items One row per seed test, newest first.
+	Items *[]EmailInboxInsightsSeedTestRow `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+
+	// Truncated True when the period holds more than the 100 tests returned, so the list is the newest of them rather than all of them. Request an earlier period to reach the tests left out.
+	Truncated *bool `json:"truncated,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestProvider How one mailbox provider treated the test, with the seed counts behind the rates. Seed counts are small by nature, so a single seed moves a rate noticeably.
+type EmailInboxInsightsSeedTestProvider struct {
+	// GmailCategory Which Gmail tab the test's Gmail seeds mostly landed under.
+	GmailCategory *EmailInboxInsightsGmailCategory `json:"gmail_category,omitempty"`
+
+	// InboxRatePercent Share of this provider's seeds that received the message in the inbox, as a percentage.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// InboxSeeds Seed addresses at this provider that received the message in the inbox.
+	InboxSeeds *int `json:"inbox_seeds,omitempty"`
+
+	// MailboxProvider A mailbox provider, as the measurement identifies it. A lowercase identifier rather than
+	// a display name, so pick your own label for it, and treat the set as open: this is a long
+	// tail rather than a handful of household names, and some entries are domains
+	// (`fastmail.com`, `seznam.cz`) rather than brands.
+	//
+	// The measurement places mail into its own seed lists, so its buckets are not the ones the
+	// [mailbox-provider stats breakdown](/docs/api/reference/get-email-stats-by-mailbox-provider)
+	// reports: Microsoft's properties appear here as `hotmail` rather than `microsoft`, and
+	// `apple` appears here where the Competitive Insights panel has no measurement for it at
+	// all. None of the three is a joinable dimension against the others.
+	MailboxProvider *EmailInboxInsightsMailboxProvider `json:"mailbox_provider,omitempty"`
+
+	// SpamRatePercent Share of this provider's seeds that received the message in spam, as a percentage.
+	SpamRatePercent *float32 `json:"spam_rate_percent,omitempty"`
+
+	// SpamSeeds Seed addresses at this provider that received the message in spam.
+	SpamSeeds *int `json:"spam_seeds,omitempty"`
+
+	// TotalSeeds Seed addresses at this provider included in the test.
+	TotalSeeds *int `json:"total_seeds,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestProviders The per-provider grid for one seed test.
+type EmailInboxInsightsSeedTestProviders struct {
+	// Items One row per mailbox provider the test placed seeds at.
+	Items *[]EmailInboxInsightsSeedTestProvider `json:"items,omitempty"`
+
+	// Status Whether a section of the response carries figures, and when it does not, why.
+	//
+	// `ok` means the section is populated. `no_data` means the measurement ran and
+	// observed nothing to report for this domain in the period. `not_configured`
+	// means the section needs a setup step that has not been completed yet, such as
+	// connecting Google Postmaster Tools; treat it as an invitation to finish
+	// setup rather than a fault. `unavailable` means the figures could not be retrieved this time and
+	// the same request may well succeed on a retry; the rest of the response is
+	// unaffected. `not_applicable` means the section is meaningless for this domain
+	// in this period, so there is nothing to show or fix.
+	//
+	// A successful response never implies every section is populated; read each
+	// section's status rather than assuming figures are present.
+	Status EmailInboxInsightsSectionStatus `json:"status"`
+}
+
+// EmailInboxInsightsSeedTestQuota The organization's seed-test allowance for the current billing period. Registering a test spends one of the allowance whether or not its send goes out, and a test that expires unused does not return it. Uncertain registrations can retain allowance.
+type EmailInboxInsightsSeedTestQuota struct {
+	// Limit Seed tests included in the billing period, or null when no cap applies to this organization.
+	Limit *int `json:"limit,omitempty"`
+
+	// ResetsAt When the billing-period allowance next resets.
+	ResetsAt *time.Time `json:"resets_at,omitempty"`
+
+	// Used Allowance used in the current billing period, including retained uncertain registrations. When `limit` is null, usage is not tracked and this field is zero.
+	Used *int `json:"used,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestRegistration A registered seed test and the addresses it measures.
+//
+// Registering a test does not put the addresses into a send. Add them to the
+// recipients of the send you want measured, and the test appears in the
+// seed-test list for the domain once its seed mail has been measured.
+//
+// There is no status field. The measurement reports none for a seed test at any
+// point, so read the test's own fields instead: a registered test has addresses
+// and an expiry date, and it gains a subject and a tested-at date once its send
+// goes out.
+type EmailInboxInsightsSeedTestRegistration struct {
+	// ExpiresAt When the test expires if no seed mail has arrived. An expired test never produces results, and the allowance it spent is not returned, so send before this time.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+
+	// RegistrationId Identifies this registration. It is not the identifier the seed-test list
+	// reports for the resulting test.
+	//
+	// It is here so a registration can be quoted in a support conversation, and
+	// so a client can tell two registrations apart. To read the results, find
+	// the test in the seed-test list for this domain.
+	RegistrationId *string `json:"registration_id,omitempty"`
+
+	// SeedAddresses Every address to include in the tested send. Copy them into the send's recipients; results are measured from mail these addresses receive.
+	SeedAddresses *[]EmailInboxInsightsSeedAddress `json:"seed_addresses,omitempty"`
+
+	// SeedCount How many seed addresses the test issued.
+	SeedCount *int `json:"seed_count,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestRow defines model for EmailInboxInsightsSeedTestRow.
+type EmailInboxInsightsSeedTestRow struct {
+	// DeltaPtsVsPrior How this test's inbox rate compares with the previous test for the same domain, in percentage points. Null when there is no earlier test to compare against.
+	DeltaPtsVsPrior *float32 `json:"delta_pts_vs_prior,omitempty"`
+
+	// Domain The sending domain the test was run for.
+	Domain *string `json:"domain,omitempty"`
+
+	// EngagementProfile The engagement behaviour the seeds simulated, or null on a test that predates the recording of it.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+
+	// InboxRatePercent Share of the test's seed addresses that received the message in the inbox, as a percentage. Null until results arrive.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// ListType The seed pool the test used, or null on a test that predates the recording of it.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// Regions The regions the test placed seeds in, as the seed-test options name them. Null on a test that predates registration, whose regions were never recorded (the same unknown `list_type` and `engagement_profile` carry), and not an empty list, which would claim a test placed seeds in no region at all.
+	Regions *[]string `json:"regions,omitempty"`
+
+	// SeedCount How many seed addresses the test used.
+	SeedCount *int `json:"seed_count,omitempty"`
+
+	// Subject Subject line of the tested send, or null before the send goes out. With `tested_at`, this is what distinguishes a test that has run from one still waiting for its send.
+	Subject *string `json:"subject,omitempty"`
+
+	// TestId The test's identifier. It is a string and needs to stay one: the values are long enough that any language storing every number as a floating point value will round them, and a rounded identifier matches no test.
+	TestId *string `json:"test_id,omitempty"`
+
+	// TestedAt When the tested send went out, or null while the test is still awaiting it.
+	TestedAt *time.Time `json:"tested_at,omitempty"`
+}
+
+// EmailInboxInsightsSeedTestSummary The fields every view of a seed test carries.
+//
+// There is no status field. The measurement reports none for a test it has
+// already run, and nothing else on the surface stands in for one, so a test
+// that is still waiting for its send says so by having no subject and no
+// tested-at date rather than by being labelled.
+type EmailInboxInsightsSeedTestSummary struct {
+	// EngagementProfile The engagement behaviour the seeds simulated, or null on a test that predates the recording of it.
+	EngagementProfile *EmailInboxInsightsSeedEngagementProfile `json:"engagement_profile,omitempty"`
+
+	// InboxRatePercent Share of the test's seed addresses that received the message in the inbox, as a percentage. Null until results arrive.
+	InboxRatePercent *float32 `json:"inbox_rate_percent,omitempty"`
+
+	// ListType The seed pool the test used, or null on a test that predates the recording of it.
+	ListType *EmailInboxInsightsSeedListType `json:"list_type,omitempty"`
+
+	// SeedCount How many seed addresses the test used.
+	SeedCount *int `json:"seed_count,omitempty"`
+
+	// Subject Subject line of the tested send, or null before the send goes out. With `tested_at`, this is what distinguishes a test that has run from one still waiting for its send.
+	Subject *string `json:"subject,omitempty"`
+
+	// TestId The test's identifier. It is a string and needs to stay one: the values are long enough that any language storing every number as a floating point value will round them, and a rounded identifier matches no test.
+	TestId *string `json:"test_id,omitempty"`
+
+	// TestedAt When the tested send went out, or null while the test is still awaiting it.
+	TestedAt *time.Time `json:"tested_at,omitempty"`
+}
+
+// EmailInboxInsightsSeedTests defines model for EmailInboxInsightsSeedTests.
+type EmailInboxInsightsSeedTests struct {
+	// CachedAt Present when the response was served from a short-lived copy rather than fetched for this request: when that copy was fetched.
+	CachedAt *time.Time `json:"cached_at,omitempty"`
+
+	// ComparedTo The prior equal-length period the delta figures compare against. Present only when the request asked for a comparison.
+	ComparedTo *EmailInboxInsightsComparedTo `json:"compared_to,omitempty"`
+
+	// Domain The sending domain the figures describe.
+	Domain *string `json:"domain,omitempty"`
+
+	// Freshness How current the figures are. Freshness differs per resource (authentication data can lag a day or more while blocklist lookups are near real time), so any "as of" label binds from this field, never from a fixed string.
+	Freshness EmailInboxInsightsFreshness `json:"freshness"`
+
+	// GeneratedAt When these figures were computed. The measurement service's own stamp where it publishes one; on the resources Bird derives from daily rates it has none to publish, and this is when Bird computed them.
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+
+	// Latest One seed test with its full results.
+	Latest *EmailInboxInsightsSeedTestDetail `json:"latest,omitempty"`
+
+	// Measurement How the figures in this response were measured, so a number is self-describing in a screenshot or a bug report.
+	Measurement *EmailInboxInsightsMeasurement `json:"measurement,omitempty"`
+
+	// Quota The organization's seed-test allowance for the current billing period. Registering a test spends one of the allowance whether or not its send goes out, and a test that expires unused does not return it. Uncertain registrations can retain allowance.
+	Quota EmailInboxInsightsSeedTestQuota `json:"quota"`
+
+	// Resource Which resource this response is, echoed for self-description.
+	Resource *string `json:"resource,omitempty"`
+
+	// Tests The domain's seed tests over the period, newest first, up to 100 of them. The list is capped rather than paged, so `truncated` says whether older tests in the period were left out.
+	Tests EmailInboxInsightsSeedTestList `json:"tests"`
+
+	// Window The period every figure in the response covers: whole UTC calendar days,
+	// inclusive on both ends. The same window convention the email statistics
+	// endpoints use, so figures from the two sources describe the same days and
+	// can be combined without adjustment.
+	Window EmailInboxInsightsWindow `json:"window"`
+}
 
 // EmailInboxInsightsSpamTrapHit One trap address this domain's mail reached, with enough detail to trace where the address came from. A row can represent several hits on the same trap, so read `hit_count` rather than counting rows.
 type EmailInboxInsightsSpamTrapHit struct {
@@ -25367,6 +25849,39 @@ type VoiceCallSequence struct {
 // both outcomes are reported as `failed` today.
 type VoiceCallStatus string
 
+// VoiceDailySpendLimit defines model for VoiceDailySpendLimit.
+type VoiceDailySpendLimit struct {
+	// CurrencyCode ISO 4217 three-letter currency code.
+	CurrencyCode CurrencyCode `json:"currency_code"`
+
+	// DefaultLimit The daily limit a workspace has until it sets its own. Null when there is no default limit.
+	DefaultLimit *Money `json:"default_limit"`
+
+	// Limit The daily limit calls are admitted against: the workspace limit when one is set, otherwise the default, and never more than `max_limit`. Null when there is no limit.
+	Limit *Money `json:"limit"`
+
+	// MaxLimit The highest daily limit this workspace can set. Null when there is no maximum.
+	MaxLimit *Money `json:"max_limit"`
+
+	// Remaining What is left of the limit today, never below zero. Null when there is no limit or today's usage cannot be read.
+	Remaining *Money `json:"remaining"`
+
+	// ResetsAt When usage resets to zero, at midnight UTC.
+	ResetsAt time.Time `json:"resets_at"`
+
+	// Used Used toward today's limit, including calls in progress. A call counts its expected cost when it starts; the part it did not use returns when it is billed. Null when today's usage cannot be read right now; the limit is still enforced.
+	Used *Money `json:"used"`
+
+	// WorkspaceLimit The daily limit this workspace set for itself. Null when it uses the default.
+	WorkspaceLimit *Money `json:"workspace_limit"`
+}
+
+// VoiceDailySpendLimitUpdate defines model for VoiceDailySpendLimitUpdate.
+type VoiceDailySpendLimitUpdate struct {
+	// WorkspaceLimit The workspace's own daily limit, in the organization's wallet currency from zero up to `max_limit`, with at most six decimal places; a negative or more precise amount is refused with 422. It can be above or below the default. Null removes it, so the default applies.
+	WorkspaceLimit nullable.Nullable[Money] `json:"workspace_limit"`
+}
+
 // VoiceDestination defines model for VoiceDestination.
 type VoiceDestination struct {
 	CountryCode *CountryCode `json:"country_code,omitempty"`
@@ -25945,6 +26460,9 @@ type VoiceSessionID = string
 
 // VoiceSettings The voice settings your workspace controls. Every field carries its effective value, whether or not the workspace has ever changed it.
 type VoiceSettings struct {
+	// DailySpendLimit The workspace's daily Voice spend limit and today's usage toward it. Null until your organization has a wallet, since amounts are in its currency.
+	DailySpendLimit *VoiceDailySpendLimit `json:"daily_spend_limit"`
+
 	// InboundConfiguration What happens to a call arriving for any of your Bird numbers that has no inbound route of its own.
 	InboundConfiguration VoiceSettingsInboundConfiguration `json:"inbound_configuration"`
 }
@@ -25963,6 +26481,8 @@ type VoiceSettingsInboundConfigurationPut struct {
 
 // VoiceSettingsUpdate Changes to your workspace's voice settings. Omit a field to leave it as it is.
 type VoiceSettingsUpdate struct {
+	DailySpendLimit *VoiceDailySpendLimitUpdate `json:"daily_spend_limit,omitempty"`
+
 	// InboundConfiguration The route for calls arriving on any of your Bird numbers that has no inbound route of its own; verified caller IDs receive no calls. It takes effect on the next call to each of those numbers. Numbers with their own route keep it.
 	InboundConfiguration *VoiceSettingsInboundConfigurationPut `json:"inbound_configuration,omitempty"`
 }
@@ -30043,6 +30563,9 @@ type BadRequest = Error
 // Conflict defines model for Conflict.
 type Conflict = Error
 
+// ConflictWithReplay defines model for ConflictWithReplay.
+type ConflictWithReplay = Error
+
 // Forbidden defines model for Forbidden.
 type Forbidden = Error
 
@@ -32690,6 +33213,73 @@ type GetEmailInboxInsightsPlacementParams struct {
 
 	// IncludeIpDetails Include per-IP placement detail for the domain's sending infrastructure. Off by default; only the sending-infrastructure view needs it.
 	IncludeIpDetails *bool `form:"include_ip_details,omitempty" json:"include_ip_details,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailInboxInsightsSeedTestsParams defines parameters for GetEmailInboxInsightsSeedTests.
+type GetEmailInboxInsightsSeedTestsParams struct {
+	// SendingDomain The sending domain to report on: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
+
+	// From First UTC day of the period, inclusive, in YYYY-MM-DD: the same window
+	// convention as the email statistics endpoints. Defaults to 90 days
+	// before `to`, which is the span the history view shows.
+	//
+	// It may be at most 90 days before `to`, which is also the default, so a
+	// request naming neither date is already at the limit. Asking for more
+	// answers `422`. To reach older tests, request an earlier period.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Last UTC day of the period, inclusive, in YYYY-MM-DD. Defaults to today.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateEmailInboxInsightsSeedTestParams defines parameters for CreateEmailInboxInsightsSeedTest.
+type CreateEmailInboxInsightsSeedTestParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailInboxInsightsSeedTestConfigurationParams defines parameters for GetEmailInboxInsightsSeedTestConfiguration.
+type GetEmailInboxInsightsSeedTestConfigurationParams struct {
+	// SendingDomain The sending domain a test would be registered for: one of the workspace's verified sending domains, exactly as it appears there. A domain that is not verified in this workspace answers not-found.
+	SendingDomain string `form:"sending_domain" json:"sending_domain"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -39311,6 +39901,9 @@ type UpdateDomainJSONRequestBody = DomainUpdate
 
 // UpdateEmailInboxInsightsDomainJSONRequestBody defines body for UpdateEmailInboxInsightsDomain for application/json ContentType.
 type UpdateEmailInboxInsightsDomainJSONRequestBody = EmailInboxInsightsDomainUpdate
+
+// CreateEmailInboxInsightsSeedTestJSONRequestBody defines body for CreateEmailInboxInsightsSeedTest for application/json ContentType.
+type CreateEmailInboxInsightsSeedTestJSONRequestBody = EmailInboxInsightsSeedTestCreate
 
 // CreateMailboxJSONRequestBody defines body for CreateMailbox for application/json ContentType.
 type CreateMailboxJSONRequestBody = MailboxCreate
@@ -47449,6 +48042,17 @@ type ClientInterface interface {
 	// GetEmailInboxInsightsPlacement request
 	GetEmailInboxInsightsPlacement(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetEmailInboxInsightsSeedTests request
+	GetEmailInboxInsightsSeedTests(ctx context.Context, params *GetEmailInboxInsightsSeedTestsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateEmailInboxInsightsSeedTestWithBody request with any body
+	CreateEmailInboxInsightsSeedTestWithBody(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateEmailInboxInsightsSeedTest(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, body CreateEmailInboxInsightsSeedTestJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailInboxInsightsSeedTestConfiguration request
+	GetEmailInboxInsightsSeedTestConfiguration(ctx context.Context, params *GetEmailInboxInsightsSeedTestConfigurationParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetEmailInboxInsightsSpamTraps request
 	GetEmailInboxInsightsSpamTraps(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -49970,6 +50574,54 @@ func (c *Client) UpdateEmailInboxInsightsDomain(ctx context.Context, sendingDoma
 
 func (c *Client) GetEmailInboxInsightsPlacement(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailInboxInsightsPlacementRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsSeedTests(ctx context.Context, params *GetEmailInboxInsightsSeedTestsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsSeedTestsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailInboxInsightsSeedTestWithBody(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailInboxInsightsSeedTestRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateEmailInboxInsightsSeedTest(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, body CreateEmailInboxInsightsSeedTestJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateEmailInboxInsightsSeedTestRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailInboxInsightsSeedTestConfiguration(ctx context.Context, params *GetEmailInboxInsightsSeedTestConfigurationParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailInboxInsightsSeedTestConfigurationRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -64207,6 +64859,259 @@ func NewGetEmailInboxInsightsPlacementRequest(server string, params *GetEmailInb
 				}
 			}
 
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsSeedTestsRequest generates requests for GetEmailInboxInsightsSeedTests
+func NewGetEmailInboxInsightsSeedTestsRequest(server string, params *GetEmailInboxInsightsSeedTestsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/seed-tests")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
+		}
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateEmailInboxInsightsSeedTestRequest calls the generic CreateEmailInboxInsightsSeedTest builder with application/json body
+func NewCreateEmailInboxInsightsSeedTestRequest(server string, params *CreateEmailInboxInsightsSeedTestParams, body CreateEmailInboxInsightsSeedTestJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateEmailInboxInsightsSeedTestRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateEmailInboxInsightsSeedTestRequestWithBody generates requests for CreateEmailInboxInsightsSeedTest with any type of body
+func NewCreateEmailInboxInsightsSeedTestRequestWithBody(server string, params *CreateEmailInboxInsightsSeedTestParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/seed-tests")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailInboxInsightsSeedTestConfigurationRequest generates requests for GetEmailInboxInsightsSeedTestConfiguration
+func NewGetEmailInboxInsightsSeedTestConfigurationRequest(server string, params *GetEmailInboxInsightsSeedTestConfigurationParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/inbox-insights/seed-tests/configuration")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sending_domain", params.SendingDomain, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {
@@ -90712,6 +91617,17 @@ type ClientWithResponsesInterface interface {
 	// GetEmailInboxInsightsPlacementWithResponse request
 	GetEmailInboxInsightsPlacementWithResponse(ctx context.Context, params *GetEmailInboxInsightsPlacementParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsPlacementResponse, error)
 
+	// GetEmailInboxInsightsSeedTestsWithResponse request
+	GetEmailInboxInsightsSeedTestsWithResponse(ctx context.Context, params *GetEmailInboxInsightsSeedTestsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSeedTestsResponse, error)
+
+	// CreateEmailInboxInsightsSeedTestWithBodyWithResponse request with any body
+	CreateEmailInboxInsightsSeedTestWithBodyWithResponse(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailInboxInsightsSeedTestResponse, error)
+
+	CreateEmailInboxInsightsSeedTestWithResponse(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, body CreateEmailInboxInsightsSeedTestJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailInboxInsightsSeedTestResponse, error)
+
+	// GetEmailInboxInsightsSeedTestConfigurationWithResponse request
+	GetEmailInboxInsightsSeedTestConfigurationWithResponse(ctx context.Context, params *GetEmailInboxInsightsSeedTestConfigurationParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSeedTestConfigurationResponse, error)
+
 	// GetEmailInboxInsightsSpamTrapsWithResponse request
 	GetEmailInboxInsightsSpamTrapsWithResponse(ctx context.Context, params *GetEmailInboxInsightsSpamTrapsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSpamTrapsResponse, error)
 
@@ -95698,6 +96614,124 @@ func (r GetEmailInboxInsightsPlacementResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailInboxInsightsPlacementResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsSeedTestsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsSeedTests
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsSeedTestsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsSeedTestsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsSeedTestsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateEmailInboxInsightsSeedTestResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *EmailInboxInsightsSeedTestRegistration
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *ConflictWithReplay
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateEmailInboxInsightsSeedTestResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateEmailInboxInsightsSeedTestResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateEmailInboxInsightsSeedTestResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailInboxInsightsSeedTestConfigurationResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailInboxInsightsSeedTestConfiguration
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON412      *PreconditionFailed
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailInboxInsightsSeedTestConfigurationResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailInboxInsightsSeedTestConfigurationResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailInboxInsightsSeedTestConfigurationResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -102409,6 +103443,7 @@ type GetVoiceSettingsResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -106844,6 +107879,41 @@ func (c *ClientWithResponses) GetEmailInboxInsightsPlacementWithResponse(ctx con
 		return nil, err
 	}
 	return ParseGetEmailInboxInsightsPlacementResponse(rsp)
+}
+
+// GetEmailInboxInsightsSeedTestsWithResponse request returning *GetEmailInboxInsightsSeedTestsResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsSeedTestsWithResponse(ctx context.Context, params *GetEmailInboxInsightsSeedTestsParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSeedTestsResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsSeedTests(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsSeedTestsResponse(rsp)
+}
+
+// CreateEmailInboxInsightsSeedTestWithBodyWithResponse request with arbitrary body returning *CreateEmailInboxInsightsSeedTestResponse
+func (c *ClientWithResponses) CreateEmailInboxInsightsSeedTestWithBodyWithResponse(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateEmailInboxInsightsSeedTestResponse, error) {
+	rsp, err := c.CreateEmailInboxInsightsSeedTestWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailInboxInsightsSeedTestResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateEmailInboxInsightsSeedTestWithResponse(ctx context.Context, params *CreateEmailInboxInsightsSeedTestParams, body CreateEmailInboxInsightsSeedTestJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateEmailInboxInsightsSeedTestResponse, error) {
+	rsp, err := c.CreateEmailInboxInsightsSeedTest(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateEmailInboxInsightsSeedTestResponse(rsp)
+}
+
+// GetEmailInboxInsightsSeedTestConfigurationWithResponse request returning *GetEmailInboxInsightsSeedTestConfigurationResponse
+func (c *ClientWithResponses) GetEmailInboxInsightsSeedTestConfigurationWithResponse(ctx context.Context, params *GetEmailInboxInsightsSeedTestConfigurationParams, reqEditors ...RequestEditorFn) (*GetEmailInboxInsightsSeedTestConfigurationResponse, error) {
+	rsp, err := c.GetEmailInboxInsightsSeedTestConfiguration(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailInboxInsightsSeedTestConfigurationResponse(rsp)
 }
 
 // GetEmailInboxInsightsSpamTrapsWithResponse request returning *GetEmailInboxInsightsSpamTrapsResponse
@@ -118470,6 +119540,280 @@ func ParseGetEmailInboxInsightsPlacementResponse(rsp *http.Response) (*GetEmailI
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest EmailInboxInsightsPlacement
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsSeedTestsResponse parses an HTTP response from a GetEmailInboxInsightsSeedTestsWithResponse call
+func ParseGetEmailInboxInsightsSeedTestsResponse(rsp *http.Response) (*GetEmailInboxInsightsSeedTestsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsSeedTestsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsSeedTests
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateEmailInboxInsightsSeedTestResponse parses an HTTP response from a CreateEmailInboxInsightsSeedTestWithResponse call
+func ParseCreateEmailInboxInsightsSeedTestResponse(rsp *http.Response) (*CreateEmailInboxInsightsSeedTestResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateEmailInboxInsightsSeedTestResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest EmailInboxInsightsSeedTestRegistration
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ConflictWithReplay
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailInboxInsightsSeedTestConfigurationResponse parses an HTTP response from a GetEmailInboxInsightsSeedTestConfigurationWithResponse call
+func ParseGetEmailInboxInsightsSeedTestConfigurationResponse(rsp *http.Response) (*GetEmailInboxInsightsSeedTestConfigurationResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailInboxInsightsSeedTestConfigurationResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailInboxInsightsSeedTestConfiguration
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -133086,6 +134430,13 @@ func ParseGetVoiceSettingsResponse(rsp *http.Response) (*GetVoiceSettingsRespons
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

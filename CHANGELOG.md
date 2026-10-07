@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.94.0
+
+- Add Inbox Insights seed configuration, registration and history with existing `inbox_insights` permissions and organization preview access. Registration consumes shared allowance and returns addresses for a separately authorized send; uncertain outcomes require support before starting another test.
+
 ## 0.93.1
 
 - Marshaling a `Number` now writes `released_at` as `null` while the number is still allocated, matching what the API returns.

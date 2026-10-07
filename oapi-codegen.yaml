@@ -59,6 +59,9 @@ output-options:
     - getEmailInboxInsightsIndustryBenchmark
     - updateEmailInboxInsightsDomain
     - upsertEmailInboxInsightsDomainMonitoring
+    - getEmailInboxInsightsSeedTestConfiguration
+    - createEmailInboxInsightsSeedTest
+    - getEmailInboxInsightsSeedTests
     - createEmailTemplate
     - listEmailTemplates
     - getEmailTemplate

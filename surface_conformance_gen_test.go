@@ -59,6 +59,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.InboxInsights.Benchmarks.Industry
 	_ = c.Email.InboxInsights.Domains.Update
 	_ = c.Email.InboxInsights.DomainMonitoring.Upsert
+	_ = c.Email.InboxInsights.SeedTests.Configuration.Get
+	_ = c.Email.InboxInsights.SeedTests.Create
+	_ = c.Email.InboxInsights.SeedTests.List
 	_ = c.Email.Templates.Create
 	_ = c.Email.Templates.List
 	_ = c.Email.Templates.Get

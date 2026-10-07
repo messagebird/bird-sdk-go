@@ -2,6 +2,7 @@ package bird
 
 type EmailInboxInsightsService struct {
 	resource
+	SeedTests        *EmailInboxInsightsSeedTestsService
 	Benchmarks       *EmailInboxInsightsBenchmarksService
 	DomainMonitoring *EmailInboxInsightsDomainMonitoringService
 	Domains          *EmailInboxInsightsDomainsService
@@ -18,3 +19,10 @@ type EmailInboxInsightsDomainMonitoringService struct {
 type EmailInboxInsightsDomainsService struct {
 	resource
 }
+
+type EmailInboxInsightsSeedTestsService struct {
+	resource
+	Configuration *EmailInboxInsightsSeedTestsConfigurationService
+}
+
+type EmailInboxInsightsSeedTestsConfigurationService struct{ resource }
