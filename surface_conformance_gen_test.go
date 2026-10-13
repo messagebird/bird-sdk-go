@@ -276,6 +276,8 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Audiences.AddContacts
 	_ = c.Audiences.RemoveContacts
 	_ = c.Audiences.RemoveContact
+	_ = c.Audiences.Membership
+	_ = c.Audiences.MembershipHistory
 	_ = c.Email.Mailboxes.List
 	_ = c.Email.Mailboxes.Create
 	_ = c.Email.Mailboxes.Get

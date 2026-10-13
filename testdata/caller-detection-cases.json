@@ -19,6 +19,42 @@
       "execution": "unknown"
     },
     {
+      "name": "codex thread from detect-agent",
+      "env": {
+        "CODEX_THREAD_ID": "thr_1"
+      },
+      "want": "codex",
+      "source": "env:CODEX_THREAD_ID",
+      "execution": "unknown"
+    },
+    {
+      "name": "copilot cli from detect-agent",
+      "env": {
+        "COPILOT_ALLOW_ALL": "1"
+      },
+      "want": "copilot",
+      "source": "env:COPILOT_ALLOW_ALL",
+      "execution": "unknown"
+    },
+    {
+      "name": "cursor agent exec from detect-agent",
+      "env": {
+        "CURSOR_EXTENSION_HOST_ROLE": "agent-exec"
+      },
+      "want": "cursor",
+      "source": "env:CURSOR_EXTENSION_HOST_ROLE",
+      "execution": "unknown"
+    },
+    {
+      "name": "another cursor extension host role is not an agent",
+      "env": {
+        "CURSOR_EXTENSION_HOST_ROLE": "renderer"
+      },
+      "want": "shell",
+      "source": "fallback",
+      "execution": "unknown"
+    },
+    {
       "name": "codex",
       "env": {
         "CODEX_CI": "1"
@@ -610,7 +646,7 @@
       }
     },
     {
-      "name": "distinct Grok Bot clientInfo overrides Cursor user agent",
+      "name": "clientInfo is forwarded raw, not turned into a caller",
       "env": {
         "CURSOR_AGENT": "1"
       },
@@ -619,9 +655,11 @@
         "User-Agent": "cursor/1.0"
       },
       "want": {
-        "Bird-Caller": "grokbot",
-        "Bird-Caller-Source": "mcp:client-info",
-        "Bird-Caller-Execution": "unknown"
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
+        "Bird-Client-Name": "grokbot",
+        "Bird-Client-User-Agent": "cursor/1.0"
       }
     },
     {
@@ -633,11 +671,12 @@
       "client_info": "Claude Code",
       "headers": {},
       "want": {
-        "Bird-Caller": "claude-code",
-        "Bird-Caller-Source": "mcp:client-info",
-        "Bird-Caller-Execution": "unknown",
+        "Bird-Caller": "",
+        "Bird-Caller-Source": "",
+        "Bird-Caller-Execution": "",
         "Bird-Model": "",
-        "Bird-Model-Source": ""
+        "Bird-Model-Source": "",
+        "Bird-Client-Name": "Claude Code"
       }
     },
     {
@@ -655,7 +694,7 @@
         "Bird-Model-Source": "private-source"
       },
       "want": {
-        "Bird-Caller": "claude-code",
+        "Bird-Caller": "",
         "Bird-Model": "other",
         "Bird-Model-Source": "declared"
       }
@@ -670,7 +709,8 @@
       "headers": {
         "Bird-Enrichment": "0",
         "Bird-Model": "sonnet",
-        "Bird-Caller": "grokbot"
+        "Bird-Caller": "grokbot",
+        "User-Agent": "claude-code/2.1"
       },
       "want": {
         "Bird-Enrichment": "0",
@@ -678,7 +718,9 @@
         "Bird-Caller-Source": "",
         "Bird-Caller-Execution": "",
         "Bird-Model": "",
-        "Bird-Model-Source": ""
+        "Bird-Model-Source": "",
+        "Bird-Client-Name": "",
+        "Bird-Client-User-Agent": ""
       }
     },
     {

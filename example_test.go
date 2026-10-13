@@ -946,7 +946,7 @@ func ExampleBroadcastsService_SendQuota() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	quota, err := client.Broadcasts.SendQuota(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg")
+	quota, err := client.Broadcasts.SendQuota(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsSendQuotaParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -3455,7 +3455,7 @@ func ExampleWhatsappKeywordRulesService_Delete() {
 }
 
 func ExampleEmailCompetitiveBrandsService_Search() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3473,7 +3473,7 @@ func ExampleEmailCompetitiveBrandsService_Search() {
 }
 
 func ExampleEmailCompetitiveWatchlistService_Get() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3491,7 +3491,7 @@ func ExampleEmailCompetitiveWatchlistService_Get() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsService_Create() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:write permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3525,7 +3525,7 @@ func ExampleEmailCompetitiveWatchlistBrandsService_Create() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsService_Get() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3559,7 +3559,7 @@ func ExampleEmailCompetitiveWatchlistBrandsService_Get() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsService_SendTime() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3593,7 +3593,7 @@ func ExampleEmailCompetitiveWatchlistBrandsService_SendTime() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsService_Delete() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:write permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3622,7 +3622,7 @@ func ExampleEmailCompetitiveWatchlistBrandsService_Delete() {
 }
 
 func ExampleEmailCompetitiveWatchlistService_Notable() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3640,7 +3640,7 @@ func ExampleEmailCompetitiveWatchlistService_Notable() {
 }
 
 func ExampleEmailCompetitiveService_VolumeSeries() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3674,7 +3674,7 @@ func ExampleEmailCompetitiveService_VolumeSeries() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_List() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3707,7 +3707,7 @@ func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_List() {
 }
 
 func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_Get() {
-	// Requires Insights preview access for the organization.
+	// Requires competitive:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3754,7 +3754,7 @@ func ExampleEmailCompetitiveWatchlistBrandsCampaignsService_Get() {
 }
 
 func ExampleEmailInboxInsightsDomainsService_List() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3773,7 +3773,7 @@ func ExampleEmailInboxInsightsDomainsService_List() {
 }
 
 func ExampleEmailInboxInsightsDomainsService_Update() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:write permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3804,7 +3804,7 @@ func ExampleEmailInboxInsightsDomainsService_Update() {
 }
 
 func ExampleEmailInboxInsightsDomainMonitoringService_Upsert() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:write permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3822,7 +3822,7 @@ func ExampleEmailInboxInsightsDomainMonitoringService_Upsert() {
 }
 
 func ExampleEmailInboxInsightsService_Placement() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3853,7 +3853,7 @@ func ExampleEmailInboxInsightsService_Placement() {
 }
 
 func ExampleEmailInboxInsightsService_Authentication() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3884,7 +3884,7 @@ func ExampleEmailInboxInsightsService_Authentication() {
 }
 
 func ExampleEmailInboxInsightsService_Complaints() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3915,7 +3915,7 @@ func ExampleEmailInboxInsightsService_Complaints() {
 }
 
 func ExampleEmailInboxInsightsService_SpamTraps() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3946,7 +3946,7 @@ func ExampleEmailInboxInsightsService_SpamTraps() {
 }
 
 func ExampleEmailInboxInsightsService_Blocklists() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -3977,7 +3977,7 @@ func ExampleEmailInboxInsightsService_Blocklists() {
 }
 
 func ExampleEmailInboxInsightsBenchmarksService_Industry() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -4489,7 +4489,7 @@ func ExampleVoiceDestinationsService_Update() {
 		log.Fatal(err)
 	}
 	destinations, err := client.Voice.Destinations.Update(context.Background(), bird.VoiceDestinationsUpdateParams{
-		Destinations: []bird.DestinationSetting{{CountryCode: "PT", Enabled: true}},
+		Destinations: []bird.DestinationSetting{{CountryCode: "PT", Enabled: bird.Bool(true)}},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -5256,7 +5256,7 @@ func ExampleWebhooksService_Create_connector() {
 }
 
 func ExampleEmailInboxInsightsSeedTestsConfigurationService_Get() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -5283,7 +5283,7 @@ func ExampleEmailInboxInsightsSeedTestsConfigurationService_Get() {
 }
 
 func ExampleEmailInboxInsightsSeedTestsService_List() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:read permission in the target workspace.
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {
 		log.Fatal(err)
@@ -5310,7 +5310,7 @@ func ExampleEmailInboxInsightsSeedTestsService_List() {
 }
 
 func ExampleEmailInboxInsightsSeedTestsService_Create() {
-	// Requires Insights preview access for the organization.
+	// Requires inbox_insights:write permission in the target workspace.
 	idempotencyKey := os.Getenv("IDEMPOTENCY_KEY")
 	if idempotencyKey == "" {
 		log.Fatal("Set IDEMPOTENCY_KEY to a unique key for this registration and retain it for retries")
@@ -5359,4 +5359,37 @@ func ExampleEmailInboxInsightsSeedTestsService_Create() {
 		log.Fatal(err)
 	}
 	fmt.Println(report)
+}
+
+func ExampleAudiencesService_Membership() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	result, err := client.Audiences.Membership(context.Background(), "adn_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if result.Membership != nil {
+		fmt.Println(result.Membership.Total, result.Membership.DataAsOf)
+	}
+}
+
+func ExampleAudiencesService_MembershipHistory() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	history, err := client.Audiences.MembershipHistory(context.Background(), "adn_01krdgeqcxet5s7t44vh8rt9mg", bird.AudienceMembershipHistoryParams{
+		From: time.Date(2026, 10, 9, 0, 0, 0, 0, time.UTC),
+		To:   time.Date(2026, 10, 12, 0, 0, 0, 0, time.UTC),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	data, err := json.Marshal(history)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(data))
 }

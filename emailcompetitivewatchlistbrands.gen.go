@@ -45,7 +45,7 @@ func (p EmailCompetitiveWatchlistBrandsSendTimeParams) toWire() *oapi.GetEmailCo
 	}
 }
 
-// Create Add a brand using the panel brand_id returned by brand search. The response id identifies the new workspace watchlist entry for reads and removal. Each entry uses one place in the organization-wide allowance and tracks the brand's highest-volume sending domain. Reuse an idempotency key when retrying the same addition. API-key, OAuth, and service-account calls require Insights preview access for your organization.
+// Create Add a brand using the panel brand_id returned by brand search. The response id identifies the new workspace watchlist entry for reads and removal. Each entry uses one place in the organization-wide allowance and tracks the brand's highest-volume sending domain. Reuse an idempotency key when retrying the same addition.
 func (s *EmailCompetitiveWatchlistBrandsService) Create(ctx context.Context, params EmailCompetitiveWatchlistBrandsCreateParams, opts ...option.RequestOption) (*EmailCompetitiveWatchlistBrand, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateEmailCompetitiveWatchlistBrandParams{}
@@ -64,7 +64,7 @@ func (s *EmailCompetitiveWatchlistBrandsService) Create(ctx context.Context, par
 	return &out, nil
 }
 
-// Delete Remove the workspace watchlist entry using its cwb_ ID. This frees one place in the organization-wide allowance. Adding the brand again creates a new entry; removal does not delete campaign data from eDataSource. API-key calls require Insights preview access for your organization.
+// Delete Remove the workspace watchlist entry using its cwb_ ID. This frees one place in the organization-wide allowance. Adding the brand again creates a new entry; removal does not delete campaign data from eDataSource.
 func (s *EmailCompetitiveWatchlistBrandsService) Delete(ctx context.Context, watchlistBrandId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.DeleteEmailCompetitiveWatchlistBrandParams{}
@@ -76,7 +76,7 @@ func (s *EmailCompetitiveWatchlistBrandsService) Delete(ctx context.Context, wat
 	return err
 }
 
-// Get Read one watched brand using the `watchlist_brand_id` from `email.competitive.watchlist.get`; the panel `brand_id` returned by `email.competitive.brands.search` is not accepted. The response includes headline figures and a mailbox-provider breakdown, plus ESP and estimated list size. The watchlist already supplies headline comparisons. Rates are fractions. Interpret nulls by field: unavailable rates, no observed last campaign, or no overlap returned by the panel. Panel read rate differs from open rate. Tracked domains can cover only part of a brand's program. API-key calls require Insights preview access for your organization.
+// Get Read one watched brand using the `watchlist_brand_id` from `email.competitive.watchlist.get`; the panel `brand_id` returned by `email.competitive.brands.search` is not accepted. The response includes headline figures and a mailbox-provider breakdown, plus ESP and estimated list size. The watchlist already supplies headline comparisons. Rates are fractions. Interpret nulls by field: unavailable rates, no observed last campaign, or no overlap returned by the panel. Panel read rate differs from open rate. Tracked domains can cover only part of a brand's program.
 func (s *EmailCompetitiveWatchlistBrandsService) Get(ctx context.Context, watchlistBrandId string, params EmailCompetitiveWatchlistBrandsGetParams, opts ...option.RequestOption) (*EmailCompetitiveBrandProfile, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailCompetitiveBrand(ctx, oapi.CompetitiveWatchlistBrandID(watchlistBrandId), params.toWire(), cfg...)
@@ -91,7 +91,7 @@ func (s *EmailCompetitiveWatchlistBrandsService) Get(ctx context.Context, watchl
 	return &out, nil
 }
 
-// SendTime Takes a watchlist_brand_id from `email.competitive.watchlist.get` and an optional IANA timezone. Covers the last 90 days, with no range parameter. Cells describe observed sending activity, not arrival, reading or subscriber availability. The returned period and timezone label the grid; the panel caches it for a day, so it can lag other reports. sample_days counts days available for observation, not campaigns or independent recipients. peak_send_window can be null when no sending was observed. This describes a competitor's schedule, not a best time for your audience; timing hypotheses need your own controlled test and engagement evidence. API-key calls require Insights preview access for your organization.
+// SendTime Takes a watchlist_brand_id from `email.competitive.watchlist.get` and an optional IANA timezone. Covers the last 90 days, with no range parameter. Cells describe observed sending activity, not arrival, reading or subscriber availability. The returned period and timezone label the grid; the panel caches it for a day, so it can lag other reports. sample_days counts days available for observation, not campaigns or independent recipients. peak_send_window can be null when no sending was observed. This describes a competitor's schedule, not a best time for your audience; timing hypotheses need your own controlled test and engagement evidence.
 func (s *EmailCompetitiveWatchlistBrandsService) SendTime(ctx context.Context, watchlistBrandId string, params EmailCompetitiveWatchlistBrandsSendTimeParams, opts ...option.RequestOption) (*EmailCompetitiveSendTimeGrid, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailCompetitiveBrandSendTime(ctx, oapi.CompetitiveWatchlistBrandID(watchlistBrandId), params.toWire(), cfg...)

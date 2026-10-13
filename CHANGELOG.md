@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.97.0
+
+- Read exact audience membership counts and daily observations, including evaluation times and explicit gaps for missing observations.
+- The broadcast send-quota response can now return `resets_at`, `limit_reason`, and `broadcasts`. These fields show when the reported email limit resets, what sets the monthly email limit, and how many broadcasts remain before the broadcast count resets. The three response fields are optional. `resets_at` appears when an email limit restricts the send and its reset time is known. `limit_reason` appears when the monthly email limit restricts the send and you have `org:billing` read access. `broadcasts` appears for a draft when the organization has a broadcast count limit.
+- **Breaking:** `Broadcasts.SendQuota` now takes a `BroadcastsSendQuotaParams` argument before the request options. Pass `bird.BroadcastsSendQuotaParams{}` to check a send now. Set `SendAt` to check the email send allowance at a scheduled send time.
+- Add `one_time.funding` and `recurrence.quote.funding` to eSIM checkout options with tax, total and wallet coverage. Each includes `shortfall` for callers with organization billing read access, or `null` otherwise.
+- Domain responses now include `receiving.state` and `receiving.managed_elsewhere` so callers can show turn-off progress and identify when receiving is managed from another workspace. After disabling receiving, poll the domain until `capabilities.inbound.status` is `not_configured` before retrying domain or workspace deletion. Receiving without a recorded workspace retains its existing recovery behavior.
+- Mailbox responses gain `forwarding_address`. Creating a mailbox on a verified domain that is not set up for receiving now succeeds, and mail you forward to its `forwarding_address` arrives in the mailbox.
+- Voice destinations now carry `daily_spend_limit`: the daily spend limit set for calls to that country and today's usage toward it. Each destination in an update can set its limit by giving `daily_spend_limit.limit` an amount in the wallet currency, or remove it by setting `daily_spend_limit.limit` to null; `enabled` may be omitted to change only the limit.
+- **Breaking:** `DestinationSetting.Enabled` is now a `*bool`, so a voice destination entry can change only its `DailySpendLimit` and leave enablement alone; write `Enabled: bird.Bool(true)` where you wrote `Enabled: true`.
+- Add `origin` to WhatsApp messages, typed `WhatsAppMessageOrigin`, set when the Meta Business Agent or the WhatsApp Business app sent the message rather than Bird.
+- Add `is_on_business_app` to WhatsApp numbers, true when the number is also in use on the WhatsApp Business app. It is absent until WhatsApp has reported it, and always absent on a number Bird operates for you.
+- Clarify `content.body` introductions for inline Apple Messages quick replies, including activation and retry limits and the `interactive_data_ref` exclusion. Document the 512-character bubble limit when omitted picker bubbles inherit `interactive_data.data.event.title`.
+- Clarify that Apple Messages list reply sections can include unselected options.
+- `EsimSettingsService.Update` now documents opt-in automatic install-link delivery for new eSIM purchases and the required `esim_credentials:write` permission. Automatic delivery defaults to off, uses the linked contact's email, and uses SMS only when no email is present. Setting `credential_delivery_enabled` to `false` now stops only automatic delivery; it no longer blocks authorized manual install-link sends.
+- Document receiver ownership for `bird email domains update`, `bird email domains delete` and `bird organization workspaces delete`, and MCP tools `email_domains_update`, `email_domains_delete` and `organization_workspaces_delete`. When receiving has an assigned workspace, a sibling receiving-disable request returns 403; deleting the receiving assignment or workspace returns 409 while its claim remains. Disable receiving from its assigned workspace and poll the domain until `capabilities.inbound.status` is `not_configured` before retrying deletion. The same behavior applies to `PATCH /v1/email/domains/{domain_id}`, `DELETE /v1/email/domains/{domain_id}` and `DELETE /v1/organization/workspaces/{workspace_id}`.
+- Competitive Insights and Inbox Insights guidance now uses workspace permissions without requiring organization preview enrollment, including seed-test registration.
+
 ## 0.96.0
 
 - Add `awaiting_funds` to eSIM orders so an insufficient wallet balance remains visible when the required amount is unavailable.

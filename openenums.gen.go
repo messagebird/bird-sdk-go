@@ -839,6 +839,17 @@ const (
 	WhatsAppKeywordOperationOptOut = oapi.WhatsAppKeywordOperationOptOut
 )
 
+// WhatsAppMessageOrigin is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the WhatsAppMessageOrigin* constants with a
+// default branch rather than treating the set as closed.
+type WhatsAppMessageOrigin = oapi.WhatsAppMessageOrigin
+
+const (
+	WhatsAppMessageOriginBusinessAgentEcho = oapi.WhatsAppMessageOriginBusinessAgentEcho
+	WhatsAppMessageOriginBusinessAppEcho   = oapi.WhatsAppMessageOriginBusinessAppEcho
+	WhatsAppMessageOriginHistorySync       = oapi.WhatsAppMessageOriginHistorySync
+)
+
 // WhatsAppMetaHealthEntityType is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the WhatsAppMetaHealthEntityType* constants with a
 // default branch rather than treating the set as closed.

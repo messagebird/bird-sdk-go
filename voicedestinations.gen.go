@@ -13,7 +13,7 @@ type DestinationSetting = oapi.DestinationSetting
 
 // VoiceDestinationsUpdateParams is the request body for update.
 type VoiceDestinationsUpdateParams struct {
-	// The destination countries to enable or disable. Only the countries listed here change; any country you do not list keeps its current setting.
+	// The destination countries to change. Only the countries listed here change, and only the fields you send; anything else keeps its current setting. A country listed more than once takes its last `enabled`, but may set or remove `daily_spend_limit` only once. A limit can be set only on a country the Voice service supports; removing one accepts any country code. Otherwise the request is rejected and nothing changes.
 	Destinations []DestinationSetting
 }
 
@@ -23,7 +23,7 @@ func (p VoiceDestinationsUpdateParams) toWire() oapi.VoiceDestinationsUpdate {
 	return body
 }
 
-// List Every country the Voice service supports, each marked with whether the workspace has enabled it and whether it is currently callable. A call to a country the workspace has not enabled is refused, so check here when a specific destination fails while others succeed.
+// List Every country the Voice service supports, each marked with whether the workspace has enabled it, whether the platform supports calling it (status), and its daily spend limit with today's usage. A call to a country the workspace has not enabled, or whose daily limit is spent, is refused, so check here when a specific destination fails while others succeed.
 func (s *VoiceDestinationsService) List(ctx context.Context, opts ...option.RequestOption) (*VoiceDestinationList, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.ListVoiceDestinations(ctx, &oapi.ListVoiceDestinationsParams{}, cfg...)
@@ -38,7 +38,7 @@ func (s *VoiceDestinationsService) List(ctx context.Context, opts ...option.Requ
 	return &out, nil
 }
 
-// Update Enable or disable the countries this workspace may place voice calls to. Only the countries you list change; any country you omit keeps its current setting. Enabling one is what lets a call to it past the destination gate; disabling one refuses every call there, so confirm a disable with the user first. Read `voice.destinations.list` first for the current settings and whether Bird carries calls to the country at all.
+// Update Enable or disable the countries this workspace may place voice calls to. Only the countries you list change; any country you omit keeps its current setting. Enabling one is what lets a call to it past the destination gate; disabling one refuses every call there, so confirm a disable with the user first. A destination's `daily_spend_limit` caps its daily spend, verification calls included, independently of whether it is enabled. Read `voice.destinations.list` first for the current settings and whether Bird carries calls to the country at all.
 func (s *VoiceDestinationsService) Update(ctx context.Context, params VoiceDestinationsUpdateParams, opts ...option.RequestOption) (*VoiceDestinationList, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateVoiceDestinationsParams{}

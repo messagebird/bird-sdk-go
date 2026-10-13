@@ -5,6 +5,7 @@ import (
 	"context"
 	"iter"
 	"net/http"
+	"time"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -115,6 +116,21 @@ func (p AudienceRemoveContactsParams) toWire() oapi.AudienceContactsRemoveReques
 	}
 	body.ContactIds = contactIds
 	return body
+}
+
+// AudienceMembershipHistoryParams filters the membership_history read.
+type AudienceMembershipHistoryParams struct {
+	// Inclusive first UTC date. Defaults to 30 days before to, yielding 31 inclusive dates.
+	From time.Time
+	// Inclusive last UTC date. Defaults to today in UTC; future dates are rejected. At most 365 inclusive dates.
+	To time.Time
+}
+
+func (p AudienceMembershipHistoryParams) toWire() *oapi.GetAudienceMembershipStatisticsParams {
+	return &oapi.GetAudienceMembershipStatisticsParams{
+		From: optDate(p.From),
+		To:   optDate(p.To),
+	}
 }
 
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
@@ -282,4 +298,34 @@ func (s *AudiencesService) RemoveContact(ctx context.Context, audienceId string,
 		return s.client.oapi.UnassignAudienceContact(ctx, oapi.AudienceID(audienceId), oapi.ContactID(contactId), op, cfg...)
 	})
 	return err
+}
+
+// Membership Exact current member count of one audience, including contacts without email and unsubscribed contacts, with the `data_as_of` evaluation instant. An empty audience returns `total` 0; when the count is unavailable the response is `{}` with no `membership`, never 0. For daily history use `audiences.membership_history`.
+func (s *AudiencesService) Membership(ctx context.Context, audienceId string, opts ...option.RequestOption) (*AudienceMembershipResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetAudienceMembership(ctx, oapi.AudienceID(audienceId), &oapi.GetAudienceMembershipParams{}, cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out AudienceMembershipResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// MembershipHistory Daily audience member counts for inclusive UTC dates `from`..`to`, default the last 31 dates ending today, at most 365, no future dates. Each point is the first observation of that date with its actual `observed_at`; a date without one has null `total` and `observed_at`, never 0. Period `data_as_of` is always null. For the current exact count use `audiences.membership`.
+func (s *AudiencesService) MembershipHistory(ctx context.Context, audienceId string, params AudienceMembershipHistoryParams, opts ...option.RequestOption) (*AudienceMembershipStatisticsResponse, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetAudienceMembershipStatistics(ctx, oapi.AudienceID(audienceId), params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out AudienceMembershipStatisticsResponse
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
 }

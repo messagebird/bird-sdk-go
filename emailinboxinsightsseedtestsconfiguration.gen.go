@@ -21,7 +21,7 @@ func (p EmailInboxInsightsSeedTestsConfigurationGetParams) toWire() *oapi.GetEma
 	}
 }
 
-// Get Read available seed pools, regions and engagement profiles for an owned sending domain before `email.inbox_insights.seed_tests.create`. Use only available pools and preserve region strings exactly. Scoped API keys, OAuth and service accounts require organization preview access.
+// Get Read available seed pools, regions and engagement profiles for an owned sending domain before `email.inbox_insights.seed_tests.create`. Use only available pools and preserve region strings exactly.
 func (s *EmailInboxInsightsSeedTestsConfigurationService) Get(ctx context.Context, params EmailInboxInsightsSeedTestsConfigurationGetParams, opts ...option.RequestOption) (*EmailInboxInsightsSeedTestConfiguration, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailInboxInsightsSeedTestConfiguration(ctx, params.toWire(), cfg...)

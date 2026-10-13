@@ -1410,6 +1410,30 @@ func (e DomainDKIMConfigMode) Valid() bool {
 	}
 }
 
+// Defines values for DomainReceivingState.
+const (
+	DomainReceivingStateDisableFailed DomainReceivingState = "disable_failed"
+	DomainReceivingStateDisabled      DomainReceivingState = "disabled"
+	DomainReceivingStateDisabling     DomainReceivingState = "disabling"
+	DomainReceivingStateEnabled       DomainReceivingState = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the DomainReceivingState enum.
+func (e DomainReceivingState) Valid() bool {
+	switch e {
+	case DomainReceivingStateDisableFailed:
+		return true
+	case DomainReceivingStateDisabled:
+		return true
+	case DomainReceivingStateDisabling:
+		return true
+	case DomainReceivingStateEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailBounceType.
 const (
 	EmailBounceTypeAdmin        EmailBounceType = "admin"
@@ -2198,22 +2222,22 @@ func (e EmailInboxInsightsDmarcVerdict) Valid() bool {
 
 // Defines values for EmailInboxInsightsDomainMonitoringOutcome.
 const (
-	AlreadyOn         EmailInboxInsightsDomainMonitoringOutcome = "already_on"
-	ChoiceRequired    EmailInboxInsightsDomainMonitoringOutcome = "choice_required"
-	Enabled           EmailInboxInsightsDomainMonitoringOutcome = "enabled"
-	NoVerifiedDomains EmailInboxInsightsDomainMonitoringOutcome = "no_verified_domains"
+	EmailInboxInsightsDomainMonitoringOutcomeAlreadyOn         EmailInboxInsightsDomainMonitoringOutcome = "already_on"
+	EmailInboxInsightsDomainMonitoringOutcomeChoiceRequired    EmailInboxInsightsDomainMonitoringOutcome = "choice_required"
+	EmailInboxInsightsDomainMonitoringOutcomeEnabled           EmailInboxInsightsDomainMonitoringOutcome = "enabled"
+	EmailInboxInsightsDomainMonitoringOutcomeNoVerifiedDomains EmailInboxInsightsDomainMonitoringOutcome = "no_verified_domains"
 )
 
 // Valid indicates whether the value is a known member of the EmailInboxInsightsDomainMonitoringOutcome enum.
 func (e EmailInboxInsightsDomainMonitoringOutcome) Valid() bool {
 	switch e {
-	case AlreadyOn:
+	case EmailInboxInsightsDomainMonitoringOutcomeAlreadyOn:
 		return true
-	case ChoiceRequired:
+	case EmailInboxInsightsDomainMonitoringOutcomeChoiceRequired:
 		return true
-	case Enabled:
+	case EmailInboxInsightsDomainMonitoringOutcomeEnabled:
 		return true
-	case NoVerifiedDomains:
+	case EmailInboxInsightsDomainMonitoringOutcomeNoVerifiedDomains:
 		return true
 	default:
 		return false
@@ -2820,6 +2844,36 @@ func (e EmailRejectionReason) Valid() bool {
 	case EmailRejectionReasonRecipientSuppressed:
 		return true
 	case EmailRejectionReasonTransmissionFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailSendAllowanceLimitReason.
+const (
+	CustomLimit    EmailSendAllowanceLimitReason = "custom_limit"
+	OverageCeiling EmailSendAllowanceLimitReason = "overage_ceiling"
+	OverageOff     EmailSendAllowanceLimitReason = "overage_off"
+	OverduePayment EmailSendAllowanceLimitReason = "overdue_payment"
+	Plan           EmailSendAllowanceLimitReason = "plan"
+	Unfunded       EmailSendAllowanceLimitReason = "unfunded"
+)
+
+// Valid indicates whether the value is a known member of the EmailSendAllowanceLimitReason enum.
+func (e EmailSendAllowanceLimitReason) Valid() bool {
+	switch e {
+	case CustomLimit:
+		return true
+	case OverageCeiling:
+		return true
+	case OverageOff:
+		return true
+	case OverduePayment:
+		return true
+	case Plan:
+		return true
+	case Unfunded:
 		return true
 	default:
 		return false
@@ -8274,6 +8328,27 @@ func (e WhatsAppMessageDirection) Valid() bool {
 	}
 }
 
+// Defines values for WhatsAppMessageOrigin.
+const (
+	WhatsAppMessageOriginBusinessAgentEcho WhatsAppMessageOrigin = "business_agent_echo"
+	WhatsAppMessageOriginBusinessAppEcho   WhatsAppMessageOrigin = "business_app_echo"
+	WhatsAppMessageOriginHistorySync       WhatsAppMessageOrigin = "history_sync"
+)
+
+// Valid indicates whether the value is a known member of the WhatsAppMessageOrigin enum.
+func (e WhatsAppMessageOrigin) Valid() bool {
+	switch e {
+	case WhatsAppMessageOriginBusinessAgentEcho:
+		return true
+	case WhatsAppMessageOriginBusinessAppEcho:
+		return true
+	case WhatsAppMessageOriginHistorySync:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WhatsAppMessageStatus.
 const (
 	WhatsAppMessageStatusAccepted  WhatsAppMessageStatus = "accepted"
@@ -10592,7 +10667,7 @@ type AMBNativeEvent struct {
 	// TimezoneOffset Minutes from GMT at the event location. Omit to use the customer's time zone.
 	TimezoneOffset *int `json:"timezone_offset,omitempty"`
 
-	// Title Event title.
+	// Title Event title. Also supplies the title of each omitted received or reply bubble, where the 512-character bubble text limit applies. Supply both bubbles explicitly to use a longer event title.
 	Title *string `json:"title,omitempty"`
 }
 
@@ -10718,7 +10793,7 @@ type AMBNativeInboundInteractiveData struct {
 
 // AMBNativeInboundListPicker defines model for AMBNativeInboundListPicker.
 type AMBNativeInboundListPicker struct {
-	// Sections Sections and selected rows returned by Apple.
+	// Sections Sections returned by Apple. Sections can include unselected options; preserve their titles and item grouping.
 	Sections []AMBNativeInboundListPickerSection `json:"sections"`
 }
 
@@ -10776,7 +10851,7 @@ type AMBNativeInteractiveContent struct {
 	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
-	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
+	// Body Automatic introductions for inline quick replies are enabled regionally in stages. When enabled for a new send containing `interactive_data.data.quick_reply`, a nonblank body is sent as separate text before the choices. Messages using `interactive_data_ref` do not receive this automatic introduction, even after activation. All parts belong to one message, which becomes sent after Apple accepts all parts. For referenced interactions, before activation, and for retries retaining legacy behavior, body is included in the interactive request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the quick reply. Omit body to send choices only. For list pickers, time pickers and forms, use interactive_data.received_message for the visible introduction. Use one U+FFFC object replacement character per attachment to control placement.
 	Body *string `json:"body,omitempty" pii:"true"`
 
 	// InteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
@@ -10891,7 +10966,7 @@ type AMBNativeQuickReply struct {
 	// Items The buttons offered to the customer. Apple requires between two and five; outside that range the request is refused with a `422` `AMBQuickReplyItemsInvalid`. For more choices, send `list_picker` content instead.
 	Items []AMBQuickReplyItem `json:"items"`
 
-	// SummaryText Text used for the device notification and shown in the transcript after the customer chooses an item. Send a separate text message to introduce the choices.
+	// SummaryText Text used for the device notification and shown in the transcript after the customer chooses an item. Automatic introductions through the enclosing content.body depend on regional activation and the send retry mode; see content.body. For an introduction independent of activation, send a separate text message and omit content.body from the quick reply.
 	SummaryText string `json:"summary_text" pii:"true"`
 }
 
@@ -11774,6 +11849,54 @@ type AudienceMemberList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// AudienceMembershipResponse Exact audience membership at evaluation time. Membership is absent when the count is unavailable.
+type AudienceMembershipResponse struct {
+	// Membership Exact count of all audience members at the source evaluation instant, including contacts without email and unsubscribed contacts.
+	Membership *AudienceMembershipSummary `json:"membership,omitempty"`
+}
+
+// AudienceMembershipStatisticsPeriod Inclusive UTC date window for daily membership observations. Snapshots do not establish continuous freshness; data_as_of is always null.
+type AudienceMembershipStatisticsPeriod struct {
+	// DataAsOf Always null. Use each point's observed_at for its actual observation instant.
+	DataAsOf *time.Time `json:"data_as_of"`
+
+	// From Inclusive first UTC date.
+	From openapi_types.Date `json:"from"`
+
+	// To Inclusive last UTC date.
+	To openapi_types.Date `json:"to"`
+}
+
+// AudienceMembershipStatisticsPoint First successful membership observation for a UTC date. Both total and observed_at are null when no retained observation exists; a successful empty audience has total zero.
+type AudienceMembershipStatisticsPoint struct {
+	// Bucket UTC date of the observation, or the requested date for a gap.
+	Bucket openapi_types.Date `json:"bucket"`
+
+	// ObservedAt Actual source observation instant, or null for a gap. This is not a day-close count.
+	ObservedAt *time.Time `json:"observed_at"`
+
+	// Total Exact number of all members at observation time, or null for a gap.
+	Total *int64 `json:"total"`
+}
+
+// AudienceMembershipStatisticsResponse Daily membership observations in ascending UTC date order. Missing observations are explicit null gaps; changes between samples are unobserved.
+type AudienceMembershipStatisticsResponse struct {
+	// Data One point for every requested date, including gaps.
+	Data []AudienceMembershipStatisticsPoint `json:"data"`
+
+	// Period Requested UTC date window.
+	Period AudienceMembershipStatisticsPeriod `json:"period"`
+}
+
+// AudienceMembershipSummary Exact count of all audience members at the source evaluation instant, including contacts without email and unsubscribed contacts.
+type AudienceMembershipSummary struct {
+	// DataAsOf Source evaluation instant for the live count. Membership changes committed after the read began appear in a later response.
+	DataAsOf time.Time `json:"data_as_of"`
+
+	// Total Number of members at evaluation time.
+	Total int64 `json:"total"`
+}
+
 // AudienceRef A compact reference to an audience, carrying its ID and display name.
 type AudienceRef struct {
 	Id AudienceID `json:"id"`
@@ -12291,8 +12414,11 @@ type DestinationSetting struct {
 	// CountryCode ISO 3166-1 alpha-2 country code.
 	CountryCode CountryCode `json:"country_code"`
 
-	// Enabled Whether to enable (`true`) or disable (`false`) this destination country.
-	Enabled bool `json:"enabled"`
+	// DailySpendLimit Sets or removes this country's daily spend limit; omit it to leave the limit unchanged. Once today's spend reaches the limit, new calls to the country are refused, verification calls included, whether or not it is enabled; a call already in progress is not cut off, so spend can pass the limit by what that call costs.
+	DailySpendLimit *VoiceDestinationDailySpendLimitUpdate `json:"daily_spend_limit,omitempty"`
+
+	// Enabled Whether to enable (`true`) or disable (`false`) this destination country. Omit it to leave the country's enabled setting unchanged.
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
 // DestinationSuperRegion The continent-scale group the region rolls up into. Derived from `region`, and `null` whenever that is. Treat the set as open.
@@ -12387,6 +12513,9 @@ type Domain struct {
 	// capability still needs before it can send or receive is reported separately under
 	// `capabilities`, so an empty list here does not on its own mean the domain is ready.
 	Next *[]NextAction `json:"next,omitempty"`
+
+	// Receiving Receiving state and whether it is managed from another workspace.
+	Receiving *DomainReceiving `json:"receiving,omitempty"`
 
 	// Settings Per-domain behavior toggles. Changes apply immediately to new sends.
 	Settings DomainSettings `json:"settings"`
@@ -12614,7 +12743,7 @@ type DomainID = string
 
 // DomainInboundConfig Inbound (receiving) configuration. Enable inbound to receive email addressed to this domain. We return MX records to publish. After they verify, mail to any local-part at this domain is delivered as an inbound message and triggers the `email.received` webhook. Use a dedicated subdomain, such as `inbound.acme.com`, because using your apex domain would capture your corporate mail.
 type DomainInboundConfig struct {
-	// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Disabling tears receiving down and removes the MX records from `dns_records`; this is immediate in the normal case, and if a step needs retrying the capability clears as soon as teardown finishes.
+	// Enabled Set `true` to enable receiving on this domain, `false` to disable it. Read `receiving.state` to follow the request: `disabling` while receiving is turning off, `disable_failed` if the latest attempt failed, and `disabled` when it is off. Retry a failed request with `false`. Before deleting the domain or workspace, poll the domain until `capabilities.inbound.status` is `not_configured`. Its MX records remain in `dns_records` as optional. Receiving with an assigned workspace is managed there. Disabling from a sibling workspace returns `403`; re-enabling does not move the assigned receiver. A sibling also receives `403` if it re-enables while a request to turn off receiving is pending or has failed. `receiving.managed_elsewhere` identifies this restriction before a request. Older setups without a recorded receiver can be disabled from an authorized workspace sharing the domain; re-enabling records that workspace as the receiver.
 	Enabled bool `json:"enabled"`
 }
 
@@ -12635,6 +12764,18 @@ type DomainList struct {
 	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
 	Total *int64 `json:"total,omitempty"`
 }
+
+// DomainReceiving Receiving state and whether it is managed from another workspace.
+type DomainReceiving struct {
+	// ManagedElsewhere Receiving is assigned to another workspace in this organization. Its controls are unavailable in the current workspace. An authorized user must open the receiving workspace to turn it off.
+	ManagedElsewhere bool `json:"managed_elsewhere"`
+
+	// State Receiving control state, separate from DNS verification. `enabled` means receiving is configured; check `capabilities.inbound.status` for readiness. `disabling` means a request to turn off receiving is in progress. `disable_failed` means the latest attempt failed and can be retried. `disabled` means receiving is off and no longer blocks deletion.
+	State DomainReceivingState `json:"state"`
+}
+
+// DomainReceivingState Receiving control state, separate from DNS verification. `enabled` means receiving is configured; check `capabilities.inbound.status` for readiness. `disabling` means a request to turn off receiving is in progress. `disable_failed` means the latest attempt failed and can be retried. `disabled` means receiving is off and no longer blocks deletion.
+type DomainReceivingState string
 
 // DomainReturnPathConfig Return-path (bounce) domain configuration. The return-path domain receives bounce and complaint notifications for mail sent from this domain and is what mailbox providers check for SPF. Provide only the name part; we add the sending domain automatically.
 type DomainReturnPathConfig struct {
@@ -12981,6 +13122,20 @@ type EmailBroadcastClickedLinkList struct {
 	Total *int `json:"total,omitempty"`
 }
 
+// EmailBroadcastCountAllowance The organization's broadcast count allowance for the current window. This counts broadcasts rather than emails. The window is the billing period, or the UTC day when no current billing period is available.
+//
+// Sending or scheduling a draft uses one broadcast from the window current when you submit the request. The scheduled send time does not determine the window. Sending an already scheduled broadcast again uses no additional broadcast allowance. `send_at` on the send-quota request does not change this allowance.
+type EmailBroadcastCountAllowance struct {
+	// Limit Maximum number of broadcasts the organization can send in this window.
+	Limit int64 `json:"limit"`
+
+	// Remaining Number of broadcasts remaining in this window. At 0, you cannot send or schedule a draft.
+	Remaining int64 `json:"remaining"`
+
+	// ResetsAt When the window ends and broadcast usage resets to 0. This is the end of the billing period, or the end of the UTC day when no current billing period is available.
+	ResetsAt time.Time `json:"resets_at"`
+}
+
 // EmailBroadcastCounts How many people a broadcast would reach right now, narrowing from everyone in the audience down to the ones it could actually be sent to.
 //
 // These are live numbers, worked out at the moment you ask. Audience membership and suppressions change, so they can drift between now and when the broadcast sends.
@@ -13082,28 +13237,58 @@ type EmailBroadcastSendNowRequest struct {
 	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
 }
 
-// EmailBroadcastSendQuota How much of a broadcast the organization's email send allowance covers, read before the broadcast is sent. The allowance is shared with every other email the organization sends, so `allowed` moves as those sends land, and `recipients` moves as audience membership and suppressions change. Treat both as a live estimate rather than a promise: a broadcast whose recipients all fit today can still run into the allowance if other sends consume it first.
+// EmailBroadcastSendQuota The recipients covered by the organization's email send allowance. If you pass `send_at`, the estimate is for that time. Otherwise, it is for a send now.
+//
+// The organization shares this allowance across its email sends. `allowed` can change as other sends use the allowance. `recipients` can change with audience membership and suppressions. These counts are live estimates. Other sends can use the allowance before a broadcast sends, even if its audience fits now.
+//
+// `limit_reason` is present only when `limited_by` is `monthly` and you have `org:billing` read access. The reason can reveal the organization's payment state. `broadcasts` is present only for a draft when the organization has a broadcast count limit.
 type EmailBroadcastSendQuota struct {
-	// Allowed Number of those recipients the organization's email send allowance covers. Equal to `recipients` when nothing limits the send, and lower when part of the audience runs past what is left of it. A part-covered send goes out in whole batches, so this is cut back to a batch boundary rather than to the exact number of emails left: it can sit below `remaining` rather than matching it, and should be read rather than worked out from `limit` and `remaining`. 0 means none of them would go out, either because the audience is larger than the whole allowance, which is refused rather than sent in part, or because too little of the allowance is left to carry any of it.
+	// Allowed Number of recipients covered by the organization's email send allowance at `send_at`, or now if you omit it. Equals `recipients` when no email limit restricts the send. It is lower when the remaining allowance cannot cover the audience.
+	//
+	// Partially covered broadcasts send in whole batches. This count is rounded down to a batch boundary and can be lower than `remaining`. Read this value directly instead of calculating it from `limit` and `remaining`.
+	//
+	// A value of 0 means no recipients would receive the broadcast. This happens if the audience exceeds the full email limit, which rejects the send, or if the remaining allowance cannot cover a batch.
 	Allowed *int64 `json:"allowed,omitempty"`
 
-	// Limit Size of the allowance named by `limited_by`, in emails. Omitted when nothing limits the send.
+	// Broadcasts The organization's broadcast count allowance for the current window. This counts broadcasts rather than emails. The window is the billing period, or the UTC day when no current billing period is available.
+	//
+	// Sending or scheduling a draft uses one broadcast from the window current when you submit the request. The scheduled send time does not determine the window. Sending an already scheduled broadcast again uses no additional broadcast allowance. `send_at` on the send-quota request does not change this allowance.
+	Broadcasts *EmailBroadcastCountAllowance `json:"broadcasts,omitempty"`
+
+	// Limit The email limit identified by `limited_by`, in emails. Omitted when no email limit restricts the send.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// LimitedBy Which of the organization's email send allowances stops a send from reaching its whole audience.
+	// LimitReason What sets the monthly email limit and how to raise it.
 	//
-	// - `none`: every recipient is covered.
-	// - `monthly`: the allowance that runs with the billing period.
-	// - `daily`: the allowance that resets at the end of each UTC day.
+	// - `plan`: the organization's monthly email limit. This is the plan's included volume unless we have set a different limit for the organization. If the limit matches the included volume, a plan with more included volume raises it. Otherwise, contact Bird support.
+	// - `overage_off`: email overage is turned off, so sending stops at the included volume. Turn email overage back on to raise the monthly email limit.
+	// - `overdue_payment`: an overdue payment pauses email overage, so sending stops at the included volume. Pay the overdue invoice to raise the monthly email limit.
+	// - `unfunded`: the wallet cannot cover email overage, or its funding cannot be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. Email overage resumes once sufficient funding is confirmed.
+	// - `overage_ceiling`: email overage is billed up to a configured multiple of the included volume. A plan with more included volume raises the email overage ceiling.
+	// - `custom_limit`: we have set a monthly email limit for the organization that differs from the plan's included volume. Contact Bird support to change it. These limits currently report as `plan`. This enum value is declared in advance so reporting them as `custom_limit` will not be a breaking change.
+	LimitReason *EmailSendAllowanceLimitReason `json:"limit_reason,omitempty"`
+
+	// LimitedBy The email limit that prevents a broadcast from reaching its full audience.
 	//
-	// When both apply, the tighter of the two is reported.
+	// - `none`: the email send allowance covers every recipient.
+	// - `monthly`: the monthly email limit for the billing period.
+	// - `daily`: the daily email limit, which resets at the end of each UTC day.
+	//
+	// When both email limits apply, the response reports the more restrictive one. If you pass `send_at`, the check evaluates both at that time.
 	LimitedBy EmailSendAllowanceWindow `json:"limited_by"`
 
-	// Recipients Number of contacts the broadcast would send to right now, after contacts without an email address and contacts suppressed for the broadcast's category are dropped. The same number the broadcast's audience counts report as sendable.
+	// Recipients Number of contacts the broadcast could reach now. Excludes contacts without an email address and contacts suppressed for the broadcast's category. Matches the sendable count from the broadcast's audience counts.
 	Recipients *int64 `json:"recipients,omitempty"`
 
-	// Remaining How much of that allowance is left in the current window, in emails. Omitted when nothing limits the send.
+	// Remaining The allowance remaining under the email limit identified by `limited_by`, in emails, at `send_at`, or now if you omit it. If the window resets by `send_at`, the check uses its full allowance. Omitted when no email limit restricts the send.
 	Remaining *int64 `json:"remaining,omitempty"`
+
+	// ResetsAt When usage resets to 0 for the email limit identified by `limited_by`, evaluated at `send_at`, or now if you omit it.
+	//
+	// A broadcast sent before this time uses the same window and the allowance left after other sends. A broadcast sent at or after this time uses a new window. If `recipients` exceeds the full `limit`, the send is rejected in any window with that limit. Pass the later time as `send_at` to check whether the other email limit still restricts the send.
+	//
+	// Omitted when no email limit restricts the send, when the reset is at or before `send_at`, or when the billing period has ended and the next one has not started.
+	ResetsAt *time.Time `json:"resets_at,omitempty"`
 }
 
 // EmailBroadcastStatsPoint Delivery, engagement and latency figures for one broadcast's messages over the period you asked for.
@@ -16649,13 +16834,23 @@ type EmailRecipientList struct {
 //     onboarding-domain sends, recipients must be verified workspace members).
 type EmailRejectionReason string
 
-// EmailSendAllowanceWindow Which of the organization's email send allowances stops a send from reaching its whole audience.
+// EmailSendAllowanceLimitReason What sets the monthly email limit and how to raise it.
 //
-// - `none`: every recipient is covered.
-// - `monthly`: the allowance that runs with the billing period.
-// - `daily`: the allowance that resets at the end of each UTC day.
+// - `plan`: the organization's monthly email limit. This is the plan's included volume unless we have set a different limit for the organization. If the limit matches the included volume, a plan with more included volume raises it. Otherwise, contact Bird support.
+// - `overage_off`: email overage is turned off, so sending stops at the included volume. Turn email overage back on to raise the monthly email limit.
+// - `overdue_payment`: an overdue payment pauses email overage, so sending stops at the included volume. Pay the overdue invoice to raise the monthly email limit.
+// - `unfunded`: the wallet cannot cover email overage, or its funding cannot be confirmed, so sending stops at the included volume. Top up the wallet if it lacks funds. Email overage resumes once sufficient funding is confirmed.
+// - `overage_ceiling`: email overage is billed up to a configured multiple of the included volume. A plan with more included volume raises the email overage ceiling.
+// - `custom_limit`: we have set a monthly email limit for the organization that differs from the plan's included volume. Contact Bird support to change it. These limits currently report as `plan`. This enum value is declared in advance so reporting them as `custom_limit` will not be a breaking change.
+type EmailSendAllowanceLimitReason string
+
+// EmailSendAllowanceWindow The email limit that prevents a broadcast from reaching its full audience.
 //
-// When both apply, the tighter of the two is reported.
+// - `none`: the email send allowance covers every recipient.
+// - `monthly`: the monthly email limit for the billing period.
+// - `daily`: the daily email limit, which resets at the end of each UTC day.
+//
+// When both email limits apply, the response reports the more restrictive one. If you pass `send_at`, the check evaluates both at that time.
 type EmailSendAllowanceWindow string
 
 // EmailSendingDomainStatsPoint Aggregate delivery, engagement, and latency stats for messages sent from a single sending domain over the requested period.
@@ -18942,8 +19137,22 @@ type EsimAvailableAction struct {
 // This field is separate from daily usage history. Reporting availability can change as network support is confirmed.
 type EsimBalanceReporting string
 
-// EsimCheckoutOneTime Published one-time purchase terms before tax.
+// EsimCheckoutFunding Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+type EsimCheckoutFunding struct {
+	// Covered Whether the wallet can currently cover this purchase after reservations and approved credit.
+	Covered bool `json:"covered"`
+
+	// Shortfall Additional funds needed to cover this purchase, or null without organization billing read permission. Zero when covered is true.
+	Shortfall *Money `json:"shortfall"`
+	TaxAmount Money  `json:"tax_amount"`
+	Total     Money  `json:"total"`
+}
+
+// EsimCheckoutOneTime Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
 type EsimCheckoutOneTime struct {
+	// Funding Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+	Funding EsimCheckoutFunding `json:"funding"`
+
 	// OfferRevision The offer revision to accept when purchasing.
 	OfferRevision int   `json:"offer_revision"`
 	Price         Money `json:"price"`
@@ -18953,7 +19162,7 @@ type EsimCheckoutOneTime struct {
 type EsimCheckoutOptions struct {
 	OfferId EsimOfferID `json:"offer_id"`
 
-	// OneTime Published one-time purchase terms before tax.
+	// OneTime Published one-time price and current funding requirement. The `price` excludes tax; `funding.total` includes tax.
 	OneTime EsimCheckoutOneTime `json:"one_time"`
 
 	// Recurrence When available is true, quote contains the recurring terms and unavailable_reason is null. Otherwise quote is null and unavailable_reason explains why renewal is unavailable.
@@ -18973,7 +19182,7 @@ type EsimCheckoutRecurrence struct {
 type EsimCheckoutRecurrence0 struct {
 	Available interface{} `json:"available,omitempty"`
 
-	// Quote Published recurring terms before tax. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
+	// Quote Published recurring terms and current funding requirement. The `price` excludes tax; `funding.total` includes tax for the first period. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
 	Quote             *EsimCheckoutRecurringQuote `json:"quote,omitempty"`
 	UnavailableReason interface{}                 `json:"unavailable_reason,omitempty"`
 }
@@ -18987,13 +19196,16 @@ type EsimCheckoutRecurrence1 struct {
 	UnavailableReason *EsimCheckoutUnavailableReason `json:"unavailable_reason,omitempty"`
 }
 
-// EsimCheckoutRecurringQuote Published recurring terms before tax. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
+// EsimCheckoutRecurringQuote Published recurring terms and current funding requirement. The `price` excludes tax; `funding.total` includes tax for the first period. The first period starts when payment is funded, and cancellation stops future renewal while preserving paid packages.
 type EsimCheckoutRecurringQuote struct {
 	// DeliveryMode Relationship between the paid period and package delivery.
 	//
 	// - `exact_period`: the package covers the accepted paid interval.
 	// - `recurring_top_up`: each funded period purchases a standard package. Activation, expiry, and accumulation follow that package’s terms.
 	DeliveryMode EsimRecurrenceDeliveryMode `json:"delivery_mode"`
+
+	// Funding Current funding needed for this purchase, including tax and approved credit. The quoted price excludes tax; `total` includes tax for this purchase. This read reserves no funds; payment checks funding again. Test purchases have zero tax and total and are always covered.
+	Funding EsimCheckoutFunding `json:"funding"`
 
 	// IntervalCount The number of calendar months or fixed 24-hour days per period.
 	IntervalCount int `json:"interval_count"`
@@ -19867,13 +20079,13 @@ type EsimServiceCapability string
 
 // EsimSettings The eSIM settings your workspace controls. Every field carries its effective value, whether or not the workspace has ever changed it.
 type EsimSettings struct {
-	// CredentialDeliveryEnabled Whether Bird sends eSIM install credentials to travelers for this workspace. When `false`, sending an eSIM's credentials by email or SMS is refused; reading them from the API still works, so you can deliver them yourself. This governs the install message only. Your workspace's other email and SMS sending is unaffected. Defaults to `true`.
+	// CredentialDeliveryEnabled Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Defaults to `false`. Manual install-link sends remain available regardless of this setting.
 	CredentialDeliveryEnabled bool `json:"credential_delivery_enabled"`
 }
 
 // EsimSettingsUpdate Changes to your workspace's eSIM settings. Omit a field to leave it as it is.
 type EsimSettingsUpdate struct {
-	// CredentialDeliveryEnabled Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+	// CredentialDeliveryEnabled Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Omit this field to retain the current value; a workspace without saved settings starts with `false`. Manual install-link sends remain available regardless of this setting.
 	CredentialDeliveryEnabled *bool `json:"credential_delivery_enabled,omitempty"`
 }
 
@@ -22848,9 +23060,12 @@ type Mailbox struct {
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 
 	// DisplayName Display name used as the sender name on mail from this mailbox. `null` when unset.
-	DisplayName      *string          `json:"display_name"`
-	Id               MailboxID        `json:"id"`
-	InboundAddressId InboundAddressID `json:"inbound_address_id"`
+	DisplayName *string `json:"display_name"`
+
+	// ForwardingAddress An address we generate on our receiving domain when the mailbox is created on a domain not set up for receiving with us. Forward mail for `address` here from your current email provider, and it lands in this mailbox. Replies still go out from `address`. Immutable. It stops receiving while the mailbox is deleted, works again with the same value after a restore, and keeps working if you later enable receiving on the domain. `null` on mailboxes created on the shared domain or on a domain already enabled for receiving.
+	ForwardingAddress *openapi_types.Email `json:"forwarding_address,omitempty"`
+	Id                MailboxID            `json:"id"`
+	InboundAddressId  InboundAddressID     `json:"inbound_address_id"`
 
 	// LocalPartGenerated Whether we generated the local part of the address. `false` means a custom handle was chosen at creation. On the shared `inbox.ai` domain a custom handle counts against your plan's custom-handle allowance.
 	LocalPartGenerated *bool `json:"local_part_generated,omitempty"`
@@ -22925,7 +23140,7 @@ type MailboxCreate struct {
 	// DisplayName Display name used as the sender name on mail from this mailbox.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains enabled for receiving email.
+	// Domain The domain the address lives under. Defaults to `inbox.ai`, our shared mailbox domain. Creating a mailbox claims the shared address for your organization on a first-come, first-served basis. The address remains reserved to your organization after the mailbox is deleted. You can instead use one of your own domains. On a domain enabled for receiving, mail arrives directly. On a domain this workspace has verified (its `status` is `verified`) that is not set up for receiving, the mailbox gets a `forwarding_address`: forward mail for the address there from your current email provider, with no MX change. If another workspace receives the domain's mail, creation fails with `E17009`.
 	Domain *string `json:"domain,omitempty"`
 
 	// LocalPart The local part of the mailbox address (the part before `@`). Letters, digits, dots, underscores, and hyphens. Stored lowercase. On the shared `inbox.ai` domain, separators must sit between letters or digits. Leading, trailing, and repeated separators are not allowed. Reserved names such as `postmaster` and `abuse` are unavailable. Choosing your own local part uses one of your plan's custom-handle allowance slots; generated addresses remain available. Omit this field to generate a random local part.
@@ -25905,6 +26120,9 @@ type VoiceDestination struct {
 	// CountryName Full English country name.
 	CountryName *string `json:"country_name,omitempty"`
 
+	// DailySpendLimit Your workspace's daily spend limit for calls to this country and today's usage toward it. It applies whether or not the country is enabled, including to verification calls. Null when you have not set one, before your organization has a wallet, or while your wallet currency cannot be read; a limit you set is still enforced then.
+	DailySpendLimit *VoiceDestinationDailySpendLimit `json:"daily_spend_limit,omitempty"`
+
 	// DialCode International dialling prefix, without the leading plus. Absent for countries that have none.
 	DialCode *string `json:"dial_code,omitempty"`
 
@@ -25920,6 +26138,27 @@ type VoiceDestination struct {
 	SuperRegion *DestinationSuperRegion `json:"super_region,omitempty"`
 }
 
+// VoiceDestinationDailySpendLimit defines model for VoiceDestinationDailySpendLimit.
+type VoiceDestinationDailySpendLimit struct {
+	// Limit The most your workspace can spend on calls to this country each day, in your organization's wallet currency. Calls are also held to the workspace's own daily limit, and whichever is reached first refuses the call.
+	Limit Money `json:"limit"`
+
+	// Remaining What is left of this country's limit today, never below zero. Null when today's usage cannot be read.
+	Remaining *Money `json:"remaining"`
+
+	// ResetsAt When usage resets to zero, at midnight UTC.
+	ResetsAt time.Time `json:"resets_at"`
+
+	// Used Used toward today's limit for this country, including calls in progress. A call counts its expected cost when it starts; the part it did not use returns when it is billed. Null when today's usage cannot be read right now; the limit is still enforced.
+	Used *Money `json:"used"`
+}
+
+// VoiceDestinationDailySpendLimitUpdate Sets or removes this country's daily spend limit; omit it to leave the limit unchanged. Once today's spend reaches the limit, new calls to the country are refused, verification calls included, whether or not it is enabled; a call already in progress is not cut off, so spend can pass the limit by what that call costs.
+type VoiceDestinationDailySpendLimitUpdate struct {
+	// Limit The daily spend limit for calls to this country, in your organization's wallet currency, from zero up to the workspace's `max_limit` in Voice settings, with at most six decimal places. Setting an amount needs an organization wallet; removing one does not. Null removes it, so only the workspace's daily limit applies.
+	Limit nullable.Nullable[Money] `json:"limit"`
+}
+
 // VoiceDestinationList defines model for VoiceDestinationList.
 type VoiceDestinationList struct {
 	// Data The Voice destination countries, each annotated with your workspace's enabled setting.
@@ -25931,7 +26170,7 @@ type VoiceDestinationList struct {
 
 // VoiceDestinationsUpdate defines model for VoiceDestinationsUpdate.
 type VoiceDestinationsUpdate struct {
-	// Destinations The destination countries to enable or disable. Only the countries listed here change; any country you do not list keeps its current setting.
+	// Destinations The destination countries to change. Only the countries listed here change, and only the fields you send; anything else keeps its current setting. A country listed more than once takes its last `enabled`, but may set or remove `daily_spend_limit` only once. A limit can be set only on a country the Voice service supports; removing one accepts any country code. Otherwise the request is rejected and nothing changes.
 	Destinations []DestinationSetting `json:"destinations"`
 }
 
@@ -27365,13 +27604,13 @@ type WhatsAppAgentNotificationStatus string
 
 // WhatsAppAudio defines model for WhatsAppAudio.
 type WhatsAppAudio struct {
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 
 	// Voice Whether this is a voice note rather than an attached audio file. A voice note auto-downloads in the WhatsApp client and can be transcribed for the recipient.
@@ -27380,10 +27619,10 @@ type WhatsAppAudio struct {
 
 // WhatsAppAudioSend Free-form audio to send, either as a voice note or as a basic audio file. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppAudioSend struct {
-	// Url Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. AAC, AMR, MP3, M4A and OGG (OPUS codec, mono) are supported, up to 16 MB.
+	// Url Public `https` URL of the audio file. WhatsApp fetches it at send time, so it must still be reachable then. AAC, AMR, MP3, M4A or OGG (OPUS codec, mono), up to 16 MB.
 	Url string `json:"url"`
 
-	// Voice Whether to send this as a voice note rather than a basic audio message. A voice note auto-downloads, shows the sender's profile picture, and can be transcribed for the recipient. It requires an `.ogg` file encoded with the OPUS codec; any other format makes transcription fail. Leave it false for an ordinary audio attachment.
+	// Voice Whether to send this as a voice note rather than an audio file. A voice note needs an `.ogg` file encoded with the OPUS codec.
 	Voice *bool `json:"voice,omitempty"`
 }
 
@@ -27741,13 +27980,13 @@ type WhatsAppDocument struct {
 	// Filename The sender's own name for the file.
 	Filename *string `json:"filename,omitempty"`
 
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -27759,7 +27998,7 @@ type WhatsAppDocumentSend struct {
 	// Filename Name the recipient sees, including the extension. WhatsApp derives one from the URL when you omit it.
 	Filename *string `json:"filename,omitempty"`
 
-	// Url Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. Up to 100 MB. PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client; other file types are transmitted but WhatsApp does not support them.
+	// Url Public `https` URL of the document. WhatsApp fetches it at send time, so it must still be reachable then. Up to 100 MB; PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client.
 	Url string `json:"url"`
 }
 
@@ -28186,13 +28425,13 @@ type WhatsAppImage struct {
 	// Caption Text shown beneath the image. Absent when the sender wrote none.
 	Caption *string `json:"caption,omitempty"`
 
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -28201,7 +28440,7 @@ type WhatsAppImageSend struct {
 	// Caption Text shown beneath the image.
 	Caption *string `json:"caption,omitempty"`
 
-	// Url Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. JPEG and PNG only, up to 5 MB.
+	// Url Public `https` URL of the image. WhatsApp fetches it at send time, so it must still be reachable then. JPEG or PNG, up to 5 MB.
 	Url string `json:"url"`
 }
 
@@ -28440,7 +28679,7 @@ type WhatsAppInteractiveHeader struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// WhatsAppInteractiveHeaderSend What to show above an interactive message's body. `type` names the kind and the field that carries it: `text` for a line of copy, `url` for the file every other kind shows, the same pairing a template's `parameters` use. A `list` accepts a `text` header only, and any other kind on it is refused.
+// WhatsAppInteractiveHeaderSend What to show above an interactive message's body: `text` for a line of copy, or `url` for an image, video or document. A `list` accepts a `text` header only.
 type WhatsAppInteractiveHeaderSend struct {
 	// Text A single line of text above the body. Send it on a `text` header.
 	Text *string `json:"text,omitempty"`
@@ -28448,7 +28687,7 @@ type WhatsAppInteractiveHeaderSend struct {
 	// Type Which kind of header this is, and which field carries it.
 	Type WhatsAppInteractiveHeaderTypeWrite `json:"type"`
 
-	// Url Public `https` URL of the file to show. Send it on an `image`, `video` or `document` header. An image must be JPEG or PNG, up to 5 MB; a video, MP4 with H.264 video and AAC audio, up to 16 MB; a document, up to 100 MB, and PDF, Word, Excel, PowerPoint and plain text render reliably in the WhatsApp client while other file types are transmitted but unsupported. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch.
+	// Url Public `https` URL of the file to show on an `image`, `video` or `document` header, fetched by WhatsApp at send time. The free-form `image`, `video` and `document` limits apply.
 	Url   *string `json:"url,omitempty"`
 	union json.RawMessage
 }
@@ -28573,15 +28812,15 @@ type WhatsAppInteractiveReply struct {
 // unrecognized value as a future kind rather than an error.
 type WhatsAppInteractiveReplyType string
 
-// WhatsAppInteractiveSend An interactive message to send: body text plus something for the recipient to tap. Name the kind in `type` and carry that kind's field alongside it: `buttons`, `list`, `cta_url` or `cards`. The schema pins each `type` to its own field and bars the other kinds', so a request carrying a second kind's field alongside the right one is refused. `location_request_message` and `request_contact_info` name no field: each is a single button asking the recipient for something, so `body_text` is the whole message and every other kind's field is barred. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
+// WhatsAppInteractiveSend An interactive message: body text plus something for the recipient to tap. Name the kind in `type` and send that kind's field: `buttons`, `list`, `cta_url` or `cards`. `location_request_message` and `request_contact_info` carry only `body_text`.
 type WhatsAppInteractiveSend struct {
-	// BodyText The message's main text, required on every kind, and the whole message on `location_request_message` and `request_contact_info`. The WhatsApp client turns any URL it contains into a clickable link. Only a `list` may use the full length; the other kinds cap it at 1024 characters.
+	// BodyText The message's main text, required on every kind. Up to 1024 characters, except on a `list`.
 	BodyText string `json:"body_text"`
 
-	// Buttons The buttons to show, in the order given. Send this on a `button` message, where every button is a `quick_reply`. Every label must be unique within the message; a repeat returns a `422` `WhatsAppInteractiveDuplicateLabel`.
+	// Buttons The `quick_reply` buttons of a `button` message, in order. Labels must be unique within the message.
 	Buttons *[]WhatsAppInteractiveButtonSend `json:"buttons,omitempty"`
 
-	// Cards The cards to show, in the order they appear, left to right. Send this on a `carousel` message, with between 2 and 10 cards. The message's own `body_text` introduces them; a carousel carries no header and no footer of its own.
+	// Cards The cards of a `carousel` message, 2 to 10, left to right. A carousel takes no header or footer of its own.
 	Cards *[]WhatsAppInteractiveCardSend `json:"cards,omitempty"`
 
 	// CtaUrl The link button to show. Send this on a `cta_url` message.
@@ -28590,7 +28829,7 @@ type WhatsAppInteractiveSend struct {
 	// FooterText Optional small print below the body and above the buttons. A `carousel` and both request kinds take no footer.
 	FooterText *string `json:"footer_text,omitempty"`
 
-	// Header Optional content above the body. A `list` accepts a `text` header only; `button` and `cta_url` also accept an image, video or document. A `carousel` accepts none: its cards carry their own media. Neither request kind accepts one.
+	// Header Optional content above the body: text on a `list`; text, image, video or document on `button` and `cta_url`. A `carousel` and the two request kinds take none.
 	Header *WhatsAppInteractiveHeaderSend `json:"header,omitempty"`
 
 	// List The menu to show. Send this on a `list` message.
@@ -28702,12 +28941,6 @@ type WhatsAppInteractiveType string
 //   - `request_contact_info`: a single button that asks the recipient to share
 //     their phone number. A tap arrives as an inbound message carrying the number
 //     on `contact_cards`, with `origin` set to `contact_request`.
-//
-// The last two name no field of their own: the ask is the whole message, and
-// `body_text` is all they carry.
-//
-// Closed on the write side: a kind Bird cannot send to Meta is rejected rather
-// than accepted and then failed asynchronously.
 type WhatsAppInteractiveTypeWrite string
 
 // WhatsAppKeywordOperation What Bird does when an inbound message matches the rule.
@@ -28906,13 +29139,13 @@ type WhatsAppLocationSend struct {
 
 // WhatsAppMedia Fields shared by every media content object on a WhatsApp message.
 type WhatsAppMedia struct {
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -28972,6 +29205,9 @@ type WhatsAppMessage struct {
 
 	// Metadata Arbitrary JSON metadata stored on the message.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// Origin Where the message came from when it did not come through Bird live. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Reactions Emoji reactions standing on this message right now, one per sender. Absent when the message has none. A reaction that was replaced by a different emoji, or taken back, is not listed; the message's reaction log keeps that history. WhatsApp accepts a reaction on a message up to 30 days old, and we keep provider ids for 15, so a reaction placed on a message older than that cannot be matched to it and does not appear here.
 	Reactions *[]WhatsAppReaction `json:"reactions,omitempty"`
@@ -29033,7 +29269,7 @@ type WhatsAppMessage struct {
 	// To Recipient of the message. On outbound messages, the WhatsApp contact; on inbound, the business number.
 	To *WhatsAppAddress `json:"to,omitempty"`
 
-	// Unsupported Set when the contact sent content we do not model, naming the WhatsApp content type so the message is not silently empty. Inbound only.
+	// Unsupported Set when a message that did not come from a Bird send carries content we do not model, naming the WhatsApp content type so the message is not silently empty. Never on a message sent through Bird.
 	Unsupported *WhatsAppUnsupported `json:"unsupported,omitempty"`
 
 	// Video Video the message carried.
@@ -29061,51 +29297,58 @@ type WhatsAppMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// WhatsAppMessageSendRequest A WhatsApp message to send. Carry exactly one kind of content: a request with none returns a `422` `WhatsAppContentRequired`, and one carrying more than one returns a `422` `WhatsAppContentAmbiguous`. The schema does not express that constraint, because which combinations are available depends on the content types your workspace can send.
+// WhatsAppMessageOrigin Where a message came from when it did not come through Bird live: its provenance. It does not say who answers the contact. On a number shared with the WhatsApp Business app, a message can come from the app while Bird keeps answering.
+//
+// - `business_agent_echo`: the Meta Business Agent on this number composed it.
+// - `business_app_echo`: someone sent it from the WhatsApp Business app on a number shared with it.
+// - `history_sync`: WhatsApp copied it, in either direction, from the WhatsApp Business app's chat history when the number was shared. `/v1/whatsapp/messages` does not return imported messages, so it never reports this value.
+type WhatsAppMessageOrigin string
+
+// WhatsAppMessageSendRequest A WhatsApp message to send, carrying exactly one kind of content.
 type WhatsAppMessageSendRequest struct {
-	// Audio Free-form audio to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Audio Free-form audio. Deliverable only inside an open customer service window.
 	Audio *WhatsAppAudioSend `json:"audio,omitempty"`
 
-	// ContactCards Contact cards to send instead of a template. Up to five: WhatsApp accepts far more, and a message that opens as one name plus a count of the rest is not a card the recipient will read.
+	// ContactCards Up to five contact cards, each `name` carrying `formatted_name` plus at least one other part. Deliverable only inside an open customer service window.
 	ContactCards *[]WhatsAppContactCardSend `json:"contact_cards,omitempty"`
 
-	// Document A free-form document to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Document A free-form document. Deliverable only inside an open customer service window.
 	Document *WhatsAppDocumentSend `json:"document,omitempty"`
 
-	// From The business phone number to send from, in E.164 format. Omit it for a Bird-managed template, which selects its own number from its category: setting it there returns a `422` `WhatsAppSenderNotAllowed`. Every other send, whether free-form content of any kind or a template your workspace authored, requires it, and the number must be one this workspace owns. Omitting it returns a `422` `WhatsAppSenderRequired`, and naming a number this workspace cannot send from returns a `422` `WhatsAppSenderNotFound`. Naming a number this workspace owns but that sits on a different WhatsApp Business Account than an authored template returns a `422` `WhatsAppSenderWABAMismatch`. A number this workspace holds but has not finished connecting returns a `422` `WhatsAppSenderNotConnected`. Omit it for a group send too: the group sends on its own number, so naming one returns a `422` `WhatsAppSenderNotAllowed`.
+	// From The business phone number to send from, in E.164 format: a connected number this workspace owns, on the same WhatsApp Business Account as an authored template. Omit it for a Bird-managed template or a group send, which use their own number; every other send requires it.
 	From *string `json:"from,omitempty"`
 
-	// Image A free-form image to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Image A free-form image. Deliverable only inside an open customer service window.
 	Image *WhatsAppImageSend `json:"image,omitempty"`
 
-	// InReplyToMessageId Quote a message the contact will see above this one, the way replying in the WhatsApp client does. Name a message from the same conversation: one this workspace sent to this recipient, or received from them. Any content quotes, template or free-form. The quote is resolved before the send is accepted, so a quote WhatsApp cannot render fails this request rather than the message. An id naming no message this workspace holds, or one older than the 15 days we keep provider ids for, answers `404`; a message that never reached WhatsApp, or one from a different conversation than this send's `to` and `from`, answers `422`. Nothing is charged either way.
+	// InReplyToMessageId An earlier message to quote above this one: one from the same conversation, between this `to` and `from`, in the last 15 days.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Interactive Free-form interactive content to send instead of a template: body text plus reply buttons, a menu, a link button, media cards, or a single button asking the recipient to share their location or their phone number. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`. WhatsApp does not deliver interactive content to a group, so a group recipient returns a `422` `WhatsAppGroupContentNotSupported`.
+	// Interactive Free-form interactive content: reply buttons, a list menu, a link button, media cards, or a request for the recipient's location or contact details. Deliverable only inside an open customer service window, and never to a group.
 	Interactive *WhatsAppInteractiveSend `json:"interactive,omitempty"`
 
-	// Location A free-form location to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Location A free-form location. Deliverable only inside an open customer service window.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 
 	// Metadata Arbitrary JSON object stored on the message and returned on API reads. Maximum 2 KB serialized. Use metadata for per-send context like internal IDs and foreign keys. For low-cardinality filterable labels, use `tags` instead.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 
-	// Sticker A free-form sticker to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Sticker A free-form sticker. Deliverable only inside an open customer service window.
 	Sticker *WhatsAppStickerSend `json:"sticker,omitempty"`
 
 	// Tags Structured `{name, value}` labels for filtering. Tags become first-class query dimensions: filter the list endpoint by tag name. Maximum 20 tags per send. Use tags for low-cardinality dimensions (`category`, `experiment_variant`). For arbitrary structured context you do not need as a filter dimension, use `metadata` instead.
 	Tags *[]Tag `json:"tags,omitempty"`
 
-	// Template The template to send. A Bird-managed template selects the sender number from the template's category, so `from` must be omitted. A template is the only content deliverable outside a customer service window. A group send takes a template your workspace authored in any category but authentication: WhatsApp does not deliver an authentication template to a group, which returns a `422` `WhatsAppGroupContentNotSupported`. A Bird-managed template sends from a Bird-owned number that no group is scoped to, so addressing one to a group returns a `422` `WhatsAppInvalidRecipient`.
+	// Template The template to send, the only content deliverable outside the customer service window. A group takes only templates your workspace authored, outside the authentication category.
 	Template *WhatsAppTemplateSend `json:"template,omitempty"`
 
-	// Text Free-form text to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Text Free-form text. Deliverable only inside an open customer service window.
 	Text *WhatsAppTextSend `json:"text,omitempty"`
 
-	// To The message recipient: a phone number in E.164 format (for example `+31612345678`), the recipient's business-scoped user ID (for example `US.13491208655302741918`), which addresses a WhatsApp user whose phone number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`), which sends to every participant of that group. A value that is none of these returns a `422` `WhatsAppInvalidRecipient`. One-time-passcode templates require a phone number and return a `422` `WhatsAppRecipientNotSupportedForTemplate` when sent to a business-scoped user ID. A group ID naming no group this workspace holds returns a `404` `WhatsAppGroupNotFound`, and one whose group is not active returns a `409` `WhatsAppGroupNotActive`. Content a group cannot take is refused ahead of both, so a group ID paired with interactive content returns the `422` below whether or not the group exists.
+	// To The recipient: a phone number in E.164 format (for example `+14155550100`), a business-scoped user ID (for example `US.13491208655302741918`) for a WhatsApp user whose number you do not have, or a WhatsApp group ID (for example `wag_01krdgeqcxet5s7t44vh8rt9mg`). One-time-passcode templates need a phone number. Bird tracks the customer service window per identity and business number, so reply to the identity a contact's message came from, from the number it reached.
 	To string `json:"to"`
 
-	// Video A free-form video to send instead of a template. Deliverable only inside an open 24-hour customer service window, which the contact opens by messaging or calling you and resets each time they do it again. A send into a closed window is refused with a `422` `WhatsAppServiceWindowClosed` before anything is created or charged; one whose window closes between accept and dispatch fails asynchronously, with `service_window_expired` on the message's `last_error`.
+	// Video A free-form video. Deliverable only inside an open customer service window.
 	Video *WhatsAppVideoSend `json:"video,omitempty"`
 }
 
@@ -29161,16 +29404,16 @@ type WhatsAppMessageTemplateCardComponent struct {
 
 // WhatsAppMessageTemplateComponent defines model for WhatsAppMessageTemplateComponent.
 type WhatsAppMessageTemplateComponent struct {
-	// Cards The values that fill each card of a carousel. Send it only on a `carousel` part. A carousel sends exactly the number of cards its template was approved with, so every card needs an entry.
+	// Cards Values for each carousel card, one entry per card the template was approved with. Send it only on a `carousel` part.
 	Cards *[]WhatsAppMessageTemplateCard `json:"cards,omitempty"`
 
-	// Parameters The values that fill this part's placeholders. A positional template takes them in `{{n}}` placeholder order; a template with named parameters requires each parameter's `name` to match one the template declares, and order then carries no meaning. Send it on every part except `carousel`, which carries its values on `cards`. Send no `button` part at all for a button that takes no value, such as a `quick_reply` or `request_contact_info` button, or a `url` button whose address has no placeholder: a part the template has no slot for is refused here, before the message is sent and charged.
+	// Parameters The values for this part's placeholders, in `{{n}}` order unless the template names them. Send it on every part except `carousel`, which uses `cards`. Send no `button` part for a button that takes no value.
 	Parameters *[]WhatsAppMessageTemplateComponentParameter `json:"parameters,omitempty"`
 
 	// Type Which part of the template this fills in.
 	//
 	// - `body`: the main text.
-	// - `button`: a button's variable.
+	// - `button`: one button's variable, a part per button; there is no `buttons` part.
 	// - `header`: the header's text, media or location.
 	// - `carousel`: the cards.
 	Type string `json:"type"`
@@ -29181,7 +29424,7 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	// Location The point on the map a location header opens. Send it on a `location` parameter.
 	Location *WhatsAppLocationSend `json:"location,omitempty"`
 
-	// Name Required when the template declares named parameters: the placeholder this value fills (for example `first_name`), matching exactly one of the names the template declares. Name every parameter in that case; order does not matter once names are supplied. Omit this field for a positional template, which takes its values in `{{n}}` order instead. Sending the wrong set of names, or leaving one out that the template requires, returns a `422` `WhatsAppTemplateParameterMismatch`.
+	// Name The placeholder this value fills, for a template with named parameters (for example `first_name`); name every parameter then. Omit it for a positional template, which takes values in `{{n}}` order.
 	Name *string `json:"name,omitempty"`
 
 	// Text The value substituted into the placeholder, as a plain string. Send it on a `text` parameter.
@@ -29190,7 +29433,7 @@ type WhatsAppMessageTemplateComponentParameter struct {
 	// Type The kind of value this parameter carries, which decides which of the fields below to send.
 	Type WhatsAppTemplateParameterType `json:"type"`
 
-	// Url Public `https` URL of the file a media header shows. Send it on an `image`, `video`, `gif` or `document` parameter. WhatsApp fetches it at send time, so it must still be reachable then, the same way a free-form media message's `url` must.
+	// Url Public `https` URL of the file a media header shows, fetched by WhatsApp at send time. Send it on an `image`, `video`, `gif` or `document` parameter.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -29272,6 +29515,9 @@ type WhatsAppNumber struct {
 
 	// IsOfficialBusinessAccount Whether WhatsApp grants this number Official Business Account status as of `meta_synced_at`. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf. WhatsApp grants the status per number, so two numbers on one WhatsApp Business Account can differ. The status also decides whether a rename is possible here: a number that has it cannot be renamed through `PATCH /v1/whatsapp/numbers/{number_id}/profile` at all, and has to be renamed through WhatsApp support instead.
 	IsOfficialBusinessAccount *bool `json:"is_official_business_account,omitempty"`
+
+	// IsOnBusinessApp Whether this number is also in use on the WhatsApp Business app, so the business keeps sending one-to-one messages from the app while you send through the API. Absent until WhatsApp has reported it, and always absent for a number we operate on your behalf.
+	IsOnBusinessApp *bool `json:"is_on_business_app,omitempty"`
 
 	// MessagingLimit The messaging limit WhatsApp applied to this number's business portfolio as of `meta_synced_at`. Absent until WhatsApp has reported one, and always absent for a number we operate on your behalf.
 	MessagingLimit *WhatsAppNumberMessagingLimit `json:"messaging_limit,omitempty"`
@@ -29748,19 +29994,19 @@ type WhatsAppSticker struct {
 	// Animated Whether the sticker is animated. Absent on an outbound message.
 	Animated *bool `json:"animated,omitempty"`
 
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 }
 
 // WhatsAppStickerSend A free-form sticker to send. Deliverable only inside an open 24-hour customer service window; outside one, send a template instead.
 type WhatsAppStickerSend struct {
-	// Url Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. WebP only: up to 100 KB for a static sticker and 500 KB for an animated one. A sticker carries no caption.
+	// Url Public `https` URL of the sticker. WhatsApp fetches it at send time, so it must still be reachable then. WebP only, up to 100 KB static or 500 KB animated.
 	Url string `json:"url"`
 }
 
@@ -30261,11 +30507,11 @@ type WhatsAppTemplateRevision = int
 
 // WhatsAppTemplateSend A send-by-template reference. Identify the template by its `id` or its `slug` (supply exactly one), optionally name a language, and fill its placeholders through `components`.
 type WhatsAppTemplateSend struct {
-	// Components The values that fill the template's placeholders: one entry per content block that has placeholders, each carrying its `parameters`. A positional template takes its parameters in `{{n}}` order; a template with named parameters requires each parameter's `name` to match one the template declares. Either way, sending parameters that do not match what the template declares returns a `422` `WhatsAppTemplateParameterMismatch`.
+	// Components Values for the template's placeholders. Build it from the template language's `components`: each block's `example_parameters`, with real values, becomes that part's `parameters`. A template's `buttons` block becomes one `button` part per button that has `example_parameters`, in order; a `carousel` becomes one `cards` entry per card, built the same way. A `location` header always needs a part with a `location` parameter. Leave out other blocks without any.
 	Components *[]WhatsAppMessageTemplateComponent `json:"components,omitempty"`
 	Id         *WhatsAppTemplateID                 `json:"id,omitempty"`
 
-	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en` or `pt-BR`); Meta's underscore form (`pt_BR`) is accepted and normalized. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected. The accepted message echoes the canonical BCP-47 form of the language it resolved to, which is the language it is priced at: Meta categorizes each language separately, so a send served by a different language than the one you asked for is priced at that language's category.
+	// Language Which of the template's languages to send, as a BCP-47 tag (for example `en-US`; Meta's `en_US` is accepted too). Omit it for the template's default language, unless the template sets `language_source_required`. A language the template lacks is handled by its `on_missing_language` setting. The message is priced at the language it resolves to, which the accepted message echoes.
 	Language *LanguageTag `json:"language,omitempty"`
 
 	// Slug The template to send, by its slug handle (for example `bird_otp`).
@@ -30386,11 +30632,11 @@ type WhatsAppTextSend struct {
 	// Body The message text. The WhatsApp client turns any URL it contains into a clickable link.
 	Body string `json:"body"`
 
-	// PreviewUrl Whether the WhatsApp client renders a preview of the first URL in `body`. A URL must begin with `http://` or `https://`, only the first one is previewed, and the client falls back to a plain link when it cannot fetch a preview. Not returned when the message is read back, because WhatsApp does not report whether a preview rendered.
+	// PreviewUrl Whether the WhatsApp client previews the first link in `body`. Not returned when the message is read back.
 	PreviewUrl *bool `json:"preview_url,omitempty"`
 }
 
-// WhatsAppUnsupported A message whose content we do not model, named so it is visible in the message log rather than arriving empty. Inbound only.
+// WhatsAppUnsupported A message whose content we do not model, named so it is visible in the message log rather than arriving empty. Never on a message sent through Bird.
 type WhatsAppUnsupported struct {
 	// Type The WhatsApp content type we did not model. `unsupported` is not a placeholder here: WhatsApp reports its own `unsupported` type for a message its own clients cannot render, and that arrives as this value. Open enum: WhatsApp adds content types over time, so treat an unrecognized value as a future type rather than an error.
 	Type string `json:"type"`
@@ -30404,13 +30650,13 @@ type WhatsAppVideo struct {
 	// Caption Text shown beneath the video. Absent when the sender wrote none.
 	Caption *string `json:"caption,omitempty"`
 
-	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on an outbound message, whose file we never stored.
+	// Id ID of the stored file, to pass as `media_id` when fetching it. Absent on a message sent through Bird, whose file we never stored.
 	Id *WhatsAppFileID `json:"id,omitempty"`
 
-	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on outbound messages.
+	// MimeType Media type WhatsApp reported for the file, for example `image/jpeg`. Absent on messages sent through Bird.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url Where to fetch the media. On an inbound message this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On an outbound message it is the URL the sender supplied, whose availability is the sender's to guarantee.
+	// Url Where to fetch the media. On an inbound message, or one from the WhatsApp Business app, this is a Bird URL you fetch with your API key; it is absent when the file could not be retrieved from WhatsApp. It stays populated after the stored bytes expire, and the link returns `410` from then on. On a message sent through Bird it is the URL the sender supplied, whose availability is the sender's to guarantee.
 	Url *string `json:"url,omitempty"`
 }
 
@@ -30419,7 +30665,7 @@ type WhatsAppVideoSend struct {
 	// Caption Text shown beneath the video.
 	Caption *string `json:"caption,omitempty"`
 
-	// Url Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then: a signed URL has to outlive the send. We do not store or proxy the file. WhatsApp caches a fetched URL for 10 minutes and re-serves that copy for an identical URL sent again within the window; vary the URL to force a re-fetch. MP4 with H.264 video and AAC audio, up to 16 MB.
+	// Url Public `https` URL of the video. WhatsApp fetches it at send time, so it must still be reachable then. MP4 with H.264 video and AAC audio, up to 16 MB.
 	Url string `json:"url"`
 }
 
@@ -30590,6 +30836,9 @@ type Gone = Error
 
 // InternalError defines model for InternalError.
 type InternalError = Error
+
+// MisdirectedRequest defines model for MisdirectedRequest.
+type MisdirectedRequest = Error
 
 // NotFound defines model for NotFound.
 type NotFound = Error
@@ -32015,6 +32264,30 @@ type UnassignAudienceContactParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// GetAudienceMembershipParams defines parameters for GetAudienceMembership.
+type GetAudienceMembershipParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAudienceMembershipStatisticsParams defines parameters for GetAudienceMembershipStatistics.
+type GetAudienceMembershipStatisticsParams struct {
+	// From Inclusive first UTC date. Defaults to 30 days before to, yielding 31 inclusive dates.
+	From *openapi_types.Date `form:"from,omitempty" json:"from,omitempty"`
+
+	// To Inclusive last UTC date. Defaults to today in UTC; future dates are rejected. At most 365 inclusive dates.
+	To *openapi_types.Date `form:"to,omitempty" json:"to,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListContactPropertiesParams defines parameters for ListContactProperties.
 type ListContactPropertiesParams struct {
 	// Limit Maximum number of items to return per page.
@@ -32646,6 +32919,13 @@ type SendEmailBroadcastParams struct {
 
 // GetEmailBroadcastSendQuotaParams defines parameters for GetEmailBroadcastSendQuota.
 type GetEmailBroadcastSendQuotaParams struct {
+	// SendAt The proposed send time as an RFC 3339 date-time. If a daily or monthly window resets at or before this time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The check estimates your send quota at this time using current limits without subtracting broadcasts that are scheduled but have not sent yet, including those scheduled before this time. It does not reflect plan changes or temporary limit changes that take effect before this time.
+	//
+	// Must be at least 30 seconds and no more than 365 days in the future, the same range accepted by `scheduled_at`. Omit `send_at` to check a send now. A scheduled broadcast's `scheduled_at` is used only if you pass it as `send_at`.
+	//
+	// Does not change `broadcasts`. The broadcast count allowance is used when you submit the send or schedule request.
+	SendAt *time.Time `form:"send_at,omitempty" json:"send_at,omitempty"`
+
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -47879,6 +48159,12 @@ type ClientInterface interface {
 	// UnassignAudienceContact request
 	UnassignAudienceContact(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetAudienceMembership request
+	GetAudienceMembership(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAudienceMembershipStatistics request
+	GetAudienceMembershipStatistics(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListContactProperties request
 	ListContactProperties(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -49822,6 +50108,30 @@ func (c *Client) UnassignAudienceContacts(ctx context.Context, audienceId Audien
 
 func (c *Client) UnassignAudienceContact(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUnassignAudienceContactRequest(c.Server, audienceId, contactId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAudienceMembership(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAudienceMembershipRequest(c.Server, audienceId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAudienceMembershipStatistics(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAudienceMembershipStatisticsRequest(c.Server, audienceId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -60361,6 +60671,165 @@ func NewUnassignAudienceContactRequest(server string, audienceId AudienceID, con
 	return req, nil
 }
 
+// NewGetAudienceMembershipRequest generates requests for GetAudienceMembership
+func NewGetAudienceMembershipRequest(server string, audienceId AudienceID, params *GetAudienceMembershipParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/membership", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAudienceMembershipStatisticsRequest generates requests for GetAudienceMembershipStatistics
+func NewGetAudienceMembershipStatisticsRequest(server string, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "audience_id", audienceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/audiences/%s/membership-statistics", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.From != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "from", *params.From, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.To != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "to", *params.To, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListContactPropertiesRequest generates requests for ListContactProperties
 func NewListContactPropertiesRequest(server string, params *ListContactPropertiesParams) (*http.Request, error) {
 	var err error
@@ -62574,6 +63043,33 @@ func NewGetEmailBroadcastSendQuotaRequest(server string, broadcastId EmailBroadc
 	queryURL, err := serverURL.Parse(operationPath)
 	if err != nil {
 		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.SendAt != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "send_at", *params.SendAt, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: "date-time"}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
 	}
 
 	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
@@ -91454,6 +91950,12 @@ type ClientWithResponsesInterface interface {
 	// UnassignAudienceContactWithResponse request
 	UnassignAudienceContactWithResponse(ctx context.Context, audienceId AudienceID, contactId ContactID, params *UnassignAudienceContactParams, reqEditors ...RequestEditorFn) (*UnassignAudienceContactResponse, error)
 
+	// GetAudienceMembershipWithResponse request
+	GetAudienceMembershipWithResponse(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipParams, reqEditors ...RequestEditorFn) (*GetAudienceMembershipResponse, error)
+
+	// GetAudienceMembershipStatisticsWithResponse request
+	GetAudienceMembershipStatisticsWithResponse(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*GetAudienceMembershipStatisticsResponse, error)
+
 	// ListContactPropertiesWithResponse request
 	ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error)
 
@@ -94683,6 +95185,84 @@ func (r UnassignAudienceContactResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r UnassignAudienceContactResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAudienceMembershipResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AudienceMembershipResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON421      *MisdirectedRequest
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAudienceMembershipResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAudienceMembershipResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAudienceMembershipResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAudienceMembershipStatisticsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AudienceMembershipStatisticsResponse
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON421      *MisdirectedRequest
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAudienceMembershipStatisticsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAudienceMembershipStatisticsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAudienceMembershipStatisticsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -107334,6 +107914,24 @@ func (c *ClientWithResponses) UnassignAudienceContactWithResponse(ctx context.Co
 	return ParseUnassignAudienceContactResponse(rsp)
 }
 
+// GetAudienceMembershipWithResponse request returning *GetAudienceMembershipResponse
+func (c *ClientWithResponses) GetAudienceMembershipWithResponse(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipParams, reqEditors ...RequestEditorFn) (*GetAudienceMembershipResponse, error) {
+	rsp, err := c.GetAudienceMembership(ctx, audienceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAudienceMembershipResponse(rsp)
+}
+
+// GetAudienceMembershipStatisticsWithResponse request returning *GetAudienceMembershipStatisticsResponse
+func (c *ClientWithResponses) GetAudienceMembershipStatisticsWithResponse(ctx context.Context, audienceId AudienceID, params *GetAudienceMembershipStatisticsParams, reqEditors ...RequestEditorFn) (*GetAudienceMembershipStatisticsResponse, error) {
+	rsp, err := c.GetAudienceMembershipStatistics(ctx, audienceId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAudienceMembershipStatisticsResponse(rsp)
+}
+
 // ListContactPropertiesWithResponse request returning *ListContactPropertiesResponse
 func (c *ClientWithResponses) ListContactPropertiesWithResponse(ctx context.Context, params *ListContactPropertiesParams, reqEditors ...RequestEditorFn) (*ListContactPropertiesResponse, error) {
 	rsp, err := c.ListContactProperties(ctx, params, reqEditors...)
@@ -115350,6 +115948,184 @@ func ParseUnassignAudienceContactResponse(rsp *http.Response) (*UnassignAudience
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAudienceMembershipResponse parses an HTTP response from a GetAudienceMembershipWithResponse call
+func ParseGetAudienceMembershipResponse(rsp *http.Response) (*GetAudienceMembershipResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAudienceMembershipResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AudienceMembershipResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 421:
+		var dest MisdirectedRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON421 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAudienceMembershipStatisticsResponse parses an HTTP response from a GetAudienceMembershipStatisticsWithResponse call
+func ParseGetAudienceMembershipStatisticsResponse(rsp *http.Response) (*GetAudienceMembershipStatisticsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAudienceMembershipStatisticsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AudienceMembershipStatisticsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 421:
+		var dest MisdirectedRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON421 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable

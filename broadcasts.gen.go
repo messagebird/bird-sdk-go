@@ -83,6 +83,18 @@ func (p BroadcastsListRecipientsParams) toWire(startingAfter string) *oapi.ListE
 	}
 }
 
+// BroadcastsSendQuotaParams filters the send_quota read.
+type BroadcastsSendQuotaParams struct {
+	// The proposed send time as an RFC 3339 date-time. If a daily or monthly window resets at or before this time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The check estimates your send quota at this time using current limits without subtracting broadcasts that are scheduled but have not sent yet, including those scheduled before this time. It does not reflect plan changes or temporary limit changes that take effect before this time. Must be at least 30 seconds and no more than 365 days in the future, the same range accepted by `scheduled_at`. Omit `send_at` to check a send now. A scheduled broadcast's `scheduled_at` is used only if you pass it as `send_at`. Does not change `broadcasts`. The broadcast count allowance is used when you submit the send or schedule request.
+	SendAt time.Time
+}
+
+func (p BroadcastsSendQuotaParams) toWire() *oapi.GetEmailBroadcastSendQuotaParams {
+	return &oapi.GetEmailBroadcastSendQuotaParams{
+		SendAt: optTime(p.SendAt),
+	}
+}
+
 // ListPage fetches one page of results. Pass the previous page's NextCursor as
 // startingAfter to advance; "" starts from the first page.
 func (s *BroadcastsService) ListPage(ctx context.Context, params BroadcastsListParams, startingAfter string, opts ...option.RequestOption) (*EmailBroadcastList, error) {
@@ -258,10 +270,10 @@ func (s *BroadcastsService) ListClickedLinks(ctx context.Context, broadcastId st
 	return &out, nil
 }
 
-// SendQuota Check how much of a broadcast will actually send before sending it: `recipients` is how many contacts it would reach now, `allowed` is how many of those the organization's email send allowance covers, and `limited_by` names the allowance that stops the rest. The broadcast must already have an audience selected.
-func (s *BroadcastsService) SendQuota(ctx context.Context, broadcastId string, opts ...option.RequestOption) (*EmailBroadcastSendQuota, error) {
+// SendQuota Check how many recipients a broadcast could reach within your organization's daily and monthly email limits. `recipients` is the current sendable count. `allowed` is the count covered by the email send allowance. `limited_by` identifies the email limit that prevents the rest from receiving the broadcast. Before scheduling, pass your intended `scheduled_at` as `send_at`. If a daily or monthly window resets by that time, the check uses its full allowance. Otherwise, it uses the allowance remaining now. The response identifies the email limit that still restricts the send at that time. The check estimates your send quota using current limits without subtracting broadcasts that are scheduled but have not sent yet, so broadcasts scheduled for the same period may together exceed the limit even if each check shows enough quota. Without `send_at`, it checks a send now, even if the broadcast is already scheduled. An audience larger than the full `limit` cannot send in any window with that limit. This check reserves nothing. The email send allowance is checked again when the broadcast sends, using what remains after other sends. `limit_reason` explains the monthly email limit if you can read the organization's billing. `broadcasts` reports the separate broadcast count allowance. It is checked when you send or schedule, so `send_at` does not change it. If `broadcasts.remaining` is 0, you cannot send or schedule a draft. The broadcast must have an audience selected.
+func (s *BroadcastsService) SendQuota(ctx context.Context, broadcastId string, params BroadcastsSendQuotaParams, opts ...option.RequestOption) (*EmailBroadcastSendQuota, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
-		return s.client.oapi.GetEmailBroadcastSendQuota(ctx, oapi.EmailBroadcastID(broadcastId), &oapi.GetEmailBroadcastSendQuotaParams{}, cfg...)
+		return s.client.oapi.GetEmailBroadcastSendQuota(ctx, oapi.EmailBroadcastID(broadcastId), params.toWire(), cfg...)
 	})
 	if err != nil {
 		return nil, err

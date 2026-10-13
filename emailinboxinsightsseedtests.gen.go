@@ -71,7 +71,7 @@ func (s *EmailInboxInsightsSeedTestsService) Create(ctx context.Context, params 
 	return &out, nil
 }
 
-// List Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail. registration_id cannot locate a history row, and absent history does not prove a registration failed. Scoped API keys, OAuth and service accounts require organization preview access.
+// List Read seed-test history for an owned sending domain and the organization-wide allowance. Results are capped at 100; narrow the date window if tests.truncated is true. Only the newest test has full detail. registration_id cannot locate a history row, and absent history does not prove a registration failed.
 func (s *EmailInboxInsightsSeedTestsService) List(ctx context.Context, params EmailInboxInsightsSeedTestsListParams, opts ...option.RequestOption) (*EmailInboxInsightsSeedTests, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailInboxInsightsSeedTests(ctx, params.toWire(), cfg...)

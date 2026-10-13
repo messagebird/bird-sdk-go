@@ -67,7 +67,7 @@ func (s *EmailInboxInsightsDomainsService) ListPage(ctx context.Context, params 
 	return &out, nil
 }
 
-// List List verified sending domains owned by the workspace and their monitoring settings. Follow next_cursor with starting_after, keeping filters and ordering. A monitored value records the workspace setting; it does not establish that vendor measurements exist. API-key calls require Insights preview access for your organization.
+// List List verified sending domains owned by the workspace and their monitoring settings. Follow next_cursor with starting_after, keeping filters and ordering. A monitored value records the workspace setting; it does not establish that vendor measurements exist.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *EmailInboxInsightsDomainsService) List(ctx context.Context, params EmailInboxInsightsDomainsListParams, opts ...option.RequestOption) iter.Seq2[*EmailInboxInsightsDomain, error] {
@@ -87,7 +87,7 @@ func (s *EmailInboxInsightsDomainsService) List(ctx context.Context, params Emai
 	})
 }
 
-// Update Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change. API-key and service-account calls require Insights preview access for your organization.
+// Update Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change.
 func (s *EmailInboxInsightsDomainsService) Update(ctx context.Context, sendingDomain string, params EmailInboxInsightsDomainsUpdateParams, opts ...option.RequestOption) (*EmailInboxInsightsDomain, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		if params.Monitored == nil {

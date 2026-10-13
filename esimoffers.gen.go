@@ -107,7 +107,7 @@ func (s *EsimOffersService) Requirements(ctx context.Context, offerId string, op
 	return &out, nil
 }
 
-// CheckoutOptions Returns published one-time terms and automatic renewal availability for a new eSIM. Automatic renewal includes its own price and cadence when an eligible mobile network is available. Availability is checked again when purchasing; this read does not reserve a package.
+// CheckoutOptions Returns published one-time terms and automatic renewal availability for a new eSIM, including tax-inclusive totals and current funding shortfalls. Automatic renewal includes its own price and cadence when an eligible mobile network is available. Availability and funding are checked again when purchasing; this read reserves no funds or package.
 func (s *EsimOffersService) CheckoutOptions(ctx context.Context, offerId string, opts ...option.RequestOption) (*EsimCheckoutOptions, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEsimOfferCheckoutOptions(ctx, oapi.EsimOfferID(offerId), &oapi.GetEsimOfferCheckoutOptionsParams{}, cfg...)

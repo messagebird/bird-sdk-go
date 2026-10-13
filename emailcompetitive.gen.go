@@ -24,7 +24,7 @@ func (p EmailCompetitiveVolumeSeriesParams) toWire() *oapi.GetEmailCompetitiveVo
 	}
 }
 
-// VolumeSeries Accepts up to 20 distinct watchlist entry IDs from `email.competitive.watchlist.get`. Omitting brand_ids requests the workspace's own line. Competitor lines retain the requested order after the workspace line, when present. Each line's source distinguishes estimated panel volume from the workspace's accepted sends. Returns daily series without pagination. API-key calls require Insights preview access for your organization.
+// VolumeSeries Accepts up to 20 distinct watchlist entry IDs from `email.competitive.watchlist.get`. Omitting brand_ids requests the workspace's own line. Competitor lines retain the requested order after the workspace line, when present. Each line's source distinguishes estimated panel volume from the workspace's accepted sends. Returns daily series without pagination.
 func (s *EmailCompetitiveService) VolumeSeries(ctx context.Context, params EmailCompetitiveVolumeSeriesParams, opts ...option.RequestOption) (*EmailCompetitiveVolumeSeries, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEmailCompetitiveVolumeSeries(ctx, params.toWire(), cfg...)

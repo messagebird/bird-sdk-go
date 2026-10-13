@@ -111,6 +111,14 @@ type (
 	// EmailSendAllowanceWindow is the period a send allowance is measured over,
 	// reported as EmailBroadcastSendQuota.LimitedBy.
 	EmailSendAllowanceWindow = oapi.EmailSendAllowanceWindow
+	// EmailSendAllowanceLimitReason explains what sets the monthly email limit.
+	// It is reported as EmailBroadcastSendQuota.LimitReason.
+	EmailSendAllowanceLimitReason = oapi.EmailSendAllowanceLimitReason
+	// EmailBroadcastCountAllowance is the organization's broadcast count allowance
+	// for the current billing period, or the UTC day when no current billing period
+	// is available.
+	// It is reported as EmailBroadcastSendQuota.Broadcasts.
+	EmailBroadcastCountAllowance = oapi.EmailBroadcastCountAllowance
 	// EmailRecipientStatus is where one recipient of a broadcast has got to.
 	EmailRecipientStatus = oapi.EmailRecipientStatus
 	// EmailEventBounceType is how a receiving server refused a message.
@@ -411,10 +419,12 @@ type PreferenceWriteResult = oapi.PreferenceWriteResult
 // audiences. AudienceMember pairs a contact with the time it joined;
 // AudienceMemberList is a page of members.
 type (
-	Audience           = oapi.Audience
-	AudienceList       = oapi.AudienceList
-	AudienceMember     = oapi.AudienceMember
-	AudienceMemberList = oapi.AudienceMemberList
+	Audience                             = oapi.Audience
+	AudienceList                         = oapi.AudienceList
+	AudienceMember                       = oapi.AudienceMember
+	AudienceMemberList                   = oapi.AudienceMemberList
+	AudienceMembershipResponse           = oapi.AudienceMembershipResponse
+	AudienceMembershipStatisticsResponse = oapi.AudienceMembershipStatisticsResponse
 )
 
 // ContactProperty is a custom contact property definition; ContactPropertyList
@@ -805,6 +815,15 @@ const (
 	EmailSendAllowanceWindowDaily   EmailSendAllowanceWindow = "daily"
 	EmailSendAllowanceWindowMonthly EmailSendAllowanceWindow = "monthly"
 	EmailSendAllowanceWindowNone    EmailSendAllowanceWindow = "none"
+)
+
+const (
+	EmailSendAllowanceLimitReasonPlan           EmailSendAllowanceLimitReason = "plan"
+	EmailSendAllowanceLimitReasonOverageOff     EmailSendAllowanceLimitReason = "overage_off"
+	EmailSendAllowanceLimitReasonOverduePayment EmailSendAllowanceLimitReason = "overdue_payment"
+	EmailSendAllowanceLimitReasonUnfunded       EmailSendAllowanceLimitReason = "unfunded"
+	EmailSendAllowanceLimitReasonOverageCeiling EmailSendAllowanceLimitReason = "overage_ceiling"
+	EmailSendAllowanceLimitReasonCustomLimit    EmailSendAllowanceLimitReason = "custom_limit"
 )
 
 const (

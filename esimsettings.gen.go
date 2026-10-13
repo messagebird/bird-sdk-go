@@ -11,7 +11,7 @@ import (
 
 // EsimSettingsUpdateParams is the request body for update.
 type EsimSettingsUpdateParams struct {
-	// Send `false` to stop Bird sending eSIM install credentials to travelers for this workspace, or `true` to allow it again. Credentials stay readable from the API either way.
+	// Whether Bird automatically sends an install link after a new eSIM purchase with a linked contact. Uses the contact's email address, or SMS when only a phone number is available. Omit this field to retain the current value; a workspace without saved settings starts with `false`. Manual install-link sends remain available regardless of this setting.
 	CredentialDeliveryEnabled *bool
 }
 
@@ -21,7 +21,7 @@ func (p EsimSettingsUpdateParams) toWire() oapi.EsimSettingsUpdate {
 	return body
 }
 
-// Get Read the workspace's effective eSIM settings, including whether Bird sends install credentials to travelers. Check this before sending credentials: a workspace that has turned delivery off refuses the send.
+// Get Read whether the workspace automatically sends install links after new eSIM purchases. Automatic delivery is off by default; manual sending remains available.
 func (s *EsimSettingsService) Get(ctx context.Context, opts ...option.RequestOption) (*EsimSettings, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetEsimSettings(ctx, &oapi.GetEsimSettingsParams{}, cfg...)
@@ -36,7 +36,7 @@ func (s *EsimSettingsService) Get(ctx context.Context, opts ...option.RequestOpt
 	return &out, nil
 }
 
-// Update Change the workspace's eSIM settings and return the effective result. Turning `credential_delivery_enabled` off stops Bird sending install credentials to travelers over either channel; the credentials stay readable from the API. Omitted fields keep their current value.
+// Update Change the workspace's eSIM settings and return the effective result. Enable `credential_delivery_enabled` to automatically email the linked contact an install link after a new eSIM purchase, or use SMS when the contact has no email address. Turning it off leaves manual sending available. Omitted fields keep their current value.
 func (s *EsimSettingsService) Update(ctx context.Context, params EsimSettingsUpdateParams, opts ...option.RequestOption) (*EsimSettings, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEsimSettingsParams{}

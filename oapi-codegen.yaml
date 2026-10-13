@@ -275,6 +275,8 @@ output-options:
     - assignAudienceContacts
     - unassignAudienceContacts
     - unassignAudienceContact
+    - getAudienceMembership
+    - getAudienceMembershipStatistics
     - listMailboxes
     - createMailbox
     - getMailbox
