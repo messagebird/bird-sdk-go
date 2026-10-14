@@ -10315,7 +10315,7 @@ type AMBMessage struct {
 	// Cost What was charged for a message, split into the components that make it up. `null` until at least one component has been priced.
 	Cost *MessageCost `json:"cost"`
 
-	// CreatedAt The moment this message was accepted (outbound) or received (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
+	// CreatedAt The moment this message was accepted (outbound), or recorded by Bird after Apple delivered it (inbound). This is the timestamp the outbound statistics families bucket and attribute on; there is no separate `accepted_at` field.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// DataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
@@ -10361,6 +10361,10 @@ type AMBMessage struct {
 
 	// Metadata Arbitrary JSON object for per-message context. Maximum 2 KB serialized. Top-level keys beginning with `__bird` are reserved. Returned in the send response, message reads and customer message webhooks.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	// RepliedAt When Apple delivered the reply in `reply_message_id` to Bird. This can be slightly earlier than that reply's `created_at`, which records when Bird processed it. Omitted until a reply is matched, and in webhook payloads.
+	RepliedAt      *time.Time    `json:"replied_at,omitempty"`
+	ReplyMessageId *AMBMessageID `json:"reply_message_id,omitempty"`
 
 	// SentAt When the selected sending outcome occurred. Null unless the current status is `sent` and the message is outbound. For older messages without a retained sending event, the stored record time is used.
 	SentAt *time.Time `json:"sent_at,omitempty"`
@@ -10927,7 +10931,7 @@ type AMBNativeInteractivePayload struct {
 	Payment    *AMBNativePayment    `json:"payment,omitempty"`
 	QuickReply *AMBNativeQuickReply `json:"quick_reply,omitempty"`
 
-	// RequestIdentifier Correlation identifier for this interaction. Bird generates one when omitted.
+	// RequestIdentifier Correlation identifier for this interaction. Bird generates one when omitted. Use a new value for each message. A reply is linked to its request only when no other sent message in the conversation uses the same identifier.
 	RequestIdentifier *string `json:"request_identifier,omitempty"`
 	union             json.RawMessage
 }
@@ -16606,7 +16610,7 @@ type EmailMessageSendRequest struct {
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From EmailAddressInput `json:"from"`
 
-	// Headers Custom email headers as key-value pairs (for example `References`, `In-Reply-To`, or your own `X-*` headers). Reserved headers are rejected with a `422`. Set the message's addressing and subject through the dedicated fields: `from`, `to`, `cc`, `bcc`, `reply_to`, and `subject`. The API automatically generates `Content-Type`, `Content-Transfer-Encoding`, `DKIM-Signature`, `Received`, and `Return-Path`. You cannot override these generated headers. `List-Unsubscribe` and `List-Unsubscribe-Post` are honored as-is on `transactional` sends. Marketing sends receive a compliant unsubscribe header, so supplying either one is rejected with a `422`. Header values may not contain carriage-return or line-feed characters. Up to 25 headers per send, each value up to 998 characters.
+	// Headers Custom email headers, such as `References`, `In-Reply-To`, and `X-*` headers. Reserved headers and values containing carriage returns or line feeds return `422`. Set addressing and subject through their dedicated fields. Transactional sends accept `List-Unsubscribe` and `List-Unsubscribe-Post`. Marketing sends use Bird-managed unsubscribe by default.
 	Headers *map[string]string `json:"headers,omitempty"`
 
 	// Html HTML body. At least one of html or text must be provided.
