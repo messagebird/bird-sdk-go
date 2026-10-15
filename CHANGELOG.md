@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.100.0
+
+- Apple Messages content URL fields (attachment and image `source_url`, `app_icon_source_url`, the rich-link `url`, image and video URLs, and `rich_link_construct.url`) no longer declare a `uri` format, so stored templates can fill them with `{{ }}` placeholders. The URL that is sent must still be HTTPS: an inline value, or the value a template renders, that is not HTTPS is refused with `AMBEndpointNotHTTPS`.
+
 ## 0.99.0
 
 - **Breaking:** Apple Messages native rich link content gains a `rich_link_construct` option that asks Apple to build the link preview when the message is sent, instead of a prior construct-payload call; a strict `oneOf` reader of rich link content needs to handle this third shape alongside `rich_link_data` and `rich_link_data_ref`.

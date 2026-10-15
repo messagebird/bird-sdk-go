@@ -10858,7 +10858,7 @@ type AMBNativeAttachment struct {
 	// Size Attachment size in bytes.
 	Size *int64 `json:"size,omitempty"`
 
-	// SourceUrl HTTPS URL Bird downloads and uploads to Apple.
+	// SourceUrl HTTPS URL Bird downloads and uploads to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	SourceUrl *string `json:"source_url,omitempty" pii:"true"`
 
 	// Url Encrypted attachment URL returned by Apple.
@@ -10925,7 +10925,7 @@ type AMBNativeImage struct {
 	// Identifier Identifier referenced by a bubble, item, or event.
 	Identifier string `json:"identifier"`
 
-	// SourceUrl HTTPS URL of a PNG image up to 200 kB. Total interactive image data must not exceed 5 MB.
+	// SourceUrl HTTPS URL of a PNG image up to 200 kB. Total interactive image data must not exceed 5 MB. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	SourceUrl string `json:"source_url" pii:"true"`
 }
 
@@ -11106,7 +11106,7 @@ type AMBNativeInteractiveContent1 = interface{}
 
 // AMBNativeInteractiveData A built-in interaction or custom iMessage app. Custom apps require the app metadata and both message bubbles.
 type AMBNativeInteractiveData struct {
-	// AppIconSourceUrl Publicly accessible HTTPS URL of the app's PNG icon. The icon must be smaller than 15 kB. We fetch and include it in the request to Apple.
+	// AppIconSourceUrl Publicly accessible HTTPS URL of the app's PNG icon. The icon must be smaller than 15 kB. We fetch and include it in the request to Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	AppIconSourceUrl *string `json:"app_icon_source_url,omitempty" pii:"true"`
 
 	// AppId App Store identifier of the iMessage app.
@@ -11245,7 +11245,7 @@ type AMBNativeRichLinkData struct {
 	// Title Preview title.
 	Title string `json:"title"`
 
-	// Url HTTPS URL opened by the preview.
+	// Url HTTPS URL opened by the preview. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	Url string `json:"url" pii:"true"`
 }
 
@@ -11254,7 +11254,7 @@ type AMBNativeRichLinkImage struct {
 	// MimeType PNG media type required by Apple. Defaults to image/png.
 	MimeType *AMBNativeRichLinkImageMimeType `json:"mime_type,omitempty"`
 
-	// SourceUrl HTTPS URL of a PNG preview image up to 200 kB. Bird fetches and encodes it when sending.
+	// SourceUrl HTTPS URL of a PNG preview image up to 200 kB. Bird fetches and encodes it when sending. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	SourceUrl string `json:"source_url" pii:"true"`
 }
 
@@ -11266,7 +11266,7 @@ type AMBNativeRichLinkVideo struct {
 	// MimeType Media type of the video. Defaults to video/mp4; supply the actual type for other formats.
 	MimeType *string `json:"mime_type,omitempty"`
 
-	// Url HTTPS video URL fetched by Apple.
+	// Url HTTPS video URL fetched by Apple. A non-HTTPS URL is refused with a `422` `AMBEndpointNotHTTPS`. In a template it may contain `{{ }}` placeholders; the rendered value must be HTTPS.
 	Url string `json:"url" pii:"true"`
 }
 
