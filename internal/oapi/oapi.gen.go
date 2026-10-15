@@ -710,13 +710,13 @@ func (e AMBMessageType) Valid() bool {
 
 // Defines values for AMBNativeRichLinkImageMimeType.
 const (
-	Imagepng AMBNativeRichLinkImageMimeType = "image/png"
+	AMBNativeRichLinkImageMimeTypeImagepng AMBNativeRichLinkImageMimeType = "image/png"
 )
 
 // Valid indicates whether the value is a known member of the AMBNativeRichLinkImageMimeType enum.
 func (e AMBNativeRichLinkImageMimeType) Valid() bool {
 	switch e {
-	case Imagepng:
+	case AMBNativeRichLinkImageMimeTypeImagepng:
 		return true
 	default:
 		return false
@@ -891,6 +891,207 @@ func (e AMBSuppressionReason) Valid() bool {
 	case AMBSuppressionReasonManual:
 		return true
 	case AMBSuppressionReasonOptedOut:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBTemplateCategory.
+const (
+	AMBTemplateCategoryMarketing     AMBTemplateCategory = "marketing"
+	AMBTemplateCategoryTransactional AMBTemplateCategory = "transactional"
+)
+
+// Valid indicates whether the value is a known member of the AMBTemplateCategory enum.
+func (e AMBTemplateCategory) Valid() bool {
+	switch e {
+	case AMBTemplateCategoryMarketing:
+		return true
+	case AMBTemplateCategoryTransactional:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBTemplateSortField.
+const (
+	AMBTemplateSortFieldCreatedAt AMBTemplateSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AMBTemplateSortField enum.
+func (e AMBTemplateSortField) Valid() bool {
+	switch e {
+	case AMBTemplateSortFieldCreatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AMBTemplateVersionStatus.
+const (
+	AMBTemplateVersionStatusDraft     AMBTemplateVersionStatus = "draft"
+	AMBTemplateVersionStatusPublished AMBTemplateVersionStatus = "published"
+)
+
+// Valid indicates whether the value is a known member of the AMBTemplateVersionStatus enum.
+func (e AMBTemplateVersionStatus) Valid() bool {
+	switch e {
+	case AMBTemplateVersionStatusDraft:
+		return true
+	case AMBTemplateVersionStatusPublished:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetContentTypeFilter.
+const (
+	AssetContentTypeFilterApplicationpdf AssetContentTypeFilter = "application/pdf"
+	AssetContentTypeFilterAudiomp4       AssetContentTypeFilter = "audio/mp4"
+	AssetContentTypeFilterAudiompeg      AssetContentTypeFilter = "audio/mpeg"
+	AssetContentTypeFilterAudioogg       AssetContentTypeFilter = "audio/ogg"
+	AssetContentTypeFilterAudiowav       AssetContentTypeFilter = "audio/wav"
+	AssetContentTypeFilterImagegif       AssetContentTypeFilter = "image/gif"
+	AssetContentTypeFilterImagejpeg      AssetContentTypeFilter = "image/jpeg"
+	AssetContentTypeFilterImagepng       AssetContentTypeFilter = "image/png"
+	AssetContentTypeFilterVideomp4       AssetContentTypeFilter = "video/mp4"
+	AssetContentTypeFilterVideoquicktime AssetContentTypeFilter = "video/quicktime"
+	AssetContentTypeFilterVideowebm      AssetContentTypeFilter = "video/webm"
+)
+
+// Valid indicates whether the value is a known member of the AssetContentTypeFilter enum.
+func (e AssetContentTypeFilter) Valid() bool {
+	switch e {
+	case AssetContentTypeFilterApplicationpdf:
+		return true
+	case AssetContentTypeFilterAudiomp4:
+		return true
+	case AssetContentTypeFilterAudiompeg:
+		return true
+	case AssetContentTypeFilterAudioogg:
+		return true
+	case AssetContentTypeFilterAudiowav:
+		return true
+	case AssetContentTypeFilterImagegif:
+		return true
+	case AssetContentTypeFilterImagejpeg:
+		return true
+	case AssetContentTypeFilterImagepng:
+		return true
+	case AssetContentTypeFilterVideomp4:
+		return true
+	case AssetContentTypeFilterVideoquicktime:
+		return true
+	case AssetContentTypeFilterVideowebm:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetDeletedFilter.
+const (
+	Exclude AssetDeletedFilter = "exclude"
+	Include AssetDeletedFilter = "include"
+	Only    AssetDeletedFilter = "only"
+)
+
+// Valid indicates whether the value is a known member of the AssetDeletedFilter enum.
+func (e AssetDeletedFilter) Valid() bool {
+	switch e {
+	case Exclude:
+		return true
+	case Include:
+		return true
+	case Only:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetKind.
+const (
+	AssetKindAudio    AssetKind = "audio"
+	AssetKindDocument AssetKind = "document"
+	AssetKindImage    AssetKind = "image"
+	AssetKindVideo    AssetKind = "video"
+)
+
+// Valid indicates whether the value is a known member of the AssetKind enum.
+func (e AssetKind) Valid() bool {
+	switch e {
+	case AssetKindAudio:
+		return true
+	case AssetKindDocument:
+		return true
+	case AssetKindImage:
+		return true
+	case AssetKindVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetKindFilter.
+const (
+	Audio    AssetKindFilter = "audio"
+	Document AssetKindFilter = "document"
+	Image    AssetKindFilter = "image"
+	Video    AssetKindFilter = "video"
+)
+
+// Valid indicates whether the value is a known member of the AssetKindFilter enum.
+func (e AssetKindFilter) Valid() bool {
+	switch e {
+	case Audio:
+		return true
+	case Document:
+		return true
+	case Image:
+		return true
+	case Video:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetReferenceUsage.
+const (
+	AssetReferenceUsageBoth      AssetReferenceUsage = "both"
+	AssetReferenceUsageDraft     AssetReferenceUsage = "draft"
+	AssetReferenceUsagePublished AssetReferenceUsage = "published"
+)
+
+// Valid indicates whether the value is a known member of the AssetReferenceUsage enum.
+func (e AssetReferenceUsage) Valid() bool {
+	switch e {
+	case AssetReferenceUsageBoth:
+		return true
+	case AssetReferenceUsageDraft:
+		return true
+	case AssetReferenceUsagePublished:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for AssetSortField.
+const (
+	AssetSortFieldCreatedAt AssetSortField = "created_at"
+)
+
+// Valid indicates whether the value is a known member of the AssetSortField enum.
+func (e AssetSortField) Valid() bool {
+	switch e {
+	case AssetSortFieldCreatedAt:
 		return true
 	default:
 		return false
@@ -6362,19 +6563,19 @@ func (e SMSSuppressionReasonFilter) Valid() bool {
 
 // Defines values for SMSTemplateCategory.
 const (
-	SMSTemplateCategoryAuthentication SMSTemplateCategory = "authentication"
-	SMSTemplateCategoryMarketing      SMSTemplateCategory = "marketing"
-	SMSTemplateCategoryTransactional  SMSTemplateCategory = "transactional"
+	Authentication SMSTemplateCategory = "authentication"
+	Marketing      SMSTemplateCategory = "marketing"
+	Transactional  SMSTemplateCategory = "transactional"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateCategory enum.
 func (e SMSTemplateCategory) Valid() bool {
 	switch e {
-	case SMSTemplateCategoryAuthentication:
+	case Authentication:
 		return true
-	case SMSTemplateCategoryMarketing:
+	case Marketing:
 		return true
-	case SMSTemplateCategoryTransactional:
+	case Transactional:
 		return true
 	default:
 		return false
@@ -6398,16 +6599,16 @@ func (e SMSTemplateSortField) Valid() bool {
 
 // Defines values for SMSTemplateVersionStatus.
 const (
-	SMSTemplateVersionStatusDraft     SMSTemplateVersionStatus = "draft"
-	SMSTemplateVersionStatusPublished SMSTemplateVersionStatus = "published"
+	Draft     SMSTemplateVersionStatus = "draft"
+	Published SMSTemplateVersionStatus = "published"
 )
 
 // Valid indicates whether the value is a known member of the SMSTemplateVersionStatus enum.
 func (e SMSTemplateVersionStatus) Valid() bool {
 	switch e {
-	case SMSTemplateVersionStatusDraft:
+	case Draft:
 		return true
-	case SMSTemplateVersionStatusPublished:
+	case Published:
 		return true
 	default:
 		return false
@@ -10366,6 +10567,12 @@ type AMBMessage struct {
 	RepliedAt      *time.Time    `json:"replied_at,omitempty"`
 	ReplyMessageId *AMBMessageID `json:"reply_message_id,omitempty"`
 
+	// RequestedLanguage The template language requested by the send, in canonical form. Null when the send named no language or used no template.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// ResolvedLanguage The template language whose text was rendered, in canonical form. Null when the send used no template. This can differ from `requested_language` when the template's fallback policy selects another language.
+	ResolvedLanguage *LanguageTag `json:"resolved_language,omitempty"`
+
 	// SentAt When the selected sending outcome occurred. Null unless the current status is `sent` and the message is outbound. For older messages without a retained sending event, the stored record time is used.
 	SentAt *time.Time `json:"sent_at,omitempty"`
 
@@ -10401,6 +10608,15 @@ type AMBMessage struct {
 
 	// Tags Structured `{name, value}` filter labels applied to this message. Absent on an inbound message.
 	Tags *[]Tag `json:"tags,omitempty"`
+
+	// TemplateContentHash The rendered language's source fingerprint, or null for a message sent with native content.
+	TemplateContentHash *AMBTemplateContentHash `json:"template_content_hash,omitempty"`
+
+	// TemplateId The template rendered for this message, or null for a message sent with native content.
+	TemplateId *AMBTemplateID `json:"template_id,omitempty"`
+
+	// TemplateVersionId The workspace published version or synthetic built-in version rendered at acceptance, or null for a message sent with native content. For a built-in template, `template_content_hash` identifies the exact catalogue source.
+	TemplateVersionId *AMBTemplateVersionID `json:"template_version_id,omitempty"`
 
 	// To Customer's opaque Apple identifier on outbound messages, or the Apple business identifier on inbound messages. Omitted when that address is unavailable on a historical record.
 	To *string `json:"to,omitempty"`
@@ -10535,13 +10751,13 @@ type AMBMessageList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
-// AMBMessageSendRequest defines model for AMBMessageSendRequest.
+// AMBMessageSendRequest A message to send. Supply exactly one of `content` (native content) or `template` (a stored template, whose category is derived). Supplying both, or neither, is rejected.
 type AMBMessageSendRequest struct {
-	// Category Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category.
+	// Category Free-form reporting label; it does not change sending or suppression policy, for example `order_update`. Omit it to send with the default empty category. Rejected alongside `template`, where the category is derived from the template.
 	Category *string `json:"category,omitempty"`
 
 	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
-	Content AMBMessageContent `json:"content" pii:"true"`
+	Content *AMBMessageContent `json:"content,omitempty" pii:"true"`
 
 	// From Apple business identifier of the brand sending the message. Read it from the business’s apple_business_id. The customer must have opened the conversation with this business.
 	From string `json:"from"`
@@ -10575,9 +10791,19 @@ type AMBMessageSendRequest struct {
 	// Tags Structured `{name, value}` labels for filtering. Maximum 20 tags per send.
 	Tags *[]Tag `json:"tags,omitempty"`
 
+	// Template Send using a stored template instead of native content. The category is derived from the template, so `category` is rejected alongside it.
+	Template *AMBTemplateSend `json:"template,omitempty"`
+
 	// To Apple’s opaque customer identifier for this business, available as the conversation’s recipient.opaque_user_id. The conversation must exist and its native status must be open.
-	To string `json:"to"`
+	To    string `json:"to"`
+	union json.RawMessage
 }
+
+// AMBMessageSendRequest0 defines model for .
+type AMBMessageSendRequest0 = interface{}
+
+// AMBMessageSendRequest1 defines model for .
+type AMBMessageSendRequest1 = interface{}
 
 // AMBMessageSource Who sent an outbound message:
 //
@@ -10985,9 +11211,12 @@ type AMBNativeRichLinkContent struct {
 	// Attachments Ordered attachments. Each object supplies a source URL or an encrypted Apple reference.
 	Attachments *[]AMBNativeAttachment `json:"attachments,omitempty"`
 
-	// Body Text displayed in the message. Use one U+FFFC object replacement character per attachment to control placement.
-	Body         *string                `json:"body,omitempty" pii:"true"`
-	RichLinkData *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
+	// Body Automatic introductions for rich links are enabled regionally in stages. When enabled for a new send, a nonblank body is sent as a separate text before the link. All parts belong to one message, which becomes sent after Apple accepts all parts. Before activation, and for retries retaining legacy behavior, body is included in the rich link request and is not guaranteed to appear on the device. To ensure an introduction without relying on activation, send a separate text message and omit body from the rich link. Use one U+FFFC object replacement character per attachment to control placement.
+	Body *string `json:"body,omitempty" pii:"true"`
+
+	// RichLinkConstruct Asks Apple to build the rich link preview when the message is sent, rather than through a prior `POST /v1/amb/messages/construct-payload` call. No caller holds a signed reference until the send itself resolves one.
+	RichLinkConstruct *AMBRichLinkConstruct  `json:"rich_link_construct,omitempty"`
+	RichLinkData      *AMBNativeRichLinkData `json:"rich_link_data,omitempty"`
 
 	// RichLinkDataRef Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
 	RichLinkDataRef *AMBRichLinkReference `json:"rich_link_data_ref,omitempty" pii:"true"`
@@ -11005,6 +11234,9 @@ type AMBNativeRichLinkContent0 = interface{}
 
 // AMBNativeRichLinkContent1 defines model for .
 type AMBNativeRichLinkContent1 = interface{}
+
+// AMBNativeRichLinkContent2 defines model for .
+type AMBNativeRichLinkContent2 = interface{}
 
 // AMBNativeRichLinkData defines model for AMBNativeRichLinkData.
 type AMBNativeRichLinkData struct {
@@ -11103,6 +11335,15 @@ type AMBReceivedEventType string
 
 // AMBRejectedEventType Always `amb.rejected` for this event.
 type AMBRejectedEventType string
+
+// AMBRichLinkConstruct Asks Apple to build the rich link preview when the message is sent, rather than through a prior `POST /v1/amb/messages/construct-payload` call. No caller holds a signed reference until the send itself resolves one.
+type AMBRichLinkConstruct struct {
+	// StoreRegion ISO 3166-1 alpha-2 country code.
+	StoreRegion *CountryCode `json:"store_region,omitempty"`
+
+	// Url The App Clip, Apple Music, or Apple Maps URL to build a preview for. An `http://` URL is refused with a `422` `AMBEndpointNotHTTPS`. A URL Apple cannot build a preview for is refused with a `422` `AMBConstructPayloadFailed`; send `rich_link` content with your own `title` and `image` instead.
+	Url string `json:"url" pii:"true"`
+}
 
 // AMBRichLinkReference Reusable Apple content reference. Supply the decryption key, or the signed bid and data_ref_sig returned by Apple.
 type AMBRichLinkReference struct {
@@ -11679,6 +11920,379 @@ type AMBTagStatsPoint struct {
 	Tag *string `json:"tag,omitempty"`
 }
 
+// AMBTemplate One Apple Messages template identity and its authoring state. Content and variables live on versions, so this resource stays shallow.
+type AMBTemplate struct {
+	// AvailableLanguages Languages the live version can currently send. Empty before first publication.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
+	Category AMBTemplateCategory `json:"category"`
+
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	//
+	// - text: Text, optionally with a subject.
+	// - attachment: One or more files, images, audio clips, or videos.
+	// - rich_link: A link with a preview card.
+	// - quick_reply: Two to five reply choices.
+	// - list_picker: A grouped menu of choices.
+	// - time_picker: Appointment time slots; a reply may contain only a selected label.
+	// - form: A multi-page form.
+	// - imessage_app: A custom iMessage app interaction on a compatible device.
+	// - interactive: An opaque interactive reference whose subtype is unknown.
+	// - apple_pay: An Apple Pay request created through the conversation payment operations.
+	// - authenticate: An identity verification request created through the conversation authentication operations.
+	ContentKind AMBContentKind `json:"content_kind"`
+
+	// CreatedAt When the template was created. Null for built-in templates.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for. Null if it has no description.
+	Description *string `json:"description"`
+
+	// DraftVersionId The permanent editable draft version. Null for a built-in template.
+	DraftVersionId *AMBTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             AMBTemplateID         `json:"id"`
+
+	// LanguageSourceRequired Whether each send must name a language instead of using the live version's default.
+	LanguageSourceRequired *bool `json:"language_source_required,omitempty"`
+
+	// Languages Each language the template has, keyed by canonical BCP-47 tag, with its live state and whether the draft contains unpublished changes. Content is available from version reads.
+	Languages *map[string]AMBTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When the template was last published. Null before first publication and for built-in templates.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version sends resolve to, or null before a workspace template is first published. A built-in template points to a synthetic published version that projects its current catalogue content.
+	LiveVersionId *AMBTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name The template's display name. It defaults to the slug and can be changed on workspace templates.
+	Name string `json:"name"`
+
+	// OnMissingLanguage How a send handles a requested language that the live version does not have.
+	OnMissingLanguage *TemplateOnMissingLanguage `json:"on_missing_language,omitempty"`
+
+	// PublishedVersionId Deprecated. Use `live_version_id`, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	PublishedVersionId *AMBTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Revision The draft revision to use for concurrent-edit checks. Null for a built-in template.
+	Revision *int `json:"revision,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The immutable handle used to address and send the template. A built-in template's slug starts with `bird_`.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
+	//
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for built-in templates.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
+}
+
+// AMBTemplateCategory Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
+type AMBTemplateCategory string
+
+// AMBTemplateContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+type AMBTemplateContentHash = string
+
+// AMBTemplateID defines model for AMBTemplateID.
+type AMBTemplateID = string
+
+// AMBTemplateLanguage One language's full Apple Messages template content and revision metadata.
+type AMBTemplateLanguage struct {
+	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+	Content AMBMessageContent `json:"content"`
+
+	// ContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *AMBTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter, used for concurrent-edit checks on draft writes.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBTemplateLanguageList defines model for AMBTemplateLanguageList.
+type AMBTemplateLanguageList struct {
+	// Data The version's languages ordered by canonical tag, without content.
+	Data []AMBTemplateLanguageSummary `json:"data"`
+}
+
+// AMBTemplateLanguageState Whether a language is live and whether its draft has unpublished changes.
+type AMBTemplateLanguageState struct {
+	// Draft Whether the draft has an unpublished change for this language. When true beside `live`, sends keep using the older published content until submit.
+	Draft *bool `json:"draft,omitempty"`
+
+	// Status Status of one template language on channels without third-party review.
+	//
+	// - `draft`: it has never been published.
+	// - `live`: it is available to sends.
+	// - `superseded`: a later version replaced it.
+	//
+	// Treat an unknown value as not sendable.
+	Status *TemplateLanguageStatus `json:"status,omitempty"`
+}
+
+// AMBTemplateLanguageSummary One language of an Apple Messages template version without its content.
+type AMBTemplateLanguageSummary struct {
+	// ContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *AMBTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Language A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	Language LanguageTag `json:"language"`
+
+	// Revision This language's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBTemplateList defines model for AMBTemplateList.
+type AMBTemplateList struct {
+	// Data One page of Apple Messages templates.
+	Data []AMBTemplateSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AMBTemplateSend A send-by-template reference. Identify the template by `id` or `slug`. Supply exactly one reference, optionally select a language, and pass variable values in `parameters`.
+type AMBTemplateSend struct {
+	Id *AMBTemplateID `json:"id,omitempty"`
+
+	// Language Which of the template's languages to send. Omit it to send the template's default language, unless the template sets `language_source_required`, in which case a send naming no language is rejected. When the template does not carry the language you ask for, its own `on_missing_language` setting decides whether the closest available language is sent instead or the send is rejected.
+	Language *LanguageTag `json:"language,omitempty"`
+
+	// Parameters Values for the template's variables, keyed by variable name. Read the live version to see the accepted keys and formats. A missing key, an undeclared key, an invalid value, or a serialized object over 16 KiB returns `422`.
+	Parameters *map[string]interface{} `json:"parameters,omitempty"`
+
+	// Slug The workspace or built-in template to send, by its immutable slug. Read the template's live version to see its variables.
+	Slug  *TemplateSlug `json:"slug,omitempty"`
+	union json.RawMessage
+}
+
+// AMBTemplateSend0 defines model for .
+type AMBTemplateSend0 = interface{}
+
+// AMBTemplateSend1 defines model for .
+type AMBTemplateSend1 = interface{}
+
+// AMBTemplateSortField Field to sort Apple Messages templates and their versions by.
+type AMBTemplateSortField string
+
+// AMBTemplateSummary An Apple Messages template without content or draft concurrency settings.
+type AMBTemplateSummary struct {
+	// AvailableLanguages Languages the live version can currently send. Empty before first publication.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// Category Why messages use this template, fixed at creation. On Apple Messages the category describes intent and becomes the message's reporting `category`; it grants and restricts nothing. Use `marketing` for promotions and `transactional` for service messages.
+	Category AMBTemplateCategory `json:"category"`
+
+	// ContentKind Derived message classification for filtering and statistics. Send requests use the native content.type families. Create Apple Pay and authentication requests through the conversation payment and authentication operations.
+	//
+	// - text: Text, optionally with a subject.
+	// - attachment: One or more files, images, audio clips, or videos.
+	// - rich_link: A link with a preview card.
+	// - quick_reply: Two to five reply choices.
+	// - list_picker: A grouped menu of choices.
+	// - time_picker: Appointment time slots; a reply may contain only a selected label.
+	// - form: A multi-page form.
+	// - imessage_app: A custom iMessage app interaction on a compatible device.
+	// - interactive: An opaque interactive reference whose subtype is unknown.
+	// - apple_pay: An Apple Pay request created through the conversation payment operations.
+	// - authenticate: An identity verification request created through the conversation authentication operations.
+	ContentKind AMBContentKind `json:"content_kind"`
+
+	// CreatedAt When the template was created. Null for built-in templates.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag `json:"default_language"`
+
+	// Description What the template is for. Null if it has no description.
+	Description *string `json:"description"`
+
+	// DraftVersionId The permanent editable draft version. Null for a built-in template.
+	DraftVersionId *AMBTemplateVersionID `json:"draft_version_id,omitempty"`
+	Id             AMBTemplateID         `json:"id"`
+
+	// Languages Each language and its live or draft state, keyed by canonical BCP-47 tag.
+	Languages *map[string]AMBTemplateLanguageState `json:"languages,omitempty"`
+
+	// LastSubmittedAt When the template was last published. Null before first publication and for built-in templates.
+	LastSubmittedAt *time.Time `json:"last_submitted_at,omitempty"`
+
+	// LiveVersionId The version sends resolve to, or null before first publication.
+	LiveVersionId *AMBTemplateVersionID `json:"live_version_id,omitempty"`
+
+	// Name The template's display name.
+	Name string `json:"name"`
+
+	// PublishedVersionId Deprecated. Use `live_version_id`, which carries the same value.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	PublishedVersionId *AMBTemplateVersionID `json:"published_version_id,omitempty"`
+
+	// Scope Whether the template is one of our built-in templates (`system`) or one your workspace created (`workspace`).
+	Scope *TemplateScope `json:"scope,omitempty"`
+
+	// Slug The immutable handle used to address and send the template.
+	Slug *TemplateSlug `json:"slug,omitempty"`
+
+	// Status Where the template stands as a whole. The same five states on every channel.
+	//
+	// - `draft`: nothing has ever gone live.
+	// - `pending`: nothing is live and at least one language is in review.
+	// - `active`: at least one language is live, so something can be sent.
+	// - `rejected`: it was reviewed and every language was refused.
+	// - `inactive`: nothing is live and nothing is in review, so content was withdrawn or was blocked before anything went live.
+	//
+	// A template with one language live is `active` even while another is still
+	// drafted or refused. Read `languages` for the state of each language and its
+	// reason.
+	//
+	// Which values a channel reports follows its review model. A channel whose
+	// content a third party reviews uses all five. On email and SMS, where content
+	// goes live on publish, a template is `draft`, `active` or `inactive`, and
+	// `pending` and `rejected` are reserved for the review stage coming to both, so
+	// a template reaching either is not a breaking change.
+	Status *TemplateStatus `json:"status,omitempty"`
+
+	// UpdatedAt When the template was last modified. Null for built-in templates.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// WorkspaceId The workspace that owns the template. Null for a built-in `system` template.
+	WorkspaceId *WorkspaceID `json:"workspace_id,omitempty"`
+}
+
+// AMBTemplateVersion One Apple Messages template version with its content. A workspace template keeps one editable draft and immutable published versions. A built-in template exposes its current catalogue content as one synthetic published version.
+type AMBTemplateVersion struct {
+	// CreatedAt When the version was created. Null for a built-in template's synthetic version.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag          `json:"default_language"`
+	Id              AMBTemplateVersionID `json:"id"`
+
+	// Languages Full content for each language, keyed by canonical BCP-47 tag.
+	Languages *map[string]AMBTemplateVersionLanguage `json:"languages,omitempty"`
+
+	// PublishedAt When the version was published. Null for the draft and for a built-in template's synthetic version.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version revision. A draft revision advances with each metadata or content change. Published workspace versions are frozen; a built-in template's synthetic version reports 0.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+	Status     *AMBTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId AMBTemplateID             `json:"template_id"`
+
+	// Variables Variables inferred from the version's content. Every language in a publishable Apple Messages version uses the same set. Built-in templates may apply additional typed constraints described by each variable.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential publication number. Null for the draft; a built-in template reports 1.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
+
+// AMBTemplateVersionID defines model for AMBTemplateVersionID.
+type AMBTemplateVersionID = string
+
+// AMBTemplateVersionLanguage One language's content and revision metadata within a version.
+type AMBTemplateVersionLanguage struct {
+	// Content Apple message families with Bird field naming and media URLs. Authentication and Apple Pay requests are created through their dedicated conversation endpoints.
+	Content AMBMessageContent `json:"content"`
+
+	// ContentHash A fingerprint of Apple Messages template content, prefixed with its algorithm. Compare it within this API version to identify the exact source without transferring it.
+	ContentHash *AMBTemplateContentHash `json:"content_hash,omitempty"`
+
+	// Revision This language's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// UpdatedAt When this language was last saved. Null for a built-in template.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AMBTemplateVersionList defines model for AMBTemplateVersionList.
+type AMBTemplateVersionList struct {
+	// Data One page of the template's versions, newest first.
+	Data []AMBTemplateVersionSummary `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AMBTemplateVersionStatus Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+type AMBTemplateVersionStatus string
+
+// AMBTemplateVersionSummary One Apple Messages template version without its content.
+type AMBTemplateVersionSummary struct {
+	// AvailableLanguages Languages this version contains, without their content.
+	AvailableLanguages *[]LanguageTag `json:"available_languages,omitempty"`
+
+	// CreatedAt When the version was created. Null for a built-in template's synthetic version.
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage LanguageTag          `json:"default_language"`
+	Id              AMBTemplateVersionID `json:"id"`
+
+	// PublishedAt When the version was published. Null for the draft and for a built-in template's synthetic version.
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+
+	// Revision The version's revision counter.
+	Revision *int `json:"revision,omitempty"`
+
+	// Status Whether the version is the editable draft or published. Published workspace versions are immutable and remain `published` after a later version goes live. A built-in template's synthetic published version projects the current catalogue entry.
+	Status     *AMBTemplateVersionStatus `json:"status,omitempty"`
+	TemplateId AMBTemplateID             `json:"template_id"`
+
+	// Variables Variables inferred from the version's content and shared by each language.
+	Variables *[]TemplateVariable `json:"variables,omitempty"`
+
+	// VersionNumber Sequential publication number. Null for the draft; a built-in template reports 1.
+	VersionNumber *int `json:"version_number,omitempty"`
+}
+
 // AMBTimeSlot defines model for AMBTimeSlot.
 type AMBTimeSlot struct {
 	// DurationSeconds Duration in seconds. Zero indicates no duration.
@@ -11716,8 +12330,216 @@ type Actor struct {
 // AllocatedNumberID Identifier of a number allocated to your workspace, as returned in the id field of `GET /v1/numbers`.
 type AllocatedNumberID = string
 
+// Asset defines model for Asset.
+type Asset struct {
+	// AltText Default alternative text describing the asset, carried along whenever it is placed. Most mail clients block images by default, so for an image this is often the only thing a recipient reads.
+	AltText *string `json:"alt_text"`
+
+	// ContentType The stored file's media type, determined from its contents.
+	ContentType *string    `json:"content_type,omitempty"`
+	CreatedAt   *time.Time `json:"created_at,omitempty"`
+
+	// DeletedAt When the asset was removed from the library, or null if it is still listed. A removed asset keeps serving at its original URL.
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// FolderId The folder the asset is filed in, or null when it sits at the top level of the library. Filing an asset never changes its URL.
+	FolderId *AssetFolderID `json:"folder_id"`
+
+	// Height The stored image's height in pixels. Null for every kind but `image`.
+	Height *int    `json:"height,omitempty"`
+	Id     AssetID `json:"id"`
+
+	// Kind The category a media-library asset's type falls into. Use it to group or filter a
+	// mixed library.
+	//
+	// - `image`: covers PNG, JPEG, and GIF.
+	// - `video`: covers MP4, WebM, and QuickTime.
+	// - `audio`: covers MP3, M4A, Ogg, and WAV.
+	// - `document`: covers PDF.
+	Kind AssetKind `json:"kind"`
+
+	// Name The asset's display name. Defaults to the uploaded file's name.
+	Name string `json:"name"`
+
+	// SizeBytes The stored file's size in bytes. Images are re-encoded on upload, so for those this can differ from the size of the file you sent. Every other kind is stored byte-for-byte.
+	SizeBytes *int64 `json:"size_bytes,omitempty"`
+
+	// ThumbnailUrl A small preview of the asset, for rendering a picker or a grid. Intended for your own interfaces rather than for embedding in messages. Null for every kind but `image`: generating a preview of a video, an audio file, or a document would mean rendering its contents, which the library does not do. Show an icon for the `kind` instead.
+	ThumbnailUrl *string    `json:"thumbnail_url,omitempty"`
+	UpdatedAt    *time.Time `json:"updated_at,omitempty"`
+
+	// Url The asset's permanent public URL. Safe to embed or link in sent messages; for a document the usable form is a link.
+	Url *string `json:"url,omitempty"`
+
+	// Width The stored image's width in pixels. Null for every kind but `image`.
+	Width *int `json:"width,omitempty"`
+}
+
+// AssetContentTypeFilter Stored media type to match.
+type AssetContentTypeFilter string
+
+// AssetDeletedFilter Whether to include assets removed from the library.
+type AssetDeletedFilter string
+
+// AssetFolder defines model for AssetFolder.
+type AssetFolder struct {
+	CreatedAt *time.Time    `json:"created_at,omitempty"`
+	Id        AssetFolderID `json:"id"`
+
+	// Name The folder's display name. Unique among folders sharing the same parent, compared without regard to case.
+	Name string `json:"name"`
+
+	// ParentId The folder this one sits in, or null when it sits at the top level of the library.
+	ParentId *AssetFolderID `json:"parent_id"`
+
+	// Path The folder's location written out from the top level, such as `/Marketing/Logos`. Provided so a caller can display a folder without walking its parents.
+	Path      *string    `json:"path,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+}
+
+// AssetFolderCreate The folder to create.
+type AssetFolderCreate struct {
+	// Name The folder's display name. Must be unique among folders sharing the same parent, compared without regard to case. Cannot contain `/`.
+	Name string `json:"name"`
+
+	// ParentId The folder to create this one in. Omit it, or send null, to create the folder at the top level of the library.
+	ParentId nullable.Nullable[AssetFolderID] `json:"parent_id,omitempty"`
+}
+
+// AssetFolderID defines model for AssetFolderID.
+type AssetFolderID = string
+
+// AssetFolderList defines model for AssetFolderList.
+type AssetFolderList struct {
+	Data []AssetFolder `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AssetFolderUpdate Fields to change on a folder. Omit a field to leave it as it is. Renaming a folder or moving it changes nothing about the assets inside it, including their URLs.
+type AssetFolderUpdate struct {
+	// Name The folder's display name. Must be unique among folders sharing the same parent, compared without regard to case. Cannot contain `/`.
+	Name *string `json:"name,omitempty"`
+
+	// ParentId The folder to move this one into. Send null to move it to the top level of the library. A folder cannot be moved into itself or into one of its own subfolders.
+	ParentId nullable.Nullable[AssetFolderID] `json:"parent_id,omitempty"`
+}
+
 // AssetID defines model for AssetID.
 type AssetID = string
+
+// AssetKind The category a media-library asset's type falls into. Use it to group or filter a
+// mixed library.
+//
+// - `image`: covers PNG, JPEG, and GIF.
+// - `video`: covers MP4, WebM, and QuickTime.
+// - `audio`: covers MP3, M4A, Ogg, and WAV.
+// - `document`: covers PDF.
+type AssetKind string
+
+// AssetKindFilter The media category to select when listing assets.
+//
+// - `image`: covers PNG, JPEG, and GIF.
+// - `video`: covers MP4, WebM, and QuickTime.
+// - `audio`: covers MP3, M4A, Ogg, and WAV.
+// - `document`: covers PDF.
+type AssetKindFilter string
+
+// AssetList defines model for AssetList.
+type AssetList struct {
+	Data []Asset `json:"data"`
+
+	// NextCursor Cursor for the next page. Pass back as `starting_after` to advance forward. `null` when no next page exists.
+	NextCursor *string `json:"next_cursor"`
+
+	// PrevCursor Cursor for the previous page. Pass back as `ending_before` to step backward. `null` when no previous page exists.
+	PrevCursor *string `json:"prev_cursor"`
+
+	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
+	RefreshCursor *string `json:"refresh_cursor"`
+
+	// Total Total number of items matching the request's filters across all pages. Present only when `include_total=true` was passed; otherwise `null`.
+	Total *int64 `json:"total,omitempty"`
+}
+
+// AssetReference A resource that uses an asset, so you can find everything to update before replacing an image.
+type AssetReference struct {
+	// ResourceId The resource's own identifier, carrying that resource's prefix (`emt_` for an email template), for linking straight to it.
+	ResourceId *string `json:"resource_id,omitempty"`
+
+	// ResourceName The resource's current display name, read when you list references.
+	ResourceName *string `json:"resource_name,omitempty"`
+
+	// ResourceType What kind of resource this is. New kinds appear as other products start using the media library, so treat an unfamiliar value as a resource this client does not know how to link to rather than as an error.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// Usage Which copy of a resource uses an asset.
+	//
+	// - `draft`: it is not reaching anyone yet.
+	// - `published`: the change has to be published before recipients see it.
+	// - `both`: the asset is used in both copies.
+	Usage AssetReferenceUsage `json:"usage"`
+}
+
+// AssetReferenceList defines model for AssetReferenceList.
+type AssetReferenceList struct {
+	Data []AssetReference `json:"data"`
+
+	// Truncated True when more resources use this asset than one response can carry, so the list is a partial answer. Replace the asset's usages you can see, then list again to find the rest.
+	Truncated *bool `json:"truncated,omitempty"`
+}
+
+// AssetReferenceUsage Which copy of a resource uses an asset.
+//
+// - `draft`: it is not reaching anyone yet.
+// - `published`: the change has to be published before recipients see it.
+// - `both`: the asset is used in both copies.
+type AssetReferenceUsage string
+
+// AssetSortField Field used to order media-library records.
+type AssetSortField string
+
+// AssetUpdate Fields to change on an asset. Omit a field to leave it as it is. The asset's bytes and URL are fixed and cannot be changed.
+type AssetUpdate struct {
+	// AltText Default alternative text describing the image. Send null to clear it.
+	AltText nullable.Nullable[string] `json:"alt_text,omitempty"`
+
+	// FolderId The folder to file the asset in. Send null to move it to the top level of the library. Moving an asset never changes its URL.
+	FolderId nullable.Nullable[AssetFolderID] `json:"folder_id,omitempty"`
+
+	// Name The asset's display name.
+	Name *string `json:"name,omitempty"`
+}
+
+// AssetUpload The file to upload, sent as a `multipart/form-data` body. Include each field at most once. Each text field is limited to 8 KiB before surrounding whitespace is trimmed; its character limit also applies.
+type AssetUpload struct {
+	// AltText Default alternative text describing the asset, carried along whenever it is placed.
+	AltText *string `json:"alt_text,omitempty"`
+
+	// File The file to upload. The file's contents determine its type; a declared content
+	// type is ignored.
+	//
+	// Images: PNG, JPEG, GIF, or WebP, up to 5 MB. WebP is converted on upload, and
+	// every image is re-encoded.
+	//
+	// Video (MP4, WebM, QuickTime), audio (MP3, M4A, Ogg, WAV), and PDF: up to 25 MB,
+	// stored byte-for-byte.
+	File     openapi_types.File `json:"file"`
+	FolderId *AssetFolderID     `json:"folder_id,omitempty"`
+
+	// Name A display name for the asset. Defaults to the uploaded file's name when omitted or empty after trimming.
+	Name *string `json:"name,omitempty"`
+}
 
 // Attachment defines model for Attachment.
 type Attachment struct {
@@ -22227,13 +23049,16 @@ type EventWhatsAppBase struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
@@ -22268,16 +23093,19 @@ type EventWhatsAppDeliveredData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Recipient The participant delivery was confirmed to, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
 	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
@@ -22315,13 +23143,16 @@ type EventWhatsAppFailedData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
@@ -22421,16 +23252,19 @@ type EventWhatsAppReadData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Recipient The participant who opened the message, on a group message. A group send raises this event once per participant, so this is what tells the deliveries apart. Absent on a one-to-one message, whose `to` already names its recipient.
 	Recipient *WhatsAppAddress `json:"recipient,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
@@ -22442,7 +23276,7 @@ type EventWhatsAppReadData struct {
 // EventWhatsAppReadDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type EventWhatsAppReadDataDirection string
 
-// EventWhatsAppReceived A contact sent the business a WhatsApp message.
+// EventWhatsAppReceived A contact sent the business a WhatsApp message. Not raised while the Meta Business Agent holds the conversation; the message is still stored and returned by the message reads.
 type EventWhatsAppReceived struct {
 	// Data Payload of the whatsapp.received event. Carries the message's content so a subscriber can act on it without reading the message back.
 	Data EventWhatsAppReceivedData `json:"data"`
@@ -22474,7 +23308,7 @@ type EventWhatsAppReceivedData struct {
 	// Image Image the contact sent.
 	Image *WhatsAppImage `json:"image,omitempty"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
 	// InteractiveReply What the contact tapped, when the message answers an interactive message or a template's quick-reply button.
@@ -22483,13 +23317,16 @@ type EventWhatsAppReceivedData struct {
 	// Location Location the contact sent.
 	Location *WhatsAppLocation `json:"location,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
+
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
 
 	// Sticker Sticker the contact sent.
 	Sticker *WhatsAppSticker `json:"sticker,omitempty"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// Text Text the contact sent.
@@ -22536,13 +23373,16 @@ type EventWhatsAppRejectedData struct {
 	// From Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
 	From WhatsAppAddress `json:"from"`
 
-	// InReplyToMessageId The message this one answers. On an outbound message it is the `in_reply_to_message_id` the send request quoted. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
+	// InReplyToMessageId The message this one answers. On an outbound message it is the message it quoted: for a send request, its `in_reply_to_message_id`. On an inbound message it is what WhatsApp reports as the reply's target: a tap on a button or a list row, and equally a text or media message the contact sent as a quoted reply. Absent when the message answers nothing, and absent on an inbound message whose target we cannot match to a message we hold, which is the case for one sent before this workspace started recording them or one already past the 15-day window we keep provider ids for.
 	InReplyToMessageId *WhatsAppMessageID `json:"in_reply_to_message_id,omitempty"`
 
-	// Metadata The metadata object provided on the send request, echoed on every event for the message. Null when the message carried no metadata.
+	// Metadata The metadata object from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no metadata.
 	Metadata *map[string]interface{} `json:"metadata"`
 
-	// Tags Tags provided on the send request, echoed on every event for the message. Null when the message carried no tags.
+	// Origin Where the message came from when it did not come through Bird live, the same value `GET /v1/whatsapp/messages/{message_id}` returns. Absent when your workspace sent the message through Bird, or the contact sent it to Bird.
+	Origin *WhatsAppMessageOrigin `json:"origin,omitempty"`
+
+	// Tags Tags from the send request, echoed on every event for the message. Null when the message was not sent through Bird, or its request carried no tags.
 	Tags *[]Tag `json:"tags"`
 
 	// To Sender or recipient of a WhatsApp message: a phone number, a business-scoped user ID, or both. A message received from a WhatsApp user carries whatever profile they publish, which may be neither.
@@ -22554,12 +23394,12 @@ type EventWhatsAppRejectedData struct {
 // EventWhatsAppRejectedDataDirection Whether the message was sent by the business (`outbound`) or received from the contact (`inbound`).
 type EventWhatsAppRejectedDataDirection string
 
-// EventWhatsAppSent The API handed the message to Meta for delivery.
+// EventWhatsAppSent The message was handed to Meta for delivery. Raised for a message your workspace sent through Bird, for one sent from the WhatsApp Business app on a number shared with it (`origin: business_app_echo`), and for one the Meta Business Agent sent on your number (`origin: business_agent_echo`).
 type EventWhatsAppSent struct {
 	// Data Payload of the whatsapp.sent event.
 	Data EventWhatsAppSentData `json:"data"`
 
-	// Timestamp Time the API handed the message to Meta for delivery.
+	// Timestamp Time the message was handed to Meta for delivery.
 	Timestamp time.Time `json:"timestamp"`
 
 	// Type Event type.
@@ -27204,11 +28044,13 @@ type WebhookConnectorDestinationCreateType string
 // - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
 //   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
 //   - `environment_id` (`config`, required): Returned when you create the environment.
+//   - `vault_id` (`config`, optional): A credential vault the agent uses, such as the one holding its Bird MCP credential, so it can reply through Bird.
 //   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
 //   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
 //   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
 //   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
 //   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+//   - Setup 4: Optionally, add a credential vault. To let the agent reply through Bird, store its Bird MCP credential in a Claude credential vault and give the vault ID here. Each session gets that vault. See https://platform.claude.com/docs/en/managed-agents/vaults.
 //
 // - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
 //   - `webhook_url` (`config`, required): The routine's webhook URL.
@@ -27231,11 +28073,13 @@ type WebhookConnectorSetup struct {
 	// - `claude_managed_agents`: Claude Managed Agents. Send each message you receive to your Claude managed agent.
 	//   - `agent_id` (`config`, required): Returned when you create the agent. Sessions use its latest version.
 	//   - `environment_id` (`config`, required): Returned when you create the environment.
+	//   - `vault_id` (`config`, optional): A credential vault the agent uses, such as the one holding its Bird MCP credential, so it can reply through Bird.
 	//   - `api_key` (secret, in `credentials`, required): From the Claude workspace your agent runs in.
 	//   - Events: `whatsapp.received`, `sms.received`, `email_mailbox.message_received`, `amb.received`.
 	//   - Setup 1: First, set up your agent in Claude. In the Claude Console, create the agent, its environment and an API key in the same workspace, then come back here with their IDs and the key. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
 	//   - Setup 2: Create an API key. In the Claude workspace your agent runs in. See https://platform.claude.com/settings/keys.
 	//   - Setup 3: Copy the agent and environment IDs. Each create returns its ID. See https://platform.claude.com/docs/en/managed-agents/quickstart#create-your-first-session.
+	//   - Setup 4: Optionally, add a credential vault. To let the agent reply through Bird, store its Bird MCP credential in a Claude credential vault and give the vault ID here. Each session gets that vault. See https://platform.claude.com/docs/en/managed-agents/vaults.
 	// - `grok_bot`: Grok Bot. Send each message you receive to a Grok Bot routine.
 	//   - `webhook_url` (`config`, required): The routine's webhook URL.
 	//   - `sender_key` (secret, in `credentials`, required): The routine's sender key. Bird sends it only as the Bearer token.
@@ -29305,7 +30149,7 @@ type WhatsAppMessageList struct {
 //
 // - `business_agent_echo`: the Meta Business Agent on this number composed it.
 // - `business_app_echo`: someone sent it from the WhatsApp Business app on a number shared with it.
-// - `history_sync`: WhatsApp copied it, in either direction, from the WhatsApp Business app's chat history when the number was shared. `/v1/whatsapp/messages` does not return imported messages, so it never reports this value.
+// - `history_sync`: WhatsApp copied it, in either direction, from the WhatsApp Business app's chat history when the number was shared. Neither `/v1/whatsapp/messages` nor a webhook event reports an imported message, so neither carries this value.
 type WhatsAppMessageOrigin string
 
 // WhatsAppMessageSendRequest A WhatsApp message to send, carrying exactly one kind of content.
@@ -32024,6 +32868,362 @@ type DeleteAMBSuppressionParams struct {
 
 // GetAMBSuppressionParams defines parameters for GetAMBSuppression.
 type GetAMBSuppressionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAMBTemplatesParams defines parameters for ListAMBTemplates.
+type ListAMBTemplatesParams struct {
+	// Scope Filter by who owns the template. Use `system` for built-in templates and `workspace` for templates your workspace created.
+	Scope *TemplateScope `form:"scope,omitempty" json:"scope,omitempty"`
+
+	// Category Return templates in this category.
+	Category *AMBTemplateCategory `form:"category,omitempty" json:"category,omitempty"`
+
+	// Status Return templates with this lifecycle status.
+	Status *TemplateStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// ContentKind Return templates whose live or draft content is this kind.
+	ContentKind *AMBContentKind `form:"content_kind,omitempty" json:"content_kind,omitempty"`
+
+	// Language Return templates whose published content contains this language, after the tag is canonicalized. Draft-only languages do not match.
+	Language *LanguageTag `form:"language,omitempty" json:"language,omitempty"`
+
+	// Q A case-insensitive substring search across slug, name, and description.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// Sort Field to sort by.
+	Sort *AMBTemplateSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAMBTemplateParams defines parameters for GetAMBTemplate.
+type GetAMBTemplateParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAMBTemplateVersionsParams defines parameters for ListAMBTemplateVersions.
+type ListAMBTemplateVersionsParams struct {
+	// Sort Field to sort by.
+	Sort *AMBTemplateSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAMBTemplateVersionParams defines parameters for GetAMBTemplateVersion.
+type GetAMBTemplateVersionParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAMBTemplateVersionLanguagesParams defines parameters for ListAMBTemplateVersionLanguages.
+type ListAMBTemplateVersionLanguagesParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAMBTemplateVersionLanguageParams defines parameters for GetAMBTemplateVersionLanguage.
+type GetAMBTemplateVersionLanguageParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAssetFoldersParams defines parameters for ListAssetFolders.
+type ListAssetFoldersParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *AssetSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// CreateAssetFolderParams defines parameters for CreateAssetFolder.
+type CreateAssetFolderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteAssetFolderParams defines parameters for DeleteAssetFolder.
+type DeleteAssetFolderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAssetFolderParams defines parameters for GetAssetFolder.
+type GetAssetFolderParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateAssetFolderParams defines parameters for UpdateAssetFolder.
+type UpdateAssetFolderParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAssetsParams defines parameters for ListAssets.
+type ListAssetsParams struct {
+	// Sort Field to sort by. Defaults to `created_at`.
+	Sort *AssetSortField `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// Kind Return only assets in this category. This groups exact `content_type` values into images, video, audio, and documents.
+	Kind *AssetKindFilter `form:"kind,omitempty" json:"kind,omitempty"`
+
+	// ContentType Return only assets stored with this media type.
+	ContentType *AssetContentTypeFilter `form:"content_type,omitempty" json:"content_type,omitempty"`
+
+	// Deleted Whether to include assets that have been removed from the library. Removed assets keep serving at their original URL, so they remain listable.
+	Deleted *AssetDeletedFilter `form:"deleted,omitempty" json:"deleted,omitempty"`
+
+	// Q A case-insensitive substring match against the asset's name.
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+
+	// FolderId Return only the assets filed directly in this folder. Subfolders are not included, and a folder that does not exist matches nothing. Cannot be combined with `root_only`.
+	FolderId *AssetFolderID `form:"folder_id,omitempty" json:"folder_id,omitempty"`
+
+	// RootOnly Return only the assets at the top level of the library, filed in no folder. Cannot be combined with `folder_id`.
+	RootOnly *bool `form:"root_only,omitempty" json:"root_only,omitempty"`
+
+	// Order Sort direction. Defaults to `desc`, which sorts from newest to oldest or largest to smallest, depending on the selected sort field.
+	Order *OrderDesc `form:"order,omitempty" json:"order,omitempty"`
+
+	// Limit Maximum number of items to return per page.
+	Limit *PaginationLimit `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// StartingAfter Cursor from the `next_cursor` field of a previous list response. Returns items immediately after the cursor position in the current sort order.
+	StartingAfter *StartingAfter `form:"starting_after,omitempty" json:"starting_after,omitempty"`
+
+	// EndingBefore Cursor from the `prev_cursor` or `refresh_cursor` field of a previous list response. Returns items immediately before the cursor position in the current sort order. `prev_cursor` returns the preceding page. `refresh_cursor` anchors at the first row of that response, which on a newest-first sort is how to fetch the items that have appeared since.
+	EndingBefore *EndingBefore `form:"ending_before,omitempty" json:"ending_before,omitempty"`
+
+	// IncludeTotal When true, the response includes a `total` field with the total number of items matching the request's filters across all pages.
+	IncludeTotal *IncludeTotal `form:"include_total,omitempty" json:"include_total,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// DeleteAssetParams defines parameters for DeleteAsset.
+type DeleteAssetParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetAssetParams defines parameters for GetAsset.
+type GetAssetParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// UpdateAssetParams defines parameters for UpdateAsset.
+type UpdateAssetParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ListAssetReferencesParams defines parameters for ListAssetReferences.
+type ListAssetReferencesParams struct {
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
 
@@ -40151,6 +41351,15 @@ type UpdateAMBRoutingRuleJSONRequestBody = AMBRoutingRuleUpdate
 // CreateAMBSuppressionJSONRequestBody defines body for CreateAMBSuppression for application/json ContentType.
 type CreateAMBSuppressionJSONRequestBody = AMBSuppressionCreate
 
+// CreateAssetFolderJSONRequestBody defines body for CreateAssetFolder for application/json ContentType.
+type CreateAssetFolderJSONRequestBody = AssetFolderCreate
+
+// UpdateAssetFolderJSONRequestBody defines body for UpdateAssetFolder for application/json ContentType.
+type UpdateAssetFolderJSONRequestBody = AssetFolderUpdate
+
+// UpdateAssetJSONRequestBody defines body for UpdateAsset for application/json ContentType.
+type UpdateAssetJSONRequestBody = AssetUpdate
+
 // CreateAudienceJSONRequestBody defines body for CreateAudience for application/json ContentType.
 type CreateAudienceJSONRequestBody = AudienceCreateRequest
 
@@ -40893,6 +42102,239 @@ func (t AMBMessageContent) MarshalJSON() ([]byte, error) {
 
 func (t *AMBMessageContent) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsAMBMessageSendRequest0 returns the union data inside the AMBMessageSendRequest as a AMBMessageSendRequest0
+func (t AMBMessageSendRequest) AsAMBMessageSendRequest0() (AMBMessageSendRequest0, error) {
+	var body AMBMessageSendRequest0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBMessageSendRequest0 overwrites any union data inside the AMBMessageSendRequest as the provided AMBMessageSendRequest0
+func (t *AMBMessageSendRequest) FromAMBMessageSendRequest0(v AMBMessageSendRequest0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBMessageSendRequest0 performs a merge with any union data inside the AMBMessageSendRequest, using the provided AMBMessageSendRequest0
+func (t *AMBMessageSendRequest) MergeAMBMessageSendRequest0(v AMBMessageSendRequest0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBMessageSendRequest1 returns the union data inside the AMBMessageSendRequest as a AMBMessageSendRequest1
+func (t AMBMessageSendRequest) AsAMBMessageSendRequest1() (AMBMessageSendRequest1, error) {
+	var body AMBMessageSendRequest1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBMessageSendRequest1 overwrites any union data inside the AMBMessageSendRequest as the provided AMBMessageSendRequest1
+func (t *AMBMessageSendRequest) FromAMBMessageSendRequest1(v AMBMessageSendRequest1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBMessageSendRequest1 performs a merge with any union data inside the AMBMessageSendRequest, using the provided AMBMessageSendRequest1
+func (t *AMBMessageSendRequest) MergeAMBMessageSendRequest1(v AMBMessageSendRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBMessageSendRequest) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Category != nil {
+		object["category"], err = json.Marshal(t.Category)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'category': %w", err)
+		}
+	}
+
+	if t.Content != nil {
+		object["content"], err = json.Marshal(t.Content)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'content': %w", err)
+		}
+	}
+
+	object["from"], err = json.Marshal(t.From)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'from': %w", err)
+	}
+
+	if t.Group != nil {
+		object["group"], err = json.Marshal(t.Group)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'group': %w", err)
+		}
+	}
+
+	if t.Intent != nil {
+		object["intent"], err = json.Marshal(t.Intent)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'intent': %w", err)
+		}
+	}
+
+	if t.Locale != nil {
+		object["locale"], err = json.Marshal(t.Locale)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'locale': %w", err)
+		}
+	}
+
+	if t.Metadata != nil {
+		object["metadata"], err = json.Marshal(t.Metadata)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'metadata': %w", err)
+		}
+	}
+
+	if t.Source != nil {
+		object["source"], err = json.Marshal(t.Source)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'source': %w", err)
+		}
+	}
+
+	if t.Tags != nil {
+		object["tags"], err = json.Marshal(t.Tags)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'tags': %w", err)
+		}
+	}
+
+	if t.Template != nil {
+		object["template"], err = json.Marshal(t.Template)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'template': %w", err)
+		}
+	}
+
+	object["to"], err = json.Marshal(t.To)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling 'to': %w", err)
+	}
+
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBMessageSendRequest) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["category"]; found {
+		err = json.Unmarshal(raw, &t.Category)
+		if err != nil {
+			return fmt.Errorf("error reading 'category': %w", err)
+		}
+	}
+
+	if raw, found := object["content"]; found {
+		err = json.Unmarshal(raw, &t.Content)
+		if err != nil {
+			return fmt.Errorf("error reading 'content': %w", err)
+		}
+	}
+
+	if raw, found := object["from"]; found {
+		err = json.Unmarshal(raw, &t.From)
+		if err != nil {
+			return fmt.Errorf("error reading 'from': %w", err)
+		}
+	}
+
+	if raw, found := object["group"]; found {
+		err = json.Unmarshal(raw, &t.Group)
+		if err != nil {
+			return fmt.Errorf("error reading 'group': %w", err)
+		}
+	}
+
+	if raw, found := object["intent"]; found {
+		err = json.Unmarshal(raw, &t.Intent)
+		if err != nil {
+			return fmt.Errorf("error reading 'intent': %w", err)
+		}
+	}
+
+	if raw, found := object["locale"]; found {
+		err = json.Unmarshal(raw, &t.Locale)
+		if err != nil {
+			return fmt.Errorf("error reading 'locale': %w", err)
+		}
+	}
+
+	if raw, found := object["metadata"]; found {
+		err = json.Unmarshal(raw, &t.Metadata)
+		if err != nil {
+			return fmt.Errorf("error reading 'metadata': %w", err)
+		}
+	}
+
+	if raw, found := object["source"]; found {
+		err = json.Unmarshal(raw, &t.Source)
+		if err != nil {
+			return fmt.Errorf("error reading 'source': %w", err)
+		}
+	}
+
+	if raw, found := object["tags"]; found {
+		err = json.Unmarshal(raw, &t.Tags)
+		if err != nil {
+			return fmt.Errorf("error reading 'tags': %w", err)
+		}
+	}
+
+	if raw, found := object["template"]; found {
+		err = json.Unmarshal(raw, &t.Template)
+		if err != nil {
+			return fmt.Errorf("error reading 'template': %w", err)
+		}
+	}
+
+	if raw, found := object["to"]; found {
+		err = json.Unmarshal(raw, &t.To)
+		if err != nil {
+			return fmt.Errorf("error reading 'to': %w", err)
+		}
+	}
+
 	return err
 }
 
@@ -41827,6 +43269,32 @@ func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent1(v AMBNativeRic
 	return err
 }
 
+// AsAMBNativeRichLinkContent2 returns the union data inside the AMBNativeRichLinkContent as a AMBNativeRichLinkContent2
+func (t AMBNativeRichLinkContent) AsAMBNativeRichLinkContent2() (AMBNativeRichLinkContent2, error) {
+	var body AMBNativeRichLinkContent2
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBNativeRichLinkContent2 overwrites any union data inside the AMBNativeRichLinkContent as the provided AMBNativeRichLinkContent2
+func (t *AMBNativeRichLinkContent) FromAMBNativeRichLinkContent2(v AMBNativeRichLinkContent2) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBNativeRichLinkContent2 performs a merge with any union data inside the AMBNativeRichLinkContent, using the provided AMBNativeRichLinkContent2
+func (t *AMBNativeRichLinkContent) MergeAMBNativeRichLinkContent2(v AMBNativeRichLinkContent2) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
 func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
 	b, err := t.union.MarshalJSON()
 	if err != nil {
@@ -41851,6 +43319,13 @@ func (t AMBNativeRichLinkContent) MarshalJSON() ([]byte, error) {
 		object["body"], err = json.Marshal(t.Body)
 		if err != nil {
 			return nil, fmt.Errorf("error marshaling 'body': %w", err)
+		}
+	}
+
+	if t.RichLinkConstruct != nil {
+		object["rich_link_construct"], err = json.Marshal(t.RichLinkConstruct)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'rich_link_construct': %w", err)
 		}
 	}
 
@@ -41906,6 +43381,13 @@ func (t *AMBNativeRichLinkContent) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Body)
 		if err != nil {
 			return fmt.Errorf("error reading 'body': %w", err)
+		}
+	}
+
+	if raw, found := object["rich_link_construct"]; found {
+		err = json.Unmarshal(raw, &t.RichLinkConstruct)
+		if err != nil {
+			return fmt.Errorf("error reading 'rich_link_construct': %w", err)
 		}
 	}
 
@@ -42687,6 +44169,144 @@ func (t *AMBRoutingRuleUpdate) UnmarshalJSON(b []byte) error {
 		err = json.Unmarshal(raw, &t.Queue)
 		if err != nil {
 			return fmt.Errorf("error reading 'queue': %w", err)
+		}
+	}
+
+	return err
+}
+
+// AsAMBTemplateSend0 returns the union data inside the AMBTemplateSend as a AMBTemplateSend0
+func (t AMBTemplateSend) AsAMBTemplateSend0() (AMBTemplateSend0, error) {
+	var body AMBTemplateSend0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBTemplateSend0 overwrites any union data inside the AMBTemplateSend as the provided AMBTemplateSend0
+func (t *AMBTemplateSend) FromAMBTemplateSend0(v AMBTemplateSend0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBTemplateSend0 performs a merge with any union data inside the AMBTemplateSend, using the provided AMBTemplateSend0
+func (t *AMBTemplateSend) MergeAMBTemplateSend0(v AMBTemplateSend0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsAMBTemplateSend1 returns the union data inside the AMBTemplateSend as a AMBTemplateSend1
+func (t AMBTemplateSend) AsAMBTemplateSend1() (AMBTemplateSend1, error) {
+	var body AMBTemplateSend1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromAMBTemplateSend1 overwrites any union data inside the AMBTemplateSend as the provided AMBTemplateSend1
+func (t *AMBTemplateSend) FromAMBTemplateSend1(v AMBTemplateSend1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeAMBTemplateSend1 performs a merge with any union data inside the AMBTemplateSend, using the provided AMBTemplateSend1
+func (t *AMBTemplateSend) MergeAMBTemplateSend1(v AMBTemplateSend1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t AMBTemplateSend) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.Id != nil {
+		object["id"], err = json.Marshal(t.Id)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'id': %w", err)
+		}
+	}
+
+	if t.Language != nil {
+		object["language"], err = json.Marshal(t.Language)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'language': %w", err)
+		}
+	}
+
+	if t.Parameters != nil {
+		object["parameters"], err = json.Marshal(t.Parameters)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'parameters': %w", err)
+		}
+	}
+
+	if t.Slug != nil {
+		object["slug"], err = json.Marshal(t.Slug)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'slug': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *AMBTemplateSend) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &t.Id)
+		if err != nil {
+			return fmt.Errorf("error reading 'id': %w", err)
+		}
+	}
+
+	if raw, found := object["language"]; found {
+		err = json.Unmarshal(raw, &t.Language)
+		if err != nil {
+			return fmt.Errorf("error reading 'language': %w", err)
+		}
+	}
+
+	if raw, found := object["parameters"]; found {
+		err = json.Unmarshal(raw, &t.Parameters)
+		if err != nil {
+			return fmt.Errorf("error reading 'parameters': %w", err)
+		}
+	}
+
+	if raw, found := object["slug"]; found {
+		err = json.Unmarshal(raw, &t.Slug)
+		if err != nil {
+			return fmt.Errorf("error reading 'slug': %w", err)
 		}
 	}
 
@@ -48128,6 +49748,60 @@ type ClientInterface interface {
 	// GetAMBSuppression request
 	GetAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, params *GetAMBSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// ListAMBTemplates request
+	ListAMBTemplates(ctx context.Context, params *ListAMBTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBTemplate request
+	GetAMBTemplate(ctx context.Context, templateRef string, params *GetAMBTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBTemplateVersions request
+	ListAMBTemplateVersions(ctx context.Context, templateRef string, params *ListAMBTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBTemplateVersion request
+	GetAMBTemplateVersion(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *GetAMBTemplateVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAMBTemplateVersionLanguages request
+	ListAMBTemplateVersionLanguages(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *ListAMBTemplateVersionLanguagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAMBTemplateVersionLanguage request
+	GetAMBTemplateVersionLanguage(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, language LanguageTag, params *GetAMBTemplateVersionLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAssetFolders request
+	ListAssetFolders(ctx context.Context, params *ListAssetFoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateAssetFolderWithBody request with any body
+	CreateAssetFolderWithBody(ctx context.Context, params *CreateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	CreateAssetFolder(ctx context.Context, params *CreateAssetFolderParams, body CreateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAssetFolder request
+	DeleteAssetFolder(ctx context.Context, folderId AssetFolderID, params *DeleteAssetFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAssetFolder request
+	GetAssetFolder(ctx context.Context, folderId AssetFolderID, params *GetAssetFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAssetFolderWithBody request with any body
+	UpdateAssetFolderWithBody(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAssetFolder(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAssets request
+	ListAssets(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAsset request
+	DeleteAsset(ctx context.Context, assetId AssetID, params *DeleteAssetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAsset request
+	GetAsset(ctx context.Context, assetId AssetID, params *GetAssetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateAssetWithBody request with any body
+	UpdateAssetWithBody(ctx context.Context, assetId AssetID, params *UpdateAssetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	UpdateAsset(ctx context.Context, assetId AssetID, params *UpdateAssetParams, body UpdateAssetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListAssetReferences request
+	ListAssetReferences(ctx context.Context, assetId AssetID, params *ListAssetReferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListAudiences request
 	ListAudiences(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -49956,6 +51630,234 @@ func (c *Client) DeleteAMBSuppression(ctx context.Context, suppressionId AMBSupp
 
 func (c *Client) GetAMBSuppression(ctx context.Context, suppressionId AMBSuppressionID, params *GetAMBSuppressionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAMBSuppressionRequest(c.Server, suppressionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBTemplates(ctx context.Context, params *ListAMBTemplatesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBTemplatesRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBTemplate(ctx context.Context, templateRef string, params *GetAMBTemplateParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBTemplateRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBTemplateVersions(ctx context.Context, templateRef string, params *ListAMBTemplateVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBTemplateVersionsRequest(c.Server, templateRef, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBTemplateVersion(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *GetAMBTemplateVersionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBTemplateVersionRequest(c.Server, templateRef, versionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAMBTemplateVersionLanguages(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *ListAMBTemplateVersionLanguagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAMBTemplateVersionLanguagesRequest(c.Server, templateRef, versionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAMBTemplateVersionLanguage(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, language LanguageTag, params *GetAMBTemplateVersionLanguageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAMBTemplateVersionLanguageRequest(c.Server, templateRef, versionId, language, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAssetFolders(ctx context.Context, params *ListAssetFoldersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAssetFoldersRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetFolderWithBody(ctx context.Context, params *CreateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetFolderRequestWithBody(c.Server, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) CreateAssetFolder(ctx context.Context, params *CreateAssetFolderParams, body CreateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateAssetFolderRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAssetFolder(ctx context.Context, folderId AssetFolderID, params *DeleteAssetFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAssetFolderRequest(c.Server, folderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAssetFolder(ctx context.Context, folderId AssetFolderID, params *GetAssetFolderParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAssetFolderRequest(c.Server, folderId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAssetFolderWithBody(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAssetFolderRequestWithBody(c.Server, folderId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAssetFolder(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAssetFolderRequest(c.Server, folderId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAssets(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAssetsRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAsset(ctx context.Context, assetId AssetID, params *DeleteAssetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAssetRequest(c.Server, assetId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAsset(ctx context.Context, assetId AssetID, params *GetAssetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAssetRequest(c.Server, assetId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAssetWithBody(ctx context.Context, assetId AssetID, params *UpdateAssetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAssetRequestWithBody(c.Server, assetId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UpdateAsset(ctx context.Context, assetId AssetID, params *UpdateAssetParams, body UpdateAssetJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateAssetRequest(c.Server, assetId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListAssetReferences(ctx context.Context, assetId AssetID, params *ListAssetReferencesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListAssetReferencesRequest(c.Server, assetId, params)
 	if err != nil {
 		return nil, err
 	}
@@ -59855,6 +61757,1528 @@ func NewGetAMBSuppressionRequest(server string, suppressionId AMBSuppressionID, 
 	}
 
 	operationPath := fmt.Sprintf("/v1/amb/suppressions/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBTemplatesRequest generates requests for ListAMBTemplates
+func NewListAMBTemplatesRequest(server string, params *ListAMBTemplatesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Scope != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "scope", *params.Scope, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Category != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "category", *params.Category, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Status != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "status", *params.Status, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentKind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_kind", *params.ContentKind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Language != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "language", *params.Language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBTemplateRequest generates requests for GetAMBTemplate
+func NewGetAMBTemplateRequest(server string, templateRef string, params *GetAMBTemplateParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBTemplateVersionsRequest generates requests for ListAMBTemplateVersions
+func NewListAMBTemplateVersionsRequest(server string, templateRef string, params *ListAMBTemplateVersionsParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates/%s/versions", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBTemplateVersionRequest generates requests for GetAMBTemplateVersion
+func NewGetAMBTemplateVersionRequest(server string, templateRef string, versionId AMBTemplateVersionID, params *GetAMBTemplateVersionParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates/%s/versions/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAMBTemplateVersionLanguagesRequest generates requests for ListAMBTemplateVersionLanguages
+func NewListAMBTemplateVersionLanguagesRequest(server string, templateRef string, versionId AMBTemplateVersionID, params *ListAMBTemplateVersionLanguagesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates/%s/versions/%s/languages", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAMBTemplateVersionLanguageRequest generates requests for GetAMBTemplateVersionLanguage
+func NewGetAMBTemplateVersionLanguageRequest(server string, templateRef string, versionId AMBTemplateVersionID, language LanguageTag, params *GetAMBTemplateVersionLanguageParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "version_id", versionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam2 string
+
+	pathParam2, err = runtime.StyleParamWithOptions("simple", false, "language", language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/amb/templates/%s/versions/%s/languages/%s", pathParam0, pathParam1, pathParam2)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAssetFoldersRequest generates requests for ListAssetFolders
+func NewListAssetFoldersRequest(server string, params *ListAssetFoldersParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-folders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewCreateAssetFolderRequest calls the generic CreateAssetFolder builder with application/json body
+func NewCreateAssetFolderRequest(server string, params *CreateAssetFolderParams, body CreateAssetFolderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateAssetFolderRequestWithBody(server, params, "application/json", bodyReader)
+}
+
+// NewCreateAssetFolderRequestWithBody generates requests for CreateAssetFolder with any type of body
+func NewCreateAssetFolderRequestWithBody(server string, params *CreateAssetFolderParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-folders")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAssetFolderRequest generates requests for DeleteAssetFolder
+func NewDeleteAssetFolderRequest(server string, folderId AssetFolderID, params *DeleteAssetFolderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "folder_id", folderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-folders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAssetFolderRequest generates requests for GetAssetFolder
+func NewGetAssetFolderRequest(server string, folderId AssetFolderID, params *GetAssetFolderParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "folder_id", folderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-folders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAssetFolderRequest calls the generic UpdateAssetFolder builder with application/json body
+func NewUpdateAssetFolderRequest(server string, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAssetFolderRequestWithBody(server, folderId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAssetFolderRequestWithBody generates requests for UpdateAssetFolder with any type of body
+func NewUpdateAssetFolderRequestWithBody(server string, folderId AssetFolderID, params *UpdateAssetFolderParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "folder_id", folderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/asset-folders/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAssetsRequest generates requests for ListAssets
+func NewListAssetsRequest(server string, params *ListAssetsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/assets")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Kind != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "kind", *params.Kind, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.ContentType != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "content_type", *params.ContentType, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Deleted != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "deleted", *params.Deleted, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Q != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "q", *params.Q, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FolderId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "folder_id", *params.FolderId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.RootOnly != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "root_only", *params.RootOnly, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Order != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "order", *params.Order, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.StartingAfter != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "starting_after", *params.StartingAfter, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.EndingBefore != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ending_before", *params.EndingBefore, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.IncludeTotal != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "include_total", *params.IncludeTotal, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "boolean", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewDeleteAssetRequest generates requests for DeleteAsset
+func NewDeleteAssetRequest(server string, assetId AssetID, params *DeleteAssetParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "asset_id", assetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/assets/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetAssetRequest generates requests for GetAsset
+func NewGetAssetRequest(server string, assetId AssetID, params *GetAssetParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "asset_id", assetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/assets/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewUpdateAssetRequest calls the generic UpdateAsset builder with application/json body
+func NewUpdateAssetRequest(server string, assetId AssetID, params *UpdateAssetParams, body UpdateAssetJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateAssetRequestWithBody(server, assetId, params, "application/json", bodyReader)
+}
+
+// NewUpdateAssetRequestWithBody generates requests for UpdateAsset with any type of body
+func NewUpdateAssetRequestWithBody(server string, assetId AssetID, params *UpdateAssetParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "asset_id", assetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/assets/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewListAssetReferencesRequest generates requests for ListAssetReferences
+func NewListAssetReferencesRequest(server string, assetId AssetID, params *ListAssetReferencesParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "asset_id", assetId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/assets/%s/references", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -91919,6 +95343,60 @@ type ClientWithResponsesInterface interface {
 	// GetAMBSuppressionWithResponse request
 	GetAMBSuppressionWithResponse(ctx context.Context, suppressionId AMBSuppressionID, params *GetAMBSuppressionParams, reqEditors ...RequestEditorFn) (*GetAMBSuppressionResponse, error)
 
+	// ListAMBTemplatesWithResponse request
+	ListAMBTemplatesWithResponse(ctx context.Context, params *ListAMBTemplatesParams, reqEditors ...RequestEditorFn) (*ListAMBTemplatesResponse, error)
+
+	// GetAMBTemplateWithResponse request
+	GetAMBTemplateWithResponse(ctx context.Context, templateRef string, params *GetAMBTemplateParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateResponse, error)
+
+	// ListAMBTemplateVersionsWithResponse request
+	ListAMBTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListAMBTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListAMBTemplateVersionsResponse, error)
+
+	// GetAMBTemplateVersionWithResponse request
+	GetAMBTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *GetAMBTemplateVersionParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateVersionResponse, error)
+
+	// ListAMBTemplateVersionLanguagesWithResponse request
+	ListAMBTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *ListAMBTemplateVersionLanguagesParams, reqEditors ...RequestEditorFn) (*ListAMBTemplateVersionLanguagesResponse, error)
+
+	// GetAMBTemplateVersionLanguageWithResponse request
+	GetAMBTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, language LanguageTag, params *GetAMBTemplateVersionLanguageParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateVersionLanguageResponse, error)
+
+	// ListAssetFoldersWithResponse request
+	ListAssetFoldersWithResponse(ctx context.Context, params *ListAssetFoldersParams, reqEditors ...RequestEditorFn) (*ListAssetFoldersResponse, error)
+
+	// CreateAssetFolderWithBodyWithResponse request with any body
+	CreateAssetFolderWithBodyWithResponse(ctx context.Context, params *CreateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAssetFolderResponse, error)
+
+	CreateAssetFolderWithResponse(ctx context.Context, params *CreateAssetFolderParams, body CreateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAssetFolderResponse, error)
+
+	// DeleteAssetFolderWithResponse request
+	DeleteAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *DeleteAssetFolderParams, reqEditors ...RequestEditorFn) (*DeleteAssetFolderResponse, error)
+
+	// GetAssetFolderWithResponse request
+	GetAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *GetAssetFolderParams, reqEditors ...RequestEditorFn) (*GetAssetFolderResponse, error)
+
+	// UpdateAssetFolderWithBodyWithResponse request with any body
+	UpdateAssetFolderWithBodyWithResponse(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAssetFolderResponse, error)
+
+	UpdateAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAssetFolderResponse, error)
+
+	// ListAssetsWithResponse request
+	ListAssetsWithResponse(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*ListAssetsResponse, error)
+
+	// DeleteAssetWithResponse request
+	DeleteAssetWithResponse(ctx context.Context, assetId AssetID, params *DeleteAssetParams, reqEditors ...RequestEditorFn) (*DeleteAssetResponse, error)
+
+	// GetAssetWithResponse request
+	GetAssetWithResponse(ctx context.Context, assetId AssetID, params *GetAssetParams, reqEditors ...RequestEditorFn) (*GetAssetResponse, error)
+
+	// UpdateAssetWithBodyWithResponse request with any body
+	UpdateAssetWithBodyWithResponse(ctx context.Context, assetId AssetID, params *UpdateAssetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAssetResponse, error)
+
+	UpdateAssetWithResponse(ctx context.Context, assetId AssetID, params *UpdateAssetParams, body UpdateAssetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAssetResponse, error)
+
+	// ListAssetReferencesWithResponse request
+	ListAssetReferencesWithResponse(ctx context.Context, assetId AssetID, params *ListAssetReferencesParams, reqEditors ...RequestEditorFn) (*ListAssetReferencesResponse, error)
+
 	// ListAudiencesWithResponse request
 	ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error)
 
@@ -94853,6 +98331,614 @@ func (r GetAMBSuppressionResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetAMBSuppressionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBTemplatesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplateList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBTemplatesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBTemplatesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBTemplatesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBTemplateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplate
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBTemplateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBTemplateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBTemplateVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplateVersionList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBTemplateVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBTemplateVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBTemplateVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBTemplateVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplateVersion
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBTemplateVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBTemplateVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBTemplateVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAMBTemplateVersionLanguagesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplateLanguageList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAMBTemplateVersionLanguagesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAMBTemplateVersionLanguagesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAMBTemplateVersionLanguagesResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAMBTemplateVersionLanguageResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AMBTemplateLanguage
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAMBTemplateVersionLanguageResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAMBTemplateVersionLanguageResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAMBTemplateVersionLanguageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAssetFoldersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetFolderList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAssetFoldersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAssetFoldersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAssetFoldersResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateAssetFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *AssetFolder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateAssetFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateAssetFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateAssetFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAssetFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAssetFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAssetFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAssetFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAssetFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetFolder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAssetFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAssetFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAssetFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAssetFolderResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetFolder
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAssetFolderResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAssetFolderResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAssetFolderResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAssetsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAssetsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAssetsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAssetsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteAssetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAssetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAssetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteAssetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetAssetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Asset
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAssetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAssetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetAssetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateAssetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *Asset
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateAssetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateAssetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateAssetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ListAssetReferencesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *AssetReferenceList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON501      *NotImplemented
+}
+
+// Status returns HTTPResponse.Status
+func (r ListAssetReferencesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListAssetReferencesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListAssetReferencesResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -107805,6 +111891,174 @@ func (c *ClientWithResponses) GetAMBSuppressionWithResponse(ctx context.Context,
 	return ParseGetAMBSuppressionResponse(rsp)
 }
 
+// ListAMBTemplatesWithResponse request returning *ListAMBTemplatesResponse
+func (c *ClientWithResponses) ListAMBTemplatesWithResponse(ctx context.Context, params *ListAMBTemplatesParams, reqEditors ...RequestEditorFn) (*ListAMBTemplatesResponse, error) {
+	rsp, err := c.ListAMBTemplates(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBTemplatesResponse(rsp)
+}
+
+// GetAMBTemplateWithResponse request returning *GetAMBTemplateResponse
+func (c *ClientWithResponses) GetAMBTemplateWithResponse(ctx context.Context, templateRef string, params *GetAMBTemplateParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateResponse, error) {
+	rsp, err := c.GetAMBTemplate(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBTemplateResponse(rsp)
+}
+
+// ListAMBTemplateVersionsWithResponse request returning *ListAMBTemplateVersionsResponse
+func (c *ClientWithResponses) ListAMBTemplateVersionsWithResponse(ctx context.Context, templateRef string, params *ListAMBTemplateVersionsParams, reqEditors ...RequestEditorFn) (*ListAMBTemplateVersionsResponse, error) {
+	rsp, err := c.ListAMBTemplateVersions(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBTemplateVersionsResponse(rsp)
+}
+
+// GetAMBTemplateVersionWithResponse request returning *GetAMBTemplateVersionResponse
+func (c *ClientWithResponses) GetAMBTemplateVersionWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *GetAMBTemplateVersionParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateVersionResponse, error) {
+	rsp, err := c.GetAMBTemplateVersion(ctx, templateRef, versionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBTemplateVersionResponse(rsp)
+}
+
+// ListAMBTemplateVersionLanguagesWithResponse request returning *ListAMBTemplateVersionLanguagesResponse
+func (c *ClientWithResponses) ListAMBTemplateVersionLanguagesWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, params *ListAMBTemplateVersionLanguagesParams, reqEditors ...RequestEditorFn) (*ListAMBTemplateVersionLanguagesResponse, error) {
+	rsp, err := c.ListAMBTemplateVersionLanguages(ctx, templateRef, versionId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAMBTemplateVersionLanguagesResponse(rsp)
+}
+
+// GetAMBTemplateVersionLanguageWithResponse request returning *GetAMBTemplateVersionLanguageResponse
+func (c *ClientWithResponses) GetAMBTemplateVersionLanguageWithResponse(ctx context.Context, templateRef string, versionId AMBTemplateVersionID, language LanguageTag, params *GetAMBTemplateVersionLanguageParams, reqEditors ...RequestEditorFn) (*GetAMBTemplateVersionLanguageResponse, error) {
+	rsp, err := c.GetAMBTemplateVersionLanguage(ctx, templateRef, versionId, language, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAMBTemplateVersionLanguageResponse(rsp)
+}
+
+// ListAssetFoldersWithResponse request returning *ListAssetFoldersResponse
+func (c *ClientWithResponses) ListAssetFoldersWithResponse(ctx context.Context, params *ListAssetFoldersParams, reqEditors ...RequestEditorFn) (*ListAssetFoldersResponse, error) {
+	rsp, err := c.ListAssetFolders(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAssetFoldersResponse(rsp)
+}
+
+// CreateAssetFolderWithBodyWithResponse request with arbitrary body returning *CreateAssetFolderResponse
+func (c *ClientWithResponses) CreateAssetFolderWithBodyWithResponse(ctx context.Context, params *CreateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateAssetFolderResponse, error) {
+	rsp, err := c.CreateAssetFolderWithBody(ctx, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetFolderResponse(rsp)
+}
+
+func (c *ClientWithResponses) CreateAssetFolderWithResponse(ctx context.Context, params *CreateAssetFolderParams, body CreateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateAssetFolderResponse, error) {
+	rsp, err := c.CreateAssetFolder(ctx, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateAssetFolderResponse(rsp)
+}
+
+// DeleteAssetFolderWithResponse request returning *DeleteAssetFolderResponse
+func (c *ClientWithResponses) DeleteAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *DeleteAssetFolderParams, reqEditors ...RequestEditorFn) (*DeleteAssetFolderResponse, error) {
+	rsp, err := c.DeleteAssetFolder(ctx, folderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAssetFolderResponse(rsp)
+}
+
+// GetAssetFolderWithResponse request returning *GetAssetFolderResponse
+func (c *ClientWithResponses) GetAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *GetAssetFolderParams, reqEditors ...RequestEditorFn) (*GetAssetFolderResponse, error) {
+	rsp, err := c.GetAssetFolder(ctx, folderId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAssetFolderResponse(rsp)
+}
+
+// UpdateAssetFolderWithBodyWithResponse request with arbitrary body returning *UpdateAssetFolderResponse
+func (c *ClientWithResponses) UpdateAssetFolderWithBodyWithResponse(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAssetFolderResponse, error) {
+	rsp, err := c.UpdateAssetFolderWithBody(ctx, folderId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAssetFolderResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAssetFolderWithResponse(ctx context.Context, folderId AssetFolderID, params *UpdateAssetFolderParams, body UpdateAssetFolderJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAssetFolderResponse, error) {
+	rsp, err := c.UpdateAssetFolder(ctx, folderId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAssetFolderResponse(rsp)
+}
+
+// ListAssetsWithResponse request returning *ListAssetsResponse
+func (c *ClientWithResponses) ListAssetsWithResponse(ctx context.Context, params *ListAssetsParams, reqEditors ...RequestEditorFn) (*ListAssetsResponse, error) {
+	rsp, err := c.ListAssets(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAssetsResponse(rsp)
+}
+
+// DeleteAssetWithResponse request returning *DeleteAssetResponse
+func (c *ClientWithResponses) DeleteAssetWithResponse(ctx context.Context, assetId AssetID, params *DeleteAssetParams, reqEditors ...RequestEditorFn) (*DeleteAssetResponse, error) {
+	rsp, err := c.DeleteAsset(ctx, assetId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAssetResponse(rsp)
+}
+
+// GetAssetWithResponse request returning *GetAssetResponse
+func (c *ClientWithResponses) GetAssetWithResponse(ctx context.Context, assetId AssetID, params *GetAssetParams, reqEditors ...RequestEditorFn) (*GetAssetResponse, error) {
+	rsp, err := c.GetAsset(ctx, assetId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAssetResponse(rsp)
+}
+
+// UpdateAssetWithBodyWithResponse request with arbitrary body returning *UpdateAssetResponse
+func (c *ClientWithResponses) UpdateAssetWithBodyWithResponse(ctx context.Context, assetId AssetID, params *UpdateAssetParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateAssetResponse, error) {
+	rsp, err := c.UpdateAssetWithBody(ctx, assetId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAssetResponse(rsp)
+}
+
+func (c *ClientWithResponses) UpdateAssetWithResponse(ctx context.Context, assetId AssetID, params *UpdateAssetParams, body UpdateAssetJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateAssetResponse, error) {
+	rsp, err := c.UpdateAsset(ctx, assetId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateAssetResponse(rsp)
+}
+
+// ListAssetReferencesWithResponse request returning *ListAssetReferencesResponse
+func (c *ClientWithResponses) ListAssetReferencesWithResponse(ctx context.Context, assetId AssetID, params *ListAssetReferencesParams, reqEditors ...RequestEditorFn) (*ListAssetReferencesResponse, error) {
+	rsp, err := c.ListAssetReferences(ctx, assetId, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListAssetReferencesResponse(rsp)
+}
+
 // ListAudiencesWithResponse request returning *ListAudiencesResponse
 func (c *ClientWithResponses) ListAudiencesWithResponse(ctx context.Context, params *ListAudiencesParams, reqEditors ...RequestEditorFn) (*ListAudiencesResponse, error) {
 	rsp, err := c.ListAudiences(ctx, params, reqEditors...)
@@ -115284,6 +119538,1318 @@ func ParseGetAMBSuppressionResponse(rsp *http.Response) (*GetAMBSuppressionRespo
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBTemplatesResponse parses an HTTP response from a ListAMBTemplatesWithResponse call
+func ParseListAMBTemplatesResponse(rsp *http.Response) (*ListAMBTemplatesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBTemplatesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplateList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBTemplateResponse parses an HTTP response from a GetAMBTemplateWithResponse call
+func ParseGetAMBTemplateResponse(rsp *http.Response) (*GetAMBTemplateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBTemplateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplate
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBTemplateVersionsResponse parses an HTTP response from a ListAMBTemplateVersionsWithResponse call
+func ParseListAMBTemplateVersionsResponse(rsp *http.Response) (*ListAMBTemplateVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBTemplateVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplateVersionList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBTemplateVersionResponse parses an HTTP response from a GetAMBTemplateVersionWithResponse call
+func ParseGetAMBTemplateVersionResponse(rsp *http.Response) (*GetAMBTemplateVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBTemplateVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplateVersion
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAMBTemplateVersionLanguagesResponse parses an HTTP response from a ListAMBTemplateVersionLanguagesWithResponse call
+func ParseListAMBTemplateVersionLanguagesResponse(rsp *http.Response) (*ListAMBTemplateVersionLanguagesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAMBTemplateVersionLanguagesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplateLanguageList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAMBTemplateVersionLanguageResponse parses an HTTP response from a GetAMBTemplateVersionLanguageWithResponse call
+func ParseGetAMBTemplateVersionLanguageResponse(rsp *http.Response) (*GetAMBTemplateVersionLanguageResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAMBTemplateVersionLanguageResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AMBTemplateLanguage
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAssetFoldersResponse parses an HTTP response from a ListAssetFoldersWithResponse call
+func ParseListAssetFoldersResponse(rsp *http.Response) (*ListAssetFoldersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAssetFoldersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetFolderList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateAssetFolderResponse parses an HTTP response from a CreateAssetFolderWithResponse call
+func ParseCreateAssetFolderResponse(rsp *http.Response) (*CreateAssetFolderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateAssetFolderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest AssetFolder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAssetFolderResponse parses an HTTP response from a DeleteAssetFolderWithResponse call
+func ParseDeleteAssetFolderResponse(rsp *http.Response) (*DeleteAssetFolderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAssetFolderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAssetFolderResponse parses an HTTP response from a GetAssetFolderWithResponse call
+func ParseGetAssetFolderResponse(rsp *http.Response) (*GetAssetFolderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAssetFolderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetFolder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAssetFolderResponse parses an HTTP response from a UpdateAssetFolderWithResponse call
+func ParseUpdateAssetFolderResponse(rsp *http.Response) (*UpdateAssetFolderResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAssetFolderResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetFolder
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAssetsResponse parses an HTTP response from a ListAssetsWithResponse call
+func ParseListAssetsResponse(rsp *http.Response) (*ListAssetsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAssetsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAssetResponse parses an HTTP response from a DeleteAssetWithResponse call
+func ParseDeleteAssetResponse(rsp *http.Response) (*DeleteAssetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAssetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAssetResponse parses an HTTP response from a GetAssetWithResponse call
+func ParseGetAssetResponse(rsp *http.Response) (*GetAssetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAssetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Asset
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateAssetResponse parses an HTTP response from a UpdateAssetWithResponse call
+func ParseUpdateAssetResponse(rsp *http.Response) (*UpdateAssetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateAssetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest Asset
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListAssetReferencesResponse parses an HTTP response from a ListAssetReferencesWithResponse call
+func ParseListAssetReferencesResponse(rsp *http.Response) (*ListAssetReferencesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListAssetReferencesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest AssetReferenceList
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 501:
+		var dest NotImplemented
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON501 = &dest
 
 	}
 

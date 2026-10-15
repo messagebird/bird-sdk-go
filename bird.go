@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	version = "0.98.0"
+	version = "0.99.0"
 	// userAgent is human-readable only; the API attributes the SDK from the
 	// Bird-* headers set in callEditors, not the UA.
 	userAgent = "bird-sdk-go/" + version
@@ -81,6 +81,7 @@ type Client struct {
 	Realtime          *RealtimeService
 	Lookup            *LookupService
 	Numbers           *NumbersService
+	Assets            *AssetsService
 	Preferences       *PreferencesService
 	Broadcasts        *BroadcastsService
 	Workspace         *WorkspaceService
@@ -171,6 +172,9 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Amb.BusinessAccounts.Submissions = &AmbBusinessAccountsSubmissionsService{resource: resource{client: c}}
 	c.Amb.Stats.Conversations = &AmbStatsConversationsService{resource: resource{client: c}}
 	c.Amb.Stats.Inbound = &AmbStatsInboundService{resource: resource{client: c}}
+	c.Amb.Templates = &AmbTemplatesService{resource: resource{client: c}}
+	c.Amb.Templates.Versions = &AmbTemplatesVersionsService{resource: resource{client: c}}
+	c.Amb.Templates.Versions.Languages = &AmbTemplatesVersionsLanguagesService{resource{client: c}}
 	c.Sms = &SmsService{resource: resource{client: c}}
 	c.Sms.Stats = &SmsStatsService{resource: resource{client: c}}
 	c.Sms.Stats.Inbound = &SmsStatsInboundService{resource{client: c}}
@@ -238,6 +242,7 @@ func NewClient(opts ...option.RequestOption) (*Client, error) {
 	c.Numbers = &NumbersService{resource: resource{client: c}}
 	c.Numbers.Available = &NumbersAvailableService{resource{client: c}}
 	c.Numbers.Orders = &NumbersOrdersService{resource{client: c}}
+	c.Assets = &AssetsService{resource: resource{client: c}, Folders: &AssetsFoldersService{resource{client: c}}, References: &AssetsReferencesService{resource{client: c}}}
 	c.Preferences = &PreferencesService{resource{client: c}}
 	c.Broadcasts = &BroadcastsService{resource{client: c}}
 	c.Workspace = &WorkspaceService{resource{client: c}}

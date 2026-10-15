@@ -217,6 +217,83 @@ func TestEmailSendBatchParametersPreservePresence(t *testing.T) {
 	}
 }
 
+func TestAmbSendTemplateParametersPreservePresence(t *testing.T) {
+	tests := []struct {
+		name       string
+		parameters map[string]any
+		want       string
+		present    bool
+	}{
+		{name: "absent", parameters: nil},
+		{name: "empty", parameters: map[string]any{}, want: `{}`, present: true},
+		{name: "populated", parameters: map[string]any{"first_name": "Ada"}, want: `{"first_name":"Ada"}`, present: true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var requestBody []byte
+			server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+				requestBody, _ = io.ReadAll(r.Body)
+				w.WriteHeader(http.StatusCreated)
+				_, _ = io.WriteString(w, `{}`)
+			})
+			client := newClient(t, server)
+
+			_, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
+				From:       "business",
+				To:         "customer",
+				Template:   "order-confirmation",
+				Parameters: tt.parameters,
+			})
+			if err != nil {
+				t.Fatalf("Send: %v", err)
+			}
+
+			var sent struct {
+				Template map[string]json.RawMessage `json:"template"`
+			}
+			if err := json.Unmarshal(requestBody, &sent); err != nil {
+				t.Fatalf("decode request body: %v", err)
+			}
+			got, present := sent.Template["parameters"]
+			if present != tt.present {
+				t.Fatalf("parameters presence = %v, want %v; body = %s", present, tt.present, requestBody)
+			}
+			if present && string(got) != tt.want {
+				t.Errorf("parameters = %s, want %s", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestAmbSendNoTemplateOmitsTemplateField(t *testing.T) {
+	var requestBody []byte
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		requestBody, _ = io.ReadAll(r.Body)
+		w.WriteHeader(http.StatusCreated)
+		_, _ = io.WriteString(w, `{}`)
+	})
+	client := newClient(t, server)
+
+	_, err := client.Amb.Send(context.Background(), bird.AmbSendParams{
+		From:       "business",
+		To:         "customer",
+		Content:    map[string]any{"text": "hi"},
+		Parameters: map[string]any{},
+	})
+	if err != nil {
+		t.Fatalf("Send: %v", err)
+	}
+
+	var sent map[string]json.RawMessage
+	if err := json.Unmarshal(requestBody, &sent); err != nil {
+		t.Fatalf("decode request body: %v", err)
+	}
+	if _, present := sent["template"]; present {
+		t.Fatalf("template field present with no Template set; body = %s", requestBody)
+	}
+}
+
 func TestSendTemplateLanguage(t *testing.T) {
 	var gotBody string
 	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {

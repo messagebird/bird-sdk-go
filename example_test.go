@@ -5393,3 +5393,208 @@ func ExampleAudiencesService_MembershipHistory() {
 	}
 	fmt.Println(string(data))
 }
+
+// List the Apple Messages templates available to the workspace.
+func ExampleAmbTemplatesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for tpl, err := range client.Amb.Templates.List(context.Background(), bird.AmbTemplatesListParams{
+		Scope: "system",
+	}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(tpl.Id, tpl.DefaultLanguage)
+	}
+}
+
+// Read one Apple Messages template's identity and live version.
+func ExampleAmbTemplatesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	tpl, err := client.Amb.Templates.Get(context.Background(), "bird_order_update")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(tpl.DefaultLanguage, *tpl.LiveVersionId)
+}
+
+// Walk one Apple Messages template's versions, newest first.
+func ExampleAmbTemplatesVersionsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for version, err := range client.Amb.Templates.Versions.List(context.Background(), "bird_order_update", bird.AmbTemplatesVersionsListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(version.Id, *version.VersionNumber)
+	}
+}
+
+// Read one Apple Messages template version with all language content.
+func ExampleAmbTemplatesVersionsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	version, err := client.Amb.Templates.Versions.Get(context.Background(), "bird_order_update", "amv_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	if version.Languages == nil {
+		log.Fatal("version has no languages")
+	}
+	fmt.Println(version.Id, len(*version.Languages))
+}
+
+// List the languages one Apple Messages template version contains.
+func ExampleAmbTemplatesVersionsLanguagesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	languages, err := client.Amb.Templates.Versions.Languages.List(context.Background(), "bird_order_update", "amv_01ky4x8e4genzb7way45txfkm1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, language := range languages.Data {
+		fmt.Println(language.Language, *language.Revision)
+	}
+}
+
+// Read one language's Apple Messages template content.
+func ExampleAmbTemplatesVersionsLanguagesService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	language, err := client.Amb.Templates.Versions.Languages.Get(context.Background(), "bird_order_update", "amv_01ky4x8e4genzb7way45txfkm1", "en")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(language.Language, language.Content)
+}
+
+func ExampleAssetsService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for asset, err := range client.Assets.List(context.Background(), bird.AssetsListParams{Kind: "image"}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(asset.Id, *asset.Url)
+	}
+}
+
+func ExampleAssetsService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	asset, err := client.Assets.Get(context.Background(), "ast_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*asset.Url)
+}
+
+func ExampleAssetsService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	asset, err := client.Assets.Update(context.Background(), "ast_01krdgeqcxet5s7t44vh8rt9mg", bird.AssetsUpdateParams{Name: bird.Ptr("Summer banner")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(asset.Name)
+}
+
+func ExampleAssetsService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Assets.Delete(context.Background(), "ast_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleAssetsReferencesService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	references, err := client.Assets.References.List(context.Background(), "ast_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(references.Data, references.Truncated)
+}
+
+func ExampleAssetsFoldersService_Create() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	folder, err := client.Assets.Folders.Create(context.Background(), bird.AssetsFoldersCreateParams{Name: "Campaign images"})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(folder.Id)
+}
+
+func ExampleAssetsFoldersService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	for folder, err := range client.Assets.Folders.List(context.Background(), bird.AssetsFoldersListParams{}) {
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(folder.Id, *folder.Path)
+	}
+}
+
+func ExampleAssetsFoldersService_Get() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	folder, err := client.Assets.Folders.Get(context.Background(), "asf_01krdgeqcxet5s7t44vh8rt9mg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*folder.Path)
+}
+
+func ExampleAssetsFoldersService_Update() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	folder, err := client.Assets.Folders.Update(context.Background(), "asf_01krdgeqcxet5s7t44vh8rt9mg", bird.AssetsFoldersUpdateParams{Name: bird.Ptr("Autumn campaign")})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(*folder.Path)
+}
+
+func ExampleAssetsFoldersService_Delete() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := client.Assets.Folders.Delete(context.Background(), "asf_01krdgeqcxet5s7t44vh8rt9mg"); err != nil {
+		log.Fatal(err)
+	}
+}

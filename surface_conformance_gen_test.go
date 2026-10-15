@@ -354,6 +354,12 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Amb.Suppressions.Delete
 	_ = c.Amb.Suppressions.List
 	_ = c.Amb.Suppressions.Create
+	_ = c.Amb.Templates.List
+	_ = c.Amb.Templates.Get
+	_ = c.Amb.Templates.Versions.List
+	_ = c.Amb.Templates.Versions.Get
+	_ = c.Amb.Templates.Versions.Languages.List
+	_ = c.Amb.Templates.Versions.Languages.Get
 	_ = c.Esim.Zones.List
 	_ = c.Esim.Zones.Get
 	_ = c.Esim.Offers.List
@@ -392,4 +398,14 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Esim.RecurringSubscriptions.Get
 	_ = c.Esim.RecurringSubscriptions.Cancel
 	_ = c.Esim.RecurringSubscriptions.Periods
+	_ = c.Assets.List
+	_ = c.Assets.Get
+	_ = c.Assets.Update
+	_ = c.Assets.Delete
+	_ = c.Assets.References.List
+	_ = c.Assets.Folders.Create
+	_ = c.Assets.Folders.List
+	_ = c.Assets.Folders.Get
+	_ = c.Assets.Folders.Update
+	_ = c.Assets.Folders.Delete
 }

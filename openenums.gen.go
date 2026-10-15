@@ -105,6 +105,29 @@ const (
 	AMBSuppressionReasonOptedOut = oapi.AMBSuppressionReasonOptedOut
 )
 
+// AssetKind is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AssetKind* constants with a
+// default branch rather than treating the set as closed.
+type AssetKind = oapi.AssetKind
+
+const (
+	AssetKindAudio    = oapi.AssetKindAudio
+	AssetKindDocument = oapi.AssetKindDocument
+	AssetKindImage    = oapi.AssetKindImage
+	AssetKindVideo    = oapi.AssetKindVideo
+)
+
+// AssetReferenceUsage is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the AssetReferenceUsage* constants with a
+// default branch rather than treating the set as closed.
+type AssetReferenceUsage = oapi.AssetReferenceUsage
+
+const (
+	AssetReferenceUsageBoth      = oapi.AssetReferenceUsageBoth
+	AssetReferenceUsageDraft     = oapi.AssetReferenceUsageDraft
+	AssetReferenceUsagePublished = oapi.AssetReferenceUsagePublished
+)
+
 // DestinationRegion is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the DestinationRegion* constants with a
 // default branch rather than treating the set as closed.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.99.0
+
+- **Breaking:** Apple Messages native rich link content gains a `rich_link_construct` option that asks Apple to build the link preview when the message is sent, instead of a prior construct-payload call; a strict `oneOf` reader of rich link content needs to handle this third shape alongside `rich_link_data` and `rich_link_data_ref`.
+- Apple Messages templates: read templates, versions and languages; send a message from a template.
+- Go SDK: sending a template with `AmbSendParams.Parameters` set to an empty, non-nil map now includes `"parameters": {}` in the request instead of dropping it.
+- Add `assets`, `assets.folders`, and `assets.references` methods to browse and organize media-library files and inspect permitted usage.
+
 ## 0.98.0
 
 - Add `reply_message_id` and `replied_at` to Apple Messages for Business messages, naming the latest customer reply to an outbound message once Bird matches it.

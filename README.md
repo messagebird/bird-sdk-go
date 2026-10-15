@@ -46,3 +46,9 @@ The example sends a real reply. Verify the recipient and content before running 
 ## Client enrichment
 
 Requests can include caller provenance and **configured model (self-reported)** for matched Claude Code and Gemini environments. Only known public model IDs/aliases or `other` are sent. Set `BIRD_CLIENT_ENRICHMENT=0` to opt out; `DO_NOT_TRACK` and `BIRD_TELEMETRY=0` also disable enrichment. Existing header options accept a per-request `Bird-Model` declaration or `Bird-Enrichment: 0` opt-out; model declarations are normalized before sending.
+
+## Media library
+
+Browse assets, organize folders, and inspect permitted references with the media-library resources. Upload files through the [HTTP API or CLI](https://bird.com/docs/guides/media-library), then use their IDs with the SDK. Deleting a library entry leaves its public URL serving.
+
+See the [media-library example](examples/quickstart-media-library/main.go).

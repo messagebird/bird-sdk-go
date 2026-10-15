@@ -353,6 +353,12 @@ output-options:
     - deleteAMBSuppression
     - listAMBSuppressions
     - createAMBSuppression
+    - listAMBTemplates
+    - getAMBTemplate
+    - listAMBTemplateVersions
+    - getAMBTemplateVersion
+    - listAMBTemplateVersionLanguages
+    - getAMBTemplateVersionLanguage
     - listEsimZones
     - getEsimZone
     - listEsimOffers
@@ -391,3 +397,13 @@ output-options:
     - getEsimRecurringSubscription
     - cancelEsimRecurringSubscription
     - listEsimRecurringPeriods
+    - listAssets
+    - getAsset
+    - updateAsset
+    - deleteAsset
+    - listAssetReferences
+    - createAssetFolder
+    - listAssetFolders
+    - getAssetFolder
+    - updateAssetFolder
+    - deleteAssetFolder

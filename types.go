@@ -139,6 +139,9 @@ type (
 type (
 	SortOrder            = oapi.SortOrder
 	SMSTemplateSortField = oapi.SMSTemplateSortField
+	AMBTemplateSortField = oapi.AMBTemplateSortField
+	// AMBTemplateCategory is why messages sent from this template exist.
+	AMBTemplateCategory = oapi.AMBTemplateCategory
 	// TemplateScope distinguishes Bird's built-in templates from a workspace's own.
 	TemplateScope = oapi.TemplateScope
 	// TemplateStatus is where a template stands as a whole, on every channel.
@@ -1067,3 +1070,31 @@ type AMBSuppression = oapi.AMBSuppression
 type AMBSuppressionList = oapi.AMBSuppressionList
 
 type AMBRoutingRuleMatchKind = oapi.AMBRoutingRuleMatchKind
+
+// AMBTemplate is one shallow Apple Messages template identity and its
+// authoring state. Version and language responses carry its content and
+// variables.
+type (
+	AMBTemplate                = oapi.AMBTemplate
+	AMBTemplateSummary         = oapi.AMBTemplateSummary
+	AMBTemplateList            = oapi.AMBTemplateList
+	AMBTemplateVersion         = oapi.AMBTemplateVersion
+	AMBTemplateVersionSummary  = oapi.AMBTemplateVersionSummary
+	AMBTemplateVersionList     = oapi.AMBTemplateVersionList
+	AMBTemplateVersionLanguage = oapi.AMBTemplateVersionLanguage
+	AMBTemplateLanguage        = oapi.AMBTemplateLanguage
+	AMBTemplateLanguageSummary = oapi.AMBTemplateLanguageSummary
+	AMBTemplateLanguageList    = oapi.AMBTemplateLanguageList
+)
+
+type Asset = oapi.Asset
+type AssetFolder = oapi.AssetFolder
+type AssetReferenceList = oapi.AssetReferenceList
+type AssetReference = oapi.AssetReference
+type AssetSortField = oapi.AssetSortField
+type AssetKindFilter = oapi.AssetKindFilter
+type AssetContentTypeFilter = oapi.AssetContentTypeFilter
+type AssetDeletedFilter = oapi.AssetDeletedFilter
+
+type AssetList = oapi.AssetList
+type AssetFolderList = oapi.AssetFolderList

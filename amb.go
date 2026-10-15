@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/messagebird/bird-sdk-go/internal/oapi"
 	"github.com/messagebird/bird-sdk-go/option"
@@ -16,7 +17,30 @@ type AmbService struct {
 	RoutingRules     *AmbRoutingRulesService
 	Stats            *AmbStatsService
 	Suppressions     *AmbSuppressionsService
+	Templates        *AmbTemplatesService
 }
+
+// AmbTemplatesService reads the Apple Messages templates available to a
+// workspace. Reach it via Client.Amb.Templates.
+type AmbTemplatesService struct {
+	resource
+
+	// Versions reads the content and variables stored under one template.
+	Versions *AmbTemplatesVersionsService
+}
+
+// AmbTemplatesVersionsService reads one Apple Messages template's versions.
+// Reach it via Client.Amb.Templates.Versions.
+type AmbTemplatesVersionsService struct {
+	resource
+
+	// Languages reads one version's language metadata and content.
+	Languages *AmbTemplatesVersionsLanguagesService
+}
+
+// AmbTemplatesVersionsLanguagesService reads one Apple Messages template
+// version's languages. Reach it via Client.Amb.Templates.Versions.Languages.
+type AmbTemplatesVersionsLanguagesService struct{ resource }
 
 type AmbBusinessAccountsService struct {
 	resource
@@ -64,26 +88,52 @@ type AmbStatsInboundService struct {
 }
 
 type AmbSendParams struct {
-	From     string
-	To       string
-	Content  map[string]any
-	Source   *AMBMessageSource
-	Category *string
-	Metadata map[string]any
-	Tags     []Tag
-	Group    *string
-	Intent   *string
-	Locale   *string
+	From       string
+	To         string
+	Content    map[string]any
+	Template   string         // stored template id (amt_…) or slug (mutually exclusive with Content)
+	Language   string         // template language as a BCP-47 tag; template sends only
+	Parameters map[string]any // template variable values; template sends only
+	Source     *AMBMessageSource
+	Category   *string
+	Metadata   map[string]any
+	Tags       []Tag
+	Group      *string
+	Intent     *string
+	Locale     *string
 }
 
 func (s *AmbService) Send(ctx context.Context, params AmbSendParams, opts ...option.RequestOption) (*AMBMessage, error) {
-	content, err := json.Marshal(params.Content)
-	if err != nil {
-		return nil, err
-	}
 	wire := oapi.AMBMessageSendRequest{From: params.From, To: params.To, Source: params.Source, Category: params.Category, Group: params.Group, Intent: params.Intent, Locale: params.Locale}
-	if err := json.Unmarshal(content, &wire.Content); err != nil {
-		return nil, err
+	if params.Content != nil {
+		content, err := json.Marshal(params.Content)
+		if err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal(content, &wire.Content); err != nil {
+			return nil, err
+		}
+	}
+	if params.Template != "" {
+		var tmpl oapi.AMBTemplateSend
+		if params.Template != "" {
+			if strings.HasPrefix(params.Template, "amt_") {
+				id := oapi.AMBTemplateID(params.Template)
+				tmpl.Id = &id
+			} else {
+				slug := params.Template
+				tmpl.Slug = &slug
+			}
+		}
+		if params.Language != "" {
+			language := params.Language
+			tmpl.Language = &language
+		}
+		if params.Parameters != nil {
+			parameters := params.Parameters
+			tmpl.Parameters = &parameters
+		}
+		wire.Template = &tmpl
 	}
 	if params.Metadata != nil {
 		wire.Metadata = &params.Metadata
