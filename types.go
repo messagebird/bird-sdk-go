@@ -1098,3 +1098,8 @@ type AssetDeletedFilter = oapi.AssetDeletedFilter
 
 type AssetList = oapi.AssetList
 type AssetFolderList = oapi.AssetFolderList
+
+type EmailBroadcastParameters = oapi.EmailBroadcastParameters
+type EmailBroadcastValidationResult = oapi.EmailBroadcastValidationResult
+type EmailBroadcastPreviewResult = oapi.EmailBroadcastPreviewResult
+type EmailTemplateParameters = oapi.EmailTemplateParameters

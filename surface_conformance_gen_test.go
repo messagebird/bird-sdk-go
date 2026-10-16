@@ -68,6 +68,7 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Templates.Update
 	_ = c.Email.Templates.Delete
 	_ = c.Email.Templates.Duplicate
+	_ = c.Email.Templates.Parameters
 	_ = c.Email.Templates.Preview
 	_ = c.Email.Templates.Versions.List
 	_ = c.Email.Templates.Versions.Get
@@ -80,6 +81,9 @@ func TestSurfaceConformance(t *testing.T) {
 	_ = c.Email.Templates.Versions.Languages.Update
 	_ = c.Email.Templates.Versions.Languages.Delete
 	_ = c.Email.Templates.Broadcasts.List
+	_ = c.Broadcasts.Validate
+	_ = c.Broadcasts.Preview
+	_ = c.Broadcasts.Test
 	_ = c.Broadcasts.Create
 	_ = c.Broadcasts.List
 	_ = c.Broadcasts.Get

@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	bird "github.com/messagebird/bird-sdk-go"
+	"github.com/messagebird/bird-sdk-go/option"
 )
 
 // TestBroadcastsUpdateClearsCollections pins the three-state semantics on
@@ -107,22 +108,64 @@ func TestBroadcastsUpdateClearsCollections(t *testing.T) {
 	}
 }
 
-// A language travels inside the template reference, so clearing the template
-// in the same call leaves it nothing to select from; the SDK refuses rather
-// than dropping the language on the way to the wire.
-func TestBroadcastsUpdateRefusesALanguageOnAClearedTemplate(t *testing.T) {
+// A language, parameters and overrides travel inside the template reference,
+// so clearing the template in the same call leaves them nowhere to go; the SDK
+// refuses, naming the input, rather than dropping it on the way to the wire.
+func TestBroadcastsUpdateRefusesTemplateInputsOnAClearedTemplate(t *testing.T) {
 	t.Parallel()
 
-	server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
-		t.Error("request reached the server")
-		w.WriteHeader(http.StatusInternalServerError)
-	})
+	for _, tc := range []struct {
+		name   string
+		params bird.BroadcastsUpdateParams
+		want   string
+	}{
+		{"language", bird.BroadcastsUpdateParams{Language: bird.Value("nl")}, "Language needs a Template"},
+		{"parameters", bird.BroadcastsUpdateParams{Parameters: &map[string]json.RawMessage{}}, "Parameters need a Template"},
+		{"parameter overrides", bird.BroadcastsUpdateParams{ParameterOverrides: &map[string]map[string]json.RawMessage{}}, "ParameterOverrides need a Template"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 
-	_, err := newClient(t, server).Broadcasts.Update(
-		context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
-		bird.BroadcastsUpdateParams{Template: bird.Null[string](), Language: bird.Value("nl")})
-	if err == nil || !strings.Contains(err.Error(), "Language needs a Template") {
-		t.Fatalf("Update: got %v, want a Language needs a Template error", err)
+			server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+				t.Error("request reached the server")
+				w.WriteHeader(http.StatusInternalServerError)
+			})
+
+			tc.params.Template = bird.Null[string]()
+			_, err := newClient(t, server).Broadcasts.Update(
+				context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", tc.params)
+			if err == nil || !strings.Contains(err.Error(), tc.want) {
+				t.Fatalf("Update: got %v, want a %s error", err, tc.want)
+			}
+		})
+	}
+}
+
+// Overrides travel inside the template reference, so a create without one has
+// nowhere to put them; the SDK refuses rather than sending a legacy draft.
+func TestBroadcastsCreateRefusesParameterOverridesWithoutATemplate(t *testing.T) {
+	t.Parallel()
+
+	for name, overrides := range map[string]map[string]map[string]json.RawMessage{
+		"empty":     {},
+		"populated": {"es": {"first_name": json.RawMessage(`"Ana"`)}},
+	} {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			server := newServer(t, func(w http.ResponseWriter, _ *http.Request) {
+				t.Error("request reached the server")
+				w.WriteHeader(http.StatusInternalServerError)
+			})
+
+			_, err := newClient(t, server).Broadcasts.Create(context.Background(), bird.BroadcastsCreateParams{
+				AudienceID:         "adn_01krdgeqcxet5s7t44vh8rt9mg",
+				ParameterOverrides: overrides,
+			})
+			if err == nil || !strings.Contains(err.Error(), "ParameterOverrides need a Template") {
+				t.Fatalf("Create: got %v, want a ParameterOverrides need a Template error", err)
+			}
+		})
 	}
 }
 
@@ -148,5 +191,122 @@ func TestBroadcastsUpdateClearsTemplateAndLanguageTogether(t *testing.T) {
 	}
 	if string(got["template"]) != "null" {
 		t.Fatalf("template: got %s, want null", got["template"])
+	}
+}
+
+func TestBroadcastParameterNumericWire(t *testing.T) {
+	t.Parallel()
+	parameters := map[string]json.RawMessage{
+		"integer":  json.RawMessage(`9007199254740993`),
+		"decimal":  json.RawMessage(`1.2300`),
+		"exponent": json.RawMessage(`1e+30`),
+		"nested":   json.RawMessage(`[{"literal":9007199254740993},null,false,{},[]]`),
+	}
+	calls := 0
+	server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+		calls++
+		if r.Header.Get("Idempotency-Key") == "" {
+			t.Error("logical POST key missing")
+		}
+		if strings.HasSuffix(r.URL.Path, "/test") && r.Header.Get("Idempotency-Key") != "broadcast-member-test" {
+			t.Errorf("Test intent key: got %q", r.Header.Get("Idempotency-Key"))
+		}
+		var body struct {
+			Template struct {
+				Parameters         map[string]json.RawMessage            `json:"parameters"`
+				ParameterOverrides map[string]map[string]json.RawMessage `json:"parameter_overrides"`
+			} `json:"template"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Fatal(err)
+		}
+		if got := string(body.Template.ParameterOverrides["it"]["integer"]); got != "9007199254740995" {
+			t.Errorf("override raw token: got %s", got)
+		}
+		if es, ok := body.Template.ParameterOverrides["es"]; !ok || es == nil {
+			t.Errorf("a nil language map must reach the wire as an object, got %v", body.Template.ParameterOverrides)
+		}
+		if len(body.Template.Parameters) != len(parameters) {
+			t.Fatalf("parameter count: %d", len(body.Template.Parameters))
+		}
+		for key, want := range parameters {
+			var actual, expected strings.Builder
+			var decoded any
+			decoder := json.NewDecoder(strings.NewReader(string(body.Template.Parameters[key])))
+			decoder.UseNumber()
+			if err := decoder.Decode(&decoded); err != nil {
+				t.Fatal(err)
+			}
+			encoded, err := json.Marshal(decoded)
+			if err != nil {
+				t.Fatal(err)
+			}
+			actual.Write(encoded)
+			decoder = json.NewDecoder(strings.NewReader(string(want)))
+			decoder.UseNumber()
+			if err := decoder.Decode(&decoded); err != nil {
+				t.Fatal(err)
+			}
+			encoded, err = json.Marshal(decoded)
+			if err != nil {
+				t.Fatal(err)
+			}
+			expected.Write(encoded)
+			if actual.String() != expected.String() {
+				t.Errorf("%s raw tokens: got %s want %s", key, actual.String(), expected.String())
+			}
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusAccepted)
+		_, _ = w.Write([]byte(`{}`))
+	})
+	client := newClient(t, server)
+	template := "emt_01krdgeqcxet5s7t44vh8rt9mg"
+	overrides := map[string]map[string]json.RawMessage{"it": {"integer": json.RawMessage(`9007199254740995`)}, "es": nil}
+	selected := bird.BroadcastsValidateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{ID: &template, Parameters: &parameters, ParameterOverrides: &overrides})}
+	_, err := client.Broadcasts.Create(context.Background(), bird.BroadcastsCreateParams{Template: template, Parameters: parameters, ParameterOverrides: overrides})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsUpdateParams{Template: bird.Value(template), Parameters: &parameters, ParameterOverrides: &overrides})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = client.Broadcasts.Validate(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", selected)
+	if err != nil {
+		t.Fatal(err)
+	}
+	preview := bird.BroadcastsPreviewParams{BroadcastsValidateParams: selected}
+	_, err = client.Broadcasts.Preview(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", preview)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = client.Broadcasts.Test(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsTestParams{BroadcastsPreviewParams: preview, To: "member@example.com", PreviewFingerprint: "matching"}, option.WithIdempotencyKey("broadcast-member-test"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if calls != 5 {
+		t.Fatalf("captured calls: %d", calls)
+	}
+}
+
+func TestBroadcastTestRequiresCallerIntentKey(t *testing.T) {
+	t.Parallel()
+	for _, opts := range [][]option.RequestOption{nil, {option.WithIdempotencyKey("")}} {
+		calls := 0
+		server := newServer(t, func(w http.ResponseWriter, r *http.Request) {
+			calls++
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusAccepted)
+			_, _ = w.Write([]byte(`{"id":"em_1"}`))
+		})
+		client := newClient(t, server)
+		_, err := client.Broadcasts.Test(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsTestParams{To: "member@example.com", PreviewFingerprint: "matching"}, opts...)
+		if err == nil || !strings.Contains(err.Error(), "idempotency") {
+			t.Errorf("expected caller intent key error, got %v", err)
+		}
+		if calls != 0 {
+			t.Errorf("sent %d requests without caller intent key", calls)
+		}
 	}
 }

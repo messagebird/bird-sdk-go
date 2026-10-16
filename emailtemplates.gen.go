@@ -86,6 +86,18 @@ func (p EmailTemplatesDuplicateParams) toWire() oapi.EmailTemplateDuplicate {
 	return body
 }
 
+// EmailTemplatesParametersParams filters the parameters read.
+type EmailTemplatesParametersParams struct {
+	// Language of the template's published content. Omission uses the template's default language.
+	Language string
+}
+
+func (p EmailTemplatesParametersParams) toWire() *oapi.GetEmailTemplateParametersParams {
+	return &oapi.GetEmailTemplateParametersParams{
+		Language: optZero(p.Language),
+	}
+}
+
 // EmailTemplatesPreviewParams is the request body for preview.
 type EmailTemplatesPreviewParams struct {
 	// Render this content rather than the template's stored draft. It is what an editor uses to show a change as it is made, since nothing has to be saved first. The content is treated exactly as a draft would be: personalization is filled in the same way, a plain-text body is derived from the HTML when you omit it, and content that could not be published is refused with the same error. `version` asks for a published version's own content, so the two cannot be combined.
@@ -207,6 +219,21 @@ func (s *EmailTemplatesService) Duplicate(ctx context.Context, templateRef strin
 		return nil, err
 	}
 	var out EmailTemplate
+	if err := decodeBody(body, &out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// Parameters Get the parameters and variables used by the template's published content in one language. The result describes the template and holds no saved values. Parameters are the names a broadcast supplies in `template.parameters`, and variables are the `bird.` references Bird fills in. The result identifies list values, which broadcast parameters cannot supply. It also includes a fingerprint that identifies the published content without exposing contact values. You cannot select an older template version. Requires email_marketing read permission in addition to email_management read. Parameter sites cover template subject, HTML and text; envelope overrides are checked by broadcast validation.
+func (s *EmailTemplatesService) Parameters(ctx context.Context, templateRef string, params EmailTemplatesParametersParams, opts ...option.RequestOption) (*EmailTemplateParameters, error) {
+	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
+		return s.client.oapi.GetEmailTemplateParameters(ctx, templateRef, params.toWire(), cfg...)
+	})
+	if err != nil {
+		return nil, err
+	}
+	var out EmailTemplateParameters
 	if err := decodeBody(body, &out); err != nil {
 		return nil, err
 	}

@@ -2,6 +2,7 @@ package bird
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"net/http"
 	"time"
@@ -29,7 +30,10 @@ type BroadcastsService struct{ resource }
 // syntax with a display name: "Newsletter <news@example.com>".
 type BroadcastsCreateParams struct {
 	// One of the template version's languages to send to the whole audience, empty for the version's default. It travels inside Template, so it is only sent alongside one.
-	Language string
+	Language   string
+	Parameters map[string]json.RawMessage
+	// Values for one language, keyed by language tag, that replace the Parameters value of the same name. A name a language leaves out uses Parameters. Sent alongside Template only.
+	ParameterOverrides map[string]map[string]json.RawMessage
 	// The address the broadcast sends from. The domain has to be one this workspace has verified.
 	From string
 	// The audience this broadcast sends to. Its contacts are taken as they stand when the send starts, minus any suppressed addresses.
@@ -62,7 +66,7 @@ type BroadcastsCreateParams struct {
 func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
 	body := oapi.EmailBroadcastCreateRequest{
 		AudienceId:  optStr(p.AudienceID),
-		Headers:     optMap(p.Headers),
+		Headers:     (*oapi.EmailBroadcastHeaders)(optMap(p.Headers)),
 		Metadata:    optMap(p.Metadata),
 		IpPoolId:    optStr(p.IPPoolID),
 		TrackOpens:  p.TrackOpens,
@@ -79,6 +83,14 @@ func (p BroadcastsCreateParams) toWire() oapi.EmailBroadcastCreateRequest {
 		if p.Language != "" {
 			lang := oapi.LanguageTag(p.Language)
 			template.Language = &lang
+		}
+		if p.Parameters != nil {
+			values := broadcastParametersWire(p.Parameters)
+			template.Parameters = &values
+		}
+		if p.ParameterOverrides != nil {
+			overrides := broadcastParameterOverridesWire(p.ParameterOverrides)
+			template.ParameterOverrides = &overrides
 		}
 		body.Template = &template
 	}
@@ -164,10 +176,12 @@ func (s *BroadcastsService) Create(ctx context.Context, params BroadcastsCreateP
 	if err != nil {
 		return nil, err
 	}
-	// The language is one of the template's own languages, so on its own it has
-	// nothing to select from and would otherwise be dropped from the wire body.
-	if params.Language != "" && params.Template == "" {
-		return nil, errors.New("bird: Language needs a Template: the language is chosen from the template it belongs to")
+	// Language, Parameters and ParameterOverrides travel inside the template
+	// reference, so without one they would be dropped from the wire body.
+	if params.Template == "" {
+		if err := templateInputWithoutTemplate(params.Language != "", params.Parameters != nil, params.ParameterOverrides != nil); err != nil {
+			return nil, err
+		}
 	}
 	wire := params.withDefaults(cfg.EmailDefaults).toWire()
 	body, err := cfg.Execute(ctx, true, func(ctx context.Context, idempotencyKey string) (*http.Response, error) {
@@ -195,7 +209,10 @@ func (s *BroadcastsService) Create(ctx context.Context, params BroadcastsCreateP
 // to keep it.
 type BroadcastsUpdateParams struct {
 	// One of the template version's languages to send to the whole audience. Value selects it, Null clears it so the version's default language sends, and leaving it unspecified keeps the current selection. On its own it keeps the template and the version the broadcast is fixed to.
-	Language Nullable[string]
+	Language   Nullable[string]
+	Parameters *map[string]json.RawMessage
+	// The complete per-language override map. A nil leaves it alone; a pointer to an empty map clears every override.
+	ParameterOverrides *map[string]map[string]json.RawMessage
 	// The address the broadcast sends from. The domain has to be one this workspace has verified.
 	From string
 	// The audience this broadcast sends to.
@@ -250,7 +267,7 @@ func emptySliceIfNil[T any](s *[]T) *[]T {
 func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 	body := oapi.EmailBroadcastUpdateRequest{
 		AudienceId:  optStr(p.AudienceID),
-		Headers:     emptyIfNil(p.Headers),
+		Headers:     (*oapi.EmailBroadcastHeaders)(emptyIfNil(p.Headers)),
 		Metadata:    emptyIfNil(p.Metadata),
 		IpPoolId:    p.IPPoolID,
 		TrackOpens:  p.TrackOpens,
@@ -271,8 +288,20 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 	case p.Template.IsSpecified():
 		id := p.Template.MustGet()
 		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Id: &id, Language: p.Language})
-	case p.Language.IsSpecified():
+	case p.Language.IsSpecified() || p.Parameters != nil || p.ParameterOverrides != nil:
 		body.Template = Value(oapi.EmailBroadcastTemplateUpdate{Language: p.Language})
+	}
+	if p.Parameters != nil && !body.Template.IsNull() {
+		template := body.Template.MustGet()
+		values := broadcastParametersWire(*emptyIfNil(p.Parameters))
+		template.Parameters = &values
+		body.Template = Value(template)
+	}
+	if p.ParameterOverrides != nil && !body.Template.IsNull() {
+		template := body.Template.MustGet()
+		overrides := broadcastParameterOverridesWire(*p.ParameterOverrides)
+		template.ParameterOverrides = &overrides
+		body.Template = Value(template)
 	}
 	if p.ReplyTo.IsSpecified() {
 		if p.ReplyTo.IsNull() {
@@ -293,12 +322,14 @@ func (p BroadcastsUpdateParams) toWire() oapi.EmailBroadcastUpdateRequest {
 // stands. A broadcast that has started sending can no longer be edited and is
 // refused with a 409. Retried safely with a reused idempotency key.
 func (s *BroadcastsService) Update(ctx context.Context, broadcastId string, params BroadcastsUpdateParams, opts ...option.RequestOption) (*EmailBroadcast, error) {
-	// Clearing the template takes its language with it, so a language sent in the
-	// same call has nothing to select from and would otherwise be dropped from
-	// the wire body. A Null language beside a Null template asks for the same
-	// clear twice and goes through.
-	if params.Template.IsSpecified() && params.Template.IsNull() && params.Language.IsSpecified() && !params.Language.IsNull() {
-		return nil, errors.New("bird: Language needs a Template: the language is chosen from the template it belongs to")
+	// Clearing the template takes its language and parameters with it, so any of
+	// them sent in the same call would otherwise be dropped from the wire body. A
+	// Null language beside a Null template asks for the same clear twice and goes
+	// through.
+	if params.Template.IsSpecified() && params.Template.IsNull() {
+		if err := templateInputWithoutTemplate(params.Language.IsSpecified() && !params.Language.IsNull(), params.Parameters != nil, params.ParameterOverrides != nil); err != nil {
+			return nil, err
+		}
 	}
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.UpdateEmailBroadcastParams{}
@@ -349,4 +380,35 @@ func (s *BroadcastsService) Send(ctx context.Context, broadcastId string, params
 		return nil, err
 	}
 	return &out, nil
+}
+
+// templateInputWithoutTemplate names the first input that has no template to sit on.
+func templateInputWithoutTemplate(language, parameters, overrides bool) error {
+	switch {
+	case language:
+		return errors.New("bird: Language needs a Template: the language is chosen from the template it belongs to")
+	case parameters:
+		return errors.New("bird: Parameters need a Template: the values fill the template they belong to")
+	case overrides:
+		return errors.New("bird: ParameterOverrides need a Template: the overrides fill the languages of the template they belong to")
+	}
+	return nil
+}
+
+// broadcastParameterOverridesWire never sends a nil map as null: the outer map and each
+// language's map always reach the wire as objects.
+func broadcastParameterOverridesWire(overrides map[string]map[string]json.RawMessage) oapi.EmailBroadcastParameterOverrides {
+	out := make(oapi.EmailBroadcastParameterOverrides, len(overrides))
+	for language, parameters := range overrides {
+		out[language] = broadcastParametersWire(parameters)
+	}
+	return out
+}
+
+func broadcastParametersWire(parameters map[string]json.RawMessage) oapi.EmailBroadcastParameters {
+	values := make(oapi.EmailBroadcastParameters, len(parameters))
+	for name, value := range parameters {
+		values[name] = value
+	}
+	return values
 }

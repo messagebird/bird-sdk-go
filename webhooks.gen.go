@@ -11,11 +11,20 @@ import (
 	"github.com/messagebird/bird-sdk-go/option"
 )
 
+type WebhookDestinationUpdate = oapi.WebhookDestinationUpdate
+
 type WebhookEndpointUpdateStatus = oapi.WebhookEndpointUpdateStatus
 
 type WebhookEventType = oapi.WebhookEventType
 
 type WebhookFilter = oapi.WebhookFilter
+
+type WebhookDestinationType = oapi.WebhookDestinationType
+
+const (
+	WebhookDestinationTypeWebhook   WebhookDestinationType = "webhook"
+	WebhookDestinationTypeConnector WebhookDestinationType = "connector"
+)
 
 // WebhooksListParams filters the list. Zero-value fields are omitted.
 type WebhooksListParams struct {
@@ -99,8 +108,8 @@ type WebhooksUpdateParams struct {
 	Filter Nullable[WebhookFilter]
 	// Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events []WebhookEventType
-	// New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
-	Credentials map[string]string
+	// Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
+	Destination *WebhookDestinationUpdate
 	// `paused` stops all deliveries; `active` re-enables a paused endpoint. Omit to leave the status unchanged. Events that fire while paused are not delivered and a replay cannot recover them, because they were never attempted; after re-enabling, [Replay failed deliveries](/docs/api/reference/create-webhook-replay) reaches only the deliveries that failed before the pause. A `degraded` endpoint cannot be reset through this field: it returns to `active` automatically once deliveries succeed again.
 	Status *WebhookEndpointUpdateStatus
 }
@@ -117,9 +126,8 @@ func (p WebhooksUpdateParams) toWire() oapi.WebhookEndpointUpdate {
 	if p.Events != nil {
 		body.Events = &events
 	}
-	if p.Credentials != nil {
-		v := oapi.ConnectionCredentials(p.Credentials)
-		body.Credentials = &v
+	if p.Destination != nil {
+		body.Destination = p.Destination
 	}
 	if p.Status != nil {
 		body.Status = p.Status

@@ -68,6 +68,7 @@ output-options:
     - updateEmailTemplate
     - deleteEmailTemplate
     - duplicateEmailTemplate
+    - getEmailTemplateParameters
     - getEmailTemplatePreview
     - listEmailTemplateVersions
     - getEmailTemplateVersion
@@ -80,6 +81,9 @@ output-options:
     - updateEmailTemplateLanguage
     - deleteEmailTemplateLanguage
     - listEmailTemplateBroadcasts
+    - validateEmailBroadcast
+    - previewEmailBroadcast
+    - sendEmailBroadcastTest
     - createEmailBroadcast
     - listEmailBroadcasts
     - getEmailBroadcast

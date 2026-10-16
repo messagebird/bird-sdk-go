@@ -161,6 +161,69 @@ const (
 	DestinationSuperRegionMiddleEastAfrica = oapi.DestinationSuperRegionMiddleEastAfrica
 )
 
+// EmailBroadcastParameterProblemCode is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailBroadcastParameterProblemCode* constants with a
+// default branch rather than treating the set as closed.
+type EmailBroadcastParameterProblemCode = oapi.EmailBroadcastParameterProblemCode
+
+const (
+	EmailBroadcastParameterProblemCodeAudienceUnavailable       = oapi.EmailBroadcastParameterProblemCodeAudienceUnavailable
+	EmailBroadcastParameterProblemCodeContactPropertyUnknown    = oapi.EmailBroadcastParameterProblemCodeContactPropertyUnknown
+	EmailBroadcastParameterProblemCodeLanguageUnavailable       = oapi.EmailBroadcastParameterProblemCodeLanguageUnavailable
+	EmailBroadcastParameterProblemCodeParameterBytesExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterBytesExceeded
+	EmailBroadcastParameterProblemCodeParameterDepthExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterDepthExceeded
+	EmailBroadcastParameterProblemCodeParameterDuplicateKey     = oapi.EmailBroadcastParameterProblemCodeParameterDuplicateKey
+	EmailBroadcastParameterProblemCodeParameterJsonInvalid      = oapi.EmailBroadcastParameterProblemCodeParameterJsonInvalid
+	EmailBroadcastParameterProblemCodeParameterLanguageInvalid  = oapi.EmailBroadcastParameterProblemCodeParameterLanguageInvalid
+	EmailBroadcastParameterProblemCodeParameterMapInvalid       = oapi.EmailBroadcastParameterProblemCodeParameterMapInvalid
+	EmailBroadcastParameterProblemCodeParameterNameInvalid      = oapi.EmailBroadcastParameterProblemCodeParameterNameInvalid
+	EmailBroadcastParameterProblemCodeParameterNamesExceeded    = oapi.EmailBroadcastParameterProblemCodeParameterNamesExceeded
+	EmailBroadcastParameterProblemCodeParameterRequired         = oapi.EmailBroadcastParameterProblemCodeParameterRequired
+	EmailBroadcastParameterProblemCodeParameterValueUnsupported = oapi.EmailBroadcastParameterProblemCodeParameterValueUnsupported
+	EmailBroadcastParameterProblemCodeRecipientRenderFailed     = oapi.EmailBroadcastParameterProblemCodeRecipientRenderFailed
+	EmailBroadcastParameterProblemCodeRenderBudgetExceeded      = oapi.EmailBroadcastParameterProblemCodeRenderBudgetExceeded
+	EmailBroadcastParameterProblemCodeRenderProfileUnsupported  = oapi.EmailBroadcastParameterProblemCodeRenderProfileUnsupported
+	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid   = oapi.EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid
+	EmailBroadcastParameterProblemCodeSenderUnavailable         = oapi.EmailBroadcastParameterProblemCodeSenderUnavailable
+	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported = oapi.EmailBroadcastParameterProblemCodeSensitiveInputUnsupported
+	EmailBroadcastParameterProblemCodeTemplateUnavailable       = oapi.EmailBroadcastParameterProblemCodeTemplateUnavailable
+	EmailBroadcastParameterProblemCodeTransportInvalid          = oapi.EmailBroadcastParameterProblemCodeTransportInvalid
+	EmailBroadcastParameterProblemCodeTransportMissing          = oapi.EmailBroadcastParameterProblemCodeTransportMissing
+)
+
+// EmailBroadcastParameterProblemPhase is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailBroadcastParameterProblemPhase* constants with a
+// default branch rather than treating the set as closed.
+type EmailBroadcastParameterProblemPhase = oapi.EmailBroadcastParameterProblemPhase
+
+const (
+	EmailBroadcastParameterProblemPhaseExecution  = oapi.EmailBroadcastParameterProblemPhaseExecution
+	EmailBroadcastParameterProblemPhaseRequest    = oapi.EmailBroadcastParameterProblemPhaseRequest
+	EmailBroadcastParameterProblemPhaseValidation = oapi.EmailBroadcastParameterProblemPhaseValidation
+)
+
+// EmailBroadcastParameterProblemSeverity is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailBroadcastParameterProblemSeverity* constants with a
+// default branch rather than treating the set as closed.
+type EmailBroadcastParameterProblemSeverity = oapi.EmailBroadcastParameterProblemSeverity
+
+const (
+	EmailBroadcastParameterProblemSeverityError = oapi.EmailBroadcastParameterProblemSeverityError
+)
+
+// EmailBroadcastParameterProblemSite is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailBroadcastParameterProblemSite* constants with a
+// default branch rather than treating the set as closed.
+type EmailBroadcastParameterProblemSite = oapi.EmailBroadcastParameterProblemSite
+
+const (
+	EmailBroadcastParameterProblemSiteFromName = oapi.EmailBroadcastParameterProblemSiteFromName
+	EmailBroadcastParameterProblemSiteHtml     = oapi.EmailBroadcastParameterProblemSiteHtml
+	EmailBroadcastParameterProblemSiteReplyTo  = oapi.EmailBroadcastParameterProblemSiteReplyTo
+	EmailBroadcastParameterProblemSiteSubject  = oapi.EmailBroadcastParameterProblemSiteSubject
+	EmailBroadcastParameterProblemSiteText     = oapi.EmailBroadcastParameterProblemSiteText
+)
+
 // EmailClientFamily is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailClientFamily* constants with a
 // default branch rather than treating the set as closed.
@@ -379,6 +442,32 @@ const (
 	EmailLookupResultValid         = oapi.EmailLookupResultValid
 )
 
+// EmailTemplateParameterType is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateParameterType* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateParameterType = oapi.EmailTemplateParameterType
+
+const (
+	EmailTemplateParameterTypeAmount   = oapi.EmailTemplateParameterTypeAmount
+	EmailTemplateParameterTypeCode     = oapi.EmailTemplateParameterTypeCode
+	EmailTemplateParameterTypeCount    = oapi.EmailTemplateParameterTypeCount
+	EmailTemplateParameterTypeCurrency = oapi.EmailTemplateParameterTypeCurrency
+	EmailTemplateParameterTypeDate     = oapi.EmailTemplateParameterTypeDate
+	EmailTemplateParameterTypeDateTime = oapi.EmailTemplateParameterTypeDateTime
+	EmailTemplateParameterTypeRef      = oapi.EmailTemplateParameterTypeRef
+	EmailTemplateParameterTypeText     = oapi.EmailTemplateParameterTypeText
+	EmailTemplateParameterTypeTtl      = oapi.EmailTemplateParameterTypeTtl
+)
+
+// EmailTemplateParameterValueDomain is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateParameterValueDomain* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateParameterValueDomain = oapi.EmailTemplateParameterValueDomain
+
+const (
+	EmailTemplateParameterValueDomainScalar = oapi.EmailTemplateParameterValueDomainScalar
+)
+
 // EmailTemplateSource is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the EmailTemplateSource* constants with a
 // default branch rather than treating the set as closed.
@@ -399,6 +488,37 @@ const (
 	EmailTemplateThemeMatte    = oapi.EmailTemplateThemeMatte
 	EmailTemplateThemeProtocol = oapi.EmailTemplateThemeProtocol
 	EmailTemplateThemeStudio   = oapi.EmailTemplateThemeStudio
+)
+
+// EmailTemplateUseKind is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateUseKind* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateUseKind = oapi.EmailTemplateUseKind
+
+const (
+	EmailTemplateUseKindIterable = oapi.EmailTemplateUseKindIterable
+	EmailTemplateUseKindValue    = oapi.EmailTemplateUseKindValue
+)
+
+// EmailTemplateUseSite is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateUseSite* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateUseSite = oapi.EmailTemplateUseSite
+
+const (
+	EmailTemplateUseSiteHtml    = oapi.EmailTemplateUseSiteHtml
+	EmailTemplateUseSiteSubject = oapi.EmailTemplateUseSiteSubject
+	EmailTemplateUseSiteText    = oapi.EmailTemplateUseSiteText
+)
+
+// EmailTemplateVariableSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the EmailTemplateVariableSource* constants with a
+// default branch rather than treating the set as closed.
+type EmailTemplateVariableSource = oapi.EmailTemplateVariableSource
+
+const (
+	EmailTemplateVariableSourceBird    = oapi.EmailTemplateVariableSourceBird
+	EmailTemplateVariableSourceContact = oapi.EmailTemplateVariableSourceContact
 )
 
 // EsimActionName is an open string on the wire: a value added by a newer server

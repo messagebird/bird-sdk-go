@@ -856,6 +856,7 @@ func ExampleBroadcastsService_Create() {
 		From:       "newsletter@example.com",
 		AudienceID: "adn_01krdgeqcxet5s7t44vh8rt9mg",
 		Template:   "emt_01krdgeqcxet5s7t44vh8rt9mg",
+		Parameters: map[string]json.RawMessage{"title": json.RawMessage(`"Welcome"`), "offer": json.RawMessage(`"OCTOBER20"`), "discount": json.RawMessage(`20`), "featured": json.RawMessage(`false`)},
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -885,7 +886,7 @@ func ExampleBroadcastsService_Update() {
 		log.Fatal(err)
 	}
 	broadcast, err := client.Broadcasts.Update(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg",
-		bird.BroadcastsUpdateParams{Template: bird.Value("emt_01krdgeqcxet5s7t44vh8rt9mg")})
+		bird.BroadcastsUpdateParams{Template: bird.Value("emt_01krdgeqcxet5s7t44vh8rt9mg"), Parameters: &map[string]json.RawMessage{}})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -5253,6 +5254,66 @@ func ExampleWebhooksService_Create_connector() {
 		log.Fatal(err)
 	}
 	fmt.Println(endpoint.Id)
+}
+
+func ExampleBroadcastsService_Validate() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	parameters := map[string]json.RawMessage{"title": json.RawMessage(`"Welcome"`), "offer": json.RawMessage(`"OCTOBER20"`), "discount": json.RawMessage(`20`), "featured": json.RawMessage(`false`)}
+	params := bird.BroadcastsValidateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{Parameters: &parameters})}
+	result, err := client.Broadcasts.Validate(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", params)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(result.ReadyForAdmission, result.Problems)
+}
+
+func ExampleBroadcastsService_Preview() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	parameters := map[string]json.RawMessage{"title": json.RawMessage(`"Welcome"`), "offer": json.RawMessage(`"OCTOBER20"`), "discount": json.RawMessage(`20`), "featured": json.RawMessage(`false`)}
+	params := bird.BroadcastsValidateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{Parameters: &parameters})}
+	previewParams := bird.BroadcastsPreviewParams{BroadcastsValidateParams: params, ContactID: "con_01krdgeqcxet5s7t44vh8rt9mg"}
+	preview, err := client.Broadcasts.Preview(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", previewParams)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(preview.Subject, preview.PreviewFingerprint)
+}
+
+func ExampleBroadcastsService_Test() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	parameters := map[string]json.RawMessage{"title": json.RawMessage(`"Welcome"`), "offer": json.RawMessage(`"OCTOBER20"`), "discount": json.RawMessage(`20`), "featured": json.RawMessage(`false`)}
+	params := bird.BroadcastsValidateParams{Template: bird.Value(bird.BroadcastsParameterTemplate{Parameters: &parameters})}
+	previewParams := bird.BroadcastsPreviewParams{BroadcastsValidateParams: params, ContactID: "con_01krdgeqcxet5s7t44vh8rt9mg"}
+	preview, err := client.Broadcasts.Preview(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", previewParams)
+	if err != nil {
+		log.Fatal(err)
+	}
+	accepted, err := client.Broadcasts.Test(context.Background(), "eb_01krdgeqcxet5s7t44vh8rt9mg", bird.BroadcastsTestParams{BroadcastsPreviewParams: previewParams, To: "member@example.com", PreviewFingerprint: preview.PreviewFingerprint}, option.WithIdempotencyKey("broadcast-preview-intent-1"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(accepted.Id, *accepted.Status)
+}
+
+func ExampleEmailTemplatesService_Parameters() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	discovery, err := client.Email.Templates.Parameters(context.Background(), "emt_01krdgeqcxet5s7t44vh8rt9mg", bird.EmailTemplatesParametersParams{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(discovery.Parameters, discovery.Variables)
 }
 
 func ExampleEmailInboxInsightsSeedTestsConfigurationService_Get() {

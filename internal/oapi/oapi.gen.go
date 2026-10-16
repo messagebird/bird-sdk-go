@@ -1731,6 +1731,147 @@ func (e EmailBroadcastCreateRequestCategory) Valid() bool {
 	}
 }
 
+// Defines values for EmailBroadcastParameterProblemCode.
+const (
+	EmailBroadcastParameterProblemCodeAudienceUnavailable       EmailBroadcastParameterProblemCode = "audience_unavailable"
+	EmailBroadcastParameterProblemCodeContactPropertyUnknown    EmailBroadcastParameterProblemCode = "contact_property_unknown"
+	EmailBroadcastParameterProblemCodeLanguageUnavailable       EmailBroadcastParameterProblemCode = "language_unavailable"
+	EmailBroadcastParameterProblemCodeParameterBytesExceeded    EmailBroadcastParameterProblemCode = "parameter_bytes_exceeded"
+	EmailBroadcastParameterProblemCodeParameterDepthExceeded    EmailBroadcastParameterProblemCode = "parameter_depth_exceeded"
+	EmailBroadcastParameterProblemCodeParameterDuplicateKey     EmailBroadcastParameterProblemCode = "parameter_duplicate_key"
+	EmailBroadcastParameterProblemCodeParameterJsonInvalid      EmailBroadcastParameterProblemCode = "parameter_json_invalid"
+	EmailBroadcastParameterProblemCodeParameterLanguageInvalid  EmailBroadcastParameterProblemCode = "parameter_language_invalid"
+	EmailBroadcastParameterProblemCodeParameterMapInvalid       EmailBroadcastParameterProblemCode = "parameter_map_invalid"
+	EmailBroadcastParameterProblemCodeParameterNameInvalid      EmailBroadcastParameterProblemCode = "parameter_name_invalid"
+	EmailBroadcastParameterProblemCodeParameterNamesExceeded    EmailBroadcastParameterProblemCode = "parameter_names_exceeded"
+	EmailBroadcastParameterProblemCodeParameterRequired         EmailBroadcastParameterProblemCode = "parameter_required"
+	EmailBroadcastParameterProblemCodeParameterValueUnsupported EmailBroadcastParameterProblemCode = "parameter_value_unsupported"
+	EmailBroadcastParameterProblemCodeRecipientRenderFailed     EmailBroadcastParameterProblemCode = "recipient_render_failed"
+	EmailBroadcastParameterProblemCodeRenderBudgetExceeded      EmailBroadcastParameterProblemCode = "render_budget_exceeded"
+	EmailBroadcastParameterProblemCodeRenderProfileUnsupported  EmailBroadcastParameterProblemCode = "render_profile_unsupported"
+	EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid   EmailBroadcastParameterProblemCode = "rendered_envelope_invalid"
+	EmailBroadcastParameterProblemCodeSenderUnavailable         EmailBroadcastParameterProblemCode = "sender_unavailable"
+	EmailBroadcastParameterProblemCodeSensitiveInputUnsupported EmailBroadcastParameterProblemCode = "sensitive_input_unsupported"
+	EmailBroadcastParameterProblemCodeTemplateUnavailable       EmailBroadcastParameterProblemCode = "template_unavailable"
+	EmailBroadcastParameterProblemCodeTransportInvalid          EmailBroadcastParameterProblemCode = "transport_invalid"
+	EmailBroadcastParameterProblemCodeTransportMissing          EmailBroadcastParameterProblemCode = "transport_missing"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemCode enum.
+func (e EmailBroadcastParameterProblemCode) Valid() bool {
+	switch e {
+	case EmailBroadcastParameterProblemCodeAudienceUnavailable:
+		return true
+	case EmailBroadcastParameterProblemCodeContactPropertyUnknown:
+		return true
+	case EmailBroadcastParameterProblemCodeLanguageUnavailable:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterBytesExceeded:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterDepthExceeded:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterDuplicateKey:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterJsonInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterLanguageInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterMapInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterNameInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterNamesExceeded:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterRequired:
+		return true
+	case EmailBroadcastParameterProblemCodeParameterValueUnsupported:
+		return true
+	case EmailBroadcastParameterProblemCodeRecipientRenderFailed:
+		return true
+	case EmailBroadcastParameterProblemCodeRenderBudgetExceeded:
+		return true
+	case EmailBroadcastParameterProblemCodeRenderProfileUnsupported:
+		return true
+	case EmailBroadcastParameterProblemCodeRenderedEnvelopeInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeSenderUnavailable:
+		return true
+	case EmailBroadcastParameterProblemCodeSensitiveInputUnsupported:
+		return true
+	case EmailBroadcastParameterProblemCodeTemplateUnavailable:
+		return true
+	case EmailBroadcastParameterProblemCodeTransportInvalid:
+		return true
+	case EmailBroadcastParameterProblemCodeTransportMissing:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastParameterProblemPhase.
+const (
+	EmailBroadcastParameterProblemPhaseExecution  EmailBroadcastParameterProblemPhase = "execution"
+	EmailBroadcastParameterProblemPhaseRequest    EmailBroadcastParameterProblemPhase = "request"
+	EmailBroadcastParameterProblemPhaseValidation EmailBroadcastParameterProblemPhase = "validation"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemPhase enum.
+func (e EmailBroadcastParameterProblemPhase) Valid() bool {
+	switch e {
+	case EmailBroadcastParameterProblemPhaseExecution:
+		return true
+	case EmailBroadcastParameterProblemPhaseRequest:
+		return true
+	case EmailBroadcastParameterProblemPhaseValidation:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastParameterProblemSeverity.
+const (
+	EmailBroadcastParameterProblemSeverityError EmailBroadcastParameterProblemSeverity = "error"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemSeverity enum.
+func (e EmailBroadcastParameterProblemSeverity) Valid() bool {
+	switch e {
+	case EmailBroadcastParameterProblemSeverityError:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailBroadcastParameterProblemSite.
+const (
+	EmailBroadcastParameterProblemSiteFromName EmailBroadcastParameterProblemSite = "from_name"
+	EmailBroadcastParameterProblemSiteHtml     EmailBroadcastParameterProblemSite = "html"
+	EmailBroadcastParameterProblemSiteReplyTo  EmailBroadcastParameterProblemSite = "reply_to"
+	EmailBroadcastParameterProblemSiteSubject  EmailBroadcastParameterProblemSite = "subject"
+	EmailBroadcastParameterProblemSiteText     EmailBroadcastParameterProblemSite = "text"
+)
+
+// Valid indicates whether the value is a known member of the EmailBroadcastParameterProblemSite enum.
+func (e EmailBroadcastParameterProblemSite) Valid() bool {
+	switch e {
+	case EmailBroadcastParameterProblemSiteFromName:
+		return true
+	case EmailBroadcastParameterProblemSiteHtml:
+		return true
+	case EmailBroadcastParameterProblemSiteReplyTo:
+		return true
+	case EmailBroadcastParameterProblemSiteSubject:
+		return true
+	case EmailBroadcastParameterProblemSiteText:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailBroadcastStatus.
 const (
 	EmailBroadcastStatusAccepted  EmailBroadcastStatus = "accepted"
@@ -3483,6 +3624,60 @@ func (e EmailTemplateCategory) Valid() bool {
 	}
 }
 
+// Defines values for EmailTemplateParameterType.
+const (
+	EmailTemplateParameterTypeAmount   EmailTemplateParameterType = "amount"
+	EmailTemplateParameterTypeCode     EmailTemplateParameterType = "code"
+	EmailTemplateParameterTypeCount    EmailTemplateParameterType = "count"
+	EmailTemplateParameterTypeCurrency EmailTemplateParameterType = "currency"
+	EmailTemplateParameterTypeDate     EmailTemplateParameterType = "date"
+	EmailTemplateParameterTypeDateTime EmailTemplateParameterType = "date_time"
+	EmailTemplateParameterTypeRef      EmailTemplateParameterType = "ref"
+	EmailTemplateParameterTypeText     EmailTemplateParameterType = "text"
+	EmailTemplateParameterTypeTtl      EmailTemplateParameterType = "ttl"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateParameterType enum.
+func (e EmailTemplateParameterType) Valid() bool {
+	switch e {
+	case EmailTemplateParameterTypeAmount:
+		return true
+	case EmailTemplateParameterTypeCode:
+		return true
+	case EmailTemplateParameterTypeCount:
+		return true
+	case EmailTemplateParameterTypeCurrency:
+		return true
+	case EmailTemplateParameterTypeDate:
+		return true
+	case EmailTemplateParameterTypeDateTime:
+		return true
+	case EmailTemplateParameterTypeRef:
+		return true
+	case EmailTemplateParameterTypeText:
+		return true
+	case EmailTemplateParameterTypeTtl:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateParameterValueDomain.
+const (
+	EmailTemplateParameterValueDomainScalar EmailTemplateParameterValueDomain = "scalar"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateParameterValueDomain enum.
+func (e EmailTemplateParameterValueDomain) Valid() bool {
+	switch e {
+	case EmailTemplateParameterValueDomainScalar:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailTemplateSource.
 const (
 	EmailTemplateSourceHtml EmailTemplateSource = "html"
@@ -3561,6 +3756,63 @@ func (e EmailTemplateThemeFilter) Valid() bool {
 	case Protocol:
 		return true
 	case Studio:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateUseKind.
+const (
+	EmailTemplateUseKindIterable EmailTemplateUseKind = "iterable"
+	EmailTemplateUseKindValue    EmailTemplateUseKind = "value"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateUseKind enum.
+func (e EmailTemplateUseKind) Valid() bool {
+	switch e {
+	case EmailTemplateUseKindIterable:
+		return true
+	case EmailTemplateUseKindValue:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateUseSite.
+const (
+	EmailTemplateUseSiteHtml    EmailTemplateUseSite = "html"
+	EmailTemplateUseSiteSubject EmailTemplateUseSite = "subject"
+	EmailTemplateUseSiteText    EmailTemplateUseSite = "text"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateUseSite enum.
+func (e EmailTemplateUseSite) Valid() bool {
+	switch e {
+	case EmailTemplateUseSiteHtml:
+		return true
+	case EmailTemplateUseSiteSubject:
+		return true
+	case EmailTemplateUseSiteText:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for EmailTemplateVariableSource.
+const (
+	EmailTemplateVariableSourceBird    EmailTemplateVariableSource = "bird"
+	EmailTemplateVariableSourceContact EmailTemplateVariableSource = "contact"
+)
+
+// Valid indicates whether the value is a known member of the EmailTemplateVariableSource enum.
+func (e EmailTemplateVariableSource) Valid() bool {
+	switch e {
+	case EmailTemplateVariableSourceBird:
+		return true
+	case EmailTemplateVariableSourceContact:
 		return true
 	default:
 		return false
@@ -7398,6 +7650,24 @@ func (e WebhookConnectorDestinationCreateType) Valid() bool {
 	}
 }
 
+// Defines values for WebhookDestinationType.
+const (
+	WebhookDestinationTypeConnector WebhookDestinationType = "connector"
+	WebhookDestinationTypeWebhook   WebhookDestinationType = "webhook"
+)
+
+// Valid indicates whether the value is a known member of the WebhookDestinationType enum.
+func (e WebhookDestinationType) Valid() bool {
+	switch e {
+	case WebhookDestinationTypeConnector:
+		return true
+	case WebhookDestinationTypeWebhook:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for WebhookEndpointStatus.
 const (
 	WebhookEndpointStatusActive   WebhookEndpointStatus = "active"
@@ -7667,13 +7937,13 @@ func (e WebhookEventType) Valid() bool {
 
 // Defines values for WebhookRawDestinationType.
 const (
-	Webhook WebhookRawDestinationType = "webhook"
+	WebhookRawDestinationTypeWebhook WebhookRawDestinationType = "webhook"
 )
 
 // Valid indicates whether the value is a known member of the WebhookRawDestinationType enum.
 func (e WebhookRawDestinationType) Valid() bool {
 	switch e {
-	case Webhook:
+	case WebhookRawDestinationTypeWebhook:
 		return true
 	default:
 		return false
@@ -12798,6 +13068,9 @@ type ComplianceSubmissionID = string
 // ConnectionConfig Values for the connector's nonsecret fields, keyed by field `name`, such as the URL the endpoint's requests go to. A URL must be HTTPS, on one of the connector's `allowed_origins`, and under its `path_prefix` when it has one. It cannot include user info, a fragment, an IP address as its host, dot segments, or encoded slashes.
 type ConnectionConfig map[string]string
 
+// ConnectionConfigPatch Changes to the connector's nonsecret fields, keyed by field `name`. A key given replaces that field, `null` clears an optional one, and a key left out keeps its stored value. A required field cannot be cleared, and the result is checked as at creation.
+type ConnectionConfigPatch map[string]*string
+
 // ConnectionCredentials Values for the connector's secret fields, keyed by field `name`. Every required secret field must be present, after merging with the stored values on an update, and a key the connector does not declare as secret returns a `422`. No response includes these values.
 type ConnectionCredentials map[string]string
 
@@ -13809,6 +14082,9 @@ type EmailBroadcast struct {
 	// FailureDetail A sentence explaining the failure in more detail than `failure_reason` does, and `null` when the broadcast has not failed. Show it to the person using your app. Do not write code that reads it, because the wording can change. Branch on `failure_reason` instead.
 	FailureDetail *string `json:"failure_detail,omitempty"`
 
+	// FailureParameters Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
+	FailureParameters *EmailBroadcastFailureParameters `json:"failure_parameters,omitempty"`
+
 	// FailureReason Why the broadcast failed. Set when `status` is `failed`, and `null` the rest of the time.
 	//
 	// - `empty_audience`: There was nobody to send to. Either the audience has no members, or every address in it is suppressed.
@@ -14003,8 +14279,8 @@ type EmailBroadcastCreateRequest struct {
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From *EmailAddressInput `json:"from,omitempty"`
 
-	// Headers Custom email headers to set on the broadcast, as name and value pairs. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
-	Headers *map[string]string `json:"headers,omitempty"`
+	// Headers Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+	Headers *EmailBroadcastHeaders `json:"headers,omitempty"`
 
 	// IpPoolId The IP pool to send this broadcast from. Pass a pool ID, or `ipp_shared` to send through the shared pool on purpose. Leave it out and the broadcast uses your organization's default pool. A pool we do not recognize, or one with no IPs available to send from, is refused with a `422`.
 	IpPoolId *string `json:"ip_pool_id,omitempty"`
@@ -14039,8 +14315,72 @@ type EmailBroadcastCreateRequest struct {
 // `marketing`, the default, is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way still reaches people who have already unsubscribed from you.
 type EmailBroadcastCreateRequestCategory string
 
+// EmailBroadcastFailureParameters Why a broadcast stopped because its template inputs could not be prepared or rendered. It names fields and contacts and never includes input or contact values.
+type EmailBroadcastFailureParameters struct {
+	// Code What a broadcast input diagnostic found.
+	//
+	// - `parameter_json_invalid`: the request body or an input map is not valid JSON.
+	// - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
+	// - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
+	// - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+	// - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
+	// - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
+	// - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
+	// - `parameter_depth_exceeded`: an input value is nested too deeply.
+	// - `parameter_language_invalid`: a `template.parameter_overrides` key is not a valid BCP-47 language tag.
+	// - `parameter_required`: the template or envelope uses an input that has no value.
+	// - `sensitive_input_unsupported`: the template uses an input it marks sensitive, which a broadcast cannot supply.
+	// - `render_profile_unsupported`: the template uses a Liquid operation that rendering with broadcast inputs does not support.
+	// - `rendered_envelope_invalid`: the rendered subject, sender name, reply-to addresses or a header is not valid for an email, for example because it contains a line break.
+	// - `contact_property_unknown`: the template reads a contact property this workspace has not defined.
+	// - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
+	// - `language_unavailable`: the published version has no content in the selected language.
+	// - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+	// - `audience_unavailable`: the broadcast's audience cannot be used for this send.
+	// - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
+	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
+	// - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
+	// - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+	Code EmailBroadcastParameterProblemCode `json:"code"`
+
+	// FailureCount How many recipients failed to render, including those not listed in `problems`. It can be `0` when the broadcast failed while it was being prepared, before any recipient was rendered.
+	FailureCount      int64                   `json:"failure_count"`
+	ObservedVersionId *EmailTemplateVersionID `json:"observed_version_id,omitempty"`
+
+	// Phase Where a broadcast input diagnostic was found.
+	//
+	// - `request`: in the inputs this request supplied, before the template was checked.
+	// - `validation`: while checking the inputs against the current published template, as validate, preview and send do.
+	// - `execution`: while the broadcast was being prepared or sent. This phase appears on `failure_parameters`.
+	Phase EmailBroadcastParameterProblemPhase `json:"phase"`
+
+	// Pointer A JSON pointer to the broadcast field the failure is about, such as `/template/parameters/first_name` or `/template`.
+	Pointer *string `json:"pointer,omitempty"`
+
+	// Problems Up to 20 of the problems found. A recipient problem names its contact in `contact_id`.
+	Problems *[]EmailBroadcastParameterProblem `json:"problems,omitempty"`
+}
+
+// EmailBroadcastHeaders Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+type EmailBroadcastHeaders map[string]string
+
 // EmailBroadcastID defines model for EmailBroadcastID.
 type EmailBroadcastID = string
+
+// EmailBroadcastInputOverrides defines model for EmailBroadcastInputOverrides.
+type EmailBroadcastInputOverrides struct {
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
+	From *EmailAddressInput `json:"from,omitempty"`
+
+	// Headers Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+	Headers *EmailBroadcastHeaders `json:"headers,omitempty"`
+
+	// ReplyTo Replaces the reply-to addresses for this request. Null removes them.
+	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// Template Replaces the template, language or parameters for this request. Null removes the template for this request.
+	Template *EmailBroadcastTemplateUpdate `json:"template,omitempty"`
+}
 
 // EmailBroadcastList defines model for EmailBroadcastList.
 type EmailBroadcastList struct {
@@ -14056,6 +14396,197 @@ type EmailBroadcastList struct {
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
 }
+
+// EmailBroadcastParameterName A bare template input name, such as `first_name` or `offer`, outside the reserved `bird` namespace.
+type EmailBroadcastParameterName = string
+
+// EmailBroadcastParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+type EmailBroadcastParameterOverrides map[string]EmailBroadcastParameters
+
+// EmailBroadcastParameterProblem One problem with a broadcast's template inputs. A diagnostic names the input or field it is about and never includes its value.
+type EmailBroadcastParameterProblem struct {
+	// Budget The rendering limit that was exceeded, such as `output_bytes` or `nesting`, when `code` is `render_budget_exceeded`. It is reported with `limit` on problems from sending a broadcast, in `failure_parameters`.
+	Budget *string `json:"budget,omitempty"`
+
+	// Code What a broadcast input diagnostic found.
+	//
+	// - `parameter_json_invalid`: the request body or an input map is not valid JSON.
+	// - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
+	// - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
+	// - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+	// - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
+	// - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
+	// - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
+	// - `parameter_depth_exceeded`: an input value is nested too deeply.
+	// - `parameter_language_invalid`: a `template.parameter_overrides` key is not a valid BCP-47 language tag.
+	// - `parameter_required`: the template or envelope uses an input that has no value.
+	// - `sensitive_input_unsupported`: the template uses an input it marks sensitive, which a broadcast cannot supply.
+	// - `render_profile_unsupported`: the template uses a Liquid operation that rendering with broadcast inputs does not support.
+	// - `rendered_envelope_invalid`: the rendered subject, sender name, reply-to addresses or a header is not valid for an email, for example because it contains a line break.
+	// - `contact_property_unknown`: the template reads a contact property this workspace has not defined.
+	// - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
+	// - `language_unavailable`: the published version has no content in the selected language.
+	// - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+	// - `audience_unavailable`: the broadcast's audience cannot be used for this send.
+	// - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
+	// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
+	// - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
+	// - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+	Code      EmailBroadcastParameterProblemCode `json:"code"`
+	ContactId *ContactID                         `json:"contact_id,omitempty"`
+
+	// Limit The value of the limit named by `budget`.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Phase Where a broadcast input diagnostic was found.
+	//
+	// - `request`: in the inputs this request supplied, before the template was checked.
+	// - `validation`: while checking the inputs against the current published template, as validate, preview and send do.
+	// - `execution`: while the broadcast was being prepared or sent. This phase appears on `failure_parameters`.
+	Phase EmailBroadcastParameterProblemPhase `json:"phase"`
+
+	// Pointer A JSON pointer to the request or broadcast field the problem is about, such as `/template/parameters/first_name` or `/from`. Absent when the problem is not about one field.
+	Pointer *string `json:"pointer,omitempty"`
+
+	// Severity How a broadcast input diagnostic affects sending.
+	//
+	// - `error`: the broadcast cannot send until the problem is fixed.
+	Severity EmailBroadcastParameterProblemSeverity `json:"severity"`
+
+	// Site The part of the email where the input is used.
+	//
+	// - `subject`: the subject line.
+	// - `html`: the HTML body, including its inbox preview text.
+	// - `text`: the plain-text body.
+	// - `from_name`: the sender display name.
+	// - `reply_to`: the reply-to addresses.
+	//
+	// A custom header is reported as `header:` followed by the header name as the broadcast sets it, for example `header:X-Campaign`.
+	Site *EmailBroadcastParameterProblemSite `json:"site,omitempty"`
+}
+
+// EmailBroadcastParameterProblemCode What a broadcast input diagnostic found.
+//
+// - `parameter_json_invalid`: the request body or an input map is not valid JSON.
+// - `parameter_map_invalid`: `template.parameters` or `template.parameter_overrides` is not a JSON object of input names.
+// - `parameter_name_invalid`: an input name is not a bare name outside the `bird` namespace.
+// - `parameter_value_unsupported`: an input value is an object or a list. Values must be a string, number, boolean or null.
+// - `parameter_duplicate_key`: an input name, or two spellings of one language tag, appears twice.
+// - `parameter_bytes_exceeded`: an input map is larger than 16384 UTF-8 bytes.
+// - `parameter_names_exceeded`: `template.parameters` and every language together hold more than 128 distinct names.
+// - `parameter_depth_exceeded`: an input value is nested too deeply.
+// - `parameter_language_invalid`: a `template.parameter_overrides` key is not a valid BCP-47 language tag.
+// - `parameter_required`: the template or envelope uses an input that has no value.
+// - `sensitive_input_unsupported`: the template uses an input it marks sensitive, which a broadcast cannot supply.
+// - `render_profile_unsupported`: the template uses a Liquid operation that rendering with broadcast inputs does not support.
+// - `rendered_envelope_invalid`: the rendered subject, sender name, reply-to addresses or a header is not valid for an email, for example because it contains a line break.
+// - `contact_property_unknown`: the template reads a contact property this workspace has not defined.
+// - `template_unavailable`: the broadcast has no template, or its template no longer exists or has no published version.
+// - `language_unavailable`: the published version has no content in the selected language.
+// - `sender_unavailable`: the broadcast cannot send from its `from` address or IP pool.
+// - `audience_unavailable`: the broadcast's audience cannot be used for this send.
+// - `recipient_render_failed`: content could not be rendered for a recipient while the broadcast was sending.
+// - `render_budget_exceeded`: rendering went over a limit, named by `budget` with its `limit`.
+// - `transport_missing`: the saved content of a prepared broadcast is unavailable. Contact Bird support.
+// - `transport_invalid`: the saved content of a prepared broadcast no longer matches what was prepared. Contact Bird support.
+type EmailBroadcastParameterProblemCode string
+
+// EmailBroadcastParameterProblemPhase Where a broadcast input diagnostic was found.
+//
+// - `request`: in the inputs this request supplied, before the template was checked.
+// - `validation`: while checking the inputs against the current published template, as validate, preview and send do.
+// - `execution`: while the broadcast was being prepared or sent. This phase appears on `failure_parameters`.
+type EmailBroadcastParameterProblemPhase string
+
+// EmailBroadcastParameterProblemSeverity How a broadcast input diagnostic affects sending.
+//
+// - `error`: the broadcast cannot send until the problem is fixed.
+type EmailBroadcastParameterProblemSeverity string
+
+// EmailBroadcastParameterProblemSite The part of the email where the input is used.
+//
+// - `subject`: the subject line.
+// - `html`: the HTML body, including its inbox preview text.
+// - `text`: the plain-text body.
+// - `from_name`: the sender display name.
+// - `reply_to`: the reply-to addresses.
+//
+// A custom header is reported as `header:` followed by the header name as the broadcast sets it, for example `header:X-Campaign`.
+type EmailBroadcastParameterProblemSite string
+
+// EmailBroadcastParameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+type EmailBroadcastParameters map[string]interface{}
+
+// EmailBroadcastPreviewContact defines model for EmailBroadcastPreviewContact.
+type EmailBroadcastPreviewContact struct {
+	ContactId *ContactID `json:"contact_id,omitempty"`
+}
+
+// EmailBroadcastPreviewRequest defines model for EmailBroadcastPreviewRequest.
+type EmailBroadcastPreviewRequest struct {
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
+	From *EmailAddressInput `json:"from,omitempty"`
+
+	// Headers Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+	Headers *EmailBroadcastHeaders `json:"headers,omitempty"`
+
+	// ReplyTo Replaces the reply-to addresses for this request. Null removes them.
+	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// Template Replaces the template, language or parameters for this request. Null removes the template for this request.
+	Template *EmailBroadcastTemplateUpdate `json:"template,omitempty"`
+}
+
+// EmailBroadcastPreviewResult A broadcast rendered for one contact, with the inputs it used. Preview sends nothing, and its unsubscribe link is a placeholder that unsubscribes no one.
+type EmailBroadcastPreviewResult struct {
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// Html The rendered HTML body. When `preheader` is not empty, it includes the hidden block that carries that text.
+	Html string `json:"html"`
+
+	// Preheader The text of the hidden preview block that this render of `html` includes, which inbox clients can show beside the subject. It is empty when the template has no preview text, when the text renders empty, or when the rendered HTML does not include the block. A version published earlier can have preview text whose block its markup leaves out, escapes or removes; publishing the template again places the block. This value describes the rendered HTML and does not show how a provider or inbox displays it. Use it instead of reading the hidden block in `html`.
+	Preheader string `json:"preheader"`
+
+	// PreviewFingerprint An opaque value for this rendered content. It changes when the published version, an input, a contact value, a fallback or the envelope changes. To send this content as a test, repeat the same inputs with this value. Do not parse it.
+	PreviewFingerprint string `json:"preview_fingerprint"`
+
+	// Problems Problems with the broadcast's inputs found while rendering this preview.
+	Problems []EmailBroadcastParameterProblem `json:"problems"`
+
+	// Resolution The published template version and language a validation or preview checked. It does not fix the version a later send uses.
+	Resolution EmailBroadcastResolution `json:"resolution"`
+
+	// ResolvedParameters The broadcast inputs this render used, by name, each with the string, number, boolean or null value it used. It holds the values taken from `template.parameters` or the selected language's `template.parameter_overrides` entry, and only for names the rendered content or envelope uses. Contact values are never included. A number keeps the digits it was supplied with.
+	ResolvedParameters EmailBroadcastResolvedParameters `json:"resolved_parameters" pii:"true"`
+
+	// Subject The rendered subject line.
+	Subject string `json:"subject"`
+
+	// Text The rendered plain-text body.
+	Text string `json:"text"`
+}
+
+// EmailBroadcastResolution The published template version and language a validation or preview checked. It does not fix the version a later send uses.
+type EmailBroadcastResolution struct {
+	// DefaultLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	DefaultLanguage *LanguageTag `json:"default_language,omitempty"`
+
+	// EffectiveLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	EffectiveLanguage LanguageTag            `json:"effective_language"`
+	ObservedVersionId EmailTemplateVersionID `json:"observed_version_id"`
+
+	// RequestedLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// RequirementsFingerprint An opaque value that changes when the checked version, its content or the inputs it uses change. Compare it with an earlier value to tell whether the requirements are still the same. Do not parse it.
+	RequirementsFingerprint string          `json:"requirements_fingerprint"`
+	TemplateId              EmailTemplateID `json:"template_id"`
+}
+
+// EmailBroadcastResolvedParameters The broadcast inputs this render used, by name, each with the string, number, boolean or null value it used. It holds the values taken from `template.parameters` or the selected language's `template.parameter_overrides` entry, and only for names the rendered content or envelope uses. Contact values are never included. A number keeps the digits it was supplied with.
+type EmailBroadcastResolvedParameters map[string]interface{}
 
 // EmailBroadcastSendNowRequest defines model for EmailBroadcastSendNowRequest.
 type EmailBroadcastSendNowRequest struct {
@@ -14141,11 +14672,19 @@ type EmailBroadcastStatsPoint struct {
 type EmailBroadcastStatus string
 
 // EmailBroadcastTemplate The template a broadcast sends, the exact version of it the broadcast is fixed to, and which of that version's languages goes out.
+//
+// `parameters` and `parameter_overrides` are returned on customer detail and mutation responses when the caller has email_management read permission, and omitted without that permission and from list responses. They are also omitted from staff-only responses. Broadcasts created before parameters existed return `parameters` as an empty object. `parameter_overrides` is also omitted for a broadcast that has never sent it; an empty object means language rules apply with no overrides.
 type EmailBroadcastTemplate struct {
 	Id EmailTemplateID `json:"id"`
 
 	// Language The BCP-47 language tag selected for the whole audience, such as `en` or `pt-BR`. `null` means no language is selected, so the broadcast uses the published version's default language, unless the template has `language_source_required` set. Send `template.language` in an update to change or clear the selection.
 	Language *LanguageTag `json:"language,omitempty"`
+
+	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
+
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 
 	// VersionId The template version this broadcast is fixed to. It is chosen when the broadcast is prepared for sending, so publishing a new version while the broadcast is going out cannot change what the rest of the recipients get. Null until the broadcast is prepared.
 	VersionId *EmailTemplateVersionID `json:"version_id,omitempty"`
@@ -14157,16 +14696,54 @@ type EmailBroadcastTemplateCreate struct {
 
 	// Language The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. If you leave it out, the broadcast uses the version's default language, unless the template has `language_source_required` set, in which case sending fails until you select a language. Send `template.language` in an update to change or clear it later.
 	Language *LanguageTag `json:"language,omitempty"`
+
+	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
+
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 }
 
-// EmailBroadcastTemplateUpdate A change to the template a broadcast sends, the language it sends in, or both. Each property is independent: what you leave out keeps the value the broadcast already had.
+// EmailBroadcastTemplateUpdate A change to the template, language, or parameter maps a broadcast sends. Omitted properties retain their values unless the template ID changes. A changed ID clears the old language, parameters and parameter overrides before applying supplied replacements; repeating the same ID retains them.
 type EmailBroadcastTemplateUpdate struct {
-	// Id Move the broadcast to this template. Sending an `id` releases the version the broadcast was fixed to, so the next send fixes on the template's published version at that point; repeating the `id` the broadcast already has does the same thing, which is how you take a newly published version, and keeps the language already selected. Leave it out to keep the template and the version it is fixed to, and send a `language` on its own to change only the language. To take the template off a draft, set `template` itself to null.
+	// Id Select this template. Changing the ID clears the old language, parameters and parameter overrides before supplied replacements. Repeating the same ID retains those values and clears the selected template version, so the next preparation uses the template's latest published version. Omit id to retain the selected template. Adding parameters to a draft created before parameters existed may clear its selected version so it uses the template's latest published version. To clear a draft's selection, set template itself to null.
 	Id *EmailTemplateID `json:"id,omitempty"`
 
 	// Language The BCP-47 language tag that goes to the whole audience, such as `en` or `pt-BR`. It must be an exact match for a language on the template's published version, so `fr-CA` does not select `fr`. Leave it out to keep the language already selected. If you change the template `id` in the same request, the old language is cleared with the old template. Set this to `null` to use the published version's default language, unless the template has `language_source_required` set.
 	Language nullable.Nullable[LanguageTag] `json:"language,omitempty"`
+
+	// ParameterOverrides Complete map of per-language parameter values, keyed by a BCP-47 language tag of at most 35 characters such as `es` or `pt-BR`. Each language holds only the names whose value differs for that language; a name it leaves out uses the value in `parameters`, including later changes to it. A value that is present always applies, even when it is `""`, `0`, `false`, `null` or equal to the `parameters` value. To return a name to the `parameters` value, send the map without it. Sending this map, even as `{}`, applies language rules to the broadcast: `parameters` must hold every input the default language's content, sender name, reply-to or headers use, and an input only the selected language uses may come from that language's entry instead. A broadcast that never sends it keeps the selected-language rules. Values for the default language, or for a language the broadcast does not send, are kept but not used. Omission retains the map unless the template ID changes, which clears it; an empty object removes every override, null is invalid and a language with no names is removed. Tags are stored in canonical BCP-47 form, so two spellings of one tag are refused. The compact map is limited to 16384 UTF-8 bytes, and `parameters` and every language together are limited to 128 distinct names.
+	ParameterOverrides *EmailBroadcastParameterOverrides `json:"parameter_overrides,omitempty" pii:"true"`
+
+	// Parameters Complete template input map. Each value is a string, number, boolean or null and is used exactly as given, so text containing braces or code-like syntax is never evaluated. Objects and lists are not accepted. Use bird.contact.first_name in the template for contact data. Names must be bare input names outside the bird namespace. Omission retains the map unless the template ID changes, which clears it; an empty object clears it, and null is invalid. The compact map is limited to 16384 UTF-8 bytes and 128 names. Individual email parameters keep their own format.
+	Parameters *EmailBroadcastParameters `json:"parameters,omitempty" pii:"true"`
 }
+
+// EmailBroadcastTestRequest defines model for EmailBroadcastTestRequest.
+type EmailBroadcastTestRequest struct {
+	ContactId *ContactID `json:"contact_id,omitempty"`
+
+	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
+	From *EmailAddressInput `json:"from,omitempty"`
+
+	// Headers Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+	Headers *EmailBroadcastHeaders `json:"headers,omitempty"`
+
+	// PreviewFingerprint The `preview_fingerprint` returned by the preview whose content you are sending.
+	PreviewFingerprint string `json:"preview_fingerprint"`
+
+	// ReplyTo Replaces the reply-to addresses for this request. Null removes them.
+	ReplyTo *[]EmailAddressInput `json:"reply_to,omitempty"`
+
+	// Template Replaces the template, language or parameters for this request. Null removes the template for this request.
+	Template *EmailBroadcastTemplateUpdate `json:"template,omitempty"`
+
+	// To The email address of a current organization member with access to this workspace.
+	To openapi_types.Email `json:"to"`
+}
+
+// EmailBroadcastTestResult An email message, including a recipient's copy of a broadcast. `broadcast_id` identifies the broadcast that sent the message and is absent for other sends. A broadcast records one message per recipient; these copies share the same `broadcast_id`.
+type EmailBroadcastTestResult = EmailMessage
 
 // EmailBroadcastUpdateRequest Changes a broadcast that is still a draft or is scheduled. Whatever you send here is applied, and anything you leave out keeps the value it already had. Once a broadcast has started sending it can no longer be edited.
 type EmailBroadcastUpdateRequest struct {
@@ -14180,8 +14757,8 @@ type EmailBroadcastUpdateRequest struct {
 	// From A sender or recipient address. Accepts a plain email string (`jane@acme.com`), an RFC 5322 mailbox string with an embedded display name (`Jane Doe <jane@acme.com>`), or an object carrying the address and an optional display name. All forms can be mixed freely within one request. Responses always return the object form.
 	From *EmailAddressInput `json:"from,omitempty"`
 
-	// Headers Custom email headers to set on the broadcast, as name and value pairs. What you send replaces the headers the draft already had rather than adding to them. Up to 25 of them, each value up to 998 characters. Two names are ours and cannot be set here: `List-Unsubscribe` and `List-Unsubscribe-Post` are dropped if you send them, whatever the category. We add the one-click unsubscribe pair to a marketing broadcast ourselves, and a transactional broadcast has neither header.
-	Headers *map[string]string `json:"headers,omitempty"`
+	// Headers Custom email headers as name and value pairs. Up to 25 of them, each value up to 998 characters.
+	Headers *EmailBroadcastHeaders `json:"headers,omitempty"`
 
 	// IpPoolId The IP pool to send this broadcast from. Pass a pool ID, or `ipp_shared` to send through the shared pool on purpose. Set it to null to fall back to your organization's default pool.
 	IpPoolId nullable.Nullable[string] `json:"ip_pool_id,omitempty"`
@@ -14209,6 +14786,30 @@ type EmailBroadcastUpdateRequest struct {
 //
 // `marketing` is held back from every suppressed address and has the one-click unsubscribe headers. `transactional` still goes to addresses suppressed for a complaint or an unsubscribe, and has no unsubscribe header. Only use `transactional` for genuine operational mail such as a terms-of-service update or a service outage notice. Marketing content sent this way reaches people who have already unsubscribed from you.
 type EmailBroadcastUpdateRequestCategory string
+
+// EmailBroadcastValidationRequest defines model for EmailBroadcastValidationRequest.
+type EmailBroadcastValidationRequest = EmailBroadcastInputOverrides
+
+// EmailBroadcastValidationResult Whether the broadcast's current template and inputs pass validation. Validation does not save, fix a template version or evaluate recipients.
+type EmailBroadcastValidationResult struct {
+	// BaseParameters Input names `template.parameters` must hold, returned with `resolution`. Without `template.parameter_overrides` these are the inputs the selected language uses. With it they are every input the default language's content or the envelope uses, including names the selected language does not use.
+	BaseParameters *[]string `json:"base_parameters,omitempty"`
+
+	// OverrideParameters Input names only the selected language uses, returned with `resolution`. Each may come from that language's entry in `template.parameter_overrides` or from `template.parameters`. Always empty without `template.parameter_overrides`.
+	OverrideParameters *[]string `json:"override_parameters,omitempty"`
+
+	// Problems The problems found. Empty when `ready_for_admission` is true.
+	Problems []EmailBroadcastParameterProblem `json:"problems"`
+
+	// ReadyForAdmission Whether the current template and supplied broadcast inputs pass validation, including checks that the sender and audience can be used. Sending also checks permissions, limits, the audience's recipients and their values, so `true` does not guarantee the broadcast sends.
+	ReadyForAdmission bool `json:"ready_for_admission"`
+
+	// Resolution The published template version and language a validation or preview checked. It does not fix the version a later send uses.
+	Resolution *EmailBroadcastResolution `json:"resolution,omitempty"`
+
+	// UnusedParameters Names supplied in `template.parameters`, or in the selected language's `template.parameter_overrides` entry, that the selected content and envelope do not use. Rendering the selected content ignores them. With `template.parameter_overrides`, this can include a name in `base_parameters` that only the default language uses, and `template.parameters` must still hold its value.
+	UnusedParameters []string `json:"unused_parameters"`
+}
 
 // EmailCategoryStatsPoint Aggregate delivery and engagement stats for a single category over the requested period.
 type EmailCategoryStatsPoint struct {
@@ -19073,6 +19674,77 @@ type EmailTemplateList struct {
 	RefreshCursor *string `json:"refresh_cursor"`
 }
 
+// EmailTemplateParameter A parameter the published content uses that the broadcast supplies in `template.parameters`, with what the template declares about it.
+type EmailTemplateParameter struct {
+	// Name The parameter name to use as a key in `template.parameters`.
+	Name string `json:"name"`
+
+	// Required Whether the template declares the parameter required.
+	Required bool `json:"required"`
+
+	// Sensitive Whether the template marks the parameter sensitive. A broadcast cannot supply a sensitive parameter that its content uses.
+	Sensitive *bool `json:"sensitive,omitempty"`
+
+	// Type The value type the template declares for a parameter. A broadcast can still supply any scalar value; see `value_domain`.
+	//
+	// - `text`: any value. A parameter the template uses without declaring it is reported as a required `text` parameter.
+	// - `code`: 4 to 8 digits.
+	// - `ttl`: a whole number from 1 to 999.
+	// - `count`: a whole number from 1 to 999.
+	// - `ref`: up to 16 uppercase letters, digits or hyphens.
+	// - `date`: an ISO 8601 date (YYYY-MM-DD).
+	// - `date_time`: an ISO 8601 date and time, with an optional offset.
+	// - `amount`: a decimal amount in major units, with up to 4 decimal places.
+	// - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+	Type EmailTemplateParameterType `json:"type"`
+
+	// UseConstraints Each place the content uses the parameter.
+	UseConstraints []EmailTemplateUseConstraint `json:"use_constraints"`
+
+	// ValueDomain The shape of value a broadcast may supply for a parameter, independent of the declared `type`.
+	//
+	// - `scalar`: a string, number, boolean or null, used as given.
+	ValueDomain EmailTemplateParameterValueDomain `json:"value_domain"`
+}
+
+// EmailTemplateParameterType The value type the template declares for a parameter. A broadcast can still supply any scalar value; see `value_domain`.
+//
+// - `text`: any value. A parameter the template uses without declaring it is reported as a required `text` parameter.
+// - `code`: 4 to 8 digits.
+// - `ttl`: a whole number from 1 to 999.
+// - `count`: a whole number from 1 to 999.
+// - `ref`: up to 16 uppercase letters, digits or hyphens.
+// - `date`: an ISO 8601 date (YYYY-MM-DD).
+// - `date_time`: an ISO 8601 date and time, with an optional offset.
+// - `amount`: a decimal amount in major units, with up to 4 decimal places.
+// - `currency`: an ISO 4217 currency code of 3 uppercase letters.
+type EmailTemplateParameterType string
+
+// EmailTemplateParameterValueDomain The shape of value a broadcast may supply for a parameter, independent of the declared `type`.
+//
+// - `scalar`: a string, number, boolean or null, used as given.
+type EmailTemplateParameterValueDomain string
+
+// EmailTemplateParameters The parameters and variables a template's current published content uses in one exact language, across its subject, HTML and plain-text body. The HTML includes its inbox preview text. This describes the template and holds no parameter or contact values.
+type EmailTemplateParameters struct {
+	// EffectiveLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	EffectiveLanguage LanguageTag            `json:"effective_language"`
+	ObservedVersionId EmailTemplateVersionID `json:"observed_version_id"`
+
+	// Parameters The parameters the broadcast supplies, sorted by name.
+	Parameters []EmailTemplateParameter `json:"parameters"`
+
+	// RequestedLanguage A language tag in BCP-47 form, for example `en` or `pt-BR`.
+	RequestedLanguage *LanguageTag `json:"requested_language,omitempty"`
+
+	// RequirementsFingerprint An opaque value that changes when this content or the parameters and variables it uses change, including for built-in templates whose version ID stays the same. Compare it with an earlier value to tell whether they are still the same. Do not parse it.
+	RequirementsFingerprint string          `json:"requirements_fingerprint"`
+	TemplateId              EmailTemplateID `json:"template_id"`
+
+	// Variables The `bird.` variables Bird fills in, sorted by path.
+	Variables []EmailTemplateVariable `json:"variables"`
+}
+
 // EmailTemplatePreview A rendered preview of an email template: its subject, HTML, and plain-text bodies with the supplied sample values filled in, ready to display.
 type EmailTemplatePreview struct {
 	// Compatibility What the previewed HTML uses that mail clients remove, ignore, or render inconsistently, in the order the patterns appear. Empty when nothing is worth reporting. Line and column count in the `content.html` you supplied, or in the template's own HTML when you supplied none, so they address the source rather than the rendered output. Previewing a published `version` is the exception: where the stored version keeps no authored copy of a language the publish step rewrote, the positions count in that rewritten body, which no response returns. A preview renders either way. At most 200 findings come back, the first 200 in source order; `compatibility_severity` is derived from every finding the HTML produced, including any beyond those 200.
@@ -19369,6 +20041,65 @@ type EmailTemplateUpdate struct {
 	// Revision The draft revision you last read (from the template's `revision` field). A stale value returns a conflict so you can reload and retry.
 	Revision EmailTemplateDraftRevision `json:"revision"`
 }
+
+// EmailTemplateUseConstraint One place in the published content that uses a parameter or variable, and how it is used there.
+type EmailTemplateUseConstraint struct {
+	// Kind How the template uses a parameter or variable at one place in its content.
+	//
+	// - `value`: the template outputs or compares the value.
+	// - `iterable`: the template loops over the value.
+	Kind EmailTemplateUseKind `json:"kind"`
+
+	// Operation How the template uses the parameter or variable here, passed through from the template. `output` means it writes the value; other values name the Liquid tag that reads it, such as `if`, `case`, `for` or `assign`.
+	Operation *string `json:"operation,omitempty"`
+
+	// Path The parameter or variable path the template reads at this place, such as `offer` or `bird.contact.first_name`.
+	Path *string `json:"path,omitempty"`
+
+	// Site The part of the published content where a parameter or variable is used.
+	//
+	// - `subject`: the subject line.
+	// - `html`: the HTML body, including its inbox preview text.
+	// - `text`: the plain-text body.
+	Site EmailTemplateUseSite `json:"site"`
+}
+
+// EmailTemplateUseKind How the template uses a parameter or variable at one place in its content.
+//
+// - `value`: the template outputs or compares the value.
+// - `iterable`: the template loops over the value.
+type EmailTemplateUseKind string
+
+// EmailTemplateUseSite The part of the published content where a parameter or variable is used.
+//
+// - `subject`: the subject line.
+// - `html`: the HTML body, including its inbox preview text.
+// - `text`: the plain-text body.
+type EmailTemplateUseSite string
+
+// EmailTemplateVariable A `bird.` variable the published content uses, which Bird fills in for each recipient. The broadcast does not supply it, and no contact value is returned.
+type EmailTemplateVariable struct {
+	// Path The variable as the template writes it, such as `bird.contact.first_name`.
+	Path string `json:"path"`
+
+	// Source Where Bird takes the value of a `bird.` variable from.
+	//
+	// - `contact`: a property of the recipient contact, read from `bird.contact.`.
+	// - `bird`: another value Bird fills in when it sends, such as `bird.unsubscribe_url`.
+	Source EmailTemplateVariableSource `json:"source"`
+
+	// SourceType The type of the contact property, from this workspace's current contact property definitions, such as `string`. Absent when the variable is not a defined contact property.
+	SourceType *string `json:"source_type,omitempty"`
+
+	// UseConstraints Each place the content uses the variable.
+	UseConstraints *[]EmailTemplateUseConstraint `json:"use_constraints,omitempty"`
+}
+
+// EmailTemplateVariableSource Where Bird takes the value of a `bird.` variable from.
+//
+// - `contact`: a property of the recipient contact, read from `bird.contact.`.
+// - `bird`: another value Bird fills in when it sends, such as `bird.unsubscribe_url`.
+type EmailTemplateVariableSource string
 
 // EmailTemplateVersion defines model for EmailTemplateVersion.
 type EmailTemplateVersion struct {
@@ -23539,6 +24270,9 @@ type InboundEmailMessage struct {
 	// InReplyTo The `In-Reply-To` header, which holds the Message-ID this message is replying to. `null` when the message is not a reply.
 	InReplyTo *string `json:"in_reply_to"`
 
+	// MailboxId Mailbox that received this message, or `null` when it arrived on an inbound address or domain without a mailbox.
+	MailboxId *MailboxID `json:"mailbox_id"`
+
 	// MessageId RFC 5322 Message-ID header from the sender, or `null` when the sender did not include one.
 	MessageId *string `json:"message_id"`
 
@@ -23557,7 +24291,7 @@ type InboundEmailMessage struct {
 	// Subject Subject line as received, or `null` when the message had no subject.
 	Subject *string `json:"subject"`
 
-	// ThreadId Conversation this message belongs to, or `null` when it is not grouped into one.
+	// ThreadId Mailbox conversation this message belongs to, or `null` when it was not received by a mailbox or has since been deleted from it.
 	ThreadId *string `json:"thread_id"`
 
 	// To Recipients on the message's To header.
@@ -28013,6 +28747,9 @@ type WebhookConnectorBinding struct {
 	// Action Action of the connector that each delivery runs.
 	Action ConnectorActionID `json:"action"`
 
+	// Config The connector's nonsecret fields as the endpoint delivers with them. Secret fields are never returned.
+	Config *ConnectionConfig `json:"config,omitempty"`
+
 	// ConnectionName Label of the credentials the endpoint delivers with.
 	ConnectionName string `json:"connection_name"`
 
@@ -28091,6 +28828,21 @@ type WebhookConnectorSetup struct {
 	Credentials *ConnectionCredentials `json:"credentials,omitempty" pii:"true"`
 }
 
+// WebhookConnectorSetupUpdate Changes to the endpoint's connector, nested as on creation. A field the endpoint's URL is built from moves the URL with it. New deliveries are prepared with the current config. Queued deliveries keep their prepared body, but every send attempt, including retries, uses the current destination URL and credentials.
+type WebhookConnectorSetupUpdate struct {
+	// Action The endpoint's action. It cannot change, so a different value returns a `422`.
+	Action *ConnectorActionID `json:"action,omitempty"`
+
+	// Config Changes to the connector's nonsecret fields, keyed by field `name`. A key given replaces that field, `null` clears an optional one, and a key left out keeps its stored value. A required field cannot be cleared, and the result is checked as at creation.
+	Config *ConnectionConfigPatch `json:"config,omitempty"`
+
+	// ConnectorId The endpoint's connector. It cannot change, so a different value returns a `422`.
+	ConnectorId *WebhookConnectorID `json:"connector_id,omitempty"`
+
+	// Credentials New values for the connector's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The next delivery, retries included, uses them.
+	Credentials *ConnectionCredentials `json:"credentials,omitempty"`
+}
+
 // WebhookDestination How each delivery to the endpoint is built. The type cannot change after the endpoint is created.
 type WebhookDestination struct {
 	union json.RawMessage
@@ -28099,6 +28851,17 @@ type WebhookDestination struct {
 // WebhookDestinationCreate How each delivery to the endpoint is built. The type cannot change after the endpoint is created.
 type WebhookDestinationCreate struct {
 	union json.RawMessage
+}
+
+// WebhookDestinationType How deliveries to the webhook endpoint are built: `webhook` posts the signed event unchanged to the endpoint URL; `connector` builds the delivery using the configured connector action. An existing endpoint's type cannot change; a different value returns a `422`.
+type WebhookDestinationType string
+
+// WebhookDestinationUpdate Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
+type WebhookDestinationUpdate struct {
+	Connector *WebhookConnectorSetupUpdate `json:"connector,omitempty" pii:"true"`
+
+	// Type How deliveries to the webhook endpoint are built: `webhook` posts the signed event unchanged to the endpoint URL; `connector` builds the delivery using the configured connector action. An existing endpoint's type cannot change; a different value returns a `422`.
+	Type *WebhookDestinationType `json:"type,omitempty"`
 }
 
 // WebhookEndpoint defines model for WebhookEndpoint.
@@ -28251,11 +29014,11 @@ type WebhookEndpointList struct {
 
 // WebhookEndpointUpdate defines model for WebhookEndpointUpdate.
 type WebhookEndpointUpdate struct {
-	// Credentials New values for a `connector` destination's secret fields, merged over the stored ones: a key given replaces that field and an omitted key keeps its value. The merged set is checked as at creation, and the next delivery, retries included, uses it. On an endpoint without a `connector` destination this returns a `422`. Omit to keep the current credentials.
-	Credentials *ConnectionCredentials `json:"credentials,omitempty"`
-
 	// Description Human-readable label for this endpoint, up to 256 characters.
 	Description *string `json:"description,omitempty"`
+
+	// Destination Changes to how deliveries are built, shaped as at creation. Only a `connector` destination takes `connector`; on any other endpoint it returns a `422`. Omit to keep the destination.
+	Destination *WebhookDestinationUpdate `json:"destination,omitempty"`
 
 	// Events Replaces all event subscriptions with this list. Omit to keep the current set. Types outside the event catalog return a `422`.
 	Events *[]WebhookEventType `json:"events,omitempty"`
@@ -31583,6 +32346,9 @@ type UnderscoreListEnvelopeWithTotal struct {
 	Total *int64 `json:"total,omitempty"`
 }
 
+// BroadcastTestIdempotencyKey defines model for BroadcastTestIdempotencyKey.
+type BroadcastTestIdempotencyKey = string
+
 // ConversationAssigneeFilter defines model for ConversationAssigneeFilter.
 type ConversationAssigneeFilter = string
 
@@ -34069,6 +34835,37 @@ type ListEmailBroadcastEventsParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// PreviewEmailBroadcastParams defines parameters for PreviewEmailBroadcast.
+type PreviewEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // ListEmailBroadcastRecipientsParams defines parameters for ListEmailBroadcastRecipients.
 type ListEmailBroadcastRecipientsParams struct {
 	// Limit Maximum number of items to return per page.
@@ -34129,6 +34926,60 @@ type GetEmailBroadcastSendQuotaParams struct {
 	//
 	// Does not change `broadcasts`. The broadcast count allowance is used when you submit the send or schedule request.
 	SendAt *time.Time `form:"send_at,omitempty" json:"send_at,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// SendEmailBroadcastTestParams defines parameters for SendEmailBroadcastTest.
+type SendEmailBroadcastTestParams struct {
+	// IdempotencyKey Required key for one logical broadcast test send, scoped to the workspace, the authenticated
+	// caller and this operation. Reuse the same key and the exact same request when retrying.
+	//
+	// - A confirmed `202` response replays unchanged for the same key and request within the
+	//   configured window, 3 hours by default. Authorization and the destination's member access are
+	//   checked again on every retry.
+	// - `409 request_in_progress` (E01004) or `503 IdempotencyUnavailable` (E01033): retry with
+	//   backoff using the same key. Switching keys can send another test.
+	// - `409 idempotency_key_reuse` (E01005): the key was used for a different request or
+	//   broadcast. Use a new key for a different test send.
+	// - After the window, saved results and unresolved requests can be removed. Reusing the key
+	//   after removal can send another test, even if the earlier response was not confirmed.
+	IdempotencyKey BroadcastTestIdempotencyKey `json:"Idempotency-Key"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// ValidateEmailBroadcastParams defines parameters for ValidateEmailBroadcast.
+type ValidateEmailBroadcastParams struct {
+	// IdempotencyKey Client-supplied key. On operations supporting request deduplication, a retained
+	// response is replayed for duplicate requests with the same key within the
+	// idempotency window (3 hours by default). This protection requires a workspace,
+	// organization, or staff-account scope. User-only and unscoped unauthenticated operations,
+	// streams, and operations with a separate replay contract do not use this
+	// response replay.
+	//
+	// On a supported operation, if idempotency protection is unavailable before execution, the API returns
+	// `503 IdempotencyUnavailable` (E01033) without executing this attempt. Retry with
+	// backoff using the same key and request. An operation that takes effect before
+	// its response is retained can still execute again on retry.
+	//
+	// Two distinct 409 errors signal misuse:
+	//
+	// - `request_in_progress` (E01004): The same key is currently being
+	//   processed by a concurrent request. Wait briefly and retry. The lock expires within 30 seconds.
+	// - `idempotency_key_reuse` (E01005): The same key has already completed
+	//   against a different request body or method. Generate a new key.
+	//
+	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
+	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -36213,6 +37064,18 @@ type DuplicateEmailTemplateParams struct {
 	//
 	// Recommended key format is `<event-type>/<entity-id>` (for example `welcome-user/usr_abc123`).
 	IdempotencyKey *IdempotencyKey `json:"Idempotency-Key,omitempty"`
+
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
+// GetEmailTemplateParametersParams defines parameters for GetEmailTemplateParameters.
+type GetEmailTemplateParametersParams struct {
+	// Language Language of the template's published content. Omission uses the template's default language.
+	Language *LanguageTag `form:"language,omitempty" json:"language,omitempty"`
 
 	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
 	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
@@ -41396,8 +42259,17 @@ type CreateEmailBroadcastJSONRequestBody = EmailBroadcastCreateRequest
 // UpdateEmailBroadcastJSONRequestBody defines body for UpdateEmailBroadcast for application/json ContentType.
 type UpdateEmailBroadcastJSONRequestBody = EmailBroadcastUpdateRequest
 
+// PreviewEmailBroadcastJSONRequestBody defines body for PreviewEmailBroadcast for application/json ContentType.
+type PreviewEmailBroadcastJSONRequestBody = EmailBroadcastPreviewRequest
+
 // SendEmailBroadcastJSONRequestBody defines body for SendEmailBroadcast for application/json ContentType.
 type SendEmailBroadcastJSONRequestBody = EmailBroadcastSendNowRequest
+
+// SendEmailBroadcastTestJSONRequestBody defines body for SendEmailBroadcastTest for application/json ContentType.
+type SendEmailBroadcastTestJSONRequestBody = EmailBroadcastTestRequest
+
+// ValidateEmailBroadcastJSONRequestBody defines body for ValidateEmailBroadcast for application/json ContentType.
+type ValidateEmailBroadcastJSONRequestBody = EmailBroadcastValidationRequest
 
 // CreateEmailCompetitiveWatchlistBrandJSONRequestBody defines body for CreateEmailCompetitiveWatchlistBrand for application/json ContentType.
 type CreateEmailCompetitiveWatchlistBrandJSONRequestBody = EmailCompetitiveWatchlistBrandCreate
@@ -49928,6 +50800,11 @@ type ClientInterface interface {
 	// ListEmailBroadcastEvents request
 	ListEmailBroadcastEvents(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// PreviewEmailBroadcastWithBody request with any body
+	PreviewEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PreviewEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, body PreviewEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListEmailBroadcastRecipients request
 	ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -49938,6 +50815,16 @@ type ClientInterface interface {
 
 	// GetEmailBroadcastSendQuota request
 	GetEmailBroadcastSendQuota(ctx context.Context, broadcastId EmailBroadcastID, params *GetEmailBroadcastSendQuotaParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// SendEmailBroadcastTestWithBody request with any body
+	SendEmailBroadcastTestWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SendEmailBroadcastTest(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, body SendEmailBroadcastTestJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ValidateEmailBroadcastWithBody request with any body
+	ValidateEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	ValidateEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, body ValidateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// SearchEmailCompetitiveBrands request
 	SearchEmailCompetitiveBrands(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -50190,6 +51077,9 @@ type ClientInterface interface {
 	DuplicateEmailTemplateWithBody(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	DuplicateEmailTemplate(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetEmailTemplateParameters request
+	GetEmailTemplateParameters(ctx context.Context, templateRef string, params *GetEmailTemplateParametersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetEmailTemplatePreviewWithBody request with any body
 	GetEmailTemplatePreviewWithBody(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -52420,6 +53310,30 @@ func (c *Client) ListEmailBroadcastEvents(ctx context.Context, broadcastId strin
 	return c.Client.Do(req)
 }
 
+func (c *Client) PreviewEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPreviewEmailBroadcastRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PreviewEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, body PreviewEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPreviewEmailBroadcastRequest(c.Server, broadcastId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) ListEmailBroadcastRecipients(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListEmailBroadcastRecipientsRequest(c.Server, broadcastId, params)
 	if err != nil {
@@ -52458,6 +53372,54 @@ func (c *Client) SendEmailBroadcast(ctx context.Context, broadcastId string, par
 
 func (c *Client) GetEmailBroadcastSendQuota(ctx context.Context, broadcastId EmailBroadcastID, params *GetEmailBroadcastSendQuotaParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetEmailBroadcastSendQuotaRequest(c.Server, broadcastId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendEmailBroadcastTestWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendEmailBroadcastTestRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SendEmailBroadcastTest(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, body SendEmailBroadcastTestJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSendEmailBroadcastTestRequest(c.Server, broadcastId, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ValidateEmailBroadcastWithBody(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewValidateEmailBroadcastRequestWithBody(c.Server, broadcastId, params, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ValidateEmailBroadcast(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, body ValidateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewValidateEmailBroadcastRequest(c.Server, broadcastId, params, body)
 	if err != nil {
 		return nil, err
 	}
@@ -53526,6 +54488,18 @@ func (c *Client) DuplicateEmailTemplateWithBody(ctx context.Context, templateRef
 
 func (c *Client) DuplicateEmailTemplate(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDuplicateEmailTemplateRequest(c.Server, templateRef, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetEmailTemplateParameters(ctx context.Context, templateRef string, params *GetEmailTemplateParametersParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetEmailTemplateParametersRequest(c.Server, templateRef, params)
 	if err != nil {
 		return nil, err
 	}
@@ -66240,6 +67214,90 @@ func NewListEmailBroadcastEventsRequest(server string, broadcastId string, param
 	return req, nil
 }
 
+// NewPreviewEmailBroadcastRequest calls the generic PreviewEmailBroadcast builder with application/json body
+func NewPreviewEmailBroadcastRequest(server string, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, body PreviewEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPreviewEmailBroadcastRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewPreviewEmailBroadcastRequestWithBody generates requests for PreviewEmailBroadcast with any type of body
+func NewPreviewEmailBroadcastRequestWithBody(server string, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/preview", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
 // NewListEmailBroadcastRecipientsRequest generates requests for ListEmailBroadcastRecipients
 func NewListEmailBroadcastRecipientsRequest(server string, broadcastId string, params *ListEmailBroadcastRecipientsParams) (*http.Request, error) {
 	var err error
@@ -66527,6 +67585,172 @@ func NewGetEmailBroadcastSendQuotaRequest(server string, broadcastId EmailBroadc
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewSendEmailBroadcastTestRequest calls the generic SendEmailBroadcastTest builder with application/json body
+func NewSendEmailBroadcastTestRequest(server string, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, body SendEmailBroadcastTestJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSendEmailBroadcastTestRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewSendEmailBroadcastTestRequestWithBody generates requests for SendEmailBroadcastTest with any type of body
+func NewSendEmailBroadcastTestRequestWithBody(server string, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/test", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		var headerParam0 string
+
+		headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("Idempotency-Key", headerParam0)
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewValidateEmailBroadcastRequest calls the generic ValidateEmailBroadcast builder with application/json body
+func NewValidateEmailBroadcastRequest(server string, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, body ValidateEmailBroadcastJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewValidateEmailBroadcastRequestWithBody(server, broadcastId, params, "application/json", bodyReader)
+}
+
+// NewValidateEmailBroadcastRequestWithBody generates requests for ValidateEmailBroadcast with any type of body
+func NewValidateEmailBroadcastRequestWithBody(server string, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "broadcast_id", broadcastId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/broadcasts/%s/validate", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	if params != nil {
+
+		if params.IdempotencyKey != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Idempotency-Key", *params.IdempotencyKey, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Idempotency-Key", headerParam0)
+		}
+
+		if params.XWorkspaceId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam1)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam2 string
+
+			headerParam2, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam2)
 		}
 
 	}
@@ -74748,6 +75972,93 @@ func NewDuplicateEmailTemplateRequestWithBody(server string, templateRef string,
 			}
 
 			req.Header.Set("X-Organization-Id", headerParam2)
+		}
+
+	}
+
+	return req, nil
+}
+
+// NewGetEmailTemplateParametersRequest generates requests for GetEmailTemplateParameters
+func NewGetEmailTemplateParametersRequest(server string, templateRef string, params *GetEmailTemplateParametersParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "template_ref", templateRef, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/email/templates/%s/parameters", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Language != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "language", *params.Language, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
 		}
 
 	}
@@ -95523,6 +96834,11 @@ type ClientWithResponsesInterface interface {
 	// ListEmailBroadcastEventsWithResponse request
 	ListEmailBroadcastEventsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastEventsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastEventsResponse, error)
 
+	// PreviewEmailBroadcastWithBodyWithResponse request with any body
+	PreviewEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PreviewEmailBroadcastResponse, error)
+
+	PreviewEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, body PreviewEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*PreviewEmailBroadcastResponse, error)
+
 	// ListEmailBroadcastRecipientsWithResponse request
 	ListEmailBroadcastRecipientsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastRecipientsResponse, error)
 
@@ -95533,6 +96849,16 @@ type ClientWithResponsesInterface interface {
 
 	// GetEmailBroadcastSendQuotaWithResponse request
 	GetEmailBroadcastSendQuotaWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *GetEmailBroadcastSendQuotaParams, reqEditors ...RequestEditorFn) (*GetEmailBroadcastSendQuotaResponse, error)
+
+	// SendEmailBroadcastTestWithBodyWithResponse request with any body
+	SendEmailBroadcastTestWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastTestResponse, error)
+
+	SendEmailBroadcastTestWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, body SendEmailBroadcastTestJSONRequestBody, reqEditors ...RequestEditorFn) (*SendEmailBroadcastTestResponse, error)
+
+	// ValidateEmailBroadcastWithBodyWithResponse request with any body
+	ValidateEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ValidateEmailBroadcastResponse, error)
+
+	ValidateEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, body ValidateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*ValidateEmailBroadcastResponse, error)
 
 	// SearchEmailCompetitiveBrandsWithResponse request
 	SearchEmailCompetitiveBrandsWithResponse(ctx context.Context, params *SearchEmailCompetitiveBrandsParams, reqEditors ...RequestEditorFn) (*SearchEmailCompetitiveBrandsResponse, error)
@@ -95785,6 +97111,9 @@ type ClientWithResponsesInterface interface {
 	DuplicateEmailTemplateWithBodyWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error)
 
 	DuplicateEmailTemplateWithResponse(ctx context.Context, templateRef string, params *DuplicateEmailTemplateParams, body DuplicateEmailTemplateJSONRequestBody, reqEditors ...RequestEditorFn) (*DuplicateEmailTemplateResponse, error)
+
+	// GetEmailTemplateParametersWithResponse request
+	GetEmailTemplateParametersWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplateParametersParams, reqEditors ...RequestEditorFn) (*GetEmailTemplateParametersResponse, error)
 
 	// GetEmailTemplatePreviewWithBodyWithResponse request with any body
 	GetEmailTemplatePreviewWithBodyWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplatePreviewParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*GetEmailTemplatePreviewResponse, error)
@@ -100235,6 +101564,44 @@ func (r ListEmailBroadcastEventsResponse) ContentType() string {
 	return ""
 }
 
+type PreviewEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastPreviewResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r PreviewEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PreviewEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r PreviewEmailBroadcastResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListEmailBroadcastRecipientsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -100343,6 +101710,84 @@ func (r GetEmailBroadcastSendQuotaResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetEmailBroadcastSendQuotaResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type SendEmailBroadcastTestResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON202      *EmailBroadcastTestResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON402      *PaymentRequired
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON409      *Conflict
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r SendEmailBroadcastTestResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SendEmailBroadcastTestResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r SendEmailBroadcastTestResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type ValidateEmailBroadcastResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailBroadcastValidationResult
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r ValidateEmailBroadcastResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ValidateEmailBroadcastResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ValidateEmailBroadcastResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -103170,6 +104615,44 @@ func (r DuplicateEmailTemplateResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r DuplicateEmailTemplateResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetEmailTemplateParametersResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmailTemplateParameters
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
+}
+
+// Status returns HTTPResponse.Status
+func (r GetEmailTemplateParametersResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetEmailTemplateParametersResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetEmailTemplateParametersResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -112461,6 +113944,23 @@ func (c *ClientWithResponses) ListEmailBroadcastEventsWithResponse(ctx context.C
 	return ParseListEmailBroadcastEventsResponse(rsp)
 }
 
+// PreviewEmailBroadcastWithBodyWithResponse request with arbitrary body returning *PreviewEmailBroadcastResponse
+func (c *ClientWithResponses) PreviewEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PreviewEmailBroadcastResponse, error) {
+	rsp, err := c.PreviewEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePreviewEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) PreviewEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *PreviewEmailBroadcastParams, body PreviewEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*PreviewEmailBroadcastResponse, error) {
+	rsp, err := c.PreviewEmailBroadcast(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePreviewEmailBroadcastResponse(rsp)
+}
+
 // ListEmailBroadcastRecipientsWithResponse request returning *ListEmailBroadcastRecipientsResponse
 func (c *ClientWithResponses) ListEmailBroadcastRecipientsWithResponse(ctx context.Context, broadcastId string, params *ListEmailBroadcastRecipientsParams, reqEditors ...RequestEditorFn) (*ListEmailBroadcastRecipientsResponse, error) {
 	rsp, err := c.ListEmailBroadcastRecipients(ctx, broadcastId, params, reqEditors...)
@@ -112494,6 +113994,40 @@ func (c *ClientWithResponses) GetEmailBroadcastSendQuotaWithResponse(ctx context
 		return nil, err
 	}
 	return ParseGetEmailBroadcastSendQuotaResponse(rsp)
+}
+
+// SendEmailBroadcastTestWithBodyWithResponse request with arbitrary body returning *SendEmailBroadcastTestResponse
+func (c *ClientWithResponses) SendEmailBroadcastTestWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SendEmailBroadcastTestResponse, error) {
+	rsp, err := c.SendEmailBroadcastTestWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendEmailBroadcastTestResponse(rsp)
+}
+
+func (c *ClientWithResponses) SendEmailBroadcastTestWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *SendEmailBroadcastTestParams, body SendEmailBroadcastTestJSONRequestBody, reqEditors ...RequestEditorFn) (*SendEmailBroadcastTestResponse, error) {
+	rsp, err := c.SendEmailBroadcastTest(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSendEmailBroadcastTestResponse(rsp)
+}
+
+// ValidateEmailBroadcastWithBodyWithResponse request with arbitrary body returning *ValidateEmailBroadcastResponse
+func (c *ClientWithResponses) ValidateEmailBroadcastWithBodyWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*ValidateEmailBroadcastResponse, error) {
+	rsp, err := c.ValidateEmailBroadcastWithBody(ctx, broadcastId, params, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseValidateEmailBroadcastResponse(rsp)
+}
+
+func (c *ClientWithResponses) ValidateEmailBroadcastWithResponse(ctx context.Context, broadcastId EmailBroadcastID, params *ValidateEmailBroadcastParams, body ValidateEmailBroadcastJSONRequestBody, reqEditors ...RequestEditorFn) (*ValidateEmailBroadcastResponse, error) {
+	rsp, err := c.ValidateEmailBroadcast(ctx, broadcastId, params, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseValidateEmailBroadcastResponse(rsp)
 }
 
 // SearchEmailCompetitiveBrandsWithResponse request returning *SearchEmailCompetitiveBrandsResponse
@@ -113280,6 +114814,15 @@ func (c *ClientWithResponses) DuplicateEmailTemplateWithResponse(ctx context.Con
 		return nil, err
 	}
 	return ParseDuplicateEmailTemplateResponse(rsp)
+}
+
+// GetEmailTemplateParametersWithResponse request returning *GetEmailTemplateParametersResponse
+func (c *ClientWithResponses) GetEmailTemplateParametersWithResponse(ctx context.Context, templateRef string, params *GetEmailTemplateParametersParams, reqEditors ...RequestEditorFn) (*GetEmailTemplateParametersResponse, error) {
+	rsp, err := c.GetEmailTemplateParameters(ctx, templateRef, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetEmailTemplateParametersResponse(rsp)
 }
 
 // GetEmailTemplatePreviewWithBodyWithResponse request with arbitrary body returning *GetEmailTemplatePreviewResponse
@@ -123630,6 +125173,88 @@ func ParseListEmailBroadcastEventsResponse(rsp *http.Response) (*ListEmailBroadc
 	return response, nil
 }
 
+// ParsePreviewEmailBroadcastResponse parses an HTTP response from a PreviewEmailBroadcastWithResponse call
+func ParsePreviewEmailBroadcastResponse(rsp *http.Response) (*PreviewEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PreviewEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastPreviewResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListEmailBroadcastRecipientsResponse parses an HTTP response from a ListEmailBroadcastRecipientsWithResponse call
 func ParseListEmailBroadcastRecipientsResponse(rsp *http.Response) (*ListEmailBroadcastRecipientsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -123870,6 +125495,184 @@ func ParseGetEmailBroadcastSendQuotaResponse(rsp *http.Response) (*GetEmailBroad
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSendEmailBroadcastTestResponse parses an HTTP response from a SendEmailBroadcastTestWithResponse call
+func ParseSendEmailBroadcastTestResponse(rsp *http.Response) (*SendEmailBroadcastTestResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SendEmailBroadcastTestResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 202:
+		var dest EmailBroadcastTestResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON202 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 402:
+		var dest PaymentRequired
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON402 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest Conflict
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseValidateEmailBroadcastResponse parses an HTTP response from a ValidateEmailBroadcastWithResponse call
+func ParseValidateEmailBroadcastResponse(rsp *http.Response) (*ValidateEmailBroadcastResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ValidateEmailBroadcastResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailBroadcastValidationResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 
@@ -130015,6 +131818,88 @@ func ParseDuplicateEmailTemplateResponse(rsp *http.Response) (*DuplicateEmailTem
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetEmailTemplateParametersResponse parses an HTTP response from a GetEmailTemplateParametersWithResponse call
+func ParseGetEmailTemplateParametersResponse(rsp *http.Response) (*GetEmailTemplateParametersResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetEmailTemplateParametersResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmailTemplateParameters
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
