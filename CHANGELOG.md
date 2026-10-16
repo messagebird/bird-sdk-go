@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.102.0
+
+- **Breaking:** updating a webhook takes a connector endpoint's changes under `destination.connector`, as on create: top-level `credentials` and `config` are not accepted; put `credentials` there and use `config` to change nonsecret fields such as a Claude agent's vault ID, with `null` clearing an optional one. A connector destination now returns its `config`.
+- The email stats query description is shorter and keeps the same filter, grouping and pagination rules.
+
 ## 0.101.0
 
 - Add broadcast `validate`, `preview` and `test` methods and template parameter discovery. Broadcast previews return the resolved `preheader`.
