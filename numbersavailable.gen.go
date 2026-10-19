@@ -54,7 +54,7 @@ func (s *NumbersAvailableService) ListPage(ctx context.Context, params NumbersAv
 	return &out, nil
 }
 
-// List Searches one country's numbers on sale. Our own inventory answers first and pages; the last page can carry a live carrier snapshot, so a number seen here may be gone by the time it is ordered.
+// List Searches one country's numbers on sale, each with the setup and recurring price for your organization. Our own inventory answers first and pages; the last page can carry a live carrier snapshot, so a number seen here may be gone by the time it is ordered.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *NumbersAvailableService) List(ctx context.Context, params NumbersAvailableListParams, opts ...option.RequestOption) iter.Seq2[*AvailableNumber, error] {
@@ -71,7 +71,7 @@ func (s *NumbersAvailableService) List(ctx context.Context, params NumbersAvaila
 	})
 }
 
-// Get Re-checks one number from `numbers.available.list` against the carrier, so a stale search result is caught before it is ordered.
+// Get Re-checks one number from `numbers.available.list` against the carrier, so a stale search result is caught before it is ordered, and returns its setup and recurring price for your organization.
 func (s *NumbersAvailableService) Get(ctx context.Context, number string, opts ...option.RequestOption) (*AvailableNumber, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetAvailableNumber(ctx, number, &oapi.GetAvailableNumberParams{}, cfg...)

@@ -1146,6 +1146,27 @@ func (e AudienceCreateRequestType) Valid() bool {
 	}
 }
 
+// Defines values for BillingInterval.
+const (
+	BillingIntervalDay   BillingInterval = "day"
+	BillingIntervalMonth BillingInterval = "month"
+	BillingIntervalYear  BillingInterval = "year"
+)
+
+// Valid indicates whether the value is a known member of the BillingInterval enum.
+func (e BillingInterval) Valid() bool {
+	switch e {
+	case BillingIntervalDay:
+		return true
+	case BillingIntervalMonth:
+		return true
+	case BillingIntervalYear:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ContactIdentifierFilter.
 const (
 	ContactIdentifierFilterEmail       ContactIdentifierFilter = "email"
@@ -9563,16 +9584,16 @@ func (e ListMailboxReceiveRulesParamsAction) Valid() bool {
 
 // Defines values for GetMailboxStatsParamsGranularity.
 const (
-	Day  GetMailboxStatsParamsGranularity = "day"
-	Hour GetMailboxStatsParamsGranularity = "hour"
+	GetMailboxStatsParamsGranularityDay  GetMailboxStatsParamsGranularity = "day"
+	GetMailboxStatsParamsGranularityHour GetMailboxStatsParamsGranularity = "hour"
 )
 
 // Valid indicates whether the value is a known member of the GetMailboxStatsParamsGranularity enum.
 func (e GetMailboxStatsParamsGranularity) Valid() bool {
 	switch e {
-	case Day:
+	case GetMailboxStatsParamsGranularityDay:
 		return true
-	case Hour:
+	case GetMailboxStatsParamsGranularityHour:
 		return true
 	default:
 		return false
@@ -13038,8 +13059,11 @@ type AvailableNumber struct {
 	//   Amsterdam for an Amsterdam (020) number.
 	OwnershipAddressScope *string `json:"ownership_address_scope,omitempty"`
 
-	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any setup fee is charged during purchase. Monthly billing starts at assignment even while approval is pending; assignment may follow completion of a pending supplier order.
+	// OwnershipRegistrationRequired Whether ownership paperwork must be approved before outbound SMS and voice use. Customer availability accounts for organization exemptions; admin supplier searches report the general country and number-type requirement. You can acquire the number, including Bird stock, and submit paperwork afterward. Any `pricing.setup_price` is charged during purchase, plus any tax. The recurring charge, net of tax `pricing.recurring_price` multiplied by `pricing.intervals_per_charge`, is taken with any tax at assignment and at each renewal, even while approval is pending; assignment may follow completion of a pending supplier order.
 	OwnershipRegistrationRequired bool `json:"ownership_registration_required"`
+
+	// Pricing What your organization pays for this number. Omitted on admin supplier searches, which have no organization to price for.
+	Pricing *AvailableNumberPricing `json:"pricing,omitempty"`
 }
 
 // AvailableNumberList defines model for AvailableNumberList.
@@ -13054,6 +13078,33 @@ type AvailableNumberList struct {
 
 	// RefreshCursor Refresh anchor, the first row of this response. Pass back as `ending_before` to fetch what precedes it in the current sort order. On a newest-first sort those are the items that have appeared since; on any other sort they are the items that sort earlier, so refreshing such a list means re-fetching it instead. Non-`null` whenever `data` is non-empty; `null` only on an empty page. Distinct from `prev_cursor`.
 	RefreshCursor *string `json:"refresh_cursor"`
+}
+
+// AvailableNumberPricing What your organization pays for an available number, net of tax, in your billing currency.
+type AvailableNumberPricing struct {
+	// IntervalsPerCharge How many `recurring_period`s one charge bills at once. Your organization is charged `recurring_price` multiplied by this at purchase and at each renewal. `null` when `recurring_price` is `null`.
+	IntervalsPerCharge *int `json:"intervals_per_charge"`
+
+	// RecurringPeriod The period `recurring_price` covers. `null` when `recurring_price` is `null`.
+	RecurringPeriod *BillingPricingInterval `json:"recurring_period"`
+
+	// RecurringPrice What your organization is charged for this number per `recurring_period`, net of tax, in your billing currency, after your agreed prices are applied. `null` when the number cannot be priced for your organization, because its recurring price or a required setup fee has no price; it cannot be ordered then.
+	RecurringPrice *Money `json:"recurring_price"`
+
+	// SetupPrice One-off setup fee for your organization, net of tax, in your billing currency. Its `amount` is `"0"` when the published fee is zero. `null` when no setup fee applies to this country and number type, and whenever `recurring_price` is `null`.
+	SetupPrice *Money `json:"setup_price"`
+}
+
+// BillingInterval The recurring interval one subscription charge covers.
+type BillingInterval string
+
+// BillingPricingInterval A period: a unit and a count. A day is a fixed 24-hour UTC period. A larger `count` lengthens the period without multiplying the amount quoted for it.
+type BillingPricingInterval struct {
+	// Count Number of units in the period.
+	Count int `json:"count"`
+
+	// Unit The recurring interval one subscription charge covers.
+	Unit BillingInterval `json:"unit"`
 }
 
 // BillingProductSlug URL-safe identifier for a billing product. Lowercase letters and digits, separated by underscores. Must start with a letter.
@@ -24942,6 +24993,9 @@ type Number struct {
 	// Ownership Ownership paperwork and activation progress. `null` when no ownership requirements, recorded block, or recorded decision apply, or when requirements or progress cannot be read and no ownership block or decision has been recorded. A recorded block still returns an ownership object with `status: unknown` when progress cannot be read; retry the read. We manage the paperwork for shared short codes, so this field is always `null` for them. Other sending requirements can apply even when ownership registration is complete.
 	Ownership *NumberOwnership `json:"ownership,omitempty"`
 
+	// Pricing What your organization pays for this number. `null` for a `shared` number, and, when the price was read, for a number with no live subscription. Otherwise its prices are `null` when no price applies. When the price could not be read, every dedicated number carries this object with `error` set, whether or not it has a live subscription.
+	Pricing *NumberPricing `json:"pricing"`
+
 	// Reference Your own reference for this number in your workspace. Null when no reference is set.
 	Reference *string `json:"reference"`
 
@@ -25038,6 +25092,21 @@ type NumberOwnership struct {
 // - `rejected` means the submission was closed or the verifier correction deadline passed. Corrections are no longer accepted for this submission.
 // - `unknown` means current approval status could not be determined. Read `blocked_at` for any recorded ownership block. Retry the read.
 type NumberOwnershipStatus string
+
+// NumberPricing What your organization pays for a number it holds, net of tax.
+type NumberPricing struct {
+	// Error A retryable failure to read the price. Retry a GET of the number; do not repeat a completed write. `null` when the price was read or no price applies.
+	Error *ErrorBody `json:"error"`
+
+	// IntervalsPerCharge How many `recurring_period`s one renewal charges. When `releases_at` is set no renewal follows, and the value still describes the subscription's cadence until the release. `1` for a fixed price. `null` when `recurring_price` is `null`.
+	IntervalsPerCharge *int `json:"intervals_per_charge"`
+
+	// RecurringPeriod The rate's interval, or a fixed price's whole renewal period. `null` when `recurring_price` is `null`.
+	RecurringPeriod *BillingPricingInterval `json:"recurring_period"`
+
+	// RecurringPrice What your organization is charged for this number per `recurring_period`, net of tax, in the currency this number is charged in: your billing currency, unless this number's subscription predates a change of your billing currency, in which case its own currency is returned. `null` when no price applies.
+	RecurringPrice *Money `json:"recurring_price"`
+}
 
 // NumberType Physical type of a phone number. New number types may be added over time, so treat unrecognized values as supported types rather than errors.
 type NumberType string
@@ -27320,6 +27389,9 @@ type TemplateVariable struct {
 	// Type The value type this slot accepts. Built-in SMS templates use typed slots (`code`, `amount` and the rest), each of which rejects a value that does not match its `constraint`. Email, WhatsApp and workspace SMS templates use `text`. Workspace SMS parameters must be scalar values. Open enum: treat an unrecognized value as a future type rather than an error.
 	Type *string `json:"type,omitempty"`
 }
+
+// TenantName Must include at least one letter or number.
+type TenantName = string
 
 // ThreadID defines model for ThreadID.
 type ThreadID = string
@@ -32291,6 +32363,12 @@ type Workspace struct {
 	NotificationEmails WorkspaceNotificationEmails `json:"notification_emails"`
 	OrganizationId     OrganizationID              `json:"organization_id"`
 	UpdatedAt          *time.Time                  `json:"updated_at,omitempty"`
+}
+
+// WorkspaceCreate defines model for WorkspaceCreate.
+type WorkspaceCreate struct {
+	// Name Must include at least one letter or number.
+	Name TenantName `json:"name"`
 }
 
 // WorkspaceID defines model for WorkspaceID.
@@ -107039,6 +107117,7 @@ type ListAvailableNumbersResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -107076,6 +107155,7 @@ type GetAvailableNumberResponse struct {
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
+	JSON503      *ServiceUnavailable
 }
 
 // Status returns HTTPResponse.Status
@@ -137179,6 +137259,13 @@ func ParseListAvailableNumbersResponse(rsp *http.Response) (*ListAvailableNumber
 		}
 		response.JSON500 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
+
 	}
 
 	return response, nil
@@ -137253,6 +137340,13 @@ func ParseGetAvailableNumberResponse(rsp *http.Response) (*GetAvailableNumberRes
 			return nil, err
 		}
 		response.JSON500 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 503:
+		var dest ServiceUnavailable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON503 = &dest
 
 	}
 

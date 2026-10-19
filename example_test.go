@@ -2624,7 +2624,6 @@ func ExampleNumbersService_List() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		// Kind distinguishes a number you bought from one Bird manages.
 		fmt.Println(allocated.Number, allocated.Kind, allocated.Status)
 	}
 }
@@ -2644,7 +2643,7 @@ func ExampleNumbersService_Get() {
 	fmt.Println(allocated.Status)
 }
 
-// Release gives a dedicated number back, stopping its monthly charge.
+// Release gives a dedicated number back, stopping its recurring charge.
 func ExampleNumbersService_Release() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
 	if err != nil {

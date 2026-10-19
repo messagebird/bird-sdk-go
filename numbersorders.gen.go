@@ -44,7 +44,7 @@ func (p NumbersOrdersListParams) toWire(startingAfter string) *oapi.ListNumbersO
 	}
 }
 
-// Create Buys a number and starts its monthly charge. Most orders settle inline; one waiting on a carrier comes back pending and is followed with `numbers.orders.get`. A setup fee already taken is not refunded if the order then fails.
+// Create Buys a number and starts its recurring charge. The available number's `pricing` is a current price, not a quote: the order resolves the price again when it charges. Most orders settle inline; one waiting on a carrier comes back pending and is followed with `numbers.orders.get`. A setup fee already taken is not refunded if the order then fails.
 func (s *NumbersOrdersService) Create(ctx context.Context, params NumbersOrdersCreateParams, opts ...option.RequestOption) (*NumbersOrder, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.CreateNumbersOrderParams{}

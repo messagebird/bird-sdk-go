@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.103.0
+
+- Add a `pricing` object to an available number, with `setup_price`, `recurring_price`, `recurring_period` and `intervals_per_charge`, and a nullable `pricing` object to a number (`null` for a shared number or one without a live subscription when the price read succeeds; when it fails, a dedicated number carries `pricing` with `error` set), with `recurring_price`, `recurring_period`, `intervals_per_charge` and `error`, carrying the price for your organization and how many periods one charge bills.
+- Reading these prices needs only the `numbers` scope. When a number carries `pricing.error`, retry the number GET with backoff; do not repeat a completed change to refresh its price.
+- Sending an Apple Messages for Business typing indicator now fails with a `422` instead of a `503` when Apple refuses it for that customer. `AMBRecipientUnreachable` (`E28063`) means none of the customer's devices can receive it right now, and `AMBConversationClosed`, already returned when the conversation is closed, is now also returned when Apple reports that the customer left it. Neither is retryable; a `503` still means the service is temporarily unavailable.
+
 ## 0.102.0
 
 - **Breaking:** updating a webhook takes a connector endpoint's changes under `destination.connector`, as on create: top-level `credentials` and `config` are not accepted; put `credentials` there and use `config` to change nonsecret fields such as a Claude agent's vault ID, with `null` clearing an optional one. A connector destination now returns its `config`.

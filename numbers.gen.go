@@ -78,7 +78,7 @@ func (s *NumbersService) ListPage(ctx context.Context, params NumbersListParams,
 	return &out, nil
 }
 
-// List Pages the numbers allocated to the workspace, dedicated and shared alike. Narrows on country, type, prefix and capability, so one number is reached without walking every page.
+// List Pages the numbers allocated to the workspace, dedicated and shared alike, each with its `pricing` for your organization: `null` for a shared number or, when the price read succeeds, one with no live subscription, and `error` set with null prices when it fails. Narrows on country, type, prefix and capability, so one number is reached without walking every page.
 // Range over it; the second value is non-nil only on the iteration where a
 // fetch failed.
 func (s *NumbersService) List(ctx context.Context, params NumbersListParams, opts ...option.RequestOption) iter.Seq2[*Number, error] {
@@ -95,7 +95,7 @@ func (s *NumbersService) List(ctx context.Context, params NumbersListParams, opt
 	})
 }
 
-// Get Reads one allocated number by the id `numbers.list` returns. Carries its status and, where a country demands ownership paperwork, what is still outstanding on it.
+// Get Reads one allocated number by the id `numbers.list` returns. Carries its status, its `pricing` for your organization (`null` for a shared number or, when the price read succeeds, one with no live subscription; `error` set with null prices when it fails) and, where a country demands ownership paperwork, what is still outstanding on it.
 func (s *NumbersService) Get(ctx context.Context, numberId string, opts ...option.RequestOption) (*Number, error) {
 	body, err := s.get(ctx, opts, func(ctx context.Context, cfg requestConfig) (*http.Response, error) {
 		return s.client.oapi.GetWorkspaceNumber(ctx, oapi.AllocatedNumberID(numberId), &oapi.GetWorkspaceNumberParams{}, cfg...)
@@ -129,7 +129,7 @@ func (s *NumbersService) Update(ctx context.Context, numberId string, params Num
 	return &out, nil
 }
 
-// Release Gives a dedicated number back now and stops its monthly charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
+// Release Gives a dedicated number back now and stops its recurring charge, forfeiting the rest of the period already paid for. Irreversible: the number leaves the workspace and the channels built on it stop sending. A shared number cannot be released. To keep the number until the paid period ends, use `numbers.cancel` instead.
 func (s *NumbersService) Release(ctx context.Context, numberId string, opts ...option.RequestOption) error {
 	_, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		op := &oapi.ReleaseWorkspaceNumberParams{}
