@@ -87,7 +87,7 @@ func (s *EmailInboxInsightsDomainsService) List(ctx context.Context, params Emai
 	})
 }
 
-// Update Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change.
+// Update Set monitored explicitly to true or false for a verified domain owned by the workspace. Enabling enrolls the domain with eDataSource and saves the workspace preference. Disabling removes only that preference; vendor enrollment and measurement history remain. Reports still require verified ownership and are not gated by this preference. Repeating the same value is safe. Reuse an idempotency key when retrying the same change. A 412 means eDataSource declined to measure the domain; nothing was saved and a retry gets the same answer, so tell the user to contact support with the domain name.
 func (s *EmailInboxInsightsDomainsService) Update(ctx context.Context, sendingDomain string, params EmailInboxInsightsDomainsUpdateParams, opts ...option.RequestOption) (*EmailInboxInsightsDomain, error) {
 	body, err := s.post(ctx, opts, func(ctx context.Context, idempotencyKey string, cfg requestConfig) (*http.Response, error) {
 		if params.Monitored == nil {

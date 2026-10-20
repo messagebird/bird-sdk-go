@@ -979,6 +979,12 @@ type (
 	// Workspace is the workspace a credential is scoped to: its id, name, and
 	// organization.
 	Workspace = oapi.Workspace
+	// WorkspaceQuotaList is every resource and value quota as it applies to the
+	// workspace. Null usage counts are unknown, not zero.
+	WorkspaceQuotaList = oapi.WorkspaceQuotaList
+	// WorkspaceQuota is one quota: the shared organization limit, the
+	// workspace's own limit when set, and current usage.
+	WorkspaceQuota = oapi.WorkspaceQuota
 
 	// WebhookDestinationCreate is how an endpoint's deliveries are built: the raw
 	// signed event, or a connector built from WebhookConnectorSetup.

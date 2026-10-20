@@ -1,6 +1,7 @@
 package apierror
 
 import (
+	"errors"
 	"net/http"
 	"reflect"
 	"strings"
@@ -84,5 +85,25 @@ func TestFromResponseSurfacesRecovery(t *testing.T) {
 	}
 	if ext.Operation != "" {
 		t.Errorf("external step invented an operation: %q", ext.Operation)
+	}
+}
+
+// The refusing quota limit is read from the body, never parsed out of the
+// message, and is absent when the API sent none.
+func TestFromResponseSurfacesQuotaContext(t *testing.T) {
+	t.Parallel()
+	body := `{"error":{"type":"validation_error","code":"E06009","message":"x","quota":{"quota_key":"webhook_subscriptions_max","scope":"workspace"}}}`
+	err := FromResponse(http.StatusUnprocessableEntity, []byte(body), http.Header{})
+	var refused *ValidationError
+	if !errors.As(err, &refused) {
+		t.Fatalf("got %T, want *ValidationError", err)
+	}
+	want := QuotaContext{QuotaKey: "webhook_subscriptions_max", Scope: "workspace"}
+	if refused.Quota == nil || *refused.Quota != want {
+		t.Fatalf("Quota = %+v, want %+v", refused.Quota, want)
+	}
+	bare := FromResponse(http.StatusUnprocessableEntity, []byte(`{"error":{"type":"validation_error","code":"E06009","message":"x"}}`), http.Header{})
+	if !errors.As(bare, &refused) || refused.Quota != nil {
+		t.Fatalf("got %+v, want a ValidationError without Quota", bare)
 	}
 }

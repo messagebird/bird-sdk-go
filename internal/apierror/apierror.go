@@ -58,6 +58,15 @@ type APIError struct {
 	Remediation string
 	// Next lists the recovery steps for this error, in the order to take them.
 	Next []NextAction
+	// Quota identifies the refusing organization or workspace limit; nil means the
+	// request was refused for another reason.
+	Quota *QuotaContext
+}
+
+// QuotaContext is the quota limit that refused a resource change.
+type QuotaContext struct {
+	QuotaKey string `json:"quota_key"`
+	Scope    string `json:"scope"`
 }
 
 func (e *APIError) Error() string {
@@ -146,6 +155,7 @@ type wireError struct {
 	Details     []ErrorDetail `json:"details"`
 	Remediation string        `json:"remediation"`
 	Next        []NextAction  `json:"next"`
+	Quota       *QuotaContext `json:"quota"`
 }
 
 // errorEnvelope is the wire wrapper: the API sends every error as
@@ -191,6 +201,7 @@ func FromResponse(status int, body []byte, header http.Header) error {
 		VendorCode:  w.VendorCode,
 		Remediation: w.Remediation,
 		Next:        w.Next,
+		Quota:       w.Quota,
 	}
 
 	switch typ {

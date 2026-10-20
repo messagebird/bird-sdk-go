@@ -16,6 +16,7 @@ type (
 	WebhookVerificationError = apierror.WebhookVerificationError
 	ErrorDetail              = apierror.ErrorDetail
 	NextAction               = apierror.NextAction
+	QuotaContext             = apierror.QuotaContext
 	ErrorType                = apierror.ErrorType
 )
 

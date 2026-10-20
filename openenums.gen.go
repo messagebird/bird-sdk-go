@@ -691,6 +691,17 @@ const (
 	PreferenceOriginUser             = oapi.PreferenceOriginUser
 )
 
+// QuotaSource is an open string on the wire: a value added by a newer server
+// deserializes unchanged, so compare against the QuotaSource* constants with a
+// default branch rather than treating the set as closed.
+type QuotaSource = oapi.QuotaSource
+
+const (
+	QuotaSourceDefault  = oapi.QuotaSourceDefault
+	QuotaSourceOverride = oapi.QuotaSourceOverride
+	QuotaSourcePlan     = oapi.QuotaSourcePlan
+)
+
 // SMSErrorCode is an open string on the wire: a value added by a newer server
 // deserializes unchanged, so compare against the SMSErrorCode* constants with a
 // default branch rather than treating the set as closed.

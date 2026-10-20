@@ -6516,6 +6516,45 @@ func (e PreferenceStatus) Valid() bool {
 	}
 }
 
+// Defines values for QuotaScope.
+const (
+	QuotaScopeOrganization QuotaScope = "organization"
+	QuotaScopeWorkspace    QuotaScope = "workspace"
+)
+
+// Valid indicates whether the value is a known member of the QuotaScope enum.
+func (e QuotaScope) Valid() bool {
+	switch e {
+	case QuotaScopeOrganization:
+		return true
+	case QuotaScopeWorkspace:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for QuotaSource.
+const (
+	QuotaSourceDefault  QuotaSource = "default"
+	QuotaSourceOverride QuotaSource = "override"
+	QuotaSourcePlan     QuotaSource = "plan"
+)
+
+// Valid indicates whether the value is a known member of the QuotaSource enum.
+func (e QuotaSource) Valid() bool {
+	switch e {
+	case QuotaSourceDefault:
+		return true
+	case QuotaSourceOverride:
+		return true
+	case QuotaSourcePlan:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RealtimeAppStatus.
 const (
 	RealtimeAppStatusActive    RealtimeAppStatus = "active"
@@ -9047,22 +9086,22 @@ func (e WhatsAppGroupOperationStatus) Valid() bool {
 
 // Defines values for WhatsAppGroupOperationType.
 const (
-	Create         WhatsAppGroupOperationType = "create"
-	Delete         WhatsAppGroupOperationType = "delete"
-	Remove         WhatsAppGroupOperationType = "remove"
-	SettingsUpdate WhatsAppGroupOperationType = "settings_update"
+	WhatsAppGroupOperationTypeCreate         WhatsAppGroupOperationType = "create"
+	WhatsAppGroupOperationTypeDelete         WhatsAppGroupOperationType = "delete"
+	WhatsAppGroupOperationTypeRemove         WhatsAppGroupOperationType = "remove"
+	WhatsAppGroupOperationTypeSettingsUpdate WhatsAppGroupOperationType = "settings_update"
 )
 
 // Valid indicates whether the value is a known member of the WhatsAppGroupOperationType enum.
 func (e WhatsAppGroupOperationType) Valid() bool {
 	switch e {
-	case Create:
+	case WhatsAppGroupOperationTypeCreate:
 		return true
-	case Delete:
+	case WhatsAppGroupOperationTypeDelete:
 		return true
-	case Remove:
+	case WhatsAppGroupOperationTypeRemove:
 		return true
-	case SettingsUpdate:
+	case WhatsAppGroupOperationTypeSettingsUpdate:
 		return true
 	default:
 		return false
@@ -9924,6 +9963,99 @@ func (e WhatsAppUsernameStatus) Valid() bool {
 	}
 }
 
+// Defines values for WorkspaceQuotaCeilingStatus.
+const (
+	WorkspaceQuotaCeilingStatusActive  WorkspaceQuotaCeilingStatus = "active"
+	WorkspaceQuotaCeilingStatusExpired WorkspaceQuotaCeilingStatus = "expired"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaCeilingStatus enum.
+func (e WorkspaceQuotaCeilingStatus) Valid() bool {
+	switch e {
+	case WorkspaceQuotaCeilingStatusActive:
+		return true
+	case WorkspaceQuotaCeilingStatusExpired:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceQuotaConfigurationStatus.
+const (
+	WorkspaceQuotaConfigurationStatusAvailable   WorkspaceQuotaConfigurationStatus = "available"
+	WorkspaceQuotaConfigurationStatusUnavailable WorkspaceQuotaConfigurationStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaConfigurationStatus enum.
+func (e WorkspaceQuotaConfigurationStatus) Valid() bool {
+	switch e {
+	case WorkspaceQuotaConfigurationStatusAvailable:
+		return true
+	case WorkspaceQuotaConfigurationStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceQuotaEnforcement.
+const (
+	WorkspaceQuotaEnforcementCreate       WorkspaceQuotaEnforcement = "create"
+	WorkspaceQuotaEnforcementOutboundSend WorkspaceQuotaEnforcement = "outbound_send"
+	WorkspaceQuotaEnforcementValue        WorkspaceQuotaEnforcement = "value"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaEnforcement enum.
+func (e WorkspaceQuotaEnforcement) Valid() bool {
+	switch e {
+	case WorkspaceQuotaEnforcementCreate:
+		return true
+	case WorkspaceQuotaEnforcementOutboundSend:
+		return true
+	case WorkspaceQuotaEnforcementValue:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceQuotaKind.
+const (
+	Counted WorkspaceQuotaKind = "counted"
+	Value   WorkspaceQuotaKind = "value"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaKind enum.
+func (e WorkspaceQuotaKind) Valid() bool {
+	switch e {
+	case Counted:
+		return true
+	case Value:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for WorkspaceQuotaUsageStatus.
+const (
+	WorkspaceQuotaUsageStatusAvailable   WorkspaceQuotaUsageStatus = "available"
+	WorkspaceQuotaUsageStatusUnavailable WorkspaceQuotaUsageStatus = "unavailable"
+)
+
+// Valid indicates whether the value is a known member of the WorkspaceQuotaUsageStatus enum.
+func (e WorkspaceQuotaUsageStatus) Valid() bool {
+	switch e {
+	case WorkspaceQuotaUsageStatusAvailable:
+		return true
+	case WorkspaceQuotaUsageStatusUnavailable:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for EmailCompetitiveRange.
 const (
 	EmailCompetitiveRangeN30 EmailCompetitiveRange = 30
@@ -10070,16 +10202,16 @@ func (e ListDomainsParamsSort) Valid() bool {
 
 // Defines values for ListMailboxesParamsState.
 const (
-	Active    ListMailboxesParamsState = "active"
-	Suspended ListMailboxesParamsState = "suspended"
+	ListMailboxesParamsStateActive    ListMailboxesParamsState = "active"
+	ListMailboxesParamsStateSuspended ListMailboxesParamsState = "suspended"
 )
 
 // Valid indicates whether the value is a known member of the ListMailboxesParamsState enum.
 func (e ListMailboxesParamsState) Valid() bool {
 	switch e {
-	case Active:
+	case ListMailboxesParamsStateActive:
 		return true
-	case Suspended:
+	case ListMailboxesParamsStateSuspended:
 		return true
 	default:
 		return false
@@ -21735,6 +21867,9 @@ type ErrorBody struct {
 	// Param Identifies the offending field. Omitted when not applicable.
 	Param *string `json:"param,omitempty"`
 
+	// Quota The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+	Quota *QuotaErrorContext `json:"quota,omitempty"`
+
 	// Remediation A human-readable next step to resolve this error. Present when a recovery is known.
 	Remediation *string `json:"remediation,omitempty"`
 
@@ -26560,6 +26695,31 @@ type PreferenceWriteResult struct {
 
 // ProductID defines model for ProductID.
 type ProductID = string
+
+// QuotaErrorContext The quota limit that refused a resource change. A change in a workspace is checked against its organization's limit and any limit set for its workspace; the organization limit is reported when both refuse. When scope is workspace, follow the response remediation instead of the error code's organization-wide recovery guidance. An organization administrator can raise or remove the workspace ceiling; the shared organization limit still applies.
+type QuotaErrorContext struct {
+	// QuotaKey Stable key of the quota that refused the change.
+	QuotaKey string `json:"quota_key"`
+
+	// Scope Which limit refused the request.
+	//
+	// - `organization`: the limit shared by every workspace in the organization.
+	// - `workspace`: the limit set for this workspace.
+	Scope QuotaScope `json:"scope"`
+}
+
+// QuotaScope Which limit refused the request.
+//
+// - `organization`: the limit shared by every workspace in the organization.
+// - `workspace`: the limit set for this workspace.
+type QuotaScope string
+
+// QuotaSource Where the organization limit comes from.
+//
+// - `default`: Bird's standard limit.
+// - `plan`: the organization's plan.
+// - `override`: a limit Bird set for the organization.
+type QuotaSource string
 
 // RealtimeApp defines model for RealtimeApp.
 type RealtimeApp struct {
@@ -33868,6 +34028,142 @@ type WorkspaceNotificationEmails struct {
 	// Operational Addresses for operational notifications about this workspace (sending domain authentication failures, webhook endpoint degradation). When empty, these notifications go to the organization owners. Maximum 10 addresses.
 	Operational *[]openapi_types.Email `json:"operational,omitempty"`
 }
+
+// WorkspaceQuota A resource or value quota as it applies to one workspace.
+type WorkspaceQuota struct {
+	Description string `json:"description"`
+
+	// Enforcement When the limits are applied.
+	//
+	// - `create`: a request that would add more than the limits allow is refused, and nothing is created.
+	// - `outbound_send`: sending is refused once the bytes already stored reach a limit. The size of the message being sent is not counted in advance, and incoming mail is still accepted.
+	// - `value`: a setting above the limit is refused when it is chosen. Existing resources keep their settings.
+	Enforcement WorkspaceQuotaEnforcement `json:"enforcement"`
+
+	// Key Stable key of the quota.
+	Key string `json:"key"`
+
+	// Kind What the quota limits.
+	//
+	// - `counted`: an amount the workspace accumulates, such as mailboxes or stored bytes. Usage is reported.
+	// - `value`: the largest setting a resource may be given, such as a retention period. No usage is counted.
+	Kind WorkspaceQuotaKind `json:"kind"`
+
+	// Limit The lower of the organization limit currently applied to requests and any active workspace limit. The applied organization limit can briefly differ from the configured `organization_limit` after a change. A request can still be refused below this value when other workspaces use the shared organization limit.
+	Limit int64 `json:"limit"`
+
+	// MaximumValue The largest workspace limit this quota accepts, in its unit.
+	MaximumValue int64  `json:"maximum_value"`
+	Name         string `json:"name"`
+
+	// OrganizationLimit The organization's limit, shared by all its workspaces.
+	OrganizationLimit int64 `json:"organization_limit"`
+
+	// OrganizationSource Where the organization limit comes from.
+	//
+	// - `default`: Bird's standard limit.
+	// - `plan`: the organization's plan.
+	// - `override`: a limit Bird set for the organization.
+	OrganizationSource QuotaSource `json:"organization_source"`
+
+	// Unit What the limit counts, such as `mailboxes`, `bytes` or `days`.
+	Unit string `json:"unit"`
+
+	// Usage Current usage. `null` for a `value` quota, which counts nothing.
+	Usage *WorkspaceQuotaUsage `json:"usage"`
+
+	// WorkspaceLimit The workspace's own limit. `null` when the workspace has none and uses only the shared organization limit.
+	WorkspaceLimit *WorkspaceQuotaCeiling `json:"workspace_limit"`
+}
+
+// WorkspaceQuotaCeiling A workspace's own limit for a quota. It is a ceiling, not reserved capacity; the organization limit still applies.
+type WorkspaceQuotaCeiling struct {
+	// ExpiresAt When the workspace limit stops applying. `null` means it has no expiry.
+	ExpiresAt *time.Time `json:"expires_at"`
+
+	// Status Whether the workspace limit applies.
+	//
+	// - `active`: the limit applies alongside the organization limit.
+	// - `expired`: the limit passed its expiry and no longer applies. It stays visible until it is replaced or removed.
+	Status WorkspaceQuotaCeilingStatus `json:"status"`
+
+	// UpdatedAt When the workspace limit was last set.
+	UpdatedAt time.Time `json:"updated_at"`
+
+	// Value The workspace limit, in the quota's unit. It can exceed the organization limit. Zero allows nothing more.
+	Value int64 `json:"value"`
+}
+
+// WorkspaceQuotaCeilingStatus Whether the workspace limit applies.
+//
+// - `active`: the limit applies alongside the organization limit.
+// - `expired`: the limit passed its expiry and no longer applies. It stays visible until it is replaced or removed.
+type WorkspaceQuotaCeilingStatus string
+
+// WorkspaceQuotaConfigurationStatus Whether workspace limits can be set.
+//
+// - `available`: workspace limits can be set and changed.
+// - `unavailable`: new workspace limits cannot be set in this region yet. Existing workspace limits still apply and can be removed.
+type WorkspaceQuotaConfigurationStatus string
+
+// WorkspaceQuotaEnforcement When the limits are applied.
+//
+// - `create`: a request that would add more than the limits allow is refused, and nothing is created.
+// - `outbound_send`: sending is refused once the bytes already stored reach a limit. The size of the message being sent is not counted in advance, and incoming mail is still accepted.
+// - `value`: a setting above the limit is refused when it is chosen. Existing resources keep their settings.
+type WorkspaceQuotaEnforcement string
+
+// WorkspaceQuotaKind What the quota limits.
+//
+// - `counted`: an amount the workspace accumulates, such as mailboxes or stored bytes. Usage is reported.
+// - `value`: the largest setting a resource may be given, such as a retention period. No usage is counted.
+type WorkspaceQuotaKind string
+
+// WorkspaceQuotaList defines model for WorkspaceQuotaList.
+type WorkspaceQuotaList struct {
+	// Configuration Whether workspace limits can be set.
+	//
+	// - `available`: workspace limits can be set and changed.
+	// - `unavailable`: new workspace limits cannot be set in this region yet. Existing workspace limits still apply and can be removed.
+	Configuration WorkspaceQuotaConfigurationStatus `json:"configuration"`
+	Data          []WorkspaceQuota                  `json:"data"`
+}
+
+// WorkspaceQuotaUsage Current usage, measured against the organization limit that requests were checked against when it was read. That limit can briefly differ from the configured `organization_limit` after it changes.
+type WorkspaceQuotaUsage struct {
+	// ObservedAt When usage was read.
+	ObservedAt time.Time `json:"observed_at"`
+
+	// OrganizationLimit The organization limit requests were checked against when usage was read.
+	OrganizationLimit int64 `json:"organization_limit"`
+
+	// OrganizationRemaining How much more the whole organization can add, shared by all its workspaces. `null` on the current-workspace endpoint or when usage is unavailable.
+	OrganizationRemaining *int64 `json:"organization_remaining"`
+
+	// OrganizationUsed The organization's total usage across all its workspaces. `null` on the current-workspace endpoint or when usage is unavailable.
+	OrganizationUsed *int64 `json:"organization_used"`
+
+	// Remaining How much more this workspace can add now, the lower of `organization_remaining` and any `workspace_remaining`. `null` on the current-workspace endpoint or when usage is unavailable.
+	Remaining *int64 `json:"remaining"`
+
+	// Status Whether current usage could be read.
+	//
+	// - `available`: the counts reflect usage at `observed_at`.
+	// - `unavailable`: usage could not be read. The counts are unknown, not zero.
+	Status WorkspaceQuotaUsageStatus `json:"status"`
+
+	// WorkspaceRemaining How much more this workspace can add under its own limit. `null` when no workspace limit applies or usage is unavailable.
+	WorkspaceRemaining *int64 `json:"workspace_remaining"`
+
+	// WorkspaceUsed This workspace's usage. `null` when usage is unavailable.
+	WorkspaceUsed *int64 `json:"workspace_used"`
+}
+
+// WorkspaceQuotaUsageStatus Whether current usage could be read.
+//
+// - `available`: the counts reflect usage at `observed_at`.
+// - `unavailable`: usage could not be read. The counts are unknown, not zero.
+type WorkspaceQuotaUsageStatus string
 
 // UnderscoreConversationUpdate defines model for _ConversationUpdate.
 type UnderscoreConversationUpdate struct {
@@ -44228,6 +44524,15 @@ type GetCurrentWorkspaceParams struct {
 	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
 }
 
+// ListWorkspaceQuotasParams defines parameters for ListWorkspaceQuotas.
+type ListWorkspaceQuotasParams struct {
+	// XWorkspaceId Workspace context for the request. Required for dashboard authentication and master keys. Workspace keys and access tokens already identify their workspace; send that workspace or omit the header. A different one is rejected.
+	XWorkspaceId *XWorkspaceId `json:"X-Workspace-Id,omitempty"`
+
+	// XOrganizationId Organization context for the request. Required for dashboard authentication. An API key or access token carries its own organization, so send either that organization or no header at all; a different one is rejected.
+	XOrganizationId *XOrganizationId `json:"X-Organization-Id,omitempty"`
+}
+
 // CreateAMBBusinessAccountJSONRequestBody defines body for CreateAMBBusinessAccount for application/json ContentType.
 type CreateAMBBusinessAccountJSONRequestBody = AMBBusinessAccountCreate
 
@@ -54186,6 +54491,9 @@ type ClientInterface interface {
 
 	// GetCurrentWorkspace request
 	GetCurrentWorkspace(ctx context.Context, params *GetCurrentWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListWorkspaceQuotas request
+	ListWorkspaceQuotas(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) ListAMBBusinessAccounts(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -60454,6 +60762,18 @@ func (c *Client) GetWhatsAppTemplateVersionLanguage(ctx context.Context, templat
 
 func (c *Client) GetCurrentWorkspace(ctx context.Context, params *GetCurrentWorkspaceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCurrentWorkspaceRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListWorkspaceQuotas(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListWorkspaceQuotasRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -100929,6 +101249,59 @@ func NewGetCurrentWorkspaceRequest(server string, params *GetCurrentWorkspacePar
 	return req, nil
 }
 
+// NewListWorkspaceQuotasRequest generates requests for ListWorkspaceQuotas
+func NewListWorkspaceQuotasRequest(server string, params *ListWorkspaceQuotasParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/workspace/quotas")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.XWorkspaceId != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "X-Workspace-Id", *params.XWorkspaceId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Workspace-Id", headerParam0)
+		}
+
+		if params.XOrganizationId != nil {
+			var headerParam1 string
+
+			headerParam1, err = runtime.StyleParamWithOptions("simple", false, "X-Organization-Id", *params.XOrganizationId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("X-Organization-Id", headerParam1)
+		}
+
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -102432,6 +102805,9 @@ type ClientWithResponsesInterface interface {
 
 	// GetCurrentWorkspaceWithResponse request
 	GetCurrentWorkspaceWithResponse(ctx context.Context, params *GetCurrentWorkspaceParams, reqEditors ...RequestEditorFn) (*GetCurrentWorkspaceResponse, error)
+
+	// ListWorkspaceQuotasWithResponse request
+	ListWorkspaceQuotasWithResponse(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*ListWorkspaceQuotasResponse, error)
 }
 
 type ListAMBBusinessAccountsResponse struct {
@@ -107691,6 +108067,7 @@ type UpsertEmailInboxInsightsDomainMonitoringResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -107768,6 +108145,7 @@ type UpdateEmailInboxInsightsDomainResponse struct {
 	JSON403      *Forbidden
 	JSON404      *NotFound
 	JSON409      *Conflict
+	JSON412      *PreconditionFailed
 	JSON422      *Unprocessable
 	JSON429      *RateLimited
 	JSON500      *InternalError
@@ -118223,6 +118601,43 @@ func (r GetCurrentWorkspaceResponse) ContentType() string {
 	return ""
 }
 
+type ListWorkspaceQuotasResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *WorkspaceQuotaList
+	JSON400      *BadRequest
+	JSON401      *Unauthorized
+	JSON403      *Forbidden
+	JSON404      *NotFound
+	JSON422      *Unprocessable
+	JSON429      *RateLimited
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListWorkspaceQuotasResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListWorkspaceQuotasResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListWorkspaceQuotasResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // ListAMBBusinessAccountsWithResponse request returning *ListAMBBusinessAccountsResponse
 func (c *ClientWithResponses) ListAMBBusinessAccountsWithResponse(ctx context.Context, params *ListAMBBusinessAccountsParams, reqEditors ...RequestEditorFn) (*ListAMBBusinessAccountsResponse, error) {
 	rsp, err := c.ListAMBBusinessAccounts(ctx, params, reqEditors...)
@@ -122820,6 +123235,15 @@ func (c *ClientWithResponses) GetCurrentWorkspaceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseGetCurrentWorkspaceResponse(rsp)
+}
+
+// ListWorkspaceQuotasWithResponse request returning *ListWorkspaceQuotasResponse
+func (c *ClientWithResponses) ListWorkspaceQuotasWithResponse(ctx context.Context, params *ListWorkspaceQuotasParams, reqEditors ...RequestEditorFn) (*ListWorkspaceQuotasResponse, error) {
+	rsp, err := c.ListWorkspaceQuotas(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListWorkspaceQuotasResponse(rsp)
 }
 
 // ParseListAMBBusinessAccountsResponse parses an HTTP response from a ListAMBBusinessAccountsWithResponse call
@@ -134222,6 +134646,13 @@ func ParseUpsertEmailInboxInsightsDomainMonitoringResponse(rsp *http.Response) (
 		}
 		response.JSON409 = &dest
 
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
+
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
@@ -134392,6 +134823,13 @@ func ParseUpdateEmailInboxInsightsDomainResponse(rsp *http.Response) (*UpdateEma
 			return nil, err
 		}
 		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 412:
+		var dest PreconditionFailed
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON412 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
 		var dest Unprocessable
@@ -156926,6 +157364,81 @@ func ParseGetCurrentWorkspaceResponse(rsp *http.Response) (*GetCurrentWorkspaceR
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest Workspace
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequest
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest Unauthorized
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest Forbidden
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFound
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest Unprocessable
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest RateLimited
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListWorkspaceQuotasResponse parses an HTTP response from a ListWorkspaceQuotasWithResponse call
+func ParseListWorkspaceQuotasResponse(rsp *http.Response) (*ListWorkspaceQuotasResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListWorkspaceQuotasResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest WorkspaceQuotaList
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

@@ -2773,6 +2773,20 @@ func ExampleWorkspaceService_Get() {
 	fmt.Println(workspace.Id, workspace.Name)
 }
 
+func ExampleWorkspaceQuotasService_List() {
+	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	quotas, err := client.Workspace.Quotas.List(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, quota := range quotas.Data {
+		fmt.Println(quota.Key, quota.Limit, quota.OrganizationLimit)
+	}
+}
+
 // Create returns the signing secret, which is never readable again.
 func ExampleWebhooksService_Create() {
 	client, err := bird.NewClient(option.WithAPIKey(os.Getenv("BIRD_API_KEY")))
